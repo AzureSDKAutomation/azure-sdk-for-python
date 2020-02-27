@@ -179,6 +179,19 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         raise NotImplementedError("APIVersion {} is not available".format(api_version))
 
     @property
+    def active_configurations(self):
+        """Instance depends on the API version:
+
+           * 2019-11-01: :class:`ActiveConfigurationsOperations<azure.mgmt.network.v2019_11_01.operations.ActiveConfigurationsOperations>`
+        """
+        api_version = self._get_api_version('active_configurations')
+        if api_version == '2019-11-01':
+            from .v2019_11_01.operations import ActiveConfigurationsOperations as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
     def application_gateways(self):
         """Instance depends on the API version:
 
@@ -739,6 +752,19 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
+    def commits(self):
+        """Instance depends on the API version:
+
+           * 2019-11-01: :class:`CommitsOperations<azure.mgmt.network.v2019_11_01.operations.CommitsOperations>`
+        """
+        api_version = self._get_api_version('commits')
+        if api_version == '2019-11-01':
+            from .v2019_11_01.operations import CommitsOperations as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
     def connection_monitors(self):
         """Instance depends on the API version:
 
@@ -798,6 +824,19 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
             from .v2019_09_01.operations import ConnectionMonitorsOperations as OperationClass
         elif api_version == '2019-11-01':
             from .v2019_11_01.operations import ConnectionMonitorsOperations as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
+    def connectivity_configurations(self):
+        """Instance depends on the API version:
+
+           * 2019-11-01: :class:`ConnectivityConfigurationsOperations<azure.mgmt.network.v2019_11_01.operations.ConnectivityConfigurationsOperations>`
+        """
+        api_version = self._get_api_version('connectivity_configurations')
+        if api_version == '2019-11-01':
+            from .v2019_11_01.operations import ConnectivityConfigurationsOperations as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
@@ -2526,6 +2565,19 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
+    def network_groups(self):
+        """Instance depends on the API version:
+
+           * 2019-11-01: :class:`NetworkGroupsOperations<azure.mgmt.network.v2019_11_01.operations.NetworkGroupsOperations>`
+        """
+        api_version = self._get_api_version('network_groups')
+        if api_version == '2019-11-01':
+            from .v2019_11_01.operations import NetworkGroupsOperations as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
     def network_interface_ip_configurations(self):
         """Instance depends on the API version:
 
@@ -2795,6 +2847,19 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
             from .v2019_09_01.operations import NetworkInterfacesOperations as OperationClass
         elif api_version == '2019-11-01':
             from .v2019_11_01.operations import NetworkInterfacesOperations as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
+    def network_managers(self):
+        """Instance depends on the API version:
+
+           * 2019-11-01: :class:`NetworkManagersOperations<azure.mgmt.network.v2019_11_01.operations.NetworkManagersOperations>`
+        """
+        api_version = self._get_api_version('network_managers')
+        if api_version == '2019-11-01':
+            from .v2019_11_01.operations import NetworkManagersOperations as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
@@ -3811,6 +3876,32 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
             from .v2019_09_01.operations import RoutesOperations as OperationClass
         elif api_version == '2019-11-01':
             from .v2019_11_01.operations import RoutesOperations as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
+    def security_configuration_rules(self):
+        """Instance depends on the API version:
+
+           * 2019-11-01: :class:`SecurityConfigurationRulesOperations<azure.mgmt.network.v2019_11_01.operations.SecurityConfigurationRulesOperations>`
+        """
+        api_version = self._get_api_version('security_configuration_rules')
+        if api_version == '2019-11-01':
+            from .v2019_11_01.operations import SecurityConfigurationRulesOperations as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
+    def security_configurations(self):
+        """Instance depends on the API version:
+
+           * 2019-11-01: :class:`SecurityConfigurationsOperations<azure.mgmt.network.v2019_11_01.operations.SecurityConfigurationsOperations>`
+        """
+        api_version = self._get_api_version('security_configurations')
+        if api_version == '2019-11-01':
+            from .v2019_11_01.operations import SecurityConfigurationsOperations as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))

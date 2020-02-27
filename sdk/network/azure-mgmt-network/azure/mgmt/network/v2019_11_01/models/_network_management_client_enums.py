@@ -261,6 +261,12 @@ class AzureFirewallSkuTier(str, Enum):
     standard = "Standard"
 
 
+class BastionConnectProtocol(str, Enum):
+
+    ssh = "SSH"
+    rdp = "RDP"
+
+
 class DdosCustomPolicyProtocol(str, Enum):
 
     tcp = "Tcp"
@@ -412,6 +418,41 @@ class LoadBalancerOutboundRuleProtocol(str, Enum):
     tcp = "Tcp"
     udp = "Udp"
     all = "All"
+
+
+class Topology(str, Enum):
+
+    hub_and_spoke_topology = "HubAndSpokeTopology"
+    mesh_topology = "MeshTopology"
+
+
+class GroupConnectivity(str, Enum):
+
+    transitive = "Transitive"
+    non_transitive = "NonTransitive"
+
+
+class SecurityConfigurationRuleProtocol(str, Enum):
+
+    tcp = "Tcp"
+    udp = "Udp"
+    icmp = "Icmp"
+    esp = "Esp"
+    asterisk = "*"
+    ah = "Ah"
+
+
+class SecurityConfigurationRuleAccess(str, Enum):
+
+    allow = "Allow"
+    deny = "Deny"
+    always_allow = "AlwaysAllow"
+
+
+class SecurityConfigurationRuleDirection(str, Enum):
+
+    inbound = "Inbound"
+    outbound = "Outbound"
 
 
 class NatGatewaySkuName(str, Enum):

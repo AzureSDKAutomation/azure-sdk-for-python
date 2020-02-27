@@ -466,8 +466,8 @@ class NetworkWatchersOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: Topology or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.network.v2019_11_01.models.Topology or
+        :return: Topology1 or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.network.v2019_11_01.models.Topology1 or
          ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`ErrorResponseException<azure.mgmt.network.v2019_11_01.models.ErrorResponseException>`
@@ -508,7 +508,7 @@ class NetworkWatchersOperations(object):
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('Topology', response)
+            deserialized = self._deserialize('Topology1', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)

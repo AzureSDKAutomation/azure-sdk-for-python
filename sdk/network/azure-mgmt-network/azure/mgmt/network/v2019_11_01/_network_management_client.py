@@ -49,6 +49,13 @@ from .operations import LoadBalancerLoadBalancingRulesOperations
 from .operations import LoadBalancerOutboundRulesOperations
 from .operations import LoadBalancerNetworkInterfacesOperations
 from .operations import LoadBalancerProbesOperations
+from .operations import ConnectivityConfigurationsOperations
+from .operations import SecurityConfigurationsOperations
+from .operations import SecurityConfigurationRulesOperations
+from .operations import CommitsOperations
+from .operations import NetworkGroupsOperations
+from .operations import ActiveConfigurationsOperations
+from .operations import NetworkManagersOperations
 from .operations import NatGatewaysOperations
 from .operations import NetworkInterfacesOperations
 from .operations import NetworkInterfaceIPConfigurationsOperations
@@ -182,6 +189,20 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, SDKClient)
     :vartype load_balancer_network_interfaces: azure.mgmt.network.v2019_11_01.operations.LoadBalancerNetworkInterfacesOperations
     :ivar load_balancer_probes: LoadBalancerProbes operations
     :vartype load_balancer_probes: azure.mgmt.network.v2019_11_01.operations.LoadBalancerProbesOperations
+    :ivar connectivity_configurations: ConnectivityConfigurations operations
+    :vartype connectivity_configurations: azure.mgmt.network.v2019_11_01.operations.ConnectivityConfigurationsOperations
+    :ivar security_configurations: SecurityConfigurations operations
+    :vartype security_configurations: azure.mgmt.network.v2019_11_01.operations.SecurityConfigurationsOperations
+    :ivar security_configuration_rules: SecurityConfigurationRules operations
+    :vartype security_configuration_rules: azure.mgmt.network.v2019_11_01.operations.SecurityConfigurationRulesOperations
+    :ivar commits: Commits operations
+    :vartype commits: azure.mgmt.network.v2019_11_01.operations.CommitsOperations
+    :ivar network_groups: NetworkGroups operations
+    :vartype network_groups: azure.mgmt.network.v2019_11_01.operations.NetworkGroupsOperations
+    :ivar active_configurations: ActiveConfigurations operations
+    :vartype active_configurations: azure.mgmt.network.v2019_11_01.operations.ActiveConfigurationsOperations
+    :ivar network_managers: NetworkManagers operations
+    :vartype network_managers: azure.mgmt.network.v2019_11_01.operations.NetworkManagersOperations
     :ivar nat_gateways: NatGateways operations
     :vartype nat_gateways: azure.mgmt.network.v2019_11_01.operations.NatGatewaysOperations
     :ivar network_interfaces: NetworkInterfaces operations
@@ -380,6 +401,20 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, SDKClient)
         self.load_balancer_network_interfaces = LoadBalancerNetworkInterfacesOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.load_balancer_probes = LoadBalancerProbesOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.connectivity_configurations = ConnectivityConfigurationsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.security_configurations = SecurityConfigurationsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.security_configuration_rules = SecurityConfigurationRulesOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.commits = CommitsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.network_groups = NetworkGroupsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.active_configurations = ActiveConfigurationsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.network_managers = NetworkManagersOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.nat_gateways = NatGatewaysOperations(
             self._client, self.config, self._serialize, self._deserialize)

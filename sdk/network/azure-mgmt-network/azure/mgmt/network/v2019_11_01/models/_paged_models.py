@@ -116,6 +116,32 @@ class BastionHostPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(BastionHostPaged, self).__init__(*args, **kwargs)
+class BastionShareableLinkPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`BastionShareableLink <azure.mgmt.network.v2019_11_01.models.BastionShareableLink>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[BastionShareableLink]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(BastionShareableLinkPaged, self).__init__(*args, **kwargs)
+class BastionSessionStatePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`BastionSessionState <azure.mgmt.network.v2019_11_01.models.BastionSessionState>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[BastionSessionState]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(BastionSessionStatePaged, self).__init__(*args, **kwargs)
 class DdosProtectionPlanPaged(Paged):
     """
     A paging container for iterating over a list of :class:`DdosProtectionPlan <azure.mgmt.network.v2019_11_01.models.DdosProtectionPlan>` object
@@ -428,6 +454,71 @@ class ProbePaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(ProbePaged, self).__init__(*args, **kwargs)
+class ConnectivityConfigurationPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`ConnectivityConfiguration <azure.mgmt.network.v2019_11_01.models.ConnectivityConfiguration>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[ConnectivityConfiguration]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(ConnectivityConfigurationPaged, self).__init__(*args, **kwargs)
+class SecurityConfigurationPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`SecurityConfiguration <azure.mgmt.network.v2019_11_01.models.SecurityConfiguration>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[SecurityConfiguration]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(SecurityConfigurationPaged, self).__init__(*args, **kwargs)
+class SecurityConfigurationRulePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`SecurityConfigurationRule <azure.mgmt.network.v2019_11_01.models.SecurityConfigurationRule>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[SecurityConfigurationRule]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(SecurityConfigurationRulePaged, self).__init__(*args, **kwargs)
+class NetworkGroupPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`NetworkGroup <azure.mgmt.network.v2019_11_01.models.NetworkGroup>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[NetworkGroup]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(NetworkGroupPaged, self).__init__(*args, **kwargs)
+class NetworkManagerPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`NetworkManager <azure.mgmt.network.v2019_11_01.models.NetworkManager>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[NetworkManager]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(NetworkManagerPaged, self).__init__(*args, **kwargs)
 class NatGatewayPaged(Paged):
     """
     A paging container for iterating over a list of :class:`NatGateway <azure.mgmt.network.v2019_11_01.models.NatGateway>` object

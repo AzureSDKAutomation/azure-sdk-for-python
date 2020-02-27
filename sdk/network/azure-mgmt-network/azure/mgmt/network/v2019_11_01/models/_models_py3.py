@@ -37,6 +37,75 @@ class AadAuthenticationParameters(Model):
         self.aad_issuer = aad_issuer
 
 
+class SubResource(Model):
+    """Reference to another subresource.
+
+    :param id: Resource ID.
+    :type id: str
+    """
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+    }
+
+    def __init__(self, *, id: str=None, **kwargs) -> None:
+        super(SubResource, self).__init__(**kwargs)
+        self.id = id
+
+
+class ActiveConfiguration(SubResource):
+    """Configuration and location lists to commit.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param id: Resource ID.
+    :type id: str
+    :param commits: configuration Id need to deploy.
+    :type commits: list[~azure.mgmt.network.v2019_11_01.models.CommitItem]
+    :param deployment_time: Deployment time string
+    :type deployment_time: datetime
+    :ivar provisioning_state: The provisioning state of the peering
+     Configuration resource. Possible values include: 'Succeeded', 'Updating',
+     'Deleting', 'Failed'
+    :vartype provisioning_state: str or
+     ~azure.mgmt.network.v2019_11_01.models.ProvisioningState
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :ivar etag: A unique read-only string that changes whenever the resource
+     is updated.
+    :vartype etag: str
+    """
+
+    _validation = {
+        'provisioning_state': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'etag': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'commits': {'key': 'properties.commits', 'type': '[CommitItem]'},
+        'deployment_time': {'key': 'properties.deploymentTime', 'type': 'iso-8601'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
+    }
+
+    def __init__(self, *, id: str=None, commits=None, deployment_time=None, **kwargs) -> None:
+        super(ActiveConfiguration, self).__init__(id=id, **kwargs)
+        self.commits = commits
+        self.deployment_time = deployment_time
+        self.provisioning_state = None
+        self.name = None
+        self.type = None
+        self.etag = None
+
+
 class AddressSpace(Model):
     """AddressSpace contains an array of IP address ranges that can be used by
     subnets of the virtual network.
@@ -300,22 +369,6 @@ class ApplicationGateway(Resource):
         self.etag = None
         self.zones = zones
         self.identity = identity
-
-
-class SubResource(Model):
-    """Reference to another subresource.
-
-    :param id: Resource ID.
-    :type id: str
-    """
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-    }
-
-    def __init__(self, *, id: str=None, **kwargs) -> None:
-        super(SubResource, self).__init__(**kwargs)
-        self.id = id
 
 
 class ApplicationGatewayAuthenticationCertificate(SubResource):
@@ -3584,6 +3637,104 @@ class BackendAddressPool(SubResource):
         self.type = None
 
 
+class BastionActiveSession(Model):
+    """The session detail for a target.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar session_id: A unique id for the session.
+    :vartype session_id: str
+    :ivar start_time: The time when the session started.
+    :vartype start_time: object
+    :ivar target_subscription_id: The subscription id for the target virtual
+     machine.
+    :vartype target_subscription_id: str
+    :ivar resource_type: The type of the resource.
+    :vartype resource_type: str
+    :ivar target_host_name: The host name of the target.
+    :vartype target_host_name: str
+    :ivar target_resource_group: The resource group of the target.
+    :vartype target_resource_group: str
+    :ivar user_name: The user name who is active on this session.
+    :vartype user_name: str
+    :ivar target_ip_address: The IP Address of the target.
+    :vartype target_ip_address: str
+    :ivar protocol: The protocol used to connect to the target. Possible
+     values include: 'SSH', 'RDP'
+    :vartype protocol: str or
+     ~azure.mgmt.network.v2019_11_01.models.BastionConnectProtocol
+    :ivar target_resource_id: The resource id of the target.
+    :vartype target_resource_id: str
+    :ivar session_duration_in_mins: Duration in mins the session has been
+     active.
+    :vartype session_duration_in_mins: float
+    """
+
+    _validation = {
+        'session_id': {'readonly': True},
+        'start_time': {'readonly': True},
+        'target_subscription_id': {'readonly': True},
+        'resource_type': {'readonly': True},
+        'target_host_name': {'readonly': True},
+        'target_resource_group': {'readonly': True},
+        'user_name': {'readonly': True},
+        'target_ip_address': {'readonly': True},
+        'protocol': {'readonly': True},
+        'target_resource_id': {'readonly': True},
+        'session_duration_in_mins': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'session_id': {'key': 'sessionId', 'type': 'str'},
+        'start_time': {'key': 'startTime', 'type': 'object'},
+        'target_subscription_id': {'key': 'targetSubscriptionId', 'type': 'str'},
+        'resource_type': {'key': 'resourceType', 'type': 'str'},
+        'target_host_name': {'key': 'targetHostName', 'type': 'str'},
+        'target_resource_group': {'key': 'targetResourceGroup', 'type': 'str'},
+        'user_name': {'key': 'userName', 'type': 'str'},
+        'target_ip_address': {'key': 'targetIpAddress', 'type': 'str'},
+        'protocol': {'key': 'protocol', 'type': 'str'},
+        'target_resource_id': {'key': 'targetResourceId', 'type': 'str'},
+        'session_duration_in_mins': {'key': 'sessionDurationInMins', 'type': 'float'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(BastionActiveSession, self).__init__(**kwargs)
+        self.session_id = None
+        self.start_time = None
+        self.target_subscription_id = None
+        self.resource_type = None
+        self.target_host_name = None
+        self.target_resource_group = None
+        self.user_name = None
+        self.target_ip_address = None
+        self.protocol = None
+        self.target_resource_id = None
+        self.session_duration_in_mins = None
+
+
+class BastionActiveSessionListResult(Model):
+    """Response for GetActiveSessions.
+
+    :param value: List of active sessions on the bastion.
+    :type value:
+     list[~azure.mgmt.network.v2019_11_01.models.BastionActiveSession]
+    :param next_link: The URL to get the next set of results.
+    :type next_link: str
+    """
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': '[BastionActiveSession]'},
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+    }
+
+    def __init__(self, *, value=None, next_link: str=None, **kwargs) -> None:
+        super(BastionActiveSessionListResult, self).__init__(**kwargs)
+        self.value = value
+        self.next_link = next_link
+
+
 class BastionHost(Resource):
     """Bastion Host resource.
 
@@ -3653,9 +3804,9 @@ class BastionHostIPConfiguration(SubResource):
 
     :param id: Resource ID.
     :type id: str
-    :param subnet: Required. Reference to the subnet resource.
+    :param subnet: Required. Reference of the subnet resource.
     :type subnet: ~azure.mgmt.network.v2019_11_01.models.SubResource
-    :param public_ip_address: Required. Reference to the PublicIP resource.
+    :param public_ip_address: Required. Reference of the PublicIP resource.
     :type public_ip_address:
      ~azure.mgmt.network.v2019_11_01.models.SubResource
     :ivar provisioning_state: The provisioning state of the bastion host IP
@@ -3705,6 +3856,118 @@ class BastionHostIPConfiguration(SubResource):
         self.name = name
         self.etag = None
         self.type = None
+
+
+class BastionSessionState(Model):
+    """The session state detail for a target.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar session_id: A unique id for the session.
+    :vartype session_id: str
+    :ivar message: Used for extra information.
+    :vartype message: str
+    :ivar state: The state of the session. Disconnected/Failed/NotFound.
+    :vartype state: str
+    """
+
+    _validation = {
+        'session_id': {'readonly': True},
+        'message': {'readonly': True},
+        'state': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'session_id': {'key': 'sessionId', 'type': 'str'},
+        'message': {'key': 'message', 'type': 'str'},
+        'state': {'key': 'state', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(BastionSessionState, self).__init__(**kwargs)
+        self.session_id = None
+        self.message = None
+        self.state = None
+
+
+class BastionShareableLink(Model):
+    """Bastion Shareable Link.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param vm: Required. Reference of the virtual machine resource.
+    :type vm: ~azure.mgmt.network.v2019_11_01.models.VM
+    :ivar bsl: The unique Bastion Shareable Link to the virtual machine.
+    :vartype bsl: str
+    :ivar created_at: The time when the link was created.
+    :vartype created_at: str
+    :ivar message: Optional field indicating the warning or error message
+     related to the vm in case of partial failure.
+    :vartype message: str
+    """
+
+    _validation = {
+        'vm': {'required': True},
+        'bsl': {'readonly': True},
+        'created_at': {'readonly': True},
+        'message': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'vm': {'key': 'vm', 'type': 'VM'},
+        'bsl': {'key': 'bsl', 'type': 'str'},
+        'created_at': {'key': 'createdAt', 'type': 'str'},
+        'message': {'key': 'message', 'type': 'str'},
+    }
+
+    def __init__(self, *, vm, **kwargs) -> None:
+        super(BastionShareableLink, self).__init__(**kwargs)
+        self.vm = vm
+        self.bsl = None
+        self.created_at = None
+        self.message = None
+
+
+class BastionShareableLinkListRequest(Model):
+    """Post request for all the Bastion Shareable Link endpoints.
+
+    :param vms: List of VM references.
+    :type vms:
+     list[~azure.mgmt.network.v2019_11_01.models.BastionShareableLink]
+    """
+
+    _attribute_map = {
+        'vms': {'key': 'vms', 'type': '[BastionShareableLink]'},
+    }
+
+    def __init__(self, *, vms=None, **kwargs) -> None:
+        super(BastionShareableLinkListRequest, self).__init__(**kwargs)
+        self.vms = vms
+
+
+class BastionShareableLinkListResult(Model):
+    """Response for all the Bastion Shareable Link endpoints.
+
+    :param value: List of Bastion Shareable Links for the request.
+    :type value:
+     list[~azure.mgmt.network.v2019_11_01.models.BastionShareableLink]
+    :param next_link: The URL to get the next set of results.
+    :type next_link: str
+    """
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': '[BastionShareableLink]'},
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+    }
+
+    def __init__(self, *, value=None, next_link: str=None, **kwargs) -> None:
+        super(BastionShareableLinkListResult, self).__init__(**kwargs)
+        self.value = value
+        self.next_link = next_link
 
 
 class BGPCommunity(Model):
@@ -3965,6 +4228,401 @@ class CloudErrorBody(Model):
         self.message = message
         self.target = target
         self.details = details
+
+
+class Commit(SubResource):
+    """Configuration and location lists to commit.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param id: Resource ID.
+    :type id: str
+    :param configuration_id: configuration Id need to deploy.
+    :type configuration_id: str
+    :param location: Location string
+    :type location: list[str]
+    :param deployment_time: Deployment time string
+    :type deployment_time: datetime
+    :ivar provisioning_state: The provisioning state of the peering
+     Configuration resource. Possible values include: 'Succeeded', 'Updating',
+     'Deleting', 'Failed'
+    :vartype provisioning_state: str or
+     ~azure.mgmt.network.v2019_11_01.models.ProvisioningState
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :ivar etag: A unique read-only string that changes whenever the resource
+     is updated.
+    :vartype etag: str
+    """
+
+    _validation = {
+        'provisioning_state': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'etag': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'configuration_id': {'key': 'properties.configurationId', 'type': 'str'},
+        'location': {'key': 'properties.location', 'type': '[str]'},
+        'deployment_time': {'key': 'properties.deploymentTime', 'type': 'iso-8601'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
+    }
+
+    def __init__(self, *, id: str=None, configuration_id: str=None, location=None, deployment_time=None, **kwargs) -> None:
+        super(Commit, self).__init__(id=id, **kwargs)
+        self.configuration_id = configuration_id
+        self.location = location
+        self.deployment_time = deployment_time
+        self.provisioning_state = None
+        self.name = None
+        self.type = None
+        self.etag = None
+
+
+class CommitItem(SubResource):
+    """Configuration and location lists to commit.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param id: Resource ID.
+    :type id: str
+    :param configuration_type: configuration type.
+    :type configuration_type: str
+    :param security_configuration: configuration Id need to deploy.
+    :type security_configuration:
+     ~azure.mgmt.network.v2019_11_01.models.CommitsPropertiesSecurityConfiguration
+    :param connectivity_configuration: configuration Id need to deploy.
+    :type connectivity_configuration:
+     ~azure.mgmt.network.v2019_11_01.models.CommitsPropertiesConnectivityConfiguration
+    :param configuration_groups: configuration rule.
+    :type configuration_groups:
+     list[~azure.mgmt.network.v2019_11_01.models.NetworkGroup]
+    :param deployment_time: Deployment time string
+    :type deployment_time: datetime
+    :ivar provisioning_state: The provisioning state of the peering
+     Configuration resource. Possible values include: 'Succeeded', 'Updating',
+     'Deleting', 'Failed'
+    :vartype provisioning_state: str or
+     ~azure.mgmt.network.v2019_11_01.models.ProvisioningState
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :ivar etag: A unique read-only string that changes whenever the resource
+     is updated.
+    :vartype etag: str
+    """
+
+    _validation = {
+        'provisioning_state': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'etag': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'configuration_type': {'key': 'properties.configurationType', 'type': 'str'},
+        'security_configuration': {'key': 'properties.securityConfiguration', 'type': 'CommitsPropertiesSecurityConfiguration'},
+        'connectivity_configuration': {'key': 'properties.connectivityConfiguration', 'type': 'CommitsPropertiesConnectivityConfiguration'},
+        'configuration_groups': {'key': 'properties.configurationGroups', 'type': '[NetworkGroup]'},
+        'deployment_time': {'key': 'properties.deploymentTime', 'type': 'iso-8601'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
+    }
+
+    def __init__(self, *, id: str=None, configuration_type: str=None, security_configuration=None, connectivity_configuration=None, configuration_groups=None, deployment_time=None, **kwargs) -> None:
+        super(CommitItem, self).__init__(id=id, **kwargs)
+        self.configuration_type = configuration_type
+        self.security_configuration = security_configuration
+        self.connectivity_configuration = connectivity_configuration
+        self.configuration_groups = configuration_groups
+        self.deployment_time = deployment_time
+        self.provisioning_state = None
+        self.name = None
+        self.type = None
+        self.etag = None
+
+
+class ConnectivityConfiguration(SubResource):
+    """The Managed Network Peering Configuration resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param id: Resource ID.
+    :type id: str
+    :param display_name: A friendly name for the assignment.
+    :type display_name: str
+    :param description: A description of the Connectivity Configuration.
+    :type description: str
+    :param topology: Required. Gets or sets the connectivity type of a network
+     structure Configuration. Possible values include: 'HubAndSpokeTopology',
+     'MeshTopology'
+    :type topology: str or ~azure.mgmt.network.v2019_11_01.models.Topology
+    :param gateway_vnet_id: Gets or sets the gateway vnet ID
+    :type gateway_vnet_id: str
+    :param gateway_vip: Gets or sets the gateway vip ID
+    :type gateway_vip: str
+    :param hub_id: Gets or sets the hub virtual network ID
+    :type hub_id: str
+    :param applies_to_groups: Groups for configuration
+    :type applies_to_groups:
+     list[~azure.mgmt.network.v2019_11_01.models.NetworkManagerGroupItem]
+    :ivar provisioning_state: The provisioning state of the peering
+     Configuration resource. Possible values include: 'Succeeded', 'Updating',
+     'Deleting', 'Failed'
+    :vartype provisioning_state: str or
+     ~azure.mgmt.network.v2019_11_01.models.ProvisioningState
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param tags: Resource tags.
+    :type tags: dict[str, str]
+    :ivar etag: A unique read-only string that changes whenever the resource
+     is updated.
+    :vartype etag: str
+    """
+
+    _validation = {
+        'topology': {'required': True},
+        'provisioning_state': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'etag': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
+        'description': {'key': 'properties.description', 'type': 'str'},
+        'topology': {'key': 'properties.topology', 'type': 'str'},
+        'gateway_vnet_id': {'key': 'properties.gatewayVnetId', 'type': 'str'},
+        'gateway_vip': {'key': 'properties.gatewayVIP', 'type': 'str'},
+        'hub_id': {'key': 'properties.hubId', 'type': 'str'},
+        'applies_to_groups': {'key': 'properties.appliesToGroups', 'type': '[NetworkManagerGroupItem]'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'etag': {'key': 'etag', 'type': 'str'},
+    }
+
+    def __init__(self, *, topology, id: str=None, display_name: str=None, description: str=None, gateway_vnet_id: str=None, gateway_vip: str=None, hub_id: str=None, applies_to_groups=None, tags=None, **kwargs) -> None:
+        super(ConnectivityConfiguration, self).__init__(id=id, **kwargs)
+        self.display_name = display_name
+        self.description = description
+        self.topology = topology
+        self.gateway_vnet_id = gateway_vnet_id
+        self.gateway_vip = gateway_vip
+        self.hub_id = hub_id
+        self.applies_to_groups = applies_to_groups
+        self.provisioning_state = None
+        self.name = None
+        self.type = None
+        self.tags = tags
+        self.etag = None
+
+
+class CommitsPropertiesConnectivityConfiguration(ConnectivityConfiguration):
+    """configuration Id need to deploy.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param id: Resource ID.
+    :type id: str
+    :param display_name: A friendly name for the assignment.
+    :type display_name: str
+    :param description: A description of the Connectivity Configuration.
+    :type description: str
+    :param topology: Required. Gets or sets the connectivity type of a network
+     structure Configuration. Possible values include: 'HubAndSpokeTopology',
+     'MeshTopology'
+    :type topology: str or ~azure.mgmt.network.v2019_11_01.models.Topology
+    :param gateway_vnet_id: Gets or sets the gateway vnet ID
+    :type gateway_vnet_id: str
+    :param gateway_vip: Gets or sets the gateway vip ID
+    :type gateway_vip: str
+    :param hub_id: Gets or sets the hub virtual network ID
+    :type hub_id: str
+    :param applies_to_groups: Groups for configuration
+    :type applies_to_groups:
+     list[~azure.mgmt.network.v2019_11_01.models.NetworkManagerGroupItem]
+    :ivar provisioning_state: The provisioning state of the peering
+     Configuration resource. Possible values include: 'Succeeded', 'Updating',
+     'Deleting', 'Failed'
+    :vartype provisioning_state: str or
+     ~azure.mgmt.network.v2019_11_01.models.ProvisioningState
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param tags: Resource tags.
+    :type tags: dict[str, str]
+    :ivar etag: A unique read-only string that changes whenever the resource
+     is updated.
+    :vartype etag: str
+    """
+
+    _validation = {
+        'topology': {'required': True},
+        'provisioning_state': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'etag': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
+        'description': {'key': 'properties.description', 'type': 'str'},
+        'topology': {'key': 'properties.topology', 'type': 'str'},
+        'gateway_vnet_id': {'key': 'properties.gatewayVnetId', 'type': 'str'},
+        'gateway_vip': {'key': 'properties.gatewayVIP', 'type': 'str'},
+        'hub_id': {'key': 'properties.hubId', 'type': 'str'},
+        'applies_to_groups': {'key': 'properties.appliesToGroups', 'type': '[NetworkManagerGroupItem]'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'etag': {'key': 'etag', 'type': 'str'},
+    }
+
+    def __init__(self, *, topology, id: str=None, display_name: str=None, description: str=None, gateway_vnet_id: str=None, gateway_vip: str=None, hub_id: str=None, applies_to_groups=None, tags=None, **kwargs) -> None:
+        super(CommitsPropertiesConnectivityConfiguration, self).__init__(id=id, display_name=display_name, description=description, topology=topology, gateway_vnet_id=gateway_vnet_id, gateway_vip=gateway_vip, hub_id=hub_id, applies_to_groups=applies_to_groups, tags=tags, **kwargs)
+
+
+class SecurityConfiguration(SubResource):
+    """Defines the security Configuration for a managed network.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param id: Resource ID.
+    :type id: str
+    :param display_name: A display name of the network manager security
+     Configuration.
+    :type display_name: str
+    :param description: A description of the network manager security
+     Configuration.
+    :type description: str
+    :ivar provisioning_state: The provisioning state of the scope assignment
+     resource. Possible values include: 'Succeeded', 'Updating', 'Deleting',
+     'Failed'
+    :vartype provisioning_state: str or
+     ~azure.mgmt.network.v2019_11_01.models.ProvisioningState
+    :ivar name: Resource name.
+    :vartype name: str
+    :param tags: Resource tags.
+    :type tags: dict[str, str]
+    :ivar type: Resource type.
+    :vartype type: str
+    :ivar etag: A unique read-only string that changes whenever the resource
+     is updated.
+    :vartype etag: str
+    """
+
+    _validation = {
+        'provisioning_state': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'etag': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
+        'description': {'key': 'properties.description', 'type': 'str'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
+    }
+
+    def __init__(self, *, id: str=None, display_name: str=None, description: str=None, tags=None, **kwargs) -> None:
+        super(SecurityConfiguration, self).__init__(id=id, **kwargs)
+        self.display_name = display_name
+        self.description = description
+        self.provisioning_state = None
+        self.name = None
+        self.tags = tags
+        self.type = None
+        self.etag = None
+
+
+class CommitsPropertiesSecurityConfiguration(SecurityConfiguration):
+    """configuration Id need to deploy.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param id: Resource ID.
+    :type id: str
+    :param display_name: A display name of the network manager security
+     Configuration.
+    :type display_name: str
+    :param description: A description of the network manager security
+     Configuration.
+    :type description: str
+    :ivar provisioning_state: The provisioning state of the scope assignment
+     resource. Possible values include: 'Succeeded', 'Updating', 'Deleting',
+     'Failed'
+    :vartype provisioning_state: str or
+     ~azure.mgmt.network.v2019_11_01.models.ProvisioningState
+    :ivar name: Resource name.
+    :vartype name: str
+    :param tags: Resource tags.
+    :type tags: dict[str, str]
+    :ivar type: Resource type.
+    :vartype type: str
+    :ivar etag: A unique read-only string that changes whenever the resource
+     is updated.
+    :vartype etag: str
+    :param rules: configuration rule.
+    :type rules:
+     list[~azure.mgmt.network.v2019_11_01.models.SecurityConfigurationRule]
+    """
+
+    _validation = {
+        'provisioning_state': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'etag': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
+        'description': {'key': 'properties.description', 'type': 'str'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
+        'rules': {'key': 'rules', 'type': '[SecurityConfigurationRule]'},
+    }
+
+    def __init__(self, *, id: str=None, display_name: str=None, description: str=None, tags=None, rules=None, **kwargs) -> None:
+        super(CommitsPropertiesSecurityConfiguration, self).__init__(id=id, display_name=display_name, description=description, tags=tags, **kwargs)
+        self.rules = rules
 
 
 class ConnectionMonitor(Model):
@@ -8134,6 +8792,22 @@ class GetVpnSitesConfigurationRequest(Model):
         self.output_blob_sas_url = output_blob_sas_url
 
 
+class GroupMembersItem(Model):
+    """GroupMembersItem.
+
+    :param vnet_id: Virtual Network Id.
+    :type vnet_id: str
+    """
+
+    _attribute_map = {
+        'vnet_id': {'key': 'vnetId', 'type': 'str'},
+    }
+
+    def __init__(self, *, vnet_id: str=None, **kwargs) -> None:
+        super(GroupMembersItem, self).__init__(**kwargs)
+        self.vnet_id = vnet_id
+
+
 class HTTPConfiguration(Model):
     """HTTP configuration of the connectivity check.
 
@@ -9709,6 +10383,72 @@ class NetworkConfigurationDiagnosticResult(Model):
         self.network_security_group_result = network_security_group_result
 
 
+class NetworkGroup(SubResource):
+    """The Managed Network resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param id: Resource ID.
+    :type id: str
+    :param display_name: A friendly name for the network group.
+    :type display_name: str
+    :param description: A description of the network group.
+    :type description: str
+    :param group_members: Group members of network group.
+    :type group_members:
+     list[~azure.mgmt.network.v2019_11_01.models.GroupMembersItem]
+    :param conditional_membership: Network group conditional filter.
+    :type conditional_membership: object
+    :ivar provisioning_state: The provisioning state of the scope assignment
+     resource. Possible values include: 'Succeeded', 'Updating', 'Deleting',
+     'Failed'
+    :vartype provisioning_state: str or
+     ~azure.mgmt.network.v2019_11_01.models.ProvisioningState
+    :ivar name: Resource name.
+    :vartype name: str
+    :param tags: Resource tags.
+    :type tags: dict[str, str]
+    :ivar type: Resource type.
+    :vartype type: str
+    :ivar etag: A unique read-only string that changes whenever the resource
+     is updated.
+    :vartype etag: str
+    """
+
+    _validation = {
+        'provisioning_state': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'etag': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
+        'description': {'key': 'properties.description', 'type': 'str'},
+        'group_members': {'key': 'properties.groupMembers', 'type': '[GroupMembersItem]'},
+        'conditional_membership': {'key': 'properties.conditionalMembership', 'type': 'object'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
+    }
+
+    def __init__(self, *, id: str=None, display_name: str=None, description: str=None, group_members=None, conditional_membership=None, tags=None, **kwargs) -> None:
+        super(NetworkGroup, self).__init__(id=id, **kwargs)
+        self.display_name = display_name
+        self.description = description
+        self.group_members = group_members
+        self.conditional_membership = conditional_membership
+        self.provisioning_state = None
+        self.name = None
+        self.tags = tags
+        self.type = None
+        self.etag = None
+
+
 class NetworkIntentPolicy(Resource):
     """Network Intent Policy resource.
 
@@ -10161,6 +10901,138 @@ class NetworkInterfaceTapConfiguration(SubResource):
         self.name = name
         self.etag = None
         self.type = None
+
+
+class NetworkManager(Resource):
+    """The Managed Network resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param id: Resource ID.
+    :type id: str
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param location: Resource location.
+    :type location: str
+    :param tags: Resource tags.
+    :type tags: dict[str, str]
+    :param display_name: A friendly name for the network manager.
+    :type display_name: str
+    :param description: A description of the network manager.
+    :type description: str
+    :param network_manager_scopes: Scope of Network Manager.
+    :type network_manager_scopes:
+     ~azure.mgmt.network.v2019_11_01.models.NetworkManagerPropertiesNetworkManagerScopes
+    :param network_manager_scope_accesses: Scope Access.
+    :type network_manager_scope_accesses: list[str]
+    :ivar provisioning_state: The provisioning state of the scope assignment
+     resource. Possible values include: 'Succeeded', 'Updating', 'Deleting',
+     'Failed'
+    :vartype provisioning_state: str or
+     ~azure.mgmt.network.v2019_11_01.models.ProvisioningState
+    :param safe_deployment: Safe Deployment.
+    :type safe_deployment: bool
+    :ivar etag: A unique read-only string that changes whenever the resource
+     is updated.
+    :vartype etag: str
+    """
+
+    _validation = {
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'provisioning_state': {'readonly': True},
+        'etag': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
+        'description': {'key': 'properties.description', 'type': 'str'},
+        'network_manager_scopes': {'key': 'properties.networkManagerScopes', 'type': 'NetworkManagerPropertiesNetworkManagerScopes'},
+        'network_manager_scope_accesses': {'key': 'properties.networkManagerScopeAccesses', 'type': '[str]'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'safe_deployment': {'key': 'properties.safeDeployment', 'type': 'bool'},
+        'etag': {'key': 'etag', 'type': 'str'},
+    }
+
+    def __init__(self, *, id: str=None, location: str=None, tags=None, display_name: str=None, description: str=None, network_manager_scopes=None, network_manager_scope_accesses=None, safe_deployment: bool=None, **kwargs) -> None:
+        super(NetworkManager, self).__init__(id=id, location=location, tags=tags, **kwargs)
+        self.display_name = display_name
+        self.description = description
+        self.network_manager_scopes = network_manager_scopes
+        self.network_manager_scope_accesses = network_manager_scope_accesses
+        self.provisioning_state = None
+        self.safe_deployment = safe_deployment
+        self.etag = None
+
+
+class NetworkManagerGroupItem(Model):
+    """NetworkManagerGroupItem.
+
+    :param network_group_id: Network manager group Id.
+    :type network_group_id: str
+    :param delete_existing_peering: Flag if need to remove current peerings.
+    :type delete_existing_peering: bool
+    :param group_connectivity: Group Connectivity. Possible values include:
+     'Transitive', 'NonTransitive'
+    :type group_connectivity: str or
+     ~azure.mgmt.network.v2019_11_01.models.GroupConnectivity
+    """
+
+    _attribute_map = {
+        'network_group_id': {'key': 'networkGroupId', 'type': 'str'},
+        'delete_existing_peering': {'key': 'deleteExistingPeering', 'type': 'bool'},
+        'group_connectivity': {'key': 'groupConnectivity', 'type': 'str'},
+    }
+
+    def __init__(self, *, network_group_id: str=None, delete_existing_peering: bool=None, group_connectivity=None, **kwargs) -> None:
+        super(NetworkManagerGroupItem, self).__init__(**kwargs)
+        self.network_group_id = network_group_id
+        self.delete_existing_peering = delete_existing_peering
+        self.group_connectivity = group_connectivity
+
+
+class NetworkManagerPropertiesNetworkManagerScopes(Model):
+    """Scope of Network Manager.
+
+    :param management_groups: List of management groups.
+    :type management_groups: list[str]
+    :param subscriptions: List of subscriptions.
+    :type subscriptions: list[str]
+    """
+
+    _attribute_map = {
+        'management_groups': {'key': 'managementGroups', 'type': '[str]'},
+        'subscriptions': {'key': 'subscriptions', 'type': '[str]'},
+    }
+
+    def __init__(self, *, management_groups=None, subscriptions=None, **kwargs) -> None:
+        super(NetworkManagerPropertiesNetworkManagerScopes, self).__init__(**kwargs)
+        self.management_groups = management_groups
+        self.subscriptions = subscriptions
+
+
+class NetworkManagerSecurityGroupItem(Model):
+    """NetworkManagerSecurityGroupItem.
+
+    :param network_group_id: Network manager group Id.
+    :type network_group_id: str
+    """
+
+    _attribute_map = {
+        'network_group_id': {'key': 'networkGroupId', 'type': 'str'},
+    }
+
+    def __init__(self, *, network_group_id: str=None, **kwargs) -> None:
+        super(NetworkManagerSecurityGroupItem, self).__init__(**kwargs)
+        self.network_group_id = network_group_id
 
 
 class NetworkProfile(Resource):
@@ -12789,6 +13661,117 @@ class RouteTable(Resource):
         self.etag = None
 
 
+class SecurityConfigurationRule(SubResource):
+    """Network security rule.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param id: Resource ID.
+    :type id: str
+    :param display_name: A friendly name for the rule.
+    :type display_name: str
+    :param description: A description for this rule. Restricted to 140 chars.
+    :type description: str
+    :param protocol: Required. Network protocol this rule applies to. Possible
+     values include: 'Tcp', 'Udp', 'Icmp', 'Esp', '*', 'Ah'
+    :type protocol: str or
+     ~azure.mgmt.network.v2019_11_01.models.SecurityConfigurationRuleProtocol
+    :param source_address_prefixes: The CIDR or source IP ranges.
+    :type source_address_prefixes: list[str]
+    :param destination_address_prefixes: The destination address prefixes.
+     CIDR or destination IP ranges.
+    :type destination_address_prefixes: list[str]
+    :param source_port_ranges: The source port ranges.
+    :type source_port_ranges: list[str]
+    :param destination_port_ranges: The destination port ranges.
+    :type destination_port_ranges: list[str]
+    :param access: Required. Indicates the access allowed for this particular
+     rule. Possible values include: 'Allow', 'Deny', 'AlwaysAllow'
+    :type access: str or
+     ~azure.mgmt.network.v2019_11_01.models.SecurityConfigurationRuleAccess
+    :param priority: Required. The priority of the rule. The value can be
+     between 1 and 4096. The priority number must be unique for each rule in
+     the collection. The lower the priority number, the higher the priority of
+     the rule.
+    :type priority: int
+    :param direction: Required. Indicates if the traffic matched against the
+     rule in inbound or outbound. Possible values include: 'Inbound',
+     'Outbound'
+    :type direction: str or
+     ~azure.mgmt.network.v2019_11_01.models.SecurityConfigurationRuleDirection
+    :ivar provisioning_state: The provisioning state of the security
+     Configuration resource. Possible values include: 'Succeeded', 'Updating',
+     'Deleting', 'Failed'
+    :vartype provisioning_state: str or
+     ~azure.mgmt.network.v2019_11_01.models.ProvisioningState
+    :param applies_to_groups: Groups for configuration
+    :type applies_to_groups:
+     list[~azure.mgmt.network.v2019_11_01.models.NetworkManagerSecurityGroupItem]
+    :ivar name: Resource name.
+    :vartype name: str
+    :param tags: Resource tags.
+    :type tags: dict[str, str]
+    :ivar type: Resource type.
+    :vartype type: str
+    :ivar etag: A unique read-only string that changes whenever the resource
+     is updated.
+    :vartype etag: str
+    """
+
+    _validation = {
+        'protocol': {'required': True},
+        'access': {'required': True},
+        'priority': {'required': True},
+        'direction': {'required': True},
+        'provisioning_state': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'etag': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
+        'description': {'key': 'properties.description', 'type': 'str'},
+        'protocol': {'key': 'properties.protocol', 'type': 'str'},
+        'source_address_prefixes': {'key': 'properties.sourceAddressPrefixes', 'type': '[str]'},
+        'destination_address_prefixes': {'key': 'properties.destinationAddressPrefixes', 'type': '[str]'},
+        'source_port_ranges': {'key': 'properties.sourcePortRanges', 'type': '[str]'},
+        'destination_port_ranges': {'key': 'properties.destinationPortRanges', 'type': '[str]'},
+        'access': {'key': 'properties.access', 'type': 'str'},
+        'priority': {'key': 'properties.priority', 'type': 'int'},
+        'direction': {'key': 'properties.direction', 'type': 'str'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'applies_to_groups': {'key': 'properties.appliesToGroups', 'type': '[NetworkManagerSecurityGroupItem]'},
+        'name': {'key': 'name', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
+    }
+
+    def __init__(self, *, protocol, access, priority: int, direction, id: str=None, display_name: str=None, description: str=None, source_address_prefixes=None, destination_address_prefixes=None, source_port_ranges=None, destination_port_ranges=None, applies_to_groups=None, tags=None, **kwargs) -> None:
+        super(SecurityConfigurationRule, self).__init__(id=id, **kwargs)
+        self.display_name = display_name
+        self.description = description
+        self.protocol = protocol
+        self.source_address_prefixes = source_address_prefixes
+        self.destination_address_prefixes = destination_address_prefixes
+        self.source_port_ranges = source_port_ranges
+        self.destination_port_ranges = destination_port_ranges
+        self.access = access
+        self.priority = priority
+        self.direction = direction
+        self.provisioning_state = None
+        self.applies_to_groups = applies_to_groups
+        self.name = None
+        self.tags = tags
+        self.type = None
+        self.etag = None
+
+
 class SecurityGroupNetworkInterface(Model):
     """Network interface and all its associated security rules.
 
@@ -13375,6 +14358,22 @@ class ServiceTagsListResult(Model):
         self.values = None
 
 
+class SessionIds(Model):
+    """List of session IDs.
+
+    :param session_ids: List of session IDs.
+    :type session_ids: list[str]
+    """
+
+    _attribute_map = {
+        'session_ids': {'key': 'sessionIds', 'type': '[str]'},
+    }
+
+    def __init__(self, *, session_ids=None, **kwargs) -> None:
+        super(SessionIds, self).__init__(**kwargs)
+        self.session_ids = session_ids
+
+
 class Subnet(SubResource):
     """Subnet in a virtual network resource.
 
@@ -13545,7 +14544,7 @@ class TagsObject(Model):
         self.tags = tags
 
 
-class Topology(Model):
+class Topology1(Model):
     """Topology of the specified resource group.
 
     Variables are only populated by the server, and will be ignored when
@@ -13577,7 +14576,7 @@ class Topology(Model):
     }
 
     def __init__(self, *, resources=None, **kwargs) -> None:
-        super(Topology, self).__init__(**kwargs)
+        super(Topology1, self).__init__(**kwargs)
         self.id = None
         self.created_date_time = None
         self.last_modified = None
@@ -15530,6 +16529,41 @@ class VirtualWanVpnProfileParameters(Model):
         super(VirtualWanVpnProfileParameters, self).__init__(**kwargs)
         self.vpn_server_configuration_resource_id = vpn_server_configuration_resource_id
         self.authentication_method = authentication_method
+
+
+class VM(Resource):
+    """Describes a Virtual Machine.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param id: Resource ID.
+    :type id: str
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param location: Resource location.
+    :type location: str
+    :param tags: Resource tags.
+    :type tags: dict[str, str]
+    """
+
+    _validation = {
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+    }
+
+    def __init__(self, *, id: str=None, location: str=None, tags=None, **kwargs) -> None:
+        super(VM, self).__init__(id=id, location=location, tags=tags, **kwargs)
 
 
 class VpnClientConfiguration(Model):
