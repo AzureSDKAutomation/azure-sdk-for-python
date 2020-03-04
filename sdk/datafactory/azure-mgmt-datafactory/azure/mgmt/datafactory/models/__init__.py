@@ -17,6 +17,7 @@ try:
     from ._models_py3 import ActivityRun
     from ._models_py3 import ActivityRunsQueryResponse
     from ._models_py3 import AddDataFlowToDebugSessionResponse
+    from ._models_py3 import AdditionalColumns
     from ._models_py3 import AmazonMWSLinkedService
     from ._models_py3 import AmazonMWSObjectDataset
     from ._models_py3 import AmazonMWSSource
@@ -102,6 +103,7 @@ try:
     from ._models_py3 import AzureTableSource
     from ._models_py3 import AzureTableStorageLinkedService
     from ._models_py3 import BinaryDataset
+    from ._models_py3 import BinaryReadSettings
     from ._models_py3 import BinarySink
     from ._models_py3 import BinarySource
     from ._models_py3 import BlobEventsTrigger
@@ -118,6 +120,7 @@ try:
     from ._models_py3 import CommonDataServiceForAppsSink
     from ._models_py3 import CommonDataServiceForAppsSource
     from ._models_py3 import ComponentSetup
+    from ._models_py3 import CompressionReadSettings
     from ._models_py3 import ConcurLinkedService
     from ._models_py3 import ConcurObjectDataset
     from ._models_py3 import ConcurSource
@@ -316,6 +319,7 @@ try:
     from ._models_py3 import JiraSource
     from ._models_py3 import JsonDataset
     from ._models_py3 import JsonFormat
+    from ._models_py3 import JsonReadSettings
     from ._models_py3 import JsonSink
     from ._models_py3 import JsonSource
     from ._models_py3 import JsonWriteSettings
@@ -426,9 +430,7 @@ try:
     from ._models_py3 import RedshiftUnloadSettings
     from ._models_py3 import RelationalSource
     from ._models_py3 import RelationalTableDataset
-    from ._models_py3 import RerunTriggerResource
     from ._models_py3 import RerunTumblingWindowTrigger
-    from ._models_py3 import RerunTumblingWindowTriggerActionParameters
     from ._models_py3 import Resource
     from ._models_py3 import ResponsysLinkedService
     from ._models_py3 import ResponsysObjectDataset
@@ -492,6 +494,7 @@ try:
     from ._models_py3 import ShopifyLinkedService
     from ._models_py3 import ShopifyObjectDataset
     from ._models_py3 import ShopifySource
+    from ._models_py3 import SkipErrorFile
     from ._models_py3 import SparkLinkedService
     from ._models_py3 import SparkObjectDataset
     from ._models_py3 import SparkSource
@@ -546,7 +549,9 @@ try:
     from ._models_py3 import Transformation
     from ._models_py3 import Trigger
     from ._models_py3 import TriggerDependencyReference
+    from ._models_py3 import TriggerFilterParameters
     from ._models_py3 import TriggerPipelineReference
+    from ._models_py3 import TriggerQueryResponse
     from ._models_py3 import TriggerReference
     from ._models_py3 import TriggerResource
     from ._models_py3 import TriggerRun
@@ -589,6 +594,7 @@ except (SyntaxError, ImportError):
     from ._models import ActivityRun
     from ._models import ActivityRunsQueryResponse
     from ._models import AddDataFlowToDebugSessionResponse
+    from ._models import AdditionalColumns
     from ._models import AmazonMWSLinkedService
     from ._models import AmazonMWSObjectDataset
     from ._models import AmazonMWSSource
@@ -674,6 +680,7 @@ except (SyntaxError, ImportError):
     from ._models import AzureTableSource
     from ._models import AzureTableStorageLinkedService
     from ._models import BinaryDataset
+    from ._models import BinaryReadSettings
     from ._models import BinarySink
     from ._models import BinarySource
     from ._models import BlobEventsTrigger
@@ -690,6 +697,7 @@ except (SyntaxError, ImportError):
     from ._models import CommonDataServiceForAppsSink
     from ._models import CommonDataServiceForAppsSource
     from ._models import ComponentSetup
+    from ._models import CompressionReadSettings
     from ._models import ConcurLinkedService
     from ._models import ConcurObjectDataset
     from ._models import ConcurSource
@@ -888,6 +896,7 @@ except (SyntaxError, ImportError):
     from ._models import JiraSource
     from ._models import JsonDataset
     from ._models import JsonFormat
+    from ._models import JsonReadSettings
     from ._models import JsonSink
     from ._models import JsonSource
     from ._models import JsonWriteSettings
@@ -998,9 +1007,7 @@ except (SyntaxError, ImportError):
     from ._models import RedshiftUnloadSettings
     from ._models import RelationalSource
     from ._models import RelationalTableDataset
-    from ._models import RerunTriggerResource
     from ._models import RerunTumblingWindowTrigger
-    from ._models import RerunTumblingWindowTriggerActionParameters
     from ._models import Resource
     from ._models import ResponsysLinkedService
     from ._models import ResponsysObjectDataset
@@ -1064,6 +1071,7 @@ except (SyntaxError, ImportError):
     from ._models import ShopifyLinkedService
     from ._models import ShopifyObjectDataset
     from ._models import ShopifySource
+    from ._models import SkipErrorFile
     from ._models import SparkLinkedService
     from ._models import SparkObjectDataset
     from ._models import SparkSource
@@ -1118,7 +1126,9 @@ except (SyntaxError, ImportError):
     from ._models import Transformation
     from ._models import Trigger
     from ._models import TriggerDependencyReference
+    from ._models import TriggerFilterParameters
     from ._models import TriggerPipelineReference
+    from ._models import TriggerQueryResponse
     from ._models import TriggerReference
     from ._models import TriggerResource
     from ._models import TriggerRun
@@ -1161,7 +1171,6 @@ from ._paged_models import IntegrationRuntimeResourcePaged
 from ._paged_models import LinkedServiceResourcePaged
 from ._paged_models import OperationPaged
 from ._paged_models import PipelineResourcePaged
-from ._paged_models import RerunTriggerResourcePaged
 from ._paged_models import TriggerResourcePaged
 from ._data_factory_management_client_enums import (
     IntegrationRuntimeState,
@@ -1177,11 +1186,6 @@ from ._data_factory_management_client_enums import (
     RunQueryOrder,
     TriggerRunStatus,
     DataFlowDebugCommandType,
-    TumblingWindowFrequency,
-    BlobEventTypes,
-    DayOfWeek,
-    DaysOfWeek,
-    RecurrenceFrequency,
     GoogleAdWordsAuthenticationType,
     SparkServerType,
     SparkThriftTransportProtocol,
@@ -1210,6 +1214,11 @@ from ._data_factory_management_client_enums import (
     DynamicsAuthenticationType,
     OrcCompressionCodec,
     AvroCompressionCodec,
+    TumblingWindowFrequency,
+    BlobEventTypes,
+    DayOfWeek,
+    DaysOfWeek,
+    RecurrenceFrequency,
     DataFlowComputeType,
     AzureFunctionActivityMethod,
     WebActivityMethod,
@@ -1250,6 +1259,7 @@ __all__ = [
     'ActivityRun',
     'ActivityRunsQueryResponse',
     'AddDataFlowToDebugSessionResponse',
+    'AdditionalColumns',
     'AmazonMWSLinkedService',
     'AmazonMWSObjectDataset',
     'AmazonMWSSource',
@@ -1335,6 +1345,7 @@ __all__ = [
     'AzureTableSource',
     'AzureTableStorageLinkedService',
     'BinaryDataset',
+    'BinaryReadSettings',
     'BinarySink',
     'BinarySource',
     'BlobEventsTrigger',
@@ -1351,6 +1362,7 @@ __all__ = [
     'CommonDataServiceForAppsSink',
     'CommonDataServiceForAppsSource',
     'ComponentSetup',
+    'CompressionReadSettings',
     'ConcurLinkedService',
     'ConcurObjectDataset',
     'ConcurSource',
@@ -1549,6 +1561,7 @@ __all__ = [
     'JiraSource',
     'JsonDataset',
     'JsonFormat',
+    'JsonReadSettings',
     'JsonSink',
     'JsonSource',
     'JsonWriteSettings',
@@ -1659,9 +1672,7 @@ __all__ = [
     'RedshiftUnloadSettings',
     'RelationalSource',
     'RelationalTableDataset',
-    'RerunTriggerResource',
     'RerunTumblingWindowTrigger',
-    'RerunTumblingWindowTriggerActionParameters',
     'Resource',
     'ResponsysLinkedService',
     'ResponsysObjectDataset',
@@ -1725,6 +1736,7 @@ __all__ = [
     'ShopifyLinkedService',
     'ShopifyObjectDataset',
     'ShopifySource',
+    'SkipErrorFile',
     'SparkLinkedService',
     'SparkObjectDataset',
     'SparkSource',
@@ -1779,7 +1791,9 @@ __all__ = [
     'Transformation',
     'Trigger',
     'TriggerDependencyReference',
+    'TriggerFilterParameters',
     'TriggerPipelineReference',
+    'TriggerQueryResponse',
     'TriggerReference',
     'TriggerResource',
     'TriggerRun',
@@ -1821,7 +1835,6 @@ __all__ = [
     'DatasetResourcePaged',
     'PipelineResourcePaged',
     'TriggerResourcePaged',
-    'RerunTriggerResourcePaged',
     'DataFlowResourcePaged',
     'DataFlowDebugSessionInfoPaged',
     'IntegrationRuntimeState',
@@ -1837,11 +1850,6 @@ __all__ = [
     'RunQueryOrder',
     'TriggerRunStatus',
     'DataFlowDebugCommandType',
-    'TumblingWindowFrequency',
-    'BlobEventTypes',
-    'DayOfWeek',
-    'DaysOfWeek',
-    'RecurrenceFrequency',
     'GoogleAdWordsAuthenticationType',
     'SparkServerType',
     'SparkThriftTransportProtocol',
@@ -1870,6 +1878,11 @@ __all__ = [
     'DynamicsAuthenticationType',
     'OrcCompressionCodec',
     'AvroCompressionCodec',
+    'TumblingWindowFrequency',
+    'BlobEventTypes',
+    'DayOfWeek',
+    'DaysOfWeek',
+    'RecurrenceFrequency',
     'DataFlowComputeType',
     'AzureFunctionActivityMethod',
     'WebActivityMethod',
