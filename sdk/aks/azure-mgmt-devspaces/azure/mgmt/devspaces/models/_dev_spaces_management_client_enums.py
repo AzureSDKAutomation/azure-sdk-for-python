@@ -9,19 +9,27 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from msrest.paging import Paged
+from enum import Enum
 
 
-class ControllerPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`Controller <azure.mgmt.devspaces.models.Controller>` object
-    """
+class ProvisioningState(str, Enum):
 
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[Controller]'}
-    }
+    succeeded = "Succeeded"
+    failed = "Failed"
+    canceled = "Canceled"
+    updating = "Updating"
+    creating = "Creating"
+    deleting = "Deleting"
+    deleted = "Deleted"
 
-    def __init__(self, *args, **kwargs):
 
-        super(ControllerPaged, self).__init__(*args, **kwargs)
+class HostEndpointType(str, Enum):
+
+    public = "Public"
+    private = "Private"
+    none = "None"
+
+
+class SkuTier(str, Enum):
+
+    standard = "Standard"
