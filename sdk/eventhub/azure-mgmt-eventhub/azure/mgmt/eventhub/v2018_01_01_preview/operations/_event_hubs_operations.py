@@ -24,7 +24,7 @@ class EventHubsOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client API Version. Constant value: "2017-04-01".
+    :ivar api_version: Client API version. Constant value: "2018-01-01-preview".
     """
 
     models = models
@@ -34,7 +34,7 @@ class EventHubsOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2017-04-01"
+        self.api_version = "2018-01-01-preview"
 
         self.config = config
 
@@ -43,7 +43,7 @@ class EventHubsOperations(object):
         """Gets all the Event Hubs in a Namespace.
 
         :param resource_group_name: Name of the resource group within the
-         azure subscription.
+         Azure subscription.
         :type resource_group_name: str
         :param namespace_name: The Namespace name
         :type namespace_name: str
@@ -62,9 +62,9 @@ class EventHubsOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: An iterator like instance of Eventhub
         :rtype:
-         ~azure.mgmt.eventhub.v2017_04_01.models.EventhubPaged[~azure.mgmt.eventhub.v2017_04_01.models.Eventhub]
+         ~azure.mgmt.eventhub.v2018_01_01_preview.models.EventhubPaged[~azure.mgmt.eventhub.v2018_01_01_preview.models.Eventhub]
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.eventhub.v2017_04_01.models.ErrorResponseException>`
+         :class:`ErrorResponseException<azure.mgmt.eventhub.v2018_01_01_preview.models.ErrorResponseException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
@@ -128,7 +128,7 @@ class EventHubsOperations(object):
         Namespace.
 
         :param resource_group_name: Name of the resource group within the
-         azure subscription.
+         Azure subscription.
         :type resource_group_name: str
         :param namespace_name: The Namespace name
         :type namespace_name: str
@@ -136,17 +136,18 @@ class EventHubsOperations(object):
         :type event_hub_name: str
         :param parameters: Parameters supplied to create an Event Hub
          resource.
-        :type parameters: ~azure.mgmt.eventhub.v2017_04_01.models.Eventhub
+        :type parameters:
+         ~azure.mgmt.eventhub.v2018_01_01_preview.models.Eventhub
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
         :return: Eventhub or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.eventhub.v2017_04_01.models.Eventhub or
+        :rtype: ~azure.mgmt.eventhub.v2018_01_01_preview.models.Eventhub or
          ~msrest.pipeline.ClientRawResponse
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.eventhub.v2017_04_01.models.ErrorResponseException>`
+         :class:`ErrorResponseException<azure.mgmt.eventhub.v2018_01_01_preview.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.create_or_update.metadata['url']
@@ -199,7 +200,7 @@ class EventHubsOperations(object):
         """Deletes an Event Hub from the specified Namespace and resource group.
 
         :param resource_group_name: Name of the resource group within the
-         azure subscription.
+         Azure subscription.
         :type resource_group_name: str
         :param namespace_name: The Namespace name
         :type namespace_name: str
@@ -213,7 +214,7 @@ class EventHubsOperations(object):
         :return: None or ClientRawResponse if raw=true
         :rtype: None or ~msrest.pipeline.ClientRawResponse
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.eventhub.v2017_04_01.models.ErrorResponseException>`
+         :class:`ErrorResponseException<azure.mgmt.eventhub.v2018_01_01_preview.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.delete.metadata['url']
@@ -255,7 +256,7 @@ class EventHubsOperations(object):
         """Gets an Event Hubs description for the specified Event Hub.
 
         :param resource_group_name: Name of the resource group within the
-         azure subscription.
+         Azure subscription.
         :type resource_group_name: str
         :param namespace_name: The Namespace name
         :type namespace_name: str
@@ -267,10 +268,10 @@ class EventHubsOperations(object):
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
         :return: Eventhub or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.eventhub.v2017_04_01.models.Eventhub or
+        :rtype: ~azure.mgmt.eventhub.v2018_01_01_preview.models.Eventhub or
          ~msrest.pipeline.ClientRawResponse
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.eventhub.v2017_04_01.models.ErrorResponseException>`
+         :class:`ErrorResponseException<azure.mgmt.eventhub.v2018_01_01_preview.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.get.metadata['url']
@@ -319,7 +320,7 @@ class EventHubsOperations(object):
         """Gets the authorization rules for an Event Hub.
 
         :param resource_group_name: Name of the resource group within the
-         azure subscription.
+         Azure subscription.
         :type resource_group_name: str
         :param namespace_name: The Namespace name
         :type namespace_name: str
@@ -332,9 +333,9 @@ class EventHubsOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: An iterator like instance of AuthorizationRule
         :rtype:
-         ~azure.mgmt.eventhub.v2017_04_01.models.AuthorizationRulePaged[~azure.mgmt.eventhub.v2017_04_01.models.AuthorizationRule]
+         ~azure.mgmt.eventhub.v2018_01_01_preview.models.AuthorizationRulePaged[~azure.mgmt.eventhub.v2018_01_01_preview.models.AuthorizationRule]
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.eventhub.v2017_04_01.models.ErrorResponseException>`
+         :class:`ErrorResponseException<azure.mgmt.eventhub.v2018_01_01_preview.models.ErrorResponseException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
@@ -396,7 +397,7 @@ class EventHubsOperations(object):
         take effect.
 
         :param resource_group_name: Name of the resource group within the
-         azure subscription.
+         Azure subscription.
         :type resource_group_name: str
         :param namespace_name: The Namespace name
         :type namespace_name: str
@@ -406,17 +407,18 @@ class EventHubsOperations(object):
         :type authorization_rule_name: str
         :param rights: The rights associated with the rule.
         :type rights: list[str or
-         ~azure.mgmt.eventhub.v2017_04_01.models.AccessRights]
+         ~azure.mgmt.eventhub.v2018_01_01_preview.models.AccessRights]
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
         :return: AuthorizationRule or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.eventhub.v2017_04_01.models.AuthorizationRule or
+        :rtype:
+         ~azure.mgmt.eventhub.v2018_01_01_preview.models.AuthorizationRule or
          ~msrest.pipeline.ClientRawResponse
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.eventhub.v2017_04_01.models.ErrorResponseException>`
+         :class:`ErrorResponseException<azure.mgmt.eventhub.v2018_01_01_preview.models.ErrorResponseException>`
         """
         parameters = models.AuthorizationRule(rights=rights)
 
@@ -472,7 +474,7 @@ class EventHubsOperations(object):
         """Gets an AuthorizationRule for an Event Hub by rule name.
 
         :param resource_group_name: Name of the resource group within the
-         azure subscription.
+         Azure subscription.
         :type resource_group_name: str
         :param namespace_name: The Namespace name
         :type namespace_name: str
@@ -486,10 +488,11 @@ class EventHubsOperations(object):
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
         :return: AuthorizationRule or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.eventhub.v2017_04_01.models.AuthorizationRule or
+        :rtype:
+         ~azure.mgmt.eventhub.v2018_01_01_preview.models.AuthorizationRule or
          ~msrest.pipeline.ClientRawResponse
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.eventhub.v2017_04_01.models.ErrorResponseException>`
+         :class:`ErrorResponseException<azure.mgmt.eventhub.v2018_01_01_preview.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.get_authorization_rule.metadata['url']
@@ -539,7 +542,7 @@ class EventHubsOperations(object):
         """Deletes an Event Hub AuthorizationRule.
 
         :param resource_group_name: Name of the resource group within the
-         azure subscription.
+         Azure subscription.
         :type resource_group_name: str
         :param namespace_name: The Namespace name
         :type namespace_name: str
@@ -555,7 +558,7 @@ class EventHubsOperations(object):
         :return: None or ClientRawResponse if raw=true
         :rtype: None or ~msrest.pipeline.ClientRawResponse
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.eventhub.v2017_04_01.models.ErrorResponseException>`
+         :class:`ErrorResponseException<azure.mgmt.eventhub.v2018_01_01_preview.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.delete_authorization_rule.metadata['url']
@@ -598,7 +601,7 @@ class EventHubsOperations(object):
         """Gets the ACS and SAS connection strings for the Event Hub.
 
         :param resource_group_name: Name of the resource group within the
-         azure subscription.
+         Azure subscription.
         :type resource_group_name: str
         :param namespace_name: The Namespace name
         :type namespace_name: str
@@ -612,10 +615,10 @@ class EventHubsOperations(object):
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
         :return: AccessKeys or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.eventhub.v2017_04_01.models.AccessKeys or
+        :rtype: ~azure.mgmt.eventhub.v2018_01_01_preview.models.AccessKeys or
          ~msrest.pipeline.ClientRawResponse
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.eventhub.v2017_04_01.models.ErrorResponseException>`
+         :class:`ErrorResponseException<azure.mgmt.eventhub.v2018_01_01_preview.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.list_keys.metadata['url']
@@ -665,7 +668,7 @@ class EventHubsOperations(object):
         """Regenerates the ACS and SAS connection strings for the Event Hub.
 
         :param resource_group_name: Name of the resource group within the
-         azure subscription.
+         Azure subscription.
         :type resource_group_name: str
         :param namespace_name: The Namespace name
         :type namespace_name: str
@@ -675,7 +678,8 @@ class EventHubsOperations(object):
         :type authorization_rule_name: str
         :param key_type: The access key to regenerate. Possible values
          include: 'PrimaryKey', 'SecondaryKey'
-        :type key_type: str or ~azure.mgmt.eventhub.v2017_04_01.models.KeyType
+        :type key_type: str or
+         ~azure.mgmt.eventhub.v2018_01_01_preview.models.KeyType
         :param key: Optional, if the key value provided, is set for KeyType or
          autogenerated Key value set for keyType
         :type key: str
@@ -685,10 +689,10 @@ class EventHubsOperations(object):
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
         :return: AccessKeys or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.eventhub.v2017_04_01.models.AccessKeys or
+        :rtype: ~azure.mgmt.eventhub.v2018_01_01_preview.models.AccessKeys or
          ~msrest.pipeline.ClientRawResponse
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.eventhub.v2017_04_01.models.ErrorResponseException>`
+         :class:`ErrorResponseException<azure.mgmt.eventhub.v2018_01_01_preview.models.ErrorResponseException>`
         """
         parameters = models.RegenerateAccessKeyParameters(key_type=key_type, key=key)
 

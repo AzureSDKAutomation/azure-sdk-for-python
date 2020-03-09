@@ -25,19 +25,6 @@ class OperationPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(OperationPaged, self).__init__(*args, **kwargs)
-class ClusterPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`Cluster <azure.mgmt.eventhub.v2018_01_01_preview.models.Cluster>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[Cluster]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(ClusterPaged, self).__init__(*args, **kwargs)
 class EHNamespacePaged(Paged):
     """
     A paging container for iterating over a list of :class:`EHNamespace <azure.mgmt.eventhub.v2018_01_01_preview.models.EHNamespace>` object
@@ -77,3 +64,94 @@ class VirtualNetworkRulePaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(VirtualNetworkRulePaged, self).__init__(*args, **kwargs)
+class NetworkRuleSetPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`NetworkRuleSet <azure.mgmt.eventhub.v2018_01_01_preview.models.NetworkRuleSet>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[NetworkRuleSet]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(NetworkRuleSetPaged, self).__init__(*args, **kwargs)
+class AuthorizationRulePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`AuthorizationRule <azure.mgmt.eventhub.v2018_01_01_preview.models.AuthorizationRule>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[AuthorizationRule]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(AuthorizationRulePaged, self).__init__(*args, **kwargs)
+class ClusterPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`Cluster <azure.mgmt.eventhub.v2018_01_01_preview.models.Cluster>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[Cluster]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(ClusterPaged, self).__init__(*args, **kwargs)
+class ArmDisasterRecoveryPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`ArmDisasterRecovery <azure.mgmt.eventhub.v2018_01_01_preview.models.ArmDisasterRecovery>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[ArmDisasterRecovery]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(ArmDisasterRecoveryPaged, self).__init__(*args, **kwargs)
+class EventhubPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`Eventhub <azure.mgmt.eventhub.v2018_01_01_preview.models.Eventhub>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[Eventhub]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(EventhubPaged, self).__init__(*args, **kwargs)
+class ConsumerGroupPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`ConsumerGroup <azure.mgmt.eventhub.v2018_01_01_preview.models.ConsumerGroup>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[ConsumerGroup]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(ConsumerGroupPaged, self).__init__(*args, **kwargs)
+class MessagingRegionsPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`MessagingRegions <azure.mgmt.eventhub.v2018_01_01_preview.models.MessagingRegions>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[MessagingRegions]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(MessagingRegionsPaged, self).__init__(*args, **kwargs)
