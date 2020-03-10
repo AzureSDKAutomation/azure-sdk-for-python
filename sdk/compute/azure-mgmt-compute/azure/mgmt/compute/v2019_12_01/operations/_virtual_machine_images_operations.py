@@ -25,7 +25,7 @@ class VirtualMachineImagesOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client Api Version. Constant value: "2015-06-15".
+    :ivar api_version: Client Api Version. Constant value: "2019-12-01".
     """
 
     models = models
@@ -35,7 +35,7 @@ class VirtualMachineImagesOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2015-06-15"
+        self.api_version = "2019-12-01"
 
         self.config = config
 
@@ -59,7 +59,7 @@ class VirtualMachineImagesOperations(object):
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
         :return: VirtualMachineImage or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.compute.v2015_06_15.models.VirtualMachineImage or
+        :rtype: ~azure.mgmt.compute.v2019_12_01.models.VirtualMachineImage or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -135,7 +135,7 @@ class VirtualMachineImagesOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: list or ClientRawResponse if raw=true
         :rtype:
-         list[~azure.mgmt.compute.v2015_06_15.models.VirtualMachineImageResource]
+         list[~azure.mgmt.compute.v2019_12_01.models.VirtualMachineImageResource]
          or ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -206,7 +206,7 @@ class VirtualMachineImagesOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: list or ClientRawResponse if raw=true
         :rtype:
-         list[~azure.mgmt.compute.v2015_06_15.models.VirtualMachineImageResource]
+         list[~azure.mgmt.compute.v2019_12_01.models.VirtualMachineImageResource]
          or ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -267,7 +267,7 @@ class VirtualMachineImagesOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: list or ClientRawResponse if raw=true
         :rtype:
-         list[~azure.mgmt.compute.v2015_06_15.models.VirtualMachineImageResource]
+         list[~azure.mgmt.compute.v2019_12_01.models.VirtualMachineImageResource]
          or ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -331,7 +331,7 @@ class VirtualMachineImagesOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: list or ClientRawResponse if raw=true
         :rtype:
-         list[~azure.mgmt.compute.v2015_06_15.models.VirtualMachineImageResource]
+         list[~azure.mgmt.compute.v2019_12_01.models.VirtualMachineImageResource]
          or ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
