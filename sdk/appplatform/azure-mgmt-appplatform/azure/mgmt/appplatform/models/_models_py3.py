@@ -91,6 +91,10 @@ class AppResource(ProxyResource):
     :vartype type: str
     :param properties: Properties of the App resource
     :type properties: ~azure.mgmt.appplatform.models.AppResourceProperties
+    :param identity: The Managed Identity type of the Service resource
+    :type identity: ~azure.mgmt.appplatform.models.ManagedIdentityProperties
+    :param location:
+    :type location: str
     """
 
     _validation = {
@@ -104,11 +108,15 @@ class AppResource(ProxyResource):
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
         'properties': {'key': 'properties', 'type': 'AppResourceProperties'},
+        'identity': {'key': 'identity', 'type': 'ManagedIdentityProperties'},
+        'location': {'key': 'location', 'type': 'str'},
     }
 
-    def __init__(self, *, properties=None, **kwargs) -> None:
+    def __init__(self, *, properties=None, identity=None, location: str=None, **kwargs) -> None:
         super(AppResource, self).__init__(**kwargs)
         self.properties = properties
+        self.identity = identity
+        self.location = location
 
 
 class AppResourceProperties(Model):
@@ -122,11 +130,15 @@ class AppResourceProperties(Model):
     :ivar url: URL of the App
     :vartype url: str
     :ivar provisioning_state: Provisioning state of the App. Possible values
-     include: 'Succeeded', 'Failed', 'Creating', 'Updating'
+     include: 'Succeeded', 'Failed', 'Creating', 'Updating', 'Deleting'
     :vartype provisioning_state: str or
      ~azure.mgmt.appplatform.models.AppResourceProvisioningState
     :param active_deployment_name: Name of the active deployment of the App
     :type active_deployment_name: str
+    :param fqdn: Fully qualified dns Name.
+    :type fqdn: str
+    :param https_only: Indicate if only https is allowed.
+    :type https_only: bool
     :ivar created_time: Date time when the resource is created
     :vartype created_time: datetime
     :param temporary_disk: Temporary disk settings
@@ -146,20 +158,48 @@ class AppResourceProperties(Model):
         'url': {'key': 'url', 'type': 'str'},
         'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
         'active_deployment_name': {'key': 'activeDeploymentName', 'type': 'str'},
+        'fqdn': {'key': 'fqdn', 'type': 'str'},
+        'https_only': {'key': 'httpsOnly', 'type': 'bool'},
         'created_time': {'key': 'createdTime', 'type': 'iso-8601'},
         'temporary_disk': {'key': 'temporaryDisk', 'type': 'TemporaryDisk'},
         'persistent_disk': {'key': 'persistentDisk', 'type': 'PersistentDisk'},
     }
 
-    def __init__(self, *, public: bool=None, active_deployment_name: str=None, temporary_disk=None, persistent_disk=None, **kwargs) -> None:
+    def __init__(self, *, public: bool=None, active_deployment_name: str=None, fqdn: str=None, https_only: bool=None, temporary_disk=None, persistent_disk=None, **kwargs) -> None:
         super(AppResourceProperties, self).__init__(**kwargs)
         self.public = public
         self.url = None
         self.provisioning_state = None
         self.active_deployment_name = active_deployment_name
+        self.fqdn = fqdn
+        self.https_only = https_only
         self.created_time = None
         self.temporary_disk = temporary_disk
         self.persistent_disk = persistent_disk
+
+
+class AvailableRuntimeVersions(Model):
+    """AvailableRuntimeVersions.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar value: A list of all supported runtime versions.
+    :vartype value:
+     list[~azure.mgmt.appplatform.models.SupportedRuntimeVersion]
+    """
+
+    _validation = {
+        'value': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': '[SupportedRuntimeVersion]'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(AvailableRuntimeVersions, self).__init__(**kwargs)
+        self.value = None
 
 
 class BindingResource(ProxyResource):
@@ -249,6 +289,128 @@ class BindingResourceProperties(Model):
         self.generated_properties = None
         self.created_at = None
         self.updated_at = None
+
+
+class CertificateProperties(Model):
+    """Certificate resource payload.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: The name of certificate.
+    :type name: str
+    :param thumbprint: The thumbprint of certificate.
+    :type thumbprint: str
+    :param vault_uri: Required. The vault uri of user key vault.
+    :type vault_uri: str
+    :param key_vault_cert_name: Required. The certificate name of key vault.
+    :type key_vault_cert_name: str
+    :param cert_version: The certificate verion of key vault.
+    :type cert_version: str
+    :param issuer: The issuer of certificate.
+    :type issuer: str
+    :param issued_date: The issue date of certificate.
+    :type issued_date: str
+    :param expiration_date: The expiration date of certificate.
+    :type expiration_date: str
+    :param activate_date: The activate date of certificate.
+    :type activate_date: str
+    :param subject_name: The subject name of certificate.
+    :type subject_name: str
+    :param dns_names: The domain list of certificate.
+    :type dns_names: list[str]
+    """
+
+    _validation = {
+        'vault_uri': {'required': True},
+        'key_vault_cert_name': {'required': True},
+    }
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'thumbprint': {'key': 'thumbprint', 'type': 'str'},
+        'vault_uri': {'key': 'vaultUri', 'type': 'str'},
+        'key_vault_cert_name': {'key': 'keyVaultCertName', 'type': 'str'},
+        'cert_version': {'key': 'certVersion', 'type': 'str'},
+        'issuer': {'key': 'issuer', 'type': 'str'},
+        'issued_date': {'key': 'issuedDate', 'type': 'str'},
+        'expiration_date': {'key': 'expirationDate', 'type': 'str'},
+        'activate_date': {'key': 'activateDate', 'type': 'str'},
+        'subject_name': {'key': 'subjectName', 'type': 'str'},
+        'dns_names': {'key': 'dnsNames', 'type': '[str]'},
+    }
+
+    def __init__(self, *, vault_uri: str, key_vault_cert_name: str, name: str=None, thumbprint: str=None, cert_version: str=None, issuer: str=None, issued_date: str=None, expiration_date: str=None, activate_date: str=None, subject_name: str=None, dns_names=None, **kwargs) -> None:
+        super(CertificateProperties, self).__init__(**kwargs)
+        self.name = name
+        self.thumbprint = thumbprint
+        self.vault_uri = vault_uri
+        self.key_vault_cert_name = key_vault_cert_name
+        self.cert_version = cert_version
+        self.issuer = issuer
+        self.issued_date = issued_date
+        self.expiration_date = expiration_date
+        self.activate_date = activate_date
+        self.subject_name = subject_name
+        self.dns_names = dns_names
+
+
+class CertificateResource(ProxyResource):
+    """Certificate resource payload.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Fully qualified resource Id for the resource.
+    :vartype id: str
+    :ivar name: The name of the resource.
+    :vartype name: str
+    :ivar type: The type of the resource.
+    :vartype type: str
+    :param properties: Properties of the certificate resource payload.
+    :type properties: ~azure.mgmt.appplatform.models.CertificateProperties
+    :param location:
+    :type location: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'CertificateProperties'},
+        'location': {'key': 'location', 'type': 'str'},
+    }
+
+    def __init__(self, *, properties=None, location: str=None, **kwargs) -> None:
+        super(CertificateResource, self).__init__(**kwargs)
+        self.properties = properties
+        self.location = location
+
+
+class CertificateResourceCollection(Model):
+    """Collection compose of certificate resources list and a possible link for
+    next page.
+
+    :param resources: The certificate resources list.
+    :type resources: list[~azure.mgmt.appplatform.models.CertificateResource]
+    :param next_link: The link to next page of certificate list.
+    :type next_link: str
+    """
+
+    _attribute_map = {
+        'resources': {'key': 'resources', 'type': '[CertificateResource]'},
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+    }
+
+    def __init__(self, *, resources=None, next_link: str=None, **kwargs) -> None:
+        super(CertificateResourceCollection, self).__init__(**kwargs)
+        self.resources = resources
+        self.next_link = next_link
 
 
 class CloudError(Model):
@@ -464,6 +626,93 @@ class ConfigServerSettings(Model):
         self.git_property = git_property
 
 
+class CustomDomainProperties(Model):
+    """Custom domain of app resource payload.
+
+    :param name: The name of domain.
+    :type name: str
+    :param thumbprint: The thumbprint of bound ceritifcate.
+    :type thumbprint: str
+    :param app_name: The app name of domain.
+    :type app_name: str
+    :param cert_name: The bound certificate name of domain.
+    :type cert_name: str
+    """
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'thumbprint': {'key': 'thumbprint', 'type': 'str'},
+        'app_name': {'key': 'appName', 'type': 'str'},
+        'cert_name': {'key': 'certName', 'type': 'str'},
+    }
+
+    def __init__(self, *, name: str=None, thumbprint: str=None, app_name: str=None, cert_name: str=None, **kwargs) -> None:
+        super(CustomDomainProperties, self).__init__(**kwargs)
+        self.name = name
+        self.thumbprint = thumbprint
+        self.app_name = app_name
+        self.cert_name = cert_name
+
+
+class CustomDomainResource(ProxyResource):
+    """Custom domain resource payload.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Fully qualified resource Id for the resource.
+    :vartype id: str
+    :ivar name: The name of the resource.
+    :vartype name: str
+    :ivar type: The type of the resource.
+    :vartype type: str
+    :param properties: Properties of the custom domain resource.
+    :type properties: ~azure.mgmt.appplatform.models.CustomDomainProperties
+    :param location:
+    :type location: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'CustomDomainProperties'},
+        'location': {'key': 'location', 'type': 'str'},
+    }
+
+    def __init__(self, *, properties=None, location: str=None, **kwargs) -> None:
+        super(CustomDomainResource, self).__init__(**kwargs)
+        self.properties = properties
+        self.location = location
+
+
+class CustomDomainResourceCollection(Model):
+    """Collection compose of a custom domain resources list and a possible link
+    for next page.
+
+    :param resources: The custom domain resources list.
+    :type resources: list[~azure.mgmt.appplatform.models.CustomDomainResource]
+    :param next_link: The link to next page of custom domain list.
+    :type next_link: str
+    """
+
+    _attribute_map = {
+        'resources': {'key': 'resources', 'type': '[CustomDomainResource]'},
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+    }
+
+    def __init__(self, *, resources=None, next_link: str=None, **kwargs) -> None:
+        super(CustomDomainResourceCollection, self).__init__(**kwargs)
+        self.resources = resources
+        self.next_link = next_link
+
+
 class DeploymentInstance(Model):
     """Deployment instance payload.
 
@@ -548,7 +797,7 @@ class DeploymentResourceProperties(Model):
     :ivar app_name: App name of the deployment
     :vartype app_name: str
     :ivar provisioning_state: Provisioning state of the Deployment. Possible
-     values include: 'Creating', 'Updating', 'Succeeded', 'Failed'
+     values include: 'Creating', 'Updating', 'Succeeded', 'Failed', 'Deleting'
     :vartype provisioning_state: str or
      ~azure.mgmt.appplatform.models.DeploymentResourceProvisioningState
     :param deployment_settings: Deployment settings of the Deployment
@@ -556,7 +805,7 @@ class DeploymentResourceProperties(Model):
      ~azure.mgmt.appplatform.models.DeploymentSettings
     :ivar status: Status of the Deployment. Possible values include:
      'Unknown', 'Stopped', 'Running', 'Failed', 'Allocating', 'Upgrading',
-     'Compiling'
+     'Compiling', 'Processing'
     :vartype status: str or
      ~azure.mgmt.appplatform.models.DeploymentResourceStatus
     :ivar active: Indicates whether the Deployment is active
@@ -609,12 +858,15 @@ class DeploymentSettings(Model):
     :type memory_in_gb: int
     :param jvm_options: JVM parameter
     :type jvm_options: str
+    :param net_core_main_entry_path: The path to the .NET executable relative
+     to zip root
+    :type net_core_main_entry_path: str
     :param instance_count: Instance count. Default value: 1 .
     :type instance_count: int
     :param environment_variables: Collection of environment variables
     :type environment_variables: dict[str, str]
     :param runtime_version: Runtime version. Possible values include:
-     'Java_8', 'Java_11'
+     'Java_8', 'Java_11', 'NetCore_31'
     :type runtime_version: str or
      ~azure.mgmt.appplatform.models.RuntimeVersion
     """
@@ -629,16 +881,18 @@ class DeploymentSettings(Model):
         'cpu': {'key': 'cpu', 'type': 'int'},
         'memory_in_gb': {'key': 'memoryInGB', 'type': 'int'},
         'jvm_options': {'key': 'jvmOptions', 'type': 'str'},
+        'net_core_main_entry_path': {'key': 'netCoreMainEntryPath', 'type': 'str'},
         'instance_count': {'key': 'instanceCount', 'type': 'int'},
         'environment_variables': {'key': 'environmentVariables', 'type': '{str}'},
         'runtime_version': {'key': 'runtimeVersion', 'type': 'str'},
     }
 
-    def __init__(self, *, cpu: int=1, memory_in_gb: int=1, jvm_options: str=None, instance_count: int=1, environment_variables=None, runtime_version=None, **kwargs) -> None:
+    def __init__(self, *, cpu: int=1, memory_in_gb: int=1, jvm_options: str=None, net_core_main_entry_path: str=None, instance_count: int=1, environment_variables=None, runtime_version=None, **kwargs) -> None:
         super(DeploymentSettings, self).__init__(**kwargs)
         self.cpu = cpu
         self.memory_in_gb = memory_in_gb
         self.jvm_options = jvm_options
+        self.net_core_main_entry_path = net_core_main_entry_path
         self.instance_count = instance_count
         self.environment_variables = environment_variables
         self.runtime_version = runtime_version
@@ -773,6 +1027,30 @@ class LogSpecification(Model):
         self.blob_duration = blob_duration
 
 
+class ManagedIdentityProperties(Model):
+    """ManagedIdentityProperties.
+
+    :param type:
+    :type type: str
+    :param principal_id:
+    :type principal_id: str
+    :param tenant_id:
+    :type tenant_id: str
+    """
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'principal_id': {'key': 'principalId', 'type': 'str'},
+        'tenant_id': {'key': 'tenantId', 'type': 'str'},
+    }
+
+    def __init__(self, *, type: str=None, principal_id: str=None, tenant_id: str=None, **kwargs) -> None:
+        super(ManagedIdentityProperties, self).__init__(**kwargs)
+        self.type = type
+        self.principal_id = principal_id
+        self.tenant_id = tenant_id
+
+
 class MetricDimension(Model):
     """Specifications of the Dimension of metrics.
 
@@ -780,17 +1058,22 @@ class MetricDimension(Model):
     :type name: str
     :param display_name: Localized friendly display name of the dimension
     :type display_name: str
+    :param to_be_exported_for_shoebox: Whether this dimension should be
+     included for the Shoebox export scenario
+    :type to_be_exported_for_shoebox: bool
     """
 
     _attribute_map = {
         'name': {'key': 'name', 'type': 'str'},
         'display_name': {'key': 'displayName', 'type': 'str'},
+        'to_be_exported_for_shoebox': {'key': 'toBeExportedForShoebox', 'type': 'bool'},
     }
 
-    def __init__(self, *, name: str=None, display_name: str=None, **kwargs) -> None:
+    def __init__(self, *, name: str=None, display_name: str=None, to_be_exported_for_shoebox: bool=None, **kwargs) -> None:
         super(MetricDimension, self).__init__(**kwargs)
         self.name = name
         self.display_name = display_name
+        self.to_be_exported_for_shoebox = to_be_exported_for_shoebox
 
 
 class MetricSpecification(Model):
@@ -1031,6 +1314,42 @@ class RegenerateTestKeyRequestPayload(Model):
         self.key_type = key_type
 
 
+class ResourceTypeSku(Model):
+    """Supported Skus of Azure Spring Cloud resources.
+
+    :param resource_type: Resource type
+    :type resource_type: str
+    :param skus: Supported Skus
+    :type skus: list[~azure.mgmt.appplatform.models.SkuSetting]
+    """
+
+    _attribute_map = {
+        'resource_type': {'key': 'resourceType', 'type': 'str'},
+        'skus': {'key': 'skus', 'type': '[SkuSetting]'},
+    }
+
+    def __init__(self, *, resource_type: str=None, skus=None, **kwargs) -> None:
+        super(ResourceTypeSku, self).__init__(**kwargs)
+        self.resource_type = resource_type
+        self.skus = skus
+
+
+class ResourceTypeSkuCollection(Model):
+    """Collection of supported Skus of Azure Spring Cloud resources.
+
+    :param value: Collection of supported Skus
+    :type value: list[~azure.mgmt.appplatform.models.ResourceTypeSku]
+    """
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': '[ResourceTypeSku]'},
+    }
+
+    def __init__(self, *, value=None, **kwargs) -> None:
+        super(ResourceTypeSkuCollection, self).__init__(**kwargs)
+        self.value = value
+
+
 class ResourceUploadDefinition(Model):
     """Resource upload definition payload.
 
@@ -1109,6 +1428,8 @@ class ServiceResource(TrackedResource):
     :type tags: dict[str, str]
     :param properties: Properties of the Service resource
     :type properties: ~azure.mgmt.appplatform.models.ClusterResourceProperties
+    :param sku: Sku of the Service resource
+    :type sku: ~azure.mgmt.appplatform.models.Sku
     """
 
     _validation = {
@@ -1124,11 +1445,13 @@ class ServiceResource(TrackedResource):
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
         'properties': {'key': 'properties', 'type': 'ClusterResourceProperties'},
+        'sku': {'key': 'sku', 'type': 'Sku'},
     }
 
-    def __init__(self, *, location: str=None, tags=None, properties=None, **kwargs) -> None:
+    def __init__(self, *, location: str=None, tags=None, properties=None, sku=None, **kwargs) -> None:
         super(ServiceResource, self).__init__(location=location, tags=tags, **kwargs)
         self.properties = properties
+        self.sku = sku
 
 
 class ServiceSpecification(Model):
@@ -1152,6 +1475,133 @@ class ServiceSpecification(Model):
         super(ServiceSpecification, self).__init__(**kwargs)
         self.log_specifications = log_specifications
         self.metric_specifications = metric_specifications
+
+
+class Sku(Model):
+    """Sku of Azure Spring Cloud.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar name: Name of the Sku
+    :vartype name: str
+    :ivar tier: Tier of the Sku
+    :vartype tier: str
+    """
+
+    _validation = {
+        'name': {'readonly': True},
+        'tier': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'tier': {'key': 'tier', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(Sku, self).__init__(**kwargs)
+        self.name = None
+        self.tier = None
+
+
+class SkuCapacity(Model):
+    """The SKU capacity.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param minimum: Required. Gets or sets the minimum.
+    :type minimum: int
+    :param maximum: Gets or sets the maximum.
+    :type maximum: int
+    :param default: Gets or sets the default.
+    :type default: int
+    :param scale_type: Gets or sets the type of the scale. Possible values
+     include: 'None', 'Manual', 'Automatic'
+    :type scale_type: str or ~azure.mgmt.appplatform.models.SkuScaleType
+    """
+
+    _validation = {
+        'minimum': {'required': True},
+    }
+
+    _attribute_map = {
+        'minimum': {'key': 'minimum', 'type': 'int'},
+        'maximum': {'key': 'maximum', 'type': 'int'},
+        'default': {'key': 'default', 'type': 'int'},
+        'scale_type': {'key': 'scaleType', 'type': 'str'},
+    }
+
+    def __init__(self, *, minimum: int, maximum: int=None, default: int=None, scale_type=None, **kwargs) -> None:
+        super(SkuCapacity, self).__init__(**kwargs)
+        self.minimum = minimum
+        self.maximum = maximum
+        self.default = default
+        self.scale_type = scale_type
+
+
+class SkuSetting(Model):
+    """Supported Sku settings of Azure Spring Cloud.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. Name of the Sku
+    :type name: str
+    :param tier: Tier of the Sku
+    :type tier: str
+    :param locations: Locations of the Sku
+    :type locations: list[str]
+    :param required_features: Required features of the Sku
+    :type required_features: list[str]
+    :param capacity: Capacity of the SKU
+    :type capacity: ~azure.mgmt.appplatform.models.SkuCapacity
+    """
+
+    _validation = {
+        'name': {'required': True},
+    }
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'tier': {'key': 'tier', 'type': 'str'},
+        'locations': {'key': 'locations', 'type': '[str]'},
+        'required_features': {'key': 'requiredFeatures', 'type': '[str]'},
+        'capacity': {'key': 'capacity', 'type': 'SkuCapacity'},
+    }
+
+    def __init__(self, *, name: str, tier: str=None, locations=None, required_features=None, capacity=None, **kwargs) -> None:
+        super(SkuSetting, self).__init__(**kwargs)
+        self.name = name
+        self.tier = tier
+        self.locations = locations
+        self.required_features = required_features
+        self.capacity = capacity
+
+
+class SupportedRuntimeVersion(Model):
+    """Supported deployment runtime version descriptor.
+
+    :param value: The raw value which could be passed to deployment CRUD
+     operations. Possible values include: 'Java_8', 'Java_11', 'NetCore_31'
+    :type value: str or ~azure.mgmt.appplatform.models.RuntimeVersion
+    :param platform: The platform of this runtime version (possible values:
+     "Java" or ".NET"). Possible values include: 'Java', '.NET Core'
+    :type platform: str or ~azure.mgmt.appplatform.models.RuntimePlatform
+    :param version: The detailed version (major.minor) of the platform.
+    :type version: str
+    """
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': 'str'},
+        'platform': {'key': 'platform', 'type': 'str'},
+        'version': {'key': 'version', 'type': 'str'},
+    }
+
+    def __init__(self, *, value=None, platform=None, version: str=None, **kwargs) -> None:
+        super(SupportedRuntimeVersion, self).__init__(**kwargs)
+        self.value = value
+        self.platform = platform
+        self.version = version
 
 
 class TemporaryDisk(Model):
@@ -1251,7 +1701,7 @@ class UserSourceInfo(Model):
     """Source information for a deployment.
 
     :param type: Type of the source uploaded. Possible values include: 'Jar',
-     'Source'
+     'NetCoreZip', 'Source'
     :type type: str or ~azure.mgmt.appplatform.models.UserSourceType
     :param relative_path: Relative path of the storage which stores the source
     :type relative_path: str

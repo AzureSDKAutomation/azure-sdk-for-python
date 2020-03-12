@@ -113,11 +113,7 @@ class AppsOperations(object):
 
 
     def _create_or_update_initial(
-            self, resource_group_name, service_name, app_name, properties=None, custom_headers=None, raw=False, **operation_config):
-        app_resource = None
-        if properties is not None:
-            app_resource = models.AppResource(properties=properties)
-
+            self, app_resource, resource_group_name, service_name, app_name, custom_headers=None, raw=False, **operation_config):
         # Construct URL
         url = self.create_or_update.metadata['url']
         path_format_arguments = {
@@ -144,10 +140,7 @@ class AppsOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct body
-        if app_resource is not None:
-            body_content = self._serialize.body(app_resource, 'AppResource')
-        else:
-            body_content = None
+        body_content = self._serialize.body(app_resource, 'AppResource')
 
         # Construct and send request
         request = self._client.put(url, query_parameters, header_parameters, body_content)
@@ -172,9 +165,11 @@ class AppsOperations(object):
         return deserialized
 
     def create_or_update(
-            self, resource_group_name, service_name, app_name, properties=None, custom_headers=None, raw=False, polling=True, **operation_config):
+            self, app_resource, resource_group_name, service_name, app_name, custom_headers=None, raw=False, polling=True, **operation_config):
         """Create a new App or update an exiting App.
 
+        :param app_resource: Parameters for the create or update operation
+        :type app_resource: ~azure.mgmt.appplatform.models.AppResource
         :param resource_group_name: The name of the resource group that
          contains the resource. You can obtain this value from the Azure
          Resource Manager API or the portal.
@@ -183,8 +178,6 @@ class AppsOperations(object):
         :type service_name: str
         :param app_name: The name of the App resource.
         :type app_name: str
-        :param properties: Properties of the App resource
-        :type properties: ~azure.mgmt.appplatform.models.AppResourceProperties
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response
@@ -199,10 +192,10 @@ class AppsOperations(object):
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._create_or_update_initial(
+            app_resource=app_resource,
             resource_group_name=resource_group_name,
             service_name=service_name,
             app_name=app_name,
-            properties=properties,
             custom_headers=custom_headers,
             raw=True,
             **operation_config
@@ -286,11 +279,7 @@ class AppsOperations(object):
 
 
     def _update_initial(
-            self, resource_group_name, service_name, app_name, properties=None, custom_headers=None, raw=False, **operation_config):
-        app_resource = None
-        if properties is not None:
-            app_resource = models.AppResource(properties=properties)
-
+            self, app_resource, resource_group_name, service_name, app_name, x_ms_identity_url=None, x_ms_identity_principal_id=None, x_ms_home_tenant_id=None, x_ms_client_tenant_id=None, custom_headers=None, raw=False, **operation_config):
         # Construct URL
         url = self.update.metadata['url']
         path_format_arguments = {
@@ -313,14 +302,19 @@ class AppsOperations(object):
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
         if custom_headers:
             header_parameters.update(custom_headers)
+        if x_ms_identity_url is not None:
+            header_parameters['x-ms-identity-url'] = self._serialize.header("x_ms_identity_url", x_ms_identity_url, 'str')
+        if x_ms_identity_principal_id is not None:
+            header_parameters['x-ms-identity-principal-id'] = self._serialize.header("x_ms_identity_principal_id", x_ms_identity_principal_id, 'str')
+        if x_ms_home_tenant_id is not None:
+            header_parameters['x-ms-home-tenant-id'] = self._serialize.header("x_ms_home_tenant_id", x_ms_home_tenant_id, 'str')
+        if x_ms_client_tenant_id is not None:
+            header_parameters['x-ms-client-tenant-id'] = self._serialize.header("x_ms_client_tenant_id", x_ms_client_tenant_id, 'str')
         if self.config.accept_language is not None:
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct body
-        if app_resource is not None:
-            body_content = self._serialize.body(app_resource, 'AppResource')
-        else:
-            body_content = None
+        body_content = self._serialize.body(app_resource, 'AppResource')
 
         # Construct and send request
         request = self._client.patch(url, query_parameters, header_parameters, body_content)
@@ -345,9 +339,11 @@ class AppsOperations(object):
         return deserialized
 
     def update(
-            self, resource_group_name, service_name, app_name, properties=None, custom_headers=None, raw=False, polling=True, **operation_config):
+            self, app_resource, resource_group_name, service_name, app_name, x_ms_identity_url=None, x_ms_identity_principal_id=None, x_ms_home_tenant_id=None, x_ms_client_tenant_id=None, custom_headers=None, raw=False, polling=True, **operation_config):
         """Operation to update an exiting App.
 
+        :param app_resource: Parameters for the update operation
+        :type app_resource: ~azure.mgmt.appplatform.models.AppResource
         :param resource_group_name: The name of the resource group that
          contains the resource. You can obtain this value from the Azure
          Resource Manager API or the portal.
@@ -356,8 +352,17 @@ class AppsOperations(object):
         :type service_name: str
         :param app_name: The name of the App resource.
         :type app_name: str
-        :param properties: Properties of the App resource
-        :type properties: ~azure.mgmt.appplatform.models.AppResourceProperties
+        :param x_ms_identity_url: The URL to the data plane of MSI for the
+         given resource
+        :type x_ms_identity_url: str
+        :param x_ms_identity_principal_id: The object id of the identity
+         resource
+        :type x_ms_identity_principal_id: str
+        :param x_ms_home_tenant_id: The tenant id of the resource
+        :type x_ms_home_tenant_id: str
+        :param x_ms_client_tenant_id: he tenant id of the caller that made the
+         request to ARM
+        :type x_ms_client_tenant_id: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response
@@ -372,10 +377,14 @@ class AppsOperations(object):
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._update_initial(
+            app_resource=app_resource,
             resource_group_name=resource_group_name,
             service_name=service_name,
             app_name=app_name,
-            properties=properties,
+            x_ms_identity_url=x_ms_identity_url,
+            x_ms_identity_principal_id=x_ms_identity_principal_id,
+            x_ms_home_tenant_id=x_ms_home_tenant_id,
+            x_ms_client_tenant_id=x_ms_client_tenant_id,
             custom_headers=custom_headers,
             raw=True,
             **operation_config

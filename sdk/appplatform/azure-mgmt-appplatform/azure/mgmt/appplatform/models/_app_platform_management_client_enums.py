@@ -54,11 +54,13 @@ class AppResourceProvisioningState(str, Enum):
     failed = "Failed"
     creating = "Creating"
     updating = "Updating"
+    deleting = "Deleting"
 
 
 class UserSourceType(str, Enum):
 
     jar = "Jar"
+    net_core_zip = "NetCoreZip"
     source = "Source"
 
 
@@ -68,12 +70,14 @@ class DeploymentResourceProvisioningState(str, Enum):
     updating = "Updating"
     succeeded = "Succeeded"
     failed = "Failed"
+    deleting = "Deleting"
 
 
 class RuntimeVersion(str, Enum):
 
     java_8 = "Java_8"
     java_11 = "Java_11"
+    net_core_31 = "NetCore_31"
 
 
 class DeploymentResourceStatus(str, Enum):
@@ -85,3 +89,17 @@ class DeploymentResourceStatus(str, Enum):
     allocating = "Allocating"
     upgrading = "Upgrading"
     compiling = "Compiling"
+    processing = "Processing"
+
+
+class RuntimePlatform(str, Enum):
+
+    java = "Java"
+    net_core = ".NET Core"
+
+
+class SkuScaleType(str, Enum):
+
+    none = "None"
+    manual = "Manual"
+    automatic = "Automatic"
