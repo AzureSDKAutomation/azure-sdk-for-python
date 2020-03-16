@@ -9,15 +9,36 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
-from .. import models
 import uuid
+from msrest.pipeline import ClientRawResponse
+
+from .. import models
 
 
-class ResourceGraphClientOperationsMixin(object):
+class ResourcesOperations(object):
+    """ResourcesOperations operations.
 
-    def resources(
+    You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
+
+    :param client: Client for service requests.
+    :param config: Configuration of service client.
+    :param serializer: An object model serializer.
+    :param deserializer: An object model deserializer.
+    :ivar api_version: API version. Constant value: "2019-04-01".
+    """
+
+    models = models
+
+    def __init__(self, client, config, serializer, deserializer):
+
+        self._client = client
+        self._serialize = serializer
+        self._deserialize = deserializer
+        self.api_version = "2019-04-01"
+
+        self.config = config
+
+    def query(
             self, query, custom_headers=None, raw=False, **operation_config):
         """Queries the resources managed by Azure Resource Manager for all
         subscriptions specified in the request.
@@ -36,7 +57,7 @@ class ResourceGraphClientOperationsMixin(object):
          :class:`ErrorResponseException<azure.mgmt.resourcegraph.models.ErrorResponseException>`
         """
         # Construct URL
-        url = self.resources.metadata['url']
+        url = self.query.metadata['url']
 
         # Construct parameters
         query_parameters = {}
@@ -72,4 +93,4 @@ class ResourceGraphClientOperationsMixin(object):
             return client_raw_response
 
         return deserialized
-    resources.metadata = {'url': '/providers/Microsoft.ResourceGraph/resources'}
+    query.metadata = {'url': '/providers/Microsoft.ResourceGraph/resources'}

@@ -13,17 +13,19 @@ from msrest.service_client import SDKClient
 from msrest import Serializer, Deserializer
 
 from ._configuration import ResourceGraphClientConfiguration
-from .operations import ResourceGraphClientOperationsMixin
+from .operations import ResourcesOperations
 from .operations import Operations
 from . import models
 
 
-class ResourceGraphClient(ResourceGraphClientOperationsMixin, SDKClient):
+class ResourceGraphClient(SDKClient):
     """Azure Resource Graph API Reference
 
     :ivar config: Configuration for client.
     :vartype config: ResourceGraphClientConfiguration
 
+    :ivar resources: Resources operations
+    :vartype resources: azure.mgmt.resourcegraph.operations.ResourcesOperations
     :ivar operations: Operations operations
     :vartype operations: azure.mgmt.resourcegraph.operations.Operations
 
@@ -44,5 +46,7 @@ class ResourceGraphClient(ResourceGraphClientOperationsMixin, SDKClient):
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
+        self.resources = ResourcesOperations(
+            self._client, self.config, self._serialize, self._deserialize)
         self.operations = Operations(
             self._client, self.config, self._serialize, self._deserialize)
