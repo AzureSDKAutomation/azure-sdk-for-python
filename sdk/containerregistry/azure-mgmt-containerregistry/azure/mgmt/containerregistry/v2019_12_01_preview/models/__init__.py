@@ -63,6 +63,7 @@ try:
     from ._models_py3 import Policies
     from ._models_py3 import PrivateEndpoint
     from ._models_py3 import PrivateEndpointConnection
+    from ._models_py3 import PrivateEndpointConnectionProperties
     from ._models_py3 import PrivateLinkResource
     from ._models_py3 import PrivateLinkServiceConnectionState
     from ._models_py3 import ProxyResource
@@ -179,6 +180,7 @@ except (SyntaxError, ImportError):
     from ._models import Policies
     from ._models import PrivateEndpoint
     from ._models import PrivateEndpointConnection
+    from ._models import PrivateEndpointConnectionProperties
     from ._models import PrivateLinkResource
     from ._models import PrivateLinkServiceConnectionState
     from ._models import ProxyResource
@@ -345,6 +347,7 @@ __all__ = [
     'Policies',
     'PrivateEndpoint',
     'PrivateEndpointConnection',
+    'PrivateEndpointConnectionProperties',
     'PrivateLinkResource',
     'PrivateLinkServiceConnectionState',
     'ProxyResource',

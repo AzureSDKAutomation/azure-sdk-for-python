@@ -2150,6 +2150,35 @@ class PrivateEndpointConnection(ProxyResource):
     :vartype name: str
     :ivar type: The type of the resource.
     :vartype type: str
+    :param properties: The properties of a private endpoint connection.
+    :type properties:
+     ~azure.mgmt.containerregistry.v2019_12_01_preview.models.PrivateEndpointConnectionProperties
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'PrivateEndpointConnectionProperties'},
+    }
+
+    def __init__(self, **kwargs):
+        super(PrivateEndpointConnection, self).__init__(**kwargs)
+        self.properties = kwargs.get('properties', None)
+
+
+class PrivateEndpointConnectionProperties(Model):
+    """The properties of a private endpoint connection.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
     :param private_endpoint: The resource of private endpoint.
     :type private_endpoint:
      ~azure.mgmt.containerregistry.v2019_12_01_preview.models.PrivateEndpoint
@@ -2165,23 +2194,17 @@ class PrivateEndpointConnection(ProxyResource):
     """
 
     _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
         'provisioning_state': {'readonly': True},
     }
 
     _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'private_endpoint': {'key': 'properties.privateEndpoint', 'type': 'PrivateEndpoint'},
-        'private_link_service_connection_state': {'key': 'properties.privateLinkServiceConnectionState', 'type': 'PrivateLinkServiceConnectionState'},
-        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'private_endpoint': {'key': 'privateEndpoint', 'type': 'PrivateEndpoint'},
+        'private_link_service_connection_state': {'key': 'privateLinkServiceConnectionState', 'type': 'PrivateLinkServiceConnectionState'},
+        'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
-        super(PrivateEndpointConnection, self).__init__(**kwargs)
+        super(PrivateEndpointConnectionProperties, self).__init__(**kwargs)
         self.private_endpoint = kwargs.get('private_endpoint', None)
         self.private_link_service_connection_state = kwargs.get('private_link_service_connection_state', None)
         self.provisioning_state = None
