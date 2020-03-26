@@ -26,7 +26,7 @@ class PolicyEventsOperations(object):
     :param deserializer: An object model deserializer.
     :ivar policy_events_resource: The name of the virtual resource under PolicyEvents resource type; only "default" is allowed. Constant value: "default".
     :ivar management_groups_namespace: The namespace for Microsoft Management RP; only "Microsoft.Management" is allowed. Constant value: "Microsoft.Management".
-    :ivar api_version: API version to use with the client requests. Constant value: "2018-04-04".
+    :ivar api_version: API version to use with the client requests. Constant value: "2019-10-01".
     :ivar authorization_namespace: The namespace for Microsoft Authorization resource provider; only "Microsoft.Authorization" is allowed. Constant value: "Microsoft.Authorization".
     """
 
@@ -39,7 +39,7 @@ class PolicyEventsOperations(object):
         self._deserialize = deserializer
         self.policy_events_resource = "default"
         self.management_groups_namespace = "Microsoft.Management"
-        self.api_version = "2018-04-04"
+        self.api_version = "2019-10-01"
         self.authorization_namespace = "Microsoft.Authorization"
 
         self.config = config
@@ -373,6 +373,9 @@ class PolicyEventsOperations(object):
         apply = None
         if query_options is not None:
             apply = query_options.apply
+        expand = None
+        if query_options is not None:
+            expand = query_options.expand
 
         # Construct URL
         url = self.list_query_results_for_resource.metadata['url']
@@ -399,6 +402,8 @@ class PolicyEventsOperations(object):
             query_parameters['$filter'] = self._serialize.query("filter", filter, 'str')
         if apply is not None:
             query_parameters['$apply'] = self._serialize.query("apply", apply, 'str')
+        if expand is not None:
+            query_parameters['$expand'] = self._serialize.query("expand", expand, 'str')
 
         # Construct headers
         header_parameters = {}

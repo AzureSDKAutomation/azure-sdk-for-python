@@ -11,6 +11,8 @@
 
 try:
     from ._models_py3 import ComplianceDetail
+    from ._models_py3 import ComponentEventDetails
+    from ._models_py3 import ComponentStateDetails
     from ._models_py3 import ErrorDefinition
     from ._models_py3 import ErrorResponse, ErrorResponseException
     from ._models_py3 import ExpressionEvaluationDetails
@@ -44,6 +46,8 @@ try:
     from ._models_py3 import TypedErrorInfo
 except (SyntaxError, ImportError):
     from ._models import ComplianceDetail
+    from ._models import ComponentEventDetails
+    from ._models import ComponentStateDetails
     from ._models import ErrorDefinition
     from ._models import ErrorResponse, ErrorResponseException
     from ._models import ExpressionEvaluationDetails
@@ -86,6 +90,8 @@ from ._policy_insights_client_enums import (
 
 __all__ = [
     'ComplianceDetail',
+    'ComponentEventDetails',
+    'ComponentStateDetails',
     'ErrorDefinition',
     'ErrorResponse', 'ErrorResponseException',
     'ExpressionEvaluationDetails',

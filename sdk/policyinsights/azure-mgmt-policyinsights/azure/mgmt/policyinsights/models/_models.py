@@ -41,6 +41,89 @@ class ComplianceDetail(Model):
         self.count = kwargs.get('count', None)
 
 
+class ComponentEventDetails(Model):
+    """Component event details.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param id: Component Id.
+    :type id: str
+    :param type: Component type.
+    :type type: str
+    :param name: Component name.
+    :type name: str
+    :param timestamp: Timestamp for component policy event record.
+    :type timestamp: datetime
+    :param tenant_id: Tenant ID for the policy event record.
+    :type tenant_id: str
+    :param principal_oid: Principal object ID for the user who initiated the
+     resource component operation that triggered the policy event.
+    :type principal_oid: str
+    :param policy_definition_action: Policy definition action, i.e. effect.
+    :type policy_definition_action: str
+    """
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'id': {'key': 'id', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'timestamp': {'key': 'timestamp', 'type': 'iso-8601'},
+        'tenant_id': {'key': 'tenantId', 'type': 'str'},
+        'principal_oid': {'key': 'principalOid', 'type': 'str'},
+        'policy_definition_action': {'key': 'policyDefinitionAction', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ComponentEventDetails, self).__init__(**kwargs)
+        self.additional_properties = kwargs.get('additional_properties', None)
+        self.id = kwargs.get('id', None)
+        self.type = kwargs.get('type', None)
+        self.name = kwargs.get('name', None)
+        self.timestamp = kwargs.get('timestamp', None)
+        self.tenant_id = kwargs.get('tenant_id', None)
+        self.principal_oid = kwargs.get('principal_oid', None)
+        self.policy_definition_action = kwargs.get('policy_definition_action', None)
+
+
+class ComponentStateDetails(Model):
+    """Component state details.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param id: Component Id.
+    :type id: str
+    :param type: Component type.
+    :type type: str
+    :param name: Component name.
+    :type name: str
+    :param timestamp: Component compliance evaluation timestamp.
+    :type timestamp: datetime
+    :param compliance_state: Component compliance state.
+    :type compliance_state: str
+    """
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'id': {'key': 'id', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'timestamp': {'key': 'timestamp', 'type': 'iso-8601'},
+        'compliance_state': {'key': 'complianceState', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ComponentStateDetails, self).__init__(**kwargs)
+        self.additional_properties = kwargs.get('additional_properties', None)
+        self.id = kwargs.get('id', None)
+        self.type = kwargs.get('type', None)
+        self.name = kwargs.get('name', None)
+        self.timestamp = kwargs.get('timestamp', None)
+        self.compliance_state = kwargs.get('compliance_state', None)
+
+
 class ErrorDefinition(Model):
     """Error definition.
 
@@ -459,11 +542,17 @@ class PolicyEvent(Model):
      definition inside the policy set, if the policy assignment is for a policy
      set.
     :type policy_definition_reference_id: str
+    :param compliance_state: Compliance state of the resource.
+    :type compliance_state: str
     :param tenant_id: Tenant ID for the policy event record.
     :type tenant_id: str
     :param principal_oid: Principal object ID for the user who initiated the
      resource operation that triggered the policy event.
     :type principal_oid: str
+    :param components: Components events records populated only when URL
+     contains $expand=components clause.
+    :type components:
+     list[~azure.mgmt.policyinsights.models.ComponentEventDetails]
     """
 
     _attribute_map = {
@@ -495,8 +584,10 @@ class PolicyEvent(Model):
         'policy_set_definition_parameters': {'key': 'policySetDefinitionParameters', 'type': 'str'},
         'management_group_ids': {'key': 'managementGroupIds', 'type': 'str'},
         'policy_definition_reference_id': {'key': 'policyDefinitionReferenceId', 'type': 'str'},
+        'compliance_state': {'key': 'complianceState', 'type': 'str'},
         'tenant_id': {'key': 'tenantId', 'type': 'str'},
         'principal_oid': {'key': 'principalOid', 'type': 'str'},
+        'components': {'key': 'components', 'type': '[ComponentEventDetails]'},
     }
 
     def __init__(self, **kwargs):
@@ -529,8 +620,10 @@ class PolicyEvent(Model):
         self.policy_set_definition_parameters = kwargs.get('policy_set_definition_parameters', None)
         self.management_group_ids = kwargs.get('management_group_ids', None)
         self.policy_definition_reference_id = kwargs.get('policy_definition_reference_id', None)
+        self.compliance_state = kwargs.get('compliance_state', None)
         self.tenant_id = kwargs.get('tenant_id', None)
         self.principal_oid = kwargs.get('principal_oid', None)
+        self.components = kwargs.get('components', None)
 
 
 class PolicyEventsQueryResults(Model):
@@ -741,6 +834,10 @@ class PolicyState(Model):
      ~azure.mgmt.policyinsights.models.PolicyEvaluationDetails
     :param policy_definition_group_names: Policy definition group names.
     :type policy_definition_group_names: list[str]
+    :param components: Components state compliance records populated only when
+     URL contains $expand=components clause.
+    :type components:
+     list[~azure.mgmt.policyinsights.models.ComponentStateDetails]
     :ivar policy_definition_version: Evaluated policy definition version.
     :vartype policy_definition_version: str
     :ivar policy_set_definition_version: Evaluated policy set definition
@@ -788,6 +885,7 @@ class PolicyState(Model):
         'compliance_state': {'key': 'complianceState', 'type': 'str'},
         'policy_evaluation_details': {'key': 'policyEvaluationDetails', 'type': 'PolicyEvaluationDetails'},
         'policy_definition_group_names': {'key': 'policyDefinitionGroupNames', 'type': '[str]'},
+        'components': {'key': 'components', 'type': '[ComponentStateDetails]'},
         'policy_definition_version': {'key': 'policyDefinitionVersion', 'type': 'str'},
         'policy_set_definition_version': {'key': 'policySetDefinitionVersion', 'type': 'str'},
         'policy_assignment_version': {'key': 'policyAssignmentVersion', 'type': 'str'},
@@ -826,6 +924,7 @@ class PolicyState(Model):
         self.compliance_state = kwargs.get('compliance_state', None)
         self.policy_evaluation_details = kwargs.get('policy_evaluation_details', None)
         self.policy_definition_group_names = kwargs.get('policy_definition_group_names', None)
+        self.components = kwargs.get('components', None)
         self.policy_definition_version = None
         self.policy_set_definition_version = None
         self.policy_assignment_version = None
@@ -992,7 +1091,7 @@ class QueryOptions(Model):
     :param apply: OData apply expression for aggregations.
     :type apply: str
     :param expand: The $expand query parameter. For example, to expand
-     policyEvaluationDetails, use $expand=policyEvaluationDetails
+     components use $expand=components
     :type expand: str
     """
 
