@@ -183,6 +183,10 @@ class ConfigurationStore(Resource):
     :vartype endpoint: str
     :param encryption: The encryption settings of the configuration store.
     :type encryption: ~azure.mgmt.appconfiguration.models.EncryptionProperties
+    :ivar private_endpoint_connections: private endpoint connections of
+     configuration store
+    :vartype private_endpoint_connections:
+     list[~azure.mgmt.appconfiguration.models.PrivateEndpointConnection]
     :param sku: Required. The sku of the configuration store.
     :type sku: ~azure.mgmt.appconfiguration.models.Sku
     """
@@ -195,6 +199,7 @@ class ConfigurationStore(Resource):
         'provisioning_state': {'readonly': True},
         'creation_date': {'readonly': True},
         'endpoint': {'readonly': True},
+        'private_endpoint_connections': {'readonly': True},
         'sku': {'required': True},
     }
 
@@ -209,6 +214,7 @@ class ConfigurationStore(Resource):
         'creation_date': {'key': 'properties.creationDate', 'type': 'iso-8601'},
         'endpoint': {'key': 'properties.endpoint', 'type': 'str'},
         'encryption': {'key': 'properties.encryption', 'type': 'EncryptionProperties'},
+        'private_endpoint_connections': {'key': 'properties.privateEndpointConnections', 'type': '[PrivateEndpointConnection]'},
         'sku': {'key': 'sku', 'type': 'Sku'},
     }
 
@@ -219,6 +225,7 @@ class ConfigurationStore(Resource):
         self.creation_date = None
         self.endpoint = None
         self.encryption = kwargs.get('encryption', None)
+        self.private_endpoint_connections = None
         self.sku = kwargs.get('sku', None)
 
 
@@ -530,8 +537,8 @@ class PrivateEndpointConnection(Model):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: The resource ID.
-    :vartype id: str
+    :param id: The resource ID.
+    :type id: str
     :ivar name: The name of the resource.
     :vartype name: str
     :ivar type: The type of the resource.
@@ -552,7 +559,6 @@ class PrivateEndpointConnection(Model):
     """
 
     _validation = {
-        'id': {'readonly': True},
         'name': {'readonly': True},
         'type': {'readonly': True},
         'provisioning_state': {'readonly': True},
@@ -570,7 +576,7 @@ class PrivateEndpointConnection(Model):
 
     def __init__(self, **kwargs):
         super(PrivateEndpointConnection, self).__init__(**kwargs)
-        self.id = None
+        self.id = kwargs.get('id', None)
         self.name = None
         self.type = None
         self.provisioning_state = None
