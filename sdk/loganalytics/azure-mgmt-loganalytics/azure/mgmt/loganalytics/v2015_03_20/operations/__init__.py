@@ -9,11 +9,14 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from ._configuration import OperationalInsightsManagementClientConfiguration
-from ._operational_insights_management_client import OperationalInsightsManagementClient
-__all__ = ['OperationalInsightsManagementClient', 'OperationalInsightsManagementClientConfiguration']
+from ._storage_insights_operations import StorageInsightsOperations
+from ._workspaces_operations import WorkspacesOperations
+from ._saved_searches_operations import SavedSearchesOperations
+from ._operations import Operations
 
-from .version import VERSION
-
-__version__ = VERSION
-
+__all__ = [
+    'StorageInsightsOperations',
+    'WorkspacesOperations',
+    'SavedSearchesOperations',
+    'Operations',
+]

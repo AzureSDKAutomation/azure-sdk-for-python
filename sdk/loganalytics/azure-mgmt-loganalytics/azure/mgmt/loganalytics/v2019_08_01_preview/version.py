@@ -9,11 +9,5 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from ._configuration import OperationalInsightsManagementClientConfiguration
-from ._operational_insights_management_client import OperationalInsightsManagementClient
-__all__ = ['OperationalInsightsManagementClient', 'OperationalInsightsManagementClientConfiguration']
-
-from .version import VERSION
-
-__version__ = VERSION
+VERSION = "2019-08-01-preview"
 

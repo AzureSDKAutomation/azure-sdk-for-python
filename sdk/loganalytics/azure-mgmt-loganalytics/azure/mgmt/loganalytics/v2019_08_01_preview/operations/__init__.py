@@ -9,11 +9,14 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from ._configuration import OperationalInsightsManagementClientConfiguration
-from ._operational_insights_management_client import OperationalInsightsManagementClient
-__all__ = ['OperationalInsightsManagementClient', 'OperationalInsightsManagementClientConfiguration']
+from ._clusters_operations import ClustersOperations
+from ._linked_services_operations import LinkedServicesOperations
+from ._data_export_operations import DataExportOperations
+from ._linked_storage_accounts_operations import LinkedStorageAccountsOperations
 
-from .version import VERSION
-
-__version__ = VERSION
-
+__all__ = [
+    'ClustersOperations',
+    'LinkedServicesOperations',
+    'DataExportOperations',
+    'LinkedStorageAccountsOperations',
+]
