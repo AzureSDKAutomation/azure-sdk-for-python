@@ -11,13 +11,11 @@
 
 try:
     from ._models_py3 import AccessPolicyCreateOrUpdateParameters
-    from ._models_py3 import AccessPolicyListResponse
     from ._models_py3 import AccessPolicyResource
     from ._models_py3 import AccessPolicyUpdateParameters
     from ._models_py3 import AzureEventSourceProperties
     from ._models_py3 import CreateOrUpdateTrackedResourceProperties
     from ._models_py3 import EnvironmentCreateOrUpdateParameters
-    from ._models_py3 import EnvironmentListResponse
     from ._models_py3 import EnvironmentResource
     from ._models_py3 import EnvironmentResourceProperties
     from ._models_py3 import EnvironmentStateDetails
@@ -29,7 +27,6 @@ try:
     from ._models_py3 import EventHubEventSourceUpdateParameters
     from ._models_py3 import EventSourceCommonProperties
     from ._models_py3 import EventSourceCreateOrUpdateParameters
-    from ._models_py3 import EventSourceListResponse
     from ._models_py3 import EventSourceMutableProperties
     from ._models_py3 import EventSourceResource
     from ._models_py3 import EventSourceUpdateParameters
@@ -50,7 +47,6 @@ try:
     from ._models_py3 import OperationDisplay
     from ._models_py3 import ReferenceDataSetCreateOrUpdateParameters
     from ._models_py3 import ReferenceDataSetKeyProperty
-    from ._models_py3 import ReferenceDataSetListResponse
     from ._models_py3 import ReferenceDataSetResource
     from ._models_py3 import ReferenceDataSetUpdateParameters
     from ._models_py3 import Resource
@@ -64,13 +60,11 @@ try:
     from ._models_py3 import WarmStorageEnvironmentStatus
 except (SyntaxError, ImportError):
     from ._models import AccessPolicyCreateOrUpdateParameters
-    from ._models import AccessPolicyListResponse
     from ._models import AccessPolicyResource
     from ._models import AccessPolicyUpdateParameters
     from ._models import AzureEventSourceProperties
     from ._models import CreateOrUpdateTrackedResourceProperties
     from ._models import EnvironmentCreateOrUpdateParameters
-    from ._models import EnvironmentListResponse
     from ._models import EnvironmentResource
     from ._models import EnvironmentResourceProperties
     from ._models import EnvironmentStateDetails
@@ -82,7 +76,6 @@ except (SyntaxError, ImportError):
     from ._models import EventHubEventSourceUpdateParameters
     from ._models import EventSourceCommonProperties
     from ._models import EventSourceCreateOrUpdateParameters
-    from ._models import EventSourceListResponse
     from ._models import EventSourceMutableProperties
     from ._models import EventSourceResource
     from ._models import EventSourceUpdateParameters
@@ -103,7 +96,6 @@ except (SyntaxError, ImportError):
     from ._models import OperationDisplay
     from ._models import ReferenceDataSetCreateOrUpdateParameters
     from ._models import ReferenceDataSetKeyProperty
-    from ._models import ReferenceDataSetListResponse
     from ._models import ReferenceDataSetResource
     from ._models import ReferenceDataSetUpdateParameters
     from ._models import Resource
@@ -115,7 +107,11 @@ except (SyntaxError, ImportError):
     from ._models import TimeSeriesIdProperty
     from ._models import TrackedResource
     from ._models import WarmStorageEnvironmentStatus
+from ._paged_models import AccessPolicyResourcePaged
+from ._paged_models import EnvironmentResourcePaged
+from ._paged_models import EventSourceResourcePaged
 from ._paged_models import OperationPaged
+from ._paged_models import ReferenceDataSetResourcePaged
 from ._time_series_insights_client_enums import (
     ProvisioningState,
     SkuName,
@@ -131,13 +127,11 @@ from ._time_series_insights_client_enums import (
 
 __all__ = [
     'AccessPolicyCreateOrUpdateParameters',
-    'AccessPolicyListResponse',
     'AccessPolicyResource',
     'AccessPolicyUpdateParameters',
     'AzureEventSourceProperties',
     'CreateOrUpdateTrackedResourceProperties',
     'EnvironmentCreateOrUpdateParameters',
-    'EnvironmentListResponse',
     'EnvironmentResource',
     'EnvironmentResourceProperties',
     'EnvironmentStateDetails',
@@ -149,7 +143,6 @@ __all__ = [
     'EventHubEventSourceUpdateParameters',
     'EventSourceCommonProperties',
     'EventSourceCreateOrUpdateParameters',
-    'EventSourceListResponse',
     'EventSourceMutableProperties',
     'EventSourceResource',
     'EventSourceUpdateParameters',
@@ -170,7 +163,6 @@ __all__ = [
     'OperationDisplay',
     'ReferenceDataSetCreateOrUpdateParameters',
     'ReferenceDataSetKeyProperty',
-    'ReferenceDataSetListResponse',
     'ReferenceDataSetResource',
     'ReferenceDataSetUpdateParameters',
     'Resource',
@@ -183,6 +175,10 @@ __all__ = [
     'TrackedResource',
     'WarmStorageEnvironmentStatus',
     'OperationPaged',
+    'EnvironmentResourcePaged',
+    'EventSourceResourcePaged',
+    'ReferenceDataSetResourcePaged',
+    'AccessPolicyResourcePaged',
     'ProvisioningState',
     'SkuName',
     'StorageLimitExceededBehavior',

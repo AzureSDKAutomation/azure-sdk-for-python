@@ -40,23 +40,6 @@ class AccessPolicyCreateOrUpdateParameters(Model):
         self.roles = kwargs.get('roles', None)
 
 
-class AccessPolicyListResponse(Model):
-    """The response of the List access policies operation.
-
-    :param value: Result of the List access policies operation.
-    :type value:
-     list[~azure.mgmt.timeseriesinsights.models.AccessPolicyResource]
-    """
-
-    _attribute_map = {
-        'value': {'key': 'value', 'type': '[AccessPolicyResource]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(AccessPolicyListResponse, self).__init__(**kwargs)
-        self.value = kwargs.get('value', None)
-
-
 class Resource(Model):
     """Time Series Insights resource.
 
@@ -400,23 +383,6 @@ class EnvironmentCreateOrUpdateParameters(CreateOrUpdateTrackedResourcePropertie
         self.sku = kwargs.get('sku', None)
         self.kind = None
         self.kind = 'EnvironmentCreateOrUpdateParameters'
-
-
-class EnvironmentListResponse(Model):
-    """The response of the List Environments operation.
-
-    :param value: Result of the List Environments operation.
-    :type value:
-     list[~azure.mgmt.timeseriesinsights.models.EnvironmentResource]
-    """
-
-    _attribute_map = {
-        'value': {'key': 'value', 'type': '[EnvironmentResource]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(EnvironmentListResponse, self).__init__(**kwargs)
-        self.value = kwargs.get('value', None)
 
 
 class TrackedResource(Resource):
@@ -868,7 +834,7 @@ class EventSourceResource(TrackedResource):
     }
 
     _subtype_map = {
-        'kind': {'Microsoft.EventHub': 'EventHubEventSourceResource', 'Microsoft.IotHub': 'IoTHubEventSourceResource'}
+        'kind': {'Microsoft.EventHub': 'EventHubEventSourceResource', 'Microsoft.IoTHub': 'IoTHubEventSourceResource'}
     }
 
     def __init__(self, **kwargs):
@@ -1024,23 +990,6 @@ class EventHubEventSourceUpdateParameters(EventSourceUpdateParameters):
         self.timestamp_property_name = kwargs.get('timestamp_property_name', None)
         self.local_timestamp = kwargs.get('local_timestamp', None)
         self.shared_access_key = kwargs.get('shared_access_key', None)
-
-
-class EventSourceListResponse(Model):
-    """The response of the List EventSources operation.
-
-    :param value: Result of the List EventSources operation.
-    :type value:
-     list[~azure.mgmt.timeseriesinsights.models.EventSourceResource]
-    """
-
-    _attribute_map = {
-        'value': {'key': 'value', 'type': '[EventSourceResource]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(EventSourceListResponse, self).__init__(**kwargs)
-        self.value = kwargs.get('value', None)
 
 
 class EventSourceMutableProperties(Model):
@@ -1323,7 +1272,7 @@ class IoTHubEventSourceResource(EventSourceResource):
         self.iot_hub_name = kwargs.get('iot_hub_name', None)
         self.consumer_group_name = kwargs.get('consumer_group_name', None)
         self.key_name = kwargs.get('key_name', None)
-        self.kind = 'Microsoft.IotHub'
+        self.kind = 'Microsoft.IoTHub'
 
 
 class IoTHubEventSourceUpdateParameters(EventSourceUpdateParameters):
@@ -1834,23 +1783,6 @@ class ReferenceDataSetKeyProperty(Model):
         super(ReferenceDataSetKeyProperty, self).__init__(**kwargs)
         self.name = kwargs.get('name', None)
         self.type = kwargs.get('type', None)
-
-
-class ReferenceDataSetListResponse(Model):
-    """The response of the List Reference Data Sets operation.
-
-    :param value: Result of the List Reference Data Sets operation.
-    :type value:
-     list[~azure.mgmt.timeseriesinsights.models.ReferenceDataSetResource]
-    """
-
-    _attribute_map = {
-        'value': {'key': 'value', 'type': '[ReferenceDataSetResource]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ReferenceDataSetListResponse, self).__init__(**kwargs)
-        self.value = kwargs.get('value', None)
 
 
 class ReferenceDataSetResource(TrackedResource):

@@ -25,3 +25,55 @@ class OperationPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(OperationPaged, self).__init__(*args, **kwargs)
+class EnvironmentResourcePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`EnvironmentResource <azure.mgmt.timeseriesinsights.models.EnvironmentResource>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[EnvironmentResource]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(EnvironmentResourcePaged, self).__init__(*args, **kwargs)
+class EventSourceResourcePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`EventSourceResource <azure.mgmt.timeseriesinsights.models.EventSourceResource>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[EventSourceResource]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(EventSourceResourcePaged, self).__init__(*args, **kwargs)
+class ReferenceDataSetResourcePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`ReferenceDataSetResource <azure.mgmt.timeseriesinsights.models.ReferenceDataSetResource>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[ReferenceDataSetResource]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(ReferenceDataSetResourcePaged, self).__init__(*args, **kwargs)
+class AccessPolicyResourcePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`AccessPolicyResource <azure.mgmt.timeseriesinsights.models.AccessPolicyResource>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[AccessPolicyResource]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(AccessPolicyResourcePaged, self).__init__(*args, **kwargs)
