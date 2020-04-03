@@ -3610,6 +3610,12 @@ class GatewayHostnameConfigurationContract(Resource):
     :param negotiate_client_certificate: Determines whether gateway requests
      client certificate
     :type negotiate_client_certificate: bool
+    :param tls10_enabled: Specifies if TLS 1.0 is supported
+    :type tls10_enabled: bool
+    :param tls11_enabled: Specifies if TLS 1.1 is supported
+    :type tls11_enabled: bool
+    :param http2_enabled: Specifies if HTTP/2.0 is supported
+    :type http2_enabled: bool
     """
 
     _validation = {
@@ -3625,6 +3631,9 @@ class GatewayHostnameConfigurationContract(Resource):
         'hostname': {'key': 'properties.hostname', 'type': 'str'},
         'certificate_id': {'key': 'properties.certificateId', 'type': 'str'},
         'negotiate_client_certificate': {'key': 'properties.negotiateClientCertificate', 'type': 'bool'},
+        'tls10_enabled': {'key': 'properties.tls10Enabled', 'type': 'bool'},
+        'tls11_enabled': {'key': 'properties.tls11Enabled', 'type': 'bool'},
+        'http2_enabled': {'key': 'properties.http2Enabled', 'type': 'bool'},
     }
 
     def __init__(self, **kwargs):
@@ -3632,6 +3641,9 @@ class GatewayHostnameConfigurationContract(Resource):
         self.hostname = kwargs.get('hostname', None)
         self.certificate_id = kwargs.get('certificate_id', None)
         self.negotiate_client_certificate = kwargs.get('negotiate_client_certificate', None)
+        self.tls10_enabled = kwargs.get('tls10_enabled', None)
+        self.tls11_enabled = kwargs.get('tls11_enabled', None)
+        self.http2_enabled = kwargs.get('http2_enabled', None)
 
 
 class GatewayKeyRegenerationRequestContract(Model):
