@@ -21,10 +21,41 @@ class Reason(str, Enum):
     deleted = "Deleted"
 
 
+class PrivateEndpointServiceConnectionStatus(str, Enum):
+
+    pending = "Pending"
+    approved = "Approved"
+    rejected = "Rejected"
+    disconnected = "Disconnected"
+
+
+class PrivateEndpointConnectionProvisioningState(str, Enum):
+
+    succeeded = "Succeeded"
+    creating = "Creating"
+    updating = "Updating"
+    deleting = "Deleting"
+    failed = "Failed"
+    disconnected = "Disconnected"
+
+
 class ChangeDetectionMode(str, Enum):
 
     default = "Default"
     recursive = "Recursive"
+
+
+class InitialDownloadPolicy(str, Enum):
+
+    namespace_only = "NamespaceOnly"
+    namespace_then_modified_files = "NamespaceThenModifiedFiles"
+    avoid_tiered_files = "AvoidTieredFiles"
+
+
+class LocalCacheMode(str, Enum):
+
+    download_new_and_modified_files = "DownloadNewAndModifiedFiles"
+    update_locally_cached_files = "UpdateLocallyCachedFiles"
 
 
 class NameAvailabilityReason(str, Enum):
