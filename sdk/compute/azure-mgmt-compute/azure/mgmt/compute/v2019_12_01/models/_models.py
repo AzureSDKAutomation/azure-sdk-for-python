@@ -3294,14 +3294,12 @@ class NetworkProfile(Model):
 class OrchestrationServiceStateInput(Model):
     """The input for OrchestrationServiceState.
 
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
     All required parameters must be populated in order to send to Azure.
 
-    :ivar service_name: Required. The name of the service. Default value:
-     "AutomaticRepairs" .
-    :vartype service_name: str
+    :param service_name: Required. The name of the service. Possible values
+     include: 'AutomaticRepairs'
+    :type service_name: str or
+     ~azure.mgmt.compute.v2019_12_01.models.OrchestrationServiceNames
     :param action: Required. The action to be performed. Possible values
      include: 'Resume', 'Suspend'
     :type action: str or
@@ -3309,7 +3307,7 @@ class OrchestrationServiceStateInput(Model):
     """
 
     _validation = {
-        'service_name': {'required': True, 'constant': True},
+        'service_name': {'required': True},
         'action': {'required': True},
     }
 
@@ -3318,10 +3316,9 @@ class OrchestrationServiceStateInput(Model):
         'action': {'key': 'action', 'type': 'str'},
     }
 
-    service_name = "AutomaticRepairs"
-
     def __init__(self, **kwargs):
         super(OrchestrationServiceStateInput, self).__init__(**kwargs)
+        self.service_name = kwargs.get('service_name', None)
         self.action = kwargs.get('action', None)
 
 
