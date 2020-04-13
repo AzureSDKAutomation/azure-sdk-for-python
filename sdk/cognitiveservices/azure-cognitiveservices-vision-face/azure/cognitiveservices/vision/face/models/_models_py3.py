@@ -887,7 +887,7 @@ class IdentifyRequest(Model):
      time.
     :type large_person_group_id: str
     :param max_num_of_candidates_returned: The range of
-     maxNumOfCandidatesReturned is between 1 and 5 (default is 1). Default
+     maxNumOfCandidatesReturned is between 1 and 100 (default is 1). Default
      value: 1 .
     :type max_num_of_candidates_returned: int
     :param confidence_threshold: Confidence threshold of identification, used
@@ -900,7 +900,7 @@ class IdentifyRequest(Model):
         'face_ids': {'required': True, 'max_items': 10},
         'person_group_id': {'max_length': 64, 'pattern': r'^[a-z0-9-_]+$'},
         'large_person_group_id': {'max_length': 64, 'pattern': r'^[a-z0-9-_]+$'},
-        'max_num_of_candidates_returned': {'maximum': 5, 'minimum': 1},
+        'max_num_of_candidates_returned': {'maximum': 100, 'minimum': 1},
     }
 
     _attribute_map = {

@@ -265,7 +265,7 @@ class FaceOperations(object):
          same time.
         :type large_person_group_id: str
         :param max_num_of_candidates_returned: The range of
-         maxNumOfCandidatesReturned is between 1 and 5 (default is 1).
+         maxNumOfCandidatesReturned is between 1 and 100 (default is 1).
         :type max_num_of_candidates_returned: int
         :param confidence_threshold: Confidence threshold of identification,
          used to judge whether one face belong to one person. The range of
