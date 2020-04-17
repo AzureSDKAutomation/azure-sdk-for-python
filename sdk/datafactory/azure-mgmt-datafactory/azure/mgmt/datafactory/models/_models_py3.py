@@ -29988,14 +29988,18 @@ class SquareLinkedService(LinkedService):
     :param host: Required. The URL of the Square instance. (i.e.
      mystore.mysquare.com)
     :type host: object
-    :param client_id: Required. The client ID associated with your Square
-     application.
+    :param client_id: The client ID associated with your Square application.
     :type client_id: object
     :param client_secret: The client secret associated with your Square
      application.
     :type client_secret: ~azure.mgmt.datafactory.models.SecretBase
-    :param redirect_uri: Required. The redirect URL assigned in the Square
-     application dashboard. (i.e. http://localhost:2500)
+    :param access_token: The access token for OAuth 2.0 authentication.
+    :type access_token: ~azure.mgmt.datafactory.models.SecretBase
+    :param refresh_token: The OAuth 2.0 refresh token associated with your
+     Square application, used to refresh the access token when it expires.
+    :type refresh_token: ~azure.mgmt.datafactory.models.SecretBase
+    :param redirect_uri: The redirect URL assigned in the Square application
+     dashboard. (i.e. http://localhost:2500) [Deprecated]
     :type redirect_uri: object
     :param use_encrypted_endpoints: Specifies whether the data source
      endpoints are encrypted using HTTPS. The default value is true.
@@ -30016,8 +30020,6 @@ class SquareLinkedService(LinkedService):
     _validation = {
         'type': {'required': True},
         'host': {'required': True},
-        'client_id': {'required': True},
-        'redirect_uri': {'required': True},
     }
 
     _attribute_map = {
@@ -30030,6 +30032,8 @@ class SquareLinkedService(LinkedService):
         'host': {'key': 'typeProperties.host', 'type': 'object'},
         'client_id': {'key': 'typeProperties.clientId', 'type': 'object'},
         'client_secret': {'key': 'typeProperties.clientSecret', 'type': 'SecretBase'},
+        'access_token': {'key': 'typeProperties.accessToken', 'type': 'SecretBase'},
+        'refresh_token': {'key': 'typeProperties.refreshToken', 'type': 'SecretBase'},
         'redirect_uri': {'key': 'typeProperties.redirectUri', 'type': 'object'},
         'use_encrypted_endpoints': {'key': 'typeProperties.useEncryptedEndpoints', 'type': 'object'},
         'use_host_verification': {'key': 'typeProperties.useHostVerification', 'type': 'object'},
@@ -30037,11 +30041,13 @@ class SquareLinkedService(LinkedService):
         'encrypted_credential': {'key': 'typeProperties.encryptedCredential', 'type': 'object'},
     }
 
-    def __init__(self, *, host, client_id, redirect_uri, additional_properties=None, connect_via=None, description: str=None, parameters=None, annotations=None, client_secret=None, use_encrypted_endpoints=None, use_host_verification=None, use_peer_verification=None, encrypted_credential=None, **kwargs) -> None:
+    def __init__(self, *, host, additional_properties=None, connect_via=None, description: str=None, parameters=None, annotations=None, client_id=None, client_secret=None, access_token=None, refresh_token=None, redirect_uri=None, use_encrypted_endpoints=None, use_host_verification=None, use_peer_verification=None, encrypted_credential=None, **kwargs) -> None:
         super(SquareLinkedService, self).__init__(additional_properties=additional_properties, connect_via=connect_via, description=description, parameters=parameters, annotations=annotations, **kwargs)
         self.host = host
         self.client_id = client_id
         self.client_secret = client_secret
+        self.access_token = access_token
+        self.refresh_token = refresh_token
         self.redirect_uri = redirect_uri
         self.use_encrypted_endpoints = use_encrypted_endpoints
         self.use_host_verification = use_host_verification
