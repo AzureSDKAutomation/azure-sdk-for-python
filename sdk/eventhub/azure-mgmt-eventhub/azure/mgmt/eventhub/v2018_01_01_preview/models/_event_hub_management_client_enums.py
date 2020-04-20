@@ -12,6 +12,12 @@
 from enum import Enum
 
 
+class IPAction(str, Enum):
+
+    accept = "Accept"
+    reject = "Reject"
+
+
 class SkuName(str, Enum):
 
     basic = "Basic"
@@ -32,12 +38,6 @@ class IdentityType(str, Enum):
 class KeySource(str, Enum):
 
     microsoft_key_vault = "Microsoft.KeyVault"
-
-
-class IPAction(str, Enum):
-
-    accept = "Accept"
-    reject = "Reject"
 
 
 class NetworkRuleIPAction(str, Enum):

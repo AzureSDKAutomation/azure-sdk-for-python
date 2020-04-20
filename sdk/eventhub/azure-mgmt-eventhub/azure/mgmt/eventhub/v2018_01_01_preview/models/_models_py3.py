@@ -56,16 +56,16 @@ class CloudError(Model):
 
 
 class Resource(Model):
-    """The Resource definition.
+    """The resource definition.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Resource Id
+    :ivar id: Resource ID.
     :vartype id: str
-    :ivar name: Resource name
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: Resource type
+    :ivar type: Resource type.
     :vartype type: str
     """
 
@@ -89,20 +89,20 @@ class Resource(Model):
 
 
 class TrackedResource(Resource):
-    """Definition of an Azure resource.
+    """Definition of resource.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Resource Id
+    :ivar id: Resource ID.
     :vartype id: str
-    :ivar name: Resource name
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: Resource type
+    :ivar type: Resource type.
     :vartype type: str
-    :param location: Resource location
+    :param location: Resource location.
     :type location: str
-    :param tags: Resource tags
+    :param tags: Resource tags.
     :type tags: dict[str, str]
     """
 
@@ -132,15 +132,15 @@ class Cluster(TrackedResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Resource Id
+    :ivar id: Resource ID.
     :vartype id: str
-    :ivar name: Resource name
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: Resource type
+    :ivar type: Resource type.
     :vartype type: str
-    :param location: Resource location
+    :param location: Resource location.
     :type location: str
-    :param tags: Resource tags
+    :param tags: Resource tags.
     :type tags: dict[str, str]
     :param sku: Properties of the cluster SKU.
     :type sku: ~azure.mgmt.eventhub.v2018_01_01_preview.models.ClusterSku
@@ -243,18 +243,20 @@ class EHNamespace(TrackedResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Resource Id
+    :ivar id: Resource ID.
     :vartype id: str
-    :ivar name: Resource name
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: Resource type
+    :ivar type: Resource type.
     :vartype type: str
-    :param location: Resource location
+    :param location: Resource location.
     :type location: str
-    :param tags: Resource tags
+    :param tags: Resource tags.
     :type tags: dict[str, str]
     :param sku: Properties of sku resource
     :type sku: ~azure.mgmt.eventhub.v2018_01_01_preview.models.Sku
+    :param identity: Properties of BYOK Identity description
+    :type identity: ~azure.mgmt.eventhub.v2018_01_01_preview.models.Identity
     :ivar provisioning_state: Provisioning state of the Namespace.
     :vartype provisioning_state: str
     :ivar created_at: The time the Namespace was created.
@@ -281,8 +283,6 @@ class EHNamespace(TrackedResource):
     :param zone_redundant: Enabling this property creates a Standard Event
      Hubs Namespace in regions supported availability zones.
     :type zone_redundant: bool
-    :param identity: Properties of BYOK Identity description
-    :type identity: ~azure.mgmt.eventhub.v2018_01_01_preview.models.Identity
     :param encryption: Properties of BYOK Encryption description
     :type encryption:
      ~azure.mgmt.eventhub.v2018_01_01_preview.models.Encryption
@@ -307,6 +307,7 @@ class EHNamespace(TrackedResource):
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
         'sku': {'key': 'sku', 'type': 'Sku'},
+        'identity': {'key': 'identity', 'type': 'Identity'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'created_at': {'key': 'properties.createdAt', 'type': 'iso-8601'},
         'updated_at': {'key': 'properties.updatedAt', 'type': 'iso-8601'},
@@ -317,13 +318,13 @@ class EHNamespace(TrackedResource):
         'maximum_throughput_units': {'key': 'properties.maximumThroughputUnits', 'type': 'int'},
         'kafka_enabled': {'key': 'properties.kafkaEnabled', 'type': 'bool'},
         'zone_redundant': {'key': 'properties.zoneRedundant', 'type': 'bool'},
-        'identity': {'key': 'properties.identity', 'type': 'Identity'},
         'encryption': {'key': 'properties.encryption', 'type': 'Encryption'},
     }
 
-    def __init__(self, *, location: str=None, tags=None, sku=None, cluster_arm_id: str=None, is_auto_inflate_enabled: bool=None, maximum_throughput_units: int=None, kafka_enabled: bool=None, zone_redundant: bool=None, identity=None, encryption=None, **kwargs) -> None:
+    def __init__(self, *, location: str=None, tags=None, sku=None, identity=None, cluster_arm_id: str=None, is_auto_inflate_enabled: bool=None, maximum_throughput_units: int=None, kafka_enabled: bool=None, zone_redundant: bool=None, encryption=None, **kwargs) -> None:
         super(EHNamespace, self).__init__(location=location, tags=tags, **kwargs)
         self.sku = sku
+        self.identity = identity
         self.provisioning_state = None
         self.created_at = None
         self.updated_at = None
@@ -334,7 +335,6 @@ class EHNamespace(TrackedResource):
         self.maximum_throughput_units = maximum_throughput_units
         self.kafka_enabled = kafka_enabled
         self.zone_redundant = zone_redundant
-        self.identity = identity
         self.encryption = encryption
 
 
@@ -396,7 +396,7 @@ class Encryption(Model):
 
 
 class ErrorResponse(Model):
-    """Error response that indicates the service is not able to process the
+    """Error response indicates Event Hub service is not able to process the
     incoming request. The reason is provided in the error message.
 
     :param code: Error code.
@@ -461,11 +461,11 @@ class IpFilterRule(Resource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Resource Id
+    :ivar id: Resource ID.
     :vartype id: str
-    :ivar name: Resource name
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: Resource type
+    :ivar type: Resource type.
     :vartype type: str
     :param ip_mask: IP Mask
     :type ip_mask: str
@@ -525,11 +525,11 @@ class NetworkRuleSet(Resource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Resource Id
+    :ivar id: Resource ID.
     :vartype id: str
-    :ivar name: Resource name
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: Resource type
+    :ivar type: Resource type.
     :vartype type: str
     :param default_action: Default Action for Network Rule Set. Possible
      values include: 'Allow', 'Deny'
@@ -725,11 +725,11 @@ class VirtualNetworkRule(Resource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Resource Id
+    :ivar id: Resource ID.
     :vartype id: str
-    :ivar name: Resource name
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: Resource type
+    :ivar type: Resource type.
     :vartype type: str
     :param virtual_network_subnet_id: ARM ID of Virtual Network Subnet
     :type virtual_network_subnet_id: str

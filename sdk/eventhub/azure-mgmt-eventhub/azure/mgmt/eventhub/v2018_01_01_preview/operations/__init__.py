@@ -9,14 +9,14 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from ._operations import Operations
 from ._clusters_operations import ClustersOperations
-from ._configuration_operations import ConfigurationOperations
 from ._namespaces_operations import NamespacesOperations
+from ._operations import Operations
+from ._configuration_operations import ConfigurationOperations
 
 __all__ = [
-    'Operations',
     'ClustersOperations',
-    'ConfigurationOperations',
     'NamespacesOperations',
+    'Operations',
+    'ConfigurationOperations',
 ]

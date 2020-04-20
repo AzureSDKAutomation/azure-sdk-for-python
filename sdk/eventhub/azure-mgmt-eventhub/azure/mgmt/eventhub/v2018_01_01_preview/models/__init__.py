@@ -62,12 +62,12 @@ from ._paged_models import EHNamespacePaged
 from ._paged_models import IpFilterRulePaged
 from ._paged_models import OperationPaged
 from ._paged_models import VirtualNetworkRulePaged
-from ._event_hub2018_preview_management_client_enums import (
+from ._event_hub_management_client_enums import (
+    IPAction,
     SkuName,
     SkuTier,
     IdentityType,
     KeySource,
-    IPAction,
     NetworkRuleIPAction,
     DefaultAction,
 )
@@ -96,16 +96,16 @@ __all__ = [
     'Subnet',
     'TrackedResource',
     'VirtualNetworkRule',
-    'OperationPaged',
     'ClusterPaged',
-    'EHNamespacePaged',
     'IpFilterRulePaged',
+    'EHNamespacePaged',
     'VirtualNetworkRulePaged',
+    'OperationPaged',
+    'IPAction',
     'SkuName',
     'SkuTier',
     'IdentityType',
     'KeySource',
-    'IPAction',
     'NetworkRuleIPAction',
     'DefaultAction',
 ]
