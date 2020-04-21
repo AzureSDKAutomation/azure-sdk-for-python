@@ -16,8 +16,16 @@ try:
     from ._models_py3 import CheckNameAvailabilityResult
     from ._models_py3 import ErrorResponse, ErrorResponseException
     from ._models_py3 import HybridConnection
+    from ._models_py3 import NetworkRuleSet
+    from ._models_py3 import NWRuleSetIpRules
     from ._models_py3 import Operation
     from ._models_py3 import OperationDisplay
+    from ._models_py3 import OperationStatusItem
+    from ._models_py3 import PrivateEndpoint
+    from ._models_py3 import PrivateEndpointConnection
+    from ._models_py3 import PrivateEndpointConnectionItem
+    from ._models_py3 import PrivateLinkResource
+    from ._models_py3 import PrivateLinkServiceConnectionState
     from ._models_py3 import RegenerateAccessKeyParameters
     from ._models_py3 import RelayNamespace
     from ._models_py3 import RelayUpdateParameters
@@ -33,8 +41,16 @@ except (SyntaxError, ImportError):
     from ._models import CheckNameAvailabilityResult
     from ._models import ErrorResponse, ErrorResponseException
     from ._models import HybridConnection
+    from ._models import NetworkRuleSet
+    from ._models import NWRuleSetIpRules
     from ._models import Operation
     from ._models import OperationDisplay
+    from ._models import OperationStatusItem
+    from ._models import PrivateEndpoint
+    from ._models import PrivateEndpointConnection
+    from ._models import PrivateEndpointConnectionItem
+    from ._models import PrivateLinkResource
+    from ._models import PrivateLinkServiceConnectionState
     from ._models import RegenerateAccessKeyParameters
     from ._models import RelayNamespace
     from ._models import RelayUpdateParameters
@@ -46,15 +62,21 @@ except (SyntaxError, ImportError):
 from ._paged_models import AuthorizationRulePaged
 from ._paged_models import HybridConnectionPaged
 from ._paged_models import OperationPaged
+from ._paged_models import PrivateEndpointConnectionPaged
+from ._paged_models import PrivateLinkResourcePaged
 from ._paged_models import RelayNamespacePaged
 from ._paged_models import WcfRelayPaged
 from ._relay_management_client_enums import (
-    Relaytype,
     SkuTier,
     ProvisioningStateEnum,
+    UnavailableReason,
+    NetworkRuleIPAction,
+    DefaultAction,
+    PrivateEndpointServiceConnectionStatus,
+    PrivateEndpointConnectionProvisioningState,
     AccessRights,
     KeyType,
-    UnavailableReason,
+    RelayType,
 )
 
 __all__ = [
@@ -64,8 +86,16 @@ __all__ = [
     'CheckNameAvailabilityResult',
     'ErrorResponse', 'ErrorResponseException',
     'HybridConnection',
+    'NetworkRuleSet',
+    'NWRuleSetIpRules',
     'Operation',
     'OperationDisplay',
+    'OperationStatusItem',
+    'PrivateEndpoint',
+    'PrivateEndpointConnection',
+    'PrivateEndpointConnectionItem',
+    'PrivateLinkResource',
+    'PrivateLinkServiceConnectionState',
     'RegenerateAccessKeyParameters',
     'RelayNamespace',
     'RelayUpdateParameters',
@@ -77,12 +107,18 @@ __all__ = [
     'OperationPaged',
     'RelayNamespacePaged',
     'AuthorizationRulePaged',
+    'PrivateEndpointConnectionPaged',
+    'PrivateLinkResourcePaged',
     'HybridConnectionPaged',
     'WcfRelayPaged',
-    'Relaytype',
     'SkuTier',
     'ProvisioningStateEnum',
+    'UnavailableReason',
+    'NetworkRuleIPAction',
+    'DefaultAction',
+    'PrivateEndpointServiceConnectionStatus',
+    'PrivateEndpointConnectionProvisioningState',
     'AccessRights',
     'KeyType',
-    'UnavailableReason',
+    'RelayType',
 ]

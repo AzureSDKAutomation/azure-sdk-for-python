@@ -26,7 +26,6 @@ class NamespacesOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client API version. Constant value: "2017-04-01".
     """
 
     models = models
@@ -36,7 +35,6 @@ class NamespacesOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2017-04-01"
 
         self.config = config
 
@@ -62,6 +60,8 @@ class NamespacesOperations(object):
         """
         parameters = models.CheckNameAvailability(name=name)
 
+        api_version = "2018-01-01-preview"
+
         # Construct URL
         url = self.check_name_availability_method.metadata['url']
         path_format_arguments = {
@@ -71,7 +71,7 @@ class NamespacesOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -121,6 +121,8 @@ class NamespacesOperations(object):
         :raises:
          :class:`ErrorResponseException<azure.mgmt.relay.models.ErrorResponseException>`
         """
+        api_version = "2018-01-01-preview"
+
         def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
@@ -132,7 +134,7 @@ class NamespacesOperations(object):
 
                 # Construct parameters
                 query_parameters = {}
-                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+                query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
             else:
                 url = next_link
@@ -189,6 +191,8 @@ class NamespacesOperations(object):
         :raises:
          :class:`ErrorResponseException<azure.mgmt.relay.models.ErrorResponseException>`
         """
+        api_version = "2018-01-01-preview"
+
         def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
@@ -201,7 +205,7 @@ class NamespacesOperations(object):
 
                 # Construct parameters
                 query_parameters = {}
-                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+                query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
             else:
                 url = next_link
@@ -243,6 +247,8 @@ class NamespacesOperations(object):
 
     def _create_or_update_initial(
             self, resource_group_name, namespace_name, parameters, custom_headers=None, raw=False, **operation_config):
+        api_version = "2018-01-01-preview"
+
         # Construct URL
         url = self.create_or_update.metadata['url']
         path_format_arguments = {
@@ -254,7 +260,7 @@ class NamespacesOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -345,6 +351,8 @@ class NamespacesOperations(object):
 
     def _delete_initial(
             self, resource_group_name, namespace_name, custom_headers=None, raw=False, **operation_config):
+        api_version = "2018-01-01-preview"
+
         # Construct URL
         url = self.delete.metadata['url']
         path_format_arguments = {
@@ -356,7 +364,7 @@ class NamespacesOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -442,6 +450,8 @@ class NamespacesOperations(object):
         :raises:
          :class:`ErrorResponseException<azure.mgmt.relay.models.ErrorResponseException>`
         """
+        api_version = "2018-01-01-preview"
+
         # Construct URL
         url = self.get.metadata['url']
         path_format_arguments = {
@@ -453,7 +463,7 @@ class NamespacesOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -510,6 +520,8 @@ class NamespacesOperations(object):
         """
         parameters = models.RelayUpdateParameters(tags=tags, sku=sku)
 
+        api_version = "2018-01-01-preview"
+
         # Construct URL
         url = self.update.metadata['url']
         path_format_arguments = {
@@ -521,7 +533,7 @@ class NamespacesOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -557,6 +569,143 @@ class NamespacesOperations(object):
         return deserialized
     update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}'}
 
+    def create_or_update_network_rule_set(
+            self, resource_group_name, namespace_name, default_action=None, ip_rules=None, custom_headers=None, raw=False, **operation_config):
+        """Create or update NetworkRuleSet for a Namespace.
+
+        :param resource_group_name: Name of the Resource group within the
+         Azure subscription.
+        :type resource_group_name: str
+        :param namespace_name: The namespace name
+        :type namespace_name: str
+        :param default_action: Default Action for Network Rule Set. Possible
+         values include: 'Allow', 'Deny'
+        :type default_action: str or ~azure.mgmt.relay.models.DefaultAction
+        :param ip_rules: List of IpRules
+        :type ip_rules: list[~azure.mgmt.relay.models.NWRuleSetIpRules]
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: NetworkRuleSet or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.relay.models.NetworkRuleSet or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.relay.models.ErrorResponseException>`
+        """
+        parameters = models.NetworkRuleSet(default_action=default_action, ip_rules=ip_rules)
+
+        api_version = "2018-01-01-preview"
+
+        # Construct URL
+        url = self.create_or_update_network_rule_set.metadata['url']
+        path_format_arguments = {
+            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str', max_length=90, min_length=1),
+            'namespaceName': self._serialize.url("namespace_name", namespace_name, 'str', max_length=50, min_length=6),
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct body
+        body_content = self._serialize.body(parameters, 'NetworkRuleSet')
+
+        # Construct and send request
+        request = self._client.put(url, query_parameters, header_parameters, body_content)
+        response = self._client.send(request, stream=False, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.ErrorResponseException(self._deserialize, response)
+
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('NetworkRuleSet', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+    create_or_update_network_rule_set.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventHub/namespaces/{namespaceName}/networkRuleSets/default'}
+
+    def get_network_rule_set(
+            self, resource_group_name, namespace_name, custom_headers=None, raw=False, **operation_config):
+        """Gets NetworkRuleSet for a Namespace.
+
+        :param resource_group_name: Name of the Resource group within the
+         Azure subscription.
+        :type resource_group_name: str
+        :param namespace_name: The namespace name
+        :type namespace_name: str
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: NetworkRuleSet or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.relay.models.NetworkRuleSet or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.relay.models.ErrorResponseException>`
+        """
+        api_version = "2018-01-01-preview"
+
+        # Construct URL
+        url = self.get_network_rule_set.metadata['url']
+        path_format_arguments = {
+            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str', max_length=90, min_length=1),
+            'namespaceName': self._serialize.url("namespace_name", namespace_name, 'str', max_length=50, min_length=6),
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters, header_parameters)
+        response = self._client.send(request, stream=False, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.ErrorResponseException(self._deserialize, response)
+
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('NetworkRuleSet', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+    get_network_rule_set.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventHub/namespaces/{namespaceName}/networkRuleSets/default'}
+
     def list_authorization_rules(
             self, resource_group_name, namespace_name, custom_headers=None, raw=False, **operation_config):
         """Authorization rules for a namespace.
@@ -577,6 +726,8 @@ class NamespacesOperations(object):
         :raises:
          :class:`ErrorResponseException<azure.mgmt.relay.models.ErrorResponseException>`
         """
+        api_version = "2017-04-01"
+
         def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
@@ -590,7 +741,7 @@ class NamespacesOperations(object):
 
                 # Construct parameters
                 query_parameters = {}
-                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+                query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
             else:
                 url = next_link
@@ -655,6 +806,8 @@ class NamespacesOperations(object):
         """
         parameters = models.AuthorizationRule(rights=rights)
 
+        api_version = "2017-04-01"
+
         # Construct URL
         url = self.create_or_update_authorization_rule.metadata['url']
         path_format_arguments = {
@@ -667,7 +820,7 @@ class NamespacesOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -722,6 +875,8 @@ class NamespacesOperations(object):
         :raises:
          :class:`ErrorResponseException<azure.mgmt.relay.models.ErrorResponseException>`
         """
+        api_version = "2017-04-01"
+
         # Construct URL
         url = self.delete_authorization_rule.metadata['url']
         path_format_arguments = {
@@ -734,7 +889,7 @@ class NamespacesOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -779,6 +934,8 @@ class NamespacesOperations(object):
         :raises:
          :class:`ErrorResponseException<azure.mgmt.relay.models.ErrorResponseException>`
         """
+        api_version = "2017-04-01"
+
         # Construct URL
         url = self.get_authorization_rule.metadata['url']
         path_format_arguments = {
@@ -791,7 +948,7 @@ class NamespacesOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -843,6 +1000,8 @@ class NamespacesOperations(object):
         :raises:
          :class:`ErrorResponseException<azure.mgmt.relay.models.ErrorResponseException>`
         """
+        api_version = "2017-04-01"
+
         # Construct URL
         url = self.list_keys.metadata['url']
         path_format_arguments = {
@@ -855,7 +1014,7 @@ class NamespacesOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -916,6 +1075,8 @@ class NamespacesOperations(object):
         """
         parameters = models.RegenerateAccessKeyParameters(key_type=key_type, key=key)
 
+        api_version = "2017-04-01"
+
         # Construct URL
         url = self.regenerate_keys.metadata['url']
         path_format_arguments = {
@@ -928,7 +1089,7 @@ class NamespacesOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}

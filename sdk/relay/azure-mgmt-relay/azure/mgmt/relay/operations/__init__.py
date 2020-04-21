@@ -11,12 +11,18 @@
 
 from ._operations import Operations
 from ._namespaces_operations import NamespacesOperations
+from ._private_endpoint_connections_operations import PrivateEndpointConnectionsOperations
+from ._operation_status_private_endpoint_connections_operations import OperationStatusPrivateEndpointConnectionsOperations
 from ._hybrid_connections_operations import HybridConnectionsOperations
 from ._wcf_relays_operations import WCFRelaysOperations
+from ._relay_management_client_operations import RelayManagementClientOperationsMixin
 
 __all__ = [
     'Operations',
     'NamespacesOperations',
+    'PrivateEndpointConnectionsOperations',
+    'OperationStatusPrivateEndpointConnectionsOperations',
     'HybridConnectionsOperations',
     'WCFRelaysOperations',
+    'RelayManagementClientOperationsMixin',
 ]

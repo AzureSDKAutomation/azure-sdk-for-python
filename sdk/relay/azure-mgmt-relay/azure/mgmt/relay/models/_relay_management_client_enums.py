@@ -12,12 +12,6 @@
 from enum import Enum
 
 
-class Relaytype(str, Enum):
-
-    net_tcp = "NetTcp"
-    http = "Http"
-
-
 class SkuTier(str, Enum):
 
     standard = "Standard"
@@ -33,6 +27,46 @@ class ProvisioningStateEnum(str, Enum):
     unknown = "Unknown"
 
 
+class UnavailableReason(str, Enum):
+
+    none = "None"
+    invalid_name = "InvalidName"
+    subscription_is_disabled = "SubscriptionIsDisabled"
+    name_in_use = "NameInUse"
+    name_in_lockdown = "NameInLockdown"
+    too_many_namespace_in_current_subscription = "TooManyNamespaceInCurrentSubscription"
+
+
+class NetworkRuleIPAction(str, Enum):
+
+    allow = "Allow"
+
+
+class DefaultAction(str, Enum):
+
+    allow = "Allow"
+    deny = "Deny"
+
+
+class PrivateEndpointServiceConnectionStatus(str, Enum):
+
+    pending = "Pending"
+    approved = "Approved"
+    rejected = "Rejected"
+    disconnected = "Disconnected"
+
+
+class PrivateEndpointConnectionProvisioningState(str, Enum):
+
+    unknown = "Unknown"
+    succeeded = "Succeeded"
+    creating = "Creating"
+    updating = "Updating"
+    updating_by_proxy = "UpdatingByProxy"
+    deleting = "Deleting"
+    deleting_by_proxy = "DeletingByProxy"
+
+
 class AccessRights(str, Enum):
 
     manage = "Manage"
@@ -46,11 +80,7 @@ class KeyType(str, Enum):
     secondary_key = "SecondaryKey"
 
 
-class UnavailableReason(str, Enum):
+class RelayType(str, Enum):
 
-    none = "None"
-    invalid_name = "InvalidName"
-    subscription_is_disabled = "SubscriptionIsDisabled"
-    name_in_use = "NameInUse"
-    name_in_lockdown = "NameInLockdown"
-    too_many_namespace_in_current_subscription = "TooManyNamespaceInCurrentSubscription"
+    net_tcp = "NetTcp"
+    http = "Http"

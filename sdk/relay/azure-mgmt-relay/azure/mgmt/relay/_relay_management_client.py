@@ -13,14 +13,17 @@ from msrest.service_client import SDKClient
 from msrest import Serializer, Deserializer
 
 from ._configuration import RelayManagementClientConfiguration
+from .operations import RelayManagementClientOperationsMixin
 from .operations import Operations
 from .operations import NamespacesOperations
+from .operations import PrivateEndpointConnectionsOperations
+from .operations import OperationStatusPrivateEndpointConnectionsOperations
 from .operations import HybridConnectionsOperations
 from .operations import WCFRelaysOperations
 from . import models
 
 
-class RelayManagementClient(SDKClient):
+class RelayManagementClient(RelayManagementClientOperationsMixin, SDKClient):
     """Use these API to manage Azure Relay resources through Azure Resource Manager.
 
     :ivar config: Configuration for client.
@@ -30,6 +33,10 @@ class RelayManagementClient(SDKClient):
     :vartype operations: azure.mgmt.relay.operations.Operations
     :ivar namespaces: Namespaces operations
     :vartype namespaces: azure.mgmt.relay.operations.NamespacesOperations
+    :ivar private_endpoint_connections: PrivateEndpointConnections operations
+    :vartype private_endpoint_connections: azure.mgmt.relay.operations.PrivateEndpointConnectionsOperations
+    :ivar operation_status_private_endpoint_connections: OperationStatusPrivateEndpointConnections operations
+    :vartype operation_status_private_endpoint_connections: azure.mgmt.relay.operations.OperationStatusPrivateEndpointConnectionsOperations
     :ivar hybrid_connections: HybridConnections operations
     :vartype hybrid_connections: azure.mgmt.relay.operations.HybridConnectionsOperations
     :ivar wcf_relays: WCFRelays operations
@@ -42,23 +49,28 @@ class RelayManagementClient(SDKClient):
      the Microsoft Azure subscription. The subscription ID forms part of the
      URI for every service call.
     :type subscription_id: str
+    :param operation_type: Operation Type
+    :type operation_type: str
     :param str base_url: Service URL
     """
 
     def __init__(
-            self, credentials, subscription_id, base_url=None):
+            self, credentials, subscription_id, operation_type, base_url=None):
 
-        self.config = RelayManagementClientConfiguration(credentials, subscription_id, base_url)
+        self.config = RelayManagementClientConfiguration(credentials, subscription_id, operation_type, base_url)
         super(RelayManagementClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
-        self.api_version = '2017-04-01'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
         self.operations = Operations(
             self._client, self.config, self._serialize, self._deserialize)
         self.namespaces = NamespacesOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.private_endpoint_connections = PrivateEndpointConnectionsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.operation_status_private_endpoint_connections = OperationStatusPrivateEndpointConnectionsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.hybrid_connections = HybridConnectionsOperations(
             self._client, self.config, self._serialize, self._deserialize)

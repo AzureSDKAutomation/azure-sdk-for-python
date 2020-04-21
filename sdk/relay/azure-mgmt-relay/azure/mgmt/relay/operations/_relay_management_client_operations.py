@@ -9,58 +9,52 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-import uuid
 from msrest.pipeline import ClientRawResponse
-
+from msrestazure.azure_exceptions import CloudError
+from msrest.polling import LROPoller, NoPolling
+from msrestazure.polling.arm_polling import ARMPolling
 from .. import models
+import uuid
 
 
-class Operations(object):
-    """Operations operations.
+class RelayManagementClientOperationsMixin(object):
 
-    You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
+    def private_link_resources_get(
+            self, resource_group_name, namespace_name, custom_headers=None, raw=False, **operation_config):
+        """Gets the private link resources supported for the Relay namespace.
 
-    :param client: Client for service requests.
-    :param config: Configuration of service client.
-    :param serializer: An object model serializer.
-    :param deserializer: An object model deserializer.
-    :ivar api_version: Client API version. Constant value: "2018-01-01-preview".
-    """
-
-    models = models
-
-    def __init__(self, client, config, serializer, deserializer):
-
-        self._client = client
-        self._serialize = serializer
-        self._deserialize = deserializer
-        self.api_version = "2018-01-01-preview"
-
-        self.config = config
-
-    def list(
-            self, custom_headers=None, raw=False, **operation_config):
-        """Lists all available Relay REST API operations.
-
+        :param resource_group_name: Name of the Resource group within the
+         Azure subscription.
+        :type resource_group_name: str
+        :param namespace_name: The namespace name
+        :type namespace_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of Operation
+        :return: An iterator like instance of PrivateLinkResource
         :rtype:
-         ~azure.mgmt.relay.models.OperationPaged[~azure.mgmt.relay.models.Operation]
+         ~azure.mgmt.relay.models.PrivateLinkResourcePaged[~azure.mgmt.relay.models.PrivateLinkResource]
         :raises:
          :class:`ErrorResponseException<azure.mgmt.relay.models.ErrorResponseException>`
         """
+        api_version = "2018-01-01-preview"
+
         def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
-                url = self.list.metadata['url']
+                url = self.private_link_resources_get.metadata['url']
+                path_format_arguments = {
+                    'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str', max_length=90, min_length=1),
+                    'namespaceName': self._serialize.url("namespace_name", namespace_name, 'str', max_length=50, min_length=6),
+                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
+                }
+                url = self._client.format_url(url, **path_format_arguments)
 
                 # Construct parameters
                 query_parameters = {}
-                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+                query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
             else:
                 url = next_link
@@ -94,7 +88,7 @@ class Operations(object):
         header_dict = None
         if raw:
             header_dict = {}
-        deserialized = models.OperationPaged(internal_paging, self._deserialize.dependencies, header_dict)
+        deserialized = models.PrivateLinkResourcePaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/providers/Microsoft.Relay/operations'}
+    private_link_resources_get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/privateLinkResources'}

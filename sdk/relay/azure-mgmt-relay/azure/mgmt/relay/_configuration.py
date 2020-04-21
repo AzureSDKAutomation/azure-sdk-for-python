@@ -25,16 +25,20 @@ class RelayManagementClientConfiguration(AzureConfiguration):
      the Microsoft Azure subscription. The subscription ID forms part of the
      URI for every service call.
     :type subscription_id: str
+    :param operation_type: Operation Type
+    :type operation_type: str
     :param str base_url: Service URL
     """
 
     def __init__(
-            self, credentials, subscription_id, base_url=None):
+            self, credentials, subscription_id, operation_type, base_url=None):
 
         if credentials is None:
             raise ValueError("Parameter 'credentials' must not be None.")
         if subscription_id is None:
             raise ValueError("Parameter 'subscription_id' must not be None.")
+        if operation_type is None:
+            raise ValueError("Parameter 'operation_type' must not be None.")
         if not base_url:
             base_url = 'https://management.azure.com'
 
@@ -48,3 +52,4 @@ class RelayManagementClientConfiguration(AzureConfiguration):
 
         self.credentials = credentials
         self.subscription_id = subscription_id
+        self.operation_type = operation_type
