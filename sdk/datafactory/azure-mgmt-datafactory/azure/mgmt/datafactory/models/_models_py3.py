@@ -23957,21 +23957,25 @@ class QuickBooksLinkedService(LinkedService):
     :param endpoint: Required. The endpoint of the QuickBooks server. (i.e.
      quickbooks.api.intuit.com)
     :type endpoint: object
-    :param company_id: Required. The company ID of the QuickBooks company to
-     authorize.
+    :param company_id: Required. The company ID associated with your
+     QuickBooks account.
     :type company_id: object
-    :param consumer_key: Required. The consumer key for OAuth 1.0
-     authentication.
+    :param consumer_key: Required. The client ID associated with your
+     QuickBooks application.
     :type consumer_key: object
-    :param consumer_secret: Required. The consumer secret for OAuth 1.0
-     authentication.
+    :param consumer_secret: Required. The client secret associated with your
+     QuickBooks application.
     :type consumer_secret: ~azure.mgmt.datafactory.models.SecretBase
-    :param access_token: Required. The access token for OAuth 1.0
-     authentication.
+    :param access_token: The access token for OAuth 2.0 authentication. This
+     is deprecated from OAuth 2.0.
     :type access_token: ~azure.mgmt.datafactory.models.SecretBase
-    :param access_token_secret: Required. The access token secret for OAuth
-     1.0 authentication.
+    :param access_token_secret: The access token secret for OAuth 1.0
+     authentication. This is deprecated from OAuth 2.0.
     :type access_token_secret: ~azure.mgmt.datafactory.models.SecretBase
+    :param refresh_token: Required. The OAuth 2.0 refresh token associated
+     with your QuickBooks application,used to refresh the access token when it
+     expires.
+    :type refresh_token: ~azure.mgmt.datafactory.models.SecretBase
     :param use_encrypted_endpoints: Specifies whether the data source
      endpoints are encrypted using HTTPS. The default value is true.
     :type use_encrypted_endpoints: object
@@ -23987,8 +23991,7 @@ class QuickBooksLinkedService(LinkedService):
         'company_id': {'required': True},
         'consumer_key': {'required': True},
         'consumer_secret': {'required': True},
-        'access_token': {'required': True},
-        'access_token_secret': {'required': True},
+        'refresh_token': {'required': True},
     }
 
     _attribute_map = {
@@ -24004,11 +24007,12 @@ class QuickBooksLinkedService(LinkedService):
         'consumer_secret': {'key': 'typeProperties.consumerSecret', 'type': 'SecretBase'},
         'access_token': {'key': 'typeProperties.accessToken', 'type': 'SecretBase'},
         'access_token_secret': {'key': 'typeProperties.accessTokenSecret', 'type': 'SecretBase'},
+        'refresh_token': {'key': 'typeProperties.refreshToken', 'type': 'SecretBase'},
         'use_encrypted_endpoints': {'key': 'typeProperties.useEncryptedEndpoints', 'type': 'object'},
         'encrypted_credential': {'key': 'typeProperties.encryptedCredential', 'type': 'object'},
     }
 
-    def __init__(self, *, endpoint, company_id, consumer_key, consumer_secret, access_token, access_token_secret, additional_properties=None, connect_via=None, description: str=None, parameters=None, annotations=None, use_encrypted_endpoints=None, encrypted_credential=None, **kwargs) -> None:
+    def __init__(self, *, endpoint, company_id, consumer_key, consumer_secret, refresh_token, additional_properties=None, connect_via=None, description: str=None, parameters=None, annotations=None, access_token=None, access_token_secret=None, use_encrypted_endpoints=None, encrypted_credential=None, **kwargs) -> None:
         super(QuickBooksLinkedService, self).__init__(additional_properties=additional_properties, connect_via=connect_via, description=description, parameters=parameters, annotations=annotations, **kwargs)
         self.endpoint = endpoint
         self.company_id = company_id
@@ -24016,6 +24020,7 @@ class QuickBooksLinkedService(LinkedService):
         self.consumer_secret = consumer_secret
         self.access_token = access_token
         self.access_token_secret = access_token_secret
+        self.refresh_token = refresh_token
         self.use_encrypted_endpoints = use_encrypted_endpoints
         self.encrypted_credential = encrypted_credential
         self.type = 'QuickBooks'
