@@ -157,6 +157,10 @@ try:
     from ._models_py3 import VirtualMachineImageResource
     from ._models_py3 import VirtualMachineInstanceView
     from ._models_py3 import VirtualMachineReimageParameters
+    from ._models_py3 import VirtualMachineRunCommand
+    from ._models_py3 import VirtualMachineRunCommandInstanceView
+    from ._models_py3 import VirtualMachineRunCommandScriptSource
+    from ._models_py3 import VirtualMachineRunCommandUpdate
     from ._models_py3 import VirtualMachineScaleSet
     from ._models_py3 import VirtualMachineScaleSetDataDisk
     from ._models_py3 import VirtualMachineScaleSetExtension
@@ -353,6 +357,10 @@ except (SyntaxError, ImportError):
     from ._models import VirtualMachineImageResource
     from ._models import VirtualMachineInstanceView
     from ._models import VirtualMachineReimageParameters
+    from ._models import VirtualMachineRunCommand
+    from ._models import VirtualMachineRunCommandInstanceView
+    from ._models import VirtualMachineRunCommandScriptSource
+    from ._models import VirtualMachineRunCommandUpdate
     from ._models import VirtualMachineScaleSet
     from ._models import VirtualMachineScaleSetDataDisk
     from ._models import VirtualMachineScaleSetExtension
@@ -417,6 +425,7 @@ from ._paged_models import SshPublicKeyResourcePaged
 from ._paged_models import UpgradeOperationHistoricalStatusInfoPaged
 from ._paged_models import UsagePaged
 from ._paged_models import VirtualMachinePaged
+from ._paged_models import VirtualMachineRunCommandPaged
 from ._paged_models import VirtualMachineScaleSetExtensionPaged
 from ._paged_models import VirtualMachineScaleSetPaged
 from ._paged_models import VirtualMachineScaleSetSkuPaged
@@ -457,6 +466,7 @@ from ._compute_management_client_enums import (
     RollingUpgradeActionType,
     IntervalInMins,
     OrchestrationServiceStateAction,
+    ExecutionState,
     AggregatedReplicationState,
     ReplicationState,
     HyperVGeneration,
@@ -614,6 +624,10 @@ __all__ = [
     'VirtualMachineImageResource',
     'VirtualMachineInstanceView',
     'VirtualMachineReimageParameters',
+    'VirtualMachineRunCommand',
+    'VirtualMachineRunCommandInstanceView',
+    'VirtualMachineRunCommandScriptSource',
+    'VirtualMachineRunCommandUpdate',
     'VirtualMachineScaleSet',
     'VirtualMachineScaleSetDataDisk',
     'VirtualMachineScaleSetExtension',
@@ -678,6 +692,7 @@ __all__ = [
     'VirtualMachineScaleSetExtensionPaged',
     'VirtualMachineScaleSetVMPaged',
     'RunCommandDocumentBasePaged',
+    'VirtualMachineRunCommandPaged',
     'GalleryPaged',
     'GalleryImagePaged',
     'GalleryImageVersionPaged',
@@ -717,6 +732,7 @@ __all__ = [
     'RollingUpgradeActionType',
     'IntervalInMins',
     'OrchestrationServiceStateAction',
+    'ExecutionState',
     'AggregatedReplicationState',
     'ReplicationState',
     'HyperVGeneration',
