@@ -10513,6 +10513,8 @@ class DeleteActivity(ExecutionActivity):
      ~azure.mgmt.datafactory.models.LogStorageSettings
     :param dataset: Required. Delete activity dataset reference.
     :type dataset: ~azure.mgmt.datafactory.models.DatasetReference
+    :param store_settings: Delete activity binary store settings.
+    :type store_settings: ~azure.mgmt.datafactory.models.StoreReadSettings
     """
 
     _validation = {
@@ -10536,6 +10538,7 @@ class DeleteActivity(ExecutionActivity):
         'enable_logging': {'key': 'typeProperties.enableLogging', 'type': 'object'},
         'log_storage_settings': {'key': 'typeProperties.logStorageSettings', 'type': 'LogStorageSettings'},
         'dataset': {'key': 'typeProperties.dataset', 'type': 'DatasetReference'},
+        'store_settings': {'key': 'typeProperties.storeSettings', 'type': 'StoreReadSettings'},
     }
 
     def __init__(self, **kwargs):
@@ -10545,6 +10548,7 @@ class DeleteActivity(ExecutionActivity):
         self.enable_logging = kwargs.get('enable_logging', None)
         self.log_storage_settings = kwargs.get('log_storage_settings', None)
         self.dataset = kwargs.get('dataset', None)
+        self.store_settings = kwargs.get('store_settings', None)
         self.type = 'Delete'
 
 
@@ -13875,6 +13879,8 @@ class GetMetadataActivity(ExecutionActivity):
     :type policy: ~azure.mgmt.datafactory.models.ActivityPolicy
     :param dataset: Required. GetMetadata activity dataset reference.
     :type dataset: ~azure.mgmt.datafactory.models.DatasetReference
+    :param store_settings: GetMetadata activity binary store settings.
+    :type store_settings: ~azure.mgmt.datafactory.models.StoreReadSettings
     :param field_list: Fields of metadata to get from dataset.
     :type field_list: list[object]
     """
@@ -13895,12 +13901,14 @@ class GetMetadataActivity(ExecutionActivity):
         'linked_service_name': {'key': 'linkedServiceName', 'type': 'LinkedServiceReference'},
         'policy': {'key': 'policy', 'type': 'ActivityPolicy'},
         'dataset': {'key': 'typeProperties.dataset', 'type': 'DatasetReference'},
+        'store_settings': {'key': 'typeProperties.storeSettings', 'type': 'StoreReadSettings'},
         'field_list': {'key': 'typeProperties.fieldList', 'type': '[object]'},
     }
 
     def __init__(self, **kwargs):
         super(GetMetadataActivity, self).__init__(**kwargs)
         self.dataset = kwargs.get('dataset', None)
+        self.store_settings = kwargs.get('store_settings', None)
         self.field_list = kwargs.get('field_list', None)
         self.type = 'GetMetadata'
 

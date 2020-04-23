@@ -10513,6 +10513,8 @@ class DeleteActivity(ExecutionActivity):
      ~azure.mgmt.datafactory.models.LogStorageSettings
     :param dataset: Required. Delete activity dataset reference.
     :type dataset: ~azure.mgmt.datafactory.models.DatasetReference
+    :param store_settings: Delete activity binary store settings.
+    :type store_settings: ~azure.mgmt.datafactory.models.StoreReadSettings
     """
 
     _validation = {
@@ -10536,15 +10538,17 @@ class DeleteActivity(ExecutionActivity):
         'enable_logging': {'key': 'typeProperties.enableLogging', 'type': 'object'},
         'log_storage_settings': {'key': 'typeProperties.logStorageSettings', 'type': 'LogStorageSettings'},
         'dataset': {'key': 'typeProperties.dataset', 'type': 'DatasetReference'},
+        'store_settings': {'key': 'typeProperties.storeSettings', 'type': 'StoreReadSettings'},
     }
 
-    def __init__(self, *, name: str, dataset, additional_properties=None, description: str=None, depends_on=None, user_properties=None, linked_service_name=None, policy=None, recursive=None, max_concurrent_connections: int=None, enable_logging=None, log_storage_settings=None, **kwargs) -> None:
+    def __init__(self, *, name: str, dataset, additional_properties=None, description: str=None, depends_on=None, user_properties=None, linked_service_name=None, policy=None, recursive=None, max_concurrent_connections: int=None, enable_logging=None, log_storage_settings=None, store_settings=None, **kwargs) -> None:
         super(DeleteActivity, self).__init__(additional_properties=additional_properties, name=name, description=description, depends_on=depends_on, user_properties=user_properties, linked_service_name=linked_service_name, policy=policy, **kwargs)
         self.recursive = recursive
         self.max_concurrent_connections = max_concurrent_connections
         self.enable_logging = enable_logging
         self.log_storage_settings = log_storage_settings
         self.dataset = dataset
+        self.store_settings = store_settings
         self.type = 'Delete'
 
 
@@ -13875,6 +13879,8 @@ class GetMetadataActivity(ExecutionActivity):
     :type policy: ~azure.mgmt.datafactory.models.ActivityPolicy
     :param dataset: Required. GetMetadata activity dataset reference.
     :type dataset: ~azure.mgmt.datafactory.models.DatasetReference
+    :param store_settings: GetMetadata activity binary store settings.
+    :type store_settings: ~azure.mgmt.datafactory.models.StoreReadSettings
     :param field_list: Fields of metadata to get from dataset.
     :type field_list: list[object]
     """
@@ -13895,12 +13901,14 @@ class GetMetadataActivity(ExecutionActivity):
         'linked_service_name': {'key': 'linkedServiceName', 'type': 'LinkedServiceReference'},
         'policy': {'key': 'policy', 'type': 'ActivityPolicy'},
         'dataset': {'key': 'typeProperties.dataset', 'type': 'DatasetReference'},
+        'store_settings': {'key': 'typeProperties.storeSettings', 'type': 'StoreReadSettings'},
         'field_list': {'key': 'typeProperties.fieldList', 'type': '[object]'},
     }
 
-    def __init__(self, *, name: str, dataset, additional_properties=None, description: str=None, depends_on=None, user_properties=None, linked_service_name=None, policy=None, field_list=None, **kwargs) -> None:
+    def __init__(self, *, name: str, dataset, additional_properties=None, description: str=None, depends_on=None, user_properties=None, linked_service_name=None, policy=None, store_settings=None, field_list=None, **kwargs) -> None:
         super(GetMetadataActivity, self).__init__(additional_properties=additional_properties, name=name, description=description, depends_on=depends_on, user_properties=user_properties, linked_service_name=linked_service_name, policy=policy, **kwargs)
         self.dataset = dataset
+        self.store_settings = store_settings
         self.field_list = field_list
         self.type = 'GetMetadata'
 
