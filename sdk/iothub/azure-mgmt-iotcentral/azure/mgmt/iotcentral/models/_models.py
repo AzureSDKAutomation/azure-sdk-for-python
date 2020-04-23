@@ -27,7 +27,8 @@ class Resource(Model):
     :vartype name: str
     :ivar type: The resource type.
     :vartype type: str
-    :param location: Required. The resource location.
+    :param location: Required. The resource location. Default value:
+     "unitedstates" .
     :type location: str
     :param tags: The resource tags.
     :type tags: dict[str, str]
@@ -53,7 +54,7 @@ class Resource(Model):
         self.id = None
         self.name = None
         self.type = None
-        self.location = kwargs.get('location', None)
+        self.location = kwargs.get('location', "unitedstates")
         self.tags = kwargs.get('tags', None)
 
 
@@ -71,7 +72,8 @@ class App(Resource):
     :vartype name: str
     :ivar type: The resource type.
     :vartype type: str
-    :param location: Required. The resource location.
+    :param location: Required. The resource location. Default value:
+     "unitedstates" .
     :type location: str
     :param tags: The resource tags.
     :type tags: dict[str, str]

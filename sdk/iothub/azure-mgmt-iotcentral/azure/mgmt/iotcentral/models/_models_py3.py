@@ -27,7 +27,8 @@ class Resource(Model):
     :vartype name: str
     :ivar type: The resource type.
     :vartype type: str
-    :param location: Required. The resource location.
+    :param location: Required. The resource location. Default value:
+     "unitedstates" .
     :type location: str
     :param tags: The resource tags.
     :type tags: dict[str, str]
@@ -48,7 +49,7 @@ class Resource(Model):
         'tags': {'key': 'tags', 'type': '{str}'},
     }
 
-    def __init__(self, *, location: str, tags=None, **kwargs) -> None:
+    def __init__(self, *, location: str="unitedstates", tags=None, **kwargs) -> None:
         super(Resource, self).__init__(**kwargs)
         self.id = None
         self.name = None
@@ -71,7 +72,8 @@ class App(Resource):
     :vartype name: str
     :ivar type: The resource type.
     :vartype type: str
-    :param location: Required. The resource location.
+    :param location: Required. The resource location. Default value:
+     "unitedstates" .
     :type location: str
     :param tags: The resource tags.
     :type tags: dict[str, str]
@@ -112,7 +114,7 @@ class App(Resource):
         'sku': {'key': 'sku', 'type': 'AppSkuInfo'},
     }
 
-    def __init__(self, *, location: str, sku, tags=None, display_name: str=None, subdomain: str=None, template: str=None, **kwargs) -> None:
+    def __init__(self, *, sku, location: str="unitedstates", tags=None, display_name: str=None, subdomain: str=None, template: str=None, **kwargs) -> None:
         super(App, self).__init__(location=location, tags=tags, **kwargs)
         self.application_id = None
         self.display_name = display_name
