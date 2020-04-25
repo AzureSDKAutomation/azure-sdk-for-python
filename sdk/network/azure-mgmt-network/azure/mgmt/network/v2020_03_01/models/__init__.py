@@ -196,6 +196,7 @@ try:
     from ._models_py3 import FirewallPolicyRuleCondition
     from ._models_py3 import FirewallPolicyRuleConditionApplicationProtocol
     from ._models_py3 import FirewallPolicyRuleGroup
+    from ._models_py3 import FirewallPolicyThreatIntelWhitelist
     from ._models_py3 import FlowLog
     from ._models_py3 import FlowLogFormatParameters
     from ._models_py3 import FlowLogInformation
@@ -591,6 +592,7 @@ except (SyntaxError, ImportError):
     from ._models import FirewallPolicyRuleCondition
     from ._models import FirewallPolicyRuleConditionApplicationProtocol
     from ._models import FirewallPolicyRuleGroup
+    from ._models import FirewallPolicyThreatIntelWhitelist
     from ._models import FlowLog
     from ._models import FlowLogFormatParameters
     from ._models import FlowLogInformation
@@ -1205,6 +1207,7 @@ __all__ = [
     'FirewallPolicyRuleCondition',
     'FirewallPolicyRuleConditionApplicationProtocol',
     'FirewallPolicyRuleGroup',
+    'FirewallPolicyThreatIntelWhitelist',
     'FlowLog',
     'FlowLogFormatParameters',
     'FlowLogInformation',

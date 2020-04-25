@@ -7716,6 +7716,9 @@ class FirewallPolicy(Resource):
      Possible values include: 'Alert', 'Deny', 'Off'
     :type threat_intel_mode: str or
      ~azure.mgmt.network.v2020_03_01.models.AzureFirewallThreatIntelMode
+    :param threat_intel_whitelist: ThreatIntel Whitelist for Firewall Policy.
+    :type threat_intel_whitelist:
+     ~azure.mgmt.network.v2020_03_01.models.FirewallPolicyThreatIntelWhitelist
     :param intrusion_system_mode: The operation mode for Intrusion system.
      Possible values include: 'Enabled', 'Disabled'
     :type intrusion_system_mode: str or
@@ -7747,11 +7750,12 @@ class FirewallPolicy(Resource):
         'firewalls': {'key': 'properties.firewalls', 'type': '[SubResource]'},
         'child_policies': {'key': 'properties.childPolicies', 'type': '[SubResource]'},
         'threat_intel_mode': {'key': 'properties.threatIntelMode', 'type': 'str'},
+        'threat_intel_whitelist': {'key': 'properties.threatIntelWhitelist', 'type': 'FirewallPolicyThreatIntelWhitelist'},
         'intrusion_system_mode': {'key': 'properties.intrusionSystemMode', 'type': 'str'},
         'etag': {'key': 'etag', 'type': 'str'},
     }
 
-    def __init__(self, *, id: str=None, location: str=None, tags=None, base_policy=None, threat_intel_mode=None, intrusion_system_mode=None, **kwargs) -> None:
+    def __init__(self, *, id: str=None, location: str=None, tags=None, base_policy=None, threat_intel_mode=None, threat_intel_whitelist=None, intrusion_system_mode=None, **kwargs) -> None:
         super(FirewallPolicy, self).__init__(id=id, location=location, tags=tags, **kwargs)
         self.rule_groups = None
         self.provisioning_state = None
@@ -7759,6 +7763,7 @@ class FirewallPolicy(Resource):
         self.firewalls = None
         self.child_policies = None
         self.threat_intel_mode = threat_intel_mode
+        self.threat_intel_whitelist = threat_intel_whitelist
         self.intrusion_system_mode = intrusion_system_mode
         self.etag = None
 
@@ -8000,6 +8005,26 @@ class FirewallPolicyRuleGroup(SubResource):
         self.name = name
         self.etag = None
         self.type = None
+
+
+class FirewallPolicyThreatIntelWhitelist(Model):
+    """ThreatIntel Whitelist for Firewall Policy.
+
+    :param ip_addresses: List of IP addresses for the ThreatIntel Whitelist.
+    :type ip_addresses: list[str]
+    :param fqdns: List of FQDNs for the ThreatIntel Whitelist.
+    :type fqdns: list[str]
+    """
+
+    _attribute_map = {
+        'ip_addresses': {'key': 'ipAddresses', 'type': '[str]'},
+        'fqdns': {'key': 'fqdns', 'type': '[str]'},
+    }
+
+    def __init__(self, *, ip_addresses=None, fqdns=None, **kwargs) -> None:
+        super(FirewallPolicyThreatIntelWhitelist, self).__init__(**kwargs)
+        self.ip_addresses = ip_addresses
+        self.fqdns = fqdns
 
 
 class FlowLog(Resource):

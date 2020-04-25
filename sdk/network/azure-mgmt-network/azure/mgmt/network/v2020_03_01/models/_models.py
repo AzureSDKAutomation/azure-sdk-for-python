@@ -7716,6 +7716,9 @@ class FirewallPolicy(Resource):
      Possible values include: 'Alert', 'Deny', 'Off'
     :type threat_intel_mode: str or
      ~azure.mgmt.network.v2020_03_01.models.AzureFirewallThreatIntelMode
+    :param threat_intel_whitelist: ThreatIntel Whitelist for Firewall Policy.
+    :type threat_intel_whitelist:
+     ~azure.mgmt.network.v2020_03_01.models.FirewallPolicyThreatIntelWhitelist
     :param intrusion_system_mode: The operation mode for Intrusion system.
      Possible values include: 'Enabled', 'Disabled'
     :type intrusion_system_mode: str or
@@ -7747,6 +7750,7 @@ class FirewallPolicy(Resource):
         'firewalls': {'key': 'properties.firewalls', 'type': '[SubResource]'},
         'child_policies': {'key': 'properties.childPolicies', 'type': '[SubResource]'},
         'threat_intel_mode': {'key': 'properties.threatIntelMode', 'type': 'str'},
+        'threat_intel_whitelist': {'key': 'properties.threatIntelWhitelist', 'type': 'FirewallPolicyThreatIntelWhitelist'},
         'intrusion_system_mode': {'key': 'properties.intrusionSystemMode', 'type': 'str'},
         'etag': {'key': 'etag', 'type': 'str'},
     }
@@ -7759,6 +7763,7 @@ class FirewallPolicy(Resource):
         self.firewalls = None
         self.child_policies = None
         self.threat_intel_mode = kwargs.get('threat_intel_mode', None)
+        self.threat_intel_whitelist = kwargs.get('threat_intel_whitelist', None)
         self.intrusion_system_mode = kwargs.get('intrusion_system_mode', None)
         self.etag = None
 
@@ -8000,6 +8005,26 @@ class FirewallPolicyRuleGroup(SubResource):
         self.name = kwargs.get('name', None)
         self.etag = None
         self.type = None
+
+
+class FirewallPolicyThreatIntelWhitelist(Model):
+    """ThreatIntel Whitelist for Firewall Policy.
+
+    :param ip_addresses: List of IP addresses for the ThreatIntel Whitelist.
+    :type ip_addresses: list[str]
+    :param fqdns: List of FQDNs for the ThreatIntel Whitelist.
+    :type fqdns: list[str]
+    """
+
+    _attribute_map = {
+        'ip_addresses': {'key': 'ipAddresses', 'type': '[str]'},
+        'fqdns': {'key': 'fqdns', 'type': '[str]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(FirewallPolicyThreatIntelWhitelist, self).__init__(**kwargs)
+        self.ip_addresses = kwargs.get('ip_addresses', None)
+        self.fqdns = kwargs.get('fqdns', None)
 
 
 class FlowLog(Resource):
