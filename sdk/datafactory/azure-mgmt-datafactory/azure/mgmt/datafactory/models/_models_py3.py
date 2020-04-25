@@ -10077,8 +10077,9 @@ class DatasetDeflateCompression(DatasetCompression):
     :type additional_properties: dict[str, object]
     :param type: Required. Constant filled by server.
     :type type: str
-    :param level: The Deflate compression level.
-    :type level: object
+    :param level: The Deflate compression level. Possible values include:
+     'Optimal', 'Fastest'
+    :type level: str or ~azure.mgmt.datafactory.models.DatasetCompressionLevel
     """
 
     _validation = {
@@ -10088,7 +10089,7 @@ class DatasetDeflateCompression(DatasetCompression):
     _attribute_map = {
         'additional_properties': {'key': '', 'type': '{object}'},
         'type': {'key': 'type', 'type': 'str'},
-        'level': {'key': 'level', 'type': 'object'},
+        'level': {'key': 'level', 'type': 'str'},
     }
 
     def __init__(self, *, additional_properties=None, level=None, **kwargs) -> None:
@@ -10124,8 +10125,9 @@ class DatasetGZipCompression(DatasetCompression):
     :type additional_properties: dict[str, object]
     :param type: Required. Constant filled by server.
     :type type: str
-    :param level: The GZip compression level.
-    :type level: object
+    :param level: The GZip compression level. Possible values include:
+     'Optimal', 'Fastest'
+    :type level: str or ~azure.mgmt.datafactory.models.DatasetCompressionLevel
     """
 
     _validation = {
@@ -10135,7 +10137,7 @@ class DatasetGZipCompression(DatasetCompression):
     _attribute_map = {
         'additional_properties': {'key': '', 'type': '{object}'},
         'type': {'key': 'type', 'type': 'str'},
-        'level': {'key': 'level', 'type': 'object'},
+        'level': {'key': 'level', 'type': 'str'},
     }
 
     def __init__(self, *, additional_properties=None, level=None, **kwargs) -> None:
@@ -10231,8 +10233,9 @@ class DatasetZipDeflateCompression(DatasetCompression):
     :type additional_properties: dict[str, object]
     :param type: Required. Constant filled by server.
     :type type: str
-    :param level: The ZipDeflate compression level.
-    :type level: object
+    :param level: The ZipDeflate compression level. Possible values include:
+     'Optimal', 'Fastest'
+    :type level: str or ~azure.mgmt.datafactory.models.DatasetCompressionLevel
     """
 
     _validation = {
@@ -10242,7 +10245,7 @@ class DatasetZipDeflateCompression(DatasetCompression):
     _attribute_map = {
         'additional_properties': {'key': '', 'type': '{object}'},
         'type': {'key': 'type', 'type': 'str'},
-        'level': {'key': 'level', 'type': 'object'},
+        'level': {'key': 'level', 'type': 'str'},
     }
 
     def __init__(self, *, additional_properties=None, level=None, **kwargs) -> None:
@@ -10613,8 +10616,9 @@ class DelimitedTextDataset(Dataset):
     :param compression_codec:
     :type compression_codec: object
     :param compression_level: The data compression method used for
-     DelimitedText.
-    :type compression_level: object
+     DelimitedText. Possible values include: 'Optimal', 'Fastest'
+    :type compression_level: str or
+     ~azure.mgmt.datafactory.models.DatasetCompressionLevel
     :param quote_char: The quote character. Type: string (or Expression with
      resultType string).
     :type quote_char: object
@@ -10652,7 +10656,7 @@ class DelimitedTextDataset(Dataset):
         'row_delimiter': {'key': 'typeProperties.rowDelimiter', 'type': 'object'},
         'encoding_name': {'key': 'typeProperties.encodingName', 'type': 'object'},
         'compression_codec': {'key': 'typeProperties.compressionCodec', 'type': 'object'},
-        'compression_level': {'key': 'typeProperties.compressionLevel', 'type': 'object'},
+        'compression_level': {'key': 'typeProperties.compressionLevel', 'type': 'str'},
         'quote_char': {'key': 'typeProperties.quoteChar', 'type': 'object'},
         'escape_char': {'key': 'typeProperties.escapeChar', 'type': 'object'},
         'first_row_as_header': {'key': 'typeProperties.firstRowAsHeader', 'type': 'object'},
@@ -27294,8 +27298,9 @@ class ScriptAction(Model):
     :param uri: Required. The URI for the script action.
     :type uri: str
     :param roles: Required. The node types on which the script action should
-     be executed.
-    :type roles: object
+     be executed. Possible values include: 'Headnode', 'Workernode',
+     'Zookeeper'
+    :type roles: str or ~azure.mgmt.datafactory.models.HdiNodeTypes
     :param parameters: The parameters for the script action.
     :type parameters: str
     """
@@ -27309,7 +27314,7 @@ class ScriptAction(Model):
     _attribute_map = {
         'name': {'key': 'name', 'type': 'str'},
         'uri': {'key': 'uri', 'type': 'str'},
-        'roles': {'key': 'roles', 'type': 'object'},
+        'roles': {'key': 'roles', 'type': 'str'},
         'parameters': {'key': 'parameters', 'type': 'str'},
     }
 
