@@ -11441,6 +11441,10 @@ class StaticSiteARMResource(Resource):
     :param build_properties: Build properties to configure on the repository.
     :type build_properties:
      ~azure.mgmt.web.v2019_08_01.models.StaticSiteBuildProperties
+    :ivar private_endpoint_connections: Private endpoint connections
+     referencing this resource.
+    :vartype private_endpoint_connections:
+     list[~azure.mgmt.web.v2019_08_01.models.PrivateEndpointConnectionResource]
     :param sku:
     :type sku: ~azure.mgmt.web.v2019_08_01.models.SkuDescription
     """
@@ -11452,6 +11456,7 @@ class StaticSiteARMResource(Resource):
         'type': {'readonly': True},
         'default_hostname': {'readonly': True},
         'custom_domains': {'readonly': True},
+        'private_endpoint_connections': {'readonly': True},
     }
 
     _attribute_map = {
@@ -11467,6 +11472,7 @@ class StaticSiteARMResource(Resource):
         'custom_domains': {'key': 'properties.customDomains', 'type': '[str]'},
         'repository_token': {'key': 'properties.repositoryToken', 'type': 'str'},
         'build_properties': {'key': 'properties.buildProperties', 'type': 'StaticSiteBuildProperties'},
+        'private_endpoint_connections': {'key': 'properties.privateEndpointConnections', 'type': '[PrivateEndpointConnectionResource]'},
         'sku': {'key': 'sku', 'type': 'SkuDescription'},
     }
 
@@ -11478,6 +11484,7 @@ class StaticSiteARMResource(Resource):
         self.custom_domains = None
         self.repository_token = repository_token
         self.build_properties = build_properties
+        self.private_endpoint_connections = None
         self.sku = sku
 
 
@@ -11695,6 +11702,10 @@ class StaticSitePatchResource(ProxyOnlyResource):
     :param build_properties: Build properties to configure on the repository.
     :type build_properties:
      ~azure.mgmt.web.v2019_08_01.models.StaticSiteBuildProperties
+    :ivar private_endpoint_connections: Private endpoint connections
+     referencing this resource.
+    :vartype private_endpoint_connections:
+     list[~azure.mgmt.web.v2019_08_01.models.PrivateEndpointConnectionResource]
     """
 
     _validation = {
@@ -11703,6 +11714,7 @@ class StaticSitePatchResource(ProxyOnlyResource):
         'type': {'readonly': True},
         'default_hostname': {'readonly': True},
         'custom_domains': {'readonly': True},
+        'private_endpoint_connections': {'readonly': True},
     }
 
     _attribute_map = {
@@ -11716,6 +11728,7 @@ class StaticSitePatchResource(ProxyOnlyResource):
         'custom_domains': {'key': 'properties.customDomains', 'type': '[str]'},
         'repository_token': {'key': 'properties.repositoryToken', 'type': 'str'},
         'build_properties': {'key': 'properties.buildProperties', 'type': 'StaticSiteBuildProperties'},
+        'private_endpoint_connections': {'key': 'properties.privateEndpointConnections', 'type': '[PrivateEndpointConnectionResource]'},
     }
 
     def __init__(self, *, kind: str=None, repository_url: str=None, branch: str=None, repository_token: str=None, build_properties=None, **kwargs) -> None:
@@ -11726,6 +11739,7 @@ class StaticSitePatchResource(ProxyOnlyResource):
         self.custom_domains = None
         self.repository_token = repository_token
         self.build_properties = build_properties
+        self.private_endpoint_connections = None
 
 
 class StaticSiteResetPropertiesARMResource(ProxyOnlyResource):

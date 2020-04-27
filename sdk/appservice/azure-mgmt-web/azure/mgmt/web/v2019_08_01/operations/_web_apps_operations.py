@@ -20321,7 +20321,8 @@ class WebAppsOperations(object):
         :type resource_group_name: str
         :param name: Name of the site.
         :type name: str
-        :param private_endpoint_connection_name:
+        :param private_endpoint_connection_name: Name of the private endpoint
+         connection.
         :type private_endpoint_connection_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the

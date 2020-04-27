@@ -1020,9 +1020,9 @@ class StaticSitesOperations(object):
 
     def list_static_site_build_function_app_settings(
             self, resource_group_name, name, pr_id, custom_headers=None, raw=False, **operation_config):
-        """Gets the application settings of a static site.
+        """Gets the application settings of a static site build.
 
-        Description for Gets the application settings of a static site.
+        Description for Gets the application settings of a static site build.
 
         :param resource_group_name: Name of the resource group to which the
          resource belongs.
