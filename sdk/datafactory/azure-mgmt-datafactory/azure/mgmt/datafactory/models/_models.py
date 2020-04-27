@@ -6047,15 +6047,6 @@ class AzureSqlSource(TabularSource):
      ~azure.mgmt.datafactory.models.StoredProcedureParameter]
     :param produce_additional_types: Which additional types to produce.
     :type produce_additional_types: object
-    :param partition_option: The partition mechanism that will be used for Sql
-     read in parallel. Possible values include: 'None',
-     'PhysicalPartitionsOfTable', 'DynamicRange'
-    :type partition_option: str or
-     ~azure.mgmt.datafactory.models.SqlPartitionOption
-    :param partition_settings: The settings that will be leveraged for Sql
-     source partitioning.
-    :type partition_settings:
-     ~azure.mgmt.datafactory.models.SqlPartitionSettings
     """
 
     _validation = {
@@ -6074,8 +6065,6 @@ class AzureSqlSource(TabularSource):
         'sql_reader_stored_procedure_name': {'key': 'sqlReaderStoredProcedureName', 'type': 'object'},
         'stored_procedure_parameters': {'key': 'storedProcedureParameters', 'type': '{StoredProcedureParameter}'},
         'produce_additional_types': {'key': 'produceAdditionalTypes', 'type': 'object'},
-        'partition_option': {'key': 'partitionOption', 'type': 'str'},
-        'partition_settings': {'key': 'partitionSettings', 'type': 'SqlPartitionSettings'},
     }
 
     def __init__(self, **kwargs):
@@ -6084,8 +6073,6 @@ class AzureSqlSource(TabularSource):
         self.sql_reader_stored_procedure_name = kwargs.get('sql_reader_stored_procedure_name', None)
         self.stored_procedure_parameters = kwargs.get('stored_procedure_parameters', None)
         self.produce_additional_types = kwargs.get('produce_additional_types', None)
-        self.partition_option = kwargs.get('partition_option', None)
-        self.partition_settings = kwargs.get('partition_settings', None)
         self.type = 'AzureSqlSource'
 
 
@@ -29297,15 +29284,6 @@ class SqlDWSource(TabularSource):
      Type: object (or Expression with resultType object), itemType:
      StoredProcedureParameter.
     :type stored_procedure_parameters: object
-    :param partition_option: The partition mechanism that will be used for Sql
-     read in parallel. Possible values include: 'None',
-     'PhysicalPartitionsOfTable', 'DynamicRange'
-    :type partition_option: str or
-     ~azure.mgmt.datafactory.models.SqlPartitionOption
-    :param partition_settings: The settings that will be leveraged for Sql
-     source partitioning.
-    :type partition_settings:
-     ~azure.mgmt.datafactory.models.SqlPartitionSettings
     """
 
     _validation = {
@@ -29323,8 +29301,6 @@ class SqlDWSource(TabularSource):
         'sql_reader_query': {'key': 'sqlReaderQuery', 'type': 'object'},
         'sql_reader_stored_procedure_name': {'key': 'sqlReaderStoredProcedureName', 'type': 'object'},
         'stored_procedure_parameters': {'key': 'storedProcedureParameters', 'type': 'object'},
-        'partition_option': {'key': 'partitionOption', 'type': 'str'},
-        'partition_settings': {'key': 'partitionSettings', 'type': 'SqlPartitionSettings'},
     }
 
     def __init__(self, **kwargs):
@@ -29332,8 +29308,6 @@ class SqlDWSource(TabularSource):
         self.sql_reader_query = kwargs.get('sql_reader_query', None)
         self.sql_reader_stored_procedure_name = kwargs.get('sql_reader_stored_procedure_name', None)
         self.stored_procedure_parameters = kwargs.get('stored_procedure_parameters', None)
-        self.partition_option = kwargs.get('partition_option', None)
-        self.partition_settings = kwargs.get('partition_settings', None)
         self.type = 'SqlDWSource'
 
 
@@ -29461,15 +29435,6 @@ class SqlMISource(TabularSource):
      ~azure.mgmt.datafactory.models.StoredProcedureParameter]
     :param produce_additional_types: Which additional types to produce.
     :type produce_additional_types: object
-    :param partition_option: The partition mechanism that will be used for Sql
-     read in parallel. Possible values include: 'None',
-     'PhysicalPartitionsOfTable', 'DynamicRange'
-    :type partition_option: str or
-     ~azure.mgmt.datafactory.models.SqlPartitionOption
-    :param partition_settings: The settings that will be leveraged for Sql
-     source partitioning.
-    :type partition_settings:
-     ~azure.mgmt.datafactory.models.SqlPartitionSettings
     """
 
     _validation = {
@@ -29488,8 +29453,6 @@ class SqlMISource(TabularSource):
         'sql_reader_stored_procedure_name': {'key': 'sqlReaderStoredProcedureName', 'type': 'object'},
         'stored_procedure_parameters': {'key': 'storedProcedureParameters', 'type': '{StoredProcedureParameter}'},
         'produce_additional_types': {'key': 'produceAdditionalTypes', 'type': 'object'},
-        'partition_option': {'key': 'partitionOption', 'type': 'str'},
-        'partition_settings': {'key': 'partitionSettings', 'type': 'SqlPartitionSettings'},
     }
 
     def __init__(self, **kwargs):
@@ -29498,40 +29461,7 @@ class SqlMISource(TabularSource):
         self.sql_reader_stored_procedure_name = kwargs.get('sql_reader_stored_procedure_name', None)
         self.stored_procedure_parameters = kwargs.get('stored_procedure_parameters', None)
         self.produce_additional_types = kwargs.get('produce_additional_types', None)
-        self.partition_option = kwargs.get('partition_option', None)
-        self.partition_settings = kwargs.get('partition_settings', None)
         self.type = 'SqlMISource'
-
-
-class SqlPartitionSettings(Model):
-    """The settings that will be leveraged for Sql source partitioning.
-
-    :param partition_column_name: The name of the column in integer or
-     datetime type that will be used for proceeding partitioning. If not
-     specified, the primary key of the table is auto-detected and used as the
-     partition column. Type: string (or Expression with resultType string).
-    :type partition_column_name: object
-    :param partition_upper_bound: The maximum value of column specified in
-     partitionColumnName that will be used for proceeding range partitioning.
-     Type: string (or Expression with resultType string).
-    :type partition_upper_bound: object
-    :param partition_lower_bound: The minimum value of column specified in
-     partitionColumnName that will be used for proceeding range partitioning.
-     Type: string (or Expression with resultType string).
-    :type partition_lower_bound: object
-    """
-
-    _attribute_map = {
-        'partition_column_name': {'key': 'partitionColumnName', 'type': 'object'},
-        'partition_upper_bound': {'key': 'partitionUpperBound', 'type': 'object'},
-        'partition_lower_bound': {'key': 'partitionLowerBound', 'type': 'object'},
-    }
-
-    def __init__(self, **kwargs):
-        super(SqlPartitionSettings, self).__init__(**kwargs)
-        self.partition_column_name = kwargs.get('partition_column_name', None)
-        self.partition_upper_bound = kwargs.get('partition_upper_bound', None)
-        self.partition_lower_bound = kwargs.get('partition_lower_bound', None)
 
 
 class SqlServerLinkedService(LinkedService):
@@ -29720,15 +29650,6 @@ class SqlServerSource(TabularSource):
      ~azure.mgmt.datafactory.models.StoredProcedureParameter]
     :param produce_additional_types: Which additional types to produce.
     :type produce_additional_types: object
-    :param partition_option: The partition mechanism that will be used for Sql
-     read in parallel. Possible values include: 'None',
-     'PhysicalPartitionsOfTable', 'DynamicRange'
-    :type partition_option: str or
-     ~azure.mgmt.datafactory.models.SqlPartitionOption
-    :param partition_settings: The settings that will be leveraged for Sql
-     source partitioning.
-    :type partition_settings:
-     ~azure.mgmt.datafactory.models.SqlPartitionSettings
     """
 
     _validation = {
@@ -29747,8 +29668,6 @@ class SqlServerSource(TabularSource):
         'sql_reader_stored_procedure_name': {'key': 'sqlReaderStoredProcedureName', 'type': 'object'},
         'stored_procedure_parameters': {'key': 'storedProcedureParameters', 'type': '{StoredProcedureParameter}'},
         'produce_additional_types': {'key': 'produceAdditionalTypes', 'type': 'object'},
-        'partition_option': {'key': 'partitionOption', 'type': 'str'},
-        'partition_settings': {'key': 'partitionSettings', 'type': 'SqlPartitionSettings'},
     }
 
     def __init__(self, **kwargs):
@@ -29757,8 +29676,6 @@ class SqlServerSource(TabularSource):
         self.sql_reader_stored_procedure_name = kwargs.get('sql_reader_stored_procedure_name', None)
         self.stored_procedure_parameters = kwargs.get('stored_procedure_parameters', None)
         self.produce_additional_types = kwargs.get('produce_additional_types', None)
-        self.partition_option = kwargs.get('partition_option', None)
-        self.partition_settings = kwargs.get('partition_settings', None)
         self.type = 'SqlServerSource'
 
 
@@ -30018,15 +29935,6 @@ class SqlSource(TabularSource):
      default value is ReadCommitted. Type: string (or Expression with
      resultType string).
     :type isolation_level: object
-    :param partition_option: The partition mechanism that will be used for Sql
-     read in parallel. Possible values include: 'None',
-     'PhysicalPartitionsOfTable', 'DynamicRange'
-    :type partition_option: str or
-     ~azure.mgmt.datafactory.models.SqlPartitionOption
-    :param partition_settings: The settings that will be leveraged for Sql
-     source partitioning.
-    :type partition_settings:
-     ~azure.mgmt.datafactory.models.SqlPartitionSettings
     """
 
     _validation = {
@@ -30045,8 +29953,6 @@ class SqlSource(TabularSource):
         'sql_reader_stored_procedure_name': {'key': 'sqlReaderStoredProcedureName', 'type': 'object'},
         'stored_procedure_parameters': {'key': 'storedProcedureParameters', 'type': '{StoredProcedureParameter}'},
         'isolation_level': {'key': 'isolationLevel', 'type': 'object'},
-        'partition_option': {'key': 'partitionOption', 'type': 'str'},
-        'partition_settings': {'key': 'partitionSettings', 'type': 'SqlPartitionSettings'},
     }
 
     def __init__(self, **kwargs):
@@ -30055,8 +29961,6 @@ class SqlSource(TabularSource):
         self.sql_reader_stored_procedure_name = kwargs.get('sql_reader_stored_procedure_name', None)
         self.stored_procedure_parameters = kwargs.get('stored_procedure_parameters', None)
         self.isolation_level = kwargs.get('isolation_level', None)
-        self.partition_option = kwargs.get('partition_option', None)
-        self.partition_settings = kwargs.get('partition_settings', None)
         self.type = 'SqlSource'
 
 
