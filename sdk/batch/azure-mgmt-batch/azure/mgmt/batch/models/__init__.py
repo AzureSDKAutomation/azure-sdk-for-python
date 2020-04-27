@@ -185,8 +185,6 @@ from ._batch_management_client_enums import (
     ContainerWorkingDirectory,
     CertificateStoreLocation,
     CertificateVisibility,
-    ContainerType,
-    ResourceType,
     NameAvailabilityReason,
 )
 
@@ -295,7 +293,5 @@ __all__ = [
     'ContainerWorkingDirectory',
     'CertificateStoreLocation',
     'CertificateVisibility',
-    'ContainerType',
-    'ResourceType',
     'NameAvailabilityReason',
 ]
