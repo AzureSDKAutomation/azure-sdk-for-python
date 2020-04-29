@@ -32485,8 +32485,9 @@ class WaitActivity(ControlActivity):
     :type user_properties: list[~azure.mgmt.datafactory.models.UserProperty]
     :param type: Required. Constant filled by server.
     :type type: str
-    :param wait_time_in_seconds: Required. Duration in seconds.
-    :type wait_time_in_seconds: int
+    :param wait_time_in_seconds: Required. Duration in seconds. Type: integer
+     (or Expression with resultType integer)
+    :type wait_time_in_seconds: object
     """
 
     _validation = {
@@ -32502,10 +32503,10 @@ class WaitActivity(ControlActivity):
         'depends_on': {'key': 'dependsOn', 'type': '[ActivityDependency]'},
         'user_properties': {'key': 'userProperties', 'type': '[UserProperty]'},
         'type': {'key': 'type', 'type': 'str'},
-        'wait_time_in_seconds': {'key': 'typeProperties.waitTimeInSeconds', 'type': 'int'},
+        'wait_time_in_seconds': {'key': 'typeProperties.waitTimeInSeconds', 'type': 'object'},
     }
 
-    def __init__(self, *, name: str, wait_time_in_seconds: int, additional_properties=None, description: str=None, depends_on=None, user_properties=None, **kwargs) -> None:
+    def __init__(self, *, name: str, wait_time_in_seconds, additional_properties=None, description: str=None, depends_on=None, user_properties=None, **kwargs) -> None:
         super(WaitActivity, self).__init__(additional_properties=additional_properties, name=name, description=description, depends_on=depends_on, user_properties=user_properties, **kwargs)
         self.wait_time_in_seconds = wait_time_in_seconds
         self.type = 'Wait'
