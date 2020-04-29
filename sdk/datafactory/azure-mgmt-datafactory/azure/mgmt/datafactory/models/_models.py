@@ -32486,7 +32486,7 @@ class WaitActivity(ControlActivity):
     :param type: Required. Constant filled by server.
     :type type: str
     :param wait_time_in_seconds: Required. Duration in seconds.
-    :type wait_time_in_seconds: int
+    :type wait_time_in_seconds: object
     """
 
     _validation = {
@@ -32502,7 +32502,7 @@ class WaitActivity(ControlActivity):
         'depends_on': {'key': 'dependsOn', 'type': '[ActivityDependency]'},
         'user_properties': {'key': 'userProperties', 'type': '[UserProperty]'},
         'type': {'key': 'type', 'type': 'str'},
-        'wait_time_in_seconds': {'key': 'typeProperties.waitTimeInSeconds', 'type': 'int'},
+        'wait_time_in_seconds': {'key': 'typeProperties.waitTimeInSeconds', 'type': 'object'},
     }
 
     def __init__(self, **kwargs):
