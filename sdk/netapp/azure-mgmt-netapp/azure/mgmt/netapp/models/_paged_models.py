@@ -77,3 +77,16 @@ class SnapshotPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(SnapshotPaged, self).__init__(*args, **kwargs)
+class SnapshotPolicyPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`SnapshotPolicy <azure.mgmt.netapp.models.SnapshotPolicy>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[SnapshotPolicy]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(SnapshotPolicyPaged, self).__init__(*args, **kwargs)
