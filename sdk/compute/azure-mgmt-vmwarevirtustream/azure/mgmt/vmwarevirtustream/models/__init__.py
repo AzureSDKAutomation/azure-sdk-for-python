@@ -26,6 +26,7 @@ try:
     from ._models_py3 import PrivateCloudProperties
     from ._models_py3 import Quota
     from ._models_py3 import Resource
+    from ._models_py3 import Sku
     from ._models_py3 import TrackedResource
 except (SyntaxError, ImportError):
     from ._models import AdminCredentials
@@ -44,6 +45,7 @@ except (SyntaxError, ImportError):
     from ._models import PrivateCloudProperties
     from ._models import Quota
     from ._models import Resource
+    from ._models import Sku
     from ._models import TrackedResource
 from ._paged_models import ClusterPaged
 from ._paged_models import OperationPaged
@@ -73,6 +75,7 @@ __all__ = [
     'PrivateCloudProperties',
     'Quota',
     'Resource',
+    'Sku',
     'TrackedResource',
     'OperationPaged',
     'PrivateCloudPaged',

@@ -525,6 +525,8 @@ class PrivateCloud(TrackedResource):
     :type location: str
     :param tags: Resource tags
     :type tags: dict[str, str]
+    :param sku: The private cloud SKU
+    :type sku: ~azure.mgmt.vmwarevirtustream.models.Sku
     :param properties: The properties of a private cloud resource
     :type properties:
      ~azure.mgmt.vmwarevirtustream.models.PrivateCloudProperties
@@ -542,11 +544,13 @@ class PrivateCloud(TrackedResource):
         'type': {'key': 'type', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'sku': {'key': 'sku', 'type': 'Sku'},
         'properties': {'key': 'properties', 'type': 'PrivateCloudProperties'},
     }
 
-    def __init__(self, *, location: str=None, tags=None, properties=None, **kwargs) -> None:
+    def __init__(self, *, location: str=None, tags=None, sku=None, properties=None, **kwargs) -> None:
         super(PrivateCloud, self).__init__(location=location, tags=tags, **kwargs)
+        self.sku = sku
         self.properties = properties
 
 
@@ -665,3 +669,25 @@ class Quota(Model):
         super(Quota, self).__init__(**kwargs)
         self.hosts_remaining = None
         self.quota_enabled = quota_enabled
+
+
+class Sku(Model):
+    """The resource model definition representing SKU.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. The name of the SKU.
+    :type name: str
+    """
+
+    _validation = {
+        'name': {'required': True},
+    }
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+    }
+
+    def __init__(self, *, name: str, **kwargs) -> None:
+        super(Sku, self).__init__(**kwargs)
+        self.name = name
