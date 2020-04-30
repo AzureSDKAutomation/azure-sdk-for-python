@@ -12874,6 +12874,9 @@ class Factory(Resource):
     :param repo_configuration: Git repo information of the factory.
     :type repo_configuration:
      ~azure.mgmt.datafactory.models.FactoryRepoConfiguration
+    :param global_parameters: List of parameters for factory.
+    :type global_parameters: dict[str,
+     ~azure.mgmt.datafactory.models.GlobalParameterSpecification]
     """
 
     _validation = {
@@ -12899,9 +12902,10 @@ class Factory(Resource):
         'create_time': {'key': 'properties.createTime', 'type': 'iso-8601'},
         'version': {'key': 'properties.version', 'type': 'str'},
         'repo_configuration': {'key': 'properties.repoConfiguration', 'type': 'FactoryRepoConfiguration'},
+        'global_parameters': {'key': 'properties.globalParameters', 'type': '{GlobalParameterSpecification}'},
     }
 
-    def __init__(self, *, location: str=None, tags=None, additional_properties=None, identity=None, repo_configuration=None, **kwargs) -> None:
+    def __init__(self, *, location: str=None, tags=None, additional_properties=None, identity=None, repo_configuration=None, global_parameters=None, **kwargs) -> None:
         super(Factory, self).__init__(location=location, tags=tags, **kwargs)
         self.additional_properties = additional_properties
         self.identity = identity
@@ -12909,6 +12913,7 @@ class Factory(Resource):
         self.create_time = None
         self.version = None
         self.repo_configuration = repo_configuration
+        self.global_parameters = global_parameters
 
 
 class FactoryRepoConfiguration(Model):
@@ -13980,6 +13985,34 @@ class GitHubAccessTokenResponse(Model):
     def __init__(self, *, git_hub_access_token: str=None, **kwargs) -> None:
         super(GitHubAccessTokenResponse, self).__init__(**kwargs)
         self.git_hub_access_token = git_hub_access_token
+
+
+class GlobalParameterSpecification(Model):
+    """Definition of a single parameter for an entity.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param type: Required. Global Parameter type. Possible values include:
+     'Object', 'String', 'Int', 'Float', 'Bool', 'Array'
+    :type type: str or ~azure.mgmt.datafactory.models.GlobalParameterType
+    :param value: Required. Value of parameter.
+    :type value: object
+    """
+
+    _validation = {
+        'type': {'required': True},
+        'value': {'required': True},
+    }
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'value': {'key': 'value', 'type': 'object'},
+    }
+
+    def __init__(self, *, type, value, **kwargs) -> None:
+        super(GlobalParameterSpecification, self).__init__(**kwargs)
+        self.type = type
+        self.value = value
 
 
 class GoogleAdWordsLinkedService(LinkedService):
@@ -32835,9 +32868,9 @@ class WebHookActivity(ControlActivity):
      endpoint.
     :type authentication:
      ~azure.mgmt.datafactory.models.WebActivityAuthentication
-    :param report_status_on_call_back: When set to true, statusCode, output
-     and error in callback request body will be consumed by activity. The
-     activity can be marked as failed by setting statusCode >= 400 in callback
+    :param report_status_on_call_back: When set to true, statusCode, output
+     and error in callback request body will be consumed by activity. The
+     activity can be marked as failed by setting statusCode >= 400 in callback
      request. Default is false. Type: boolean (or Expression with resultType
      boolean).
     :type report_status_on_call_back: object

@@ -12,6 +12,16 @@
 from enum import Enum
 
 
+class GlobalParameterType(str, Enum):
+
+    object_enum = "Object"
+    string = "String"
+    int_enum = "Int"
+    float_enum = "Float"
+    bool_enum = "Bool"
+    array = "Array"
+
+
 class IntegrationRuntimeState(str, Enum):
 
     initial = "Initial"

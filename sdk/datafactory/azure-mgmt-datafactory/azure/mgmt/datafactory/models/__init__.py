@@ -250,6 +250,7 @@ try:
     from ._models_py3 import GetSsisObjectMetadataRequest
     from ._models_py3 import GitHubAccessTokenRequest
     from ._models_py3 import GitHubAccessTokenResponse
+    from ._models_py3 import GlobalParameterSpecification
     from ._models_py3 import GoogleAdWordsLinkedService
     from ._models_py3 import GoogleAdWordsObjectDataset
     from ._models_py3 import GoogleAdWordsSource
@@ -841,6 +842,7 @@ except (SyntaxError, ImportError):
     from ._models import GetSsisObjectMetadataRequest
     from ._models import GitHubAccessTokenRequest
     from ._models import GitHubAccessTokenResponse
+    from ._models import GlobalParameterSpecification
     from ._models import GoogleAdWordsLinkedService
     from ._models import GoogleAdWordsObjectDataset
     from ._models import GoogleAdWordsSource
@@ -1201,6 +1203,7 @@ from ._paged_models import OperationPaged
 from ._paged_models import PipelineResourcePaged
 from ._paged_models import TriggerResourcePaged
 from ._data_factory_management_client_enums import (
+    GlobalParameterType,
     IntegrationRuntimeState,
     IntegrationRuntimeAutoUpdate,
     ParameterType,
@@ -1521,6 +1524,7 @@ __all__ = [
     'GetSsisObjectMetadataRequest',
     'GitHubAccessTokenRequest',
     'GitHubAccessTokenResponse',
+    'GlobalParameterSpecification',
     'GoogleAdWordsLinkedService',
     'GoogleAdWordsObjectDataset',
     'GoogleAdWordsSource',
@@ -1880,6 +1884,7 @@ __all__ = [
     'TriggerResourcePaged',
     'DataFlowResourcePaged',
     'DataFlowDebugSessionInfoPaged',
+    'GlobalParameterType',
     'IntegrationRuntimeState',
     'IntegrationRuntimeAutoUpdate',
     'ParameterType',
