@@ -264,6 +264,7 @@ class AzureFirewallSkuName(str, Enum):
 class AzureFirewallSkuTier(str, Enum):
 
     standard = "Standard"
+    premium = "Premium"
 
 
 class BastionConnectProtocol(str, Enum):

@@ -3346,7 +3346,7 @@ class AzureFirewallSku(Model):
     :type name: str or
      ~azure.mgmt.network.v2020_03_01.models.AzureFirewallSkuName
     :param tier: Tier of an Azure Firewall. Possible values include:
-     'Standard'
+     'Standard', 'Premium'
     :type tier: str or
      ~azure.mgmt.network.v2020_03_01.models.AzureFirewallSkuTier
     """
