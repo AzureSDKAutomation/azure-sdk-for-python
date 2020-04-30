@@ -19,6 +19,8 @@ from .. import models
 class EndpointsOperations(object):
     """EndpointsOperations operations.
 
+    You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
+
     :param client: Client for service requests.
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
@@ -54,14 +56,14 @@ class EndpointsOperations(object):
         :type endpoint_name: str
         :param parameters: The Traffic Manager endpoint parameters supplied to
          the Update operation.
-        :type parameters: ~azure.mgmt.trafficmanager.models.Endpoint
+        :type parameters: ~azure.mgmt.trafficmanager.models.EndpointResource
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: Endpoint or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.trafficmanager.models.Endpoint or
+        :return: EndpointResource or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.trafficmanager.models.EndpointResource or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -92,7 +94,7 @@ class EndpointsOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct body
-        body_content = self._serialize.body(parameters, 'Endpoint')
+        body_content = self._serialize.body(parameters, 'EndpointResource')
 
         # Construct and send request
         request = self._client.patch(url, query_parameters, header_parameters, body_content)
@@ -104,9 +106,8 @@ class EndpointsOperations(object):
             raise exp
 
         deserialized = None
-
         if response.status_code == 200:
-            deserialized = self._deserialize('Endpoint', response)
+            deserialized = self._deserialize('EndpointResource', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
@@ -133,8 +134,8 @@ class EndpointsOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: Endpoint or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.trafficmanager.models.Endpoint or
+        :return: EndpointResource or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.trafficmanager.models.EndpointResource or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -173,9 +174,8 @@ class EndpointsOperations(object):
             raise exp
 
         deserialized = None
-
         if response.status_code == 200:
-            deserialized = self._deserialize('Endpoint', response)
+            deserialized = self._deserialize('EndpointResource', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
@@ -201,14 +201,14 @@ class EndpointsOperations(object):
         :type endpoint_name: str
         :param parameters: The Traffic Manager endpoint parameters supplied to
          the CreateOrUpdate operation.
-        :type parameters: ~azure.mgmt.trafficmanager.models.Endpoint
+        :type parameters: ~azure.mgmt.trafficmanager.models.EndpointResource
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: Endpoint or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.trafficmanager.models.Endpoint or
+        :return: EndpointResource or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.trafficmanager.models.EndpointResource or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -239,7 +239,7 @@ class EndpointsOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct body
-        body_content = self._serialize.body(parameters, 'Endpoint')
+        body_content = self._serialize.body(parameters, 'EndpointResource')
 
         # Construct and send request
         request = self._client.put(url, query_parameters, header_parameters, body_content)
@@ -251,11 +251,10 @@ class EndpointsOperations(object):
             raise exp
 
         deserialized = None
-
         if response.status_code == 200:
-            deserialized = self._deserialize('Endpoint', response)
+            deserialized = self._deserialize('EndpointResource', response)
         if response.status_code == 201:
-            deserialized = self._deserialize('Endpoint', response)
+            deserialized = self._deserialize('EndpointResource', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
@@ -324,7 +323,6 @@ class EndpointsOperations(object):
             raise exp
 
         deserialized = None
-
         if response.status_code == 200:
             deserialized = self._deserialize('DeleteOperationResult', response)
 
