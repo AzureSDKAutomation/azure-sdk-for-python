@@ -66,6 +66,7 @@ class DataSetType(str, Enum):
     adls_gen2_file = "AdlsGen2File"
     adls_gen1_folder = "AdlsGen1Folder"
     adls_gen1_file = "AdlsGen1File"
+    storage_account = "StorageAccount"
     kusto_cluster = "KustoCluster"
     kusto_database = "KustoDatabase"
     sql_db_table = "SqlDBTable"

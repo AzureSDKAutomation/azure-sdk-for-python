@@ -175,7 +175,8 @@ class DataSet(ProxyDto):
     sub-classes are: BlobDataSet, BlobFolderDataSet, BlobContainerDataSet,
     ADLSGen2FileDataSet, ADLSGen2FolderDataSet, ADLSGen2FileSystemDataSet,
     ADLSGen1FolderDataSet, ADLSGen1FileDataSet, KustoClusterDataSet,
-    KustoDatabaseDataSet, SqlDWTableDataSet, SqlDBTableDataSet
+    KustoDatabaseDataSet, SqlDWTableDataSet, SqlDBTableDataSet,
+    StorageAccountDataSet
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
@@ -207,7 +208,7 @@ class DataSet(ProxyDto):
     }
 
     _subtype_map = {
-        'kind': {'Blob': 'BlobDataSet', 'BlobFolder': 'BlobFolderDataSet', 'Container': 'BlobContainerDataSet', 'AdlsGen2File': 'ADLSGen2FileDataSet', 'AdlsGen2Folder': 'ADLSGen2FolderDataSet', 'AdlsGen2FileSystem': 'ADLSGen2FileSystemDataSet', 'AdlsGen1Folder': 'ADLSGen1FolderDataSet', 'AdlsGen1File': 'ADLSGen1FileDataSet', 'KustoCluster': 'KustoClusterDataSet', 'KustoDatabase': 'KustoDatabaseDataSet', 'SqlDWTable': 'SqlDWTableDataSet', 'SqlDBTable': 'SqlDBTableDataSet'}
+        'kind': {'Blob': 'BlobDataSet', 'BlobFolder': 'BlobFolderDataSet', 'Container': 'BlobContainerDataSet', 'AdlsGen2File': 'ADLSGen2FileDataSet', 'AdlsGen2Folder': 'ADLSGen2FolderDataSet', 'AdlsGen2FileSystem': 'ADLSGen2FileSystemDataSet', 'AdlsGen1Folder': 'ADLSGen1FolderDataSet', 'AdlsGen1File': 'ADLSGen1FileDataSet', 'KustoCluster': 'KustoClusterDataSet', 'KustoDatabase': 'KustoDatabaseDataSet', 'SqlDWTable': 'SqlDWTableDataSet', 'SqlDBTable': 'SqlDBTableDataSet', 'StorageAccount': 'StorageAccountDataSet'}
     }
 
     def __init__(self, **kwargs) -> None:
@@ -421,7 +422,8 @@ class DataSetMapping(ProxyDto):
     BlobContainerDataSetMapping, ADLSGen2FileDataSetMapping,
     ADLSGen2FolderDataSetMapping, ADLSGen2FileSystemDataSetMapping,
     KustoClusterDataSetMapping, KustoDatabaseDataSetMapping,
-    SqlDWTableDataSetMapping, SqlDBTableDataSetMapping
+    SqlDWTableDataSetMapping, SqlDBTableDataSetMapping,
+    StorageAccountDataSetMapping
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
@@ -453,7 +455,7 @@ class DataSetMapping(ProxyDto):
     }
 
     _subtype_map = {
-        'kind': {'Blob': 'BlobDataSetMapping', 'BlobFolder': 'BlobFolderDataSetMapping', 'Container': 'BlobContainerDataSetMapping', 'AdlsGen2File': 'ADLSGen2FileDataSetMapping', 'AdlsGen2Folder': 'ADLSGen2FolderDataSetMapping', 'AdlsGen2FileSystem': 'ADLSGen2FileSystemDataSetMapping', 'KustoCluster': 'KustoClusterDataSetMapping', 'KustoDatabase': 'KustoDatabaseDataSetMapping', 'SqlDWTable': 'SqlDWTableDataSetMapping', 'SqlDBTable': 'SqlDBTableDataSetMapping'}
+        'kind': {'Blob': 'BlobDataSetMapping', 'BlobFolder': 'BlobFolderDataSetMapping', 'Container': 'BlobContainerDataSetMapping', 'AdlsGen2File': 'ADLSGen2FileDataSetMapping', 'AdlsGen2Folder': 'ADLSGen2FolderDataSetMapping', 'AdlsGen2FileSystem': 'ADLSGen2FileSystemDataSetMapping', 'KustoCluster': 'KustoClusterDataSetMapping', 'KustoDatabase': 'KustoDatabaseDataSetMapping', 'SqlDWTable': 'SqlDWTableDataSetMapping', 'SqlDBTable': 'SqlDBTableDataSetMapping', 'StorageAccount': 'StorageAccountDataSetMapping'}
     }
 
     def __init__(self, **kwargs) -> None:
@@ -1425,8 +1427,8 @@ class ConsumerSourceDataSet(ProxyDto):
     :vartype data_set_path: str
     :ivar data_set_type: Type of data set. Possible values include: 'Blob',
      'Container', 'BlobFolder', 'AdlsGen2FileSystem', 'AdlsGen2Folder',
-     'AdlsGen2File', 'AdlsGen1Folder', 'AdlsGen1File', 'KustoCluster',
-     'KustoDatabase', 'SqlDBTable', 'SqlDWTable'
+     'AdlsGen2File', 'AdlsGen1Folder', 'AdlsGen1File', 'StorageAccount',
+     'KustoCluster', 'KustoDatabase', 'SqlDBTable', 'SqlDWTable'
     :vartype data_set_type: str or ~azure.mgmt.datashare.models.DataSetType
     """
 
@@ -3063,6 +3065,169 @@ class SqlDWTableDataSetMapping(DataSetMapping):
         self.kind = 'SqlDWTable'
 
 
+class StorageAccountDataSet(DataSet):
+    """An Azure storage account data set.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: The resource id of the azure resource
+    :vartype id: str
+    :ivar name: Name of the azure resource
+    :vartype name: str
+    :ivar type: Type of the azure resource
+    :vartype type: str
+    :param kind: Required. Constant filled by server.
+    :type kind: str
+    :ivar data_set_id: Unique id for identifying a data set resource
+    :vartype data_set_id: str
+    :ivar location: Location of the storage account.
+    :vartype location: str
+    :param paths: Required. A list of storage account paths.
+    :type paths: list[~azure.mgmt.datashare.models.StorageAccountPath]
+    :param storage_account_resource_id: Required. Resource id of the storage
+     account.
+    :type storage_account_resource_id: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'kind': {'required': True},
+        'data_set_id': {'readonly': True},
+        'location': {'readonly': True},
+        'paths': {'required': True},
+        'storage_account_resource_id': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'data_set_id': {'key': 'properties.dataSetId', 'type': 'str'},
+        'location': {'key': 'properties.location', 'type': 'str'},
+        'paths': {'key': 'properties.paths', 'type': '[StorageAccountPath]'},
+        'storage_account_resource_id': {'key': 'properties.storageAccountResourceId', 'type': 'str'},
+    }
+
+    def __init__(self, *, paths, storage_account_resource_id: str, **kwargs) -> None:
+        super(StorageAccountDataSet, self).__init__(**kwargs)
+        self.data_set_id = None
+        self.location = None
+        self.paths = paths
+        self.storage_account_resource_id = storage_account_resource_id
+        self.kind = 'StorageAccount'
+
+
+class StorageAccountDataSetMapping(DataSetMapping):
+    """A storage account data set mapping.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: The resource id of the azure resource
+    :vartype id: str
+    :ivar name: Name of the azure resource
+    :vartype name: str
+    :ivar type: Type of the azure resource
+    :vartype type: str
+    :param kind: Required. Constant filled by server.
+    :type kind: str
+    :param container_name: Required. Container that has the file path.
+    :type container_name: str
+    :param data_set_id: Required. The id of the source data set.
+    :type data_set_id: str
+    :ivar data_set_mapping_status: Gets the status of the data set mapping.
+     Possible values include: 'Ok', 'Broken'
+    :vartype data_set_mapping_status: str or
+     ~azure.mgmt.datashare.models.DataSetMappingStatus
+    :ivar location: Location of the sink storage account.
+    :vartype location: str
+    :ivar provisioning_state: Provisioning state of the data set mapping.
+     Possible values include: 'Succeeded', 'Creating', 'Deleting', 'Moving',
+     'Failed'
+    :vartype provisioning_state: str or
+     ~azure.mgmt.datashare.models.ProvisioningState
+    :param storage_account_resource_id: Required. Resource id of the sink
+     storage account
+    :type storage_account_resource_id: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'kind': {'required': True},
+        'container_name': {'required': True},
+        'data_set_id': {'required': True},
+        'data_set_mapping_status': {'readonly': True},
+        'location': {'readonly': True},
+        'provisioning_state': {'readonly': True},
+        'storage_account_resource_id': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'container_name': {'key': 'properties.containerName', 'type': 'str'},
+        'data_set_id': {'key': 'properties.dataSetId', 'type': 'str'},
+        'data_set_mapping_status': {'key': 'properties.dataSetMappingStatus', 'type': 'str'},
+        'location': {'key': 'properties.location', 'type': 'str'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'storage_account_resource_id': {'key': 'properties.storageAccountResourceId', 'type': 'str'},
+    }
+
+    def __init__(self, *, container_name: str, data_set_id: str, storage_account_resource_id: str, **kwargs) -> None:
+        super(StorageAccountDataSetMapping, self).__init__(**kwargs)
+        self.container_name = container_name
+        self.data_set_id = data_set_id
+        self.data_set_mapping_status = None
+        self.location = None
+        self.provisioning_state = None
+        self.storage_account_resource_id = storage_account_resource_id
+        self.kind = 'StorageAccount'
+
+
+class StorageAccountPath(Model):
+    """Defines a single storage account path.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param consumer_path: Gets or sets the path on the consumer side where the
+     dataset is to be mapped.
+    :type consumer_path: str
+    :param container_name: Required. Gets or sets the container name to share.
+    :type container_name: str
+    :param provider_path: Gets or sets the path to file/folder within the
+     container.
+    :type provider_path: str
+    """
+
+    _validation = {
+        'container_name': {'required': True},
+    }
+
+    _attribute_map = {
+        'consumer_path': {'key': 'consumerPath', 'type': 'str'},
+        'container_name': {'key': 'containerName', 'type': 'str'},
+        'provider_path': {'key': 'providerPath', 'type': 'str'},
+    }
+
+    def __init__(self, *, container_name: str, consumer_path: str=None, provider_path: str=None, **kwargs) -> None:
+        super(StorageAccountPath, self).__init__(**kwargs)
+        self.consumer_path = consumer_path
+        self.container_name = container_name
+        self.provider_path = provider_path
+
+
 class SynchronizationDetails(Model):
     """Synchronization details at data set level.
 
@@ -3073,8 +3238,8 @@ class SynchronizationDetails(Model):
     :vartype data_set_id: str
     :ivar data_set_type: Type of the data set. Possible values include:
      'Blob', 'Container', 'BlobFolder', 'AdlsGen2FileSystem', 'AdlsGen2Folder',
-     'AdlsGen2File', 'AdlsGen1Folder', 'AdlsGen1File', 'KustoCluster',
-     'KustoDatabase', 'SqlDBTable', 'SqlDWTable'
+     'AdlsGen2File', 'AdlsGen1Folder', 'AdlsGen1File', 'StorageAccount',
+     'KustoCluster', 'KustoDatabase', 'SqlDBTable', 'SqlDWTable'
     :vartype data_set_type: str or ~azure.mgmt.datashare.models.DataSetType
     :ivar duration_ms: Duration of data set level copy
     :vartype duration_ms: int
