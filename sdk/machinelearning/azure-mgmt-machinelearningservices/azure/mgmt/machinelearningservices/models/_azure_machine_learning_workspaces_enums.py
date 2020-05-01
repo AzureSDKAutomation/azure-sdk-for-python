@@ -86,6 +86,12 @@ class RemoteLoginPortPublicAccess(str, Enum):
     not_specified = "NotSpecified"
 
 
+class ProvisionPublicIp(str, Enum):
+
+    enabled = "Enabled"
+    disabled = "Disabled"
+
+
 class AllocationState(str, Enum):
 
     steady = "Steady"

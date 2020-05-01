@@ -535,6 +535,13 @@ class AmlComputeProperties(Model):
      'Disabled', 'NotSpecified'. Default value: "NotSpecified" .
     :type remote_login_port_public_access: str or
      ~azure.mgmt.machinelearningservices.models.RemoteLoginPortPublicAccess
+    :param provision_public_ip: Provision public IP. State of public IP
+     provisioning. Possible values are: Enabled - Indicates that the compute
+     nodes will have public IPs provisioned. Disabled - Indicates that the
+     compute nodes will have a private endpoint and no public IPs. Possible
+     values include: 'Enabled', 'Disabled'. Default value: "Enabled" .
+    :type provision_public_ip: str or
+     ~azure.mgmt.machinelearningservices.models.ProvisionPublicIp
     :ivar allocation_state: Allocation state. Allocation state of the compute.
      Possible values are: steady - Indicates that the compute is not resizing.
      There are no changes to the number of compute nodes in the compute in
@@ -583,6 +590,7 @@ class AmlComputeProperties(Model):
         'user_account_credentials': {'key': 'userAccountCredentials', 'type': 'UserAccountCredentials'},
         'subnet': {'key': 'subnet', 'type': 'ResourceId'},
         'remote_login_port_public_access': {'key': 'remoteLoginPortPublicAccess', 'type': 'str'},
+        'provision_public_ip': {'key': 'provisionPublicIp', 'type': 'str'},
         'allocation_state': {'key': 'allocationState', 'type': 'str'},
         'allocation_state_transition_time': {'key': 'allocationStateTransitionTime', 'type': 'iso-8601'},
         'errors': {'key': 'errors', 'type': '[MachineLearningServiceError]'},
@@ -591,7 +599,7 @@ class AmlComputeProperties(Model):
         'node_state_counts': {'key': 'nodeStateCounts', 'type': 'NodeStateCounts'},
     }
 
-    def __init__(self, *, vm_size: str=None, vm_priority=None, scale_settings=None, user_account_credentials=None, subnet=None, remote_login_port_public_access="NotSpecified", **kwargs) -> None:
+    def __init__(self, *, vm_size: str=None, vm_priority=None, scale_settings=None, user_account_credentials=None, subnet=None, remote_login_port_public_access="NotSpecified", provision_public_ip="Enabled", **kwargs) -> None:
         super(AmlComputeProperties, self).__init__(**kwargs)
         self.vm_size = vm_size
         self.vm_priority = vm_priority
@@ -599,6 +607,7 @@ class AmlComputeProperties(Model):
         self.user_account_credentials = user_account_credentials
         self.subnet = subnet
         self.remote_login_port_public_access = remote_login_port_public_access
+        self.provision_public_ip = provision_public_ip
         self.allocation_state = None
         self.allocation_state_transition_time = None
         self.errors = None
