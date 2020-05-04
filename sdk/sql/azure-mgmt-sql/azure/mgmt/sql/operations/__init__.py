@@ -30,6 +30,7 @@ from ._transparent_data_encryptions_operations import TransparentDataEncryptions
 from ._transparent_data_encryption_activities_operations import TransparentDataEncryptionActivitiesOperations
 from ._server_usages_operations import ServerUsagesOperations
 from ._database_usages_operations import DatabaseUsagesOperations
+from ._sql_agent_operations import SqlAgentOperations
 from ._database_automatic_tuning_operations import DatabaseAutomaticTuningOperations
 from ._encryption_protectors_operations import EncryptionProtectorsOperations
 from ._failover_groups_operations import FailoverGroupsOperations
@@ -123,6 +124,7 @@ __all__ = [
     'TransparentDataEncryptionActivitiesOperations',
     'ServerUsagesOperations',
     'DatabaseUsagesOperations',
+    'SqlAgentOperations',
     'DatabaseAutomaticTuningOperations',
     'EncryptionProtectorsOperations',
     'FailoverGroupsOperations',

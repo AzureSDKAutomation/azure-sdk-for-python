@@ -34,6 +34,7 @@ from .operations import TransparentDataEncryptionsOperations
 from .operations import TransparentDataEncryptionActivitiesOperations
 from .operations import ServerUsagesOperations
 from .operations import DatabaseUsagesOperations
+from .operations import SqlAgentOperations
 from .operations import DatabaseAutomaticTuningOperations
 from .operations import EncryptionProtectorsOperations
 from .operations import FailoverGroupsOperations
@@ -155,6 +156,8 @@ class SqlManagementClient(SDKClient):
     :vartype server_usages: azure.mgmt.sql.operations.ServerUsagesOperations
     :ivar database_usages: DatabaseUsages operations
     :vartype database_usages: azure.mgmt.sql.operations.DatabaseUsagesOperations
+    :ivar sql_agent: SqlAgent operations
+    :vartype sql_agent: azure.mgmt.sql.operations.SqlAgentOperations
     :ivar database_automatic_tuning: DatabaseAutomaticTuning operations
     :vartype database_automatic_tuning: azure.mgmt.sql.operations.DatabaseAutomaticTuningOperations
     :ivar encryption_protectors: EncryptionProtectors operations
@@ -356,6 +359,8 @@ class SqlManagementClient(SDKClient):
         self.server_usages = ServerUsagesOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.database_usages = DatabaseUsagesOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.sql_agent = SqlAgentOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.database_automatic_tuning = DatabaseAutomaticTuningOperations(
             self._client, self.config, self._serialize, self._deserialize)

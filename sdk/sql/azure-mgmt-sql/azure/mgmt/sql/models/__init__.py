@@ -158,6 +158,7 @@ try:
     from ._models_py3 import ServiceTierAdvisor
     from ._models_py3 import Sku
     from ._models_py3 import SloUsageMetric
+    from ._models_py3 import SqlAgent
     from ._models_py3 import StorageCapability
     from ._models_py3 import SubscriptionUsage
     from ._models_py3 import SyncAgent
@@ -336,6 +337,7 @@ except (SyntaxError, ImportError):
     from ._models import ServiceTierAdvisor
     from ._models import Sku
     from ._models import SloUsageMetric
+    from ._models import SqlAgent
     from ._models import StorageCapability
     from ._models import SubscriptionUsage
     from ._models import SyncAgent
@@ -468,6 +470,7 @@ from ._sql_management_client_enums import (
     RecommendedIndexType,
     TransparentDataEncryptionStatus,
     TransparentDataEncryptionActivityStatus,
+    SqlAgentState,
     AutomaticTuningMode,
     AutomaticTuningOptionModeDesired,
     AutomaticTuningOptionModeActual,
@@ -690,6 +693,7 @@ __all__ = [
     'ServiceTierAdvisor',
     'Sku',
     'SloUsageMetric',
+    'SqlAgent',
     'StorageCapability',
     'SubscriptionUsage',
     'SyncAgent',
@@ -821,6 +825,7 @@ __all__ = [
     'RecommendedIndexType',
     'TransparentDataEncryptionStatus',
     'TransparentDataEncryptionActivityStatus',
+    'SqlAgentState',
     'AutomaticTuningMode',
     'AutomaticTuningOptionModeDesired',
     'AutomaticTuningOptionModeActual',

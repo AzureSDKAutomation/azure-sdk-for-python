@@ -8872,6 +8872,41 @@ class SloUsageMetric(Model):
         self.in_range_time_ratio = None
 
 
+class SqlAgent(ProxyResource):
+    """A management instance sql agent resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource ID.
+    :vartype id: str
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param state: The state of Sql Agent. Possible values include: 'Enabled',
+     'Disabled'
+    :type state: str or ~azure.mgmt.sql.models.SqlAgentState
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'state': {'key': 'properties.state', 'type': 'str'},
+    }
+
+    def __init__(self, *, state=None, **kwargs) -> None:
+        super(SqlAgent, self).__init__(**kwargs)
+        self.state = state
+
+
 class StorageCapability(Model):
     """The storage account type capability.
 

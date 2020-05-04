@@ -263,6 +263,12 @@ class TransparentDataEncryptionActivityStatus(str, Enum):
     decrypting = "Decrypting"
 
 
+class SqlAgentState(str, Enum):
+
+    enabled = "Enabled"
+    disabled = "Disabled"
+
+
 class AutomaticTuningMode(str, Enum):
 
     inherit = "Inherit"
