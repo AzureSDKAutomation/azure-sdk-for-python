@@ -2067,17 +2067,22 @@ class ManagementPolicyAction(Model):
     :param snapshot: The management policy action for snapshot
     :type snapshot:
      ~azure.mgmt.storage.v2019_06_01.models.ManagementPolicySnapShot
+    :param version: The management policy action for version
+    :type version:
+     ~azure.mgmt.storage.v2019_06_01.models.ManagementPolicyVersion
     """
 
     _attribute_map = {
         'base_blob': {'key': 'baseBlob', 'type': 'ManagementPolicyBaseBlob'},
         'snapshot': {'key': 'snapshot', 'type': 'ManagementPolicySnapShot'},
+        'version': {'key': 'version', 'type': 'ManagementPolicyVersion'},
     }
 
-    def __init__(self, *, base_blob=None, snapshot=None, **kwargs) -> None:
+    def __init__(self, *, base_blob=None, snapshot=None, version=None, **kwargs) -> None:
         super(ManagementPolicyAction, self).__init__(**kwargs)
         self.base_blob = base_blob
         self.snapshot = snapshot
+        self.version = version
 
 
 class ManagementPolicyBaseBlob(Model):
@@ -2246,16 +2251,56 @@ class ManagementPolicySchema(Model):
 class ManagementPolicySnapShot(Model):
     """Management policy action for snapshot.
 
+    :param tier_to_cool: The function to tier blob snapshot to cool storage.
+     Support blob snapshot currently at Hot tier
+    :type tier_to_cool:
+     ~azure.mgmt.storage.v2019_06_01.models.DateAfterCreation
+    :param tier_to_archive: The function to tier blob snapshot to archive
+     storage. Support blob snapshot currently at Hot or Cool tier
+    :type tier_to_archive:
+     ~azure.mgmt.storage.v2019_06_01.models.DateAfterCreation
     :param delete: The function to delete the blob snapshot
     :type delete: ~azure.mgmt.storage.v2019_06_01.models.DateAfterCreation
     """
 
     _attribute_map = {
+        'tier_to_cool': {'key': 'tierToCool', 'type': 'DateAfterCreation'},
+        'tier_to_archive': {'key': 'tierToArchive', 'type': 'DateAfterCreation'},
         'delete': {'key': 'delete', 'type': 'DateAfterCreation'},
     }
 
-    def __init__(self, *, delete=None, **kwargs) -> None:
+    def __init__(self, *, tier_to_cool=None, tier_to_archive=None, delete=None, **kwargs) -> None:
         super(ManagementPolicySnapShot, self).__init__(**kwargs)
+        self.tier_to_cool = tier_to_cool
+        self.tier_to_archive = tier_to_archive
+        self.delete = delete
+
+
+class ManagementPolicyVersion(Model):
+    """Management policy action for blob version.
+
+    :param tier_to_cool: The function to tier blob version to cool storage.
+     Support blob version currently at Hot tier
+    :type tier_to_cool:
+     ~azure.mgmt.storage.v2019_06_01.models.DateAfterCreation
+    :param tier_to_archive: The function to tier blob version to archive
+     storage. Support blob version currently at Hot or Cool tier
+    :type tier_to_archive:
+     ~azure.mgmt.storage.v2019_06_01.models.DateAfterCreation
+    :param delete: The function to delete the blob version
+    :type delete: ~azure.mgmt.storage.v2019_06_01.models.DateAfterCreation
+    """
+
+    _attribute_map = {
+        'tier_to_cool': {'key': 'tierToCool', 'type': 'DateAfterCreation'},
+        'tier_to_archive': {'key': 'tierToArchive', 'type': 'DateAfterCreation'},
+        'delete': {'key': 'delete', 'type': 'DateAfterCreation'},
+    }
+
+    def __init__(self, *, tier_to_cool=None, tier_to_archive=None, delete=None, **kwargs) -> None:
+        super(ManagementPolicyVersion, self).__init__(**kwargs)
+        self.tier_to_cool = tier_to_cool
+        self.tier_to_archive = tier_to_archive
         self.delete = delete
 
 

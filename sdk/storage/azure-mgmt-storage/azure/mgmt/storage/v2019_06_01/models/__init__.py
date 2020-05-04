@@ -61,6 +61,7 @@ try:
     from ._models_py3 import ManagementPolicyRule
     from ._models_py3 import ManagementPolicySchema
     from ._models_py3 import ManagementPolicySnapShot
+    from ._models_py3 import ManagementPolicyVersion
     from ._models_py3 import MetricSpecification
     from ._models_py3 import NetworkRuleSet
     from ._models_py3 import ObjectReplicationPolicy
@@ -151,6 +152,7 @@ except (SyntaxError, ImportError):
     from ._models import ManagementPolicyRule
     from ._models import ManagementPolicySchema
     from ._models import ManagementPolicySnapShot
+    from ._models import ManagementPolicyVersion
     from ._models import MetricSpecification
     from ._models import NetworkRuleSet
     from ._models import ObjectReplicationPolicy
@@ -296,6 +298,7 @@ __all__ = [
     'ManagementPolicyRule',
     'ManagementPolicySchema',
     'ManagementPolicySnapShot',
+    'ManagementPolicyVersion',
     'MetricSpecification',
     'NetworkRuleSet',
     'ObjectReplicationPolicy',
