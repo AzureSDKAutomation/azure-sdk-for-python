@@ -473,7 +473,7 @@ class HostPool(TrackedResource):
     :param description: Description of HostPool.
     :type description: str
     :param host_pool_type: HostPool type for desktop. Possible values include:
-     'Personal', 'Shared'
+     'Personal', 'Pooled'
     :type host_pool_type: str or
      ~azure.mgmt.desktopvirtualization.models.HostPoolType
     :param personal_desktop_assignment_type: PersonalDesktopAssignment type
@@ -635,37 +635,41 @@ class RegistrationInfo(Model):
     :type expiration_time: datetime
     :param token: The registration token base64 encoded string.
     :type token: str
-    :param reset_token: Update registration token.
-    :type reset_token: bool
+    :param registration_token_operation: The type of resetting the token.
+     Possible values include: 'Delete', 'None', 'Update'
+    :type registration_token_operation: str or
+     ~azure.mgmt.desktopvirtualization.models.RegistrationTokenOperation
     """
 
     _attribute_map = {
         'expiration_time': {'key': 'expirationTime', 'type': 'iso-8601'},
         'token': {'key': 'token', 'type': 'str'},
-        'reset_token': {'key': 'resetToken', 'type': 'bool'},
+        'registration_token_operation': {'key': 'registrationTokenOperation', 'type': 'str'},
     }
 
-    def __init__(self, *, expiration_time=None, token: str=None, reset_token: bool=None, **kwargs) -> None:
+    def __init__(self, *, expiration_time=None, token: str=None, registration_token_operation=None, **kwargs) -> None:
         super(RegistrationInfo, self).__init__(**kwargs)
         self.expiration_time = expiration_time
         self.token = token
-        self.reset_token = reset_token
+        self.registration_token_operation = registration_token_operation
 
 
 class RegistrationInfoPatch(Model):
     """Represents a RegistrationInfo definition.
 
-    :param reset_token: Update registration token.
-    :type reset_token: bool
+    :param registration_token_operation: The type of resetting the token.
+     Possible values include: 'Delete', 'None', 'Update'
+    :type registration_token_operation: str or
+     ~azure.mgmt.desktopvirtualization.models.RegistrationTokenOperation
     """
 
     _attribute_map = {
-        'reset_token': {'key': 'resetToken', 'type': 'bool'},
+        'registration_token_operation': {'key': 'registrationTokenOperation', 'type': 'str'},
     }
 
-    def __init__(self, *, reset_token: bool=None, **kwargs) -> None:
+    def __init__(self, *, registration_token_operation=None, **kwargs) -> None:
         super(RegistrationInfoPatch, self).__init__(**kwargs)
-        self.reset_token = reset_token
+        self.registration_token_operation = registration_token_operation
 
 
 class ResourceProviderOperation(Model):

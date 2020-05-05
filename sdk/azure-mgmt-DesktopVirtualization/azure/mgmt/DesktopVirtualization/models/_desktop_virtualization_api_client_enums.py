@@ -21,7 +21,7 @@ class ApplicationGroupType(str, Enum):
 class HostPoolType(str, Enum):
 
     personal = "Personal"
-    shared = "Shared"
+    pooled = "Pooled"
 
 
 class PersonalDesktopAssignmentType(str, Enum):
@@ -35,6 +35,13 @@ class LoadBalancerType(str, Enum):
     breadth_first = "BreadthFirst"
     depth_first = "DepthFirst"
     persistent = "Persistent"
+
+
+class RegistrationTokenOperation(str, Enum):
+
+    delete = "Delete"
+    none = "None"
+    update = "Update"
 
 
 class CommandLineSetting(str, Enum):
