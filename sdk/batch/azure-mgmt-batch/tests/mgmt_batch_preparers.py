@@ -25,8 +25,7 @@ class KeyVaultPreparer(AzureMgmtPreparer):
         super(KeyVaultPreparer, self).__init__(name_prefix, 24,
                                                disable_recording=disable_recording,
                                                playback_fake_resource=playback_fake_resource,
-                                               client_kwargs=client_kwargs,
-                                               random_name_enabled=True)
+                                               client_kwargs=client_kwargs)
         self.location = location
         self.resource_group_parameter_name = resource_group_parameter_name
         self.parameter_name = parameter_name
