@@ -372,7 +372,9 @@ class AlertModificationItem(Model):
     """Alert modification item.
 
     :param modification_event: Reason for the modification. Possible values
-     include: 'AlertCreated', 'StateChange', 'MonitorConditionChange'
+     include: 'AlertCreated', 'StateChange', 'MonitorConditionChange',
+     'SeverityChange', 'ActionRuleTriggered', 'ActionRuleSuppressed',
+     'ActionsTriggered', 'ActionsSuppressed', 'ActionsFailed'
     :type modification_event: str or
      ~azure.mgmt.alertsmanagement.models.AlertModificationEvent
     :param old_value: Old value
