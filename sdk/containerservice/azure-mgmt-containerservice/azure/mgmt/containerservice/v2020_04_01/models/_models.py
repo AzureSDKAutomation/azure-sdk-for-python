@@ -40,7 +40,7 @@ class SubResource(Model):
         'type': {'key': 'type', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(SubResource, self).__init__(**kwargs)
         self.id = None
         self.name = None
@@ -118,7 +118,7 @@ class AgentPool(SubResource):
      'Standard_NC6s_v3', 'Standard_ND12s', 'Standard_ND24rs', 'Standard_ND24s',
      'Standard_ND6s', 'Standard_NV12', 'Standard_NV24', 'Standard_NV6'
     :type vm_size: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.ContainerServiceVMSizeTypes
+     ~azure.mgmt.containerservice.v2020_04_01.models.ContainerServiceVMSizeTypes
     :param os_disk_size_gb: OS Disk Size in GB to be used to specify the disk
      size for every machine in this master/agent pool. If you specify 0, it
      will apply the default osDisk size according to the vmSize specified.
@@ -132,7 +132,7 @@ class AgentPool(SubResource):
      and Windows. Default to Linux. Possible values include: 'Linux',
      'Windows'. Default value: "Linux" .
     :type os_type: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.OSType
+     ~azure.mgmt.containerservice.v2020_04_01.models.OSType
     :param max_count: Maximum number of nodes for auto-scaling
     :type max_count: int
     :param min_count: Minimum number of nodes for auto-scaling
@@ -142,14 +142,19 @@ class AgentPool(SubResource):
     :param agent_pool_type: AgentPoolType represents types of an agent pool.
      Possible values include: 'VirtualMachineScaleSets', 'AvailabilitySet'
     :type agent_pool_type: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.AgentPoolType
+     ~azure.mgmt.containerservice.v2020_04_01.models.AgentPoolType
     :param mode: AgentPoolMode represents mode of an agent pool. Possible
      values include: 'System', 'User'
     :type mode: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.AgentPoolMode
+     ~azure.mgmt.containerservice.v2020_04_01.models.AgentPoolMode
     :param orchestrator_version: Version of orchestrator specified when
      creating the managed cluster.
     :type orchestrator_version: str
+    :param node_image_version: Version of node image
+    :type node_image_version: str
+    :param upgrade_settings: Settings for upgrading the agentpool
+    :type upgrade_settings:
+     ~azure.mgmt.containerservice.v2020_04_01.models.AgentPoolUpgradeSettings
     :ivar provisioning_state: The current deployment or provisioning state,
      which only appears in the response.
     :vartype provisioning_state: str
@@ -160,15 +165,15 @@ class AgentPool(SubResource):
     :type enable_node_public_ip: bool
     :param scale_set_priority: ScaleSetPriority to be used to specify virtual
      machine scale set priority. Default to regular. Possible values include:
-     'Spot', 'Low', 'Regular'. Default value: "Regular" .
+     'Spot', 'Regular'. Default value: "Regular" .
     :type scale_set_priority: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.ScaleSetPriority
+     ~azure.mgmt.containerservice.v2020_04_01.models.ScaleSetPriority
     :param scale_set_eviction_policy: ScaleSetEvictionPolicy to be used to
-     specify eviction policy for Spot or low priority virtual machine scale
-     set. Default to Delete. Possible values include: 'Delete', 'Deallocate'.
-     Default value: "Delete" .
+     specify eviction policy for Spot virtual machine scale set. Default to
+     Delete. Possible values include: 'Delete', 'Deallocate'. Default value:
+     "Delete" .
     :type scale_set_eviction_policy: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.ScaleSetEvictionPolicy
+     ~azure.mgmt.containerservice.v2020_04_01.models.ScaleSetEvictionPolicy
     :param spot_max_price: SpotMaxPrice to be used to specify the maximum
      price you are willing to pay in US Dollars. Possible values are any
      decimal value greater than zero or -1 which indicates default price to be
@@ -210,6 +215,8 @@ class AgentPool(SubResource):
         'agent_pool_type': {'key': 'properties.type', 'type': 'str'},
         'mode': {'key': 'properties.mode', 'type': 'str'},
         'orchestrator_version': {'key': 'properties.orchestratorVersion', 'type': 'str'},
+        'node_image_version': {'key': 'properties.nodeImageVersion', 'type': 'str'},
+        'upgrade_settings': {'key': 'properties.upgradeSettings', 'type': 'AgentPoolUpgradeSettings'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'availability_zones': {'key': 'properties.availabilityZones', 'type': '[str]'},
         'enable_node_public_ip': {'key': 'properties.enableNodePublicIP', 'type': 'bool'},
@@ -221,29 +228,31 @@ class AgentPool(SubResource):
         'node_taints': {'key': 'properties.nodeTaints', 'type': '[str]'},
     }
 
-    def __init__(self, *, vm_size, count: int=1, os_disk_size_gb: int=None, vnet_subnet_id: str=None, max_pods: int=None, os_type="Linux", max_count: int=None, min_count: int=None, enable_auto_scaling: bool=None, agent_pool_type=None, mode=None, orchestrator_version: str=None, availability_zones=None, enable_node_public_ip: bool=None, scale_set_priority="Regular", scale_set_eviction_policy="Delete", spot_max_price: float=None, tags=None, node_labels=None, node_taints=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(AgentPool, self).__init__(**kwargs)
-        self.count = count
-        self.vm_size = vm_size
-        self.os_disk_size_gb = os_disk_size_gb
-        self.vnet_subnet_id = vnet_subnet_id
-        self.max_pods = max_pods
-        self.os_type = os_type
-        self.max_count = max_count
-        self.min_count = min_count
-        self.enable_auto_scaling = enable_auto_scaling
-        self.agent_pool_type = agent_pool_type
-        self.mode = mode
-        self.orchestrator_version = orchestrator_version
+        self.count = kwargs.get('count', 1)
+        self.vm_size = kwargs.get('vm_size', None)
+        self.os_disk_size_gb = kwargs.get('os_disk_size_gb', None)
+        self.vnet_subnet_id = kwargs.get('vnet_subnet_id', None)
+        self.max_pods = kwargs.get('max_pods', None)
+        self.os_type = kwargs.get('os_type', "Linux")
+        self.max_count = kwargs.get('max_count', None)
+        self.min_count = kwargs.get('min_count', None)
+        self.enable_auto_scaling = kwargs.get('enable_auto_scaling', None)
+        self.agent_pool_type = kwargs.get('agent_pool_type', None)
+        self.mode = kwargs.get('mode', None)
+        self.orchestrator_version = kwargs.get('orchestrator_version', None)
+        self.node_image_version = kwargs.get('node_image_version', None)
+        self.upgrade_settings = kwargs.get('upgrade_settings', None)
         self.provisioning_state = None
-        self.availability_zones = availability_zones
-        self.enable_node_public_ip = enable_node_public_ip
-        self.scale_set_priority = scale_set_priority
-        self.scale_set_eviction_policy = scale_set_eviction_policy
-        self.spot_max_price = spot_max_price
-        self.tags = tags
-        self.node_labels = node_labels
-        self.node_taints = node_taints
+        self.availability_zones = kwargs.get('availability_zones', None)
+        self.enable_node_public_ip = kwargs.get('enable_node_public_ip', None)
+        self.scale_set_priority = kwargs.get('scale_set_priority', "Regular")
+        self.scale_set_eviction_policy = kwargs.get('scale_set_eviction_policy', "Delete")
+        self.spot_max_price = kwargs.get('spot_max_price', None)
+        self.tags = kwargs.get('tags', None)
+        self.node_labels = kwargs.get('node_labels', None)
+        self.node_taints = kwargs.get('node_taints', None)
 
 
 class AgentPoolAvailableVersions(Model):
@@ -260,7 +269,7 @@ class AgentPoolAvailableVersions(Model):
     :vartype type: str
     :param agent_pool_versions: List of versions available for agent pool.
     :type agent_pool_versions:
-     list[~azure.mgmt.containerservice.v2020_03_01.models.AgentPoolAvailableVersionsPropertiesAgentPoolVersionsItem]
+     list[~azure.mgmt.containerservice.v2020_04_01.models.AgentPoolAvailableVersionsPropertiesAgentPoolVersionsItem]
     """
 
     _validation = {
@@ -276,12 +285,12 @@ class AgentPoolAvailableVersions(Model):
         'agent_pool_versions': {'key': 'properties.agentPoolVersions', 'type': '[AgentPoolAvailableVersionsPropertiesAgentPoolVersionsItem]'},
     }
 
-    def __init__(self, *, agent_pool_versions=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(AgentPoolAvailableVersions, self).__init__(**kwargs)
         self.id = None
         self.name = None
         self.type = None
-        self.agent_pool_versions = agent_pool_versions
+        self.agent_pool_versions = kwargs.get('agent_pool_versions', None)
 
 
 class AgentPoolAvailableVersionsPropertiesAgentPoolVersionsItem(Model):
@@ -301,11 +310,11 @@ class AgentPoolAvailableVersionsPropertiesAgentPoolVersionsItem(Model):
         'is_preview': {'key': 'isPreview', 'type': 'bool'},
     }
 
-    def __init__(self, *, default: bool=None, kubernetes_version: str=None, is_preview: bool=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(AgentPoolAvailableVersionsPropertiesAgentPoolVersionsItem, self).__init__(**kwargs)
-        self.default = default
-        self.kubernetes_version = kubernetes_version
-        self.is_preview = is_preview
+        self.default = kwargs.get('default', None)
+        self.kubernetes_version = kwargs.get('kubernetes_version', None)
+        self.is_preview = kwargs.get('is_preview', None)
 
 
 class AgentPoolUpgradeProfile(Model):
@@ -329,11 +338,14 @@ class AgentPoolUpgradeProfile(Model):
      from Linux and Windows. Default to Linux. Possible values include:
      'Linux', 'Windows'. Default value: "Linux" .
     :type os_type: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.OSType
+     ~azure.mgmt.containerservice.v2020_04_01.models.OSType
     :param upgrades: List of orchestrator types and versions available for
      upgrade.
     :type upgrades:
-     list[~azure.mgmt.containerservice.v2020_03_01.models.AgentPoolUpgradeProfilePropertiesUpgradesItem]
+     list[~azure.mgmt.containerservice.v2020_04_01.models.AgentPoolUpgradeProfilePropertiesUpgradesItem]
+    :param latest_node_image_version: LatestNodeImageVersion is the latest AKS
+     supported node image version.
+    :type latest_node_image_version: str
     """
 
     _validation = {
@@ -351,16 +363,18 @@ class AgentPoolUpgradeProfile(Model):
         'kubernetes_version': {'key': 'properties.kubernetesVersion', 'type': 'str'},
         'os_type': {'key': 'properties.osType', 'type': 'str'},
         'upgrades': {'key': 'properties.upgrades', 'type': '[AgentPoolUpgradeProfilePropertiesUpgradesItem]'},
+        'latest_node_image_version': {'key': 'properties.latestNodeImageVersion', 'type': 'str'},
     }
 
-    def __init__(self, *, kubernetes_version: str, os_type="Linux", upgrades=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(AgentPoolUpgradeProfile, self).__init__(**kwargs)
         self.id = None
         self.name = None
         self.type = None
-        self.kubernetes_version = kubernetes_version
-        self.os_type = os_type
-        self.upgrades = upgrades
+        self.kubernetes_version = kwargs.get('kubernetes_version', None)
+        self.os_type = kwargs.get('os_type', "Linux")
+        self.upgrades = kwargs.get('upgrades', None)
+        self.latest_node_image_version = kwargs.get('latest_node_image_version', None)
 
 
 class AgentPoolUpgradeProfilePropertiesUpgradesItem(Model):
@@ -377,10 +391,27 @@ class AgentPoolUpgradeProfilePropertiesUpgradesItem(Model):
         'is_preview': {'key': 'isPreview', 'type': 'bool'},
     }
 
-    def __init__(self, *, kubernetes_version: str=None, is_preview: bool=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(AgentPoolUpgradeProfilePropertiesUpgradesItem, self).__init__(**kwargs)
-        self.kubernetes_version = kubernetes_version
-        self.is_preview = is_preview
+        self.kubernetes_version = kwargs.get('kubernetes_version', None)
+        self.is_preview = kwargs.get('is_preview', None)
+
+
+class AgentPoolUpgradeSettings(Model):
+    """Settings for upgrading an agentpool.
+
+    :param max_surge: Count or percentage of additional nodes to be added
+     during upgrade. If empty uses AKS default
+    :type max_surge: str
+    """
+
+    _attribute_map = {
+        'max_surge': {'key': 'maxSurge', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AgentPoolUpgradeSettings, self).__init__(**kwargs)
+        self.max_surge = kwargs.get('max_surge', None)
 
 
 class CloudError(Model):
@@ -388,16 +419,16 @@ class CloudError(Model):
 
     :param error: Details about the error.
     :type error:
-     ~azure.mgmt.containerservice.v2020_03_01.models.CloudErrorBody
+     ~azure.mgmt.containerservice.v2020_04_01.models.CloudErrorBody
     """
 
     _attribute_map = {
         'error': {'key': 'error', 'type': 'CloudErrorBody'},
     }
 
-    def __init__(self, *, error=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(CloudError, self).__init__(**kwargs)
-        self.error = error
+        self.error = kwargs.get('error', None)
 
 
 class CloudErrorException(HttpOperationError):
@@ -426,7 +457,7 @@ class CloudErrorBody(Model):
     :type target: str
     :param details: A list of additional details about the error.
     :type details:
-     list[~azure.mgmt.containerservice.v2020_03_01.models.CloudErrorBody]
+     list[~azure.mgmt.containerservice.v2020_04_01.models.CloudErrorBody]
     """
 
     _attribute_map = {
@@ -436,12 +467,12 @@ class CloudErrorBody(Model):
         'details': {'key': 'details', 'type': '[CloudErrorBody]'},
     }
 
-    def __init__(self, *, code: str=None, message: str=None, target: str=None, details=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(CloudErrorBody, self).__init__(**kwargs)
-        self.code = code
-        self.message = message
-        self.target = target
-        self.details = details
+        self.code = kwargs.get('code', None)
+        self.message = kwargs.get('message', None)
+        self.target = kwargs.get('target', None)
+        self.details = kwargs.get('details', None)
 
 
 class ContainerServiceDiagnosticsProfile(Model):
@@ -452,7 +483,7 @@ class ContainerServiceDiagnosticsProfile(Model):
     :param vm_diagnostics: Required. Profile for diagnostics on the container
      service VMs.
     :type vm_diagnostics:
-     ~azure.mgmt.containerservice.v2020_03_01.models.ContainerServiceVMDiagnostics
+     ~azure.mgmt.containerservice.v2020_04_01.models.ContainerServiceVMDiagnostics
     """
 
     _validation = {
@@ -463,9 +494,9 @@ class ContainerServiceDiagnosticsProfile(Model):
         'vm_diagnostics': {'key': 'vmDiagnostics', 'type': 'ContainerServiceVMDiagnostics'},
     }
 
-    def __init__(self, *, vm_diagnostics, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ContainerServiceDiagnosticsProfile, self).__init__(**kwargs)
-        self.vm_diagnostics = vm_diagnostics
+        self.vm_diagnostics = kwargs.get('vm_diagnostics', None)
 
 
 class ContainerServiceLinuxProfile(Model):
@@ -479,7 +510,7 @@ class ContainerServiceLinuxProfile(Model):
     :param ssh: Required. SSH configuration for Linux-based VMs running on
      Azure.
     :type ssh:
-     ~azure.mgmt.containerservice.v2020_03_01.models.ContainerServiceSshConfiguration
+     ~azure.mgmt.containerservice.v2020_04_01.models.ContainerServiceSshConfiguration
     """
 
     _validation = {
@@ -492,10 +523,10 @@ class ContainerServiceLinuxProfile(Model):
         'ssh': {'key': 'ssh', 'type': 'ContainerServiceSshConfiguration'},
     }
 
-    def __init__(self, *, admin_username: str, ssh, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ContainerServiceLinuxProfile, self).__init__(**kwargs)
-        self.admin_username = admin_username
-        self.ssh = ssh
+        self.admin_username = kwargs.get('admin_username', None)
+        self.ssh = kwargs.get('ssh', None)
 
 
 class ContainerServiceMasterProfile(Model):
@@ -564,7 +595,7 @@ class ContainerServiceMasterProfile(Model):
      'Standard_NC6s_v3', 'Standard_ND12s', 'Standard_ND24rs', 'Standard_ND24s',
      'Standard_ND6s', 'Standard_NV12', 'Standard_NV24', 'Standard_NV6'
     :type vm_size: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.ContainerServiceVMSizeTypes
+     ~azure.mgmt.containerservice.v2020_04_01.models.ContainerServiceVMSizeTypes
     :param os_disk_size_gb: OS Disk Size in GB to be used to specify the disk
      size for every machine in this master/agent pool. If you specify 0, it
      will apply the default osDisk size according to the vmSize specified.
@@ -580,7 +611,7 @@ class ContainerServiceMasterProfile(Model):
      choose for you based on the orchestrator choice. Possible values include:
      'StorageAccount', 'ManagedDisks'
     :type storage_profile: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.ContainerServiceStorageProfileTypes
+     ~azure.mgmt.containerservice.v2020_04_01.models.ContainerServiceStorageProfileTypes
     :ivar fqdn: FQDN for the master pool.
     :vartype fqdn: str
     """
@@ -602,15 +633,15 @@ class ContainerServiceMasterProfile(Model):
         'fqdn': {'key': 'fqdn', 'type': 'str'},
     }
 
-    def __init__(self, *, dns_prefix: str, vm_size, count: int=1, os_disk_size_gb: int=None, vnet_subnet_id: str=None, first_consecutive_static_ip: str="10.240.255.5", storage_profile=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ContainerServiceMasterProfile, self).__init__(**kwargs)
-        self.count = count
-        self.dns_prefix = dns_prefix
-        self.vm_size = vm_size
-        self.os_disk_size_gb = os_disk_size_gb
-        self.vnet_subnet_id = vnet_subnet_id
-        self.first_consecutive_static_ip = first_consecutive_static_ip
-        self.storage_profile = storage_profile
+        self.count = kwargs.get('count', 1)
+        self.dns_prefix = kwargs.get('dns_prefix', None)
+        self.vm_size = kwargs.get('vm_size', None)
+        self.os_disk_size_gb = kwargs.get('os_disk_size_gb', None)
+        self.vnet_subnet_id = kwargs.get('vnet_subnet_id', None)
+        self.first_consecutive_static_ip = kwargs.get('first_consecutive_static_ip', "10.240.255.5")
+        self.storage_profile = kwargs.get('storage_profile', None)
         self.fqdn = None
 
 
@@ -621,15 +652,15 @@ class ContainerServiceNetworkProfile(Model):
      network. Possible values include: 'azure', 'kubenet'. Default value:
      "kubenet" .
     :type network_plugin: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.NetworkPlugin
+     ~azure.mgmt.containerservice.v2020_04_01.models.NetworkPlugin
     :param network_policy: Network policy used for building Kubernetes
      network. Possible values include: 'calico', 'azure'
     :type network_policy: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.NetworkPolicy
+     ~azure.mgmt.containerservice.v2020_04_01.models.NetworkPolicy
     :param network_mode: Network mode used for building Kubernetes network.
      Possible values include: 'transparent', 'bridge'
     :type network_mode: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.NetworkMode
+     ~azure.mgmt.containerservice.v2020_04_01.models.NetworkMode
     :param pod_cidr: A CIDR notation IP range from which to assign pod IPs
      when kubenet is used. Default value: "10.244.0.0/16" .
     :type pod_cidr: str
@@ -649,14 +680,14 @@ class ContainerServiceNetworkProfile(Model):
      values include: 'loadBalancer', 'userDefinedRouting'. Default value:
      "loadBalancer" .
     :type outbound_type: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.OutboundType
+     ~azure.mgmt.containerservice.v2020_04_01.models.OutboundType
     :param load_balancer_sku: The load balancer sku for the managed cluster.
      Possible values include: 'standard', 'basic'
     :type load_balancer_sku: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.LoadBalancerSku
+     ~azure.mgmt.containerservice.v2020_04_01.models.LoadBalancerSku
     :param load_balancer_profile: Profile of the cluster load balancer.
     :type load_balancer_profile:
-     ~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterLoadBalancerProfile
+     ~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterLoadBalancerProfile
     """
 
     _validation = {
@@ -679,18 +710,18 @@ class ContainerServiceNetworkProfile(Model):
         'load_balancer_profile': {'key': 'loadBalancerProfile', 'type': 'ManagedClusterLoadBalancerProfile'},
     }
 
-    def __init__(self, *, network_plugin="kubenet", network_policy=None, network_mode=None, pod_cidr: str="10.244.0.0/16", service_cidr: str="10.0.0.0/16", dns_service_ip: str="10.0.0.10", docker_bridge_cidr: str="172.17.0.1/16", outbound_type="loadBalancer", load_balancer_sku=None, load_balancer_profile=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ContainerServiceNetworkProfile, self).__init__(**kwargs)
-        self.network_plugin = network_plugin
-        self.network_policy = network_policy
-        self.network_mode = network_mode
-        self.pod_cidr = pod_cidr
-        self.service_cidr = service_cidr
-        self.dns_service_ip = dns_service_ip
-        self.docker_bridge_cidr = docker_bridge_cidr
-        self.outbound_type = outbound_type
-        self.load_balancer_sku = load_balancer_sku
-        self.load_balancer_profile = load_balancer_profile
+        self.network_plugin = kwargs.get('network_plugin', "kubenet")
+        self.network_policy = kwargs.get('network_policy', None)
+        self.network_mode = kwargs.get('network_mode', None)
+        self.pod_cidr = kwargs.get('pod_cidr', "10.244.0.0/16")
+        self.service_cidr = kwargs.get('service_cidr', "10.0.0.0/16")
+        self.dns_service_ip = kwargs.get('dns_service_ip', "10.0.0.10")
+        self.docker_bridge_cidr = kwargs.get('docker_bridge_cidr', "172.17.0.1/16")
+        self.outbound_type = kwargs.get('outbound_type', "loadBalancer")
+        self.load_balancer_sku = kwargs.get('load_balancer_sku', None)
+        self.load_balancer_profile = kwargs.get('load_balancer_profile', None)
 
 
 class ContainerServiceSshConfiguration(Model):
@@ -701,7 +732,7 @@ class ContainerServiceSshConfiguration(Model):
     :param public_keys: Required. The list of SSH public keys used to
      authenticate with Linux-based VMs. Only expect one key specified.
     :type public_keys:
-     list[~azure.mgmt.containerservice.v2020_03_01.models.ContainerServiceSshPublicKey]
+     list[~azure.mgmt.containerservice.v2020_04_01.models.ContainerServiceSshPublicKey]
     """
 
     _validation = {
@@ -712,9 +743,9 @@ class ContainerServiceSshConfiguration(Model):
         'public_keys': {'key': 'publicKeys', 'type': '[ContainerServiceSshPublicKey]'},
     }
 
-    def __init__(self, *, public_keys, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ContainerServiceSshConfiguration, self).__init__(**kwargs)
-        self.public_keys = public_keys
+        self.public_keys = kwargs.get('public_keys', None)
 
 
 class ContainerServiceSshPublicKey(Model):
@@ -736,9 +767,9 @@ class ContainerServiceSshPublicKey(Model):
         'key_data': {'key': 'keyData', 'type': 'str'},
     }
 
-    def __init__(self, *, key_data: str, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ContainerServiceSshPublicKey, self).__init__(**kwargs)
-        self.key_data = key_data
+        self.key_data = kwargs.get('key_data', None)
 
 
 class ContainerServiceVMDiagnostics(Model):
@@ -767,9 +798,9 @@ class ContainerServiceVMDiagnostics(Model):
         'storage_uri': {'key': 'storageUri', 'type': 'str'},
     }
 
-    def __init__(self, *, enabled: bool, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ContainerServiceVMDiagnostics, self).__init__(**kwargs)
-        self.enabled = enabled
+        self.enabled = kwargs.get('enabled', None)
         self.storage_uri = None
 
 
@@ -795,7 +826,7 @@ class CredentialResult(Model):
         'value': {'key': 'value', 'type': 'bytearray'},
     }
 
-    def __init__(self, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(CredentialResult, self).__init__(**kwargs)
         self.name = None
         self.value = None
@@ -809,7 +840,7 @@ class CredentialResults(Model):
 
     :ivar kubeconfigs: Base64-encoded Kubernetes configuration file.
     :vartype kubeconfigs:
-     list[~azure.mgmt.containerservice.v2020_03_01.models.CredentialResult]
+     list[~azure.mgmt.containerservice.v2020_04_01.models.CredentialResult]
     """
 
     _validation = {
@@ -820,7 +851,7 @@ class CredentialResults(Model):
         'kubeconfigs': {'key': 'kubeconfigs', 'type': '[CredentialResult]'},
     }
 
-    def __init__(self, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(CredentialResults, self).__init__(**kwargs)
         self.kubeconfigs = None
 
@@ -860,13 +891,13 @@ class Resource(Model):
         'tags': {'key': 'tags', 'type': '{str}'},
     }
 
-    def __init__(self, *, location: str, tags=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(Resource, self).__init__(**kwargs)
         self.id = None
         self.name = None
         self.type = None
-        self.location = location
-        self.tags = tags
+        self.location = kwargs.get('location', None)
+        self.tags = kwargs.get('tags', None)
 
 
 class ManagedCluster(Resource):
@@ -904,22 +935,22 @@ class ManagedCluster(Resource):
     :vartype private_fqdn: str
     :param agent_pool_profiles: Properties of the agent pool.
     :type agent_pool_profiles:
-     list[~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterAgentPoolProfile]
+     list[~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterAgentPoolProfile]
     :param linux_profile: Profile for Linux VMs in the container service
      cluster.
     :type linux_profile:
-     ~azure.mgmt.containerservice.v2020_03_01.models.ContainerServiceLinuxProfile
+     ~azure.mgmt.containerservice.v2020_04_01.models.ContainerServiceLinuxProfile
     :param windows_profile: Profile for Windows VMs in the container service
      cluster.
     :type windows_profile:
-     ~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterWindowsProfile
+     ~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterWindowsProfile
     :param service_principal_profile: Information about a service principal
      identity for the cluster to use for manipulating Azure APIs.
     :type service_principal_profile:
-     ~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterServicePrincipalProfile
+     ~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterServicePrincipalProfile
     :param addon_profiles: Profile of managed cluster add-on.
     :type addon_profiles: dict[str,
-     ~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterAddonProfile]
+     ~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterAddonProfile]
     :param node_resource_group: Name of the resource group containing agent
      pool nodes.
     :type node_resource_group: str
@@ -931,30 +962,30 @@ class ManagedCluster(Resource):
     :type enable_pod_security_policy: bool
     :param network_profile: Profile of network configuration.
     :type network_profile:
-     ~azure.mgmt.containerservice.v2020_03_01.models.ContainerServiceNetworkProfile
+     ~azure.mgmt.containerservice.v2020_04_01.models.ContainerServiceNetworkProfile
     :param aad_profile: Profile of Azure Active Directory configuration.
     :type aad_profile:
-     ~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterAADProfile
+     ~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterAADProfile
     :param auto_scaler_profile: Parameters to be applied to the
      cluster-autoscaler when enabled
     :type auto_scaler_profile:
-     ~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterPropertiesAutoScalerProfile
+     ~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterPropertiesAutoScalerProfile
     :param api_server_access_profile: Access profile for managed cluster API
      server.
     :type api_server_access_profile:
-     ~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterAPIServerAccessProfile
+     ~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterAPIServerAccessProfile
     :param disk_encryption_set_id: ResourceId of the disk encryption set to
      use for enabling encryption at rest.
     :type disk_encryption_set_id: str
     :param identity_profile: Identities associated with the cluster.
     :type identity_profile: dict[str,
-     ~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterPropertiesIdentityProfileValue]
+     ~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterPropertiesIdentityProfileValue]
     :param identity: The identity of the managed cluster, if configured.
     :type identity:
-     ~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterIdentity
+     ~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterIdentity
     :param sku: The managed cluster SKU.
     :type sku:
-     ~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterSKU
+     ~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterSKU
     """
 
     _validation = {
@@ -998,30 +1029,30 @@ class ManagedCluster(Resource):
         'sku': {'key': 'sku', 'type': 'ManagedClusterSKU'},
     }
 
-    def __init__(self, *, location: str, tags=None, kubernetes_version: str=None, dns_prefix: str=None, agent_pool_profiles=None, linux_profile=None, windows_profile=None, service_principal_profile=None, addon_profiles=None, node_resource_group: str=None, enable_rbac: bool=None, enable_pod_security_policy: bool=None, network_profile=None, aad_profile=None, auto_scaler_profile=None, api_server_access_profile=None, disk_encryption_set_id: str=None, identity_profile=None, identity=None, sku=None, **kwargs) -> None:
-        super(ManagedCluster, self).__init__(location=location, tags=tags, **kwargs)
+    def __init__(self, **kwargs):
+        super(ManagedCluster, self).__init__(**kwargs)
         self.provisioning_state = None
         self.max_agent_pools = None
-        self.kubernetes_version = kubernetes_version
-        self.dns_prefix = dns_prefix
+        self.kubernetes_version = kwargs.get('kubernetes_version', None)
+        self.dns_prefix = kwargs.get('dns_prefix', None)
         self.fqdn = None
         self.private_fqdn = None
-        self.agent_pool_profiles = agent_pool_profiles
-        self.linux_profile = linux_profile
-        self.windows_profile = windows_profile
-        self.service_principal_profile = service_principal_profile
-        self.addon_profiles = addon_profiles
-        self.node_resource_group = node_resource_group
-        self.enable_rbac = enable_rbac
-        self.enable_pod_security_policy = enable_pod_security_policy
-        self.network_profile = network_profile
-        self.aad_profile = aad_profile
-        self.auto_scaler_profile = auto_scaler_profile
-        self.api_server_access_profile = api_server_access_profile
-        self.disk_encryption_set_id = disk_encryption_set_id
-        self.identity_profile = identity_profile
-        self.identity = identity
-        self.sku = sku
+        self.agent_pool_profiles = kwargs.get('agent_pool_profiles', None)
+        self.linux_profile = kwargs.get('linux_profile', None)
+        self.windows_profile = kwargs.get('windows_profile', None)
+        self.service_principal_profile = kwargs.get('service_principal_profile', None)
+        self.addon_profiles = kwargs.get('addon_profiles', None)
+        self.node_resource_group = kwargs.get('node_resource_group', None)
+        self.enable_rbac = kwargs.get('enable_rbac', None)
+        self.enable_pod_security_policy = kwargs.get('enable_pod_security_policy', None)
+        self.network_profile = kwargs.get('network_profile', None)
+        self.aad_profile = kwargs.get('aad_profile', None)
+        self.auto_scaler_profile = kwargs.get('auto_scaler_profile', None)
+        self.api_server_access_profile = kwargs.get('api_server_access_profile', None)
+        self.disk_encryption_set_id = kwargs.get('disk_encryption_set_id', None)
+        self.identity_profile = kwargs.get('identity_profile', None)
+        self.identity = kwargs.get('identity', None)
+        self.sku = kwargs.get('sku', None)
 
 
 class ManagedClusterAADProfile(Model):
@@ -1052,14 +1083,14 @@ class ManagedClusterAADProfile(Model):
         'tenant_id': {'key': 'tenantID', 'type': 'str'},
     }
 
-    def __init__(self, *, managed: bool=None, admin_group_object_ids=None, client_app_id: str=None, server_app_id: str=None, server_app_secret: str=None, tenant_id: str=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ManagedClusterAADProfile, self).__init__(**kwargs)
-        self.managed = managed
-        self.admin_group_object_ids = admin_group_object_ids
-        self.client_app_id = client_app_id
-        self.server_app_id = server_app_id
-        self.server_app_secret = server_app_secret
-        self.tenant_id = tenant_id
+        self.managed = kwargs.get('managed', None)
+        self.admin_group_object_ids = kwargs.get('admin_group_object_ids', None)
+        self.client_app_id = kwargs.get('client_app_id', None)
+        self.server_app_id = kwargs.get('server_app_id', None)
+        self.server_app_secret = kwargs.get('server_app_secret', None)
+        self.tenant_id = kwargs.get('tenant_id', None)
 
 
 class ManagedClusterAccessProfile(Resource):
@@ -1100,9 +1131,9 @@ class ManagedClusterAccessProfile(Resource):
         'kube_config': {'key': 'properties.kubeConfig', 'type': 'bytearray'},
     }
 
-    def __init__(self, *, location: str, tags=None, kube_config: bytearray=None, **kwargs) -> None:
-        super(ManagedClusterAccessProfile, self).__init__(location=location, tags=tags, **kwargs)
-        self.kube_config = kube_config
+    def __init__(self, **kwargs):
+        super(ManagedClusterAccessProfile, self).__init__(**kwargs)
+        self.kube_config = kwargs.get('kube_config', None)
 
 
 class ManagedClusterAddonProfile(Model):
@@ -1119,7 +1150,7 @@ class ManagedClusterAddonProfile(Model):
     :type config: dict[str, str]
     :ivar identity: Information of user assigned identity used by this add-on.
     :vartype identity:
-     ~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterAddonProfileIdentity
+     ~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterAddonProfileIdentity
     """
 
     _validation = {
@@ -1133,10 +1164,10 @@ class ManagedClusterAddonProfile(Model):
         'identity': {'key': 'identity', 'type': 'ManagedClusterAddonProfileIdentity'},
     }
 
-    def __init__(self, *, enabled: bool, config=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ManagedClusterAddonProfile, self).__init__(**kwargs)
-        self.enabled = enabled
-        self.config = config
+        self.enabled = kwargs.get('enabled', None)
+        self.config = kwargs.get('config', None)
         self.identity = None
 
 
@@ -1157,11 +1188,11 @@ class UserAssignedIdentity(Model):
         'object_id': {'key': 'objectId', 'type': 'str'},
     }
 
-    def __init__(self, *, resource_id: str=None, client_id: str=None, object_id: str=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(UserAssignedIdentity, self).__init__(**kwargs)
-        self.resource_id = resource_id
-        self.client_id = client_id
-        self.object_id = object_id
+        self.resource_id = kwargs.get('resource_id', None)
+        self.client_id = kwargs.get('client_id', None)
+        self.object_id = kwargs.get('object_id', None)
 
 
 class ManagedClusterAddonProfileIdentity(UserAssignedIdentity):
@@ -1181,8 +1212,8 @@ class ManagedClusterAddonProfileIdentity(UserAssignedIdentity):
         'object_id': {'key': 'objectId', 'type': 'str'},
     }
 
-    def __init__(self, *, resource_id: str=None, client_id: str=None, object_id: str=None, **kwargs) -> None:
-        super(ManagedClusterAddonProfileIdentity, self).__init__(resource_id=resource_id, client_id=client_id, object_id=object_id, **kwargs)
+    def __init__(self, **kwargs):
+        super(ManagedClusterAddonProfileIdentity, self).__init__(**kwargs)
 
 
 class ManagedClusterAgentPoolProfileProperties(Model):
@@ -1249,7 +1280,7 @@ class ManagedClusterAgentPoolProfileProperties(Model):
      'Standard_NC6s_v3', 'Standard_ND12s', 'Standard_ND24rs', 'Standard_ND24s',
      'Standard_ND6s', 'Standard_NV12', 'Standard_NV24', 'Standard_NV6'
     :type vm_size: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.ContainerServiceVMSizeTypes
+     ~azure.mgmt.containerservice.v2020_04_01.models.ContainerServiceVMSizeTypes
     :param os_disk_size_gb: OS Disk Size in GB to be used to specify the disk
      size for every machine in this master/agent pool. If you specify 0, it
      will apply the default osDisk size according to the vmSize specified.
@@ -1263,7 +1294,7 @@ class ManagedClusterAgentPoolProfileProperties(Model):
      and Windows. Default to Linux. Possible values include: 'Linux',
      'Windows'. Default value: "Linux" .
     :type os_type: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.OSType
+     ~azure.mgmt.containerservice.v2020_04_01.models.OSType
     :param max_count: Maximum number of nodes for auto-scaling
     :type max_count: int
     :param min_count: Minimum number of nodes for auto-scaling
@@ -1273,14 +1304,19 @@ class ManagedClusterAgentPoolProfileProperties(Model):
     :param type: AgentPoolType represents types of an agent pool. Possible
      values include: 'VirtualMachineScaleSets', 'AvailabilitySet'
     :type type: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.AgentPoolType
+     ~azure.mgmt.containerservice.v2020_04_01.models.AgentPoolType
     :param mode: AgentPoolMode represents mode of an agent pool. Possible
      values include: 'System', 'User'
     :type mode: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.AgentPoolMode
+     ~azure.mgmt.containerservice.v2020_04_01.models.AgentPoolMode
     :param orchestrator_version: Version of orchestrator specified when
      creating the managed cluster.
     :type orchestrator_version: str
+    :param node_image_version: Version of node image
+    :type node_image_version: str
+    :param upgrade_settings: Settings for upgrading the agentpool
+    :type upgrade_settings:
+     ~azure.mgmt.containerservice.v2020_04_01.models.AgentPoolUpgradeSettings
     :ivar provisioning_state: The current deployment or provisioning state,
      which only appears in the response.
     :vartype provisioning_state: str
@@ -1291,15 +1327,15 @@ class ManagedClusterAgentPoolProfileProperties(Model):
     :type enable_node_public_ip: bool
     :param scale_set_priority: ScaleSetPriority to be used to specify virtual
      machine scale set priority. Default to regular. Possible values include:
-     'Spot', 'Low', 'Regular'. Default value: "Regular" .
+     'Spot', 'Regular'. Default value: "Regular" .
     :type scale_set_priority: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.ScaleSetPriority
+     ~azure.mgmt.containerservice.v2020_04_01.models.ScaleSetPriority
     :param scale_set_eviction_policy: ScaleSetEvictionPolicy to be used to
-     specify eviction policy for Spot or low priority virtual machine scale
-     set. Default to Delete. Possible values include: 'Delete', 'Deallocate'.
-     Default value: "Delete" .
+     specify eviction policy for Spot virtual machine scale set. Default to
+     Delete. Possible values include: 'Delete', 'Deallocate'. Default value:
+     "Delete" .
     :type scale_set_eviction_policy: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.ScaleSetEvictionPolicy
+     ~azure.mgmt.containerservice.v2020_04_01.models.ScaleSetEvictionPolicy
     :param spot_max_price: SpotMaxPrice to be used to specify the maximum
      price you are willing to pay in US Dollars. Possible values are any
      decimal value greater than zero or -1 which indicates default price to be
@@ -1335,6 +1371,8 @@ class ManagedClusterAgentPoolProfileProperties(Model):
         'type': {'key': 'type', 'type': 'str'},
         'mode': {'key': 'mode', 'type': 'str'},
         'orchestrator_version': {'key': 'orchestratorVersion', 'type': 'str'},
+        'node_image_version': {'key': 'nodeImageVersion', 'type': 'str'},
+        'upgrade_settings': {'key': 'upgradeSettings', 'type': 'AgentPoolUpgradeSettings'},
         'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
         'availability_zones': {'key': 'availabilityZones', 'type': '[str]'},
         'enable_node_public_ip': {'key': 'enableNodePublicIP', 'type': 'bool'},
@@ -1346,29 +1384,31 @@ class ManagedClusterAgentPoolProfileProperties(Model):
         'node_taints': {'key': 'nodeTaints', 'type': '[str]'},
     }
 
-    def __init__(self, *, vm_size, count: int=1, os_disk_size_gb: int=None, vnet_subnet_id: str=None, max_pods: int=None, os_type="Linux", max_count: int=None, min_count: int=None, enable_auto_scaling: bool=None, type=None, mode=None, orchestrator_version: str=None, availability_zones=None, enable_node_public_ip: bool=None, scale_set_priority="Regular", scale_set_eviction_policy="Delete", spot_max_price: float=None, tags=None, node_labels=None, node_taints=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ManagedClusterAgentPoolProfileProperties, self).__init__(**kwargs)
-        self.count = count
-        self.vm_size = vm_size
-        self.os_disk_size_gb = os_disk_size_gb
-        self.vnet_subnet_id = vnet_subnet_id
-        self.max_pods = max_pods
-        self.os_type = os_type
-        self.max_count = max_count
-        self.min_count = min_count
-        self.enable_auto_scaling = enable_auto_scaling
-        self.type = type
-        self.mode = mode
-        self.orchestrator_version = orchestrator_version
+        self.count = kwargs.get('count', 1)
+        self.vm_size = kwargs.get('vm_size', None)
+        self.os_disk_size_gb = kwargs.get('os_disk_size_gb', None)
+        self.vnet_subnet_id = kwargs.get('vnet_subnet_id', None)
+        self.max_pods = kwargs.get('max_pods', None)
+        self.os_type = kwargs.get('os_type', "Linux")
+        self.max_count = kwargs.get('max_count', None)
+        self.min_count = kwargs.get('min_count', None)
+        self.enable_auto_scaling = kwargs.get('enable_auto_scaling', None)
+        self.type = kwargs.get('type', None)
+        self.mode = kwargs.get('mode', None)
+        self.orchestrator_version = kwargs.get('orchestrator_version', None)
+        self.node_image_version = kwargs.get('node_image_version', None)
+        self.upgrade_settings = kwargs.get('upgrade_settings', None)
         self.provisioning_state = None
-        self.availability_zones = availability_zones
-        self.enable_node_public_ip = enable_node_public_ip
-        self.scale_set_priority = scale_set_priority
-        self.scale_set_eviction_policy = scale_set_eviction_policy
-        self.spot_max_price = spot_max_price
-        self.tags = tags
-        self.node_labels = node_labels
-        self.node_taints = node_taints
+        self.availability_zones = kwargs.get('availability_zones', None)
+        self.enable_node_public_ip = kwargs.get('enable_node_public_ip', None)
+        self.scale_set_priority = kwargs.get('scale_set_priority', "Regular")
+        self.scale_set_eviction_policy = kwargs.get('scale_set_eviction_policy', "Delete")
+        self.spot_max_price = kwargs.get('spot_max_price', None)
+        self.tags = kwargs.get('tags', None)
+        self.node_labels = kwargs.get('node_labels', None)
+        self.node_taints = kwargs.get('node_taints', None)
 
 
 class ManagedClusterAgentPoolProfile(ManagedClusterAgentPoolProfileProperties):
@@ -1435,7 +1475,7 @@ class ManagedClusterAgentPoolProfile(ManagedClusterAgentPoolProfileProperties):
      'Standard_NC6s_v3', 'Standard_ND12s', 'Standard_ND24rs', 'Standard_ND24s',
      'Standard_ND6s', 'Standard_NV12', 'Standard_NV24', 'Standard_NV6'
     :type vm_size: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.ContainerServiceVMSizeTypes
+     ~azure.mgmt.containerservice.v2020_04_01.models.ContainerServiceVMSizeTypes
     :param os_disk_size_gb: OS Disk Size in GB to be used to specify the disk
      size for every machine in this master/agent pool. If you specify 0, it
      will apply the default osDisk size according to the vmSize specified.
@@ -1449,7 +1489,7 @@ class ManagedClusterAgentPoolProfile(ManagedClusterAgentPoolProfileProperties):
      and Windows. Default to Linux. Possible values include: 'Linux',
      'Windows'. Default value: "Linux" .
     :type os_type: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.OSType
+     ~azure.mgmt.containerservice.v2020_04_01.models.OSType
     :param max_count: Maximum number of nodes for auto-scaling
     :type max_count: int
     :param min_count: Minimum number of nodes for auto-scaling
@@ -1459,14 +1499,19 @@ class ManagedClusterAgentPoolProfile(ManagedClusterAgentPoolProfileProperties):
     :param type: AgentPoolType represents types of an agent pool. Possible
      values include: 'VirtualMachineScaleSets', 'AvailabilitySet'
     :type type: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.AgentPoolType
+     ~azure.mgmt.containerservice.v2020_04_01.models.AgentPoolType
     :param mode: AgentPoolMode represents mode of an agent pool. Possible
      values include: 'System', 'User'
     :type mode: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.AgentPoolMode
+     ~azure.mgmt.containerservice.v2020_04_01.models.AgentPoolMode
     :param orchestrator_version: Version of orchestrator specified when
      creating the managed cluster.
     :type orchestrator_version: str
+    :param node_image_version: Version of node image
+    :type node_image_version: str
+    :param upgrade_settings: Settings for upgrading the agentpool
+    :type upgrade_settings:
+     ~azure.mgmt.containerservice.v2020_04_01.models.AgentPoolUpgradeSettings
     :ivar provisioning_state: The current deployment or provisioning state,
      which only appears in the response.
     :vartype provisioning_state: str
@@ -1477,15 +1522,15 @@ class ManagedClusterAgentPoolProfile(ManagedClusterAgentPoolProfileProperties):
     :type enable_node_public_ip: bool
     :param scale_set_priority: ScaleSetPriority to be used to specify virtual
      machine scale set priority. Default to regular. Possible values include:
-     'Spot', 'Low', 'Regular'. Default value: "Regular" .
+     'Spot', 'Regular'. Default value: "Regular" .
     :type scale_set_priority: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.ScaleSetPriority
+     ~azure.mgmt.containerservice.v2020_04_01.models.ScaleSetPriority
     :param scale_set_eviction_policy: ScaleSetEvictionPolicy to be used to
-     specify eviction policy for Spot or low priority virtual machine scale
-     set. Default to Delete. Possible values include: 'Delete', 'Deallocate'.
-     Default value: "Delete" .
+     specify eviction policy for Spot virtual machine scale set. Default to
+     Delete. Possible values include: 'Delete', 'Deallocate'. Default value:
+     "Delete" .
     :type scale_set_eviction_policy: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.ScaleSetEvictionPolicy
+     ~azure.mgmt.containerservice.v2020_04_01.models.ScaleSetEvictionPolicy
     :param spot_max_price: SpotMaxPrice to be used to specify the maximum
      price you are willing to pay in US Dollars. Possible values are any
      decimal value greater than zero or -1 which indicates default price to be
@@ -1525,6 +1570,8 @@ class ManagedClusterAgentPoolProfile(ManagedClusterAgentPoolProfileProperties):
         'type': {'key': 'type', 'type': 'str'},
         'mode': {'key': 'mode', 'type': 'str'},
         'orchestrator_version': {'key': 'orchestratorVersion', 'type': 'str'},
+        'node_image_version': {'key': 'nodeImageVersion', 'type': 'str'},
+        'upgrade_settings': {'key': 'upgradeSettings', 'type': 'AgentPoolUpgradeSettings'},
         'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
         'availability_zones': {'key': 'availabilityZones', 'type': '[str]'},
         'enable_node_public_ip': {'key': 'enableNodePublicIP', 'type': 'bool'},
@@ -1537,9 +1584,9 @@ class ManagedClusterAgentPoolProfile(ManagedClusterAgentPoolProfileProperties):
         'name': {'key': 'name', 'type': 'str'},
     }
 
-    def __init__(self, *, vm_size, name: str, count: int=1, os_disk_size_gb: int=None, vnet_subnet_id: str=None, max_pods: int=None, os_type="Linux", max_count: int=None, min_count: int=None, enable_auto_scaling: bool=None, type=None, mode=None, orchestrator_version: str=None, availability_zones=None, enable_node_public_ip: bool=None, scale_set_priority="Regular", scale_set_eviction_policy="Delete", spot_max_price: float=None, tags=None, node_labels=None, node_taints=None, **kwargs) -> None:
-        super(ManagedClusterAgentPoolProfile, self).__init__(count=count, vm_size=vm_size, os_disk_size_gb=os_disk_size_gb, vnet_subnet_id=vnet_subnet_id, max_pods=max_pods, os_type=os_type, max_count=max_count, min_count=min_count, enable_auto_scaling=enable_auto_scaling, type=type, mode=mode, orchestrator_version=orchestrator_version, availability_zones=availability_zones, enable_node_public_ip=enable_node_public_ip, scale_set_priority=scale_set_priority, scale_set_eviction_policy=scale_set_eviction_policy, spot_max_price=spot_max_price, tags=tags, node_labels=node_labels, node_taints=node_taints, **kwargs)
-        self.name = name
+    def __init__(self, **kwargs):
+        super(ManagedClusterAgentPoolProfile, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
 
 
 class ManagedClusterAPIServerAccessProfile(Model):
@@ -1558,10 +1605,10 @@ class ManagedClusterAPIServerAccessProfile(Model):
         'enable_private_cluster': {'key': 'enablePrivateCluster', 'type': 'bool'},
     }
 
-    def __init__(self, *, authorized_ip_ranges=None, enable_private_cluster: bool=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ManagedClusterAPIServerAccessProfile, self).__init__(**kwargs)
-        self.authorized_ip_ranges = authorized_ip_ranges
-        self.enable_private_cluster = enable_private_cluster
+        self.authorized_ip_ranges = kwargs.get('authorized_ip_ranges', None)
+        self.enable_private_cluster = kwargs.get('enable_private_cluster', None)
 
 
 class ManagedClusterIdentity(Model):
@@ -1583,7 +1630,7 @@ class ManagedClusterIdentity(Model):
      cluster, service principal will be used instead. Possible values include:
      'SystemAssigned', 'None'
     :type type: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.ResourceIdentityType
+     ~azure.mgmt.containerservice.v2020_04_01.models.ResourceIdentityType
     """
 
     _validation = {
@@ -1597,11 +1644,11 @@ class ManagedClusterIdentity(Model):
         'type': {'key': 'type', 'type': 'ResourceIdentityType'},
     }
 
-    def __init__(self, *, type=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ManagedClusterIdentity, self).__init__(**kwargs)
         self.principal_id = None
         self.tenant_id = None
-        self.type = type
+        self.type = kwargs.get('type', None)
 
 
 class ManagedClusterLoadBalancerProfile(Model):
@@ -1610,19 +1657,19 @@ class ManagedClusterLoadBalancerProfile(Model):
     :param managed_outbound_ips: Desired managed outbound IPs for the cluster
      load balancer.
     :type managed_outbound_ips:
-     ~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterLoadBalancerProfileManagedOutboundIPs
+     ~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterLoadBalancerProfileManagedOutboundIPs
     :param outbound_ip_prefixes: Desired outbound IP Prefix resources for the
      cluster load balancer.
     :type outbound_ip_prefixes:
-     ~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterLoadBalancerProfileOutboundIPPrefixes
+     ~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterLoadBalancerProfileOutboundIPPrefixes
     :param outbound_ips: Desired outbound IP resources for the cluster load
      balancer.
     :type outbound_ips:
-     ~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterLoadBalancerProfileOutboundIPs
+     ~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterLoadBalancerProfileOutboundIPs
     :param effective_outbound_ips: The effective outbound IP resources of the
      cluster load balancer.
     :type effective_outbound_ips:
-     list[~azure.mgmt.containerservice.v2020_03_01.models.ResourceReference]
+     list[~azure.mgmt.containerservice.v2020_04_01.models.ResourceReference]
     :param allocated_outbound_ports: Desired number of allocated SNAT ports
      per VM. Allowed values must be in the range of 0 to 64000 (inclusive). The
      default value is 0 which results in Azure dynamically allocating ports.
@@ -1648,14 +1695,14 @@ class ManagedClusterLoadBalancerProfile(Model):
         'idle_timeout_in_minutes': {'key': 'idleTimeoutInMinutes', 'type': 'int'},
     }
 
-    def __init__(self, *, managed_outbound_ips=None, outbound_ip_prefixes=None, outbound_ips=None, effective_outbound_ips=None, allocated_outbound_ports: int=0, idle_timeout_in_minutes: int=30, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ManagedClusterLoadBalancerProfile, self).__init__(**kwargs)
-        self.managed_outbound_ips = managed_outbound_ips
-        self.outbound_ip_prefixes = outbound_ip_prefixes
-        self.outbound_ips = outbound_ips
-        self.effective_outbound_ips = effective_outbound_ips
-        self.allocated_outbound_ports = allocated_outbound_ports
-        self.idle_timeout_in_minutes = idle_timeout_in_minutes
+        self.managed_outbound_ips = kwargs.get('managed_outbound_ips', None)
+        self.outbound_ip_prefixes = kwargs.get('outbound_ip_prefixes', None)
+        self.outbound_ips = kwargs.get('outbound_ips', None)
+        self.effective_outbound_ips = kwargs.get('effective_outbound_ips', None)
+        self.allocated_outbound_ports = kwargs.get('allocated_outbound_ports', 0)
+        self.idle_timeout_in_minutes = kwargs.get('idle_timeout_in_minutes', 30)
 
 
 class ManagedClusterLoadBalancerProfileManagedOutboundIPs(Model):
@@ -1675,9 +1722,9 @@ class ManagedClusterLoadBalancerProfileManagedOutboundIPs(Model):
         'count': {'key': 'count', 'type': 'int'},
     }
 
-    def __init__(self, *, count: int=1, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ManagedClusterLoadBalancerProfileManagedOutboundIPs, self).__init__(**kwargs)
-        self.count = count
+        self.count = kwargs.get('count', 1)
 
 
 class ManagedClusterLoadBalancerProfileOutboundIPPrefixes(Model):
@@ -1685,16 +1732,16 @@ class ManagedClusterLoadBalancerProfileOutboundIPPrefixes(Model):
 
     :param public_ip_prefixes: A list of public IP prefix resources.
     :type public_ip_prefixes:
-     list[~azure.mgmt.containerservice.v2020_03_01.models.ResourceReference]
+     list[~azure.mgmt.containerservice.v2020_04_01.models.ResourceReference]
     """
 
     _attribute_map = {
         'public_ip_prefixes': {'key': 'publicIPPrefixes', 'type': '[ResourceReference]'},
     }
 
-    def __init__(self, *, public_ip_prefixes=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ManagedClusterLoadBalancerProfileOutboundIPPrefixes, self).__init__(**kwargs)
-        self.public_ip_prefixes = public_ip_prefixes
+        self.public_ip_prefixes = kwargs.get('public_ip_prefixes', None)
 
 
 class ManagedClusterLoadBalancerProfileOutboundIPs(Model):
@@ -1702,16 +1749,16 @@ class ManagedClusterLoadBalancerProfileOutboundIPs(Model):
 
     :param public_ips: A list of public IP resources.
     :type public_ips:
-     list[~azure.mgmt.containerservice.v2020_03_01.models.ResourceReference]
+     list[~azure.mgmt.containerservice.v2020_04_01.models.ResourceReference]
     """
 
     _attribute_map = {
         'public_ips': {'key': 'publicIPs', 'type': '[ResourceReference]'},
     }
 
-    def __init__(self, *, public_ips=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ManagedClusterLoadBalancerProfileOutboundIPs, self).__init__(**kwargs)
-        self.public_ips = public_ips
+        self.public_ips = kwargs.get('public_ips', None)
 
 
 class ManagedClusterPoolUpgradeProfile(Model):
@@ -1728,11 +1775,11 @@ class ManagedClusterPoolUpgradeProfile(Model):
      from Linux and Windows. Default to Linux. Possible values include:
      'Linux', 'Windows'. Default value: "Linux" .
     :type os_type: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.OSType
+     ~azure.mgmt.containerservice.v2020_04_01.models.OSType
     :param upgrades: List of orchestrator types and versions available for
      upgrade.
     :type upgrades:
-     list[~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterPoolUpgradeProfileUpgradesItem]
+     list[~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterPoolUpgradeProfileUpgradesItem]
     """
 
     _validation = {
@@ -1747,12 +1794,12 @@ class ManagedClusterPoolUpgradeProfile(Model):
         'upgrades': {'key': 'upgrades', 'type': '[ManagedClusterPoolUpgradeProfileUpgradesItem]'},
     }
 
-    def __init__(self, *, kubernetes_version: str, name: str=None, os_type="Linux", upgrades=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ManagedClusterPoolUpgradeProfile, self).__init__(**kwargs)
-        self.kubernetes_version = kubernetes_version
-        self.name = name
-        self.os_type = os_type
-        self.upgrades = upgrades
+        self.kubernetes_version = kwargs.get('kubernetes_version', None)
+        self.name = kwargs.get('name', None)
+        self.os_type = kwargs.get('os_type', "Linux")
+        self.upgrades = kwargs.get('upgrades', None)
 
 
 class ManagedClusterPoolUpgradeProfileUpgradesItem(Model):
@@ -1769,10 +1816,10 @@ class ManagedClusterPoolUpgradeProfileUpgradesItem(Model):
         'is_preview': {'key': 'isPreview', 'type': 'bool'},
     }
 
-    def __init__(self, *, kubernetes_version: str=None, is_preview: bool=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ManagedClusterPoolUpgradeProfileUpgradesItem, self).__init__(**kwargs)
-        self.kubernetes_version = kubernetes_version
-        self.is_preview = is_preview
+        self.kubernetes_version = kwargs.get('kubernetes_version', None)
+        self.is_preview = kwargs.get('is_preview', None)
 
 
 class ManagedClusterPropertiesAutoScalerProfile(Model):
@@ -1810,17 +1857,17 @@ class ManagedClusterPropertiesAutoScalerProfile(Model):
         'max_graceful_termination_sec': {'key': 'max-graceful-termination-sec', 'type': 'str'},
     }
 
-    def __init__(self, *, balance_similar_node_groups: bool=None, scan_interval: str=None, scale_down_delay_after_add: str=None, scale_down_delay_after_delete: str=None, scale_down_delay_after_failure: str=None, scale_down_unneeded_time: str=None, scale_down_unready_time: str=None, scale_down_utilization_threshold: str=None, max_graceful_termination_sec: str=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ManagedClusterPropertiesAutoScalerProfile, self).__init__(**kwargs)
-        self.balance_similar_node_groups = balance_similar_node_groups
-        self.scan_interval = scan_interval
-        self.scale_down_delay_after_add = scale_down_delay_after_add
-        self.scale_down_delay_after_delete = scale_down_delay_after_delete
-        self.scale_down_delay_after_failure = scale_down_delay_after_failure
-        self.scale_down_unneeded_time = scale_down_unneeded_time
-        self.scale_down_unready_time = scale_down_unready_time
-        self.scale_down_utilization_threshold = scale_down_utilization_threshold
-        self.max_graceful_termination_sec = max_graceful_termination_sec
+        self.balance_similar_node_groups = kwargs.get('balance_similar_node_groups', None)
+        self.scan_interval = kwargs.get('scan_interval', None)
+        self.scale_down_delay_after_add = kwargs.get('scale_down_delay_after_add', None)
+        self.scale_down_delay_after_delete = kwargs.get('scale_down_delay_after_delete', None)
+        self.scale_down_delay_after_failure = kwargs.get('scale_down_delay_after_failure', None)
+        self.scale_down_unneeded_time = kwargs.get('scale_down_unneeded_time', None)
+        self.scale_down_unready_time = kwargs.get('scale_down_unready_time', None)
+        self.scale_down_utilization_threshold = kwargs.get('scale_down_utilization_threshold', None)
+        self.max_graceful_termination_sec = kwargs.get('max_graceful_termination_sec', None)
 
 
 class ManagedClusterPropertiesIdentityProfileValue(UserAssignedIdentity):
@@ -1840,8 +1887,8 @@ class ManagedClusterPropertiesIdentityProfileValue(UserAssignedIdentity):
         'object_id': {'key': 'objectId', 'type': 'str'},
     }
 
-    def __init__(self, *, resource_id: str=None, client_id: str=None, object_id: str=None, **kwargs) -> None:
-        super(ManagedClusterPropertiesIdentityProfileValue, self).__init__(resource_id=resource_id, client_id=client_id, object_id=object_id, **kwargs)
+    def __init__(self, **kwargs):
+        super(ManagedClusterPropertiesIdentityProfileValue, self).__init__(**kwargs)
 
 
 class ManagedClusterServicePrincipalProfile(Model):
@@ -1866,10 +1913,10 @@ class ManagedClusterServicePrincipalProfile(Model):
         'secret': {'key': 'secret', 'type': 'str'},
     }
 
-    def __init__(self, *, client_id: str, secret: str=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ManagedClusterServicePrincipalProfile, self).__init__(**kwargs)
-        self.client_id = client_id
-        self.secret = secret
+        self.client_id = kwargs.get('client_id', None)
+        self.secret = kwargs.get('secret', None)
 
 
 class ManagedClusterSKU(Model):
@@ -1878,11 +1925,11 @@ class ManagedClusterSKU(Model):
     :param name: Name of a managed cluster SKU. Possible values include:
      'Basic'
     :type name: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterSKUName
+     ~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterSKUName
     :param tier: Tier of a managed cluster SKU. Possible values include:
      'Paid', 'Free'
     :type tier: str or
-     ~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterSKUTier
+     ~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterSKUTier
     """
 
     _attribute_map = {
@@ -1890,10 +1937,10 @@ class ManagedClusterSKU(Model):
         'tier': {'key': 'tier', 'type': 'str'},
     }
 
-    def __init__(self, *, name=None, tier=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ManagedClusterSKU, self).__init__(**kwargs)
-        self.name = name
-        self.tier = tier
+        self.name = kwargs.get('name', None)
+        self.tier = kwargs.get('tier', None)
 
 
 class ManagedClusterUpgradeProfile(Model):
@@ -1913,11 +1960,11 @@ class ManagedClusterUpgradeProfile(Model):
     :param control_plane_profile: Required. The list of available upgrade
      versions for the control plane.
     :type control_plane_profile:
-     ~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterPoolUpgradeProfile
+     ~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterPoolUpgradeProfile
     :param agent_pool_profiles: Required. The list of available upgrade
      versions for agent pools.
     :type agent_pool_profiles:
-     list[~azure.mgmt.containerservice.v2020_03_01.models.ManagedClusterPoolUpgradeProfile]
+     list[~azure.mgmt.containerservice.v2020_04_01.models.ManagedClusterPoolUpgradeProfile]
     """
 
     _validation = {
@@ -1936,13 +1983,13 @@ class ManagedClusterUpgradeProfile(Model):
         'agent_pool_profiles': {'key': 'properties.agentPoolProfiles', 'type': '[ManagedClusterPoolUpgradeProfile]'},
     }
 
-    def __init__(self, *, control_plane_profile, agent_pool_profiles, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ManagedClusterUpgradeProfile, self).__init__(**kwargs)
         self.id = None
         self.name = None
         self.type = None
-        self.control_plane_profile = control_plane_profile
-        self.agent_pool_profiles = agent_pool_profiles
+        self.control_plane_profile = kwargs.get('control_plane_profile', None)
+        self.agent_pool_profiles = kwargs.get('agent_pool_profiles', None)
 
 
 class ManagedClusterWindowsProfile(Model):
@@ -1967,10 +2014,10 @@ class ManagedClusterWindowsProfile(Model):
         'admin_password': {'key': 'adminPassword', 'type': 'str'},
     }
 
-    def __init__(self, *, admin_username: str, admin_password: str=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ManagedClusterWindowsProfile, self).__init__(**kwargs)
-        self.admin_username = admin_username
-        self.admin_password = admin_password
+        self.admin_username = kwargs.get('admin_username', None)
+        self.admin_password = kwargs.get('admin_password', None)
 
 
 class OperationValue(Model):
@@ -2011,7 +2058,7 @@ class OperationValue(Model):
         'provider': {'key': 'display.provider', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(OperationValue, self).__init__(**kwargs)
         self.origin = None
         self.name = None
@@ -2032,9 +2079,9 @@ class ResourceReference(Model):
         'id': {'key': 'id', 'type': 'str'},
     }
 
-    def __init__(self, *, id: str=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(ResourceReference, self).__init__(**kwargs)
-        self.id = id
+        self.id = kwargs.get('id', None)
 
 
 class TagsObject(Model):
@@ -2048,6 +2095,6 @@ class TagsObject(Model):
         'tags': {'key': 'tags', 'type': '{str}'},
     }
 
-    def __init__(self, *, tags=None, **kwargs) -> None:
+    def __init__(self, **kwargs):
         super(TagsObject, self).__init__(**kwargs)
-        self.tags = tags
+        self.tags = kwargs.get('tags', None)
