@@ -86,6 +86,7 @@ class ManagedServiceIdentityType(str, Enum):
     none = "None"
     system_assigned = "SystemAssigned"
     user_assigned = "UserAssigned"
+    system_assigned_user_assigned = "SystemAssigned, UserAssigned"
 
 
 class IpFilterTag(str, Enum):
@@ -405,6 +406,13 @@ class ResolveStatus(str, Enum):
     secret_version_not_found = "SecretVersionNotFound"
     access_to_key_vault_denied = "AccessToKeyVaultDenied"
     other_reasons = "OtherReasons"
+
+
+class KeyVaultReferenceIdentityType(str, Enum):
+
+    none = "None"
+    system_assigned = "SystemAssigned"
+    user_assigned = "UserAssigned"
 
 
 class ConfigReferenceSource(str, Enum):

@@ -285,7 +285,7 @@ class ApiKVReference(Model):
     :param identity_type: Possible values include: 'None', 'SystemAssigned',
      'UserAssigned'
     :type identity_type: str or
-     ~azure.mgmt.web.v2019_08_01.models.ManagedServiceIdentityType
+     ~azure.mgmt.web.v2019_08_01.models.KeyVaultReferenceIdentityType
     :param details:
     :type details: str
     :param source: Possible values include: 'KeyVault'
@@ -302,7 +302,7 @@ class ApiKVReference(Model):
         'vault_name': {'key': 'vaultName', 'type': 'str'},
         'secret_name': {'key': 'secretName', 'type': 'str'},
         'secret_version': {'key': 'secretVersion', 'type': 'str'},
-        'identity_type': {'key': 'identityType', 'type': 'ManagedServiceIdentityType'},
+        'identity_type': {'key': 'identityType', 'type': 'KeyVaultReferenceIdentityType'},
         'details': {'key': 'details', 'type': 'str'},
         'source': {'key': 'source', 'type': 'ConfigReferenceSource'},
         'location': {'key': 'location', 'type': 'ConfigReferenceLocation'},
@@ -6316,7 +6316,7 @@ class KeyVaultReferenceResource(ProxyOnlyResource):
     :param identity_type: Possible values include: 'None', 'SystemAssigned',
      'UserAssigned'
     :type identity_type: str or
-     ~azure.mgmt.web.v2019_08_01.models.ManagedServiceIdentityType
+     ~azure.mgmt.web.v2019_08_01.models.KeyVaultReferenceIdentityType
     :param details:
     :type details: str
     :param source: Possible values include: 'KeyVault'
@@ -6343,7 +6343,7 @@ class KeyVaultReferenceResource(ProxyOnlyResource):
         'vault_name': {'key': 'properties.vaultName', 'type': 'str'},
         'secret_name': {'key': 'properties.secretName', 'type': 'str'},
         'secret_version': {'key': 'properties.secretVersion', 'type': 'str'},
-        'identity_type': {'key': 'properties.identityType', 'type': 'ManagedServiceIdentityType'},
+        'identity_type': {'key': 'properties.identityType', 'type': 'KeyVaultReferenceIdentityType'},
         'details': {'key': 'properties.details', 'type': 'str'},
         'source': {'key': 'properties.source', 'type': 'ConfigReferenceSource'},
         'location': {'key': 'properties.location', 'type': 'ConfigReferenceLocation'},
@@ -6413,7 +6413,7 @@ class ManagedServiceIdentity(Model):
     sending a request.
 
     :param type: Type of managed service identity. Possible values include:
-     'None', 'SystemAssigned', 'UserAssigned'
+     'None', 'SystemAssigned', 'UserAssigned', 'SystemAssigned, UserAssigned'
     :type type: str or
      ~azure.mgmt.web.v2019_08_01.models.ManagedServiceIdentityType
     :ivar tenant_id: Tenant of managed service identity.
