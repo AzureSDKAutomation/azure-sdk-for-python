@@ -12,7 +12,7 @@
 from msrest.service_client import SDKClient
 from msrest import Serializer, Deserializer
 
-from ._configuration import LogAnalyticsManagementClientConfiguration
+from ._configuration import OperationalInsightsManagementClientConfiguration
 from .operations import DataExportsOperations
 from .operations import DataSourcesOperations
 from .operations import IntelligencePacksOperations
@@ -33,11 +33,11 @@ from .operations import WorkspacePurgeOperations
 from . import models
 
 
-class LogAnalyticsManagementClient(SDKClient):
-    """The Log Analytics Client.
+class OperationalInsightsManagementClient(SDKClient):
+    """Operational Insights Client
 
     :ivar config: Configuration for client.
-    :vartype config: LogAnalyticsManagementClientConfiguration
+    :vartype config: OperationalInsightsManagementClientConfiguration
 
     :ivar data_exports: DataExports operations
     :vartype data_exports: azure.mgmt.loganalytics.operations.DataExportsOperations
@@ -85,8 +85,8 @@ class LogAnalyticsManagementClient(SDKClient):
     def __init__(
             self, credentials, subscription_id, base_url=None):
 
-        self.config = LogAnalyticsManagementClientConfiguration(credentials, subscription_id, base_url)
-        super(LogAnalyticsManagementClient, self).__init__(self.config.credentials, self.config)
+        self.config = OperationalInsightsManagementClientConfiguration(credentials, subscription_id, base_url)
+        super(OperationalInsightsManagementClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
         self.api_version = '2020-03-01-preview'
