@@ -1089,11 +1089,11 @@ class SavedSearch(ProxyResource):
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
         'e_tag': {'key': 'eTag', 'type': 'str'},
-        'category': {'key': 'properties.category', 'type': 'str'},
-        'display_name': {'key': 'properties.displayName', 'type': 'str'},
-        'query': {'key': 'properties.query', 'type': 'str'},
-        'version': {'key': 'properties.version', 'type': 'long'},
-        'tags': {'key': 'properties.tags', 'type': '[Tag]'},
+        'category': {'key': 'properties.Category', 'type': 'str'},
+        'display_name': {'key': 'properties.DisplayName', 'type': 'str'},
+        'query': {'key': 'properties.Query', 'type': 'str'},
+        'version': {'key': 'properties.Version', 'type': 'long'},
+        'tags': {'key': 'properties.Tags', 'type': '[Tag]'},
     }
 
     def __init__(self, *, category: str, display_name: str, query: str, e_tag: str=None, version: int=None, tags=None, **kwargs) -> None:
@@ -1468,8 +1468,8 @@ class Tag(Model):
     }
 
     _attribute_map = {
-        'name': {'key': 'name', 'type': 'str'},
-        'value': {'key': 'value', 'type': 'str'},
+        'name': {'key': 'Name', 'type': 'str'},
+        'value': {'key': 'Value', 'type': 'str'},
     }
 
     def __init__(self, *, name: str, value: str, **kwargs) -> None:
