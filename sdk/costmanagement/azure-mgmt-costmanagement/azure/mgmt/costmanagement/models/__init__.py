@@ -16,6 +16,7 @@ try:
     from ._models_py3 import AlertsResult
     from ._models_py3 import CommonExportProperties
     from ._models_py3 import Dimension
+    from ._models_py3 import DismissAlertPayload
     from ._models_py3 import ErrorDetails
     from ._models_py3 import ErrorResponse, ErrorResponseException
     from ._models_py3 import Export
@@ -59,6 +60,7 @@ except (SyntaxError, ImportError):
     from ._models import AlertsResult
     from ._models import CommonExportProperties
     from ._models import Dimension
+    from ._models import DismissAlertPayload
     from ._models import ErrorDetails
     from ._models import ErrorResponse, ErrorResponseException
     from ._models import Export
@@ -108,6 +110,13 @@ from ._cost_management_client_enums import (
     MetricType,
     KpiTypeType,
     PivotTypeType,
+    AlertType,
+    AlertCategory,
+    AlertCriteria,
+    AlertSource,
+    AlertTimeGrainType,
+    AlertOperator,
+    AlertStatus,
     ForecastType,
     ForecastTimeframeType,
     GranularityType,
@@ -129,6 +138,7 @@ __all__ = [
     'AlertsResult',
     'CommonExportProperties',
     'Dimension',
+    'DismissAlertPayload',
     'ErrorDetails',
     'ErrorResponse', 'ErrorResponseException',
     'Export',
@@ -177,6 +187,13 @@ __all__ = [
     'MetricType',
     'KpiTypeType',
     'PivotTypeType',
+    'AlertType',
+    'AlertCategory',
+    'AlertCriteria',
+    'AlertSource',
+    'AlertTimeGrainType',
+    'AlertOperator',
+    'AlertStatus',
     'ForecastType',
     'ForecastTimeframeType',
     'GranularityType',

@@ -70,14 +70,15 @@ class Alert(Resource):
      ~azure.mgmt.costmanagement.models.AlertPropertiesDefinition
     :param description: Alert description
     :type description: str
-    :param source: Source of alert
-    :type source: str
+    :param source: Source of alert. Possible values include: 'Preset', 'User'
+    :type source: str or ~azure.mgmt.costmanagement.models.AlertSource
     :param details: Alert details
     :type details: ~azure.mgmt.costmanagement.models.AlertPropertiesDetails
     :param cost_entity_id: related budget
     :type cost_entity_id: str
-    :param status: alert status
-    :type status: str
+    :param status: alert status. Possible values include: 'None', 'Active',
+     'Overridden', 'Resolved', 'Dismissed'
+    :type status: str or ~azure.mgmt.costmanagement.models.AlertStatus
     :param creation_time: dateTime in which alert was created
     :type creation_time: str
     :param close_time: dateTime in which alert was closed
@@ -134,12 +135,21 @@ class Alert(Resource):
 class AlertPropertiesDefinition(Model):
     """defines the type of alert.
 
-    :param type: type of alert
-    :type type: str
-    :param category: Alert category
-    :type category: str
-    :param criteria: Criteria that triggered alert
-    :type criteria: str
+    :param type: type of alert. Possible values include: 'Budget', 'Invoice',
+     'Credit', 'Quota', 'General', 'xCloud', 'BudgetForecast'
+    :type type: str or ~azure.mgmt.costmanagement.models.AlertType
+    :param category: Alert category. Possible values include: 'Cost', 'Usage',
+     'Billing', 'System'
+    :type category: str or ~azure.mgmt.costmanagement.models.AlertCategory
+    :param criteria: Criteria that triggered alert. Possible values include:
+     'CostThresholdExceeded', 'UsageThresholdExceeded',
+     'CreditThresholdApproaching', 'CreditThresholdReached',
+     'QuotaThresholdApproaching', 'QuotaThresholdReached', 'MultiCurrency',
+     'ForecastCostThresholdExceeded', 'ForecastUsageThresholdExceeded',
+     'InvoiceDueDateApproaching', 'InvoiceDueDateReached',
+     'CrossCloudNewDataAvailable', 'CrossCloudCollectionError',
+     'GeneralThresholdError'
+    :type criteria: str or ~azure.mgmt.costmanagement.models.AlertCriteria
     """
 
     _attribute_map = {
@@ -158,8 +168,11 @@ class AlertPropertiesDefinition(Model):
 class AlertPropertiesDetails(Model):
     """Alert details.
 
-    :param time_grain_type: Type of timegrain cadence
-    :type time_grain_type: str
+    :param time_grain_type: Type of timegrain cadence. Possible values
+     include: 'None', 'Monthly', 'Quarterly', 'Annually', 'BillingMonth',
+     'BillingQuarter', 'BillingAnnual'
+    :type time_grain_type: str or
+     ~azure.mgmt.costmanagement.models.AlertTimeGrainType
     :param period_start_date: datetime of periodStartDate
     :type period_start_date: str
     :param triggered_by: notificationId that triggered this alert
@@ -175,8 +188,10 @@ class AlertPropertiesDetails(Model):
     :param threshold: notification threshold percentage as a decimal which
      activated this alert
     :type threshold: decimal.Decimal
-    :param operator: operator used to compare currentSpend with amount
-    :type operator: str
+    :param operator: operator used to compare currentSpend with amount.
+     Possible values include: 'None', 'EqualTo', 'GreaterThan',
+     'GreaterThanOrEqualTo', 'LessThan', 'LessThanOrEqualTo'
+    :type operator: str or ~azure.mgmt.costmanagement.models.AlertOperator
     :param amount: budget threshold amount
     :type amount: decimal.Decimal
     :param unit: unit of currency being used
@@ -377,6 +392,65 @@ class Dimension(Resource):
         self.usage_start = None
         self.usage_end = None
         self.next_link = None
+
+
+class DismissAlertPayload(Model):
+    """The request payload to update an alert.
+
+    :param definition: defines the type of alert
+    :type definition:
+     ~azure.mgmt.costmanagement.models.AlertPropertiesDefinition
+    :param description: Alert description
+    :type description: str
+    :param source: Source of alert. Possible values include: 'Preset', 'User'
+    :type source: str or ~azure.mgmt.costmanagement.models.AlertSource
+    :param details: Alert details
+    :type details: ~azure.mgmt.costmanagement.models.AlertPropertiesDetails
+    :param cost_entity_id: related budget
+    :type cost_entity_id: str
+    :param status: alert status. Possible values include: 'None', 'Active',
+     'Overridden', 'Resolved', 'Dismissed'
+    :type status: str or ~azure.mgmt.costmanagement.models.AlertStatus
+    :param creation_time: dateTime in which alert was created
+    :type creation_time: str
+    :param close_time: dateTime in which alert was closed
+    :type close_time: str
+    :param modification_time: dateTime in which alert was last modified
+    :type modification_time: str
+    :param status_modification_user_name:
+    :type status_modification_user_name: str
+    :param status_modification_time: dateTime in which the alert status was
+     last modified
+    :type status_modification_time: str
+    """
+
+    _attribute_map = {
+        'definition': {'key': 'properties.definition', 'type': 'AlertPropertiesDefinition'},
+        'description': {'key': 'properties.description', 'type': 'str'},
+        'source': {'key': 'properties.source', 'type': 'str'},
+        'details': {'key': 'properties.details', 'type': 'AlertPropertiesDetails'},
+        'cost_entity_id': {'key': 'properties.costEntityId', 'type': 'str'},
+        'status': {'key': 'properties.status', 'type': 'str'},
+        'creation_time': {'key': 'properties.creationTime', 'type': 'str'},
+        'close_time': {'key': 'properties.closeTime', 'type': 'str'},
+        'modification_time': {'key': 'properties.modificationTime', 'type': 'str'},
+        'status_modification_user_name': {'key': 'properties.statusModificationUserName', 'type': 'str'},
+        'status_modification_time': {'key': 'properties.statusModificationTime', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(DismissAlertPayload, self).__init__(**kwargs)
+        self.definition = kwargs.get('definition', None)
+        self.description = kwargs.get('description', None)
+        self.source = kwargs.get('source', None)
+        self.details = kwargs.get('details', None)
+        self.cost_entity_id = kwargs.get('cost_entity_id', None)
+        self.status = kwargs.get('status', None)
+        self.creation_time = kwargs.get('creation_time', None)
+        self.close_time = kwargs.get('close_time', None)
+        self.modification_time = kwargs.get('modification_time', None)
+        self.status_modification_user_name = kwargs.get('status_modification_user_name', None)
+        self.status_modification_time = kwargs.get('status_modification_time', None)
 
 
 class ErrorDetails(Model):

@@ -111,6 +111,165 @@ class AlertsOperations(object):
         return deserialized
     list.metadata = {'url': '/{scope}/providers/Microsoft.CostManagement/alerts'}
 
+    def get(
+            self, scope, alert_id, custom_headers=None, raw=False, **operation_config):
+        """Gets the alert for the scope by alert ID.
+
+        :param scope: The scope associated with alerts operations. This
+         includes '/subscriptions/{subscriptionId}/' for subscription scope,
+         '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}'
+         for resourceGroup scope,
+         '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for
+         Billing Account scope and
+         '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/departments/{departmentId}'
+         for Department scope,
+         '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}'
+         for EnrollmentAccount scope,
+         '/providers/Microsoft.Management/managementGroups/{managementGroupId}
+         for Management Group scope,
+         '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}'
+         for billingProfile scope,
+         '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}/invoiceSections/{invoiceSectionId}'
+         for invoiceSection scope, and
+         '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/customers/{customerId}'
+         specific for partners.
+        :type scope: str
+        :param alert_id: Alert ID
+        :type alert_id: str
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: Alert or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.costmanagement.models.Alert or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.costmanagement.models.ErrorResponseException>`
+        """
+        # Construct URL
+        url = self.get.metadata['url']
+        path_format_arguments = {
+            'scope': self._serialize.url("scope", scope, 'str', skip_quote=True),
+            'alertId': self._serialize.url("alert_id", alert_id, 'str', skip_quote=True)
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters, header_parameters)
+        response = self._client.send(request, stream=False, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.ErrorResponseException(self._deserialize, response)
+
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('Alert', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+    get.metadata = {'url': '/{scope}/providers/Microsoft.CostManagement/alerts/{alertId}'}
+
+    def dismiss(
+            self, scope, alert_id, parameters, custom_headers=None, raw=False, **operation_config):
+        """Dismisses the specified alert.
+
+        :param scope: The scope associated with alerts operations. This
+         includes '/subscriptions/{subscriptionId}/' for subscription scope,
+         '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}'
+         for resourceGroup scope,
+         '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for
+         Billing Account scope and
+         '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/departments/{departmentId}'
+         for Department scope,
+         '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}'
+         for EnrollmentAccount scope,
+         '/providers/Microsoft.Management/managementGroups/{managementGroupId}
+         for Management Group scope,
+         '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}'
+         for billingProfile scope,
+         '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}/invoiceSections/{invoiceSectionId}'
+         for invoiceSection scope, and
+         '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/customers/{customerId}'
+         specific for partners.
+        :type scope: str
+        :param alert_id: Alert ID
+        :type alert_id: str
+        :param parameters: Parameters supplied to the Dismiss Alert operation.
+        :type parameters:
+         ~azure.mgmt.costmanagement.models.DismissAlertPayload
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: Alert or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.costmanagement.models.Alert or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.costmanagement.models.ErrorResponseException>`
+        """
+        # Construct URL
+        url = self.dismiss.metadata['url']
+        path_format_arguments = {
+            'scope': self._serialize.url("scope", scope, 'str', skip_quote=True),
+            'alertId': self._serialize.url("alert_id", alert_id, 'str', skip_quote=True)
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct body
+        body_content = self._serialize.body(parameters, 'DismissAlertPayload')
+
+        # Construct and send request
+        request = self._client.patch(url, query_parameters, header_parameters, body_content)
+        response = self._client.send(request, stream=False, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.ErrorResponseException(self._deserialize, response)
+
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('Alert', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+    dismiss.metadata = {'url': '/{scope}/providers/Microsoft.CostManagement/alerts/{alertId}'}
+
     def list_external(
             self, external_cloud_provider_type, external_cloud_provider_id, custom_headers=None, raw=False, **operation_config):
         """Lists the Alerts for external cloud provider type defined.
