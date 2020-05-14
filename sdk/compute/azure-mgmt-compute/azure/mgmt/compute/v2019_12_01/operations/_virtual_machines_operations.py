@@ -1693,8 +1693,7 @@ class VirtualMachinesOperations(object):
 
     def simulate_eviction(
             self, resource_group_name, vm_name, custom_headers=None, raw=False, polling=True, **operation_config):
-        """The operation to simulate the eviction of spot virtual machine. The
-        eviction will occur within 30 minutes of calling the API.
+        """The operation to simulate the eviction of spot virtual machine.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
@@ -1731,7 +1730,7 @@ class VirtualMachinesOperations(object):
         elif polling is False: polling_method = NoPolling()
         else: polling_method = polling
         return LROPoller(self._client, raw_result, get_long_running_output, polling_method)
-    simulate_eviction.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}/simulateEviction'}
+    simulate_eviction.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}/SimulateEviction'}
 
 
     def _run_command_initial(
