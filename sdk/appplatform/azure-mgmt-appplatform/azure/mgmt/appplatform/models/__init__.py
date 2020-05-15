@@ -36,6 +36,7 @@ try:
     from ._models_py3 import MetricSpecification
     from ._models_py3 import NameAvailability
     from ._models_py3 import NameAvailabilityParameters
+    from ._models_py3 import NetworkProfile
     from ._models_py3 import OperationDetail
     from ._models_py3 import OperationDisplay
     from ._models_py3 import OperationProperties
@@ -78,6 +79,7 @@ except (SyntaxError, ImportError):
     from ._models import MetricSpecification
     from ._models import NameAvailability
     from ._models import NameAvailabilityParameters
+    from ._models import NetworkProfile
     from ._models import OperationDetail
     from ._models import OperationDisplay
     from ._models import OperationProperties
@@ -139,6 +141,7 @@ __all__ = [
     'MetricSpecification',
     'NameAvailability',
     'NameAvailabilityParameters',
+    'NetworkProfile',
     'OperationDetail',
     'OperationDisplay',
     'OperationProperties',
