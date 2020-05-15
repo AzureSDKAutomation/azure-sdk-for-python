@@ -16,7 +16,6 @@ from ._configuration import MixedRealityClientConfiguration
 from .operations import MixedRealityClientOperationsMixin
 from .operations import Operations
 from .operations import SpatialAnchorsAccountsOperations
-from .operations import RemoteRenderingAccountsOperations
 from . import models
 
 
@@ -30,8 +29,6 @@ class MixedRealityClient(MixedRealityClientOperationsMixin, SDKClient):
     :vartype operations: azure.mgmt.mixedreality.operations.Operations
     :ivar spatial_anchors_accounts: SpatialAnchorsAccounts operations
     :vartype spatial_anchors_accounts: azure.mgmt.mixedreality.operations.SpatialAnchorsAccountsOperations
-    :ivar remote_rendering_accounts: RemoteRenderingAccounts operations
-    :vartype remote_rendering_accounts: azure.mgmt.mixedreality.operations.RemoteRenderingAccountsOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -49,12 +46,11 @@ class MixedRealityClient(MixedRealityClientOperationsMixin, SDKClient):
         super(MixedRealityClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
+        self.api_version = '2020-05-01'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
         self.operations = Operations(
             self._client, self.config, self._serialize, self._deserialize)
         self.spatial_anchors_accounts = SpatialAnchorsAccountsOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.remote_rendering_accounts = RemoteRenderingAccountsOperations(
             self._client, self.config, self._serialize, self._deserialize)

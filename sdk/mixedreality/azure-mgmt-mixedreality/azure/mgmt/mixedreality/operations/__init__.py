@@ -11,12 +11,10 @@
 
 from ._operations import Operations
 from ._spatial_anchors_accounts_operations import SpatialAnchorsAccountsOperations
-from ._remote_rendering_accounts_operations import RemoteRenderingAccountsOperations
 from ._mixed_reality_client_operations import MixedRealityClientOperationsMixin
 
 __all__ = [
     'Operations',
     'SpatialAnchorsAccountsOperations',
-    'RemoteRenderingAccountsOperations',
     'MixedRealityClientOperationsMixin',
 ]

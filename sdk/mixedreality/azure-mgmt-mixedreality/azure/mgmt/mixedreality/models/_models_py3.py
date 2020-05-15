@@ -384,58 +384,6 @@ class TrackedResource(Resource):
         self.location = location
 
 
-class RemoteRenderingAccount(TrackedResource):
-    """RemoteRenderingAccount Response.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-    :vartype id: str
-    :ivar name: The name of the resource
-    :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
-    :vartype type: str
-    :param tags: Resource tags.
-    :type tags: dict[str, str]
-    :param location: Required. The geo-location where the resource lives
-    :type location: str
-    :ivar account_id: unique id of certain account.
-    :vartype account_id: str
-    :ivar account_domain: Correspond domain name of certain Spatial Anchors
-     Account
-    :vartype account_domain: str
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'location': {'required': True},
-        'account_id': {'readonly': True},
-        'account_domain': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'tags': {'key': 'tags', 'type': '{str}'},
-        'location': {'key': 'location', 'type': 'str'},
-        'account_id': {'key': 'properties.accountId', 'type': 'str'},
-        'account_domain': {'key': 'properties.accountDomain', 'type': 'str'},
-    }
-
-    def __init__(self, *, location: str, tags=None, **kwargs) -> None:
-        super(RemoteRenderingAccount, self).__init__(tags=tags, location=location, **kwargs)
-        self.account_id = None
-        self.account_domain = None
-
-
 class SpatialAnchorsAccount(TrackedResource):
     """SpatialAnchorsAccount Response.
 

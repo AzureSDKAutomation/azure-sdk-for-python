@@ -38,16 +38,3 @@ class SpatialAnchorsAccountPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(SpatialAnchorsAccountPaged, self).__init__(*args, **kwargs)
-class RemoteRenderingAccountPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`RemoteRenderingAccount <azure.mgmt.mixedreality.models.RemoteRenderingAccount>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[RemoteRenderingAccount]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(RemoteRenderingAccountPaged, self).__init__(*args, **kwargs)
