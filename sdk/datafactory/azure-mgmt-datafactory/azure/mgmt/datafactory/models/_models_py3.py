@@ -1402,6 +1402,10 @@ class AmazonS3ReadSettings(StoreReadSettings):
      discovery starts from. Type: string (or Expression with resultType
      string).
     :type partition_root_path: object
+    :param delete_files_after_completion: Indicates whether the source files
+     need to be deleted after copy completion. Default is false. Type: boolean
+     (or Expression with resultType boolean).
+    :type delete_files_after_completion: object
     :param modified_datetime_start: The start of file's modified datetime.
      Type: string (or Expression with resultType string).
     :type modified_datetime_start: object
@@ -1425,11 +1429,12 @@ class AmazonS3ReadSettings(StoreReadSettings):
         'file_list_path': {'key': 'fileListPath', 'type': 'object'},
         'enable_partition_discovery': {'key': 'enablePartitionDiscovery', 'type': 'bool'},
         'partition_root_path': {'key': 'partitionRootPath', 'type': 'object'},
+        'delete_files_after_completion': {'key': 'deleteFilesAfterCompletion', 'type': 'object'},
         'modified_datetime_start': {'key': 'modifiedDatetimeStart', 'type': 'object'},
         'modified_datetime_end': {'key': 'modifiedDatetimeEnd', 'type': 'object'},
     }
 
-    def __init__(self, *, additional_properties=None, max_concurrent_connections=None, recursive=None, wildcard_folder_path=None, wildcard_file_name=None, prefix=None, file_list_path=None, enable_partition_discovery: bool=None, partition_root_path=None, modified_datetime_start=None, modified_datetime_end=None, **kwargs) -> None:
+    def __init__(self, *, additional_properties=None, max_concurrent_connections=None, recursive=None, wildcard_folder_path=None, wildcard_file_name=None, prefix=None, file_list_path=None, enable_partition_discovery: bool=None, partition_root_path=None, delete_files_after_completion=None, modified_datetime_start=None, modified_datetime_end=None, **kwargs) -> None:
         super(AmazonS3ReadSettings, self).__init__(additional_properties=additional_properties, max_concurrent_connections=max_concurrent_connections, **kwargs)
         self.recursive = recursive
         self.wildcard_folder_path = wildcard_folder_path
@@ -1438,6 +1443,7 @@ class AmazonS3ReadSettings(StoreReadSettings):
         self.file_list_path = file_list_path
         self.enable_partition_discovery = enable_partition_discovery
         self.partition_root_path = partition_root_path
+        self.delete_files_after_completion = delete_files_after_completion
         self.modified_datetime_start = modified_datetime_start
         self.modified_datetime_end = modified_datetime_end
         self.type = 'AmazonS3ReadSettings'
@@ -2323,6 +2329,10 @@ class AzureBlobFSReadSettings(StoreReadSettings):
      discovery starts from. Type: string (or Expression with resultType
      string).
     :type partition_root_path: object
+    :param delete_files_after_completion: Indicates whether the source files
+     need to be deleted after copy completion. Default is false. Type: boolean
+     (or Expression with resultType boolean).
+    :type delete_files_after_completion: object
     :param modified_datetime_start: The start of file's modified datetime.
      Type: string (or Expression with resultType string).
     :type modified_datetime_start: object
@@ -2345,11 +2355,12 @@ class AzureBlobFSReadSettings(StoreReadSettings):
         'file_list_path': {'key': 'fileListPath', 'type': 'object'},
         'enable_partition_discovery': {'key': 'enablePartitionDiscovery', 'type': 'bool'},
         'partition_root_path': {'key': 'partitionRootPath', 'type': 'object'},
+        'delete_files_after_completion': {'key': 'deleteFilesAfterCompletion', 'type': 'object'},
         'modified_datetime_start': {'key': 'modifiedDatetimeStart', 'type': 'object'},
         'modified_datetime_end': {'key': 'modifiedDatetimeEnd', 'type': 'object'},
     }
 
-    def __init__(self, *, additional_properties=None, max_concurrent_connections=None, recursive=None, wildcard_folder_path=None, wildcard_file_name=None, file_list_path=None, enable_partition_discovery: bool=None, partition_root_path=None, modified_datetime_start=None, modified_datetime_end=None, **kwargs) -> None:
+    def __init__(self, *, additional_properties=None, max_concurrent_connections=None, recursive=None, wildcard_folder_path=None, wildcard_file_name=None, file_list_path=None, enable_partition_discovery: bool=None, partition_root_path=None, delete_files_after_completion=None, modified_datetime_start=None, modified_datetime_end=None, **kwargs) -> None:
         super(AzureBlobFSReadSettings, self).__init__(additional_properties=additional_properties, max_concurrent_connections=max_concurrent_connections, **kwargs)
         self.recursive = recursive
         self.wildcard_folder_path = wildcard_folder_path
@@ -2357,6 +2368,7 @@ class AzureBlobFSReadSettings(StoreReadSettings):
         self.file_list_path = file_list_path
         self.enable_partition_discovery = enable_partition_discovery
         self.partition_root_path = partition_root_path
+        self.delete_files_after_completion = delete_files_after_completion
         self.modified_datetime_start = modified_datetime_start
         self.modified_datetime_end = modified_datetime_end
         self.type = 'AzureBlobFSReadSettings'
@@ -2724,6 +2736,10 @@ class AzureBlobStorageReadSettings(StoreReadSettings):
      discovery starts from. Type: string (or Expression with resultType
      string).
     :type partition_root_path: object
+    :param delete_files_after_completion: Indicates whether the source files
+     need to be deleted after copy completion. Default is false. Type: boolean
+     (or Expression with resultType boolean).
+    :type delete_files_after_completion: object
     :param modified_datetime_start: The start of file's modified datetime.
      Type: string (or Expression with resultType string).
     :type modified_datetime_start: object
@@ -2747,11 +2763,12 @@ class AzureBlobStorageReadSettings(StoreReadSettings):
         'file_list_path': {'key': 'fileListPath', 'type': 'object'},
         'enable_partition_discovery': {'key': 'enablePartitionDiscovery', 'type': 'bool'},
         'partition_root_path': {'key': 'partitionRootPath', 'type': 'object'},
+        'delete_files_after_completion': {'key': 'deleteFilesAfterCompletion', 'type': 'object'},
         'modified_datetime_start': {'key': 'modifiedDatetimeStart', 'type': 'object'},
         'modified_datetime_end': {'key': 'modifiedDatetimeEnd', 'type': 'object'},
     }
 
-    def __init__(self, *, additional_properties=None, max_concurrent_connections=None, recursive=None, wildcard_folder_path=None, wildcard_file_name=None, prefix=None, file_list_path=None, enable_partition_discovery: bool=None, partition_root_path=None, modified_datetime_start=None, modified_datetime_end=None, **kwargs) -> None:
+    def __init__(self, *, additional_properties=None, max_concurrent_connections=None, recursive=None, wildcard_folder_path=None, wildcard_file_name=None, prefix=None, file_list_path=None, enable_partition_discovery: bool=None, partition_root_path=None, delete_files_after_completion=None, modified_datetime_start=None, modified_datetime_end=None, **kwargs) -> None:
         super(AzureBlobStorageReadSettings, self).__init__(additional_properties=additional_properties, max_concurrent_connections=max_concurrent_connections, **kwargs)
         self.recursive = recursive
         self.wildcard_folder_path = wildcard_folder_path
@@ -2760,6 +2777,7 @@ class AzureBlobStorageReadSettings(StoreReadSettings):
         self.file_list_path = file_list_path
         self.enable_partition_discovery = enable_partition_discovery
         self.partition_root_path = partition_root_path
+        self.delete_files_after_completion = delete_files_after_completion
         self.modified_datetime_start = modified_datetime_start
         self.modified_datetime_end = modified_datetime_end
         self.type = 'AzureBlobStorageReadSettings'
@@ -3631,6 +3649,16 @@ class AzureDataLakeStoreReadSettings(StoreReadSettings):
      path to the path configured in the dataset) that you want to copy. Type:
      string (or Expression with resultType string).
     :type file_list_path: object
+    :param list_after: Lists files after the value (exclusive) based on
+     file/folder names’ lexicographical order. Applies under the folderPath in
+     data set, and filter files/sub-folders under the folderPath. Type: string
+     (or Expression with resultType string).
+    :type list_after: object
+    :param list_before: Lists files before the value (inclusive) based on
+     file/folder names’ lexicographical order. Applies under the folderPath in
+     data set, and filter files/sub-folders under the folderPath. Type: string
+     (or Expression with resultType string).
+    :type list_before: object
     :param enable_partition_discovery: Indicates whether to enable partition
      discovery.
     :type enable_partition_discovery: bool
@@ -3638,6 +3666,10 @@ class AzureDataLakeStoreReadSettings(StoreReadSettings):
      discovery starts from. Type: string (or Expression with resultType
      string).
     :type partition_root_path: object
+    :param delete_files_after_completion: Indicates whether the source files
+     need to be deleted after copy completion. Default is false. Type: boolean
+     (or Expression with resultType boolean).
+    :type delete_files_after_completion: object
     :param modified_datetime_start: The start of file's modified datetime.
      Type: string (or Expression with resultType string).
     :type modified_datetime_start: object
@@ -3658,20 +3690,26 @@ class AzureDataLakeStoreReadSettings(StoreReadSettings):
         'wildcard_folder_path': {'key': 'wildcardFolderPath', 'type': 'object'},
         'wildcard_file_name': {'key': 'wildcardFileName', 'type': 'object'},
         'file_list_path': {'key': 'fileListPath', 'type': 'object'},
+        'list_after': {'key': 'listAfter', 'type': 'object'},
+        'list_before': {'key': 'listBefore', 'type': 'object'},
         'enable_partition_discovery': {'key': 'enablePartitionDiscovery', 'type': 'bool'},
         'partition_root_path': {'key': 'partitionRootPath', 'type': 'object'},
+        'delete_files_after_completion': {'key': 'deleteFilesAfterCompletion', 'type': 'object'},
         'modified_datetime_start': {'key': 'modifiedDatetimeStart', 'type': 'object'},
         'modified_datetime_end': {'key': 'modifiedDatetimeEnd', 'type': 'object'},
     }
 
-    def __init__(self, *, additional_properties=None, max_concurrent_connections=None, recursive=None, wildcard_folder_path=None, wildcard_file_name=None, file_list_path=None, enable_partition_discovery: bool=None, partition_root_path=None, modified_datetime_start=None, modified_datetime_end=None, **kwargs) -> None:
+    def __init__(self, *, additional_properties=None, max_concurrent_connections=None, recursive=None, wildcard_folder_path=None, wildcard_file_name=None, file_list_path=None, list_after=None, list_before=None, enable_partition_discovery: bool=None, partition_root_path=None, delete_files_after_completion=None, modified_datetime_start=None, modified_datetime_end=None, **kwargs) -> None:
         super(AzureDataLakeStoreReadSettings, self).__init__(additional_properties=additional_properties, max_concurrent_connections=max_concurrent_connections, **kwargs)
         self.recursive = recursive
         self.wildcard_folder_path = wildcard_folder_path
         self.wildcard_file_name = wildcard_file_name
         self.file_list_path = file_list_path
+        self.list_after = list_after
+        self.list_before = list_before
         self.enable_partition_discovery = enable_partition_discovery
         self.partition_root_path = partition_root_path
+        self.delete_files_after_completion = delete_files_after_completion
         self.modified_datetime_start = modified_datetime_start
         self.modified_datetime_end = modified_datetime_end
         self.type = 'AzureDataLakeStoreReadSettings'
@@ -3984,6 +4022,10 @@ class AzureFileStorageReadSettings(StoreReadSettings):
      discovery starts from. Type: string (or Expression with resultType
      string).
     :type partition_root_path: object
+    :param delete_files_after_completion: Indicates whether the source files
+     need to be deleted after copy completion. Default is false. Type: boolean
+     (or Expression with resultType boolean).
+    :type delete_files_after_completion: object
     :param modified_datetime_start: The start of file's modified datetime.
      Type: string (or Expression with resultType string).
     :type modified_datetime_start: object
@@ -4007,11 +4049,12 @@ class AzureFileStorageReadSettings(StoreReadSettings):
         'file_list_path': {'key': 'fileListPath', 'type': 'object'},
         'enable_partition_discovery': {'key': 'enablePartitionDiscovery', 'type': 'bool'},
         'partition_root_path': {'key': 'partitionRootPath', 'type': 'object'},
+        'delete_files_after_completion': {'key': 'deleteFilesAfterCompletion', 'type': 'object'},
         'modified_datetime_start': {'key': 'modifiedDatetimeStart', 'type': 'object'},
         'modified_datetime_end': {'key': 'modifiedDatetimeEnd', 'type': 'object'},
     }
 
-    def __init__(self, *, additional_properties=None, max_concurrent_connections=None, recursive=None, wildcard_folder_path=None, wildcard_file_name=None, prefix=None, file_list_path=None, enable_partition_discovery: bool=None, partition_root_path=None, modified_datetime_start=None, modified_datetime_end=None, **kwargs) -> None:
+    def __init__(self, *, additional_properties=None, max_concurrent_connections=None, recursive=None, wildcard_folder_path=None, wildcard_file_name=None, prefix=None, file_list_path=None, enable_partition_discovery: bool=None, partition_root_path=None, delete_files_after_completion=None, modified_datetime_start=None, modified_datetime_end=None, **kwargs) -> None:
         super(AzureFileStorageReadSettings, self).__init__(additional_properties=additional_properties, max_concurrent_connections=max_concurrent_connections, **kwargs)
         self.recursive = recursive
         self.wildcard_folder_path = wildcard_folder_path
@@ -4020,6 +4063,7 @@ class AzureFileStorageReadSettings(StoreReadSettings):
         self.file_list_path = file_list_path
         self.enable_partition_discovery = enable_partition_discovery
         self.partition_root_path = partition_root_path
+        self.delete_files_after_completion = delete_files_after_completion
         self.modified_datetime_start = modified_datetime_start
         self.modified_datetime_end = modified_datetime_end
         self.type = 'AzureFileStorageReadSettings'
@@ -13273,6 +13317,10 @@ class FileServerReadSettings(StoreReadSettings):
      discovery starts from. Type: string (or Expression with resultType
      string).
     :type partition_root_path: object
+    :param delete_files_after_completion: Indicates whether the source files
+     need to be deleted after copy completion. Default is false. Type: boolean
+     (or Expression with resultType boolean).
+    :type delete_files_after_completion: object
     :param modified_datetime_start: The start of file's modified datetime.
      Type: string (or Expression with resultType string).
     :type modified_datetime_start: object
@@ -13299,12 +13347,13 @@ class FileServerReadSettings(StoreReadSettings):
         'file_list_path': {'key': 'fileListPath', 'type': 'object'},
         'enable_partition_discovery': {'key': 'enablePartitionDiscovery', 'type': 'bool'},
         'partition_root_path': {'key': 'partitionRootPath', 'type': 'object'},
+        'delete_files_after_completion': {'key': 'deleteFilesAfterCompletion', 'type': 'object'},
         'modified_datetime_start': {'key': 'modifiedDatetimeStart', 'type': 'object'},
         'modified_datetime_end': {'key': 'modifiedDatetimeEnd', 'type': 'object'},
         'file_filter': {'key': 'fileFilter', 'type': 'object'},
     }
 
-    def __init__(self, *, additional_properties=None, max_concurrent_connections=None, recursive=None, wildcard_folder_path=None, wildcard_file_name=None, file_list_path=None, enable_partition_discovery: bool=None, partition_root_path=None, modified_datetime_start=None, modified_datetime_end=None, file_filter=None, **kwargs) -> None:
+    def __init__(self, *, additional_properties=None, max_concurrent_connections=None, recursive=None, wildcard_folder_path=None, wildcard_file_name=None, file_list_path=None, enable_partition_discovery: bool=None, partition_root_path=None, delete_files_after_completion=None, modified_datetime_start=None, modified_datetime_end=None, file_filter=None, **kwargs) -> None:
         super(FileServerReadSettings, self).__init__(additional_properties=additional_properties, max_concurrent_connections=max_concurrent_connections, **kwargs)
         self.recursive = recursive
         self.wildcard_folder_path = wildcard_folder_path
@@ -13312,6 +13361,7 @@ class FileServerReadSettings(StoreReadSettings):
         self.file_list_path = file_list_path
         self.enable_partition_discovery = enable_partition_discovery
         self.partition_root_path = partition_root_path
+        self.delete_files_after_completion = delete_files_after_completion
         self.modified_datetime_start = modified_datetime_start
         self.modified_datetime_end = modified_datetime_end
         self.file_filter = file_filter
@@ -13688,6 +13738,10 @@ class FtpReadSettings(StoreReadSettings):
      discovery starts from. Type: string (or Expression with resultType
      string).
     :type partition_root_path: object
+    :param delete_files_after_completion: Indicates whether the source files
+     need to be deleted after copy completion. Default is false. Type: boolean
+     (or Expression with resultType boolean).
+    :type delete_files_after_completion: object
     :param file_list_path: Point to a text file that lists each file (relative
      path to the path configured in the dataset) that you want to copy. Type:
      string (or Expression with resultType string).
@@ -13710,17 +13764,19 @@ class FtpReadSettings(StoreReadSettings):
         'wildcard_file_name': {'key': 'wildcardFileName', 'type': 'object'},
         'enable_partition_discovery': {'key': 'enablePartitionDiscovery', 'type': 'bool'},
         'partition_root_path': {'key': 'partitionRootPath', 'type': 'object'},
+        'delete_files_after_completion': {'key': 'deleteFilesAfterCompletion', 'type': 'object'},
         'file_list_path': {'key': 'fileListPath', 'type': 'object'},
         'use_binary_transfer': {'key': 'useBinaryTransfer', 'type': 'bool'},
     }
 
-    def __init__(self, *, additional_properties=None, max_concurrent_connections=None, recursive=None, wildcard_folder_path=None, wildcard_file_name=None, enable_partition_discovery: bool=None, partition_root_path=None, file_list_path=None, use_binary_transfer: bool=None, **kwargs) -> None:
+    def __init__(self, *, additional_properties=None, max_concurrent_connections=None, recursive=None, wildcard_folder_path=None, wildcard_file_name=None, enable_partition_discovery: bool=None, partition_root_path=None, delete_files_after_completion=None, file_list_path=None, use_binary_transfer: bool=None, **kwargs) -> None:
         super(FtpReadSettings, self).__init__(additional_properties=additional_properties, max_concurrent_connections=max_concurrent_connections, **kwargs)
         self.recursive = recursive
         self.wildcard_folder_path = wildcard_folder_path
         self.wildcard_file_name = wildcard_file_name
         self.enable_partition_discovery = enable_partition_discovery
         self.partition_root_path = partition_root_path
+        self.delete_files_after_completion = delete_files_after_completion
         self.file_list_path = file_list_path
         self.use_binary_transfer = use_binary_transfer
         self.type = 'FtpReadSettings'
@@ -14603,6 +14659,10 @@ class GoogleCloudStorageReadSettings(StoreReadSettings):
      discovery starts from. Type: string (or Expression with resultType
      string).
     :type partition_root_path: object
+    :param delete_files_after_completion: Indicates whether the source files
+     need to be deleted after copy completion. Default is false. Type: boolean
+     (or Expression with resultType boolean).
+    :type delete_files_after_completion: object
     :param modified_datetime_start: The start of file's modified datetime.
      Type: string (or Expression with resultType string).
     :type modified_datetime_start: object
@@ -14626,11 +14686,12 @@ class GoogleCloudStorageReadSettings(StoreReadSettings):
         'file_list_path': {'key': 'fileListPath', 'type': 'object'},
         'enable_partition_discovery': {'key': 'enablePartitionDiscovery', 'type': 'bool'},
         'partition_root_path': {'key': 'partitionRootPath', 'type': 'object'},
+        'delete_files_after_completion': {'key': 'deleteFilesAfterCompletion', 'type': 'object'},
         'modified_datetime_start': {'key': 'modifiedDatetimeStart', 'type': 'object'},
         'modified_datetime_end': {'key': 'modifiedDatetimeEnd', 'type': 'object'},
     }
 
-    def __init__(self, *, additional_properties=None, max_concurrent_connections=None, recursive=None, wildcard_folder_path=None, wildcard_file_name=None, prefix=None, file_list_path=None, enable_partition_discovery: bool=None, partition_root_path=None, modified_datetime_start=None, modified_datetime_end=None, **kwargs) -> None:
+    def __init__(self, *, additional_properties=None, max_concurrent_connections=None, recursive=None, wildcard_folder_path=None, wildcard_file_name=None, prefix=None, file_list_path=None, enable_partition_discovery: bool=None, partition_root_path=None, delete_files_after_completion=None, modified_datetime_start=None, modified_datetime_end=None, **kwargs) -> None:
         super(GoogleCloudStorageReadSettings, self).__init__(additional_properties=additional_properties, max_concurrent_connections=max_concurrent_connections, **kwargs)
         self.recursive = recursive
         self.wildcard_folder_path = wildcard_folder_path
@@ -14639,6 +14700,7 @@ class GoogleCloudStorageReadSettings(StoreReadSettings):
         self.file_list_path = file_list_path
         self.enable_partition_discovery = enable_partition_discovery
         self.partition_root_path = partition_root_path
+        self.delete_files_after_completion = delete_files_after_completion
         self.modified_datetime_start = modified_datetime_start
         self.modified_datetime_end = modified_datetime_end
         self.type = 'GoogleCloudStorageReadSettings'
@@ -28029,6 +28091,10 @@ class SftpReadSettings(StoreReadSettings):
      path to the path configured in the dataset) that you want to copy. Type:
      string (or Expression with resultType string).
     :type file_list_path: object
+    :param delete_files_after_completion: Indicates whether the source files
+     need to be deleted after copy completion. Default is false. Type: boolean
+     (or Expression with resultType boolean).
+    :type delete_files_after_completion: object
     :param modified_datetime_start: The start of file's modified datetime.
      Type: string (or Expression with resultType string).
     :type modified_datetime_start: object
@@ -28051,11 +28117,12 @@ class SftpReadSettings(StoreReadSettings):
         'enable_partition_discovery': {'key': 'enablePartitionDiscovery', 'type': 'bool'},
         'partition_root_path': {'key': 'partitionRootPath', 'type': 'object'},
         'file_list_path': {'key': 'fileListPath', 'type': 'object'},
+        'delete_files_after_completion': {'key': 'deleteFilesAfterCompletion', 'type': 'object'},
         'modified_datetime_start': {'key': 'modifiedDatetimeStart', 'type': 'object'},
         'modified_datetime_end': {'key': 'modifiedDatetimeEnd', 'type': 'object'},
     }
 
-    def __init__(self, *, additional_properties=None, max_concurrent_connections=None, recursive=None, wildcard_folder_path=None, wildcard_file_name=None, enable_partition_discovery: bool=None, partition_root_path=None, file_list_path=None, modified_datetime_start=None, modified_datetime_end=None, **kwargs) -> None:
+    def __init__(self, *, additional_properties=None, max_concurrent_connections=None, recursive=None, wildcard_folder_path=None, wildcard_file_name=None, enable_partition_discovery: bool=None, partition_root_path=None, file_list_path=None, delete_files_after_completion=None, modified_datetime_start=None, modified_datetime_end=None, **kwargs) -> None:
         super(SftpReadSettings, self).__init__(additional_properties=additional_properties, max_concurrent_connections=max_concurrent_connections, **kwargs)
         self.recursive = recursive
         self.wildcard_folder_path = wildcard_folder_path
@@ -28063,6 +28130,7 @@ class SftpReadSettings(StoreReadSettings):
         self.enable_partition_discovery = enable_partition_discovery
         self.partition_root_path = partition_root_path
         self.file_list_path = file_list_path
+        self.delete_files_after_completion = delete_files_after_completion
         self.modified_datetime_start = modified_datetime_start
         self.modified_datetime_end = modified_datetime_end
         self.type = 'SftpReadSettings'

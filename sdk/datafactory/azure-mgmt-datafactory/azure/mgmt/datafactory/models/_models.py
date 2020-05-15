@@ -1402,6 +1402,10 @@ class AmazonS3ReadSettings(StoreReadSettings):
      discovery starts from. Type: string (or Expression with resultType
      string).
     :type partition_root_path: object
+    :param delete_files_after_completion: Indicates whether the source files
+     need to be deleted after copy completion. Default is false. Type: boolean
+     (or Expression with resultType boolean).
+    :type delete_files_after_completion: object
     :param modified_datetime_start: The start of file's modified datetime.
      Type: string (or Expression with resultType string).
     :type modified_datetime_start: object
@@ -1425,6 +1429,7 @@ class AmazonS3ReadSettings(StoreReadSettings):
         'file_list_path': {'key': 'fileListPath', 'type': 'object'},
         'enable_partition_discovery': {'key': 'enablePartitionDiscovery', 'type': 'bool'},
         'partition_root_path': {'key': 'partitionRootPath', 'type': 'object'},
+        'delete_files_after_completion': {'key': 'deleteFilesAfterCompletion', 'type': 'object'},
         'modified_datetime_start': {'key': 'modifiedDatetimeStart', 'type': 'object'},
         'modified_datetime_end': {'key': 'modifiedDatetimeEnd', 'type': 'object'},
     }
@@ -1438,6 +1443,7 @@ class AmazonS3ReadSettings(StoreReadSettings):
         self.file_list_path = kwargs.get('file_list_path', None)
         self.enable_partition_discovery = kwargs.get('enable_partition_discovery', None)
         self.partition_root_path = kwargs.get('partition_root_path', None)
+        self.delete_files_after_completion = kwargs.get('delete_files_after_completion', None)
         self.modified_datetime_start = kwargs.get('modified_datetime_start', None)
         self.modified_datetime_end = kwargs.get('modified_datetime_end', None)
         self.type = 'AmazonS3ReadSettings'
@@ -2323,6 +2329,10 @@ class AzureBlobFSReadSettings(StoreReadSettings):
      discovery starts from. Type: string (or Expression with resultType
      string).
     :type partition_root_path: object
+    :param delete_files_after_completion: Indicates whether the source files
+     need to be deleted after copy completion. Default is false. Type: boolean
+     (or Expression with resultType boolean).
+    :type delete_files_after_completion: object
     :param modified_datetime_start: The start of file's modified datetime.
      Type: string (or Expression with resultType string).
     :type modified_datetime_start: object
@@ -2345,6 +2355,7 @@ class AzureBlobFSReadSettings(StoreReadSettings):
         'file_list_path': {'key': 'fileListPath', 'type': 'object'},
         'enable_partition_discovery': {'key': 'enablePartitionDiscovery', 'type': 'bool'},
         'partition_root_path': {'key': 'partitionRootPath', 'type': 'object'},
+        'delete_files_after_completion': {'key': 'deleteFilesAfterCompletion', 'type': 'object'},
         'modified_datetime_start': {'key': 'modifiedDatetimeStart', 'type': 'object'},
         'modified_datetime_end': {'key': 'modifiedDatetimeEnd', 'type': 'object'},
     }
@@ -2357,6 +2368,7 @@ class AzureBlobFSReadSettings(StoreReadSettings):
         self.file_list_path = kwargs.get('file_list_path', None)
         self.enable_partition_discovery = kwargs.get('enable_partition_discovery', None)
         self.partition_root_path = kwargs.get('partition_root_path', None)
+        self.delete_files_after_completion = kwargs.get('delete_files_after_completion', None)
         self.modified_datetime_start = kwargs.get('modified_datetime_start', None)
         self.modified_datetime_end = kwargs.get('modified_datetime_end', None)
         self.type = 'AzureBlobFSReadSettings'
@@ -2724,6 +2736,10 @@ class AzureBlobStorageReadSettings(StoreReadSettings):
      discovery starts from. Type: string (or Expression with resultType
      string).
     :type partition_root_path: object
+    :param delete_files_after_completion: Indicates whether the source files
+     need to be deleted after copy completion. Default is false. Type: boolean
+     (or Expression with resultType boolean).
+    :type delete_files_after_completion: object
     :param modified_datetime_start: The start of file's modified datetime.
      Type: string (or Expression with resultType string).
     :type modified_datetime_start: object
@@ -2747,6 +2763,7 @@ class AzureBlobStorageReadSettings(StoreReadSettings):
         'file_list_path': {'key': 'fileListPath', 'type': 'object'},
         'enable_partition_discovery': {'key': 'enablePartitionDiscovery', 'type': 'bool'},
         'partition_root_path': {'key': 'partitionRootPath', 'type': 'object'},
+        'delete_files_after_completion': {'key': 'deleteFilesAfterCompletion', 'type': 'object'},
         'modified_datetime_start': {'key': 'modifiedDatetimeStart', 'type': 'object'},
         'modified_datetime_end': {'key': 'modifiedDatetimeEnd', 'type': 'object'},
     }
@@ -2760,6 +2777,7 @@ class AzureBlobStorageReadSettings(StoreReadSettings):
         self.file_list_path = kwargs.get('file_list_path', None)
         self.enable_partition_discovery = kwargs.get('enable_partition_discovery', None)
         self.partition_root_path = kwargs.get('partition_root_path', None)
+        self.delete_files_after_completion = kwargs.get('delete_files_after_completion', None)
         self.modified_datetime_start = kwargs.get('modified_datetime_start', None)
         self.modified_datetime_end = kwargs.get('modified_datetime_end', None)
         self.type = 'AzureBlobStorageReadSettings'
@@ -3631,6 +3649,16 @@ class AzureDataLakeStoreReadSettings(StoreReadSettings):
      path to the path configured in the dataset) that you want to copy. Type:
      string (or Expression with resultType string).
     :type file_list_path: object
+    :param list_after: Lists files after the value (exclusive) based on
+     file/folder names’ lexicographical order. Applies under the folderPath in
+     data set, and filter files/sub-folders under the folderPath. Type: string
+     (or Expression with resultType string).
+    :type list_after: object
+    :param list_before: Lists files before the value (inclusive) based on
+     file/folder names’ lexicographical order. Applies under the folderPath in
+     data set, and filter files/sub-folders under the folderPath. Type: string
+     (or Expression with resultType string).
+    :type list_before: object
     :param enable_partition_discovery: Indicates whether to enable partition
      discovery.
     :type enable_partition_discovery: bool
@@ -3638,6 +3666,10 @@ class AzureDataLakeStoreReadSettings(StoreReadSettings):
      discovery starts from. Type: string (or Expression with resultType
      string).
     :type partition_root_path: object
+    :param delete_files_after_completion: Indicates whether the source files
+     need to be deleted after copy completion. Default is false. Type: boolean
+     (or Expression with resultType boolean).
+    :type delete_files_after_completion: object
     :param modified_datetime_start: The start of file's modified datetime.
      Type: string (or Expression with resultType string).
     :type modified_datetime_start: object
@@ -3658,8 +3690,11 @@ class AzureDataLakeStoreReadSettings(StoreReadSettings):
         'wildcard_folder_path': {'key': 'wildcardFolderPath', 'type': 'object'},
         'wildcard_file_name': {'key': 'wildcardFileName', 'type': 'object'},
         'file_list_path': {'key': 'fileListPath', 'type': 'object'},
+        'list_after': {'key': 'listAfter', 'type': 'object'},
+        'list_before': {'key': 'listBefore', 'type': 'object'},
         'enable_partition_discovery': {'key': 'enablePartitionDiscovery', 'type': 'bool'},
         'partition_root_path': {'key': 'partitionRootPath', 'type': 'object'},
+        'delete_files_after_completion': {'key': 'deleteFilesAfterCompletion', 'type': 'object'},
         'modified_datetime_start': {'key': 'modifiedDatetimeStart', 'type': 'object'},
         'modified_datetime_end': {'key': 'modifiedDatetimeEnd', 'type': 'object'},
     }
@@ -3670,8 +3705,11 @@ class AzureDataLakeStoreReadSettings(StoreReadSettings):
         self.wildcard_folder_path = kwargs.get('wildcard_folder_path', None)
         self.wildcard_file_name = kwargs.get('wildcard_file_name', None)
         self.file_list_path = kwargs.get('file_list_path', None)
+        self.list_after = kwargs.get('list_after', None)
+        self.list_before = kwargs.get('list_before', None)
         self.enable_partition_discovery = kwargs.get('enable_partition_discovery', None)
         self.partition_root_path = kwargs.get('partition_root_path', None)
+        self.delete_files_after_completion = kwargs.get('delete_files_after_completion', None)
         self.modified_datetime_start = kwargs.get('modified_datetime_start', None)
         self.modified_datetime_end = kwargs.get('modified_datetime_end', None)
         self.type = 'AzureDataLakeStoreReadSettings'
@@ -3984,6 +4022,10 @@ class AzureFileStorageReadSettings(StoreReadSettings):
      discovery starts from. Type: string (or Expression with resultType
      string).
     :type partition_root_path: object
+    :param delete_files_after_completion: Indicates whether the source files
+     need to be deleted after copy completion. Default is false. Type: boolean
+     (or Expression with resultType boolean).
+    :type delete_files_after_completion: object
     :param modified_datetime_start: The start of file's modified datetime.
      Type: string (or Expression with resultType string).
     :type modified_datetime_start: object
@@ -4007,6 +4049,7 @@ class AzureFileStorageReadSettings(StoreReadSettings):
         'file_list_path': {'key': 'fileListPath', 'type': 'object'},
         'enable_partition_discovery': {'key': 'enablePartitionDiscovery', 'type': 'bool'},
         'partition_root_path': {'key': 'partitionRootPath', 'type': 'object'},
+        'delete_files_after_completion': {'key': 'deleteFilesAfterCompletion', 'type': 'object'},
         'modified_datetime_start': {'key': 'modifiedDatetimeStart', 'type': 'object'},
         'modified_datetime_end': {'key': 'modifiedDatetimeEnd', 'type': 'object'},
     }
@@ -4020,6 +4063,7 @@ class AzureFileStorageReadSettings(StoreReadSettings):
         self.file_list_path = kwargs.get('file_list_path', None)
         self.enable_partition_discovery = kwargs.get('enable_partition_discovery', None)
         self.partition_root_path = kwargs.get('partition_root_path', None)
+        self.delete_files_after_completion = kwargs.get('delete_files_after_completion', None)
         self.modified_datetime_start = kwargs.get('modified_datetime_start', None)
         self.modified_datetime_end = kwargs.get('modified_datetime_end', None)
         self.type = 'AzureFileStorageReadSettings'
@@ -13273,6 +13317,10 @@ class FileServerReadSettings(StoreReadSettings):
      discovery starts from. Type: string (or Expression with resultType
      string).
     :type partition_root_path: object
+    :param delete_files_after_completion: Indicates whether the source files
+     need to be deleted after copy completion. Default is false. Type: boolean
+     (or Expression with resultType boolean).
+    :type delete_files_after_completion: object
     :param modified_datetime_start: The start of file's modified datetime.
      Type: string (or Expression with resultType string).
     :type modified_datetime_start: object
@@ -13299,6 +13347,7 @@ class FileServerReadSettings(StoreReadSettings):
         'file_list_path': {'key': 'fileListPath', 'type': 'object'},
         'enable_partition_discovery': {'key': 'enablePartitionDiscovery', 'type': 'bool'},
         'partition_root_path': {'key': 'partitionRootPath', 'type': 'object'},
+        'delete_files_after_completion': {'key': 'deleteFilesAfterCompletion', 'type': 'object'},
         'modified_datetime_start': {'key': 'modifiedDatetimeStart', 'type': 'object'},
         'modified_datetime_end': {'key': 'modifiedDatetimeEnd', 'type': 'object'},
         'file_filter': {'key': 'fileFilter', 'type': 'object'},
@@ -13312,6 +13361,7 @@ class FileServerReadSettings(StoreReadSettings):
         self.file_list_path = kwargs.get('file_list_path', None)
         self.enable_partition_discovery = kwargs.get('enable_partition_discovery', None)
         self.partition_root_path = kwargs.get('partition_root_path', None)
+        self.delete_files_after_completion = kwargs.get('delete_files_after_completion', None)
         self.modified_datetime_start = kwargs.get('modified_datetime_start', None)
         self.modified_datetime_end = kwargs.get('modified_datetime_end', None)
         self.file_filter = kwargs.get('file_filter', None)
@@ -13688,6 +13738,10 @@ class FtpReadSettings(StoreReadSettings):
      discovery starts from. Type: string (or Expression with resultType
      string).
     :type partition_root_path: object
+    :param delete_files_after_completion: Indicates whether the source files
+     need to be deleted after copy completion. Default is false. Type: boolean
+     (or Expression with resultType boolean).
+    :type delete_files_after_completion: object
     :param file_list_path: Point to a text file that lists each file (relative
      path to the path configured in the dataset) that you want to copy. Type:
      string (or Expression with resultType string).
@@ -13710,6 +13764,7 @@ class FtpReadSettings(StoreReadSettings):
         'wildcard_file_name': {'key': 'wildcardFileName', 'type': 'object'},
         'enable_partition_discovery': {'key': 'enablePartitionDiscovery', 'type': 'bool'},
         'partition_root_path': {'key': 'partitionRootPath', 'type': 'object'},
+        'delete_files_after_completion': {'key': 'deleteFilesAfterCompletion', 'type': 'object'},
         'file_list_path': {'key': 'fileListPath', 'type': 'object'},
         'use_binary_transfer': {'key': 'useBinaryTransfer', 'type': 'bool'},
     }
@@ -13721,6 +13776,7 @@ class FtpReadSettings(StoreReadSettings):
         self.wildcard_file_name = kwargs.get('wildcard_file_name', None)
         self.enable_partition_discovery = kwargs.get('enable_partition_discovery', None)
         self.partition_root_path = kwargs.get('partition_root_path', None)
+        self.delete_files_after_completion = kwargs.get('delete_files_after_completion', None)
         self.file_list_path = kwargs.get('file_list_path', None)
         self.use_binary_transfer = kwargs.get('use_binary_transfer', None)
         self.type = 'FtpReadSettings'
@@ -14603,6 +14659,10 @@ class GoogleCloudStorageReadSettings(StoreReadSettings):
      discovery starts from. Type: string (or Expression with resultType
      string).
     :type partition_root_path: object
+    :param delete_files_after_completion: Indicates whether the source files
+     need to be deleted after copy completion. Default is false. Type: boolean
+     (or Expression with resultType boolean).
+    :type delete_files_after_completion: object
     :param modified_datetime_start: The start of file's modified datetime.
      Type: string (or Expression with resultType string).
     :type modified_datetime_start: object
@@ -14626,6 +14686,7 @@ class GoogleCloudStorageReadSettings(StoreReadSettings):
         'file_list_path': {'key': 'fileListPath', 'type': 'object'},
         'enable_partition_discovery': {'key': 'enablePartitionDiscovery', 'type': 'bool'},
         'partition_root_path': {'key': 'partitionRootPath', 'type': 'object'},
+        'delete_files_after_completion': {'key': 'deleteFilesAfterCompletion', 'type': 'object'},
         'modified_datetime_start': {'key': 'modifiedDatetimeStart', 'type': 'object'},
         'modified_datetime_end': {'key': 'modifiedDatetimeEnd', 'type': 'object'},
     }
@@ -14639,6 +14700,7 @@ class GoogleCloudStorageReadSettings(StoreReadSettings):
         self.file_list_path = kwargs.get('file_list_path', None)
         self.enable_partition_discovery = kwargs.get('enable_partition_discovery', None)
         self.partition_root_path = kwargs.get('partition_root_path', None)
+        self.delete_files_after_completion = kwargs.get('delete_files_after_completion', None)
         self.modified_datetime_start = kwargs.get('modified_datetime_start', None)
         self.modified_datetime_end = kwargs.get('modified_datetime_end', None)
         self.type = 'GoogleCloudStorageReadSettings'
@@ -28029,6 +28091,10 @@ class SftpReadSettings(StoreReadSettings):
      path to the path configured in the dataset) that you want to copy. Type:
      string (or Expression with resultType string).
     :type file_list_path: object
+    :param delete_files_after_completion: Indicates whether the source files
+     need to be deleted after copy completion. Default is false. Type: boolean
+     (or Expression with resultType boolean).
+    :type delete_files_after_completion: object
     :param modified_datetime_start: The start of file's modified datetime.
      Type: string (or Expression with resultType string).
     :type modified_datetime_start: object
@@ -28051,6 +28117,7 @@ class SftpReadSettings(StoreReadSettings):
         'enable_partition_discovery': {'key': 'enablePartitionDiscovery', 'type': 'bool'},
         'partition_root_path': {'key': 'partitionRootPath', 'type': 'object'},
         'file_list_path': {'key': 'fileListPath', 'type': 'object'},
+        'delete_files_after_completion': {'key': 'deleteFilesAfterCompletion', 'type': 'object'},
         'modified_datetime_start': {'key': 'modifiedDatetimeStart', 'type': 'object'},
         'modified_datetime_end': {'key': 'modifiedDatetimeEnd', 'type': 'object'},
     }
@@ -28063,6 +28130,7 @@ class SftpReadSettings(StoreReadSettings):
         self.enable_partition_discovery = kwargs.get('enable_partition_discovery', None)
         self.partition_root_path = kwargs.get('partition_root_path', None)
         self.file_list_path = kwargs.get('file_list_path', None)
+        self.delete_files_after_completion = kwargs.get('delete_files_after_completion', None)
         self.modified_datetime_start = kwargs.get('modified_datetime_start', None)
         self.modified_datetime_end = kwargs.get('modified_datetime_end', None)
         self.type = 'SftpReadSettings'
