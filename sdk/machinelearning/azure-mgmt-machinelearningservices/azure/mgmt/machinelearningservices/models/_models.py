@@ -508,12 +508,19 @@ class AmlComputeProperties(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
+    :param os_type: Compute OS Type. Possible values include: 'Linux',
+     'Windows'
+    :type os_type: str or ~azure.mgmt.machinelearningservices.models.OsType
     :param vm_size: Virtual Machine Size
     :type vm_size: str
     :param vm_priority: Virtual Machine priority. Possible values include:
      'Dedicated', 'LowPriority'
     :type vm_priority: str or
      ~azure.mgmt.machinelearningservices.models.VmPriority
+    :param virtual_machine_image: Virtual Machine image for AML Compute -
+     windows only
+    :type virtual_machine_image:
+     ~azure.mgmt.machinelearningservices.models.VirtualMachineImage
     :param scale_settings: Scale settings for AML Compute
     :type scale_settings:
      ~azure.mgmt.machinelearningservices.models.ScaleSettings
@@ -577,8 +584,10 @@ class AmlComputeProperties(Model):
     }
 
     _attribute_map = {
+        'os_type': {'key': 'osType', 'type': 'str'},
         'vm_size': {'key': 'vmSize', 'type': 'str'},
         'vm_priority': {'key': 'vmPriority', 'type': 'str'},
+        'virtual_machine_image': {'key': 'virtualMachineImage', 'type': 'VirtualMachineImage'},
         'scale_settings': {'key': 'scaleSettings', 'type': 'ScaleSettings'},
         'user_account_credentials': {'key': 'userAccountCredentials', 'type': 'UserAccountCredentials'},
         'subnet': {'key': 'subnet', 'type': 'ResourceId'},
@@ -593,8 +602,10 @@ class AmlComputeProperties(Model):
 
     def __init__(self, **kwargs):
         super(AmlComputeProperties, self).__init__(**kwargs)
+        self.os_type = kwargs.get('os_type', None)
         self.vm_size = kwargs.get('vm_size', None)
         self.vm_priority = kwargs.get('vm_priority', None)
+        self.virtual_machine_image = kwargs.get('virtual_machine_image', None)
         self.scale_settings = kwargs.get('scale_settings', None)
         self.user_account_credentials = kwargs.get('user_account_credentials', None)
         self.subnet = kwargs.get('subnet', None)
@@ -2425,6 +2436,28 @@ class VirtualMachine(Compute):
         super(VirtualMachine, self).__init__(**kwargs)
         self.properties = kwargs.get('properties', None)
         self.compute_type = 'VirtualMachine'
+
+
+class VirtualMachineImage(Model):
+    """Virtual Machine image for Windows AML Compute.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param id: Required. Virtual Machine image path
+    :type id: str
+    """
+
+    _validation = {
+        'id': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(VirtualMachineImage, self).__init__(**kwargs)
+        self.id = kwargs.get('id', None)
 
 
 class VirtualMachineProperties(Model):

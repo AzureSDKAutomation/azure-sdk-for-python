@@ -72,6 +72,7 @@ try:
     from ._models_py3 import UsageName
     from ._models_py3 import UserAccountCredentials
     from ._models_py3 import VirtualMachine
+    from ._models_py3 import VirtualMachineImage
     from ._models_py3 import VirtualMachineProperties
     from ._models_py3 import VirtualMachineSecrets
     from ._models_py3 import VirtualMachineSize
@@ -143,6 +144,7 @@ except (SyntaxError, ImportError):
     from ._models import UsageName
     from ._models import UserAccountCredentials
     from ._models import VirtualMachine
+    from ._models import VirtualMachineImage
     from ._models import VirtualMachineProperties
     from ._models import VirtualMachineSecrets
     from ._models import VirtualMachineSize
@@ -167,6 +169,7 @@ from ._azure_machine_learning_workspaces_enums import (
     QuotaUnit,
     Status,
     ResourceIdentityType,
+    OsType,
     VmPriority,
     RemoteLoginPortPublicAccess,
     AllocationState,
@@ -239,6 +242,7 @@ __all__ = [
     'UsageName',
     'UserAccountCredentials',
     'VirtualMachine',
+    'VirtualMachineImage',
     'VirtualMachineProperties',
     'VirtualMachineSecrets',
     'VirtualMachineSize',
@@ -262,6 +266,7 @@ __all__ = [
     'QuotaUnit',
     'Status',
     'ResourceIdentityType',
+    'OsType',
     'VmPriority',
     'RemoteLoginPortPublicAccess',
     'AllocationState',
