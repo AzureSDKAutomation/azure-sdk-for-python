@@ -2548,7 +2548,7 @@ class StorageAccountCreateParameters(Model):
      ~azure.mgmt.storage.v2019_04_01.models.AzureFilesIdentityBasedAuthentication
     :param enable_https_traffic_only: Allows https traffic only to storage
      service if sets to true. The default value is true since API version
-     2019-04-01.
+     2019-04-01. Default value: True .
     :type enable_https_traffic_only: bool
     :param is_hns_enabled: Account HierarchicalNamespace enabled if sets to
      true.
@@ -2594,7 +2594,7 @@ class StorageAccountCreateParameters(Model):
         self.network_rule_set = kwargs.get('network_rule_set', None)
         self.access_tier = kwargs.get('access_tier', None)
         self.azure_files_identity_based_authentication = kwargs.get('azure_files_identity_based_authentication', None)
-        self.enable_https_traffic_only = kwargs.get('enable_https_traffic_only', None)
+        self.enable_https_traffic_only = kwargs.get('enable_https_traffic_only', True)
         self.is_hns_enabled = kwargs.get('is_hns_enabled', None)
         self.large_file_shares_state = kwargs.get('large_file_shares_state', None)
 

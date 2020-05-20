@@ -2548,7 +2548,7 @@ class StorageAccountCreateParameters(Model):
      ~azure.mgmt.storage.v2019_04_01.models.AzureFilesIdentityBasedAuthentication
     :param enable_https_traffic_only: Allows https traffic only to storage
      service if sets to true. The default value is true since API version
-     2019-04-01.
+     2019-04-01. Default value: True .
     :type enable_https_traffic_only: bool
     :param is_hns_enabled: Account HierarchicalNamespace enabled if sets to
      true.
@@ -2582,7 +2582,7 @@ class StorageAccountCreateParameters(Model):
         'large_file_shares_state': {'key': 'properties.largeFileSharesState', 'type': 'str'},
     }
 
-    def __init__(self, *, sku, kind, location: str, tags=None, identity=None, custom_domain=None, encryption=None, network_rule_set=None, access_tier=None, azure_files_identity_based_authentication=None, enable_https_traffic_only: bool=None, is_hns_enabled: bool=None, large_file_shares_state=None, **kwargs) -> None:
+    def __init__(self, *, sku, kind, location: str, tags=None, identity=None, custom_domain=None, encryption=None, network_rule_set=None, access_tier=None, azure_files_identity_based_authentication=None, enable_https_traffic_only: bool=True, is_hns_enabled: bool=None, large_file_shares_state=None, **kwargs) -> None:
         super(StorageAccountCreateParameters, self).__init__(**kwargs)
         self.sku = sku
         self.kind = kind
