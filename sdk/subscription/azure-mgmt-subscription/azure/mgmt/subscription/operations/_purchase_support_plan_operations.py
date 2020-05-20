@@ -11,13 +11,12 @@
 
 import uuid
 from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
 
 from .. import models
 
 
-class SubscriptionOperationOperations(object):
-    """SubscriptionOperationOperations operations.
+class PurchaseSupportPlanOperations(object):
+    """PurchaseSupportPlanOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -25,7 +24,7 @@ class SubscriptionOperationOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Version of the API to be used with the client request. Current version is 2019-10-01-preview. Constant value: "2019-10-01-preview".
+    :ivar api_version: Version of the API to be used with the client request. Current version is 2019-10-01-preview. Constant value: "2020-01-01-preview".
     """
 
     models = models
@@ -35,31 +34,40 @@ class SubscriptionOperationOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2019-10-01-preview"
+        self.api_version = "2020-01-01-preview"
 
         self.config = config
 
-    def get(
-            self, operation_id, custom_headers=None, raw=False, **operation_config):
-        """Get the status of the pending Microsoft.Subscription API operations.
+    def create_or_update(
+            self, subscription_id, plan_type=None, custom_headers=None, raw=False, **operation_config):
+        """The operation to purchase/convert support plan.
 
-        :param operation_id: The operation ID, which can be found from the
-         Location field in the generate recommendation response header.
-        :type operation_id: str
+        :param subscription_id: the subscription Id.
+        :type subscription_id: str
+        :param plan_type: SupportPlan Type. Possible values include:
+         'basic_support', 'developer_support', 'standard_support',
+         'prodirect_support'
+        :type plan_type: str or
+         ~azure.mgmt.subscription.models.SupportPlanType
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: SubscriptionCreationResult or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.subscription.models.SubscriptionCreationResult or
+        :return: DefaultSupportPlanResponseResult or ClientRawResponse if
+         raw=true
+        :rtype:
+         ~azure.mgmt.subscription.models.DefaultSupportPlanResponseResult or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseBodyException<azure.mgmt.subscription.models.ErrorResponseBodyException>`
         """
+        body = models.SupportPlanName(plan_type=plan_type)
+
         # Construct URL
-        url = self.get.metadata['url']
+        url = self.create_or_update.metadata['url']
         path_format_arguments = {
-            'operationId': self._serialize.url("operation_id", operation_id, 'str')
+            'subscriptionId': self._serialize.url("subscription_id", subscription_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -70,6 +78,7 @@ class SubscriptionOperationOperations(object):
         # Construct headers
         header_parameters = {}
         header_parameters['Accept'] = 'application/json'
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
         if self.config.generate_client_request_id:
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
         if custom_headers:
@@ -77,22 +86,23 @@ class SubscriptionOperationOperations(object):
         if self.config.accept_language is not None:
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
+        # Construct body
+        body_content = self._serialize.body(body, 'SupportPlanName')
+
         # Construct and send request
-        request = self._client.get(url, query_parameters, header_parameters)
+        request = self._client.put(url, query_parameters, header_parameters, body_content)
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200, 202]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseBodyException(self._deserialize, response)
 
         header_dict = {}
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('SubscriptionCreationResult', response)
+            deserialized = self._deserialize('DefaultSupportPlanResponseResult', response)
             header_dict = {
                 'Location': 'str',
-                'Retry-After': 'int',
+                'Retry-After': 'str',
             }
 
         if raw:
@@ -101,4 +111,4 @@ class SubscriptionOperationOperations(object):
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/providers/Microsoft.Subscription/subscriptionOperations/{operationId}'}
+    create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Subscription/supportplans/default'}

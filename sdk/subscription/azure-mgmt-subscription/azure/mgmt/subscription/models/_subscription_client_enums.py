@@ -12,23 +12,9 @@
 from enum import Enum
 
 
-class SubscriptionState(str, Enum):
+class SupportPlanType(str, Enum):
 
-    enabled = "Enabled"
-    warned = "Warned"
-    past_due = "PastDue"
-    disabled = "Disabled"
-    deleted = "Deleted"
-
-
-class SpendingLimit(str, Enum):
-
-    on = "On"
-    off = "Off"
-    current_period_off = "CurrentPeriodOff"
-
-
-class OfferType(str, Enum):
-
-    ms_azr_0017_p = "MS-AZR-0017P"
-    ms_azr_0148_p = "MS-AZR-0148P"
+    basic_support = "basic_support"
+    developer_support = "developer_support"
+    standard_support = "standard_support"
+    prodirect_support = "prodirect_support"

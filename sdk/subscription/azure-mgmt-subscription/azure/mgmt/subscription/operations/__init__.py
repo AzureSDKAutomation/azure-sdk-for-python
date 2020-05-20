@@ -9,16 +9,14 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from ._subscriptions_operations import SubscriptionsOperations
-from ._tenants_operations import TenantsOperations
-from ._subscription_operations import SubscriptionOperations
-from ._subscription_operation_operations import SubscriptionOperationOperations
-from ._operations import Operations
+from ._operation_results_operations import OperationResultsOperations
+from ._support_plans_operations import SupportPlansOperations
+from ._support_plan_default_operations import SupportPlanDefaultOperations
+from ._purchase_support_plan_operations import PurchaseSupportPlanOperations
 
 __all__ = [
-    'SubscriptionsOperations',
-    'TenantsOperations',
-    'SubscriptionOperations',
-    'SubscriptionOperationOperations',
-    'Operations',
+    'OperationResultsOperations',
+    'SupportPlansOperations',
+    'SupportPlanDefaultOperations',
+    'PurchaseSupportPlanOperations',
 ]
