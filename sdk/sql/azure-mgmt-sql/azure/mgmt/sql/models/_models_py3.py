@@ -597,10 +597,8 @@ class Database(TrackedResource):
      which means the replicas of this database will be spread across multiple
      availability zones.
     :type zone_redundant: bool
-    :param license_type: The license type to apply for this database.
-     `LicenseIncluded` if you need a license, or `BasePrice` if you have a
-     license and are eligible for the Azure Hybrid Benefit. Possible values
-     include: 'LicenseIncluded', 'BasePrice'
+    :param license_type: The license type to apply for this database. Possible
+     values include: 'LicenseIncluded', 'BasePrice'
     :type license_type: str or ~azure.mgmt.sql.models.DatabaseLicenseType
     :ivar max_log_size_bytes: The max log size for this database.
     :vartype max_log_size_bytes: long
@@ -1244,10 +1242,8 @@ class DatabaseUpdate(Model):
      which means the replicas of this database will be spread across multiple
      availability zones.
     :type zone_redundant: bool
-    :param license_type: The license type to apply for this database.
-     `LicenseIncluded` if you need a license, or `BasePrice` if you have a
-     license and are eligible for the Azure Hybrid Benefit. Possible values
-     include: 'LicenseIncluded', 'BasePrice'
+    :param license_type: The license type to apply for this database. Possible
+     values include: 'LicenseIncluded', 'BasePrice'
     :type license_type: str or ~azure.mgmt.sql.models.DatabaseLicenseType
     :ivar max_log_size_bytes: The max log size for this database.
     :vartype max_log_size_bytes: long
@@ -5156,9 +5152,6 @@ class ManagedInstance(TrackedResource):
     :param instance_pool_id: The Id of the instance pool this managed server
      belongs to.
     :type instance_pool_id: str
-    :param maintenance_configuration_id: Specifies maintenance configuration
-     id to apply to this managed instance.
-    :type maintenance_configuration_id: str
     :param minimal_tls_version: Minimal TLS version. Allowed values: 'None',
      '1.0', '1.1', '1.2'
     :type minimal_tls_version: str
@@ -5200,11 +5193,10 @@ class ManagedInstance(TrackedResource):
         'proxy_override': {'key': 'properties.proxyOverride', 'type': 'str'},
         'timezone_id': {'key': 'properties.timezoneId', 'type': 'str'},
         'instance_pool_id': {'key': 'properties.instancePoolId', 'type': 'str'},
-        'maintenance_configuration_id': {'key': 'properties.maintenanceConfigurationId', 'type': 'str'},
         'minimal_tls_version': {'key': 'properties.minimalTlsVersion', 'type': 'str'},
     }
 
-    def __init__(self, *, location: str, tags=None, identity=None, sku=None, managed_instance_create_mode=None, administrator_login: str=None, administrator_login_password: str=None, subnet_id: str=None, license_type=None, v_cores: int=None, storage_size_in_gb: int=None, collation: str=None, dns_zone_partner: str=None, public_data_endpoint_enabled: bool=None, source_managed_instance_id: str=None, restore_point_in_time=None, proxy_override=None, timezone_id: str=None, instance_pool_id: str=None, maintenance_configuration_id: str=None, minimal_tls_version: str=None, **kwargs) -> None:
+    def __init__(self, *, location: str, tags=None, identity=None, sku=None, managed_instance_create_mode=None, administrator_login: str=None, administrator_login_password: str=None, subnet_id: str=None, license_type=None, v_cores: int=None, storage_size_in_gb: int=None, collation: str=None, dns_zone_partner: str=None, public_data_endpoint_enabled: bool=None, source_managed_instance_id: str=None, restore_point_in_time=None, proxy_override=None, timezone_id: str=None, instance_pool_id: str=None, minimal_tls_version: str=None, **kwargs) -> None:
         super(ManagedInstance, self).__init__(location=location, tags=tags, **kwargs)
         self.identity = identity
         self.sku = sku
@@ -5226,7 +5218,6 @@ class ManagedInstance(TrackedResource):
         self.proxy_override = proxy_override
         self.timezone_id = timezone_id
         self.instance_pool_id = instance_pool_id
-        self.maintenance_configuration_id = maintenance_configuration_id
         self.minimal_tls_version = minimal_tls_version
 
 
@@ -5802,9 +5793,6 @@ class ManagedInstanceUpdate(Model):
     :param instance_pool_id: The Id of the instance pool this managed server
      belongs to.
     :type instance_pool_id: str
-    :param maintenance_configuration_id: Specifies maintenance configuration
-     id to apply to this managed instance.
-    :type maintenance_configuration_id: str
     :param minimal_tls_version: Minimal TLS version. Allowed values: 'None',
      '1.0', '1.1', '1.2'
     :type minimal_tls_version: str
@@ -5838,12 +5826,11 @@ class ManagedInstanceUpdate(Model):
         'proxy_override': {'key': 'properties.proxyOverride', 'type': 'str'},
         'timezone_id': {'key': 'properties.timezoneId', 'type': 'str'},
         'instance_pool_id': {'key': 'properties.instancePoolId', 'type': 'str'},
-        'maintenance_configuration_id': {'key': 'properties.maintenanceConfigurationId', 'type': 'str'},
         'minimal_tls_version': {'key': 'properties.minimalTlsVersion', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
     }
 
-    def __init__(self, *, sku=None, managed_instance_create_mode=None, administrator_login: str=None, administrator_login_password: str=None, subnet_id: str=None, license_type=None, v_cores: int=None, storage_size_in_gb: int=None, collation: str=None, dns_zone_partner: str=None, public_data_endpoint_enabled: bool=None, source_managed_instance_id: str=None, restore_point_in_time=None, proxy_override=None, timezone_id: str=None, instance_pool_id: str=None, maintenance_configuration_id: str=None, minimal_tls_version: str=None, tags=None, **kwargs) -> None:
+    def __init__(self, *, sku=None, managed_instance_create_mode=None, administrator_login: str=None, administrator_login_password: str=None, subnet_id: str=None, license_type=None, v_cores: int=None, storage_size_in_gb: int=None, collation: str=None, dns_zone_partner: str=None, public_data_endpoint_enabled: bool=None, source_managed_instance_id: str=None, restore_point_in_time=None, proxy_override=None, timezone_id: str=None, instance_pool_id: str=None, minimal_tls_version: str=None, tags=None, **kwargs) -> None:
         super(ManagedInstanceUpdate, self).__init__(**kwargs)
         self.sku = sku
         self.managed_instance_create_mode = managed_instance_create_mode
@@ -5864,7 +5851,6 @@ class ManagedInstanceUpdate(Model):
         self.proxy_override = proxy_override
         self.timezone_id = timezone_id
         self.instance_pool_id = instance_pool_id
-        self.maintenance_configuration_id = maintenance_configuration_id
         self.minimal_tls_version = minimal_tls_version
         self.tags = tags
 
@@ -9301,9 +9287,6 @@ class SyncGroup(ProxyResource):
     :vartype sync_state: str or ~azure.mgmt.sql.models.SyncGroupState
     :param schema: Sync schema of the sync group.
     :type schema: ~azure.mgmt.sql.models.SyncGroupSchema
-    :param use_private_link_connection: If use private link connection is
-     enabled.
-    :type use_private_link_connection: bool
     """
 
     _validation = {
@@ -9326,10 +9309,9 @@ class SyncGroup(ProxyResource):
         'hub_database_password': {'key': 'properties.hubDatabasePassword', 'type': 'str'},
         'sync_state': {'key': 'properties.syncState', 'type': 'str'},
         'schema': {'key': 'properties.schema', 'type': 'SyncGroupSchema'},
-        'use_private_link_connection': {'key': 'properties.usePrivateLinkConnection', 'type': 'bool'},
     }
 
-    def __init__(self, *, interval: int=None, conflict_resolution_policy=None, sync_database_id: str=None, hub_database_user_name: str=None, hub_database_password: str=None, schema=None, use_private_link_connection: bool=None, **kwargs) -> None:
+    def __init__(self, *, interval: int=None, conflict_resolution_policy=None, sync_database_id: str=None, hub_database_user_name: str=None, hub_database_password: str=None, schema=None, **kwargs) -> None:
         super(SyncGroup, self).__init__(**kwargs)
         self.interval = interval
         self.last_sync_time = None
@@ -9339,7 +9321,6 @@ class SyncGroup(ProxyResource):
         self.hub_database_password = hub_database_password
         self.sync_state = None
         self.schema = schema
-        self.use_private_link_connection = use_private_link_connection
 
 
 class SyncGroupLogProperties(Model):
@@ -9476,12 +9457,6 @@ class SyncMember(ProxyResource):
     :type sync_agent_id: str
     :param sql_server_database_id: SQL Server database id of the sync member.
     :type sql_server_database_id: str
-    :param sync_member_azure_database_resource_id: ARM resource id of the sync
-     member logical database, for sync members in Azure.
-    :type sync_member_azure_database_resource_id: str
-    :param use_private_link_connection: Whether to use private link
-     connection.
-    :type use_private_link_connection: bool
     :param server_name: Server name of the member database in the sync member
     :type server_name: str
     :param database_name: Database name of the member database in the sync
@@ -9518,8 +9493,6 @@ class SyncMember(ProxyResource):
         'database_type': {'key': 'properties.databaseType', 'type': 'str'},
         'sync_agent_id': {'key': 'properties.syncAgentId', 'type': 'str'},
         'sql_server_database_id': {'key': 'properties.sqlServerDatabaseId', 'type': 'str'},
-        'sync_member_azure_database_resource_id': {'key': 'properties.syncMemberAzureDatabaseResourceId', 'type': 'str'},
-        'use_private_link_connection': {'key': 'properties.usePrivateLinkConnection', 'type': 'bool'},
         'server_name': {'key': 'properties.serverName', 'type': 'str'},
         'database_name': {'key': 'properties.databaseName', 'type': 'str'},
         'user_name': {'key': 'properties.userName', 'type': 'str'},
@@ -9528,13 +9501,11 @@ class SyncMember(ProxyResource):
         'sync_state': {'key': 'properties.syncState', 'type': 'str'},
     }
 
-    def __init__(self, *, database_type=None, sync_agent_id: str=None, sql_server_database_id: str=None, sync_member_azure_database_resource_id: str=None, use_private_link_connection: bool=None, server_name: str=None, database_name: str=None, user_name: str=None, password: str=None, sync_direction=None, **kwargs) -> None:
+    def __init__(self, *, database_type=None, sync_agent_id: str=None, sql_server_database_id: str=None, server_name: str=None, database_name: str=None, user_name: str=None, password: str=None, sync_direction=None, **kwargs) -> None:
         super(SyncMember, self).__init__(**kwargs)
         self.database_type = database_type
         self.sync_agent_id = sync_agent_id
         self.sql_server_database_id = sql_server_database_id
-        self.sync_member_azure_database_resource_id = sync_member_azure_database_resource_id
-        self.use_private_link_connection = use_private_link_connection
         self.server_name = server_name
         self.database_name = database_name
         self.user_name = user_name

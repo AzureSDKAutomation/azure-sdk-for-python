@@ -350,6 +350,71 @@ class SyncAgentLinkedDatabasePaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(SyncAgentLinkedDatabasePaged, self).__init__(*args, **kwargs)
+class SyncDatabaseIdPropertiesPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`SyncDatabaseIdProperties <azure.mgmt.sql.models.SyncDatabaseIdProperties>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[SyncDatabaseIdProperties]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(SyncDatabaseIdPropertiesPaged, self).__init__(*args, **kwargs)
+class SyncFullSchemaPropertiesPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`SyncFullSchemaProperties <azure.mgmt.sql.models.SyncFullSchemaProperties>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[SyncFullSchemaProperties]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(SyncFullSchemaPropertiesPaged, self).__init__(*args, **kwargs)
+class SyncGroupLogPropertiesPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`SyncGroupLogProperties <azure.mgmt.sql.models.SyncGroupLogProperties>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[SyncGroupLogProperties]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(SyncGroupLogPropertiesPaged, self).__init__(*args, **kwargs)
+class SyncGroupPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`SyncGroup <azure.mgmt.sql.models.SyncGroup>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[SyncGroup]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(SyncGroupPaged, self).__init__(*args, **kwargs)
+class SyncMemberPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`SyncMember <azure.mgmt.sql.models.SyncMember>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[SyncMember]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(SyncMemberPaged, self).__init__(*args, **kwargs)
 class SubscriptionUsagePaged(Paged):
     """
     A paging container for iterating over a list of :class:`SubscriptionUsage <azure.mgmt.sql.models.SubscriptionUsage>` object
@@ -974,68 +1039,3 @@ class ManagedInstanceOperationPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(ManagedInstanceOperationPaged, self).__init__(*args, **kwargs)
-class SyncDatabaseIdPropertiesPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`SyncDatabaseIdProperties <azure.mgmt.sql.models.SyncDatabaseIdProperties>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[SyncDatabaseIdProperties]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(SyncDatabaseIdPropertiesPaged, self).__init__(*args, **kwargs)
-class SyncFullSchemaPropertiesPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`SyncFullSchemaProperties <azure.mgmt.sql.models.SyncFullSchemaProperties>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[SyncFullSchemaProperties]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(SyncFullSchemaPropertiesPaged, self).__init__(*args, **kwargs)
-class SyncGroupLogPropertiesPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`SyncGroupLogProperties <azure.mgmt.sql.models.SyncGroupLogProperties>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[SyncGroupLogProperties]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(SyncGroupLogPropertiesPaged, self).__init__(*args, **kwargs)
-class SyncGroupPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`SyncGroup <azure.mgmt.sql.models.SyncGroup>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[SyncGroup]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(SyncGroupPaged, self).__init__(*args, **kwargs)
-class SyncMemberPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`SyncMember <azure.mgmt.sql.models.SyncMember>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[SyncMember]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(SyncMemberPaged, self).__init__(*args, **kwargs)
