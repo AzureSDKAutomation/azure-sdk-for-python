@@ -1791,16 +1791,22 @@ class GalleryArtifactSource(Model):
 class GalleryArtifactVersionSource(Model):
     """The gallery artifact version source.
 
-    :param id: The id of the gallery artifact version source. Can specify a
-     disk uri, snapshot uri, or user image.
+    All required parameters must be populated in order to send to Azure.
+
+    :param id: Required. The id of the gallery artifact version source. Can
+     specify a disk uri, snapshot uri, or user image.
     :type id: str
     """
+
+    _validation = {
+        'id': {'required': True},
+    }
 
     _attribute_map = {
         'id': {'key': 'id', 'type': 'str'},
     }
 
-    def __init__(self, *, id: str=None, **kwargs) -> None:
+    def __init__(self, *, id: str, **kwargs) -> None:
         super(GalleryArtifactVersionSource, self).__init__(**kwargs)
         self.id = id
 
