@@ -41,7 +41,7 @@ except (SyntaxError, ImportError):
     from ._models import TrackedResource
 from ._paged_models import ConnectedClusterPaged
 from ._paged_models import OperationPaged
-from ._connected_kubernetes_client_enums import (
+from ._kubernetes_connect_rp_client_enums import (
     ResourceIdentityType,
     ProvisioningState,
 )

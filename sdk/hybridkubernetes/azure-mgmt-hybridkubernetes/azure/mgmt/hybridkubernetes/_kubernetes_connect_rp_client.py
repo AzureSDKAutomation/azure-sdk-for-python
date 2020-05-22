@@ -12,17 +12,17 @@
 from msrest.service_client import SDKClient
 from msrest import Serializer, Deserializer
 
-from ._configuration import ConnectedKubernetesClientConfiguration
+from ._configuration import KubernetesConnectRPClientConfiguration
 from .operations import ConnectedClusterOperations
 from .operations import Operations
 from . import models
 
 
-class ConnectedKubernetesClient(SDKClient):
+class KubernetesConnectRPClient(SDKClient):
     """Azure Connected Cluster Resource Provider API for adopting any Kubernetes Cluster
 
     :ivar config: Configuration for client.
-    :vartype config: ConnectedKubernetesClientConfiguration
+    :vartype config: KubernetesConnectRPClientConfiguration
 
     :ivar connected_cluster: ConnectedCluster operations
     :vartype connected_cluster: azure.mgmt.hybridkubernetes.operations.ConnectedClusterOperations
@@ -40,8 +40,8 @@ class ConnectedKubernetesClient(SDKClient):
     def __init__(
             self, credentials, subscription_id, base_url=None):
 
-        self.config = ConnectedKubernetesClientConfiguration(credentials, subscription_id, base_url)
-        super(ConnectedKubernetesClient, self).__init__(self.config.credentials, self.config)
+        self.config = KubernetesConnectRPClientConfiguration(credentials, subscription_id, base_url)
+        super(KubernetesConnectRPClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
         self.api_version = '2020-01-01-preview'
