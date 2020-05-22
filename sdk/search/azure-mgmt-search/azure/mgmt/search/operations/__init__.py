@@ -13,16 +13,10 @@ from ._operations import Operations
 from ._admin_keys_operations import AdminKeysOperations
 from ._query_keys_operations import QueryKeysOperations
 from ._services_operations import ServicesOperations
-from ._private_link_resources_operations import PrivateLinkResourcesOperations
-from ._private_endpoint_connections_operations import PrivateEndpointConnectionsOperations
-from ._shared_private_link_resources_operations import SharedPrivateLinkResourcesOperations
 
 __all__ = [
     'Operations',
     'AdminKeysOperations',
     'QueryKeysOperations',
     'ServicesOperations',
-    'PrivateLinkResourcesOperations',
-    'PrivateEndpointConnectionsOperations',
-    'SharedPrivateLinkResourcesOperations',
 ]

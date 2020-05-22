@@ -17,9 +17,6 @@ from .operations import Operations
 from .operations import AdminKeysOperations
 from .operations import QueryKeysOperations
 from .operations import ServicesOperations
-from .operations import PrivateLinkResourcesOperations
-from .operations import PrivateEndpointConnectionsOperations
-from .operations import SharedPrivateLinkResourcesOperations
 from . import models
 
 
@@ -37,12 +34,6 @@ class SearchManagementClient(SDKClient):
     :vartype query_keys: azure.mgmt.search.operations.QueryKeysOperations
     :ivar services: Services operations
     :vartype services: azure.mgmt.search.operations.ServicesOperations
-    :ivar private_link_resources: PrivateLinkResources operations
-    :vartype private_link_resources: azure.mgmt.search.operations.PrivateLinkResourcesOperations
-    :ivar private_endpoint_connections: PrivateEndpointConnections operations
-    :vartype private_endpoint_connections: azure.mgmt.search.operations.PrivateEndpointConnectionsOperations
-    :ivar shared_private_link_resources: SharedPrivateLinkResources operations
-    :vartype shared_private_link_resources: azure.mgmt.search.operations.SharedPrivateLinkResourcesOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -61,7 +52,7 @@ class SearchManagementClient(SDKClient):
         super(SearchManagementClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
-        self.api_version = '2020-03-13'
+        self.api_version = '2015-08-19'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
@@ -72,10 +63,4 @@ class SearchManagementClient(SDKClient):
         self.query_keys = QueryKeysOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.services = ServicesOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.private_link_resources = PrivateLinkResourcesOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.private_endpoint_connections = PrivateEndpointConnectionsOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.shared_private_link_resources = SharedPrivateLinkResourcesOperations(
             self._client, self.config, self._serialize, self._deserialize)

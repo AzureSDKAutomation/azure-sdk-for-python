@@ -27,7 +27,7 @@ class ServicesOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The API version to use for each request. The current version is 2019-10-01-Preview. Constant value: "2020-03-13".
+    :ivar api_version: The API version to use for each request. The current version is 2015-08-19. Constant value: "2015-08-19".
     """
 
     models = models
@@ -37,7 +37,7 @@ class ServicesOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-03-13"
+        self.api_version = "2015-08-19"
 
         self.config = config
 

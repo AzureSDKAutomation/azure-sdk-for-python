@@ -14,62 +14,32 @@ try:
     from ._models_py3 import CheckNameAvailabilityInput
     from ._models_py3 import CheckNameAvailabilityOutput
     from ._models_py3 import Identity
-    from ._models_py3 import IpRule
-    from ._models_py3 import NetworkRuleSet
     from ._models_py3 import Operation
     from ._models_py3 import OperationDisplay
-    from ._models_py3 import PrivateEndpointConnection
-    from ._models_py3 import PrivateEndpointConnectionProperties
-    from ._models_py3 import PrivateEndpointConnectionPropertiesPrivateEndpoint
-    from ._models_py3 import PrivateEndpointConnectionPropertiesPrivateLinkServiceConnectionState
-    from ._models_py3 import PrivateLinkResource
-    from ._models_py3 import PrivateLinkResourceProperties
     from ._models_py3 import QueryKey
     from ._models_py3 import Resource
     from ._models_py3 import SearchManagementRequestOptions
     from ._models_py3 import SearchService
-    from ._models_py3 import ShareablePrivateLinkResourceProperties
-    from ._models_py3 import ShareablePrivateLinkResourceType
-    from ._models_py3 import SharedPrivateLinkResource
-    from ._models_py3 import SharedPrivateLinkResourceProperties
     from ._models_py3 import Sku
 except (SyntaxError, ImportError):
     from ._models import AdminKeyResult
     from ._models import CheckNameAvailabilityInput
     from ._models import CheckNameAvailabilityOutput
     from ._models import Identity
-    from ._models import IpRule
-    from ._models import NetworkRuleSet
     from ._models import Operation
     from ._models import OperationDisplay
-    from ._models import PrivateEndpointConnection
-    from ._models import PrivateEndpointConnectionProperties
-    from ._models import PrivateEndpointConnectionPropertiesPrivateEndpoint
-    from ._models import PrivateEndpointConnectionPropertiesPrivateLinkServiceConnectionState
-    from ._models import PrivateLinkResource
-    from ._models import PrivateLinkResourceProperties
     from ._models import QueryKey
     from ._models import Resource
     from ._models import SearchManagementRequestOptions
     from ._models import SearchService
-    from ._models import ShareablePrivateLinkResourceProperties
-    from ._models import ShareablePrivateLinkResourceType
-    from ._models import SharedPrivateLinkResource
-    from ._models import SharedPrivateLinkResourceProperties
     from ._models import Sku
 from ._paged_models import OperationPaged
-from ._paged_models import PrivateEndpointConnectionPaged
-from ._paged_models import PrivateLinkResourcePaged
 from ._paged_models import QueryKeyPaged
 from ._paged_models import SearchServicePaged
-from ._paged_models import SharedPrivateLinkResourcePaged
 from ._search_management_client_enums import (
     UnavailableNameReason,
     SkuName,
-    PrivateLinkServiceConnectionStatus,
-    SharedPrivateLinkResourceStatus,
     HostingMode,
-    PublicNetworkAccess,
     SearchServiceStatus,
     ProvisioningState,
     IdentityType,
@@ -81,37 +51,19 @@ __all__ = [
     'CheckNameAvailabilityInput',
     'CheckNameAvailabilityOutput',
     'Identity',
-    'IpRule',
-    'NetworkRuleSet',
     'Operation',
     'OperationDisplay',
-    'PrivateEndpointConnection',
-    'PrivateEndpointConnectionProperties',
-    'PrivateEndpointConnectionPropertiesPrivateEndpoint',
-    'PrivateEndpointConnectionPropertiesPrivateLinkServiceConnectionState',
-    'PrivateLinkResource',
-    'PrivateLinkResourceProperties',
     'QueryKey',
     'Resource',
     'SearchManagementRequestOptions',
     'SearchService',
-    'ShareablePrivateLinkResourceProperties',
-    'ShareablePrivateLinkResourceType',
-    'SharedPrivateLinkResource',
-    'SharedPrivateLinkResourceProperties',
     'Sku',
     'OperationPaged',
     'QueryKeyPaged',
     'SearchServicePaged',
-    'PrivateLinkResourcePaged',
-    'PrivateEndpointConnectionPaged',
-    'SharedPrivateLinkResourcePaged',
     'UnavailableNameReason',
     'SkuName',
-    'PrivateLinkServiceConnectionStatus',
-    'SharedPrivateLinkResourceStatus',
     'HostingMode',
-    'PublicNetworkAccess',
     'SearchServiceStatus',
     'ProvisioningState',
     'IdentityType',
