@@ -49,32 +49,3 @@ class MediaJobRetry(str, Enum):
 
     do_not_retry = "DoNotRetry"  #: Issue needs to be investigated and then the job resubmitted with corrections or retried once the underlying issue has been corrected.
     may_retry = "MayRetry"  #: Issue may be resolved after waiting for a period of time and resubmitting the same Job.
-
-
-class AppAction(str, Enum):
-
-    restarted = "Restarted"  #: Web app was restarted.
-    stopped = "Stopped"  #: Web app was stopped.
-    changed_app_settings = "ChangedAppSettings"  #: There was an operation to change app setting on the web app.
-    started = "Started"  #: The job has started.
-    completed = "Completed"  #: The job has completed.
-    failed = "Failed"  #: The job has failed to complete.
-
-
-class StampKind(str, Enum):
-
-    public = "Public"  #: App Service Plan is running on a public stamp.
-    ase_v1 = "AseV1"  #: App Service Plan is running on an App Service Environment V1.
-    ase_v2 = "AseV2"  #: App Service Plan is running on an App Service Environment V2.
-
-
-class AppServicePlanAction(str, Enum):
-
-    updated = "Updated"  #: App Service plan is being updated.
-
-
-class AsyncStatus(str, Enum):
-
-    started = "Started"  #: Async operation has started.
-    completed = "Completed"  #: Async operation has completed.
-    failed = "Failed"  #: Async operation failed to complete.

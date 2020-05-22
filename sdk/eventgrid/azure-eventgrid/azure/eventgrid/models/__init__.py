@@ -12,8 +12,6 @@
 try:
     from ._models_py3 import AppConfigurationKeyValueDeletedEventData
     from ._models_py3 import AppConfigurationKeyValueModifiedEventData
-    from ._models_py3 import AppEventTypeDetail
-    from ._models_py3 import AppServicePlanEventTypeDetail
     from ._models_py3 import ContainerRegistryArtifactEventData
     from ._models_py3 import ContainerRegistryArtifactEventTarget
     from ._models_py3 import ContainerRegistryChartDeletedEventData
@@ -114,25 +112,9 @@ try:
     from ._models_py3 import SubscriptionDeletedEventData
     from ._models_py3 import SubscriptionValidationEventData
     from ._models_py3 import SubscriptionValidationResponse
-    from ._models_py3 import WebAppServicePlanUpdatedEventData
-    from ._models_py3 import WebAppServicePlanUpdatedEventDataSku
-    from ._models_py3 import WebAppUpdatedEventData
-    from ._models_py3 import WebBackupOperationCompletedEventData
-    from ._models_py3 import WebBackupOperationFailedEventData
-    from ._models_py3 import WebBackupOperationStartedEventData
-    from ._models_py3 import WebRestoreOperationCompletedEventData
-    from ._models_py3 import WebRestoreOperationFailedEventData
-    from ._models_py3 import WebRestoreOperationStartedEventData
-    from ._models_py3 import WebSlotSwapCompletedEventData
-    from ._models_py3 import WebSlotSwapFailedEventData
-    from ._models_py3 import WebSlotSwapStartedEventData
-    from ._models_py3 import WebSlotSwapWithPreviewCancelledEventData
-    from ._models_py3 import WebSlotSwapWithPreviewStartedEventData
 except (SyntaxError, ImportError):
     from ._models import AppConfigurationKeyValueDeletedEventData
     from ._models import AppConfigurationKeyValueModifiedEventData
-    from ._models import AppEventTypeDetail
-    from ._models import AppServicePlanEventTypeDetail
     from ._models import ContainerRegistryArtifactEventData
     from ._models import ContainerRegistryArtifactEventTarget
     from ._models import ContainerRegistryChartDeletedEventData
@@ -233,36 +215,16 @@ except (SyntaxError, ImportError):
     from ._models import SubscriptionDeletedEventData
     from ._models import SubscriptionValidationEventData
     from ._models import SubscriptionValidationResponse
-    from ._models import WebAppServicePlanUpdatedEventData
-    from ._models import WebAppServicePlanUpdatedEventDataSku
-    from ._models import WebAppUpdatedEventData
-    from ._models import WebBackupOperationCompletedEventData
-    from ._models import WebBackupOperationFailedEventData
-    from ._models import WebBackupOperationStartedEventData
-    from ._models import WebRestoreOperationCompletedEventData
-    from ._models import WebRestoreOperationFailedEventData
-    from ._models import WebRestoreOperationStartedEventData
-    from ._models import WebSlotSwapCompletedEventData
-    from ._models import WebSlotSwapFailedEventData
-    from ._models import WebSlotSwapStartedEventData
-    from ._models import WebSlotSwapWithPreviewCancelledEventData
-    from ._models import WebSlotSwapWithPreviewStartedEventData
 from ._event_grid_client_enums import (
-    AppAction,
-    AppServicePlanAction,
-    AsyncStatus,
     MediaJobErrorCategory,
     MediaJobErrorCode,
     MediaJobRetry,
     MediaJobState,
-    StampKind,
 )
 
 __all__ = [
     'AppConfigurationKeyValueDeletedEventData',
     'AppConfigurationKeyValueModifiedEventData',
-    'AppEventTypeDetail',
-    'AppServicePlanEventTypeDetail',
     'ContainerRegistryArtifactEventData',
     'ContainerRegistryArtifactEventTarget',
     'ContainerRegistryChartDeletedEventData',
@@ -363,26 +325,8 @@ __all__ = [
     'SubscriptionDeletedEventData',
     'SubscriptionValidationEventData',
     'SubscriptionValidationResponse',
-    'WebAppServicePlanUpdatedEventData',
-    'WebAppServicePlanUpdatedEventDataSku',
-    'WebAppUpdatedEventData',
-    'WebBackupOperationCompletedEventData',
-    'WebBackupOperationFailedEventData',
-    'WebBackupOperationStartedEventData',
-    'WebRestoreOperationCompletedEventData',
-    'WebRestoreOperationFailedEventData',
-    'WebRestoreOperationStartedEventData',
-    'WebSlotSwapCompletedEventData',
-    'WebSlotSwapFailedEventData',
-    'WebSlotSwapStartedEventData',
-    'WebSlotSwapWithPreviewCancelledEventData',
-    'WebSlotSwapWithPreviewStartedEventData',
     'MediaJobState',
     'MediaJobErrorCode',
     'MediaJobErrorCategory',
     'MediaJobRetry',
-    'AppAction',
-    'StampKind',
-    'AppServicePlanAction',
-    'AsyncStatus',
 ]
