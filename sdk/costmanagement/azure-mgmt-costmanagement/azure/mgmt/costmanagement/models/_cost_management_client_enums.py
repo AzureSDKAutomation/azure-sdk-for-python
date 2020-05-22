@@ -12,66 +12,6 @@
 from enum import Enum
 
 
-class ReportTimeframeType(str, Enum):
-
-    week_to_date = "WeekToDate"
-    month_to_date = "MonthToDate"
-    year_to_date = "YearToDate"
-    custom = "Custom"
-
-
-class ReportGranularityType(str, Enum):
-
-    daily = "Daily"
-    monthly = "Monthly"
-
-
-class ReportConfigColumnType(str, Enum):
-
-    tag = "Tag"
-    dimension = "Dimension"
-
-
-class OperatorType(str, Enum):
-
-    in_enum = "In"
-    contains = "Contains"
-
-
-class ChartType(str, Enum):
-
-    area = "Area"
-    line = "Line"
-    stacked_column = "StackedColumn"
-    grouped_column = "GroupedColumn"
-    table = "Table"
-
-
-class AccumulatedType(str, Enum):
-
-    true = "true"
-    false = "false"
-
-
-class MetricType(str, Enum):
-
-    actual_cost = "ActualCost"
-    amortized_cost = "AmortizedCost"
-    ahub = "AHUB"
-
-
-class KpiTypeType(str, Enum):
-
-    forecast = "Forecast"
-    budget = "Budget"
-
-
-class PivotTypeType(str, Enum):
-
-    dimension = "Dimension"
-    tag_key = "TagKey"
-
-
 class ForecastType(str, Enum):
 
     usage = "Usage"

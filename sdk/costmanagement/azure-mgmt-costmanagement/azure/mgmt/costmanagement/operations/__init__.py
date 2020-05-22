@@ -9,19 +9,17 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from ._views_operations import ViewsOperations
+from ._dimensions_operations import DimensionsOperations
 from ._alerts_operations import AlertsOperations
 from ._forecast_operations import ForecastOperations
-from ._dimensions_operations import DimensionsOperations
 from ._query_operations import QueryOperations
 from ._exports_operations import ExportsOperations
 from ._operations import Operations
 
 __all__ = [
-    'ViewsOperations',
+    'DimensionsOperations',
     'AlertsOperations',
     'ForecastOperations',
-    'DimensionsOperations',
     'QueryOperations',
     'ExportsOperations',
     'Operations',

@@ -13,10 +13,9 @@ from msrest.service_client import SDKClient
 from msrest import Serializer, Deserializer
 
 from ._configuration import CostManagementClientConfiguration
-from .operations import ViewsOperations
+from .operations import DimensionsOperations
 from .operations import AlertsOperations
 from .operations import ForecastOperations
-from .operations import DimensionsOperations
 from .operations import QueryOperations
 from .operations import ExportsOperations
 from .operations import Operations
@@ -29,14 +28,12 @@ class CostManagementClient(SDKClient):
     :ivar config: Configuration for client.
     :vartype config: CostManagementClientConfiguration
 
-    :ivar views: Views operations
-    :vartype views: azure.mgmt.costmanagement.operations.ViewsOperations
+    :ivar dimensions: Dimensions operations
+    :vartype dimensions: azure.mgmt.costmanagement.operations.DimensionsOperations
     :ivar alerts: Alerts operations
     :vartype alerts: azure.mgmt.costmanagement.operations.AlertsOperations
     :ivar forecast: Forecast operations
     :vartype forecast: azure.mgmt.costmanagement.operations.ForecastOperations
-    :ivar dimensions: Dimensions operations
-    :vartype dimensions: azure.mgmt.costmanagement.operations.DimensionsOperations
     :ivar query: Query operations
     :vartype query: azure.mgmt.costmanagement.operations.QueryOperations
     :ivar exports: Exports operations
@@ -63,13 +60,11 @@ class CostManagementClient(SDKClient):
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
-        self.views = ViewsOperations(
+        self.dimensions = DimensionsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.alerts = AlertsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.forecast = ForecastOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.dimensions = DimensionsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.query = QueryOperations(
             self._client, self.config, self._serialize, self._deserialize)
