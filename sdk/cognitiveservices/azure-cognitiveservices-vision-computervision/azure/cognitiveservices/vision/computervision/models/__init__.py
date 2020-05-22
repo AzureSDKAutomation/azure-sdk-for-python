@@ -11,7 +11,6 @@
 
 try:
     from ._models_py3 import AdultInfo
-    from ._models_py3 import AnalyzeResults
     from ._models_py3 import AreaOfInterestResult
     from ._models_py3 import BoundingRect
     from ._models_py3 import Category
@@ -45,12 +44,12 @@ try:
     from ._models_py3 import OcrResult
     from ._models_py3 import OcrWord
     from ._models_py3 import ReadOperationResult
-    from ._models_py3 import ReadResult
     from ._models_py3 import TagResult
+    from ._models_py3 import TextOperationResult
+    from ._models_py3 import TextRecognitionResult
     from ._models_py3 import Word
 except (SyntaxError, ImportError):
     from ._models import AdultInfo
-    from ._models import AnalyzeResults
     from ._models import AreaOfInterestResult
     from ._models import BoundingRect
     from ._models import Category
@@ -84,23 +83,24 @@ except (SyntaxError, ImportError):
     from ._models import OcrResult
     from ._models import OcrWord
     from ._models import ReadOperationResult
-    from ._models import ReadResult
     from ._models import TagResult
+    from ._models import TextOperationResult
+    from ._models import TextRecognitionResult
     from ._models import Word
 from ._computer_vision_client_enums import (
     DescriptionExclude,
     Details,
     Gender,
-    OcrDetectionLanguage,
     OcrLanguages,
-    OperationStatusCodes,
+    TextOperationStatusCodes,
+    TextRecognitionMode,
+    TextRecognitionResultConfidenceClass,
     TextRecognitionResultDimensionUnit,
     VisualFeatureTypes,
 )
 
 __all__ = [
     'AdultInfo',
-    'AnalyzeResults',
     'AreaOfInterestResult',
     'BoundingRect',
     'Category',
@@ -134,15 +134,17 @@ __all__ = [
     'OcrResult',
     'OcrWord',
     'ReadOperationResult',
-    'ReadResult',
     'TagResult',
+    'TextOperationResult',
+    'TextRecognitionResult',
     'Word',
     'Gender',
-    'OperationStatusCodes',
+    'TextOperationStatusCodes',
     'TextRecognitionResultDimensionUnit',
+    'TextRecognitionResultConfidenceClass',
     'DescriptionExclude',
     'OcrLanguages',
     'VisualFeatureTypes',
-    'OcrDetectionLanguage',
+    'TextRecognitionMode',
     'Details',
 ]

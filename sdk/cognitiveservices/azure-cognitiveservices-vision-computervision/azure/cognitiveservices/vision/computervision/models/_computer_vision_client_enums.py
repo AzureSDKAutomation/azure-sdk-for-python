@@ -18,18 +18,24 @@ class Gender(str, Enum):
     female = "Female"
 
 
-class OperationStatusCodes(str, Enum):
+class TextOperationStatusCodes(str, Enum):
 
-    not_started = "notStarted"
-    running = "running"
-    failed = "failed"
-    succeeded = "succeeded"
+    not_started = "NotStarted"
+    running = "Running"
+    failed = "Failed"
+    succeeded = "Succeeded"
 
 
 class TextRecognitionResultDimensionUnit(str, Enum):
 
     pixel = "pixel"
     inch = "inch"
+
+
+class TextRecognitionResultConfidenceClass(str, Enum):
+
+    high = "High"
+    low = "Low"
 
 
 class DescriptionExclude(str, Enum):
@@ -82,15 +88,10 @@ class VisualFeatureTypes(str, Enum):
     brands = "Brands"
 
 
-class OcrDetectionLanguage(str, Enum):
+class TextRecognitionMode(str, Enum):
 
-    en = "en"
-    es = "es"
-    fr = "fr"
-    de = "de"
-    it = "it"
-    nl = "nl"
-    pt = "pt"
+    handwritten = "Handwritten"
+    printed = "Printed"
 
 
 class Details(str, Enum):

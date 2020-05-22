@@ -715,27 +715,19 @@ class ComputerVisionClientOperationsMixin(object):
         return deserialized
     get_area_of_interest.metadata = {'url': '/areaOfInterest'}
 
-    def read(
-            self, url, language="en", custom_headers=None, raw=False, **operation_config):
-        """Use this interface to get the result of a Read operation, employing the
-        state-of-the-art Optical Character Recognition (OCR) algorithms
-        optimized for text-heavy documents. When you use the Read interface,
+    def recognize_text(
+            self, url, mode, custom_headers=None, raw=False, **operation_config):
+        """Recognize Text operation. When you use the Recognize Text interface,
         the response contains a field called 'Operation-Location'. The
         'Operation-Location' field contains the URL that you must use for your
-        'GetReadResult' operation to access OCR results.​.
+        Get Recognize Text Operation Result operation.
 
+        :param mode: Type of text to recognize. Possible values include:
+         'Handwritten', 'Printed'
+        :type mode: str or
+         ~azure.cognitiveservices.vision.computervision.models.TextRecognitionMode
         :param url: Publicly reachable URL of an image.
         :type url: str
-        :param language: The BCP-47 language code of the text in the document.
-         Currently, only English ('en'), Dutch (‘nl’), French (‘fr’), German
-         (‘de’), Italian (‘it’), Portuguese (‘pt), and Spanish ('es') are
-         supported. Read supports auto language identification and
-         multilanguage documents, so only provide a language code if you would
-         like to force the documented to be processed as that specific
-         language. Possible values include: 'en', 'es', 'fr', 'de', 'it', 'nl',
-         'pt'
-        :type language: str or
-         ~azure.cognitiveservices.vision.computervision.models.OcrDetectionLanguage
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -749,7 +741,7 @@ class ComputerVisionClientOperationsMixin(object):
         image_url = models.ImageUrl(url=url)
 
         # Construct URL
-        url = self.read.metadata['url']
+        url = self.recognize_text.metadata['url']
         path_format_arguments = {
             'Endpoint': self._serialize.url("self.config.endpoint", self.config.endpoint, 'str', skip_quote=True)
         }
@@ -757,8 +749,7 @@ class ComputerVisionClientOperationsMixin(object):
 
         # Construct parameters
         query_parameters = {}
-        if language is not None:
-            query_parameters['language'] = self._serialize.query("language", language, 'str')
+        query_parameters['mode'] = self._serialize.query("mode", mode, 'TextRecognitionMode')
 
         # Construct headers
         header_parameters = {}
@@ -782,16 +773,129 @@ class ComputerVisionClientOperationsMixin(object):
                 'Operation-Location': 'str',
             })
             return client_raw_response
-    read.metadata = {'url': '/read/analyze'}
+    recognize_text.metadata = {'url': '/recognizeText'}
 
-    def get_read_result(
+    def get_text_operation_result(
+            self, operation_id, custom_headers=None, raw=False, **operation_config):
+        """This interface is used for getting text operation result. The URL to
+        this interface should be retrieved from 'Operation-Location' field
+        returned from Recognize Text interface.
+
+        :param operation_id: Id of the text operation returned in the response
+         of the 'Recognize Text'
+        :type operation_id: str
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: TextOperationResult or ClientRawResponse if raw=true
+        :rtype:
+         ~azure.cognitiveservices.vision.computervision.models.TextOperationResult
+         or ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`ComputerVisionErrorException<azure.cognitiveservices.vision.computervision.models.ComputerVisionErrorException>`
+        """
+        # Construct URL
+        url = self.get_text_operation_result.metadata['url']
+        path_format_arguments = {
+            'Endpoint': self._serialize.url("self.config.endpoint", self.config.endpoint, 'str', skip_quote=True),
+            'operationId': self._serialize.url("operation_id", operation_id, 'str')
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
+        if custom_headers:
+            header_parameters.update(custom_headers)
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters, header_parameters)
+        response = self._client.send(request, stream=False, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.ComputerVisionErrorException(self._deserialize, response)
+
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('TextOperationResult', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+    get_text_operation_result.metadata = {'url': '/textOperations/{operationId}'}
+
+    def batch_read_file(
+            self, url, custom_headers=None, raw=False, **operation_config):
+        """Use this interface to get the result of a Read operation, employing the
+        state-of-the-art Optical Character Recognition (OCR) algorithms
+        optimized for text-heavy documents. When you use the Read File
+        interface, the response contains a field called 'Operation-Location'.
+        The 'Operation-Location' field contains the URL that you must use for
+        your 'GetReadOperationResult' operation to access OCR results.​.
+
+        :param url: Publicly reachable URL of an image.
+        :type url: str
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: None or ClientRawResponse if raw=true
+        :rtype: None or ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`ComputerVisionErrorException<azure.cognitiveservices.vision.computervision.models.ComputerVisionErrorException>`
+        """
+        image_url = models.ImageUrl(url=url)
+
+        # Construct URL
+        url = self.batch_read_file.metadata['url']
+        path_format_arguments = {
+            'Endpoint': self._serialize.url("self.config.endpoint", self.config.endpoint, 'str', skip_quote=True)
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if custom_headers:
+            header_parameters.update(custom_headers)
+
+        # Construct body
+        body_content = self._serialize.body(image_url, 'ImageUrl')
+
+        # Construct and send request
+        request = self._client.post(url, query_parameters, header_parameters, body_content)
+        response = self._client.send(request, stream=False, **operation_config)
+
+        if response.status_code not in [202]:
+            raise models.ComputerVisionErrorException(self._deserialize, response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(None, response)
+            client_raw_response.add_headers({
+                'Operation-Location': 'str',
+            })
+            return client_raw_response
+    batch_read_file.metadata = {'url': '/read/core/asyncBatchAnalyze'}
+
+    def get_read_operation_result(
             self, operation_id, custom_headers=None, raw=False, **operation_config):
         """This interface is used for getting OCR results of Read operation. The
         URL to this interface should be retrieved from 'Operation-Location'
-        field returned from Read interface.
+        field returned from Batch Read File interface.
 
         :param operation_id: Id of read operation returned in the response of
-         the 'Read' interface.
+         the 'Batch Read File' interface.
         :type operation_id: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -806,7 +910,7 @@ class ComputerVisionClientOperationsMixin(object):
          :class:`ComputerVisionErrorException<azure.cognitiveservices.vision.computervision.models.ComputerVisionErrorException>`
         """
         # Construct URL
-        url = self.get_read_result.metadata['url']
+        url = self.get_read_operation_result.metadata['url']
         path_format_arguments = {
             'Endpoint': self._serialize.url("self.config.endpoint", self.config.endpoint, 'str', skip_quote=True),
             'operationId': self._serialize.url("operation_id", operation_id, 'str')
@@ -838,7 +942,7 @@ class ComputerVisionClientOperationsMixin(object):
             return client_raw_response
 
         return deserialized
-    get_read_result.metadata = {'url': '/read/analyzeResults/{operationId}'}
+    get_read_operation_result.metadata = {'url': '/read/operations/{operationId}'}
 
     def analyze_image_in_stream(
             self, image, visual_features=None, details=None, language="en", description_exclude=None, custom_headers=None, raw=False, callback=None, **operation_config):
@@ -1502,27 +1606,19 @@ class ComputerVisionClientOperationsMixin(object):
         return deserialized
     tag_image_in_stream.metadata = {'url': '/tag'}
 
-    def read_in_stream(
-            self, image, language="en", custom_headers=None, raw=False, callback=None, **operation_config):
-        """Use this interface to get the result of a Read operation, employing the
-        state-of-the-art Optical Character Recognition (OCR) algorithms
-        optimized for text-heavy documents. When you use the Read interface,
+    def recognize_text_in_stream(
+            self, image, mode, custom_headers=None, raw=False, callback=None, **operation_config):
+        """Recognize Text operation. When you use the Recognize Text interface,
         the response contains a field called 'Operation-Location'. The
         'Operation-Location' field contains the URL that you must use for your
-        'GetReadResult' operation to access OCR results.​.
+        Get Recognize Text Operation Result operation.
 
         :param image: An image stream.
         :type image: Generator
-        :param language: The BCP-47 language code of the text in the document.
-         Currently, only English ('en'), Dutch (‘nl’), French (‘fr’), German
-         (‘de’), Italian (‘it’), Portuguese (‘pt), and Spanish ('es') are
-         supported. Read supports auto language identification and
-         multilanguage documents, so only provide a language code if you would
-         like to force the documented to be processed as that specific
-         language. Possible values include: 'en', 'es', 'fr', 'de', 'it', 'nl',
-         'pt'
-        :type language: str or
-         ~azure.cognitiveservices.vision.computervision.models.OcrDetectionLanguage
+        :param mode: Type of text to recognize. Possible values include:
+         'Handwritten', 'Printed'
+        :type mode: str or
+         ~azure.cognitiveservices.vision.computervision.models.TextRecognitionMode
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -1539,7 +1635,7 @@ class ComputerVisionClientOperationsMixin(object):
          :class:`ComputerVisionErrorException<azure.cognitiveservices.vision.computervision.models.ComputerVisionErrorException>`
         """
         # Construct URL
-        url = self.read_in_stream.metadata['url']
+        url = self.recognize_text_in_stream.metadata['url']
         path_format_arguments = {
             'Endpoint': self._serialize.url("self.config.endpoint", self.config.endpoint, 'str', skip_quote=True)
         }
@@ -1547,8 +1643,7 @@ class ComputerVisionClientOperationsMixin(object):
 
         # Construct parameters
         query_parameters = {}
-        if language is not None:
-            query_parameters['language'] = self._serialize.query("language", language, 'str')
+        query_parameters['mode'] = self._serialize.query("mode", mode, 'TextRecognitionMode')
 
         # Construct headers
         header_parameters = {}
@@ -1572,4 +1667,65 @@ class ComputerVisionClientOperationsMixin(object):
                 'Operation-Location': 'str',
             })
             return client_raw_response
-    read_in_stream.metadata = {'url': '/read/analyze'}
+    recognize_text_in_stream.metadata = {'url': '/recognizeText'}
+
+    def batch_read_file_in_stream(
+            self, image, custom_headers=None, raw=False, callback=None, **operation_config):
+        """Use this interface to get the result of a Read Document operation,
+        employing the state-of-the-art Optical Character Recognition (OCR)
+        algorithms optimized for text-heavy documents. When you use the Read
+        Document interface, the response contains a field called
+        'Operation-Location'. The 'Operation-Location' field contains the URL
+        that you must use for your 'Get Read Result operation' to access OCR
+        results.​.
+
+        :param image: An image stream.
+        :type image: Generator
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param callback: When specified, will be called with each chunk of
+         data that is streamed. The callback should take two arguments, the
+         bytes of the current chunk of data and the response object. If the
+         data is uploading, response will be None.
+        :type callback: Callable[Bytes, response=None]
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: None or ClientRawResponse if raw=true
+        :rtype: None or ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`ComputerVisionErrorException<azure.cognitiveservices.vision.computervision.models.ComputerVisionErrorException>`
+        """
+        # Construct URL
+        url = self.batch_read_file_in_stream.metadata['url']
+        path_format_arguments = {
+            'Endpoint': self._serialize.url("self.config.endpoint", self.config.endpoint, 'str', skip_quote=True)
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Content-Type'] = 'application/octet-stream'
+        if custom_headers:
+            header_parameters.update(custom_headers)
+
+        # Construct body
+        body_content = self._client.stream_upload(image, callback)
+
+        # Construct and send request
+        request = self._client.post(url, query_parameters, header_parameters, body_content)
+        response = self._client.send(request, stream=False, **operation_config)
+
+        if response.status_code not in [202]:
+            raise models.ComputerVisionErrorException(self._deserialize, response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(None, response)
+            client_raw_response.add_headers({
+                'Operation-Location': 'str',
+            })
+            return client_raw_response
+    batch_read_file_in_stream.metadata = {'url': '/read/core/asyncBatchAnalyze'}
