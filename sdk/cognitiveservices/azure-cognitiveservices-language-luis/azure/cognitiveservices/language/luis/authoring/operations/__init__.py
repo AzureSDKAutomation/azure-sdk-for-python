@@ -15,6 +15,7 @@ from ._model_operations import ModelOperations
 from ._apps_operations import AppsOperations
 from ._versions_operations import VersionsOperations
 from ._train_operations import TrainOperations
+from ._permissions_operations import PermissionsOperations
 from ._pattern_operations import PatternOperations
 from ._settings_operations import SettingsOperations
 from ._azure_accounts_operations import AzureAccountsOperations
@@ -26,6 +27,7 @@ __all__ = [
     'AppsOperations',
     'VersionsOperations',
     'TrainOperations',
+    'PermissionsOperations',
     'PatternOperations',
     'SettingsOperations',
     'AzureAccountsOperations',

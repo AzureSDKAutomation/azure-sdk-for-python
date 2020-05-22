@@ -14,8 +14,8 @@ from msrest.pipeline import ClientRawResponse
 from .. import models
 
 
-class ExamplesOperations(object):
-    """ExamplesOperations operations.
+class PermissionsOperations(object):
+    """PermissionsOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -35,158 +35,21 @@ class ExamplesOperations(object):
 
         self.config = config
 
-    def add(
-            self, app_id, version_id, example_label_object, custom_headers=None, raw=False, **operation_config):
-        """Adds a labeled example utterance in a version of the application.
-
-        :param app_id: The application ID.
-        :type app_id: str
-        :param version_id: The version ID.
-        :type version_id: str
-        :param example_label_object: A labeled example utterance with the
-         expected intent and entities.
-        :type example_label_object:
-         ~azure.cognitiveservices.language.luis.authoring.models.ExampleLabelObject
-        :param dict custom_headers: headers that will be added to the request
-        :param bool raw: returns the direct response alongside the
-         deserialized response
-        :param operation_config: :ref:`Operation configuration
-         overrides<msrest:optionsforoperations>`.
-        :return: LabelExampleResponse or ClientRawResponse if raw=true
-        :rtype:
-         ~azure.cognitiveservices.language.luis.authoring.models.LabelExampleResponse
-         or ~msrest.pipeline.ClientRawResponse
-        :raises:
-         :class:`ErrorResponseException<azure.cognitiveservices.language.luis.authoring.models.ErrorResponseException>`
-        """
-        # Construct URL
-        url = self.add.metadata['url']
-        path_format_arguments = {
-            'Endpoint': self._serialize.url("self.config.endpoint", self.config.endpoint, 'str', skip_quote=True),
-            'appId': self._serialize.url("app_id", app_id, 'str'),
-            'versionId': self._serialize.url("version_id", version_id, 'str')
-        }
-        url = self._client.format_url(url, **path_format_arguments)
-
-        # Construct parameters
-        query_parameters = {}
-
-        # Construct headers
-        header_parameters = {}
-        header_parameters['Accept'] = 'application/json'
-        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
-        if custom_headers:
-            header_parameters.update(custom_headers)
-
-        # Construct body
-        body_content = self._serialize.body(example_label_object, 'ExampleLabelObject')
-
-        # Construct and send request
-        request = self._client.post(url, query_parameters, header_parameters, body_content)
-        response = self._client.send(request, stream=False, **operation_config)
-
-        if response.status_code not in [201]:
-            raise models.ErrorResponseException(self._deserialize, response)
-
-        deserialized = None
-        if response.status_code == 201:
-            deserialized = self._deserialize('LabelExampleResponse', response)
-
-        if raw:
-            client_raw_response = ClientRawResponse(deserialized, response)
-            return client_raw_response
-
-        return deserialized
-    add.metadata = {'url': '/apps/{appId}/versions/{versionId}/example'}
-
-    def batch(
-            self, app_id, version_id, example_label_object_array, custom_headers=None, raw=False, **operation_config):
-        """Adds a batch of labeled example utterances to a version of the
-        application.
-
-        :param app_id: The application ID.
-        :type app_id: str
-        :param version_id: The version ID.
-        :type version_id: str
-        :param example_label_object_array: Array of example utterances.
-        :type example_label_object_array:
-         list[~azure.cognitiveservices.language.luis.authoring.models.ExampleLabelObject]
-        :param dict custom_headers: headers that will be added to the request
-        :param bool raw: returns the direct response alongside the
-         deserialized response
-        :param operation_config: :ref:`Operation configuration
-         overrides<msrest:optionsforoperations>`.
-        :return: list or ClientRawResponse if raw=true
-        :rtype:
-         list[~azure.cognitiveservices.language.luis.authoring.models.BatchLabelExample]
-         or ~msrest.pipeline.ClientRawResponse
-        :raises:
-         :class:`ErrorResponseException<azure.cognitiveservices.language.luis.authoring.models.ErrorResponseException>`
-        """
-        # Construct URL
-        url = self.batch.metadata['url']
-        path_format_arguments = {
-            'Endpoint': self._serialize.url("self.config.endpoint", self.config.endpoint, 'str', skip_quote=True),
-            'appId': self._serialize.url("app_id", app_id, 'str'),
-            'versionId': self._serialize.url("version_id", version_id, 'str')
-        }
-        url = self._client.format_url(url, **path_format_arguments)
-
-        # Construct parameters
-        query_parameters = {}
-
-        # Construct headers
-        header_parameters = {}
-        header_parameters['Accept'] = 'application/json'
-        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
-        if custom_headers:
-            header_parameters.update(custom_headers)
-
-        # Construct body
-        body_content = self._serialize.body(example_label_object_array, '[ExampleLabelObject]')
-
-        # Construct and send request
-        request = self._client.post(url, query_parameters, header_parameters, body_content)
-        response = self._client.send(request, stream=False, **operation_config)
-
-        if response.status_code not in [201, 207]:
-            raise models.ErrorResponseException(self._deserialize, response)
-
-        deserialized = None
-        if response.status_code == 201:
-            deserialized = self._deserialize('[BatchLabelExample]', response)
-        if response.status_code == 207:
-            deserialized = self._deserialize('[BatchLabelExample]', response)
-
-        if raw:
-            client_raw_response = ClientRawResponse(deserialized, response)
-            return client_raw_response
-
-        return deserialized
-    batch.metadata = {'url': '/apps/{appId}/versions/{versionId}/examples'}
-
     def list(
-            self, app_id, version_id, skip=0, take=100, custom_headers=None, raw=False, **operation_config):
-        """Returns example utterances to be reviewed from a version of the
+            self, app_id, custom_headers=None, raw=False, **operation_config):
+        """Gets the list of user emails that have permissions to access your
         application.
 
         :param app_id: The application ID.
         :type app_id: str
-        :param version_id: The version ID.
-        :type version_id: str
-        :param skip: The number of entries to skip. Default value is 0.
-        :type skip: int
-        :param take: The number of entries to return. Maximum page size is
-         500. Default is 100.
-        :type take: int
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: list or ClientRawResponse if raw=true
+        :return: UserAccessList or ClientRawResponse if raw=true
         :rtype:
-         list[~azure.cognitiveservices.language.luis.authoring.models.LabeledUtterance]
+         ~azure.cognitiveservices.language.luis.authoring.models.UserAccessList
          or ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`ErrorResponseException<azure.cognitiveservices.language.luis.authoring.models.ErrorResponseException>`
@@ -195,17 +58,12 @@ class ExamplesOperations(object):
         url = self.list.metadata['url']
         path_format_arguments = {
             'Endpoint': self._serialize.url("self.config.endpoint", self.config.endpoint, 'str', skip_quote=True),
-            'appId': self._serialize.url("app_id", app_id, 'str'),
-            'versionId': self._serialize.url("version_id", version_id, 'str')
+            'appId': self._serialize.url("app_id", app_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
         # Construct parameters
         query_parameters = {}
-        if skip is not None:
-            query_parameters['skip'] = self._serialize.query("skip", skip, 'int', minimum=0)
-        if take is not None:
-            query_parameters['take'] = self._serialize.query("take", take, 'int', maximum=500, minimum=0)
 
         # Construct headers
         header_parameters = {}
@@ -222,26 +80,24 @@ class ExamplesOperations(object):
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('[LabeledUtterance]', response)
+            deserialized = self._deserialize('UserAccessList', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    list.metadata = {'url': '/apps/{appId}/versions/{versionId}/examples'}
+    list.metadata = {'url': '/apps/{appId}/permissions'}
 
-    def delete(
-            self, app_id, version_id, example_id, custom_headers=None, raw=False, **operation_config):
-        """Deletes the labeled example utterances with the specified ID from a
-        version of the application.
+    def add(
+            self, app_id, email=None, custom_headers=None, raw=False, **operation_config):
+        """Adds a user to the allowed list of users to access this LUIS
+        application. Users are added using their email address.
 
         :param app_id: The application ID.
         :type app_id: str
-        :param version_id: The version ID.
-        :type version_id: str
-        :param example_id: The example ID.
-        :type example_id: int
+        :param email: The email address of the user.
+        :type email: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -254,13 +110,13 @@ class ExamplesOperations(object):
         :raises:
          :class:`ErrorResponseException<azure.cognitiveservices.language.luis.authoring.models.ErrorResponseException>`
         """
+        user_to_add = models.UserCollaborator(email=email)
+
         # Construct URL
-        url = self.delete.metadata['url']
+        url = self.add.metadata['url']
         path_format_arguments = {
             'Endpoint': self._serialize.url("self.config.endpoint", self.config.endpoint, 'str', skip_quote=True),
-            'appId': self._serialize.url("app_id", app_id, 'str'),
-            'versionId': self._serialize.url("version_id", version_id, 'str'),
-            'exampleId': self._serialize.url("example_id", example_id, 'int')
+            'appId': self._serialize.url("app_id", app_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -270,11 +126,15 @@ class ExamplesOperations(object):
         # Construct headers
         header_parameters = {}
         header_parameters['Accept'] = 'application/json'
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
         if custom_headers:
             header_parameters.update(custom_headers)
 
+        # Construct body
+        body_content = self._serialize.body(user_to_add, 'UserCollaborator')
+
         # Construct and send request
-        request = self._client.delete(url, query_parameters, header_parameters)
+        request = self._client.post(url, query_parameters, header_parameters, body_content)
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
@@ -289,4 +149,129 @@ class ExamplesOperations(object):
             return client_raw_response
 
         return deserialized
-    delete.metadata = {'url': '/apps/{appId}/versions/{versionId}/examples/{exampleId}'}
+    add.metadata = {'url': '/apps/{appId}/permissions'}
+
+    def delete(
+            self, app_id, email=None, custom_headers=None, raw=False, **operation_config):
+        """Removes a user from the allowed list of users to access this LUIS
+        application. Users are removed using their email address.
+
+        :param app_id: The application ID.
+        :type app_id: str
+        :param email: The email address of the user.
+        :type email: str
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: OperationStatus or ClientRawResponse if raw=true
+        :rtype:
+         ~azure.cognitiveservices.language.luis.authoring.models.OperationStatus
+         or ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`ErrorResponseException<azure.cognitiveservices.language.luis.authoring.models.ErrorResponseException>`
+        """
+        user_to_delete = models.UserCollaborator(email=email)
+
+        # Construct URL
+        url = self.delete.metadata['url']
+        path_format_arguments = {
+            'Endpoint': self._serialize.url("self.config.endpoint", self.config.endpoint, 'str', skip_quote=True),
+            'appId': self._serialize.url("app_id", app_id, 'str')
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if custom_headers:
+            header_parameters.update(custom_headers)
+
+        # Construct body
+        body_content = self._serialize.body(user_to_delete, 'UserCollaborator')
+
+        # Construct and send request
+        request = self._client.delete(url, query_parameters, header_parameters, body_content)
+        response = self._client.send(request, stream=False, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.ErrorResponseException(self._deserialize, response)
+
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('OperationStatus', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+    delete.metadata = {'url': '/apps/{appId}/permissions'}
+
+    def update(
+            self, app_id, emails=None, custom_headers=None, raw=False, **operation_config):
+        """Replaces the current user access list with the new list sent in the
+        body. If an empty list is sent, all access to other users will be
+        removed.
+
+        :param app_id: The application ID.
+        :type app_id: str
+        :param emails: The email address of the users.
+        :type emails: list[str]
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: OperationStatus or ClientRawResponse if raw=true
+        :rtype:
+         ~azure.cognitiveservices.language.luis.authoring.models.OperationStatus
+         or ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`ErrorResponseException<azure.cognitiveservices.language.luis.authoring.models.ErrorResponseException>`
+        """
+        collaborators = models.CollaboratorsArray(emails=emails)
+
+        # Construct URL
+        url = self.update.metadata['url']
+        path_format_arguments = {
+            'Endpoint': self._serialize.url("self.config.endpoint", self.config.endpoint, 'str', skip_quote=True),
+            'appId': self._serialize.url("app_id", app_id, 'str')
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if custom_headers:
+            header_parameters.update(custom_headers)
+
+        # Construct body
+        body_content = self._serialize.body(collaborators, 'CollaboratorsArray')
+
+        # Construct and send request
+        request = self._client.put(url, query_parameters, header_parameters, body_content)
+        response = self._client.send(request, stream=False, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.ErrorResponseException(self._deserialize, response)
+
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('OperationStatus', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+    update.metadata = {'url': '/apps/{appId}/permissions'}
