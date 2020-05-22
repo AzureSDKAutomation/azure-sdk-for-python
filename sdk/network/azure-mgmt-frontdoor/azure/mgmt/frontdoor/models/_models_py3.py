@@ -101,7 +101,7 @@ class Backend(Model):
         'private_link_alias': {'key': 'privateLinkAlias', 'type': 'str'},
         'private_link_resource_id': {'key': 'privateLinkResourceId', 'type': 'str'},
         'private_link_location': {'key': 'privateLinkLocation', 'type': 'str'},
-        'private_endpoint_status': {'key': 'privateEndpointStatus', 'type': 'str'},
+        'private_endpoint_status': {'key': 'privateEndpointStatus', 'type': 'PrivateEndpointStatus'},
         'private_link_approval_message': {'key': 'privateLinkApprovalMessage', 'type': 'str'},
         'http_port': {'key': 'httpPort', 'type': 'int'},
         'https_port': {'key': 'httpsPort', 'type': 'int'},
