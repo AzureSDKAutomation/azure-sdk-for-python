@@ -725,7 +725,7 @@ class Encryption(Model):
 
     :param key_vault_properties: Properties of KeyVault
     :type key_vault_properties:
-     list[~azure.mgmt.eventhub.v2018_01_01_preview.models.KeyVaultProperties]
+     ~azure.mgmt.eventhub.v2018_01_01_preview.models.KeyVaultProperties
     :param key_source: Enumerates the possible value of keySource for
      Encryption. Possible values include: 'Microsoft.KeyVault'. Default value:
      "Microsoft.KeyVault" .
@@ -734,7 +734,7 @@ class Encryption(Model):
     """
 
     _attribute_map = {
-        'key_vault_properties': {'key': 'keyVaultProperties', 'type': '[KeyVaultProperties]'},
+        'key_vault_properties': {'key': 'keyVaultProperties', 'type': 'KeyVaultProperties'},
         'key_source': {'key': 'keySource', 'type': 'KeySource'},
     }
 
@@ -925,21 +925,17 @@ class KeyVaultProperties(Model):
     :type key_name: str
     :param key_vault_uri: Uri of KeyVault
     :type key_vault_uri: str
-    :param key_version: Key Version
-    :type key_version: str
     """
 
     _attribute_map = {
         'key_name': {'key': 'keyName', 'type': 'str'},
         'key_vault_uri': {'key': 'keyVaultUri', 'type': 'str'},
-        'key_version': {'key': 'keyVersion', 'type': 'str'},
     }
 
-    def __init__(self, *, key_name: str=None, key_vault_uri: str=None, key_version: str=None, **kwargs) -> None:
+    def __init__(self, *, key_name: str=None, key_vault_uri: str=None, **kwargs) -> None:
         super(KeyVaultProperties, self).__init__(**kwargs)
         self.key_name = key_name
         self.key_vault_uri = key_vault_uri
-        self.key_version = key_version
 
 
 class MessagingRegions(TrackedResource):
