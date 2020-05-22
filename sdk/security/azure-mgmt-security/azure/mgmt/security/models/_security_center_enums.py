@@ -88,6 +88,28 @@ class UnmaskedIpLoggingStatus(str, Enum):
     enabled = "Enabled"  #: Unmasked IP logging is enabled
 
 
+class SecurityFamily(str, Enum):
+
+    waf = "Waf"
+    ngfw = "Ngfw"
+    saas_waf = "SaasWaf"
+    va = "Va"
+
+
+class AadConnectivityState(str, Enum):
+
+    discovered = "Discovered"
+    not_licensed = "NotLicensed"
+    connected = "Connected"
+
+
+class ExternalSecuritySolutionKind(str, Enum):
+
+    cef = "CEF"
+    ata = "ATA"
+    aad = "AAD"
+
+
 class AutoProvision(str, Enum):
 
     on = "On"  #: Install missing security agent on VMs automatically
@@ -244,28 +266,6 @@ class StatusReason(str, Enum):
     expired = "Expired"
     user_requested = "UserRequested"
     newer_request_initiated = "NewerRequestInitiated"
-
-
-class SecurityFamily(str, Enum):
-
-    waf = "Waf"
-    ngfw = "Ngfw"
-    saas_waf = "SaasWaf"
-    va = "Va"
-
-
-class AadConnectivityState(str, Enum):
-
-    discovered = "Discovered"
-    not_licensed = "NotLicensed"
-    connected = "Connected"
-
-
-class ExternalSecuritySolutionKind(str, Enum):
-
-    cef = "CEF"
-    ata = "ATA"
-    aad = "AAD"
 
 
 class ExpandEnum(str, Enum):

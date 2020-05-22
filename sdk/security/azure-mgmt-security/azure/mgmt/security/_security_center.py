@@ -23,6 +23,8 @@ from .operations import IotSecuritySolutionOperations
 from .operations import IotSecuritySolutionAnalyticsOperations
 from .operations import IotSecuritySolutionsAnalyticsAggregatedAlertOperations
 from .operations import IotSecuritySolutionsAnalyticsRecommendationOperations
+from .operations import DiscoveredSecuritySolutionsOperations
+from .operations import ExternalSecuritySolutionsOperations
 from .operations import LocationsOperations
 from .operations import Operations
 from .operations import TasksOperations
@@ -44,8 +46,6 @@ from .operations import AdaptiveNetworkHardeningsOperations
 from .operations import AllowedConnectionsOperations
 from .operations import TopologyOperations
 from .operations import JitNetworkAccessPoliciesOperations
-from .operations import DiscoveredSecuritySolutionsOperations
-from .operations import ExternalSecuritySolutionsOperations
 from . import models
 
 
@@ -75,6 +75,10 @@ class SecurityCenter(SDKClient):
     :vartype iot_security_solutions_analytics_aggregated_alert: azure.mgmt.security.operations.IotSecuritySolutionsAnalyticsAggregatedAlertOperations
     :ivar iot_security_solutions_analytics_recommendation: IotSecuritySolutionsAnalyticsRecommendation operations
     :vartype iot_security_solutions_analytics_recommendation: azure.mgmt.security.operations.IotSecuritySolutionsAnalyticsRecommendationOperations
+    :ivar discovered_security_solutions: DiscoveredSecuritySolutions operations
+    :vartype discovered_security_solutions: azure.mgmt.security.operations.DiscoveredSecuritySolutionsOperations
+    :ivar external_security_solutions: ExternalSecuritySolutions operations
+    :vartype external_security_solutions: azure.mgmt.security.operations.ExternalSecuritySolutionsOperations
     :ivar locations: Locations operations
     :vartype locations: azure.mgmt.security.operations.LocationsOperations
     :ivar operations: Operations operations
@@ -117,10 +121,6 @@ class SecurityCenter(SDKClient):
     :vartype topology: azure.mgmt.security.operations.TopologyOperations
     :ivar jit_network_access_policies: JitNetworkAccessPolicies operations
     :vartype jit_network_access_policies: azure.mgmt.security.operations.JitNetworkAccessPoliciesOperations
-    :ivar discovered_security_solutions: DiscoveredSecuritySolutions operations
-    :vartype discovered_security_solutions: azure.mgmt.security.operations.DiscoveredSecuritySolutionsOperations
-    :ivar external_security_solutions: ExternalSecuritySolutions operations
-    :vartype external_security_solutions: azure.mgmt.security.operations.ExternalSecuritySolutionsOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -163,6 +163,10 @@ class SecurityCenter(SDKClient):
             self._client, self.config, self._serialize, self._deserialize)
         self.iot_security_solutions_analytics_recommendation = IotSecuritySolutionsAnalyticsRecommendationOperations(
             self._client, self.config, self._serialize, self._deserialize)
+        self.discovered_security_solutions = DiscoveredSecuritySolutionsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.external_security_solutions = ExternalSecuritySolutionsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
         self.locations = LocationsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.operations = Operations(
@@ -204,8 +208,4 @@ class SecurityCenter(SDKClient):
         self.topology = TopologyOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.jit_network_access_policies = JitNetworkAccessPoliciesOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.discovered_security_solutions = DiscoveredSecuritySolutionsOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.external_security_solutions = ExternalSecuritySolutionsOperations(
             self._client, self.config, self._serialize, self._deserialize)

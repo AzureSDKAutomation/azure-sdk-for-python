@@ -103,6 +103,32 @@ class IoTSecurityAggregatedRecommendationPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(IoTSecurityAggregatedRecommendationPaged, self).__init__(*args, **kwargs)
+class DiscoveredSecuritySolutionPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`DiscoveredSecuritySolution <azure.mgmt.security.models.DiscoveredSecuritySolution>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[DiscoveredSecuritySolution]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(DiscoveredSecuritySolutionPaged, self).__init__(*args, **kwargs)
+class ExternalSecuritySolutionPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`ExternalSecuritySolution <azure.mgmt.security.models.ExternalSecuritySolution>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[ExternalSecuritySolution]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(ExternalSecuritySolutionPaged, self).__init__(*args, **kwargs)
 class AscLocationPaged(Paged):
     """
     A paging container for iterating over a list of :class:`AscLocation <azure.mgmt.security.models.AscLocation>` object
@@ -350,29 +376,3 @@ class JitNetworkAccessPolicyPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(JitNetworkAccessPolicyPaged, self).__init__(*args, **kwargs)
-class DiscoveredSecuritySolutionPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`DiscoveredSecuritySolution <azure.mgmt.security.models.DiscoveredSecuritySolution>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[DiscoveredSecuritySolution]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(DiscoveredSecuritySolutionPaged, self).__init__(*args, **kwargs)
-class ExternalSecuritySolutionPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`ExternalSecuritySolution <azure.mgmt.security.models.ExternalSecuritySolution>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[ExternalSecuritySolution]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(ExternalSecuritySolutionPaged, self).__init__(*args, **kwargs)
