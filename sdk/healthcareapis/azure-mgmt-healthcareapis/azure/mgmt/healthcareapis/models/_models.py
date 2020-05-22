@@ -555,12 +555,15 @@ class ServicesProperties(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
+    All required parameters must be populated in order to send to Azure.
+
     :ivar provisioning_state: The provisioning state. Possible values include:
      'Deleting', 'Succeeded', 'Creating', 'Accepted', 'Verifying', 'Updating',
      'Failed', 'Canceled', 'Deprovisioned'
     :vartype provisioning_state: str or
      ~azure.mgmt.healthcareapis.models.ProvisioningState
-    :param access_policies: The access policies of the service instance.
+    :param access_policies: Required. The access policies of the service
+     instance.
     :type access_policies:
      list[~azure.mgmt.healthcareapis.models.ServiceAccessPolicyEntry]
     :param cosmos_db_configuration: The settings for the Cosmos DB database
@@ -583,6 +586,7 @@ class ServicesProperties(Model):
 
     _validation = {
         'provisioning_state': {'readonly': True},
+        'access_policies': {'required': True},
     }
 
     _attribute_map = {
