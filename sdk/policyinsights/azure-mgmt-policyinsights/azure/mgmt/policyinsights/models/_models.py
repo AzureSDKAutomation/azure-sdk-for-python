@@ -626,6 +626,36 @@ class PolicyEvent(Model):
         self.components = kwargs.get('components', None)
 
 
+class PolicyEventsQueryResults(Model):
+    """Query results.
+
+    :param odatacontext: OData context string; used by OData clients to
+     resolve type information based on metadata.
+    :type odatacontext: str
+    :param odatacount: OData entity count; represents the number of policy
+     event records returned.
+    :type odatacount: int
+    :param value: Query results.
+    :type value: list[~azure.mgmt.policyinsights.models.PolicyEvent]
+    """
+
+    _validation = {
+        'odatacount': {'minimum': 0},
+    }
+
+    _attribute_map = {
+        'odatacontext': {'key': '@odata\\.context', 'type': 'str'},
+        'odatacount': {'key': '@odata\\.count', 'type': 'int'},
+        'value': {'key': 'value', 'type': '[PolicyEvent]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(PolicyEventsQueryResults, self).__init__(**kwargs)
+        self.odatacontext = kwargs.get('odatacontext', None)
+        self.odatacount = kwargs.get('odatacount', None)
+        self.value = kwargs.get('value', None)
+
+
 class PolicyGroupSummary(Model):
     """Policy definition group summary.
 
@@ -900,6 +930,36 @@ class PolicyState(Model):
         self.policy_assignment_version = None
 
 
+class PolicyStatesQueryResults(Model):
+    """Query results.
+
+    :param odatacontext: OData context string; used by OData clients to
+     resolve type information based on metadata.
+    :type odatacontext: str
+    :param odatacount: OData entity count; represents the number of policy
+     state records returned.
+    :type odatacount: int
+    :param value: Query results.
+    :type value: list[~azure.mgmt.policyinsights.models.PolicyState]
+    """
+
+    _validation = {
+        'odatacount': {'minimum': 0},
+    }
+
+    _attribute_map = {
+        'odatacontext': {'key': '@odata\\.context', 'type': 'str'},
+        'odatacount': {'key': '@odata\\.count', 'type': 'int'},
+        'value': {'key': 'value', 'type': '[PolicyState]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(PolicyStatesQueryResults, self).__init__(**kwargs)
+        self.odatacontext = kwargs.get('odatacontext', None)
+        self.odatacount = kwargs.get('odatacount', None)
+        self.value = kwargs.get('value', None)
+
+
 class PolicyTrackedResource(Model):
     """Policy tracked resource record.
 
@@ -1030,9 +1090,6 @@ class QueryOptions(Model):
     :type to: datetime
     :param apply: OData apply expression for aggregations.
     :type apply: str
-    :param skip_token: Skiptoken is only provided if a previous response
-     returned a partial result as a part of nextLink element.
-    :type skip_token: str
     :param expand: The $expand query parameter. For example, to expand
      components use $expand=components
     :type expand: str
@@ -1046,7 +1103,6 @@ class QueryOptions(Model):
         'from_property': {'key': '', 'type': 'iso-8601'},
         'to': {'key': '', 'type': 'iso-8601'},
         'apply': {'key': '', 'type': 'str'},
-        'skip_token': {'key': '', 'type': 'str'},
         'expand': {'key': '', 'type': 'str'},
     }
 
@@ -1059,7 +1115,6 @@ class QueryOptions(Model):
         self.from_property = kwargs.get('from_property', None)
         self.to = kwargs.get('to', None)
         self.apply = kwargs.get('apply', None)
-        self.skip_token = kwargs.get('skip_token', None)
         self.expand = kwargs.get('expand', None)
 
 
