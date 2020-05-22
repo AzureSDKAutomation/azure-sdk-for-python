@@ -46,11 +46,6 @@ try:
     from ._models_py3 import ProxyResource
     from ._models_py3 import ReservationDetail
     from ._models_py3 import ReservationRecommendation
-    from ._models_py3 import ReservationRecommendationDetailsCalculatedSavingsProperties
-    from ._models_py3 import ReservationRecommendationDetailsModel
-    from ._models_py3 import ReservationRecommendationDetailsResourceProperties
-    from ._models_py3 import ReservationRecommendationDetailsSavingsProperties
-    from ._models_py3 import ReservationRecommendationDetailsUsageProperties
     from ._models_py3 import ReservationSummary
     from ._models_py3 import ReservationTransaction
     from ._models_py3 import Resource
@@ -96,11 +91,6 @@ except (SyntaxError, ImportError):
     from ._models import ProxyResource
     from ._models import ReservationDetail
     from ._models import ReservationRecommendation
-    from ._models import ReservationRecommendationDetailsCalculatedSavingsProperties
-    from ._models import ReservationRecommendationDetailsModel
-    from ._models import ReservationRecommendationDetailsResourceProperties
-    from ._models import ReservationRecommendationDetailsSavingsProperties
-    from ._models import ReservationRecommendationDetailsUsageProperties
     from ._models import ReservationSummary
     from ._models import ReservationTransaction
     from ._models import Resource
@@ -171,11 +161,6 @@ __all__ = [
     'ProxyResource',
     'ReservationDetail',
     'ReservationRecommendation',
-    'ReservationRecommendationDetailsCalculatedSavingsProperties',
-    'ReservationRecommendationDetailsModel',
-    'ReservationRecommendationDetailsResourceProperties',
-    'ReservationRecommendationDetailsSavingsProperties',
-    'ReservationRecommendationDetailsUsageProperties',
     'ReservationSummary',
     'ReservationTransaction',
     'Resource',

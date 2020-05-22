@@ -22,7 +22,6 @@ from .operations import BalancesOperations
 from .operations import ReservationsSummariesOperations
 from .operations import ReservationsDetailsOperations
 from .operations import ReservationRecommendationsOperations
-from .operations import ReservationRecommendationDetailsOperations
 from .operations import ReservationTransactionsOperations
 from .operations import PriceSheetOperations
 from .operations import ForecastsOperations
@@ -58,8 +57,6 @@ class ConsumptionManagementClient(SDKClient):
     :vartype reservations_details: azure.mgmt.consumption.operations.ReservationsDetailsOperations
     :ivar reservation_recommendations: ReservationRecommendations operations
     :vartype reservation_recommendations: azure.mgmt.consumption.operations.ReservationRecommendationsOperations
-    :ivar reservation_recommendation_details: ReservationRecommendationDetails operations
-    :vartype reservation_recommendation_details: azure.mgmt.consumption.operations.ReservationRecommendationDetailsOperations
     :ivar reservation_transactions: ReservationTransactions operations
     :vartype reservation_transactions: azure.mgmt.consumption.operations.ReservationTransactionsOperations
     :ivar price_sheet: PriceSheet operations
@@ -113,8 +110,6 @@ class ConsumptionManagementClient(SDKClient):
         self.reservations_details = ReservationsDetailsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.reservation_recommendations = ReservationRecommendationsOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.reservation_recommendation_details = ReservationRecommendationDetailsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.reservation_transactions = ReservationTransactionsOperations(
             self._client, self.config, self._serialize, self._deserialize)
