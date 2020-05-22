@@ -723,7 +723,7 @@ class ImageTemplateSharedImageDistributor(ImageTemplateDistributor):
         'gallery_image_id': {'key': 'galleryImageId', 'type': 'str'},
         'replication_regions': {'key': 'replicationRegions', 'type': '[str]'},
         'exclude_from_latest': {'key': 'excludeFromLatest', 'type': 'bool'},
-        'storage_account_type': {'key': 'storageAccountType', 'type': 'str'},
+        'storage_account_type': {'key': 'storageAccountType', 'type': 'SharedImageStorageAccountType'},
     }
 
     def __init__(self, *, run_output_name: str, gallery_image_id: str, replication_regions, artifact_tags=None, exclude_from_latest: bool=None, storage_account_type=None, **kwargs) -> None:
