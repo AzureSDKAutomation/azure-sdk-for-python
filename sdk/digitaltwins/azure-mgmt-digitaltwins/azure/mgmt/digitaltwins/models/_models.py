@@ -103,8 +103,7 @@ class DigitalTwinsResource(Model):
     :type location: str
     :param tags: The resource tags.
     :type tags: dict[str, str]
-    :ivar sku: This property is reserved for future use, and will be
-     ignored/omitted
+    :ivar sku: The resource sku.
     :vartype sku: ~azure.mgmt.digitaltwins.models.DigitalTwinsSkuInfo
     """
 
@@ -154,8 +153,7 @@ class DigitalTwinsDescription(DigitalTwinsResource):
     :type location: str
     :param tags: The resource tags.
     :type tags: dict[str, str]
-    :ivar sku: This property is reserved for future use, and will be
-     ignored/omitted
+    :ivar sku: The resource sku.
     :vartype sku: ~azure.mgmt.digitaltwins.models.DigitalTwinsSkuInfo
     :ivar created_time: Time when DigitalTwinsInstance was created.
     :vartype created_time: datetime
