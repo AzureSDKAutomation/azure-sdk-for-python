@@ -433,6 +433,13 @@ class TeradataPartitionOption(str, Enum):
     dynamic_range = "DynamicRange"
 
 
+class SqlPartitionOption(str, Enum):
+
+    none = "None"
+    physical_partitions_of_table = "PhysicalPartitionsOfTable"
+    dynamic_range = "DynamicRange"
+
+
 class StoredProcedureParameterType(str, Enum):
 
     string = "String"
