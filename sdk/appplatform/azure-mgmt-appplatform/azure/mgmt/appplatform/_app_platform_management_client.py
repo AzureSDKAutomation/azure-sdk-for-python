@@ -20,7 +20,6 @@ from .operations import CertificatesOperations
 from .operations import CustomDomainsOperations
 from .operations import DeploymentsOperations
 from .operations import Operations
-from .operations import SkuOperations
 from . import models
 
 
@@ -44,8 +43,6 @@ class AppPlatformManagementClient(SDKClient):
     :vartype deployments: azure.mgmt.appplatform.operations.DeploymentsOperations
     :ivar operations: Operations operations
     :vartype operations: azure.mgmt.appplatform.operations.Operations
-    :ivar sku: Sku operations
-    :vartype sku: azure.mgmt.appplatform.operations.SkuOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -81,6 +78,4 @@ class AppPlatformManagementClient(SDKClient):
         self.deployments = DeploymentsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.operations = Operations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.sku = SkuOperations(
             self._client, self.config, self._serialize, self._deserialize)

@@ -1247,177 +1247,6 @@ class RegenerateTestKeyRequestPayload(Model):
         self.key_type = key_type
 
 
-class ResourceSku(Model):
-    """Describes an available Azure Spring Cloud SKU.
-
-    :param resource_type: Gets the type of resource the SKU applies to.
-    :type resource_type: str
-    :param name: Gets the name of SKU.
-    :type name: str
-    :param tier: Gets the tier of SKU.
-    :type tier: str
-    :param capacity: Gets the capacity of SKU.
-    :type capacity: ~azure.mgmt.appplatform.models.SkuCapacity
-    :param locations: Gets the set of locations that the SKU is available.
-    :type locations: list[str]
-    :param location_info: Gets a list of locations and availability zones in
-     those locations where the SKU is available.
-    :type location_info:
-     list[~azure.mgmt.appplatform.models.ResourceSkuLocationInfo]
-    :param restrictions: Gets the restrictions because of which SKU cannot be
-     used. This is
-     empty if there are no restrictions.
-    :type restrictions:
-     list[~azure.mgmt.appplatform.models.ResourceSkuRestrictions]
-    """
-
-    _attribute_map = {
-        'resource_type': {'key': 'resourceType', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'tier': {'key': 'tier', 'type': 'str'},
-        'capacity': {'key': 'capacity', 'type': 'SkuCapacity'},
-        'locations': {'key': 'locations', 'type': '[str]'},
-        'location_info': {'key': 'locationInfo', 'type': '[ResourceSkuLocationInfo]'},
-        'restrictions': {'key': 'restrictions', 'type': '[ResourceSkuRestrictions]'},
-    }
-
-    def __init__(self, *, resource_type: str=None, name: str=None, tier: str=None, capacity=None, locations=None, location_info=None, restrictions=None, **kwargs) -> None:
-        super(ResourceSku, self).__init__(**kwargs)
-        self.resource_type = resource_type
-        self.name = name
-        self.tier = tier
-        self.capacity = capacity
-        self.locations = locations
-        self.location_info = location_info
-        self.restrictions = restrictions
-
-
-class ResourceSkuCapabilities(Model):
-    """ResourceSkuCapabilities.
-
-    :param name: Gets an invariant to describe the feature.
-    :type name: str
-    :param value: Gets an invariant if the feature is measured by quantity.
-    :type value: str
-    """
-
-    _attribute_map = {
-        'name': {'key': 'name', 'type': 'str'},
-        'value': {'key': 'value', 'type': 'str'},
-    }
-
-    def __init__(self, *, name: str=None, value: str=None, **kwargs) -> None:
-        super(ResourceSkuCapabilities, self).__init__(**kwargs)
-        self.name = name
-        self.value = value
-
-
-class ResourceSkuLocationInfo(Model):
-    """ResourceSkuLocationInfo.
-
-    :param location: Gets location of the SKU
-    :type location: str
-    :param zones: Gets list of availability zones where the SKU is supported.
-    :type zones: list[str]
-    :param zone_details: Gets details of capabilities available to a SKU in
-     specific zones.
-    :type zone_details:
-     list[~azure.mgmt.appplatform.models.ResourceSkuZoneDetails]
-    """
-
-    _attribute_map = {
-        'location': {'key': 'location', 'type': 'str'},
-        'zones': {'key': 'zones', 'type': '[str]'},
-        'zone_details': {'key': 'zoneDetails', 'type': '[ResourceSkuZoneDetails]'},
-    }
-
-    def __init__(self, *, location: str=None, zones=None, zone_details=None, **kwargs) -> None:
-        super(ResourceSkuLocationInfo, self).__init__(**kwargs)
-        self.location = location
-        self.zones = zones
-        self.zone_details = zone_details
-
-
-class ResourceSkuRestrictionInfo(Model):
-    """ResourceSkuRestrictionInfo.
-
-    :param locations: Gets locations where the SKU is restricted
-    :type locations: list[str]
-    :param zones: Gets list of availability zones where the SKU is restricted.
-    :type zones: list[str]
-    """
-
-    _attribute_map = {
-        'locations': {'key': 'locations', 'type': '[str]'},
-        'zones': {'key': 'zones', 'type': '[str]'},
-    }
-
-    def __init__(self, *, locations=None, zones=None, **kwargs) -> None:
-        super(ResourceSkuRestrictionInfo, self).__init__(**kwargs)
-        self.locations = locations
-        self.zones = zones
-
-
-class ResourceSkuRestrictions(Model):
-    """ResourceSkuRestrictions.
-
-    :param type: Gets the type of restrictions. Possible values include:
-     'Location', 'Zone'
-    :type type: str or
-     ~azure.mgmt.appplatform.models.ResourceSkuRestrictionsType
-    :param values: Gets the value of restrictions. If the restriction type is
-     set to
-     location. This would be different locations where the SKU is restricted.
-    :type values: list[str]
-    :param restriction_info: Gets the information about the restriction where
-     the SKU cannot be used.
-    :type restriction_info:
-     ~azure.mgmt.appplatform.models.ResourceSkuRestrictionInfo
-    :param reason_code: Gets the reason for restriction. Possible values
-     include: 'QuotaId', 'NotAvailableForSubscription'
-    :type reason_code: str or
-     ~azure.mgmt.appplatform.models.ResourceSkuRestrictionsReasonCode
-    """
-
-    _attribute_map = {
-        'type': {'key': 'type', 'type': 'str'},
-        'values': {'key': 'values', 'type': '[str]'},
-        'restriction_info': {'key': 'restrictionInfo', 'type': 'ResourceSkuRestrictionInfo'},
-        'reason_code': {'key': 'reasonCode', 'type': 'str'},
-    }
-
-    def __init__(self, *, type=None, values=None, restriction_info=None, reason_code=None, **kwargs) -> None:
-        super(ResourceSkuRestrictions, self).__init__(**kwargs)
-        self.type = type
-        self.values = values
-        self.restriction_info = restriction_info
-        self.reason_code = reason_code
-
-
-class ResourceSkuZoneDetails(Model):
-    """ResourceSkuZoneDetails.
-
-    :param name: Gets the set of zones that the SKU is available in with the
-     specified capabilities.
-    :type name: list[str]
-    :param capabilities: Gets a list of capabilities that are available for
-     the SKU in the
-     specified list of zones.
-    :type capabilities:
-     list[~azure.mgmt.appplatform.models.ResourceSkuCapabilities]
-    """
-
-    _attribute_map = {
-        'name': {'key': 'name', 'type': '[str]'},
-        'capabilities': {'key': 'capabilities', 'type': '[ResourceSkuCapabilities]'},
-    }
-
-    def __init__(self, *, name=None, capabilities=None, **kwargs) -> None:
-        super(ResourceSkuZoneDetails, self).__init__(**kwargs)
-        self.name = name
-        self.capabilities = capabilities
-
-
 class ResourceUploadDefinition(Model):
     """Resource upload definition payload.
 
@@ -1496,8 +1325,6 @@ class ServiceResource(TrackedResource):
     :type tags: dict[str, str]
     :param properties: Properties of the Service resource
     :type properties: ~azure.mgmt.appplatform.models.ClusterResourceProperties
-    :param sku: Sku of the Service resource
-    :type sku: ~azure.mgmt.appplatform.models.Sku
     """
 
     _validation = {
@@ -1513,13 +1340,11 @@ class ServiceResource(TrackedResource):
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
         'properties': {'key': 'properties', 'type': 'ClusterResourceProperties'},
-        'sku': {'key': 'sku', 'type': 'Sku'},
     }
 
-    def __init__(self, *, location: str=None, tags=None, properties=None, sku=None, **kwargs) -> None:
+    def __init__(self, *, location: str=None, tags=None, properties=None, **kwargs) -> None:
         super(ServiceResource, self).__init__(location=location, tags=tags, **kwargs)
         self.properties = properties
-        self.sku = sku
 
 
 class ServiceSpecification(Model):
@@ -1543,71 +1368,6 @@ class ServiceSpecification(Model):
         super(ServiceSpecification, self).__init__(**kwargs)
         self.log_specifications = log_specifications
         self.metric_specifications = metric_specifications
-
-
-class Sku(Model):
-    """Sku of Azure Spring Cloud.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :param name: Required. Name of the Sku
-    :type name: str
-    :param tier: Tier of the Sku
-    :type tier: str
-    :param capacity: Current capacity of the target resource
-    :type capacity: int
-    """
-
-    _validation = {
-        'name': {'required': True},
-    }
-
-    _attribute_map = {
-        'name': {'key': 'name', 'type': 'str'},
-        'tier': {'key': 'tier', 'type': 'str'},
-        'capacity': {'key': 'capacity', 'type': 'int'},
-    }
-
-    def __init__(self, *, name: str, tier: str=None, capacity: int=None, **kwargs) -> None:
-        super(Sku, self).__init__(**kwargs)
-        self.name = name
-        self.tier = tier
-        self.capacity = capacity
-
-
-class SkuCapacity(Model):
-    """The SKU capacity.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :param minimum: Required. Gets or sets the minimum.
-    :type minimum: int
-    :param maximum: Gets or sets the maximum.
-    :type maximum: int
-    :param default: Gets or sets the default.
-    :type default: int
-    :param scale_type: Gets or sets the type of the scale. Possible values
-     include: 'None', 'Manual', 'Automatic'
-    :type scale_type: str or ~azure.mgmt.appplatform.models.SkuScaleType
-    """
-
-    _validation = {
-        'minimum': {'required': True},
-    }
-
-    _attribute_map = {
-        'minimum': {'key': 'minimum', 'type': 'int'},
-        'maximum': {'key': 'maximum', 'type': 'int'},
-        'default': {'key': 'default', 'type': 'int'},
-        'scale_type': {'key': 'scaleType', 'type': 'str'},
-    }
-
-    def __init__(self, *, minimum: int, maximum: int=None, default: int=None, scale_type=None, **kwargs) -> None:
-        super(SkuCapacity, self).__init__(**kwargs)
-        self.minimum = minimum
-        self.maximum = maximum
-        self.default = default
-        self.scale_type = scale_type
 
 
 class TemporaryDisk(Model):
