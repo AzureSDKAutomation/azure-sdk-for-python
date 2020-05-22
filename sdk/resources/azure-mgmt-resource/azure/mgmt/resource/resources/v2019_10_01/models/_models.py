@@ -1071,11 +1071,11 @@ class Identity(Model):
      'UserAssigned', 'SystemAssigned, UserAssigned', 'None'
     :type type: str or
      ~azure.mgmt.resource.resources.v2019_10_01.models.ResourceIdentityType
-    :param user_assigned_identities: The list of user identities associated
-     with the resource. The user identity dictionary key references will be ARM
-     resource ids in the form:
+    :param identity_user_assigned_identities_value: The list of user
+     identities associated with the resource. The user identity dictionary key
+     references will be ARM resource ids in the form:
      '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
-    :type user_assigned_identities: dict[str,
+    :type identity_user_assigned_identities_value: dict[str,
      ~azure.mgmt.resource.resources.v2019_10_01.models.IdentityUserAssignedIdentitiesValue]
     """
 
@@ -1088,7 +1088,7 @@ class Identity(Model):
         'principal_id': {'key': 'principalId', 'type': 'str'},
         'tenant_id': {'key': 'tenantId', 'type': 'str'},
         'type': {'key': 'type', 'type': 'ResourceIdentityType'},
-        'user_assigned_identities': {'key': 'userAssignedIdentities', 'type': '{IdentityUserAssignedIdentitiesValue}'},
+        'identity_user_assigned_identities_value': {'key': 'userAssignedIdentities', 'type': '{IdentityUserAssignedIdentitiesValue}'},
     }
 
     def __init__(self, **kwargs):
@@ -1096,7 +1096,7 @@ class Identity(Model):
         self.principal_id = None
         self.tenant_id = None
         self.type = kwargs.get('type', None)
-        self.user_assigned_identities = kwargs.get('user_assigned_identities', None)
+        self.identity_user_assigned_identities_value = kwargs.get('identity_user_assigned_identities_value', None)
 
 
 class IdentityUserAssignedIdentitiesValue(Model):
