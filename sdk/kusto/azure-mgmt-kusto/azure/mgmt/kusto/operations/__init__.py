@@ -9,6 +9,7 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
+from ._demo_clusters_operations import DemoClustersOperations
 from ._clusters_operations import ClustersOperations
 from ._cluster_principal_assignments_operations import ClusterPrincipalAssignmentsOperations
 from ._databases_operations import DatabasesOperations
@@ -18,6 +19,7 @@ from ._data_connections_operations import DataConnectionsOperations
 from ._operations import Operations
 
 __all__ = [
+    'DemoClustersOperations',
     'ClustersOperations',
     'ClusterPrincipalAssignmentsOperations',
     'DatabasesOperations',

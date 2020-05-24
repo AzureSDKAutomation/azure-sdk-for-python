@@ -13,6 +13,7 @@ from msrest.service_client import SDKClient
 from msrest import Serializer, Deserializer
 
 from ._configuration import KustoManagementClientConfiguration
+from .operations import DemoClustersOperations
 from .operations import ClustersOperations
 from .operations import ClusterPrincipalAssignmentsOperations
 from .operations import DatabasesOperations
@@ -29,6 +30,8 @@ class KustoManagementClient(SDKClient):
     :ivar config: Configuration for client.
     :vartype config: KustoManagementClientConfiguration
 
+    :ivar demo_clusters: DemoClusters operations
+    :vartype demo_clusters: azure.mgmt.kusto.operations.DemoClustersOperations
     :ivar clusters: Clusters operations
     :vartype clusters: azure.mgmt.kusto.operations.ClustersOperations
     :ivar cluster_principal_assignments: ClusterPrincipalAssignments operations
@@ -65,6 +68,8 @@ class KustoManagementClient(SDKClient):
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
+        self.demo_clusters = DemoClustersOperations(
+            self._client, self.config, self._serialize, self._deserialize)
         self.clusters = ClustersOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.cluster_principal_assignments = ClusterPrincipalAssignmentsOperations(
