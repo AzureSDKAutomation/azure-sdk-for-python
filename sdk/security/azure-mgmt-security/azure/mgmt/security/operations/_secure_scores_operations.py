@@ -16,8 +16,8 @@ from msrestazure.azure_exceptions import CloudError
 from .. import models
 
 
-class IoTSecuritySolutionsOperations(object):
-    """IoTSecuritySolutionsOperations operations.
+class SecureScoresOperations(object):
+    """SecureScoresOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -25,7 +25,7 @@ class IoTSecuritySolutionsOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: API version for the operation. Constant value: "2019-08-01".
+    :ivar api_version: API version for the operation. Constant value: "2020-01-01-preview".
     """
 
     models = models
@@ -35,25 +35,22 @@ class IoTSecuritySolutionsOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2019-08-01"
+        self.api_version = "2020-01-01-preview"
 
         self.config = config
 
     def list(
-            self, filter=None, custom_headers=None, raw=False, **operation_config):
-        """List of security solutions.
+            self, custom_headers=None, raw=False, **operation_config):
+        """Get secure scores on all your initiatives inside a scope.
 
-        :param filter: filter the Security Solution with OData syntax.
-         supporting filter by iotHubs
-        :type filter: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of IoTSecuritySolutionModel
+        :return: An iterator like instance of SecureScoreItem
         :rtype:
-         ~azure.mgmt.security.models.IoTSecuritySolutionModelPaged[~azure.mgmt.security.models.IoTSecuritySolutionModel]
+         ~azure.mgmt.security.models.SecureScoreItemPaged[~azure.mgmt.security.models.SecureScoreItem]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         def prepare_request(next_link=None):
@@ -68,8 +65,6 @@ class IoTSecuritySolutionsOperations(object):
                 # Construct parameters
                 query_parameters = {}
                 query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
-                if filter is not None:
-                    query_parameters['$filter'] = self._serialize.query("filter", filter, 'str')
 
             else:
                 url = next_link
@@ -105,7 +100,65 @@ class IoTSecuritySolutionsOperations(object):
         header_dict = None
         if raw:
             header_dict = {}
-        deserialized = models.IoTSecuritySolutionModelPaged(internal_paging, self._deserialize.dependencies, header_dict)
+        deserialized = models.SecureScoreItemPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Security/iotSecuritySolutions'}
+    list.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Security/secureScores'}
+
+    def get(
+            self, secure_score_name, custom_headers=None, raw=False, **operation_config):
+        """Get secure score for a specific initiatives inside a scope.
+
+        :param secure_score_name: The secure score initiative name
+        :type secure_score_name: str
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: SecureScoreItem or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.security.models.SecureScoreItem or
+         ~msrest.pipeline.ClientRawResponse
+        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        """
+        # Construct URL
+        url = self.get.metadata['url']
+        path_format_arguments = {
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', pattern=r'^[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}$'),
+            'secureScoreName': self._serialize.url("secure_score_name", secure_score_name, 'str')
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters, header_parameters)
+        response = self._client.send(request, stream=False, **operation_config)
+
+        if response.status_code not in [200]:
+            exp = CloudError(response)
+            exp.request_id = response.headers.get('x-ms-request-id')
+            raise exp
+
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('SecureScoreItem', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Security/secureScores/{secureScoreName}'}
