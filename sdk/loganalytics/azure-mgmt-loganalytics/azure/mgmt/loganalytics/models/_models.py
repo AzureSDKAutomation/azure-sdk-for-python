@@ -39,7 +39,7 @@ class AvailableServiceTier(Model):
     :vartype capacity_reservation_level: long
     :ivar last_sku_update: Time when the sku was last updated for the
      workspace. Returned for the Capacity Reservation Service Tier.
-    :vartype last_sku_update: str
+    :vartype last_sku_update: datetime
     """
 
     _validation = {
@@ -59,7 +59,7 @@ class AvailableServiceTier(Model):
         'maximum_retention': {'key': 'maximumRetention', 'type': 'long'},
         'default_retention': {'key': 'defaultRetention', 'type': 'long'},
         'capacity_reservation_level': {'key': 'capacityReservationLevel', 'type': 'long'},
-        'last_sku_update': {'key': 'lastSkuUpdate', 'type': 'str'},
+        'last_sku_update': {'key': 'lastSkuUpdate', 'type': 'iso-8601'},
     }
 
     def __init__(self, **kwargs):
@@ -1697,7 +1697,7 @@ class WorkspaceCapping(Model):
      unlimited.
     :type daily_quota_gb: float
     :ivar quota_next_reset_time: The time when the quota will be rest.
-    :vartype quota_next_reset_time: str
+    :vartype quota_next_reset_time: datetime
     :ivar data_ingestion_status: The status of data ingestion for this
      workspace. Possible values include: 'RespectQuota', 'ForceOn', 'ForceOff',
      'OverQuota', 'SubscriptionSuspended', 'ApproachingQuota'
@@ -1712,7 +1712,7 @@ class WorkspaceCapping(Model):
 
     _attribute_map = {
         'daily_quota_gb': {'key': 'dailyQuotaGb', 'type': 'float'},
-        'quota_next_reset_time': {'key': 'quotaNextResetTime', 'type': 'str'},
+        'quota_next_reset_time': {'key': 'quotaNextResetTime', 'type': 'iso-8601'},
         'data_ingestion_status': {'key': 'dataIngestionStatus', 'type': 'str'},
     }
 
@@ -1941,7 +1941,7 @@ class WorkspaceSku(Model):
      selected.
     :vartype max_capacity_reservation_level: int
     :ivar last_sku_update: The last time when the sku was updated.
-    :vartype last_sku_update: str
+    :vartype last_sku_update: datetime
     """
 
     _validation = {
@@ -1954,7 +1954,7 @@ class WorkspaceSku(Model):
         'name': {'key': 'name', 'type': 'str'},
         'capacity_reservation_level': {'key': 'capacityReservationLevel', 'type': 'int'},
         'max_capacity_reservation_level': {'key': 'maxCapacityReservationLevel', 'type': 'int'},
-        'last_sku_update': {'key': 'lastSkuUpdate', 'type': 'str'},
+        'last_sku_update': {'key': 'lastSkuUpdate', 'type': 'iso-8601'},
     }
 
     def __init__(self, **kwargs):
