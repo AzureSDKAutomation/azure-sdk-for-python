@@ -5072,7 +5072,7 @@ class ScopeElement(Model):
 
 
 class SecureScoreControlDefinitionItem(Resource):
-    """Information about the security control.
+    """Secure Score Control's Definition information.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
@@ -5092,8 +5092,8 @@ class SecureScoreControlDefinitionItem(Resource):
     :ivar source: Source object from which the control was created
     :vartype source:
      ~azure.mgmt.security.models.SecureScoreControlDefinitionSource
-    :ivar assessment_definitions: Array of assessments metadata IDs that are
-     included in this security control
+    :ivar assessment_definitions: array of assessments metadata IDs that are
+     included in this control
     :vartype assessment_definitions:
      list[~azure.mgmt.security.models.AzureResourceLink]
     """
@@ -5130,10 +5130,12 @@ class SecureScoreControlDefinitionItem(Resource):
 
 
 class SecureScoreControlDefinitionSource(Model):
-    """The type of the security control (For example, BuiltIn).
+    """representing the source of the control.
 
-    :param source_type: The type of security control (for example, BuiltIn).
-     Possible values include: 'BuiltIn', 'Custom'
+    :param source_type: BuiltIn if the control is built-in from Azure Security
+     Center managed assessments, Custom (Future) if the assessment based on
+     custom Azure Policy definition, CustomerManaged (future) for customers who
+     build their own controls. Possible values include: 'BuiltIn', 'Custom'
     :type source_type: str or ~azure.mgmt.security.models.ControlType
     """
 
@@ -5147,8 +5149,7 @@ class SecureScoreControlDefinitionSource(Model):
 
 
 class SecureScoreControlDetails(Resource):
-    """Details of the security control, its score, and the health status of the
-    relevant resources.
+    """Secure score control (calculated) object.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
@@ -5161,9 +5162,9 @@ class SecureScoreControlDetails(Resource):
     :vartype type: str
     :ivar display_name: User friendly display name of the control
     :vartype display_name: str
-    :ivar max: Maximum score available
+    :ivar max: Maximum score applicable
     :vartype max: int
-    :ivar current: Current score
+    :ivar current: Actual score
     :vartype current: float
     :ivar healthy_resource_count: Number of healthy resources in the control
     :vartype healthy_resource_count: int
@@ -5255,11 +5256,11 @@ class SecureScoreItem(Resource):
     :vartype name: str
     :ivar type: Resource type
     :vartype type: str
-    :ivar display_name: The initiative’s name
+    :ivar display_name: User friendly display name of the secure score item
     :vartype display_name: str
-    :ivar max: Maximum score available
+    :ivar max: Maximum score applicable
     :vartype max: int
-    :ivar current: Current score
+    :ivar current: Actual score
     :vartype current: float
     """
 

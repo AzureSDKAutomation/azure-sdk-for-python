@@ -41,8 +41,7 @@ class SecureScoreControlDefinitionsOperations(object):
 
     def list(
             self, custom_headers=None, raw=False, **operation_config):
-        """List the available security controls, their assessments, and the max
-        score.
+        """Get definition information on all secure score controls.
 
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -104,8 +103,8 @@ class SecureScoreControlDefinitionsOperations(object):
 
     def list_by_subscription(
             self, custom_headers=None, raw=False, **operation_config):
-        """For a specified subscription, list the available security controls,
-        their assessments, and the max score.
+        """Get definition information on all secure score controls in subscription
+        level.
 
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the

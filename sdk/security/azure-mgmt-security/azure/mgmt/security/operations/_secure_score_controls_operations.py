@@ -41,10 +41,9 @@ class SecureScoreControlsOperations(object):
 
     def list_by_secure_score(
             self, secure_score_name, expand=None, custom_headers=None, raw=False, **operation_config):
-        """Get all security controls for a specific initiative within a scope.
+        """Get all secure score controls on specific initiatives inside a scope.
 
-        :param secure_score_name: The initiative name. For the ASC Default
-         initiative, use 'ascScore' as in the sample request below.
+        :param secure_score_name: The secure score initiative name
         :type secure_score_name: str
         :param expand: OData expand. Optional. Possible values include:
          'definition'
@@ -116,7 +115,7 @@ class SecureScoreControlsOperations(object):
 
     def list(
             self, expand=None, custom_headers=None, raw=False, **operation_config):
-        """Get all security controls within a scope.
+        """Get all secure score controls on specific initiatives inside a scope.
 
         :param expand: OData expand. Optional. Possible values include:
          'definition'

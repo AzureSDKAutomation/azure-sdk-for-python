@@ -41,8 +41,7 @@ class SecureScoresOperations(object):
 
     def list(
             self, custom_headers=None, raw=False, **operation_config):
-        """List secure scores for all your Security Center initiatives within your
-        current scope.
+        """Get secure scores on all your initiatives inside a scope.
 
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -108,11 +107,9 @@ class SecureScoresOperations(object):
 
     def get(
             self, secure_score_name, custom_headers=None, raw=False, **operation_config):
-        """Get secure score for a specific initiative within your current scope.
-        For the ASC Default initiative, use 'ascScore'.
+        """Get secure score for a specific initiatives inside a scope.
 
-        :param secure_score_name: The initiative name. For the ASC Default
-         initiative, use 'ascScore' as in the sample request below.
+        :param secure_score_name: The secure score initiative name
         :type secure_score_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
