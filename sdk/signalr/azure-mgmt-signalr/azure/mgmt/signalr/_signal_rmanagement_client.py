@@ -15,8 +15,6 @@ from msrest import Serializer, Deserializer
 from ._configuration import SignalRManagementClientConfiguration
 from .operations import Operations
 from .operations import SignalROperations
-from .operations import SignalRPrivateEndpointConnectionsOperations
-from .operations import SignalRPrivateLinkResourcesOperations
 from .operations import UsagesOperations
 from . import models
 
@@ -31,10 +29,6 @@ class SignalRManagementClient(SDKClient):
     :vartype operations: azure.mgmt.signalr.operations.Operations
     :ivar signal_r: SignalR operations
     :vartype signal_r: azure.mgmt.signalr.operations.SignalROperations
-    :ivar signal_rprivate_endpoint_connections: SignalRPrivateEndpointConnections operations
-    :vartype signal_rprivate_endpoint_connections: azure.mgmt.signalr.operations.SignalRPrivateEndpointConnectionsOperations
-    :ivar signal_rprivate_link_resources: SignalRPrivateLinkResources operations
-    :vartype signal_rprivate_link_resources: azure.mgmt.signalr.operations.SignalRPrivateLinkResourcesOperations
     :ivar usages: Usages operations
     :vartype usages: azure.mgmt.signalr.operations.UsagesOperations
 
@@ -55,17 +49,13 @@ class SignalRManagementClient(SDKClient):
         super(SignalRManagementClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
-        self.api_version = '2020-05-01'
+        self.api_version = '2018-10-01'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
         self.operations = Operations(
             self._client, self.config, self._serialize, self._deserialize)
         self.signal_r = SignalROperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.signal_rprivate_endpoint_connections = SignalRPrivateEndpointConnectionsOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.signal_rprivate_link_resources = SignalRPrivateLinkResourcesOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.usages = UsagesOperations(
             self._client, self.config, self._serialize, self._deserialize)

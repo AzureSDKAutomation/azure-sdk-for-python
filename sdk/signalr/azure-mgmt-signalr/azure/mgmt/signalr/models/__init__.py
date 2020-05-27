@@ -17,31 +17,23 @@ try:
     from ._models_py3 import MetricSpecification
     from ._models_py3 import NameAvailability
     from ._models_py3 import NameAvailabilityParameters
-    from ._models_py3 import NetworkACL
     from ._models_py3 import Operation
     from ._models_py3 import OperationDisplay
     from ._models_py3 import OperationProperties
-    from ._models_py3 import PrivateEndpoint
-    from ._models_py3 import PrivateEndpointACL
-    from ._models_py3 import PrivateEndpointConnection
-    from ._models_py3 import PrivateLinkResource
-    from ._models_py3 import PrivateLinkServiceConnectionState
-    from ._models_py3 import ProxyResource
     from ._models_py3 import RegenerateKeyParameters
     from ._models_py3 import Resource
     from ._models_py3 import ResourceSku
-    from ._models_py3 import ServerlessUpstreamSettings
     from ._models_py3 import ServiceSpecification
     from ._models_py3 import SignalRCorsSettings
     from ._models_py3 import SignalRCreateOrUpdateProperties
+    from ._models_py3 import SignalRCreateParameters
     from ._models_py3 import SignalRFeature
     from ._models_py3 import SignalRKeys
-    from ._models_py3 import SignalRNetworkACLs
     from ._models_py3 import SignalRResource
+    from ._models_py3 import SignalRUpdateParameters
     from ._models_py3 import SignalRUsage
     from ._models_py3 import SignalRUsageName
     from ._models_py3 import TrackedResource
-    from ._models_py3 import UpstreamTemplate
 except (SyntaxError, ImportError):
     from ._models import Dimension
     from ._models import ErrorResponse, ErrorResponseException
@@ -50,43 +42,30 @@ except (SyntaxError, ImportError):
     from ._models import MetricSpecification
     from ._models import NameAvailability
     from ._models import NameAvailabilityParameters
-    from ._models import NetworkACL
     from ._models import Operation
     from ._models import OperationDisplay
     from ._models import OperationProperties
-    from ._models import PrivateEndpoint
-    from ._models import PrivateEndpointACL
-    from ._models import PrivateEndpointConnection
-    from ._models import PrivateLinkResource
-    from ._models import PrivateLinkServiceConnectionState
-    from ._models import ProxyResource
     from ._models import RegenerateKeyParameters
     from ._models import Resource
     from ._models import ResourceSku
-    from ._models import ServerlessUpstreamSettings
     from ._models import ServiceSpecification
     from ._models import SignalRCorsSettings
     from ._models import SignalRCreateOrUpdateProperties
+    from ._models import SignalRCreateParameters
     from ._models import SignalRFeature
     from ._models import SignalRKeys
-    from ._models import SignalRNetworkACLs
     from ._models import SignalRResource
+    from ._models import SignalRUpdateParameters
     from ._models import SignalRUsage
     from ._models import SignalRUsageName
     from ._models import TrackedResource
-    from ._models import UpstreamTemplate
 from ._paged_models import OperationPaged
-from ._paged_models import PrivateLinkResourcePaged
 from ._paged_models import SignalRResourcePaged
 from ._paged_models import SignalRUsagePaged
 from ._signal_rmanagement_client_enums import (
     SignalRSkuTier,
     ProvisioningState,
-    PrivateLinkServiceConnectionStatus,
-    ServiceKind,
     FeatureFlags,
-    ACLAction,
-    SignalRRequestType,
     KeyType,
 )
 
@@ -98,41 +77,28 @@ __all__ = [
     'MetricSpecification',
     'NameAvailability',
     'NameAvailabilityParameters',
-    'NetworkACL',
     'Operation',
     'OperationDisplay',
     'OperationProperties',
-    'PrivateEndpoint',
-    'PrivateEndpointACL',
-    'PrivateEndpointConnection',
-    'PrivateLinkResource',
-    'PrivateLinkServiceConnectionState',
-    'ProxyResource',
     'RegenerateKeyParameters',
     'Resource',
     'ResourceSku',
-    'ServerlessUpstreamSettings',
     'ServiceSpecification',
     'SignalRCorsSettings',
     'SignalRCreateOrUpdateProperties',
+    'SignalRCreateParameters',
     'SignalRFeature',
     'SignalRKeys',
-    'SignalRNetworkACLs',
     'SignalRResource',
+    'SignalRUpdateParameters',
     'SignalRUsage',
     'SignalRUsageName',
     'TrackedResource',
-    'UpstreamTemplate',
     'OperationPaged',
     'SignalRResourcePaged',
-    'PrivateLinkResourcePaged',
     'SignalRUsagePaged',
     'SignalRSkuTier',
     'ProvisioningState',
-    'PrivateLinkServiceConnectionStatus',
-    'ServiceKind',
     'FeatureFlags',
-    'ACLAction',
-    'SignalRRequestType',
     'KeyType',
 ]

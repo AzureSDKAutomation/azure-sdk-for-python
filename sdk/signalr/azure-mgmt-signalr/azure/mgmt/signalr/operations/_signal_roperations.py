@@ -26,7 +26,7 @@ class SignalROperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client Api Version. Constant value: "2020-05-01".
+    :ivar api_version: Client Api Version. Constant value: "2018-10-01".
     """
 
     models = models
@@ -36,7 +36,7 @@ class SignalROperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-05-01"
+        self.api_version = "2018-10-01"
 
         self.config = config
 
@@ -177,7 +177,7 @@ class SignalROperations(object):
         deserialized = models.SignalRResourcePaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list_by_subscription.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.SignalRService/signalR'}
+    list_by_subscription.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.SignalRService/SignalR'}
 
     def list_by_resource_group(
             self, resource_group_name, custom_headers=None, raw=False, **operation_config):
@@ -247,7 +247,7 @@ class SignalROperations(object):
         deserialized = models.SignalRResourcePaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list_by_resource_group.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR'}
+    list_by_resource_group.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/SignalR'}
 
     def list_keys(
             self, resource_group_name, resource_name, custom_headers=None, raw=False, **operation_config):
@@ -309,7 +309,7 @@ class SignalROperations(object):
             return client_raw_response
 
         return deserialized
-    list_keys.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/listKeys'}
+    list_keys.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/SignalR/{resourceName}/listKeys'}
 
 
     def _regenerate_key_initial(
@@ -420,7 +420,7 @@ class SignalROperations(object):
         elif polling is False: polling_method = NoPolling()
         else: polling_method = polling
         return LROPoller(self._client, raw_result, get_long_running_output, polling_method)
-    regenerate_key.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/regenerateKey'}
+    regenerate_key.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/SignalR/{resourceName}/regenerateKey'}
 
     def get(
             self, resource_group_name, resource_name, custom_headers=None, raw=False, **operation_config):
@@ -513,7 +513,7 @@ class SignalROperations(object):
 
         # Construct body
         if parameters is not None:
-            body_content = self._serialize.body(parameters, 'SignalRResource')
+            body_content = self._serialize.body(parameters, 'SignalRCreateParameters')
         else:
             body_content = None
 
@@ -548,7 +548,7 @@ class SignalROperations(object):
         :param resource_name: The name of the SignalR resource.
         :type resource_name: str
         :param parameters: Parameters for the create or update operation
-        :type parameters: ~azure.mgmt.signalr.models.SignalRResource
+        :type parameters: ~azure.mgmt.signalr.models.SignalRCreateParameters
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response
@@ -699,7 +699,7 @@ class SignalROperations(object):
 
         # Construct body
         if parameters is not None:
-            body_content = self._serialize.body(parameters, 'SignalRResource')
+            body_content = self._serialize.body(parameters, 'SignalRUpdateParameters')
         else:
             body_content = None
 
@@ -732,7 +732,7 @@ class SignalROperations(object):
         :param resource_name: The name of the SignalR resource.
         :type resource_name: str
         :param parameters: Parameters for the update operation
-        :type parameters: ~azure.mgmt.signalr.models.SignalRResource
+        :type parameters: ~azure.mgmt.signalr.models.SignalRUpdateParameters
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response

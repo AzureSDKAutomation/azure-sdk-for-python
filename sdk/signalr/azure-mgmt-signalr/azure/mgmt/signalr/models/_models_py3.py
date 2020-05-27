@@ -244,37 +244,12 @@ class NameAvailabilityParameters(Model):
         self.name = name
 
 
-class NetworkACL(Model):
-    """Network ACL.
-
-    :param allow: Allowed request types. The value can be one or more of:
-     ClientConnection, ServerConnection, RESTAPI.
-    :type allow: list[str or ~azure.mgmt.signalr.models.SignalRRequestType]
-    :param deny: Denied request types. The value can be one or more of:
-     ClientConnection, ServerConnection, RESTAPI.
-    :type deny: list[str or ~azure.mgmt.signalr.models.SignalRRequestType]
-    """
-
-    _attribute_map = {
-        'allow': {'key': 'allow', 'type': '[str]'},
-        'deny': {'key': 'deny', 'type': '[str]'},
-    }
-
-    def __init__(self, *, allow=None, deny=None, **kwargs) -> None:
-        super(NetworkACL, self).__init__(**kwargs)
-        self.allow = allow
-        self.deny = deny
-
-
 class Operation(Model):
     """REST API operation supported by SignalR resource provider.
 
     :param name: Name of the operation with format:
      {provider}/{resource}/{operation}
     :type name: str
-    :param is_data_action: If the operation is a data action. (for data plane
-     rbac)
-    :type is_data_action: bool
     :param display: The object that describes the operation.
     :type display: ~azure.mgmt.signalr.models.OperationDisplay
     :param origin: Optional. The intended executor of the operation; governs
@@ -286,16 +261,14 @@ class Operation(Model):
 
     _attribute_map = {
         'name': {'key': 'name', 'type': 'str'},
-        'is_data_action': {'key': 'isDataAction', 'type': 'bool'},
         'display': {'key': 'display', 'type': 'OperationDisplay'},
         'origin': {'key': 'origin', 'type': 'str'},
         'properties': {'key': 'properties', 'type': 'OperationProperties'},
     }
 
-    def __init__(self, *, name: str=None, is_data_action: bool=None, display=None, origin: str=None, properties=None, **kwargs) -> None:
+    def __init__(self, *, name: str=None, display=None, origin: str=None, properties=None, **kwargs) -> None:
         super(Operation, self).__init__(**kwargs)
         self.name = name
-        self.is_data_action = is_data_action
         self.display = display
         self.origin = origin
         self.properties = properties
@@ -346,50 +319,22 @@ class OperationProperties(Model):
         self.service_specification = service_specification
 
 
-class PrivateEndpoint(Model):
-    """Private endpoint.
+class RegenerateKeyParameters(Model):
+    """Parameters describes the request to regenerate access keys.
 
-    :param id: Full qualified Id of the private endpoint
-    :type id: str
+    :param key_type: The keyType to regenerate. Must be either 'primary' or
+     'secondary'(case-insensitive). Possible values include: 'Primary',
+     'Secondary'
+    :type key_type: str or ~azure.mgmt.signalr.models.KeyType
     """
 
     _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
+        'key_type': {'key': 'keyType', 'type': 'str'},
     }
 
-    def __init__(self, *, id: str=None, **kwargs) -> None:
-        super(PrivateEndpoint, self).__init__(**kwargs)
-        self.id = id
-
-
-class PrivateEndpointACL(NetworkACL):
-    """ACL for a private endpoint.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :param allow: Allowed request types. The value can be one or more of:
-     ClientConnection, ServerConnection, RESTAPI.
-    :type allow: list[str or ~azure.mgmt.signalr.models.SignalRRequestType]
-    :param deny: Denied request types. The value can be one or more of:
-     ClientConnection, ServerConnection, RESTAPI.
-    :type deny: list[str or ~azure.mgmt.signalr.models.SignalRRequestType]
-    :param name: Required. Name of the private endpoint connection
-    :type name: str
-    """
-
-    _validation = {
-        'name': {'required': True},
-    }
-
-    _attribute_map = {
-        'allow': {'key': 'allow', 'type': '[str]'},
-        'deny': {'key': 'deny', 'type': '[str]'},
-        'name': {'key': 'name', 'type': 'str'},
-    }
-
-    def __init__(self, *, name: str, allow=None, deny=None, **kwargs) -> None:
-        super(PrivateEndpointACL, self).__init__(allow=allow, deny=deny, **kwargs)
-        self.name = name
+    def __init__(self, *, key_type=None, **kwargs) -> None:
+        super(RegenerateKeyParameters, self).__init__(**kwargs)
+        self.key_type = key_type
 
 
 class Resource(Model):
@@ -402,7 +347,7 @@ class Resource(Model):
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource - e.g.
+    :ivar type: The type of the service - e.g.
      "Microsoft.SignalRService/SignalR"
     :vartype type: str
     """
@@ -424,176 +369,6 @@ class Resource(Model):
         self.id = None
         self.name = None
         self.type = None
-
-
-class ProxyResource(Resource):
-    """The resource model definition for a ARM proxy resource. It will have
-    everything other than required location and tags.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Fully qualified resource Id for the resource.
-    :vartype id: str
-    :ivar name: The name of the resource.
-    :vartype name: str
-    :ivar type: The type of the resource - e.g.
-     "Microsoft.SignalRService/SignalR"
-    :vartype type: str
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs) -> None:
-        super(ProxyResource, self).__init__(**kwargs)
-
-
-class PrivateEndpointConnection(ProxyResource):
-    """A private endpoint connection to SignalR resource.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Fully qualified resource Id for the resource.
-    :vartype id: str
-    :ivar name: The name of the resource.
-    :vartype name: str
-    :ivar type: The type of the resource - e.g.
-     "Microsoft.SignalRService/SignalR"
-    :vartype type: str
-    :ivar provisioning_state: Provisioning state of the private endpoint
-     connection. Possible values include: 'Unknown', 'Succeeded', 'Failed',
-     'Canceled', 'Running', 'Creating', 'Updating', 'Deleting', 'Moving'
-    :vartype provisioning_state: str or
-     ~azure.mgmt.signalr.models.ProvisioningState
-    :param private_endpoint: Private endpoint associated with the private
-     endpoint connection
-    :type private_endpoint: ~azure.mgmt.signalr.models.PrivateEndpoint
-    :param private_link_service_connection_state: Connection state
-    :type private_link_service_connection_state:
-     ~azure.mgmt.signalr.models.PrivateLinkServiceConnectionState
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'provisioning_state': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
-        'private_endpoint': {'key': 'properties.privateEndpoint', 'type': 'PrivateEndpoint'},
-        'private_link_service_connection_state': {'key': 'properties.privateLinkServiceConnectionState', 'type': 'PrivateLinkServiceConnectionState'},
-    }
-
-    def __init__(self, *, private_endpoint=None, private_link_service_connection_state=None, **kwargs) -> None:
-        super(PrivateEndpointConnection, self).__init__(**kwargs)
-        self.provisioning_state = None
-        self.private_endpoint = private_endpoint
-        self.private_link_service_connection_state = private_link_service_connection_state
-
-
-class PrivateLinkResource(ProxyResource):
-    """Private link resource.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Fully qualified resource Id for the resource.
-    :vartype id: str
-    :ivar name: The name of the resource.
-    :vartype name: str
-    :ivar type: The type of the resource - e.g.
-     "Microsoft.SignalRService/SignalR"
-    :vartype type: str
-    :param group_id: Group Id of the private link resource
-    :type group_id: str
-    :param required_members: Required members of the private link resource
-    :type required_members: list[str]
-    :param required_zone_names: Required private DNS zone names
-    :type required_zone_names: list[str]
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'group_id': {'key': 'properties.groupId', 'type': 'str'},
-        'required_members': {'key': 'properties.requiredMembers', 'type': '[str]'},
-        'required_zone_names': {'key': 'properties.requiredZoneNames', 'type': '[str]'},
-    }
-
-    def __init__(self, *, group_id: str=None, required_members=None, required_zone_names=None, **kwargs) -> None:
-        super(PrivateLinkResource, self).__init__(**kwargs)
-        self.group_id = group_id
-        self.required_members = required_members
-        self.required_zone_names = required_zone_names
-
-
-class PrivateLinkServiceConnectionState(Model):
-    """Connection state of the private endpoint connection.
-
-    :param status: Indicates whether the connection has been
-     Approved/Rejected/Removed by the owner of the service. Possible values
-     include: 'Pending', 'Approved', 'Rejected', 'Disconnected'
-    :type status: str or
-     ~azure.mgmt.signalr.models.PrivateLinkServiceConnectionStatus
-    :param description: The reason for approval/rejection of the connection.
-    :type description: str
-    :param actions_required: A message indicating if changes on the service
-     provider require any updates on the consumer.
-    :type actions_required: str
-    """
-
-    _attribute_map = {
-        'status': {'key': 'status', 'type': 'str'},
-        'description': {'key': 'description', 'type': 'str'},
-        'actions_required': {'key': 'actionsRequired', 'type': 'str'},
-    }
-
-    def __init__(self, *, status=None, description: str=None, actions_required: str=None, **kwargs) -> None:
-        super(PrivateLinkServiceConnectionState, self).__init__(**kwargs)
-        self.status = status
-        self.description = description
-        self.actions_required = actions_required
-
-
-class RegenerateKeyParameters(Model):
-    """Parameters describes the request to regenerate access keys.
-
-    :param key_type: The keyType to regenerate. Must be either 'primary' or
-     'secondary'(case-insensitive). Possible values include: 'Primary',
-     'Secondary'
-    :type key_type: str or ~azure.mgmt.signalr.models.KeyType
-    """
-
-    _attribute_map = {
-        'key_type': {'key': 'keyType', 'type': 'str'},
-    }
-
-    def __init__(self, *, key_type=None, **kwargs) -> None:
-        super(RegenerateKeyParameters, self).__init__(**kwargs)
-        self.key_type = key_type
 
 
 class ResourceSku(Model):
@@ -639,24 +414,6 @@ class ResourceSku(Model):
         self.size = size
         self.family = family
         self.capacity = capacity
-
-
-class ServerlessUpstreamSettings(Model):
-    """The settings for the Upstream when the Azure SignalR is in server-less
-    mode.
-
-    :param templates: Gets or sets the list of Upstream URL templates. Order
-     matters, and the first matching template takes effects.
-    :type templates: list[~azure.mgmt.signalr.models.UpstreamTemplate]
-    """
-
-    _attribute_map = {
-        'templates': {'key': 'templates', 'type': '[UpstreamTemplate]'},
-    }
-
-    def __init__(self, *, templates=None, **kwargs) -> None:
-        super(ServerlessUpstreamSettings, self).__init__(**kwargs)
-        self.templates = templates
 
 
 class ServiceSpecification(Model):
@@ -721,28 +478,82 @@ class SignalRCreateOrUpdateProperties(Model):
     :type features: list[~azure.mgmt.signalr.models.SignalRFeature]
     :param cors: Cross-Origin Resource Sharing (CORS) settings.
     :type cors: ~azure.mgmt.signalr.models.SignalRCorsSettings
-    :param upstream: Upstream settings when the Azure SignalR is in
-     server-less mode.
-    :type upstream: ~azure.mgmt.signalr.models.ServerlessUpstreamSettings
-    :param network_ac_ls: Network ACLs
-    :type network_ac_ls: ~azure.mgmt.signalr.models.SignalRNetworkACLs
     """
 
     _attribute_map = {
         'host_name_prefix': {'key': 'hostNamePrefix', 'type': 'str'},
         'features': {'key': 'features', 'type': '[SignalRFeature]'},
         'cors': {'key': 'cors', 'type': 'SignalRCorsSettings'},
-        'upstream': {'key': 'upstream', 'type': 'ServerlessUpstreamSettings'},
-        'network_ac_ls': {'key': 'networkACLs', 'type': 'SignalRNetworkACLs'},
     }
 
-    def __init__(self, *, host_name_prefix: str=None, features=None, cors=None, upstream=None, network_ac_ls=None, **kwargs) -> None:
+    def __init__(self, *, host_name_prefix: str=None, features=None, cors=None, **kwargs) -> None:
         super(SignalRCreateOrUpdateProperties, self).__init__(**kwargs)
         self.host_name_prefix = host_name_prefix
         self.features = features
         self.cors = cors
-        self.upstream = upstream
-        self.network_ac_ls = network_ac_ls
+
+
+class SignalRUpdateParameters(Model):
+    """Parameters for SignalR service update operation.
+
+    :param tags: A list of key value pairs that describe the resource.
+    :type tags: dict[str, str]
+    :param sku: The billing information of the resource.(e.g. basic vs.
+     standard)
+    :type sku: ~azure.mgmt.signalr.models.ResourceSku
+    :param properties: Settings used to provision or configure the resource
+    :type properties:
+     ~azure.mgmt.signalr.models.SignalRCreateOrUpdateProperties
+    """
+
+    _attribute_map = {
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'sku': {'key': 'sku', 'type': 'ResourceSku'},
+        'properties': {'key': 'properties', 'type': 'SignalRCreateOrUpdateProperties'},
+    }
+
+    def __init__(self, *, tags=None, sku=None, properties=None, **kwargs) -> None:
+        super(SignalRUpdateParameters, self).__init__(**kwargs)
+        self.tags = tags
+        self.sku = sku
+        self.properties = properties
+
+
+class SignalRCreateParameters(SignalRUpdateParameters):
+    """Parameters for SignalR service create/update operation.
+    Keep the same schema as AzSignalR.Models.SignalRResource.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param tags: A list of key value pairs that describe the resource.
+    :type tags: dict[str, str]
+    :param sku: The billing information of the resource.(e.g. basic vs.
+     standard)
+    :type sku: ~azure.mgmt.signalr.models.ResourceSku
+    :param properties: Settings used to provision or configure the resource
+    :type properties:
+     ~azure.mgmt.signalr.models.SignalRCreateOrUpdateProperties
+    :param location: Required. Azure GEO region: e.g. West US | East US |
+     North Central US | South Central US | West Europe | North Europe | East
+     Asia | Southeast Asia | etc.
+     The geo region of a resource never changes after it is created.
+    :type location: str
+    """
+
+    _validation = {
+        'location': {'required': True},
+    }
+
+    _attribute_map = {
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'sku': {'key': 'sku', 'type': 'ResourceSku'},
+        'properties': {'key': 'properties', 'type': 'SignalRCreateOrUpdateProperties'},
+        'location': {'key': 'location', 'type': 'str'},
+    }
+
+    def __init__(self, *, location: str, tags=None, sku=None, properties=None, **kwargs) -> None:
+        super(SignalRCreateParameters, self).__init__(tags=tags, sku=sku, properties=properties, **kwargs)
+        self.location = location
 
 
 class SignalRFeature(Model):
@@ -759,7 +570,7 @@ class SignalRFeature(Model):
      recommended; "PredefinedOnly": for future use.
      - EnableConnectivityLogs: "true"/"false", to enable/disable the
      connectivity log category respectively. Possible values include:
-     'ServiceMode', 'EnableConnectivityLogs', 'EnableMessagingLogs'
+     'ServiceMode', 'EnableConnectivityLogs'
     :type flag: str or ~azure.mgmt.signalr.models.FeatureFlags
     :param value: Required. Value of the feature flag. See Azure SignalR
      service document https://docs.microsoft.com/azure/azure-signalr/ for
@@ -817,32 +628,6 @@ class SignalRKeys(Model):
         self.secondary_connection_string = secondary_connection_string
 
 
-class SignalRNetworkACLs(Model):
-    """Network ACLs for SignalR.
-
-    :param default_action: Default action when no other rule matches. Possible
-     values include: 'Allow', 'Deny'
-    :type default_action: str or ~azure.mgmt.signalr.models.ACLAction
-    :param public_network: ACL for requests from public network
-    :type public_network: ~azure.mgmt.signalr.models.NetworkACL
-    :param private_endpoints: ACLs for requests from private endpoints
-    :type private_endpoints:
-     list[~azure.mgmt.signalr.models.PrivateEndpointACL]
-    """
-
-    _attribute_map = {
-        'default_action': {'key': 'defaultAction', 'type': 'str'},
-        'public_network': {'key': 'publicNetwork', 'type': 'NetworkACL'},
-        'private_endpoints': {'key': 'privateEndpoints', 'type': '[PrivateEndpointACL]'},
-    }
-
-    def __init__(self, *, default_action=None, public_network=None, private_endpoints=None, **kwargs) -> None:
-        super(SignalRNetworkACLs, self).__init__(**kwargs)
-        self.default_action = default_action
-        self.public_network = public_network
-        self.private_endpoints = private_endpoints
-
-
 class TrackedResource(Resource):
     """The resource model definition for a ARM tracked top level resource.
 
@@ -853,7 +638,7 @@ class TrackedResource(Resource):
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource - e.g.
+    :ivar type: The type of the service - e.g.
      "Microsoft.SignalRService/SignalR"
     :vartype type: str
     :param location: The GEO location of the SignalR service. e.g. West US |
@@ -894,7 +679,7 @@ class SignalRResource(TrackedResource):
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource - e.g.
+    :ivar type: The type of the service - e.g.
      "Microsoft.SignalRService/SignalR"
     :vartype type: str
     :param location: The GEO location of the SignalR service. e.g. West US |
@@ -903,7 +688,7 @@ class SignalRResource(TrackedResource):
     :param tags: Tags of the service which is a list of key value pairs that
      describe the resource.
     :type tags: dict[str, str]
-    :param sku: The billing information of the resource.(e.g. Free, Standard)
+    :param sku: SKU of the service.
     :type sku: ~azure.mgmt.signalr.models.ResourceSku
     :param host_name_prefix: Prefix for the hostName of the SignalR service.
      Retained for future use.
@@ -921,11 +706,6 @@ class SignalRResource(TrackedResource):
     :type features: list[~azure.mgmt.signalr.models.SignalRFeature]
     :param cors: Cross-Origin Resource Sharing (CORS) settings.
     :type cors: ~azure.mgmt.signalr.models.SignalRCorsSettings
-    :param upstream: Upstream settings when the Azure SignalR is in
-     server-less mode.
-    :type upstream: ~azure.mgmt.signalr.models.ServerlessUpstreamSettings
-    :param network_ac_ls: Network ACLs
-    :type network_ac_ls: ~azure.mgmt.signalr.models.SignalRNetworkACLs
     :ivar provisioning_state: Provisioning state of the resource. Possible
      values include: 'Unknown', 'Succeeded', 'Failed', 'Canceled', 'Running',
      'Creating', 'Updating', 'Deleting', 'Moving'
@@ -942,17 +722,9 @@ class SignalRResource(TrackedResource):
     :ivar server_port: The publicly accessible port of the SignalR service
      which is designed for customer server side usage.
     :vartype server_port: int
-    :ivar version: Version of the SignalR resource. Probably you need the same
-     or higher version of client SDKs.
-    :vartype version: str
-    :ivar private_endpoint_connections: Private endpoint connections to the
-     SignalR resource.
-    :vartype private_endpoint_connections:
-     list[~azure.mgmt.signalr.models.PrivateEndpointConnection]
-    :param kind: The kind of the service - e.g. "SignalR", or "RawWebSockets"
-     for "Microsoft.SignalRService/SignalR". Possible values include:
-     'SignalR', 'RawWebSockets'
-    :type kind: str or ~azure.mgmt.signalr.models.ServiceKind
+    :param version: Version of the SignalR resource. Probably you need the
+     same or higher version of client SDKs.
+    :type version: str
     """
 
     _validation = {
@@ -964,8 +736,6 @@ class SignalRResource(TrackedResource):
         'host_name': {'readonly': True},
         'public_port': {'readonly': True},
         'server_port': {'readonly': True},
-        'version': {'readonly': True},
-        'private_endpoint_connections': {'readonly': True},
     }
 
     _attribute_map = {
@@ -978,34 +748,26 @@ class SignalRResource(TrackedResource):
         'host_name_prefix': {'key': 'properties.hostNamePrefix', 'type': 'str'},
         'features': {'key': 'properties.features', 'type': '[SignalRFeature]'},
         'cors': {'key': 'properties.cors', 'type': 'SignalRCorsSettings'},
-        'upstream': {'key': 'properties.upstream', 'type': 'ServerlessUpstreamSettings'},
-        'network_ac_ls': {'key': 'properties.networkACLs', 'type': 'SignalRNetworkACLs'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'external_ip': {'key': 'properties.externalIP', 'type': 'str'},
         'host_name': {'key': 'properties.hostName', 'type': 'str'},
         'public_port': {'key': 'properties.publicPort', 'type': 'int'},
         'server_port': {'key': 'properties.serverPort', 'type': 'int'},
         'version': {'key': 'properties.version', 'type': 'str'},
-        'private_endpoint_connections': {'key': 'properties.privateEndpointConnections', 'type': '[PrivateEndpointConnection]'},
-        'kind': {'key': 'kind', 'type': 'str'},
     }
 
-    def __init__(self, *, location: str=None, tags=None, sku=None, host_name_prefix: str=None, features=None, cors=None, upstream=None, network_ac_ls=None, kind=None, **kwargs) -> None:
+    def __init__(self, *, location: str=None, tags=None, sku=None, host_name_prefix: str=None, features=None, cors=None, version: str=None, **kwargs) -> None:
         super(SignalRResource, self).__init__(location=location, tags=tags, **kwargs)
         self.sku = sku
         self.host_name_prefix = host_name_prefix
         self.features = features
         self.cors = cors
-        self.upstream = upstream
-        self.network_ac_ls = network_ac_ls
         self.provisioning_state = None
         self.external_ip = None
         self.host_name = None
         self.public_port = None
         self.server_port = None
-        self.version = None
-        self.private_endpoint_connections = None
-        self.kind = kind
+        self.version = version
 
 
 class SignalRUsage(Model):
@@ -1061,65 +823,3 @@ class SignalRUsageName(Model):
         super(SignalRUsageName, self).__init__(**kwargs)
         self.value = value
         self.localized_value = localized_value
-
-
-class UpstreamTemplate(Model):
-    """Upstream template item settings. It defines the Upstream URL of the
-    incoming requests.
-    The template defines the pattern of the event, the hub or the category of
-    the incoming request that matches current URL template.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :param hub_pattern: Gets or sets the matching pattern for hub names. If
-     not set, it matches any hub.
-     There are 3 kind of patterns supported:
-     1. "*", it to matches any hub name
-     2. Combine multiple hubs with ",", for example "hub1,hub2", it matches
-     "hub1" and "hub2"
-     3. The single hub name, for example, "hub1", it matches "hub1"
-    :type hub_pattern: str
-    :param event_pattern: Gets or sets the matching pattern for event names.
-     If not set, it matches any event.
-     There are 3 kind of patterns supported:
-     1. "*", it to matches any event name
-     2. Combine multiple events with ",", for example "connect,disconnect", it
-     matches event "connect" and "disconnect"
-     3. The single event name, for example, "connect", it matches "connect"
-    :type event_pattern: str
-    :param category_pattern: Gets or sets the matching pattern for category
-     names. If not set, it matches any category.
-     There are 3 kind of patterns supported:
-     1. "*", it to matches any category name
-     2. Combine multiple categories with ",", for example
-     "connections,messages", it matches category "connections" and "messages"
-     3. The single category name, for example, "connections", it matches the
-     category "connections"
-    :type category_pattern: str
-    :param url_template: Required. Gets or sets the Upstream URL template. You
-     can use 3 predefined parameters {hub}, {category} {event} inside the
-     template, the value of the Upstream URL is dynamically calculated when the
-     client request comes in.
-     For example, if the urlTemplate is `http://example.com/{hub}/api/{event}`,
-     with a client request from hub `chat` connects, it will first POST to this
-     URL: `http://example.com/chat/api/connect`.
-    :type url_template: str
-    """
-
-    _validation = {
-        'url_template': {'required': True},
-    }
-
-    _attribute_map = {
-        'hub_pattern': {'key': 'hubPattern', 'type': 'str'},
-        'event_pattern': {'key': 'eventPattern', 'type': 'str'},
-        'category_pattern': {'key': 'categoryPattern', 'type': 'str'},
-        'url_template': {'key': 'urlTemplate', 'type': 'str'},
-    }
-
-    def __init__(self, *, url_template: str, hub_pattern: str=None, event_pattern: str=None, category_pattern: str=None, **kwargs) -> None:
-        super(UpstreamTemplate, self).__init__(**kwargs)
-        self.hub_pattern = hub_pattern
-        self.event_pattern = event_pattern
-        self.category_pattern = category_pattern
-        self.url_template = url_template
