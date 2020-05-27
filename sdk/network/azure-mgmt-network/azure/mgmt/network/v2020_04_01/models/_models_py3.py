@@ -11736,6 +11736,9 @@ class P2SVpnGateway(Resource):
      status.
     :vartype vpn_client_connection_health:
      ~azure.mgmt.network.v2020_04_01.models.VpnClientConnectionHealth
+    :param custom_dns_servers: List of all customer specified DNS servers IP
+     addresses.
+    :type custom_dns_servers: list[str]
     :ivar etag: A unique read-only string that changes whenever the resource
      is updated.
     :vartype etag: str
@@ -11761,10 +11764,11 @@ class P2SVpnGateway(Resource):
         'vpn_gateway_scale_unit': {'key': 'properties.vpnGatewayScaleUnit', 'type': 'int'},
         'vpn_server_configuration': {'key': 'properties.vpnServerConfiguration', 'type': 'SubResource'},
         'vpn_client_connection_health': {'key': 'properties.vpnClientConnectionHealth', 'type': 'VpnClientConnectionHealth'},
+        'custom_dns_servers': {'key': 'properties.customDnsServers', 'type': '[str]'},
         'etag': {'key': 'etag', 'type': 'str'},
     }
 
-    def __init__(self, *, id: str=None, location: str=None, tags=None, virtual_hub=None, p2_sconnection_configurations=None, vpn_gateway_scale_unit: int=None, vpn_server_configuration=None, **kwargs) -> None:
+    def __init__(self, *, id: str=None, location: str=None, tags=None, virtual_hub=None, p2_sconnection_configurations=None, vpn_gateway_scale_unit: int=None, vpn_server_configuration=None, custom_dns_servers=None, **kwargs) -> None:
         super(P2SVpnGateway, self).__init__(id=id, location=location, tags=tags, **kwargs)
         self.virtual_hub = virtual_hub
         self.p2_sconnection_configurations = p2_sconnection_configurations
@@ -11772,6 +11776,7 @@ class P2SVpnGateway(Resource):
         self.vpn_gateway_scale_unit = vpn_gateway_scale_unit
         self.vpn_server_configuration = vpn_server_configuration
         self.vpn_client_connection_health = None
+        self.custom_dns_servers = custom_dns_servers
         self.etag = None
 
 
