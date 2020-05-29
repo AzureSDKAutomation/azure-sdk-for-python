@@ -13,6 +13,7 @@ try:
     from ._models_py3 import AbnormalTimePeriod
     from ._models_py3 import Address
     from ._models_py3 import AddressResponse
+    from ._models_py3 import AllowedAudiencesValidation
     from ._models_py3 import AnalysisData
     from ._models_py3 import AnalysisDefinition
     from ._models_py3 import ApiDefinitionInfo
@@ -21,6 +22,7 @@ try:
     from ._models_py3 import ApplicationLogsConfig
     from ._models_py3 import ApplicationStack
     from ._models_py3 import ApplicationStackResource
+    from ._models_py3 import AppRegistration
     from ._models_py3 import AppServiceCertificate
     from ._models_py3 import AppServiceCertificateOrder
     from ._models_py3 import AppServiceCertificateOrderPatchResource
@@ -32,10 +34,15 @@ try:
     from ._models_py3 import AppServicePlan
     from ._models_py3 import AppServicePlanPatchResource
     from ._models_py3 import ArmIdWrapper
+    from ._models_py3 import AuthPlatform
     from ._models_py3 import AutoHealActions
     from ._models_py3 import AutoHealCustomAction
     from ._models_py3 import AutoHealRules
     from ._models_py3 import AutoHealTriggers
+    from ._models_py3 import AzureActiveDirectory
+    from ._models_py3 import AzureActiveDirectoryLogin
+    from ._models_py3 import AzureActiveDirectoryRegistration
+    from ._models_py3 import AzureActiveDirectoryValidation
     from ._models_py3 import AzureBlobStorageApplicationLogsConfig
     from ._models_py3 import AzureBlobStorageHttpLogsConfig
     from ._models_py3 import AzureStorageInfoValue
@@ -45,12 +52,14 @@ try:
     from ._models_py3 import BackupRequest
     from ._models_py3 import BackupSchedule
     from ._models_py3 import BillingMeter
+    from ._models_py3 import BlobStorageTokenStore
     from ._models_py3 import Capability
     from ._models_py3 import Certificate
     from ._models_py3 import CertificateDetails
     from ._models_py3 import CertificateEmail
     from ._models_py3 import CertificateOrderAction
     from ._models_py3 import CertificatePatchResource
+    from ._models_py3 import ClientRegistration
     from ._models_py3 import CloningInfo
     from ._models_py3 import ConnectionStringDictionary
     from ._models_py3 import ConnStringInfo
@@ -63,6 +72,7 @@ try:
     from ._models_py3 import ContainerNetworkInterfaceStatistics
     from ._models_py3 import ContainerThrottlingData
     from ._models_py3 import ContinuousWebJob
+    from ._models_py3 import CookieExpiration
     from ._models_py3 import CorsSettings
     from ._models_py3 import CsmCopySlotEntity
     from ._models_py3 import CsmMoveResourceEnvelope
@@ -75,6 +85,7 @@ try:
     from ._models_py3 import CsmSlotEntity
     from ._models_py3 import CsmUsageQuota
     from ._models_py3 import CustomHostnameAnalysisResult
+    from ._models_py3 import CustomOpenIdConnectProvider
     from ._models_py3 import DatabaseBackupSetting
     from ._models_py3 import DataSource
     from ._models_py3 import DataTableResponseColumn
@@ -109,12 +120,18 @@ try:
     from ._models_py3 import EndpointDetail
     from ._models_py3 import ErrorEntity
     from ._models_py3 import Experiments
+    from ._models_py3 import Facebook
     from ._models_py3 import FileSystemApplicationLogsConfig
     from ._models_py3 import FileSystemHttpLogsConfig
+    from ._models_py3 import FileSystemTokenStore
+    from ._models_py3 import ForwardProxy
     from ._models_py3 import FunctionEnvelope
     from ._models_py3 import FunctionSecrets
     from ._models_py3 import GeoRegion
+    from ._models_py3 import GitHub
     from ._models_py3 import GlobalCsmSkuDescription
+    from ._models_py3 import GlobalValidation
+    from ._models_py3 import Google
     from ._models_py3 import HandlerMapping
     from ._models_py3 import HostingEnvironmentDeploymentInfo
     from ._models_py3 import HostingEnvironmentDiagnostics
@@ -124,16 +141,23 @@ try:
     from ._models_py3 import HostNameBinding
     from ._models_py3 import HostNameSslState
     from ._models_py3 import HttpLogsConfig
+    from ._models_py3 import HttpSettings
+    from ._models_py3 import HttpSettingsRoutes
     from ._models_py3 import HybridConnection
     from ._models_py3 import HybridConnectionKey
     from ._models_py3 import HybridConnectionLimits
     from ._models_py3 import Identifier
+    from ._models_py3 import IdentityProviders
     from ._models_py3 import InboundEnvironmentEndpoint
     from ._models_py3 import IpSecurityRestriction
+    from ._models_py3 import JwtClaimChecks
     from ._models_py3 import KeyInfo
     from ._models_py3 import KeyVaultReferenceCollection
     from ._models_py3 import KeyVaultReferenceResource
     from ._models_py3 import LocalizableString
+    from ._models_py3 import Login
+    from ._models_py3 import LoginRoutes
+    from ._models_py3 import LoginScopes
     from ._models_py3 import LogSpecification
     from ._models_py3 import ManagedServiceIdentity
     from ._models_py3 import ManagedServiceIdentityUserAssignedIdentitiesValue
@@ -150,6 +174,11 @@ try:
     from ._models_py3 import NetworkAccessControlEntry
     from ._models_py3 import NetworkFeatures
     from ._models_py3 import NetworkTrace
+    from ._models_py3 import Nonce
+    from ._models_py3 import OpenIdConnectClientCredential
+    from ._models_py3 import OpenIdConnectConfig
+    from ._models_py3 import OpenIdConnectLogin
+    from ._models_py3 import OpenIdConnectRegistration
     from ._models_py3 import Operation
     from ._models_py3 import OutboundEnvironmentEndpoint
     from ._models_py3 import PerfMonResponse
@@ -192,6 +221,7 @@ try:
     from ._models_py3 import ServiceSpecification
     from ._models_py3 import Site
     from ._models_py3 import SiteAuthSettings
+    from ._models_py3 import SiteAuthSettingsV2
     from ._models_py3 import SiteCloneability
     from ._models_py3 import SiteCloneabilityCriterion
     from ._models_py3 import SiteConfig
@@ -239,11 +269,14 @@ try:
     from ._models_py3 import StringDictionary
     from ._models_py3 import SwiftVirtualNetwork
     from ._models_py3 import TldLegalAgreement
+    from ._models_py3 import TokenStore
     from ._models_py3 import TopLevelDomain
     from ._models_py3 import TopLevelDomainAgreementOption
     from ._models_py3 import TriggeredJobHistory
     from ._models_py3 import TriggeredJobRun
     from ._models_py3 import TriggeredWebJob
+    from ._models_py3 import Twitter
+    from ._models_py3 import TwitterRegistration
     from ._models_py3 import Usage
     from ._models_py3 import User
     from ._models_py3 import ValidateRequest
@@ -268,6 +301,7 @@ except (SyntaxError, ImportError):
     from ._models import AbnormalTimePeriod
     from ._models import Address
     from ._models import AddressResponse
+    from ._models import AllowedAudiencesValidation
     from ._models import AnalysisData
     from ._models import AnalysisDefinition
     from ._models import ApiDefinitionInfo
@@ -276,6 +310,7 @@ except (SyntaxError, ImportError):
     from ._models import ApplicationLogsConfig
     from ._models import ApplicationStack
     from ._models import ApplicationStackResource
+    from ._models import AppRegistration
     from ._models import AppServiceCertificate
     from ._models import AppServiceCertificateOrder
     from ._models import AppServiceCertificateOrderPatchResource
@@ -287,10 +322,15 @@ except (SyntaxError, ImportError):
     from ._models import AppServicePlan
     from ._models import AppServicePlanPatchResource
     from ._models import ArmIdWrapper
+    from ._models import AuthPlatform
     from ._models import AutoHealActions
     from ._models import AutoHealCustomAction
     from ._models import AutoHealRules
     from ._models import AutoHealTriggers
+    from ._models import AzureActiveDirectory
+    from ._models import AzureActiveDirectoryLogin
+    from ._models import AzureActiveDirectoryRegistration
+    from ._models import AzureActiveDirectoryValidation
     from ._models import AzureBlobStorageApplicationLogsConfig
     from ._models import AzureBlobStorageHttpLogsConfig
     from ._models import AzureStorageInfoValue
@@ -300,12 +340,14 @@ except (SyntaxError, ImportError):
     from ._models import BackupRequest
     from ._models import BackupSchedule
     from ._models import BillingMeter
+    from ._models import BlobStorageTokenStore
     from ._models import Capability
     from ._models import Certificate
     from ._models import CertificateDetails
     from ._models import CertificateEmail
     from ._models import CertificateOrderAction
     from ._models import CertificatePatchResource
+    from ._models import ClientRegistration
     from ._models import CloningInfo
     from ._models import ConnectionStringDictionary
     from ._models import ConnStringInfo
@@ -318,6 +360,7 @@ except (SyntaxError, ImportError):
     from ._models import ContainerNetworkInterfaceStatistics
     from ._models import ContainerThrottlingData
     from ._models import ContinuousWebJob
+    from ._models import CookieExpiration
     from ._models import CorsSettings
     from ._models import CsmCopySlotEntity
     from ._models import CsmMoveResourceEnvelope
@@ -330,6 +373,7 @@ except (SyntaxError, ImportError):
     from ._models import CsmSlotEntity
     from ._models import CsmUsageQuota
     from ._models import CustomHostnameAnalysisResult
+    from ._models import CustomOpenIdConnectProvider
     from ._models import DatabaseBackupSetting
     from ._models import DataSource
     from ._models import DataTableResponseColumn
@@ -364,12 +408,18 @@ except (SyntaxError, ImportError):
     from ._models import EndpointDetail
     from ._models import ErrorEntity
     from ._models import Experiments
+    from ._models import Facebook
     from ._models import FileSystemApplicationLogsConfig
     from ._models import FileSystemHttpLogsConfig
+    from ._models import FileSystemTokenStore
+    from ._models import ForwardProxy
     from ._models import FunctionEnvelope
     from ._models import FunctionSecrets
     from ._models import GeoRegion
+    from ._models import GitHub
     from ._models import GlobalCsmSkuDescription
+    from ._models import GlobalValidation
+    from ._models import Google
     from ._models import HandlerMapping
     from ._models import HostingEnvironmentDeploymentInfo
     from ._models import HostingEnvironmentDiagnostics
@@ -379,16 +429,23 @@ except (SyntaxError, ImportError):
     from ._models import HostNameBinding
     from ._models import HostNameSslState
     from ._models import HttpLogsConfig
+    from ._models import HttpSettings
+    from ._models import HttpSettingsRoutes
     from ._models import HybridConnection
     from ._models import HybridConnectionKey
     from ._models import HybridConnectionLimits
     from ._models import Identifier
+    from ._models import IdentityProviders
     from ._models import InboundEnvironmentEndpoint
     from ._models import IpSecurityRestriction
+    from ._models import JwtClaimChecks
     from ._models import KeyInfo
     from ._models import KeyVaultReferenceCollection
     from ._models import KeyVaultReferenceResource
     from ._models import LocalizableString
+    from ._models import Login
+    from ._models import LoginRoutes
+    from ._models import LoginScopes
     from ._models import LogSpecification
     from ._models import ManagedServiceIdentity
     from ._models import ManagedServiceIdentityUserAssignedIdentitiesValue
@@ -405,6 +462,11 @@ except (SyntaxError, ImportError):
     from ._models import NetworkAccessControlEntry
     from ._models import NetworkFeatures
     from ._models import NetworkTrace
+    from ._models import Nonce
+    from ._models import OpenIdConnectClientCredential
+    from ._models import OpenIdConnectConfig
+    from ._models import OpenIdConnectLogin
+    from ._models import OpenIdConnectRegistration
     from ._models import Operation
     from ._models import OutboundEnvironmentEndpoint
     from ._models import PerfMonResponse
@@ -447,6 +509,7 @@ except (SyntaxError, ImportError):
     from ._models import ServiceSpecification
     from ._models import Site
     from ._models import SiteAuthSettings
+    from ._models import SiteAuthSettingsV2
     from ._models import SiteCloneability
     from ._models import SiteCloneabilityCriterion
     from ._models import SiteConfig
@@ -494,11 +557,14 @@ except (SyntaxError, ImportError):
     from ._models import StringDictionary
     from ._models import SwiftVirtualNetwork
     from ._models import TldLegalAgreement
+    from ._models import TokenStore
     from ._models import TopLevelDomain
     from ._models import TopLevelDomainAgreementOption
     from ._models import TriggeredJobHistory
     from ._models import TriggeredJobRun
     from ._models import TriggeredWebJob
+    from ._models import Twitter
+    from ._models import TwitterRegistration
     from ._models import Usage
     from ._models import User
     from ._models import ValidateRequest
@@ -633,8 +699,12 @@ from ._web_site_management_client_enums import (
     FrequencyUnit,
     ContinuousWebJobStatus,
     WebJobType,
+    CookieExpirationConvention,
     PublishingProfileFormat,
     DnsVerificationTestResult,
+    ClientCredentialMethod,
+    ForwardProxyConvention,
+    UnauthenticatedClientActionV2,
     MSDeployLogEntryType,
     MSDeployProvisioningState,
     MySqlMigrationType,
@@ -655,6 +725,7 @@ __all__ = [
     'AbnormalTimePeriod',
     'Address',
     'AddressResponse',
+    'AllowedAudiencesValidation',
     'AnalysisData',
     'AnalysisDefinition',
     'ApiDefinitionInfo',
@@ -663,6 +734,7 @@ __all__ = [
     'ApplicationLogsConfig',
     'ApplicationStack',
     'ApplicationStackResource',
+    'AppRegistration',
     'AppServiceCertificate',
     'AppServiceCertificateOrder',
     'AppServiceCertificateOrderPatchResource',
@@ -674,10 +746,15 @@ __all__ = [
     'AppServicePlan',
     'AppServicePlanPatchResource',
     'ArmIdWrapper',
+    'AuthPlatform',
     'AutoHealActions',
     'AutoHealCustomAction',
     'AutoHealRules',
     'AutoHealTriggers',
+    'AzureActiveDirectory',
+    'AzureActiveDirectoryLogin',
+    'AzureActiveDirectoryRegistration',
+    'AzureActiveDirectoryValidation',
     'AzureBlobStorageApplicationLogsConfig',
     'AzureBlobStorageHttpLogsConfig',
     'AzureStorageInfoValue',
@@ -687,12 +764,14 @@ __all__ = [
     'BackupRequest',
     'BackupSchedule',
     'BillingMeter',
+    'BlobStorageTokenStore',
     'Capability',
     'Certificate',
     'CertificateDetails',
     'CertificateEmail',
     'CertificateOrderAction',
     'CertificatePatchResource',
+    'ClientRegistration',
     'CloningInfo',
     'ConnectionStringDictionary',
     'ConnStringInfo',
@@ -705,6 +784,7 @@ __all__ = [
     'ContainerNetworkInterfaceStatistics',
     'ContainerThrottlingData',
     'ContinuousWebJob',
+    'CookieExpiration',
     'CorsSettings',
     'CsmCopySlotEntity',
     'CsmMoveResourceEnvelope',
@@ -717,6 +797,7 @@ __all__ = [
     'CsmSlotEntity',
     'CsmUsageQuota',
     'CustomHostnameAnalysisResult',
+    'CustomOpenIdConnectProvider',
     'DatabaseBackupSetting',
     'DataSource',
     'DataTableResponseColumn',
@@ -751,12 +832,18 @@ __all__ = [
     'EndpointDetail',
     'ErrorEntity',
     'Experiments',
+    'Facebook',
     'FileSystemApplicationLogsConfig',
     'FileSystemHttpLogsConfig',
+    'FileSystemTokenStore',
+    'ForwardProxy',
     'FunctionEnvelope',
     'FunctionSecrets',
     'GeoRegion',
+    'GitHub',
     'GlobalCsmSkuDescription',
+    'GlobalValidation',
+    'Google',
     'HandlerMapping',
     'HostingEnvironmentDeploymentInfo',
     'HostingEnvironmentDiagnostics',
@@ -766,16 +853,23 @@ __all__ = [
     'HostNameBinding',
     'HostNameSslState',
     'HttpLogsConfig',
+    'HttpSettings',
+    'HttpSettingsRoutes',
     'HybridConnection',
     'HybridConnectionKey',
     'HybridConnectionLimits',
     'Identifier',
+    'IdentityProviders',
     'InboundEnvironmentEndpoint',
     'IpSecurityRestriction',
+    'JwtClaimChecks',
     'KeyInfo',
     'KeyVaultReferenceCollection',
     'KeyVaultReferenceResource',
     'LocalizableString',
+    'Login',
+    'LoginRoutes',
+    'LoginScopes',
     'LogSpecification',
     'ManagedServiceIdentity',
     'ManagedServiceIdentityUserAssignedIdentitiesValue',
@@ -792,6 +886,11 @@ __all__ = [
     'NetworkAccessControlEntry',
     'NetworkFeatures',
     'NetworkTrace',
+    'Nonce',
+    'OpenIdConnectClientCredential',
+    'OpenIdConnectConfig',
+    'OpenIdConnectLogin',
+    'OpenIdConnectRegistration',
     'Operation',
     'OutboundEnvironmentEndpoint',
     'PerfMonResponse',
@@ -834,6 +933,7 @@ __all__ = [
     'ServiceSpecification',
     'Site',
     'SiteAuthSettings',
+    'SiteAuthSettingsV2',
     'SiteCloneability',
     'SiteCloneabilityCriterion',
     'SiteConfig',
@@ -881,11 +981,14 @@ __all__ = [
     'StringDictionary',
     'SwiftVirtualNetwork',
     'TldLegalAgreement',
+    'TokenStore',
     'TopLevelDomain',
     'TopLevelDomainAgreementOption',
     'TriggeredJobHistory',
     'TriggeredJobRun',
     'TriggeredWebJob',
+    'Twitter',
+    'TwitterRegistration',
     'Usage',
     'User',
     'ValidateRequest',
@@ -1019,8 +1122,12 @@ __all__ = [
     'FrequencyUnit',
     'ContinuousWebJobStatus',
     'WebJobType',
+    'CookieExpirationConvention',
     'PublishingProfileFormat',
     'DnsVerificationTestResult',
+    'ClientCredentialMethod',
+    'ForwardProxyConvention',
+    'UnauthenticatedClientActionV2',
     'MSDeployLogEntryType',
     'MSDeployProvisioningState',
     'MySqlMigrationType',

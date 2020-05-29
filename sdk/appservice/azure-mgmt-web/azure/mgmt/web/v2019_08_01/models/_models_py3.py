@@ -178,6 +178,43 @@ class AddressResponse(ProxyOnlyResource):
         self.vip_mappings = vip_mappings
 
 
+class AllowedAudiencesValidation(ProxyOnlyResource):
+    """AllowedAudiencesValidation.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param allowed_audiences:
+    :type allowed_audiences: list[str]
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'allowed_audiences': {'key': 'properties.allowedAudiences', 'type': '[str]'},
+    }
+
+    def __init__(self, *, kind: str=None, allowed_audiences=None, **kwargs) -> None:
+        super(AllowedAudiencesValidation, self).__init__(kind=kind, **kwargs)
+        self.allowed_audiences = allowed_audiences
+
+
 class AnalysisData(Model):
     """Class Representing Detector Evidence used for analysis.
 
@@ -452,6 +489,47 @@ class ApplicationStackResource(ProxyOnlyResource):
         self.dependency = dependency
         self.major_versions = major_versions
         self.frameworks = frameworks
+
+
+class AppRegistration(ProxyOnlyResource):
+    """AppRegistration.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param app_id:
+    :type app_id: str
+    :param app_secret_setting_name:
+    :type app_secret_setting_name: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'app_id': {'key': 'properties.appId', 'type': 'str'},
+        'app_secret_setting_name': {'key': 'properties.appSecretSettingName', 'type': 'str'},
+    }
+
+    def __init__(self, *, kind: str=None, app_id: str=None, app_secret_setting_name: str=None, **kwargs) -> None:
+        super(AppRegistration, self).__init__(kind=kind, **kwargs)
+        self.app_id = app_id
+        self.app_secret_setting_name = app_secret_setting_name
 
 
 class AppServiceCertificate(Model):
@@ -2002,6 +2080,51 @@ class ArmIdWrapper(Model):
         self.id = None
 
 
+class AuthPlatform(ProxyOnlyResource):
+    """AuthPlatform.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param enabled:
+    :type enabled: bool
+    :param runtime_version:
+    :type runtime_version: str
+    :param config_file_path:
+    :type config_file_path: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'enabled': {'key': 'properties.enabled', 'type': 'bool'},
+        'runtime_version': {'key': 'properties.runtimeVersion', 'type': 'str'},
+        'config_file_path': {'key': 'properties.configFilePath', 'type': 'str'},
+    }
+
+    def __init__(self, *, kind: str=None, enabled: bool=None, runtime_version: str=None, config_file_path: str=None, **kwargs) -> None:
+        super(AuthPlatform, self).__init__(kind=kind, **kwargs)
+        self.enabled = enabled
+        self.runtime_version = runtime_version
+        self.config_file_path = config_file_path
+
+
 class AutoHealActions(Model):
     """Actions which to take by the auto-heal module when a rule is triggered.
 
@@ -2100,6 +2223,192 @@ class AutoHealTriggers(Model):
         self.private_bytes_in_kb = private_bytes_in_kb
         self.status_codes = status_codes
         self.slow_requests = slow_requests
+
+
+class AzureActiveDirectory(ProxyOnlyResource):
+    """AzureActiveDirectory.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param enabled:
+    :type enabled: bool
+    :param registration:
+    :type registration:
+     ~azure.mgmt.web.v2019_08_01.models.AzureActiveDirectoryRegistration
+    :param login:
+    :type login: ~azure.mgmt.web.v2019_08_01.models.AzureActiveDirectoryLogin
+    :param validation:
+    :type validation:
+     ~azure.mgmt.web.v2019_08_01.models.AzureActiveDirectoryValidation
+    :param is_auto_provisioned:
+    :type is_auto_provisioned: bool
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'enabled': {'key': 'properties.enabled', 'type': 'bool'},
+        'registration': {'key': 'properties.registration', 'type': 'AzureActiveDirectoryRegistration'},
+        'login': {'key': 'properties.login', 'type': 'AzureActiveDirectoryLogin'},
+        'validation': {'key': 'properties.validation', 'type': 'AzureActiveDirectoryValidation'},
+        'is_auto_provisioned': {'key': 'properties.isAutoProvisioned', 'type': 'bool'},
+    }
+
+    def __init__(self, *, kind: str=None, enabled: bool=None, registration=None, login=None, validation=None, is_auto_provisioned: bool=None, **kwargs) -> None:
+        super(AzureActiveDirectory, self).__init__(kind=kind, **kwargs)
+        self.enabled = enabled
+        self.registration = registration
+        self.login = login
+        self.validation = validation
+        self.is_auto_provisioned = is_auto_provisioned
+
+
+class AzureActiveDirectoryLogin(ProxyOnlyResource):
+    """AzureActiveDirectoryLogin.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param disable_www_authenticate:
+    :type disable_www_authenticate: bool
+    :param login_parameters:
+    :type login_parameters: list[str]
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'disable_www_authenticate': {'key': 'properties.disableWWWAuthenticate', 'type': 'bool'},
+        'login_parameters': {'key': 'properties.loginParameters', 'type': '[str]'},
+    }
+
+    def __init__(self, *, kind: str=None, disable_www_authenticate: bool=None, login_parameters=None, **kwargs) -> None:
+        super(AzureActiveDirectoryLogin, self).__init__(kind=kind, **kwargs)
+        self.disable_www_authenticate = disable_www_authenticate
+        self.login_parameters = login_parameters
+
+
+class AzureActiveDirectoryRegistration(ProxyOnlyResource):
+    """AzureActiveDirectoryRegistration.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param open_id_issuer:
+    :type open_id_issuer: str
+    :param client_id:
+    :type client_id: str
+    :param client_secret_setting_name:
+    :type client_secret_setting_name: str
+    :param client_secret_certificate_thumbprint:
+    :type client_secret_certificate_thumbprint: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'open_id_issuer': {'key': 'properties.openIdIssuer', 'type': 'str'},
+        'client_id': {'key': 'properties.clientId', 'type': 'str'},
+        'client_secret_setting_name': {'key': 'properties.clientSecretSettingName', 'type': 'str'},
+        'client_secret_certificate_thumbprint': {'key': 'properties.clientSecretCertificateThumbprint', 'type': 'str'},
+    }
+
+    def __init__(self, *, kind: str=None, open_id_issuer: str=None, client_id: str=None, client_secret_setting_name: str=None, client_secret_certificate_thumbprint: str=None, **kwargs) -> None:
+        super(AzureActiveDirectoryRegistration, self).__init__(kind=kind, **kwargs)
+        self.open_id_issuer = open_id_issuer
+        self.client_id = client_id
+        self.client_secret_setting_name = client_secret_setting_name
+        self.client_secret_certificate_thumbprint = client_secret_certificate_thumbprint
+
+
+class AzureActiveDirectoryValidation(ProxyOnlyResource):
+    """AzureActiveDirectoryValidation.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param jwt_claim_checks:
+    :type jwt_claim_checks: ~azure.mgmt.web.v2019_08_01.models.JwtClaimChecks
+    :param allowed_audiences:
+    :type allowed_audiences: list[str]
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'jwt_claim_checks': {'key': 'properties.jwtClaimChecks', 'type': 'JwtClaimChecks'},
+        'allowed_audiences': {'key': 'properties.allowedAudiences', 'type': '[str]'},
+    }
+
+    def __init__(self, *, kind: str=None, jwt_claim_checks=None, allowed_audiences=None, **kwargs) -> None:
+        super(AzureActiveDirectoryValidation, self).__init__(kind=kind, **kwargs)
+        self.jwt_claim_checks = jwt_claim_checks
+        self.allowed_audiences = allowed_audiences
 
 
 class AzureBlobStorageApplicationLogsConfig(Model):
@@ -2559,6 +2868,43 @@ class BillingMeter(ProxyOnlyResource):
         self.friendly_name = friendly_name
         self.resource_type = resource_type
         self.os_type = os_type
+
+
+class BlobStorageTokenStore(ProxyOnlyResource):
+    """BlobStorageTokenStore.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param sas_url_setting_name:
+    :type sas_url_setting_name: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'sas_url_setting_name': {'key': 'properties.sasUrlSettingName', 'type': 'str'},
+    }
+
+    def __init__(self, *, kind: str=None, sas_url_setting_name: str=None, **kwargs) -> None:
+        super(BlobStorageTokenStore, self).__init__(kind=kind, **kwargs)
+        self.sas_url_setting_name = sas_url_setting_name
 
 
 class Capability(Model):
@@ -3023,6 +3369,47 @@ class CertificatePatchResource(ProxyOnlyResource):
         self.key_vault_secret_status = None
         self.server_farm_id = server_farm_id
         self.canonical_name = canonical_name
+
+
+class ClientRegistration(ProxyOnlyResource):
+    """ClientRegistration.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param client_id:
+    :type client_id: str
+    :param client_secret_setting_name:
+    :type client_secret_setting_name: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'client_id': {'key': 'properties.clientId', 'type': 'str'},
+        'client_secret_setting_name': {'key': 'properties.clientSecretSettingName', 'type': 'str'},
+    }
+
+    def __init__(self, *, kind: str=None, client_id: str=None, client_secret_setting_name: str=None, **kwargs) -> None:
+        super(ClientRegistration, self).__init__(kind=kind, **kwargs)
+        self.client_id = client_id
+        self.client_secret_setting_name = client_secret_setting_name
 
 
 class CloningInfo(Model):
@@ -3540,6 +3927,49 @@ class ContinuousWebJob(ProxyOnlyResource):
         self.settings = settings
 
 
+class CookieExpiration(ProxyOnlyResource):
+    """CookieExpiration.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param convention: Possible values include: 'FixedTime',
+     'IdentityProviderDerived'
+    :type convention: str or
+     ~azure.mgmt.web.v2019_08_01.models.CookieExpirationConvention
+    :param time_to_expiration:
+    :type time_to_expiration: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'convention': {'key': 'properties.convention', 'type': 'CookieExpirationConvention'},
+        'time_to_expiration': {'key': 'properties.timeToExpiration', 'type': 'str'},
+    }
+
+    def __init__(self, *, kind: str=None, convention=None, time_to_expiration: str=None, **kwargs) -> None:
+        super(CookieExpiration, self).__init__(kind=kind, **kwargs)
+        self.convention = convention
+        self.time_to_expiration = time_to_expiration
+
+
 class CorsSettings(Model):
     """Cross-Origin Resource Sharing (CORS) settings for the app.
 
@@ -3962,6 +4392,52 @@ class CustomHostnameAnalysisResult(ProxyOnlyResource):
         self.a_records = a_records
         self.alternate_cname_records = alternate_cname_records
         self.alternate_txt_records = alternate_txt_records
+
+
+class CustomOpenIdConnectProvider(ProxyOnlyResource):
+    """CustomOpenIdConnectProvider.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param enabled:
+    :type enabled: bool
+    :param registration:
+    :type registration:
+     ~azure.mgmt.web.v2019_08_01.models.OpenIdConnectRegistration
+    :param login:
+    :type login: ~azure.mgmt.web.v2019_08_01.models.OpenIdConnectLogin
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'enabled': {'key': 'properties.enabled', 'type': 'bool'},
+        'registration': {'key': 'properties.registration', 'type': 'OpenIdConnectRegistration'},
+        'login': {'key': 'properties.login', 'type': 'OpenIdConnectLogin'},
+    }
+
+    def __init__(self, *, kind: str=None, enabled: bool=None, registration=None, login=None, **kwargs) -> None:
+        super(CustomOpenIdConnectProvider, self).__init__(kind=kind, **kwargs)
+        self.enabled = enabled
+        self.registration = registration
+        self.login = login
 
 
 class DatabaseBackupSetting(Model):
@@ -5460,6 +5936,55 @@ class Experiments(Model):
         self.ramp_up_rules = ramp_up_rules
 
 
+class Facebook(ProxyOnlyResource):
+    """Facebook.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param enabled:
+    :type enabled: bool
+    :param registration:
+    :type registration: ~azure.mgmt.web.v2019_08_01.models.AppRegistration
+    :param graph_api_version:
+    :type graph_api_version: str
+    :param login:
+    :type login: ~azure.mgmt.web.v2019_08_01.models.LoginScopes
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'enabled': {'key': 'properties.enabled', 'type': 'bool'},
+        'registration': {'key': 'properties.registration', 'type': 'AppRegistration'},
+        'graph_api_version': {'key': 'properties.graphApiVersion', 'type': 'str'},
+        'login': {'key': 'properties.login', 'type': 'LoginScopes'},
+    }
+
+    def __init__(self, *, kind: str=None, enabled: bool=None, registration=None, graph_api_version: str=None, login=None, **kwargs) -> None:
+        super(Facebook, self).__init__(kind=kind, **kwargs)
+        self.enabled = enabled
+        self.registration = registration
+        self.graph_api_version = graph_api_version
+        self.login = login
+
+
 class FileSystemApplicationLogsConfig(Model):
     """Application logs to file system configuration.
 
@@ -5509,6 +6034,90 @@ class FileSystemHttpLogsConfig(Model):
         self.retention_in_mb = retention_in_mb
         self.retention_in_days = retention_in_days
         self.enabled = enabled
+
+
+class FileSystemTokenStore(ProxyOnlyResource):
+    """FileSystemTokenStore.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param directory:
+    :type directory: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'directory': {'key': 'properties.directory', 'type': 'str'},
+    }
+
+    def __init__(self, *, kind: str=None, directory: str=None, **kwargs) -> None:
+        super(FileSystemTokenStore, self).__init__(kind=kind, **kwargs)
+        self.directory = directory
+
+
+class ForwardProxy(ProxyOnlyResource):
+    """ForwardProxy.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param convention: Possible values include: 'NoProxy', 'Standard',
+     'Custom'
+    :type convention: str or
+     ~azure.mgmt.web.v2019_08_01.models.ForwardProxyConvention
+    :param custom_host_header_name:
+    :type custom_host_header_name: str
+    :param custom_proto_header_name:
+    :type custom_proto_header_name: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'convention': {'key': 'properties.convention', 'type': 'ForwardProxyConvention'},
+        'custom_host_header_name': {'key': 'properties.customHostHeaderName', 'type': 'str'},
+        'custom_proto_header_name': {'key': 'properties.customProtoHeaderName', 'type': 'str'},
+    }
+
+    def __init__(self, *, kind: str=None, convention=None, custom_host_header_name: str=None, custom_proto_header_name: str=None, **kwargs) -> None:
+        super(ForwardProxy, self).__init__(kind=kind, **kwargs)
+        self.convention = convention
+        self.custom_host_header_name = custom_host_header_name
+        self.custom_proto_header_name = custom_proto_header_name
 
 
 class FunctionEnvelope(ProxyOnlyResource):
@@ -5686,6 +6295,51 @@ class GeoRegion(ProxyOnlyResource):
         self.org_domain = None
 
 
+class GitHub(ProxyOnlyResource):
+    """GitHub.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param enabled:
+    :type enabled: bool
+    :param registration:
+    :type registration: ~azure.mgmt.web.v2019_08_01.models.ClientRegistration
+    :param login:
+    :type login: ~azure.mgmt.web.v2019_08_01.models.LoginScopes
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'enabled': {'key': 'properties.enabled', 'type': 'bool'},
+        'registration': {'key': 'properties.registration', 'type': 'ClientRegistration'},
+        'login': {'key': 'properties.login', 'type': 'LoginScopes'},
+    }
+
+    def __init__(self, *, kind: str=None, enabled: bool=None, registration=None, login=None, **kwargs) -> None:
+        super(GitHub, self).__init__(kind=kind, **kwargs)
+        self.enabled = enabled
+        self.registration = registration
+        self.login = login
+
+
 class GlobalCsmSkuDescription(Model):
     """A Global SKU Description.
 
@@ -5725,6 +6379,107 @@ class GlobalCsmSkuDescription(Model):
         self.capacity = capacity
         self.locations = locations
         self.capabilities = capabilities
+
+
+class GlobalValidation(ProxyOnlyResource):
+    """GlobalValidation.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param require_authentication:
+    :type require_authentication: bool
+    :param unauthenticated_client_action: Possible values include:
+     'RedirectToLoginPage', 'AllowAnonymous', 'Return401', 'Return403'
+    :type unauthenticated_client_action: str or
+     ~azure.mgmt.web.v2019_08_01.models.UnauthenticatedClientActionV2
+    :param redirect_to_provider:
+    :type redirect_to_provider: str
+    :param excluded_paths:
+    :type excluded_paths: list[str]
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'require_authentication': {'key': 'properties.requireAuthentication', 'type': 'bool'},
+        'unauthenticated_client_action': {'key': 'properties.unauthenticatedClientAction', 'type': 'UnauthenticatedClientActionV2'},
+        'redirect_to_provider': {'key': 'properties.redirectToProvider', 'type': 'str'},
+        'excluded_paths': {'key': 'properties.excludedPaths', 'type': '[str]'},
+    }
+
+    def __init__(self, *, kind: str=None, require_authentication: bool=None, unauthenticated_client_action=None, redirect_to_provider: str=None, excluded_paths=None, **kwargs) -> None:
+        super(GlobalValidation, self).__init__(kind=kind, **kwargs)
+        self.require_authentication = require_authentication
+        self.unauthenticated_client_action = unauthenticated_client_action
+        self.redirect_to_provider = redirect_to_provider
+        self.excluded_paths = excluded_paths
+
+
+class Google(ProxyOnlyResource):
+    """Google.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param enabled:
+    :type enabled: bool
+    :param registration:
+    :type registration: ~azure.mgmt.web.v2019_08_01.models.ClientRegistration
+    :param login:
+    :type login: ~azure.mgmt.web.v2019_08_01.models.LoginScopes
+    :param validation:
+    :type validation:
+     ~azure.mgmt.web.v2019_08_01.models.AllowedAudiencesValidation
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'enabled': {'key': 'properties.enabled', 'type': 'bool'},
+        'registration': {'key': 'properties.registration', 'type': 'ClientRegistration'},
+        'login': {'key': 'properties.login', 'type': 'LoginScopes'},
+        'validation': {'key': 'properties.validation', 'type': 'AllowedAudiencesValidation'},
+    }
+
+    def __init__(self, *, kind: str=None, enabled: bool=None, registration=None, login=None, validation=None, **kwargs) -> None:
+        super(Google, self).__init__(kind=kind, **kwargs)
+        self.enabled = enabled
+        self.registration = registration
+        self.login = login
+        self.validation = validation
 
 
 class HandlerMapping(Model):
@@ -6037,6 +6792,88 @@ class HttpLogsConfig(Model):
         self.azure_blob_storage = azure_blob_storage
 
 
+class HttpSettings(ProxyOnlyResource):
+    """HttpSettings.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param require_https:
+    :type require_https: bool
+    :param routes:
+    :type routes: ~azure.mgmt.web.v2019_08_01.models.HttpSettingsRoutes
+    :param forward_proxy:
+    :type forward_proxy: ~azure.mgmt.web.v2019_08_01.models.ForwardProxy
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'require_https': {'key': 'properties.requireHttps', 'type': 'bool'},
+        'routes': {'key': 'properties.routes', 'type': 'HttpSettingsRoutes'},
+        'forward_proxy': {'key': 'properties.forwardProxy', 'type': 'ForwardProxy'},
+    }
+
+    def __init__(self, *, kind: str=None, require_https: bool=None, routes=None, forward_proxy=None, **kwargs) -> None:
+        super(HttpSettings, self).__init__(kind=kind, **kwargs)
+        self.require_https = require_https
+        self.routes = routes
+        self.forward_proxy = forward_proxy
+
+
+class HttpSettingsRoutes(ProxyOnlyResource):
+    """HttpSettingsRoutes.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param api_prefix:
+    :type api_prefix: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'api_prefix': {'key': 'properties.apiPrefix', 'type': 'str'},
+    }
+
+    def __init__(self, *, kind: str=None, api_prefix: str=None, **kwargs) -> None:
+        super(HttpSettingsRoutes, self).__init__(kind=kind, **kwargs)
+        self.api_prefix = api_prefix
+
+
 class HybridConnection(ProxyOnlyResource):
     """Hybrid Connection contract. This is used to configure a Hybrid Connection.
 
@@ -6231,6 +7068,65 @@ class Identifier(ProxyOnlyResource):
         self.value = value
 
 
+class IdentityProviders(ProxyOnlyResource):
+    """IdentityProviders.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param azure_active_directory:
+    :type azure_active_directory:
+     ~azure.mgmt.web.v2019_08_01.models.AzureActiveDirectory
+    :param facebook:
+    :type facebook: ~azure.mgmt.web.v2019_08_01.models.Facebook
+    :param git_hub:
+    :type git_hub: ~azure.mgmt.web.v2019_08_01.models.GitHub
+    :param google:
+    :type google: ~azure.mgmt.web.v2019_08_01.models.Google
+    :param twitter:
+    :type twitter: ~azure.mgmt.web.v2019_08_01.models.Twitter
+    :param custom_open_id_connect_providers:
+    :type custom_open_id_connect_providers: dict[str,
+     ~azure.mgmt.web.v2019_08_01.models.CustomOpenIdConnectProvider]
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'azure_active_directory': {'key': 'properties.azureActiveDirectory', 'type': 'AzureActiveDirectory'},
+        'facebook': {'key': 'properties.facebook', 'type': 'Facebook'},
+        'git_hub': {'key': 'properties.gitHub', 'type': 'GitHub'},
+        'google': {'key': 'properties.google', 'type': 'Google'},
+        'twitter': {'key': 'properties.twitter', 'type': 'Twitter'},
+        'custom_open_id_connect_providers': {'key': 'properties.customOpenIdConnectProviders', 'type': '{CustomOpenIdConnectProvider}'},
+    }
+
+    def __init__(self, *, kind: str=None, azure_active_directory=None, facebook=None, git_hub=None, google=None, twitter=None, custom_open_id_connect_providers=None, **kwargs) -> None:
+        super(IdentityProviders, self).__init__(kind=kind, **kwargs)
+        self.azure_active_directory = azure_active_directory
+        self.facebook = facebook
+        self.git_hub = git_hub
+        self.google = google
+        self.twitter = twitter
+        self.custom_open_id_connect_providers = custom_open_id_connect_providers
+
+
 class InboundEnvironmentEndpoint(Model):
     """The IP Addresses and Ports that require inbound network access to and
     within the subnet of the App Service Environment.
@@ -6315,6 +7211,47 @@ class IpSecurityRestriction(Model):
         self.priority = priority
         self.name = name
         self.description = description
+
+
+class JwtClaimChecks(ProxyOnlyResource):
+    """JwtClaimChecks.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param allowed_groups:
+    :type allowed_groups: list[str]
+    :param allowed_client_applications:
+    :type allowed_client_applications: list[str]
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'allowed_groups': {'key': 'properties.allowedGroups', 'type': '[str]'},
+        'allowed_client_applications': {'key': 'properties.allowedClientApplications', 'type': '[str]'},
+    }
+
+    def __init__(self, *, kind: str=None, allowed_groups=None, allowed_client_applications=None, **kwargs) -> None:
+        super(JwtClaimChecks, self).__init__(kind=kind, **kwargs)
+        self.allowed_groups = allowed_groups
+        self.allowed_client_applications = allowed_client_applications
 
 
 class KeyInfo(Model):
@@ -6468,6 +7405,138 @@ class LocalizableString(Model):
         super(LocalizableString, self).__init__(**kwargs)
         self.value = value
         self.localized_value = localized_value
+
+
+class Login(ProxyOnlyResource):
+    """Login.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param routes:
+    :type routes: ~azure.mgmt.web.v2019_08_01.models.LoginRoutes
+    :param token_store:
+    :type token_store: ~azure.mgmt.web.v2019_08_01.models.TokenStore
+    :param preserve_url_fragments_for_logins:
+    :type preserve_url_fragments_for_logins: bool
+    :param allowed_external_redirect_urls:
+    :type allowed_external_redirect_urls: list[str]
+    :param cookie_expiration:
+    :type cookie_expiration:
+     ~azure.mgmt.web.v2019_08_01.models.CookieExpiration
+    :param nonce:
+    :type nonce: ~azure.mgmt.web.v2019_08_01.models.Nonce
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'routes': {'key': 'properties.routes', 'type': 'LoginRoutes'},
+        'token_store': {'key': 'properties.tokenStore', 'type': 'TokenStore'},
+        'preserve_url_fragments_for_logins': {'key': 'properties.preserveUrlFragmentsForLogins', 'type': 'bool'},
+        'allowed_external_redirect_urls': {'key': 'properties.allowedExternalRedirectUrls', 'type': '[str]'},
+        'cookie_expiration': {'key': 'properties.cookieExpiration', 'type': 'CookieExpiration'},
+        'nonce': {'key': 'properties.nonce', 'type': 'Nonce'},
+    }
+
+    def __init__(self, *, kind: str=None, routes=None, token_store=None, preserve_url_fragments_for_logins: bool=None, allowed_external_redirect_urls=None, cookie_expiration=None, nonce=None, **kwargs) -> None:
+        super(Login, self).__init__(kind=kind, **kwargs)
+        self.routes = routes
+        self.token_store = token_store
+        self.preserve_url_fragments_for_logins = preserve_url_fragments_for_logins
+        self.allowed_external_redirect_urls = allowed_external_redirect_urls
+        self.cookie_expiration = cookie_expiration
+        self.nonce = nonce
+
+
+class LoginRoutes(ProxyOnlyResource):
+    """LoginRoutes.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param logout_endpoint:
+    :type logout_endpoint: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'logout_endpoint': {'key': 'properties.logoutEndpoint', 'type': 'str'},
+    }
+
+    def __init__(self, *, kind: str=None, logout_endpoint: str=None, **kwargs) -> None:
+        super(LoginRoutes, self).__init__(kind=kind, **kwargs)
+        self.logout_endpoint = logout_endpoint
+
+
+class LoginScopes(ProxyOnlyResource):
+    """LoginScopes.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param scopes:
+    :type scopes: list[str]
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'scopes': {'key': 'properties.scopes', 'type': '[str]'},
+    }
+
+    def __init__(self, *, kind: str=None, scopes=None, **kwargs) -> None:
+        super(LoginScopes, self).__init__(kind=kind, **kwargs)
+        self.scopes = scopes
 
 
 class LogSpecification(Model):
@@ -7110,6 +8179,230 @@ class NetworkTrace(Model):
         self.path = path
         self.status = status
         self.message = message
+
+
+class Nonce(ProxyOnlyResource):
+    """Nonce.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param validate_nonce:
+    :type validate_nonce: bool
+    :param nonce_expiration_interval:
+    :type nonce_expiration_interval: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'validate_nonce': {'key': 'properties.validateNonce', 'type': 'bool'},
+        'nonce_expiration_interval': {'key': 'properties.nonceExpirationInterval', 'type': 'str'},
+    }
+
+    def __init__(self, *, kind: str=None, validate_nonce: bool=None, nonce_expiration_interval: str=None, **kwargs) -> None:
+        super(Nonce, self).__init__(kind=kind, **kwargs)
+        self.validate_nonce = validate_nonce
+        self.nonce_expiration_interval = nonce_expiration_interval
+
+
+class OpenIdConnectClientCredential(ProxyOnlyResource):
+    """OpenIdConnectClientCredential.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param method: Possible values include: 'ClientSecretPost'
+    :type method: str or
+     ~azure.mgmt.web.v2019_08_01.models.ClientCredentialMethod
+    :param client_secret_setting_name:
+    :type client_secret_setting_name: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'method': {'key': 'properties.method', 'type': 'ClientCredentialMethod'},
+        'client_secret_setting_name': {'key': 'properties.clientSecretSettingName', 'type': 'str'},
+    }
+
+    def __init__(self, *, kind: str=None, method=None, client_secret_setting_name: str=None, **kwargs) -> None:
+        super(OpenIdConnectClientCredential, self).__init__(kind=kind, **kwargs)
+        self.method = method
+        self.client_secret_setting_name = client_secret_setting_name
+
+
+class OpenIdConnectConfig(ProxyOnlyResource):
+    """OpenIdConnectConfig.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param authorization_endpoint:
+    :type authorization_endpoint: str
+    :param token_endpoint:
+    :type token_endpoint: str
+    :param issuer:
+    :type issuer: str
+    :param certification_uri:
+    :type certification_uri: str
+    :param well_known_open_id_configuration:
+    :type well_known_open_id_configuration: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'authorization_endpoint': {'key': 'properties.authorizationEndpoint', 'type': 'str'},
+        'token_endpoint': {'key': 'properties.tokenEndpoint', 'type': 'str'},
+        'issuer': {'key': 'properties.issuer', 'type': 'str'},
+        'certification_uri': {'key': 'properties.certificationUri', 'type': 'str'},
+        'well_known_open_id_configuration': {'key': 'properties.wellKnownOpenIdConfiguration', 'type': 'str'},
+    }
+
+    def __init__(self, *, kind: str=None, authorization_endpoint: str=None, token_endpoint: str=None, issuer: str=None, certification_uri: str=None, well_known_open_id_configuration: str=None, **kwargs) -> None:
+        super(OpenIdConnectConfig, self).__init__(kind=kind, **kwargs)
+        self.authorization_endpoint = authorization_endpoint
+        self.token_endpoint = token_endpoint
+        self.issuer = issuer
+        self.certification_uri = certification_uri
+        self.well_known_open_id_configuration = well_known_open_id_configuration
+
+
+class OpenIdConnectLogin(ProxyOnlyResource):
+    """OpenIdConnectLogin.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param name_claim_type:
+    :type name_claim_type: str
+    :param scopes:
+    :type scopes: list[str]
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'name_claim_type': {'key': 'properties.nameClaimType', 'type': 'str'},
+        'scopes': {'key': 'properties.scopes', 'type': '[str]'},
+    }
+
+    def __init__(self, *, kind: str=None, name_claim_type: str=None, scopes=None, **kwargs) -> None:
+        super(OpenIdConnectLogin, self).__init__(kind=kind, **kwargs)
+        self.name_claim_type = name_claim_type
+        self.scopes = scopes
+
+
+class OpenIdConnectRegistration(ProxyOnlyResource):
+    """OpenIdConnectRegistration.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param client_id:
+    :type client_id: str
+    :param client_credential:
+    :type client_credential:
+     ~azure.mgmt.web.v2019_08_01.models.OpenIdConnectClientCredential
+    :param open_id_connect_configuration:
+    :type open_id_connect_configuration:
+     ~azure.mgmt.web.v2019_08_01.models.OpenIdConnectConfig
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'client_id': {'key': 'properties.clientId', 'type': 'str'},
+        'client_credential': {'key': 'properties.clientCredential', 'type': 'OpenIdConnectClientCredential'},
+        'open_id_connect_configuration': {'key': 'properties.openIdConnectConfiguration', 'type': 'OpenIdConnectConfig'},
+    }
+
+    def __init__(self, *, kind: str=None, client_id: str=None, client_credential=None, open_id_connect_configuration=None, **kwargs) -> None:
+        super(OpenIdConnectRegistration, self).__init__(kind=kind, **kwargs)
+        self.client_id = client_id
+        self.client_credential = client_credential
+        self.open_id_connect_configuration = open_id_connect_configuration
 
 
 class Operation(Model):
@@ -9520,6 +10813,61 @@ class SiteAuthSettings(ProxyOnlyResource):
         self.microsoft_account_client_id = microsoft_account_client_id
         self.microsoft_account_client_secret = microsoft_account_client_secret
         self.microsoft_account_oauth_scopes = microsoft_account_oauth_scopes
+
+
+class SiteAuthSettingsV2(ProxyOnlyResource):
+    """SiteAuthSettingsV2.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param platform:
+    :type platform: ~azure.mgmt.web.v2019_08_01.models.AuthPlatform
+    :param global_validation:
+    :type global_validation:
+     ~azure.mgmt.web.v2019_08_01.models.GlobalValidation
+    :param identity_providers:
+    :type identity_providers:
+     ~azure.mgmt.web.v2019_08_01.models.IdentityProviders
+    :param login:
+    :type login: ~azure.mgmt.web.v2019_08_01.models.Login
+    :param http_settings:
+    :type http_settings: ~azure.mgmt.web.v2019_08_01.models.HttpSettings
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'platform': {'key': 'properties.platform', 'type': 'AuthPlatform'},
+        'global_validation': {'key': 'properties.globalValidation', 'type': 'GlobalValidation'},
+        'identity_providers': {'key': 'properties.identityProviders', 'type': 'IdentityProviders'},
+        'login': {'key': 'properties.login', 'type': 'Login'},
+        'http_settings': {'key': 'properties.httpSettings', 'type': 'HttpSettings'},
+    }
+
+    def __init__(self, *, kind: str=None, platform=None, global_validation=None, identity_providers=None, login=None, http_settings=None, **kwargs) -> None:
+        super(SiteAuthSettingsV2, self).__init__(kind=kind, **kwargs)
+        self.platform = platform
+        self.global_validation = global_validation
+        self.identity_providers = identity_providers
+        self.login = login
+        self.http_settings = http_settings
 
 
 class SiteCloneability(Model):
@@ -12256,6 +13604,56 @@ class TldLegalAgreement(Model):
         self.url = url
 
 
+class TokenStore(ProxyOnlyResource):
+    """TokenStore.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param enabled:
+    :type enabled: bool
+    :param token_refresh_extension_hours:
+    :type token_refresh_extension_hours: float
+    :param file_system:
+    :type file_system: ~azure.mgmt.web.v2019_08_01.models.FileSystemTokenStore
+    :param azure_blob_storage:
+    :type azure_blob_storage:
+     ~azure.mgmt.web.v2019_08_01.models.BlobStorageTokenStore
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'enabled': {'key': 'properties.enabled', 'type': 'bool'},
+        'token_refresh_extension_hours': {'key': 'properties.tokenRefreshExtensionHours', 'type': 'float'},
+        'file_system': {'key': 'properties.fileSystem', 'type': 'FileSystemTokenStore'},
+        'azure_blob_storage': {'key': 'properties.azureBlobStorage', 'type': 'BlobStorageTokenStore'},
+    }
+
+    def __init__(self, *, kind: str=None, enabled: bool=None, token_refresh_extension_hours: float=None, file_system=None, azure_blob_storage=None, **kwargs) -> None:
+        super(TokenStore, self).__init__(kind=kind, **kwargs)
+        self.enabled = enabled
+        self.token_refresh_extension_hours = token_refresh_extension_hours
+        self.file_system = file_system
+        self.azure_blob_storage = azure_blob_storage
+
+
 class TopLevelDomain(ProxyOnlyResource):
     """A top level domain object.
 
@@ -12507,6 +13905,88 @@ class TriggeredWebJob(ProxyOnlyResource):
         self.error = error
         self.using_sdk = using_sdk
         self.settings = settings
+
+
+class Twitter(ProxyOnlyResource):
+    """Twitter.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param enabled:
+    :type enabled: bool
+    :param registration:
+    :type registration: ~azure.mgmt.web.v2019_08_01.models.TwitterRegistration
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'enabled': {'key': 'properties.enabled', 'type': 'bool'},
+        'registration': {'key': 'properties.registration', 'type': 'TwitterRegistration'},
+    }
+
+    def __init__(self, *, kind: str=None, enabled: bool=None, registration=None, **kwargs) -> None:
+        super(Twitter, self).__init__(kind=kind, **kwargs)
+        self.enabled = enabled
+        self.registration = registration
+
+
+class TwitterRegistration(ProxyOnlyResource):
+    """TwitterRegistration.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource Name.
+    :vartype name: str
+    :param kind: Kind of resource.
+    :type kind: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param consumer_key:
+    :type consumer_key: str
+    :param consumer_secret_setting_name:
+    :type consumer_secret_setting_name: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'consumer_key': {'key': 'properties.consumerKey', 'type': 'str'},
+        'consumer_secret_setting_name': {'key': 'properties.consumerSecretSettingName', 'type': 'str'},
+    }
+
+    def __init__(self, *, kind: str=None, consumer_key: str=None, consumer_secret_setting_name: str=None, **kwargs) -> None:
+        super(TwitterRegistration, self).__init__(kind=kind, **kwargs)
+        self.consumer_key = consumer_key
+        self.consumer_secret_setting_name = consumer_secret_setting_name
 
 
 class Usage(ProxyOnlyResource):

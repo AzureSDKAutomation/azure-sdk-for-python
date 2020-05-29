@@ -483,6 +483,12 @@ class WebJobType(str, Enum):
     triggered = "Triggered"
 
 
+class CookieExpirationConvention(str, Enum):
+
+    fixed_time = "FixedTime"
+    identity_provider_derived = "IdentityProviderDerived"
+
+
 class PublishingProfileFormat(str, Enum):
 
     file_zilla3 = "FileZilla3"
@@ -495,6 +501,26 @@ class DnsVerificationTestResult(str, Enum):
     passed = "Passed"
     failed = "Failed"
     skipped = "Skipped"
+
+
+class ClientCredentialMethod(str, Enum):
+
+    client_secret_post = "ClientSecretPost"
+
+
+class ForwardProxyConvention(str, Enum):
+
+    no_proxy = "NoProxy"
+    standard = "Standard"
+    custom = "Custom"
+
+
+class UnauthenticatedClientActionV2(str, Enum):
+
+    redirect_to_login_page = "RedirectToLoginPage"
+    allow_anonymous = "AllowAnonymous"
+    return401 = "Return401"
+    return403 = "Return403"
 
 
 class MSDeployLogEntryType(str, Enum):

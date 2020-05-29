@@ -1772,6 +1772,143 @@ class WebAppsOperations(object):
         return deserialized
     get_auth_settings.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/authsettings/list'}
 
+    def update_auth_settings_v2(
+            self, resource_group_name, name, site_auth_settings_v2, custom_headers=None, raw=False, **operation_config):
+        """Updates site's Authentication / Authorization settings for apps via the
+        V2 format.
+
+        Description for Updates site's Authentication / Authorization settings
+        for apps via the V2 format.
+
+        :param resource_group_name: Name of the resource group to which the
+         resource belongs.
+        :type resource_group_name: str
+        :param name: Name of web app.
+        :type name: str
+        :param site_auth_settings_v2: Auth settings associated with web app.
+        :type site_auth_settings_v2:
+         ~azure.mgmt.web.v2019_08_01.models.SiteAuthSettingsV2
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: SiteAuthSettingsV2 or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.web.v2019_08_01.models.SiteAuthSettingsV2 or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`DefaultErrorResponseException<azure.mgmt.web.v2019_08_01.models.DefaultErrorResponseException>`
+        """
+        # Construct URL
+        url = self.update_auth_settings_v2.metadata['url']
+        path_format_arguments = {
+            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str', max_length=90, min_length=1, pattern=r'^[-\w\._\(\)]+[^\.]$'),
+            'name': self._serialize.url("name", name, 'str'),
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct body
+        body_content = self._serialize.body(site_auth_settings_v2, 'SiteAuthSettingsV2')
+
+        # Construct and send request
+        request = self._client.put(url, query_parameters, header_parameters, body_content)
+        response = self._client.send(request, stream=False, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.DefaultErrorResponseException(self._deserialize, response)
+
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('SiteAuthSettingsV2', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+    update_auth_settings_v2.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/authsettingsV2'}
+
+    def get_auth_settings_v2(
+            self, resource_group_name, name, custom_headers=None, raw=False, **operation_config):
+        """Gets site's Authentication / Authorization settings for apps via the V2
+        format.
+
+        Description for Gets site's Authentication / Authorization settings for
+        apps via the V2 format.
+
+        :param resource_group_name: Name of the resource group to which the
+         resource belongs.
+        :type resource_group_name: str
+        :param name: Name of the app.
+        :type name: str
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: SiteAuthSettingsV2 or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.web.v2019_08_01.models.SiteAuthSettingsV2 or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`DefaultErrorResponseException<azure.mgmt.web.v2019_08_01.models.DefaultErrorResponseException>`
+        """
+        # Construct URL
+        url = self.get_auth_settings_v2.metadata['url']
+        path_format_arguments = {
+            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str', max_length=90, min_length=1, pattern=r'^[-\w\._\(\)]+[^\.]$'),
+            'name': self._serialize.url("name", name, 'str'),
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct and send request
+        request = self._client.get(url, query_parameters, header_parameters)
+        response = self._client.send(request, stream=False, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.DefaultErrorResponseException(self._deserialize, response)
+
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('SiteAuthSettingsV2', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+    get_auth_settings_v2.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/authsettingsV2/list'}
+
     def update_azure_storage_accounts(
             self, resource_group_name, name, kind=None, properties=None, custom_headers=None, raw=False, **operation_config):
         """Updates the Azure storage account configurations of an app.
