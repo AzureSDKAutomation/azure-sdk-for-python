@@ -31,6 +31,14 @@ from .operations import ExportJobsOperationResultsOperations
 from .operations import JobsOperations
 from .operations import BackupProtectedItemsOperations
 from .operations import OperationOperations
+from .operations import AadPropertiesOperations
+from .operations import CrossRegionRestoreOperations
+from .operations import BackupCrrJobDetailsOperations
+from .operations import BackupCrrJobsOperations
+from .operations import CrrOperationResultsOperations
+from .operations import CrrOperationStatusOperations
+from .operations import RecoveryPointsCrrOperations
+from .operations import BackupProtectedItemsCrrOperations
 from .operations import ProtectionIntentOperations
 from .operations import BackupStatusOperations
 from .operations import FeatureSupportOperations
@@ -96,6 +104,22 @@ class RecoveryServicesBackupClient(RecoveryServicesBackupClientOperationsMixin, 
     :vartype backup_protected_items: azure.mgmt.recoveryservicesbackup.operations.BackupProtectedItemsOperations
     :ivar operation: Operation operations
     :vartype operation: azure.mgmt.recoveryservicesbackup.operations.OperationOperations
+    :ivar aad_properties: AadProperties operations
+    :vartype aad_properties: azure.mgmt.recoveryservicesbackup.operations.AadPropertiesOperations
+    :ivar cross_region_restore: CrossRegionRestore operations
+    :vartype cross_region_restore: azure.mgmt.recoveryservicesbackup.operations.CrossRegionRestoreOperations
+    :ivar backup_crr_job_details: BackupCrrJobDetails operations
+    :vartype backup_crr_job_details: azure.mgmt.recoveryservicesbackup.operations.BackupCrrJobDetailsOperations
+    :ivar backup_crr_jobs: BackupCrrJobs operations
+    :vartype backup_crr_jobs: azure.mgmt.recoveryservicesbackup.operations.BackupCrrJobsOperations
+    :ivar crr_operation_results: CrrOperationResults operations
+    :vartype crr_operation_results: azure.mgmt.recoveryservicesbackup.operations.CrrOperationResultsOperations
+    :ivar crr_operation_status: CrrOperationStatus operations
+    :vartype crr_operation_status: azure.mgmt.recoveryservicesbackup.operations.CrrOperationStatusOperations
+    :ivar recovery_points_crr: RecoveryPointsCrr operations
+    :vartype recovery_points_crr: azure.mgmt.recoveryservicesbackup.operations.RecoveryPointsCrrOperations
+    :ivar backup_protected_items_crr: BackupProtectedItemsCrr operations
+    :vartype backup_protected_items_crr: azure.mgmt.recoveryservicesbackup.operations.BackupProtectedItemsCrrOperations
     :ivar protection_intent: ProtectionIntent operations
     :vartype protection_intent: azure.mgmt.recoveryservicesbackup.operations.ProtectionIntentOperations
     :ivar backup_status: BackupStatus operations
@@ -192,6 +216,22 @@ class RecoveryServicesBackupClient(RecoveryServicesBackupClientOperationsMixin, 
         self.backup_protected_items = BackupProtectedItemsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.operation = OperationOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.aad_properties = AadPropertiesOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.cross_region_restore = CrossRegionRestoreOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.backup_crr_job_details = BackupCrrJobDetailsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.backup_crr_jobs = BackupCrrJobsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.crr_operation_results = CrrOperationResultsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.crr_operation_status = CrrOperationStatusOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.recovery_points_crr = RecoveryPointsCrrOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.backup_protected_items_crr = BackupProtectedItemsCrrOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.protection_intent = ProtectionIntentOperations(
             self._client, self.config, self._serialize, self._deserialize)

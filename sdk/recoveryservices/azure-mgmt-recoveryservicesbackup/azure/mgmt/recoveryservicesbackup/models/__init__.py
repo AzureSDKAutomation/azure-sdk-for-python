@@ -10,6 +10,8 @@
 # --------------------------------------------------------------------------
 
 try:
+    from ._models_py3 import AADProperties
+    from ._models_py3 import AADPropertiesResource
     from ._models_py3 import AzureBackupGoalFeatureSupportRequest
     from ._models_py3 import AzureBackupServerContainer
     from ._models_py3 import AzureBackupServerEngine
@@ -123,6 +125,10 @@ try:
     from ._models_py3 import ClientDiscoveryValueForSingleApi
     from ._models_py3 import ClientScriptForConnect
     from ._models_py3 import ContainerIdentityInfo
+    from ._models_py3 import CrossRegionRestoreRequest
+    from ._models_py3 import CrossRegionRestoreRequestResource
+    from ._models_py3 import CrrAccessToken
+    from ._models_py3 import CrrAccessTokenResource
     from ._models_py3 import DailyRetentionFormat
     from ._models_py3 import DailyRetentionSchedule
     from ._models_py3 import Day
@@ -192,6 +198,7 @@ try:
     from ._models_py3 import OperationStatusJobExtendedInfo
     from ._models_py3 import OperationStatusJobsExtendedInfo
     from ._models_py3 import OperationStatusProvisionILRExtendedInfo
+    from ._models_py3 import OperationStatusRecoveryPointExtendedInfo
     from ._models_py3 import OperationWorkerResponse
     from ._models_py3 import PointInTimeRange
     from ._models_py3 import PreBackupValidation
@@ -249,6 +256,8 @@ try:
     from ._models_py3 import WorkloadProtectableItemResource
     from ._models_py3 import YearlyRetentionSchedule
 except (SyntaxError, ImportError):
+    from ._models import AADProperties
+    from ._models import AADPropertiesResource
     from ._models import AzureBackupGoalFeatureSupportRequest
     from ._models import AzureBackupServerContainer
     from ._models import AzureBackupServerEngine
@@ -362,6 +371,10 @@ except (SyntaxError, ImportError):
     from ._models import ClientDiscoveryValueForSingleApi
     from ._models import ClientScriptForConnect
     from ._models import ContainerIdentityInfo
+    from ._models import CrossRegionRestoreRequest
+    from ._models import CrossRegionRestoreRequestResource
+    from ._models import CrrAccessToken
+    from ._models import CrrAccessTokenResource
     from ._models import DailyRetentionFormat
     from ._models import DailyRetentionSchedule
     from ._models import Day
@@ -431,6 +444,7 @@ except (SyntaxError, ImportError):
     from ._models import OperationStatusJobExtendedInfo
     from ._models import OperationStatusJobsExtendedInfo
     from ._models import OperationStatusProvisionILRExtendedInfo
+    from ._models import OperationStatusRecoveryPointExtendedInfo
     from ._models import OperationWorkerResponse
     from ._models import PointInTimeRange
     from ._models import PreBackupValidation
@@ -556,6 +570,8 @@ from ._recovery_services_backup_client_enums import (
 )
 
 __all__ = [
+    'AADProperties',
+    'AADPropertiesResource',
     'AzureBackupGoalFeatureSupportRequest',
     'AzureBackupServerContainer',
     'AzureBackupServerEngine',
@@ -669,6 +685,10 @@ __all__ = [
     'ClientDiscoveryValueForSingleApi',
     'ClientScriptForConnect',
     'ContainerIdentityInfo',
+    'CrossRegionRestoreRequest',
+    'CrossRegionRestoreRequestResource',
+    'CrrAccessToken',
+    'CrrAccessTokenResource',
     'DailyRetentionFormat',
     'DailyRetentionSchedule',
     'Day',
@@ -738,6 +758,7 @@ __all__ = [
     'OperationStatusJobExtendedInfo',
     'OperationStatusJobsExtendedInfo',
     'OperationStatusProvisionILRExtendedInfo',
+    'OperationStatusRecoveryPointExtendedInfo',
     'OperationWorkerResponse',
     'PointInTimeRange',
     'PreBackupValidation',
