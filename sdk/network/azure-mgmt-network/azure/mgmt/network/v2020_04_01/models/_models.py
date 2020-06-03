@@ -11736,6 +11736,9 @@ class P2SVpnGateway(Resource):
      status.
     :vartype vpn_client_connection_health:
      ~azure.mgmt.network.v2020_04_01.models.VpnClientConnectionHealth
+    :param custom_dns_servers: List of all customer specified DNS servers IP
+     addresses.
+    :type custom_dns_servers: list[str]
     :ivar etag: A unique read-only string that changes whenever the resource
      is updated.
     :vartype etag: str
@@ -11761,6 +11764,7 @@ class P2SVpnGateway(Resource):
         'vpn_gateway_scale_unit': {'key': 'properties.vpnGatewayScaleUnit', 'type': 'int'},
         'vpn_server_configuration': {'key': 'properties.vpnServerConfiguration', 'type': 'SubResource'},
         'vpn_client_connection_health': {'key': 'properties.vpnClientConnectionHealth', 'type': 'VpnClientConnectionHealth'},
+        'custom_dns_servers': {'key': 'properties.customDnsServers', 'type': '[str]'},
         'etag': {'key': 'etag', 'type': 'str'},
     }
 
@@ -11772,6 +11776,7 @@ class P2SVpnGateway(Resource):
         self.vpn_gateway_scale_unit = kwargs.get('vpn_gateway_scale_unit', None)
         self.vpn_server_configuration = kwargs.get('vpn_server_configuration', None)
         self.vpn_client_connection_health = None
+        self.custom_dns_servers = kwargs.get('custom_dns_servers', None)
         self.etag = None
 
 
