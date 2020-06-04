@@ -76,6 +76,12 @@ class ResourceIdentityType(str, Enum):
     none = "None"
 
 
+class OsType(str, Enum):
+
+    linux = "Linux"
+    windows = "Windows"
+
+
 class VmPriority(str, Enum):
 
     dedicated = "Dedicated"
