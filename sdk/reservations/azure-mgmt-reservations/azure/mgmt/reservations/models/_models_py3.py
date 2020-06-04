@@ -1825,8 +1825,6 @@ class SubscriptionScopeProperties(Model):
 class SupportRequestAction(Model):
     """The SupportRequest action.
 
-    :param auto_quota_increase_state: Is support request action enabled.
-    :type auto_quota_increase_state: object
     :param severity: The support request severity.
     :type severity: object
     :param first_name: The first name of the recipient.
@@ -1850,7 +1848,6 @@ class SupportRequestAction(Model):
     """
 
     _attribute_map = {
-        'auto_quota_increase_state': {'key': 'autoQuotaIncreaseState', 'type': 'object'},
         'severity': {'key': 'severity', 'type': 'object'},
         'first_name': {'key': 'firstName', 'type': 'str'},
         'last_name': {'key': 'lastName', 'type': 'str'},
@@ -1862,9 +1859,8 @@ class SupportRequestAction(Model):
         'alternate_email_addresses': {'key': 'alternateEmailAddresses', 'type': '[str]'},
     }
 
-    def __init__(self, *, auto_quota_increase_state=None, severity=None, first_name: str=None, last_name: str=None, country: str=None, phone_number: str=None, primary_email_address: str=None, support_language: str=None, preferred_contact_method=None, alternate_email_addresses=None, **kwargs) -> None:
+    def __init__(self, *, severity=None, first_name: str=None, last_name: str=None, country: str=None, phone_number: str=None, primary_email_address: str=None, support_language: str=None, preferred_contact_method=None, alternate_email_addresses=None, **kwargs) -> None:
         super(SupportRequestAction, self).__init__(**kwargs)
-        self.auto_quota_increase_state = auto_quota_increase_state
         self.severity = severity
         self.first_name = first_name
         self.last_name = last_name

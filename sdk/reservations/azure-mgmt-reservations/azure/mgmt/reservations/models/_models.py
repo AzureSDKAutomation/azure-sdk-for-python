@@ -1825,8 +1825,6 @@ class SubscriptionScopeProperties(Model):
 class SupportRequestAction(Model):
     """The SupportRequest action.
 
-    :param auto_quota_increase_state: Is support request action enabled.
-    :type auto_quota_increase_state: object
     :param severity: The support request severity.
     :type severity: object
     :param first_name: The first name of the recipient.
@@ -1850,7 +1848,6 @@ class SupportRequestAction(Model):
     """
 
     _attribute_map = {
-        'auto_quota_increase_state': {'key': 'autoQuotaIncreaseState', 'type': 'object'},
         'severity': {'key': 'severity', 'type': 'object'},
         'first_name': {'key': 'firstName', 'type': 'str'},
         'last_name': {'key': 'lastName', 'type': 'str'},
@@ -1864,7 +1861,6 @@ class SupportRequestAction(Model):
 
     def __init__(self, **kwargs):
         super(SupportRequestAction, self).__init__(**kwargs)
-        self.auto_quota_increase_state = kwargs.get('auto_quota_increase_state', None)
         self.severity = kwargs.get('severity', None)
         self.first_name = kwargs.get('first_name', None)
         self.last_name = kwargs.get('last_name', None)
