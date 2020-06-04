@@ -244,6 +244,7 @@ try:
     from ._models_py3 import MetricSpecification
     from ._models_py3 import NatGateway
     from ._models_py3 import NatGatewaySku
+    from ._models_py3 import NatRule
     from ._models_py3 import NatRuleCondition
     from ._models_py3 import NetworkConfigurationDiagnosticParameters
     from ._models_py3 import NetworkConfigurationDiagnosticProfile
@@ -650,6 +651,7 @@ except (SyntaxError, ImportError):
     from ._models import MetricSpecification
     from ._models import NatGateway
     from ._models import NatGatewaySku
+    from ._models import NatRule
     from ._models import NatRuleCondition
     from ._models import NetworkConfigurationDiagnosticParameters
     from ._models import NetworkConfigurationDiagnosticProfile
@@ -1022,6 +1024,8 @@ from ._network_management_client_enums import (
     VirtualNetworkGatewayConnectionType,
     VirtualNetworkGatewayConnectionProtocol,
     OfficeTrafficCategory,
+    NatRuleType,
+    NatRuleMode,
     VpnConnectionStatus,
     VirtualWanSecurityProviderType,
     TunnelConnectionStatus,
@@ -1276,6 +1280,7 @@ __all__ = [
     'MetricSpecification',
     'NatGateway',
     'NatGatewaySku',
+    'NatRule',
     'NatRuleCondition',
     'NetworkConfigurationDiagnosticParameters',
     'NetworkConfigurationDiagnosticProfile',
@@ -1647,6 +1652,8 @@ __all__ = [
     'VirtualNetworkGatewayConnectionType',
     'VirtualNetworkGatewayConnectionProtocol',
     'OfficeTrafficCategory',
+    'NatRuleType',
+    'NatRuleMode',
     'VpnConnectionStatus',
     'VirtualWanSecurityProviderType',
     'TunnelConnectionStatus',

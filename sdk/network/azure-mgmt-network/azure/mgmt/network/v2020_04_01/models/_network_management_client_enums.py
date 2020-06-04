@@ -860,6 +860,18 @@ class OfficeTrafficCategory(str, Enum):
     none = "None"
 
 
+class NatRuleType(str, Enum):
+
+    static = "Static"
+    dynamic = "Dynamic"
+
+
+class NatRuleMode(str, Enum):
+
+    egress_snat = "EgressSnat"
+    ingress_snat = "IngressSnat"
+
+
 class VpnConnectionStatus(str, Enum):
 
     unknown = "Unknown"

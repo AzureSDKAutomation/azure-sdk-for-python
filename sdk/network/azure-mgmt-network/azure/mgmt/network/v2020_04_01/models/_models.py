@@ -10267,6 +10267,28 @@ class NatGatewaySku(Model):
         self.name = kwargs.get('name', None)
 
 
+class NatRule(Model):
+    """VirtualHub route table.
+
+    :param type: The type of NAT rule. Possible values include: 'Static',
+     'Dynamic'
+    :type type: str or ~azure.mgmt.network.v2020_04_01.models.NatRuleType
+    :param mode: The source NAT direction of a NAT rule. Possible values
+     include: 'EgressSnat', 'IngressSnat'
+    :type mode: str or ~azure.mgmt.network.v2020_04_01.models.NatRuleMode
+    """
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'mode': {'key': 'mode', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(NatRule, self).__init__(**kwargs)
+        self.type = kwargs.get('type', None)
+        self.mode = kwargs.get('mode', None)
+
+
 class NatRuleCondition(FirewallPolicyRuleCondition):
     """Rule condition of type nat.
 
@@ -15380,6 +15402,9 @@ class VirtualHub(Resource):
      v2s associated with this VirtualHub.
     :type virtual_hub_route_table_v2s:
      list[~azure.mgmt.network.v2020_04_01.models.VirtualHubRouteTableV2]
+    :param nat_rules: List of all NAT rules defined for use on this
+     VirtualHub.
+    :type nat_rules: list[~azure.mgmt.network.v2020_04_01.models.NatRule]
     :param sku: The sku of this VirtualHub.
     :type sku: str
     :ivar etag: A unique read-only string that changes whenever the resource
@@ -15412,6 +15437,7 @@ class VirtualHub(Resource):
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'security_provider_name': {'key': 'properties.securityProviderName', 'type': 'str'},
         'virtual_hub_route_table_v2s': {'key': 'properties.virtualHubRouteTableV2s', 'type': '[VirtualHubRouteTableV2]'},
+        'nat_rules': {'key': 'properties.natRules', 'type': '[NatRule]'},
         'sku': {'key': 'properties.sku', 'type': 'str'},
         'etag': {'key': 'etag', 'type': 'str'},
     }
@@ -15430,6 +15456,7 @@ class VirtualHub(Resource):
         self.provisioning_state = None
         self.security_provider_name = kwargs.get('security_provider_name', None)
         self.virtual_hub_route_table_v2s = kwargs.get('virtual_hub_route_table_v2s', None)
+        self.nat_rules = kwargs.get('nat_rules', None)
         self.sku = kwargs.get('sku', None)
         self.etag = None
 
