@@ -43,7 +43,7 @@ class AvailabilitySetsOperations(object):
             self, resource_group_name, availability_set_name, parameters, custom_headers=None, raw=False, **operation_config):
         """Create or update an availability set.
 
-        :param resource_group_name: The name of the resource group.
+        :param resource_group_name: The name of the target resource group.
         :type resource_group_name: str
         :param availability_set_name: The name of the availability set.
         :type availability_set_name: str
