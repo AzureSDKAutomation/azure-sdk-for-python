@@ -13,6 +13,7 @@ from msrest.service_client import SDKClient
 from msrest import Serializer, Deserializer
 
 from ._configuration import FaceClientConfiguration
+from .operations import FaceClientOperationsMixin
 from .operations import FaceOperations
 from .operations import PersonGroupPersonOperations
 from .operations import PersonGroupOperations
@@ -24,7 +25,7 @@ from .operations import SnapshotOperations
 from . import models
 
 
-class FaceClient(SDKClient):
+class FaceClient(FaceClientOperationsMixin, SDKClient):
     """An API for face detection, verification, and identification.
 
     :ivar config: Configuration for client.

@@ -35,6 +35,30 @@ class Accessory(Model):
         self.confidence = kwargs.get('confidence', None)
 
 
+class ActiveIlluminationInformation(Model):
+    """Describes the active illumination information performed during the image
+    capture.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param illuminated_color: Required. The actively illuminated color during
+     the image capture.
+    :type illuminated_color: str
+    """
+
+    _validation = {
+        'illuminated_color': {'required': True},
+    }
+
+    _attribute_map = {
+        'illuminated_color': {'key': 'illuminatedColor', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ActiveIlluminationInformation, self).__init__(**kwargs)
+        self.illuminated_color = kwargs.get('illuminated_color', None)
+
+
 class APIError(Model):
     """Error information returned by the API.
 
@@ -116,6 +140,116 @@ class Blur(Model):
         super(Blur, self).__init__(**kwargs)
         self.blur_level = kwargs.get('blur_level', None)
         self.value = kwargs.get('value', None)
+
+
+class CameraCalibrationParameters(Model):
+    """Camera calibration parameters needed to correlate faces from one camera
+    modality to another.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param image_type: Required. Describes the image type based on the camera
+     modality. Possible values include: 'color', 'infrared', 'depth'
+    :type image_type: str or ~azure.cognitiveservices.vision.face.models.enum
+    :param camera_extrinsics: Required. Extrinsic calibration data.
+    :type camera_extrinsics:
+     ~azure.cognitiveservices.vision.face.models.CameraExtrinsics
+    :param camera_intrinsics: Required. Intrinsics calibration data.
+    :type camera_intrinsics:
+     ~azure.cognitiveservices.vision.face.models.CameraIntrinsics
+    """
+
+    _validation = {
+        'image_type': {'required': True},
+        'camera_extrinsics': {'required': True},
+        'camera_intrinsics': {'required': True},
+    }
+
+    _attribute_map = {
+        'image_type': {'key': 'imageType', 'type': 'str'},
+        'camera_extrinsics': {'key': 'cameraExtrinsics', 'type': 'CameraExtrinsics'},
+        'camera_intrinsics': {'key': 'cameraIntrinsics', 'type': 'CameraIntrinsics'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CameraCalibrationParameters, self).__init__(**kwargs)
+        self.image_type = kwargs.get('image_type', None)
+        self.camera_extrinsics = kwargs.get('camera_extrinsics', None)
+        self.camera_intrinsics = kwargs.get('camera_intrinsics', None)
+
+
+class CameraExtrinsics(Model):
+    """Extrinsic calibration data.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param rotation: Required. 3x3 Rotation matrix stored in row major order.
+    :type rotation: list[float]
+    :param translation: Required. Translation vector, x,y,z (in millimeters).
+    :type translation: list[float]
+    """
+
+    _validation = {
+        'rotation': {'required': True},
+        'translation': {'required': True},
+    }
+
+    _attribute_map = {
+        'rotation': {'key': 'rotation', 'type': '[float]'},
+        'translation': {'key': 'translation', 'type': '[float]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CameraExtrinsics, self).__init__(**kwargs)
+        self.rotation = kwargs.get('rotation', None)
+        self.translation = kwargs.get('translation', None)
+
+
+class CameraIntrinsics(Model):
+    """Intrinsics calibration data.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param parameters: Required. Intrinsics calibration data.
+    :type parameters:
+     ~azure.cognitiveservices.vision.face.models.IntrinsicParameters
+    """
+
+    _validation = {
+        'parameters': {'required': True},
+    }
+
+    _attribute_map = {
+        'parameters': {'key': 'parameters', 'type': 'IntrinsicParameters'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CameraIntrinsics, self).__init__(**kwargs)
+        self.parameters = kwargs.get('parameters', None)
+
+
+class ContainerStatus(Model):
+    """ContainerStatus.
+
+    :param service:
+    :type service: str
+    :param api_status:
+    :type api_status: str
+    :param api_status_message:
+    :type api_status_message: str
+    """
+
+    _attribute_map = {
+        'service': {'key': 'service', 'type': 'str'},
+        'api_status': {'key': 'apiStatus', 'type': 'str'},
+        'api_status_message': {'key': 'apiStatusMessage', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ContainerStatus, self).__init__(**kwargs)
+        self.service = kwargs.get('service', None)
+        self.api_status = kwargs.get('api_status', None)
+        self.api_status_message = kwargs.get('api_status_message', None)
 
 
 class Coordinate(Model):
@@ -251,6 +385,58 @@ class Error(Model):
         super(Error, self).__init__(**kwargs)
         self.code = kwargs.get('code', None)
         self.message = kwargs.get('message', None)
+
+
+class ErrorInformation(Model):
+    """ErrorInformation.
+
+    :param code:
+    :type code: str
+    :param inner_error:
+    :type inner_error: ~azure.cognitiveservices.vision.face.models.InnerError
+    :param message:
+    :type message: str
+    """
+
+    _attribute_map = {
+        'code': {'key': 'code', 'type': 'str'},
+        'inner_error': {'key': 'innerError', 'type': 'InnerError'},
+        'message': {'key': 'message', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ErrorInformation, self).__init__(**kwargs)
+        self.code = kwargs.get('code', None)
+        self.inner_error = kwargs.get('inner_error', None)
+        self.message = kwargs.get('message', None)
+
+
+class ErrorResponse(Model):
+    """ErrorResponse.
+
+    :param error:
+    :type error: ~azure.cognitiveservices.vision.face.models.ErrorInformation
+    """
+
+    _attribute_map = {
+        'error': {'key': 'error', 'type': 'ErrorInformation'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ErrorResponse, self).__init__(**kwargs)
+        self.error = kwargs.get('error', None)
+
+
+class ErrorResponseException(HttpOperationError):
+    """Server responsed with exception of type: 'ErrorResponse'.
+
+    :param deserialize: A deserializer
+    :param response: Server response to be deserialized.
+    """
+
+    def __init__(self, deserialize, response, *args):
+
+        super(ErrorResponseException, self).__init__(deserialize, response, 'ErrorResponse', *args)
 
 
 class Exposure(Model):
@@ -951,6 +1137,121 @@ class IdentifyResult(Model):
         self.candidates = kwargs.get('candidates', None)
 
 
+class IFormFile(Model):
+    """IFormFile.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar content_type:
+    :vartype content_type: str
+    :ivar content_disposition:
+    :vartype content_disposition: str
+    :ivar headers:
+    :vartype headers: dict[str, list[str]]
+    :ivar length:
+    :vartype length: long
+    :ivar name:
+    :vartype name: str
+    :ivar file_name:
+    :vartype file_name: str
+    """
+
+    _validation = {
+        'content_type': {'readonly': True},
+        'content_disposition': {'readonly': True},
+        'headers': {'readonly': True},
+        'length': {'readonly': True},
+        'name': {'readonly': True},
+        'file_name': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'content_type': {'key': 'contentType', 'type': 'str'},
+        'content_disposition': {'key': 'contentDisposition', 'type': 'str'},
+        'headers': {'key': 'headers', 'type': '{[str]}'},
+        'length': {'key': 'length', 'type': 'long'},
+        'name': {'key': 'name', 'type': 'str'},
+        'file_name': {'key': 'fileName', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(IFormFile, self).__init__(**kwargs)
+        self.content_type = None
+        self.content_disposition = None
+        self.headers = None
+        self.length = None
+        self.name = None
+        self.file_name = None
+
+
+class ImageCropOffsets(Model):
+    """Describes the image crop offset values, and is only required if the
+    original full frame image is cropped to call this api.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param crop_offset_x: Required. Crop offset in horizontal axis.
+    :type crop_offset_x: int
+    :param crop_offset_y: Required. Crop offset in vertical axis.
+    :type crop_offset_y: int
+    :param full_frame_image_width: Required. Full frame image width.
+    :type full_frame_image_width: int
+    :param full_frame_image_height: Required. Full frame image height.
+    :type full_frame_image_height: int
+    """
+
+    _validation = {
+        'crop_offset_x': {'required': True, 'maximum': 65535, 'minimum': 0},
+        'crop_offset_y': {'required': True, 'maximum': 65535, 'minimum': 0},
+        'full_frame_image_width': {'required': True, 'maximum': 65535, 'minimum': 0},
+        'full_frame_image_height': {'required': True, 'maximum': 65535, 'minimum': 0},
+    }
+
+    _attribute_map = {
+        'crop_offset_x': {'key': 'cropOffsetX', 'type': 'int'},
+        'crop_offset_y': {'key': 'cropOffsetY', 'type': 'int'},
+        'full_frame_image_width': {'key': 'fullFrameImageWidth', 'type': 'int'},
+        'full_frame_image_height': {'key': 'fullFrameImageHeight', 'type': 'int'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ImageCropOffsets, self).__init__(**kwargs)
+        self.crop_offset_x = kwargs.get('crop_offset_x', None)
+        self.crop_offset_y = kwargs.get('crop_offset_y', None)
+        self.full_frame_image_width = kwargs.get('full_frame_image_width', None)
+        self.full_frame_image_height = kwargs.get('full_frame_image_height', None)
+
+
+class ImageProperties(Model):
+    """Describes the properties of the captured image data.
+
+    :param description: Describes the context around the captured image.
+    :type description: str
+    :param exposure_time_in_seconds: Exposure time in seconds in floating
+     point format.
+    :type exposure_time_in_seconds: float
+    :param f_number: F stop number in floating point format.
+    :type f_number: float
+    :param iso_speed: The ISO speed in floating point format.
+    :type iso_speed: float
+    """
+
+    _attribute_map = {
+        'description': {'key': 'description', 'type': 'str'},
+        'exposure_time_in_seconds': {'key': 'exposureTimeInSeconds', 'type': 'float'},
+        'f_number': {'key': 'fNumber', 'type': 'float'},
+        'iso_speed': {'key': 'isoSpeed', 'type': 'float'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ImageProperties, self).__init__(**kwargs)
+        self.description = kwargs.get('description', None)
+        self.exposure_time_in_seconds = kwargs.get('exposure_time_in_seconds', None)
+        self.f_number = kwargs.get('f_number', None)
+        self.iso_speed = kwargs.get('iso_speed', None)
+
+
 class ImageUrl(Model):
     """ImageUrl.
 
@@ -971,6 +1272,59 @@ class ImageUrl(Model):
     def __init__(self, **kwargs):
         super(ImageUrl, self).__init__(**kwargs)
         self.url = kwargs.get('url', None)
+
+
+class InnerError(Model):
+    """InnerError.
+
+    :param request_id:
+    :type request_id: str
+    """
+
+    _attribute_map = {
+        'request_id': {'key': 'requestId', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(InnerError, self).__init__(**kwargs)
+        self.request_id = kwargs.get('request_id', None)
+
+
+class IntrinsicParameters(Model):
+    """Camera intrinsic parameters.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param cx: Required. Principal point in image, x.
+    :type cx: float
+    :param cy: Required. Principal point in image, y.
+    :type cy: float
+    :param fx: Required. Focal length x.
+    :type fx: float
+    :param fy: Required. Focal length y.
+    :type fy: float
+    """
+
+    _validation = {
+        'cx': {'required': True},
+        'cy': {'required': True},
+        'fx': {'required': True},
+        'fy': {'required': True},
+    }
+
+    _attribute_map = {
+        'cx': {'key': 'cx', 'type': 'float'},
+        'cy': {'key': 'cy', 'type': 'float'},
+        'fx': {'key': 'fx', 'type': 'float'},
+        'fy': {'key': 'fy', 'type': 'float'},
+    }
+
+    def __init__(self, **kwargs):
+        super(IntrinsicParameters, self).__init__(**kwargs)
+        self.cx = kwargs.get('cx', None)
+        self.cy = kwargs.get('cy', None)
+        self.fx = kwargs.get('fx', None)
+        self.fy = kwargs.get('fy', None)
 
 
 class LargeFaceList(MetaDataContract):
@@ -1045,6 +1399,80 @@ class LargePersonGroup(MetaDataContract):
         self.large_person_group_id = kwargs.get('large_person_group_id', None)
 
 
+class LivenessOutputs(Model):
+    """The liveness classification based on the input payload.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param liveness_decision: Required. Specifies the liveness classification
+     made by the algorithm.
+     This would be one of the LivenessDecision enumeration values: Uncertain,
+     RealFace or SpoofFace. Possible values include: 'uncertain', 'realface',
+     'spoofface'
+    :type liveness_decision: str or
+     ~azure.cognitiveservices.vision.face.models.enum
+    :param liveness_score: Required. Specifies the liveness classification
+     score.
+     The values range from 0.0 to 1.0,
+     Where 0.0 implies that the face is a spoof and 1.0 implies that the face
+     is real.
+    :type liveness_score: float
+    :param target_face_rectangle: Required. The face region where the liveness
+     classification was made on.
+    :type target_face_rectangle:
+     ~azure.cognitiveservices.vision.face.models.FaceRectangle
+    :param target_file_name: Required. The file name which contians the face
+     rectangle where the liveness classification was made on.
+    :type target_file_name: str
+    :param target_time_offset_within_file: Required. The time offset within
+     the file of the frame which contians the face rectangle where the liveness
+     classification was made on.
+    :type target_time_offset_within_file: int
+    :param target_image_type: Required. The image type which contians the face
+     rectangle where the liveness classification was made on. Possible values
+     include: 'color', 'infrared', 'depth'
+    :type target_image_type: str or
+     ~azure.cognitiveservices.vision.face.models.enum
+    :ivar model_version_used: Required. The model version used by the
+     classification. Default value: "2020-02-15-preview.01" .
+    :vartype model_version_used: str
+    """
+
+    _validation = {
+        'liveness_decision': {'required': True},
+        'liveness_score': {'required': True, 'maximum': 1, 'minimum': 0},
+        'target_face_rectangle': {'required': True},
+        'target_file_name': {'required': True},
+        'target_time_offset_within_file': {'required': True},
+        'target_image_type': {'required': True},
+        'model_version_used': {'required': True, 'constant': True},
+    }
+
+    _attribute_map = {
+        'liveness_decision': {'key': 'livenessDecision', 'type': 'str'},
+        'liveness_score': {'key': 'livenessScore', 'type': 'float'},
+        'target_face_rectangle': {'key': 'targetFaceRectangle', 'type': 'FaceRectangle'},
+        'target_file_name': {'key': 'targetFileName', 'type': 'str'},
+        'target_time_offset_within_file': {'key': 'targetTimeOffsetWithinFile', 'type': 'int'},
+        'target_image_type': {'key': 'targetImageType', 'type': 'str'},
+        'model_version_used': {'key': 'modelVersionUsed', 'type': 'str'},
+    }
+
+    model_version_used = "2020-02-15-preview.01"
+
+    def __init__(self, **kwargs):
+        super(LivenessOutputs, self).__init__(**kwargs)
+        self.liveness_decision = kwargs.get('liveness_decision', None)
+        self.liveness_score = kwargs.get('liveness_score', None)
+        self.target_face_rectangle = kwargs.get('target_face_rectangle', None)
+        self.target_file_name = kwargs.get('target_file_name', None)
+        self.target_time_offset_within_file = kwargs.get('target_time_offset_within_file', None)
+        self.target_image_type = kwargs.get('target_image_type', None)
+
+
 class Makeup(Model):
     """Properties describing present makeups on a given face.
 
@@ -1065,6 +1493,143 @@ class Makeup(Model):
         super(Makeup, self).__init__(**kwargs)
         self.eye_makeup = kwargs.get('eye_makeup', None)
         self.lip_makeup = kwargs.get('lip_makeup', None)
+
+
+class MultiModalImageContainer(Model):
+    """The input payload consisting of a sequence of images and the corresponding
+    metadata.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param metadata: Required. The metadata describing the input file content.
+    :type metadata:
+     ~azure.cognitiveservices.vision.face.models.MultiModalImageMetadata
+    :param content: Required. A ordered collection of application/octet-stream
+     data containing the input data.
+    :type content: list[~azure.cognitiveservices.vision.face.models.IFormFile]
+    """
+
+    _validation = {
+        'metadata': {'required': True},
+        'content': {'required': True},
+    }
+
+    _attribute_map = {
+        'metadata': {'key': 'metadata', 'type': 'MultiModalImageMetadata'},
+        'content': {'key': 'content', 'type': '[IFormFile]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(MultiModalImageContainer, self).__init__(**kwargs)
+        self.metadata = kwargs.get('metadata', None)
+        self.content = kwargs.get('content', None)
+
+
+class MultiModalImageData(Model):
+    """The image metadata corresponding to each image in the multi-modal content
+    payload.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param image_type: Required. Describes the image type based on the camera
+     modality. Possible values include: 'color', 'infrared', 'depth'
+    :type image_type: str or ~azure.cognitiveservices.vision.face.models.enum
+    :param file_name: Required. The file name of the corresponding Content
+     payload.
+    :type file_name: str
+    :param time_offset_within_file_in_milliseconds: Required parameter if the
+     file specified is a container of a sequence of images.
+     This will be used to locate the target frame in the container.
+    :type time_offset_within_file_in_milliseconds: int
+    :param image_timestamp_in_milliseconds: Required. The timestamp of the
+     target frame/image in milliseconds.
+     This is needed to understand the relative time differences in between each
+     subsequent frame in the input payload.
+    :type image_timestamp_in_milliseconds: long
+    :param target_face_rectangle: The target face region where the liveness
+     detection should be focused on.
+    :type target_face_rectangle:
+     ~azure.cognitiveservices.vision.face.models.FaceRectangle
+    :param image_offsets_if_cropped: Describes the image crop offset values,
+     and is only required if the original full frame image is cropped to call
+     this api.
+    :type image_offsets_if_cropped:
+     ~azure.cognitiveservices.vision.face.models.ImageCropOffsets
+    :param image_properties: Describes the properties of the captured image
+     data.
+    :type image_properties:
+     ~azure.cognitiveservices.vision.face.models.ImageProperties
+    :param image_creation_time_in_milliseconds:
+    :type image_creation_time_in_milliseconds: long
+    """
+
+    _validation = {
+        'image_type': {'required': True},
+        'file_name': {'required': True, 'max_length': 255, 'min_length': 0},
+        'time_offset_within_file_in_milliseconds': {'maximum': 2147483647, 'minimum': 0},
+        'image_timestamp_in_milliseconds': {'required': True, 'minimum': 0},
+    }
+
+    _attribute_map = {
+        'image_type': {'key': 'imageType', 'type': 'str'},
+        'file_name': {'key': 'fileName', 'type': 'str'},
+        'time_offset_within_file_in_milliseconds': {'key': 'timeOffsetWithinFileInMilliseconds', 'type': 'int'},
+        'image_timestamp_in_milliseconds': {'key': 'imageTimestampInMilliseconds', 'type': 'long'},
+        'target_face_rectangle': {'key': 'targetFaceRectangle', 'type': 'FaceRectangle'},
+        'image_offsets_if_cropped': {'key': 'imageOffsetsIfCropped', 'type': 'ImageCropOffsets'},
+        'image_properties': {'key': 'imageProperties', 'type': 'ImageProperties'},
+        'image_creation_time_in_milliseconds': {'key': 'imageCreationTimeInMilliseconds', 'type': 'long'},
+    }
+
+    def __init__(self, **kwargs):
+        super(MultiModalImageData, self).__init__(**kwargs)
+        self.image_type = kwargs.get('image_type', None)
+        self.file_name = kwargs.get('file_name', None)
+        self.time_offset_within_file_in_milliseconds = kwargs.get('time_offset_within_file_in_milliseconds', None)
+        self.image_timestamp_in_milliseconds = kwargs.get('image_timestamp_in_milliseconds', None)
+        self.target_face_rectangle = kwargs.get('target_face_rectangle', None)
+        self.image_offsets_if_cropped = kwargs.get('image_offsets_if_cropped', None)
+        self.image_properties = kwargs.get('image_properties', None)
+        self.image_creation_time_in_milliseconds = kwargs.get('image_creation_time_in_milliseconds', None)
+
+
+class MultiModalImageMetadata(Model):
+    """The image metadata corresponding to each image in the multi-modal image
+    content payload.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param image_data: Required. An array of image metadata corresponding to
+     each image in the input content payload.
+    :type image_data:
+     list[~azure.cognitiveservices.vision.face.models.MultiModalImageData]
+    :param modalities_supported_by_camera: Required. An array of modalities
+     supported by camera, e.g. { color, infrared } or { color, infrared, depth
+     }
+    :type modalities_supported_by_camera: list[str]
+    :param camera_calibration_parameters: The required camera calibration
+     parameters if the target face rectangle is not speicified in all of the
+     images.
+    :type camera_calibration_parameters:
+     list[~azure.cognitiveservices.vision.face.models.CameraCalibrationParameters]
+    """
+
+    _validation = {
+        'image_data': {'required': True},
+        'modalities_supported_by_camera': {'required': True},
+    }
+
+    _attribute_map = {
+        'image_data': {'key': 'imageData', 'type': '[MultiModalImageData]'},
+        'modalities_supported_by_camera': {'key': 'modalitiesSupportedByCamera', 'type': '[str]'},
+        'camera_calibration_parameters': {'key': 'cameraCalibrationParameters', 'type': '[CameraCalibrationParameters]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(MultiModalImageMetadata, self).__init__(**kwargs)
+        self.image_data = kwargs.get('image_data', None)
+        self.modalities_supported_by_camera = kwargs.get('modalities_supported_by_camera', None)
+        self.camera_calibration_parameters = kwargs.get('camera_calibration_parameters', None)
 
 
 class Noise(Model):
@@ -1314,6 +1879,134 @@ class SimilarFace(Model):
         self.face_id = kwargs.get('face_id', None)
         self.persisted_face_id = kwargs.get('persisted_face_id', None)
         self.confidence = kwargs.get('confidence', None)
+
+
+class SingleModalImageContainer(Model):
+    """The input payload consisting of a video and it's corresponding metadata.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param metadata: Required. The metadata describing the input file content.
+    :type metadata:
+     ~azure.cognitiveservices.vision.face.models.SingleModalImageMetadata
+    :param content: Required. A ordered collection of application/octet-stream
+     data containing the input data.
+    :type content: list[~azure.cognitiveservices.vision.face.models.IFormFile]
+    """
+
+    _validation = {
+        'metadata': {'required': True},
+        'content': {'required': True},
+    }
+
+    _attribute_map = {
+        'metadata': {'key': 'metadata', 'type': 'SingleModalImageMetadata'},
+        'content': {'key': 'content', 'type': '[IFormFile]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SingleModalImageContainer, self).__init__(**kwargs)
+        self.metadata = kwargs.get('metadata', None)
+        self.content = kwargs.get('content', None)
+
+
+class SingleModalImageData(Model):
+    """The image metadata corresponding to each image in the single-modal content
+    payload.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param active_illumination_information: Describes the active illumination
+     information performed during the image capture.
+    :type active_illumination_information:
+     ~azure.cognitiveservices.vision.face.models.ActiveIlluminationInformation
+    :param file_name: Required. The file name of the corresponding Content
+     payload.
+    :type file_name: str
+    :param time_offset_within_file_in_milliseconds: Required parameter if the
+     file specified is a container of a sequence of images.
+     This will be used to locate the target frame in the container.
+    :type time_offset_within_file_in_milliseconds: int
+    :param image_timestamp_in_milliseconds: Required. The timestamp of the
+     target frame/image in milliseconds.
+     This is needed to understand the relative time differences in between each
+     subsequent frame in the input payload.
+    :type image_timestamp_in_milliseconds: long
+    :param target_face_rectangle: The target face region where the liveness
+     detection should be focused on.
+    :type target_face_rectangle:
+     ~azure.cognitiveservices.vision.face.models.FaceRectangle
+    :param image_offsets_if_cropped: Describes the image crop offset values,
+     and is only required if the original full frame image is cropped to call
+     this api.
+    :type image_offsets_if_cropped:
+     ~azure.cognitiveservices.vision.face.models.ImageCropOffsets
+    :param image_properties: Describes the properties of the captured image
+     data.
+    :type image_properties:
+     ~azure.cognitiveservices.vision.face.models.ImageProperties
+    :param image_creation_time_in_milliseconds:
+    :type image_creation_time_in_milliseconds: long
+    """
+
+    _validation = {
+        'file_name': {'required': True, 'max_length': 255, 'min_length': 0},
+        'time_offset_within_file_in_milliseconds': {'maximum': 2147483647, 'minimum': 0},
+        'image_timestamp_in_milliseconds': {'required': True, 'minimum': 0},
+    }
+
+    _attribute_map = {
+        'active_illumination_information': {'key': 'activeIlluminationInformation', 'type': 'ActiveIlluminationInformation'},
+        'file_name': {'key': 'fileName', 'type': 'str'},
+        'time_offset_within_file_in_milliseconds': {'key': 'timeOffsetWithinFileInMilliseconds', 'type': 'int'},
+        'image_timestamp_in_milliseconds': {'key': 'imageTimestampInMilliseconds', 'type': 'long'},
+        'target_face_rectangle': {'key': 'targetFaceRectangle', 'type': 'FaceRectangle'},
+        'image_offsets_if_cropped': {'key': 'imageOffsetsIfCropped', 'type': 'ImageCropOffsets'},
+        'image_properties': {'key': 'imageProperties', 'type': 'ImageProperties'},
+        'image_creation_time_in_milliseconds': {'key': 'imageCreationTimeInMilliseconds', 'type': 'long'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SingleModalImageData, self).__init__(**kwargs)
+        self.active_illumination_information = kwargs.get('active_illumination_information', None)
+        self.file_name = kwargs.get('file_name', None)
+        self.time_offset_within_file_in_milliseconds = kwargs.get('time_offset_within_file_in_milliseconds', None)
+        self.image_timestamp_in_milliseconds = kwargs.get('image_timestamp_in_milliseconds', None)
+        self.target_face_rectangle = kwargs.get('target_face_rectangle', None)
+        self.image_offsets_if_cropped = kwargs.get('image_offsets_if_cropped', None)
+        self.image_properties = kwargs.get('image_properties', None)
+        self.image_creation_time_in_milliseconds = kwargs.get('image_creation_time_in_milliseconds', None)
+
+
+class SingleModalImageMetadata(Model):
+    """The image metadata corresponding to each image in the single-modal image
+    content payload.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param image_type: Required. Describes the image type based on the camera
+     modality. Possible values include: 'color', 'infrared', 'depth'
+    :type image_type: str or ~azure.cognitiveservices.vision.face.models.enum
+    :param image_data: Required. An array of image metadata corresponding to
+     each image in the input content payload.
+    :type image_data:
+     list[~azure.cognitiveservices.vision.face.models.SingleModalImageData]
+    """
+
+    _validation = {
+        'image_type': {'required': True},
+        'image_data': {'required': True},
+    }
+
+    _attribute_map = {
+        'image_type': {'key': 'imageType', 'type': 'str'},
+        'image_data': {'key': 'imageData', 'type': '[SingleModalImageData]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SingleModalImageMetadata, self).__init__(**kwargs)
+        self.image_type = kwargs.get('image_type', None)
+        self.image_data = kwargs.get('image_data', None)
 
 
 class Snapshot(Model):

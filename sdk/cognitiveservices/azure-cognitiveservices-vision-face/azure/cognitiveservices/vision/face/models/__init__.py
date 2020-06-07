@@ -11,13 +11,20 @@
 
 try:
     from ._models_py3 import Accessory
+    from ._models_py3 import ActiveIlluminationInformation
     from ._models_py3 import APIError, APIErrorException
     from ._models_py3 import ApplySnapshotRequest
     from ._models_py3 import Blur
+    from ._models_py3 import CameraCalibrationParameters
+    from ._models_py3 import CameraExtrinsics
+    from ._models_py3 import CameraIntrinsics
+    from ._models_py3 import ContainerStatus
     from ._models_py3 import Coordinate
     from ._models_py3 import DetectedFace
     from ._models_py3 import Emotion
     from ._models_py3 import Error
+    from ._models_py3 import ErrorInformation
+    from ._models_py3 import ErrorResponse, ErrorResponseException
     from ._models_py3 import Exposure
     from ._models_py3 import FaceAttributes
     from ._models_py3 import FaceLandmarks
@@ -33,11 +40,20 @@ try:
     from ._models_py3 import IdentifyCandidate
     from ._models_py3 import IdentifyRequest
     from ._models_py3 import IdentifyResult
+    from ._models_py3 import IFormFile
+    from ._models_py3 import ImageCropOffsets
+    from ._models_py3 import ImageProperties
     from ._models_py3 import ImageUrl
+    from ._models_py3 import InnerError
+    from ._models_py3 import IntrinsicParameters
     from ._models_py3 import LargeFaceList
     from ._models_py3 import LargePersonGroup
+    from ._models_py3 import LivenessOutputs
     from ._models_py3 import Makeup
     from ._models_py3 import MetaDataContract
+    from ._models_py3 import MultiModalImageContainer
+    from ._models_py3 import MultiModalImageData
+    from ._models_py3 import MultiModalImageMetadata
     from ._models_py3 import NameAndUserDataContract
     from ._models_py3 import Noise
     from ._models_py3 import Occlusion
@@ -46,6 +62,9 @@ try:
     from ._models_py3 import Person
     from ._models_py3 import PersonGroup
     from ._models_py3 import SimilarFace
+    from ._models_py3 import SingleModalImageContainer
+    from ._models_py3 import SingleModalImageData
+    from ._models_py3 import SingleModalImageMetadata
     from ._models_py3 import Snapshot
     from ._models_py3 import TakeSnapshotRequest
     from ._models_py3 import TrainingStatus
@@ -56,13 +75,20 @@ try:
     from ._models_py3 import VerifyResult
 except (SyntaxError, ImportError):
     from ._models import Accessory
+    from ._models import ActiveIlluminationInformation
     from ._models import APIError, APIErrorException
     from ._models import ApplySnapshotRequest
     from ._models import Blur
+    from ._models import CameraCalibrationParameters
+    from ._models import CameraExtrinsics
+    from ._models import CameraIntrinsics
+    from ._models import ContainerStatus
     from ._models import Coordinate
     from ._models import DetectedFace
     from ._models import Emotion
     from ._models import Error
+    from ._models import ErrorInformation
+    from ._models import ErrorResponse, ErrorResponseException
     from ._models import Exposure
     from ._models import FaceAttributes
     from ._models import FaceLandmarks
@@ -78,11 +104,20 @@ except (SyntaxError, ImportError):
     from ._models import IdentifyCandidate
     from ._models import IdentifyRequest
     from ._models import IdentifyResult
+    from ._models import IFormFile
+    from ._models import ImageCropOffsets
+    from ._models import ImageProperties
     from ._models import ImageUrl
+    from ._models import InnerError
+    from ._models import IntrinsicParameters
     from ._models import LargeFaceList
     from ._models import LargePersonGroup
+    from ._models import LivenessOutputs
     from ._models import Makeup
     from ._models import MetaDataContract
+    from ._models import MultiModalImageContainer
+    from ._models import MultiModalImageData
+    from ._models import MultiModalImageMetadata
     from ._models import NameAndUserDataContract
     from ._models import Noise
     from ._models import Occlusion
@@ -91,6 +126,9 @@ except (SyntaxError, ImportError):
     from ._models import Person
     from ._models import PersonGroup
     from ._models import SimilarFace
+    from ._models import SingleModalImageContainer
+    from ._models import SingleModalImageData
+    from ._models import SingleModalImageMetadata
     from ._models import Snapshot
     from ._models import TakeSnapshotRequest
     from ._models import TrainingStatus
@@ -119,13 +157,20 @@ from ._face_client_enums import (
 
 __all__ = [
     'Accessory',
+    'ActiveIlluminationInformation',
     'APIError', 'APIErrorException',
     'ApplySnapshotRequest',
     'Blur',
+    'CameraCalibrationParameters',
+    'CameraExtrinsics',
+    'CameraIntrinsics',
+    'ContainerStatus',
     'Coordinate',
     'DetectedFace',
     'Emotion',
     'Error',
+    'ErrorInformation',
+    'ErrorResponse', 'ErrorResponseException',
     'Exposure',
     'FaceAttributes',
     'FaceLandmarks',
@@ -141,11 +186,20 @@ __all__ = [
     'IdentifyCandidate',
     'IdentifyRequest',
     'IdentifyResult',
+    'IFormFile',
+    'ImageCropOffsets',
+    'ImageProperties',
     'ImageUrl',
+    'InnerError',
+    'IntrinsicParameters',
     'LargeFaceList',
     'LargePersonGroup',
+    'LivenessOutputs',
     'Makeup',
     'MetaDataContract',
+    'MultiModalImageContainer',
+    'MultiModalImageData',
+    'MultiModalImageMetadata',
     'NameAndUserDataContract',
     'Noise',
     'Occlusion',
@@ -154,6 +208,9 @@ __all__ = [
     'Person',
     'PersonGroup',
     'SimilarFace',
+    'SingleModalImageContainer',
+    'SingleModalImageData',
+    'SingleModalImageMetadata',
     'Snapshot',
     'TakeSnapshotRequest',
     'TrainingStatus',

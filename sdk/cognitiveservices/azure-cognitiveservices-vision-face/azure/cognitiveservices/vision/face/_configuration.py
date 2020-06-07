@@ -34,7 +34,7 @@ class FaceClientConfiguration(Configuration):
             raise ValueError("Parameter 'endpoint' must not be None.")
         if credentials is None:
             raise ValueError("Parameter 'credentials' must not be None.")
-        base_url = '{Endpoint}/face/v1.0'
+        base_url = '{Endpoint}/face/v1.1-preview.1'
 
         super(FaceClientConfiguration, self).__init__(base_url)
 

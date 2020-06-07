@@ -17,6 +17,7 @@ from ._large_person_group_person_operations import LargePersonGroupPersonOperati
 from ._large_person_group_operations import LargePersonGroupOperations
 from ._large_face_list_operations import LargeFaceListOperations
 from ._snapshot_operations import SnapshotOperations
+from ._face_client_operations import FaceClientOperationsMixin
 
 __all__ = [
     'FaceOperations',
@@ -27,4 +28,5 @@ __all__ = [
     'LargePersonGroupOperations',
     'LargeFaceListOperations',
     'SnapshotOperations',
+    'FaceClientOperationsMixin',
 ]
