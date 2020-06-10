@@ -25,6 +25,7 @@ try:
     from ._models_py3 import ClfsTargetProperties
     from ._models_py3 import CloudErrorBody
     from ._models_py3 import ErrorResponse
+    from ._models_py3 import ForceGsiProperties
     from ._models_py3 import KeyVaultKeyReference
     from ._models_py3 import KeyVaultKeyReferenceSourceVault
     from ._models_py3 import NamespaceJunction
@@ -57,6 +58,7 @@ except (SyntaxError, ImportError):
     from ._models import ClfsTargetProperties
     from ._models import CloudErrorBody
     from ._models import ErrorResponse
+    from ._models import ForceGsiProperties
     from ._models import KeyVaultKeyReference
     from ._models import KeyVaultKeyReferenceSourceVault
     from ._models import NamespaceJunction
@@ -103,6 +105,7 @@ __all__ = [
     'ClfsTargetProperties',
     'CloudErrorBody',
     'ErrorResponse',
+    'ForceGsiProperties',
     'KeyVaultKeyReference',
     'KeyVaultKeyReferenceSourceVault',
     'NamespaceJunction',

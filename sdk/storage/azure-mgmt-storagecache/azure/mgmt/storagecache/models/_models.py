@@ -575,6 +575,22 @@ class ErrorResponse(Model):
         self.message = kwargs.get('message', None)
 
 
+class ForceGsiProperties(Model):
+    """Force GSI Properties.
+
+    :param comment: The comment associated with the GSI.
+    :type comment: str
+    """
+
+    _attribute_map = {
+        'comment': {'key': 'comment', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ForceGsiProperties, self).__init__(**kwargs)
+        self.comment = kwargs.get('comment', None)
+
+
 class KeyVaultKeyReference(Model):
     """Describes a reference to Key Vault Key.
 
