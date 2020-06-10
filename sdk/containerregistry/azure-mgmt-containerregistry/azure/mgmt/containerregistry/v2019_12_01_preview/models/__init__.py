@@ -116,6 +116,7 @@ try:
     from ._models_py3 import SourceUploadDefinition
     from ._models_py3 import Status
     from ._models_py3 import StorageAccountProperties
+    from ._models_py3 import SystemData
     from ._models_py3 import Target
     from ._models_py3 import Task
     from ._models_py3 import TaskRun
@@ -247,6 +248,7 @@ except (SyntaxError, ImportError):
     from ._models import SourceUploadDefinition
     from ._models import Status
     from ._models import StorageAccountProperties
+    from ._models import SystemData
     from ._models import Target
     from ._models import Task
     from ._models import TaskRun
@@ -310,6 +312,7 @@ from ._container_registry_management_client_enums import (
     RegistryUsageUnit,
     WebhookStatus,
     WebhookAction,
+    CreatedByType,
     OS,
     RunStatus,
     RunType,
@@ -436,6 +439,7 @@ __all__ = [
     'SourceUploadDefinition',
     'Status',
     'StorageAccountProperties',
+    'SystemData',
     'Target',
     'Task',
     'TaskRun',
@@ -498,6 +502,7 @@ __all__ = [
     'RegistryUsageUnit',
     'WebhookStatus',
     'WebhookAction',
+    'CreatedByType',
     'OS',
     'RunStatus',
     'RunType',
