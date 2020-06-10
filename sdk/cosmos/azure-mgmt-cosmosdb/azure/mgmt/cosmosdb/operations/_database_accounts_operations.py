@@ -43,7 +43,7 @@ class DatabaseAccountsOperations(object):
 
     def get(
             self, resource_group_name, account_name, custom_headers=None, raw=False, **operation_config):
-        """Retrieves the properties of an existing Azure Cosmos DB database
+        """Retrieves the properties of a existing Azure Cosmos DB database
         account.
 
         :param resource_group_name: The name of the resource group. The name
