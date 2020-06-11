@@ -657,6 +657,10 @@ class ClusterCreateProperties(Model):
     :param disk_encryption_properties: The disk encryption properties.
     :type disk_encryption_properties:
      ~azure.mgmt.hdinsight.models.DiskEncryptionProperties
+    :param encryption_in_transit_properties: The encryption-in-transit
+     properties.
+    :type encryption_in_transit_properties:
+     ~azure.mgmt.hdinsight.models.EncryptionInTransitProperties
     :param min_supported_tls_version: The minimal supported tls version.
     :type min_supported_tls_version: str
     """
@@ -671,6 +675,7 @@ class ClusterCreateProperties(Model):
         'compute_profile': {'key': 'computeProfile', 'type': 'ComputeProfile'},
         'storage_profile': {'key': 'storageProfile', 'type': 'StorageProfile'},
         'disk_encryption_properties': {'key': 'diskEncryptionProperties', 'type': 'DiskEncryptionProperties'},
+        'encryption_in_transit_properties': {'key': 'encryptionInTransitProperties', 'type': 'EncryptionInTransitProperties'},
         'min_supported_tls_version': {'key': 'minSupportedTlsVersion', 'type': 'str'},
     }
 
@@ -685,6 +690,7 @@ class ClusterCreateProperties(Model):
         self.compute_profile = kwargs.get('compute_profile', None)
         self.storage_profile = kwargs.get('storage_profile', None)
         self.disk_encryption_properties = kwargs.get('disk_encryption_properties', None)
+        self.encryption_in_transit_properties = kwargs.get('encryption_in_transit_properties', None)
         self.min_supported_tls_version = kwargs.get('min_supported_tls_version', None)
 
 
@@ -784,6 +790,10 @@ class ClusterGetProperties(Model):
     :param disk_encryption_properties: The disk encryption properties.
     :type disk_encryption_properties:
      ~azure.mgmt.hdinsight.models.DiskEncryptionProperties
+    :param encryption_in_transit_properties: The encryption-in-transit
+     properties.
+    :type encryption_in_transit_properties:
+     ~azure.mgmt.hdinsight.models.EncryptionInTransitProperties
     :param min_supported_tls_version: The minimal supported tls version.
     :type min_supported_tls_version: str
     """
@@ -807,6 +817,7 @@ class ClusterGetProperties(Model):
         'errors': {'key': 'errors', 'type': '[Errors]'},
         'connectivity_endpoints': {'key': 'connectivityEndpoints', 'type': '[ConnectivityEndpoint]'},
         'disk_encryption_properties': {'key': 'diskEncryptionProperties', 'type': 'DiskEncryptionProperties'},
+        'encryption_in_transit_properties': {'key': 'encryptionInTransitProperties', 'type': 'EncryptionInTransitProperties'},
         'min_supported_tls_version': {'key': 'minSupportedTlsVersion', 'type': 'str'},
     }
 
@@ -826,6 +837,7 @@ class ClusterGetProperties(Model):
         self.errors = kwargs.get('errors', None)
         self.connectivity_endpoints = kwargs.get('connectivity_endpoints', None)
         self.disk_encryption_properties = kwargs.get('disk_encryption_properties', None)
+        self.encryption_in_transit_properties = kwargs.get('encryption_in_transit_properties', None)
         self.min_supported_tls_version = kwargs.get('min_supported_tls_version', None)
 
 
@@ -1152,6 +1164,9 @@ class DiskEncryptionProperties(Model):
     :param msi_resource_id: Resource ID of Managed Identity that is used to
      access the key vault.
     :type msi_resource_id: str
+    :param encryption_at_host: Indicates whether or not resource disk
+     encryption is enabled. Default value: False .
+    :type encryption_at_host: bool
     """
 
     _attribute_map = {
@@ -1160,6 +1175,7 @@ class DiskEncryptionProperties(Model):
         'key_version': {'key': 'keyVersion', 'type': 'str'},
         'encryption_algorithm': {'key': 'encryptionAlgorithm', 'type': 'str'},
         'msi_resource_id': {'key': 'msiResourceId', 'type': 'str'},
+        'encryption_at_host': {'key': 'encryptionAtHost', 'type': 'bool'},
     }
 
     def __init__(self, **kwargs):
@@ -1169,6 +1185,24 @@ class DiskEncryptionProperties(Model):
         self.key_version = kwargs.get('key_version', None)
         self.encryption_algorithm = kwargs.get('encryption_algorithm', None)
         self.msi_resource_id = kwargs.get('msi_resource_id', None)
+        self.encryption_at_host = kwargs.get('encryption_at_host', False)
+
+
+class EncryptionInTransitProperties(Model):
+    """The encryption-in-transit properties.
+
+    :param is_encryption_in_transit_enabled: Indicates whether or not inter
+     cluster node communication is encrypted in transit. Default value: False .
+    :type is_encryption_in_transit_enabled: bool
+    """
+
+    _attribute_map = {
+        'is_encryption_in_transit_enabled': {'key': 'isEncryptionInTransitEnabled', 'type': 'bool'},
+    }
+
+    def __init__(self, **kwargs):
+        super(EncryptionInTransitProperties, self).__init__(**kwargs)
+        self.is_encryption_in_transit_enabled = kwargs.get('is_encryption_in_transit_enabled', False)
 
 
 class ErrorResponse(Model):

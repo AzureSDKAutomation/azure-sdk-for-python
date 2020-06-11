@@ -44,6 +44,7 @@ try:
     from ._models_py3 import DataDisksGroups
     from ._models_py3 import DiskBillingMeters
     from ._models_py3 import DiskEncryptionProperties
+    from ._models_py3 import EncryptionInTransitProperties
     from ._models_py3 import ErrorResponse, ErrorResponseException
     from ._models_py3 import Errors
     from ._models_py3 import ExecuteScriptActionParameters
@@ -120,6 +121,7 @@ except (SyntaxError, ImportError):
     from ._models import DataDisksGroups
     from ._models import DiskBillingMeters
     from ._models import DiskEncryptionProperties
+    from ._models import EncryptionInTransitProperties
     from ._models import ErrorResponse, ErrorResponseException
     from ._models import Errors
     from ._models import ExecuteScriptActionParameters
@@ -212,6 +214,7 @@ __all__ = [
     'DataDisksGroups',
     'DiskBillingMeters',
     'DiskEncryptionProperties',
+    'EncryptionInTransitProperties',
     'ErrorResponse', 'ErrorResponseException',
     'Errors',
     'ExecuteScriptActionParameters',
