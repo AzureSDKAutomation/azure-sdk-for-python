@@ -9,30 +9,26 @@
 # regenerated.
 # --------------------------------------------------------------------------
 from msrest import Serializer, Deserializer
-from typing import TYPE_CHECKING
+from typing import Any, AsyncIterable, Callable, Dict, Generic, Optional, TypeVar, Union
 import warnings
 
+from azure.core.async_paging import AsyncItemPaged, AsyncList
 from azure.core.exceptions import HttpResponseError, ResourceExistsError, ResourceNotFoundError, map_error
-from azure.core.paging import ItemPaged
 from azure.core.pipeline import PipelineResponse
-from azure.core.pipeline.transport import HttpRequest, HttpResponse
-from azure.core.polling import LROPoller, NoPolling, PollingMethod
+from azure.core.pipeline.transport import AsyncHttpResponse, HttpRequest
+from azure.core.polling import AsyncLROPoller, AsyncNoPolling, AsyncPollingMethod
 from azure.mgmt.core.exceptions import ARMErrorFormat
-from azure.mgmt.core.polling.arm_polling import ARMPolling
-
-if TYPE_CHECKING:
-    # pylint: disable=unused-import,ungrouped-imports
-    from typing import Any, Callable, Dict, Generic, Iterable, Optional, TypeVar, Union
+from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
 
 class NetworkManagementClientOperationsMixin(object):
 
-    def check_dns_name_availability(
+    async def check_dns_name_availability(
         self,
-        location,  # type: str
-        domain_name_label,  # type: str
-        **kwargs  # type: Any
-    ):
+        location: str,
+        domain_name_label: str,
+        **kwargs
+    ) -> "models.DnsNameAvailabilityResult":
         """Checks whether a domain name in the cloudapp.azure.com zone is available for use.
 
         :param location: The location of the domain name.
@@ -47,61 +43,61 @@ class NetworkManagementClientOperationsMixin(object):
         """
         api_version = self._get_api_version('check_dns_name_availability')
         if api_version == '2015-06-15':
-            from .v2015_06_15.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2015_06_15.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2016-09-01':
-            from .v2016_09_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2016_09_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2016-12-01':
-            from .v2016_12_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2016_12_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2017-03-01':
-            from .v2017_03_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2017_03_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2017-06-01':
-            from .v2017_06_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2017_06_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2017-08-01':
-            from .v2017_08_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2017_08_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2017-09-01':
-            from .v2017_09_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2017_09_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2017-10-01':
-            from .v2017_10_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2017_10_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2017-11-01':
-            from .v2017_11_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2017_11_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2018-01-01':
-            from .v2018_01_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2018_01_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2018-02-01':
-            from .v2018_02_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2018_02_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2018-04-01':
-            from .v2018_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2018_04_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2018-06-01':
-            from .v2018_06_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2018_06_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2018-07-01':
-            from .v2018_07_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2018_07_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2018-08-01':
-            from .v2018_08_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2018_08_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2018-10-01':
-            from .v2018_10_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2018_10_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2018-11-01':
-            from .v2018_11_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2018_11_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2018-12-01':
-            from .v2018_12_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2018_12_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-02-01':
-            from .v2019_02_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_02_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-04-01':
-            from .v2019_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_04_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-06-01':
-            from .v2019_06_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_06_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-07-01':
-            from .v2019_07_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_07_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-08-01':
-            from .v2019_08_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_08_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-09-01':
-            from .v2019_09_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_09_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-11-01':
-            from .v2019_11_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_11_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-12-01':
-            from .v2019_12_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_12_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-03-01':
-            from .v2020_03_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2020_03_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-04-01':
-            from .v2020_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2020_04_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         mixin_instance = OperationClass()
@@ -109,15 +105,15 @@ class NetworkManagementClientOperationsMixin(object):
         mixin_instance._config = self._config
         mixin_instance._serialize = Serializer(self._models_dict(api_version))
         mixin_instance._deserialize = Deserializer(self._models_dict(api_version))
-        return mixin_instance.check_dns_name_availability(location, domain_name_label, **kwargs)
+        return await mixin_instance.check_dns_name_availability(location, domain_name_label, **kwargs)
 
-    def begin_delete_bastion_shareable_link(
+    async def delete_bastion_shareable_link(
         self,
-        resource_group_name,  # type: str
-        bastion_host_name,  # type: str
-        bsl_request,  # type: "models.BastionShareableLinkListRequest"
-        **kwargs  # type: Any
-    ):
+        resource_group_name: str,
+        bastion_host_name: str,
+        bsl_request: "models.BastionShareableLinkListRequest",
+        **kwargs
+    ) -> None:
         """Deletes the Bastion Shareable Links for all the VMs specified in the request.
 
         :param resource_group_name: The name of the resource group.
@@ -131,17 +127,17 @@ class NetworkManagementClientOperationsMixin(object):
         :rtype: None
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        api_version = self._get_api_version('begin_delete_bastion_shareable_link')
+        api_version = self._get_api_version('delete_bastion_shareable_link')
         if api_version == '2019-09-01':
-            from .v2019_09_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_09_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-11-01':
-            from .v2019_11_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_11_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-12-01':
-            from .v2019_12_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_12_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-03-01':
-            from .v2020_03_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2020_03_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-04-01':
-            from .v2020_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2020_04_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         mixin_instance = OperationClass()
@@ -149,15 +145,15 @@ class NetworkManagementClientOperationsMixin(object):
         mixin_instance._config = self._config
         mixin_instance._serialize = Serializer(self._models_dict(api_version))
         mixin_instance._deserialize = Deserializer(self._models_dict(api_version))
-        return mixin_instance.begin_delete_bastion_shareable_link(resource_group_name, bastion_host_name, bsl_request, **kwargs)
+        return await mixin_instance.delete_bastion_shareable_link(resource_group_name, bastion_host_name, bsl_request, **kwargs)
 
     def disconnect_active_sessions(
         self,
-        resource_group_name,  # type: str
-        bastion_host_name,  # type: str
-        session_ids,  # type: "models.SessionIds"
-        **kwargs  # type: Any
-    ):
+        resource_group_name: str,
+        bastion_host_name: str,
+        session_ids: "models.SessionIds",
+        **kwargs
+    ) -> AsyncItemPaged["models.BastionSessionDeleteResult"]:
         """Returns the list of currently active sessions on the Bastion.
 
         :param resource_group_name: The name of the resource group.
@@ -173,15 +169,15 @@ class NetworkManagementClientOperationsMixin(object):
         """
         api_version = self._get_api_version('disconnect_active_sessions')
         if api_version == '2019-09-01':
-            from .v2019_09_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_09_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-11-01':
-            from .v2019_11_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_11_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-12-01':
-            from .v2019_12_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_12_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-03-01':
-            from .v2020_03_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2020_03_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-04-01':
-            from .v2020_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2020_04_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         mixin_instance = OperationClass()
@@ -191,13 +187,13 @@ class NetworkManagementClientOperationsMixin(object):
         mixin_instance._deserialize = Deserializer(self._models_dict(api_version))
         return mixin_instance.disconnect_active_sessions(resource_group_name, bastion_host_name, session_ids, **kwargs)
 
-    def begin_generatevirtualwanvpnserverconfigurationvpnprofile(
+    async def generatevirtualwanvpnserverconfigurationvpnprofile(
         self,
-        resource_group_name,  # type: str
-        virtual_wan_name,  # type: str
-        vpn_client_params,  # type: "models.VirtualWanVpnProfileParameters"
-        **kwargs  # type: Any
-    ):
+        resource_group_name: str,
+        virtual_wan_name: str,
+        vpn_client_params: "models.VirtualWanVpnProfileParameters",
+        **kwargs
+    ) -> "models.VpnProfileResponse":
         """Generates a unique VPN profile for P2S clients for VirtualWan and associated
         VpnServerConfiguration combination in the specified resource group.
 
@@ -214,19 +210,19 @@ class NetworkManagementClientOperationsMixin(object):
         :rtype: ~azure.mgmt.network.v2020_04_01.models.VpnProfileResponse or None
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        api_version = self._get_api_version('begin_generatevirtualwanvpnserverconfigurationvpnprofile')
+        api_version = self._get_api_version('generatevirtualwanvpnserverconfigurationvpnprofile')
         if api_version == '2019-08-01':
-            from .v2019_08_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_08_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-09-01':
-            from .v2019_09_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_09_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-11-01':
-            from .v2019_11_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_11_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-12-01':
-            from .v2019_12_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_12_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-03-01':
-            from .v2020_03_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2020_03_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-04-01':
-            from .v2020_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2020_04_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         mixin_instance = OperationClass()
@@ -234,14 +230,14 @@ class NetworkManagementClientOperationsMixin(object):
         mixin_instance._config = self._config
         mixin_instance._serialize = Serializer(self._models_dict(api_version))
         mixin_instance._deserialize = Deserializer(self._models_dict(api_version))
-        return mixin_instance.begin_generatevirtualwanvpnserverconfigurationvpnprofile(resource_group_name, virtual_wan_name, vpn_client_params, **kwargs)
+        return await mixin_instance.generatevirtualwanvpnserverconfigurationvpnprofile(resource_group_name, virtual_wan_name, vpn_client_params, **kwargs)
 
-    def begin_get_active_sessions(
+    async def get_active_sessions(
         self,
-        resource_group_name,  # type: str
-        bastion_host_name,  # type: str
-        **kwargs  # type: Any
-    ):
+        resource_group_name: str,
+        bastion_host_name: str,
+        **kwargs
+    ) -> "models.BastionActiveSessionListResult":
         """Returns the list of currently active sessions on the Bastion.
 
         :param resource_group_name: The name of the resource group.
@@ -253,17 +249,17 @@ class NetworkManagementClientOperationsMixin(object):
         :rtype: ~azure.mgmt.network.v2020_04_01.models.BastionActiveSessionListResult or None
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        api_version = self._get_api_version('begin_get_active_sessions')
+        api_version = self._get_api_version('get_active_sessions')
         if api_version == '2019-09-01':
-            from .v2019_09_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_09_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-11-01':
-            from .v2019_11_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_11_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-12-01':
-            from .v2019_12_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_12_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-03-01':
-            from .v2020_03_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2020_03_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-04-01':
-            from .v2020_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2020_04_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         mixin_instance = OperationClass()
@@ -271,15 +267,15 @@ class NetworkManagementClientOperationsMixin(object):
         mixin_instance._config = self._config
         mixin_instance._serialize = Serializer(self._models_dict(api_version))
         mixin_instance._deserialize = Deserializer(self._models_dict(api_version))
-        return mixin_instance.begin_get_active_sessions(resource_group_name, bastion_host_name, **kwargs)
+        return await mixin_instance.get_active_sessions(resource_group_name, bastion_host_name, **kwargs)
 
     def get_bastion_shareable_link(
         self,
-        resource_group_name,  # type: str
-        bastion_host_name,  # type: str
-        bsl_request,  # type: "models.BastionShareableLinkListRequest"
-        **kwargs  # type: Any
-    ):
+        resource_group_name: str,
+        bastion_host_name: str,
+        bsl_request: "models.BastionShareableLinkListRequest",
+        **kwargs
+    ) -> AsyncItemPaged["models.BastionShareableLinkListResult"]:
         """Return the Bastion Shareable Links for all the VMs specified in the request.
 
         :param resource_group_name: The name of the resource group.
@@ -295,15 +291,15 @@ class NetworkManagementClientOperationsMixin(object):
         """
         api_version = self._get_api_version('get_bastion_shareable_link')
         if api_version == '2019-09-01':
-            from .v2019_09_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_09_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-11-01':
-            from .v2019_11_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_11_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-12-01':
-            from .v2019_12_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_12_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-03-01':
-            from .v2020_03_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2020_03_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-04-01':
-            from .v2020_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2020_04_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         mixin_instance = OperationClass()
@@ -313,13 +309,13 @@ class NetworkManagementClientOperationsMixin(object):
         mixin_instance._deserialize = Deserializer(self._models_dict(api_version))
         return mixin_instance.get_bastion_shareable_link(resource_group_name, bastion_host_name, bsl_request, **kwargs)
 
-    def begin_put_bastion_shareable_link(
+    async def put_bastion_shareable_link(
         self,
-        resource_group_name,  # type: str
-        bastion_host_name,  # type: str
-        bsl_request,  # type: "models.BastionShareableLinkListRequest"
-        **kwargs  # type: Any
-    ):
+        resource_group_name: str,
+        bastion_host_name: str,
+        bsl_request: "models.BastionShareableLinkListRequest",
+        **kwargs
+    ) -> "models.BastionShareableLinkListResult":
         """Creates a Bastion Shareable Links for all the VMs specified in the request.
 
         :param resource_group_name: The name of the resource group.
@@ -333,17 +329,17 @@ class NetworkManagementClientOperationsMixin(object):
         :rtype: ~azure.mgmt.network.v2020_04_01.models.BastionShareableLinkListResult or None
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        api_version = self._get_api_version('begin_put_bastion_shareable_link')
+        api_version = self._get_api_version('put_bastion_shareable_link')
         if api_version == '2019-09-01':
-            from .v2019_09_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_09_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-11-01':
-            from .v2019_11_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_11_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-12-01':
-            from .v2019_12_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_12_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-03-01':
-            from .v2020_03_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2020_03_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-04-01':
-            from .v2020_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2020_04_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         mixin_instance = OperationClass()
@@ -351,14 +347,14 @@ class NetworkManagementClientOperationsMixin(object):
         mixin_instance._config = self._config
         mixin_instance._serialize = Serializer(self._models_dict(api_version))
         mixin_instance._deserialize = Deserializer(self._models_dict(api_version))
-        return mixin_instance.begin_put_bastion_shareable_link(resource_group_name, bastion_host_name, bsl_request, **kwargs)
+        return await mixin_instance.put_bastion_shareable_link(resource_group_name, bastion_host_name, bsl_request, **kwargs)
 
-    def supported_security_providers(
+    async def supported_security_providers(
         self,
-        resource_group_name,  # type: str
-        virtual_wan_name,  # type: str
-        **kwargs  # type: Any
-    ):
+        resource_group_name: str,
+        virtual_wan_name: str,
+        **kwargs
+    ) -> "models.VirtualWanSecurityProviders":
         """Gives the supported security providers for the virtual wan.
 
         :param resource_group_name: The resource group name.
@@ -373,33 +369,33 @@ class NetworkManagementClientOperationsMixin(object):
         """
         api_version = self._get_api_version('supported_security_providers')
         if api_version == '2018-08-01':
-            from .v2018_08_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2018_08_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2018-10-01':
-            from .v2018_10_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2018_10_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2018-11-01':
-            from .v2018_11_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2018_11_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2018-12-01':
-            from .v2018_12_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2018_12_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-02-01':
-            from .v2019_02_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_02_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-04-01':
-            from .v2019_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_04_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-06-01':
-            from .v2019_06_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_06_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-07-01':
-            from .v2019_07_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_07_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-08-01':
-            from .v2019_08_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_08_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-09-01':
-            from .v2019_09_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_09_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-11-01':
-            from .v2019_11_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_11_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2019-12-01':
-            from .v2019_12_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2019_12_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-03-01':
-            from .v2020_03_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2020_03_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-04-01':
-            from .v2020_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+            from ..v2020_04_01.aio.operations_async import NetworkManagementClientOperationsMixin as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         mixin_instance = OperationClass()
@@ -407,4 +403,4 @@ class NetworkManagementClientOperationsMixin(object):
         mixin_instance._config = self._config
         mixin_instance._serialize = Serializer(self._models_dict(api_version))
         mixin_instance._deserialize = Deserializer(self._models_dict(api_version))
-        return mixin_instance.supported_security_providers(resource_group_name, virtual_wan_name, **kwargs)
+        return await mixin_instance.supported_security_providers(resource_group_name, virtual_wan_name, **kwargs)
