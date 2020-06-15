@@ -366,9 +366,12 @@ class DeploymentOperationProperties(Model):
     :vartype duration: str
     :ivar service_request_id: Deployment operation service request id.
     :vartype service_request_id: str
-    :ivar status_code: Operation status code.
+    :ivar status_code: Operation status code from the resource provider. This
+     property may not be set if a response has not yet been received.
     :vartype status_code: str
-    :ivar status_message: Operation status message.
+    :ivar status_message: Operation status message from the resource provider.
+     This property is optional.  It will only be provided if an error was
+     received from the resource provider.
     :vartype status_message:
      ~azure.mgmt.resource.resources.v2020_06_01.models.StatusMessage
     :ivar target_resource: The target resource.
