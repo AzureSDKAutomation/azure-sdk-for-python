@@ -631,6 +631,9 @@ class Database(TrackedResource):
     :ivar resumed_date: The date when database was resumed by user action or
      database login (ISO8601 format). Null if the database is paused.
     :vartype resumed_date: datetime
+    :param maintenance_configuration_id: Maintenance configuration id assigned
+     to the database
+    :type maintenance_configuration_id: str
     """
 
     _validation = {
@@ -694,6 +697,7 @@ class Database(TrackedResource):
         'min_capacity': {'key': 'properties.minCapacity', 'type': 'float'},
         'paused_date': {'key': 'properties.pausedDate', 'type': 'iso-8601'},
         'resumed_date': {'key': 'properties.resumedDate', 'type': 'iso-8601'},
+        'maintenance_configuration_id': {'key': 'properties.maintenanceConfigurationId', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -732,6 +736,7 @@ class Database(TrackedResource):
         self.min_capacity = kwargs.get('min_capacity', None)
         self.paused_date = None
         self.resumed_date = None
+        self.maintenance_configuration_id = kwargs.get('maintenance_configuration_id', None)
 
 
 class DatabaseAutomaticTuning(ProxyResource):
@@ -1278,6 +1283,9 @@ class DatabaseUpdate(Model):
     :ivar resumed_date: The date when database was resumed by user action or
      database login (ISO8601 format). Null if the database is paused.
     :vartype resumed_date: datetime
+    :param maintenance_configuration_id: Maintenance configuration id assigned
+     to the database
+    :type maintenance_configuration_id: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
     """
@@ -1330,6 +1338,7 @@ class DatabaseUpdate(Model):
         'min_capacity': {'key': 'properties.minCapacity', 'type': 'float'},
         'paused_date': {'key': 'properties.pausedDate', 'type': 'iso-8601'},
         'resumed_date': {'key': 'properties.resumedDate', 'type': 'iso-8601'},
+        'maintenance_configuration_id': {'key': 'properties.maintenanceConfigurationId', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
     }
 
@@ -1367,6 +1376,7 @@ class DatabaseUpdate(Model):
         self.min_capacity = kwargs.get('min_capacity', None)
         self.paused_date = None
         self.resumed_date = None
+        self.maintenance_configuration_id = kwargs.get('maintenance_configuration_id', None)
         self.tags = kwargs.get('tags', None)
 
 
@@ -1869,6 +1879,9 @@ class ElasticPool(TrackedResource):
     :param license_type: The license type to apply for this elastic pool.
      Possible values include: 'LicenseIncluded', 'BasePrice'
     :type license_type: str or ~azure.mgmt.sql.models.ElasticPoolLicenseType
+    :param maintenance_configuration_id: Maintenance configuration id assigned
+     to the elastic pool.
+    :type maintenance_configuration_id: str
     """
 
     _validation = {
@@ -1895,6 +1908,7 @@ class ElasticPool(TrackedResource):
         'per_database_settings': {'key': 'properties.perDatabaseSettings', 'type': 'ElasticPoolPerDatabaseSettings'},
         'zone_redundant': {'key': 'properties.zoneRedundant', 'type': 'bool'},
         'license_type': {'key': 'properties.licenseType', 'type': 'str'},
+        'maintenance_configuration_id': {'key': 'properties.maintenanceConfigurationId', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -1907,6 +1921,7 @@ class ElasticPool(TrackedResource):
         self.per_database_settings = kwargs.get('per_database_settings', None)
         self.zone_redundant = kwargs.get('zone_redundant', None)
         self.license_type = kwargs.get('license_type', None)
+        self.maintenance_configuration_id = kwargs.get('maintenance_configuration_id', None)
 
 
 class ElasticPoolActivity(ProxyResource):
@@ -2515,6 +2530,9 @@ class ElasticPoolUpdate(Model):
     :param license_type: The license type to apply for this elastic pool.
      Possible values include: 'LicenseIncluded', 'BasePrice'
     :type license_type: str or ~azure.mgmt.sql.models.ElasticPoolLicenseType
+    :param maintenance_configuration_id: Maintenance configuration id assigned
+     to the elastic pool.
+    :type maintenance_configuration_id: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
     """
@@ -2525,6 +2543,7 @@ class ElasticPoolUpdate(Model):
         'per_database_settings': {'key': 'properties.perDatabaseSettings', 'type': 'ElasticPoolPerDatabaseSettings'},
         'zone_redundant': {'key': 'properties.zoneRedundant', 'type': 'bool'},
         'license_type': {'key': 'properties.licenseType', 'type': 'str'},
+        'maintenance_configuration_id': {'key': 'properties.maintenanceConfigurationId', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
     }
 
@@ -2535,6 +2554,7 @@ class ElasticPoolUpdate(Model):
         self.per_database_settings = kwargs.get('per_database_settings', None)
         self.zone_redundant = kwargs.get('zone_redundant', None)
         self.license_type = kwargs.get('license_type', None)
+        self.maintenance_configuration_id = kwargs.get('maintenance_configuration_id', None)
         self.tags = kwargs.get('tags', None)
 
 
