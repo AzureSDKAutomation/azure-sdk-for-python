@@ -90,3 +90,16 @@ class SlimPolicyMetadataPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(SlimPolicyMetadataPaged, self).__init__(*args, **kwargs)
+class AttestationPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`Attestation <azure.mgmt.policyinsights.models.Attestation>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[Attestation]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(AttestationPaged, self).__init__(*args, **kwargs)

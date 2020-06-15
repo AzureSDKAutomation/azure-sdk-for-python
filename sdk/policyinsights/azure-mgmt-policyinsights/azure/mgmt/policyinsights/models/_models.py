@@ -13,6 +13,187 @@ from msrest.serialization import Model
 from msrest.exceptions import HttpOperationError
 
 
+class Resource(Model):
+    """Resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :vartype type: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(Resource, self).__init__(**kwargs)
+        self.id = None
+        self.name = None
+        self.type = None
+
+
+class Attestation(Resource):
+    """An attestation resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :vartype type: str
+    :param policy_assignment_id: Required. The resource ID of the policy
+     assignment that the attestation is setting the state for.
+    :type policy_assignment_id: str
+    :param policy_definition_reference_id: The policy definition reference ID
+     from a policy set definition that the attestation is setting the state
+     for.
+    :type policy_definition_reference_id: str
+    :param compliance_state: The compliance state that should be set on the
+     resource. Possible values include: 'Compliant', 'NonCompliant', 'Unknown'
+    :type compliance_state: str or
+     ~azure.mgmt.policyinsights.models.ComplianceState
+    :param expires_on: The time the compliance state should expire.
+    :type expires_on: datetime
+    :param owner: The person responsible for setting the state of the
+     resource.
+    :type owner: str
+    :param comments: Comments describing why this attestation was created.
+    :type comments: str
+    :param evidence: The evidence supporting the compliance state set in this
+     attestation.
+    :type evidence:
+     list[~azure.mgmt.policyinsights.models.AttestationEvidence]
+    :ivar provisioning_state: The status of the attestation.
+    :vartype provisioning_state: str
+    :ivar last_compliance_state_change_at: The time the compliance state was
+     last changed in this attestation.
+    :vartype last_compliance_state_change_at: datetime
+    :ivar system_data: Azure Resource Manager metadata containing createdBy
+     and modifiedBy information.
+    :vartype system_data: ~azure.mgmt.policyinsights.models.SystemData
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'policy_assignment_id': {'required': True},
+        'provisioning_state': {'readonly': True},
+        'last_compliance_state_change_at': {'readonly': True},
+        'system_data': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'policy_assignment_id': {'key': 'properties.policyAssignmentId', 'type': 'str'},
+        'policy_definition_reference_id': {'key': 'properties.policyDefinitionReferenceId', 'type': 'str'},
+        'compliance_state': {'key': 'properties.complianceState', 'type': 'str'},
+        'expires_on': {'key': 'properties.expiresOn', 'type': 'iso-8601'},
+        'owner': {'key': 'properties.owner', 'type': 'str'},
+        'comments': {'key': 'properties.comments', 'type': 'str'},
+        'evidence': {'key': 'properties.evidence', 'type': '[AttestationEvidence]'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'last_compliance_state_change_at': {'key': 'properties.lastComplianceStateChangeAt', 'type': 'iso-8601'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
+    }
+
+    def __init__(self, **kwargs):
+        super(Attestation, self).__init__(**kwargs)
+        self.policy_assignment_id = kwargs.get('policy_assignment_id', None)
+        self.policy_definition_reference_id = kwargs.get('policy_definition_reference_id', None)
+        self.compliance_state = kwargs.get('compliance_state', None)
+        self.expires_on = kwargs.get('expires_on', None)
+        self.owner = kwargs.get('owner', None)
+        self.comments = kwargs.get('comments', None)
+        self.evidence = kwargs.get('evidence', None)
+        self.provisioning_state = None
+        self.last_compliance_state_change_at = None
+        self.system_data = None
+
+
+class AttestationEvidence(Model):
+    """A piece of evidence supporting the compliance state set in the attestation.
+
+    :param description: The description for this piece of evidence.
+    :type description: str
+    :param source_uri: The URI location of the evidence.
+    :type source_uri: str
+    """
+
+    _attribute_map = {
+        'description': {'key': 'description', 'type': 'str'},
+        'source_uri': {'key': 'sourceUri', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AttestationEvidence, self).__init__(**kwargs)
+        self.description = kwargs.get('description', None)
+        self.source_uri = kwargs.get('source_uri', None)
+
+
+class AzureEntityResource(Resource):
+    """The resource model definition for a Azure Resource Manager resource with an
+    etag.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :vartype type: str
+    :ivar etag: Resource Etag.
+    :vartype etag: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'etag': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AzureEntityResource, self).__init__(**kwargs)
+        self.etag = None
+
+
 class CloudError(Model):
     """CloudError.
     """
@@ -949,6 +1130,39 @@ class PolicyTrackedResource(Model):
         self.last_update_utc = None
 
 
+class ProxyResource(Resource):
+    """The resource model definition for a ARM proxy resource. It will have
+    everything other than required location and tags.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :vartype type: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ProxyResource, self).__init__(**kwargs)
+
+
 class QueryFailure(Model):
     """Error response.
 
@@ -1425,6 +1639,91 @@ class SummaryResults(Model):
         self.resource_details = kwargs.get('resource_details', None)
         self.policy_details = kwargs.get('policy_details', None)
         self.policy_group_details = kwargs.get('policy_group_details', None)
+
+
+class SystemData(Model):
+    """Metadata pertaining to creation and last modification of the resource.
+
+    :param created_by: The identity that created the resource.
+    :type created_by: str
+    :param created_by_type: The type of identity that created the resource.
+     Possible values include: 'User', 'Application', 'ManagedIdentity', 'Key'
+    :type created_by_type: str or
+     ~azure.mgmt.policyinsights.models.CreatedByType
+    :param created_at: The timestamp of resource creation (UTC).
+    :type created_at: datetime
+    :param last_modified_by: The identity that last modified the resource.
+    :type last_modified_by: str
+    :param last_modified_by_type: The type of identity that last modified the
+     resource. Possible values include: 'User', 'Application',
+     'ManagedIdentity', 'Key'
+    :type last_modified_by_type: str or
+     ~azure.mgmt.policyinsights.models.CreatedByType
+    :param last_modified_at: The type of identity that last modified the
+     resource.
+    :type last_modified_at: datetime
+    """
+
+    _attribute_map = {
+        'created_by': {'key': 'createdBy', 'type': 'str'},
+        'created_by_type': {'key': 'createdByType', 'type': 'str'},
+        'created_at': {'key': 'createdAt', 'type': 'iso-8601'},
+        'last_modified_by': {'key': 'lastModifiedBy', 'type': 'str'},
+        'last_modified_by_type': {'key': 'lastModifiedByType', 'type': 'str'},
+        'last_modified_at': {'key': 'lastModifiedAt', 'type': 'iso-8601'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SystemData, self).__init__(**kwargs)
+        self.created_by = kwargs.get('created_by', None)
+        self.created_by_type = kwargs.get('created_by_type', None)
+        self.created_at = kwargs.get('created_at', None)
+        self.last_modified_by = kwargs.get('last_modified_by', None)
+        self.last_modified_by_type = kwargs.get('last_modified_by_type', None)
+        self.last_modified_at = kwargs.get('last_modified_at', None)
+
+
+class TrackedResource(Resource):
+    """The resource model definition for a ARM tracked top level resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :vartype type: str
+    :param tags: Resource tags.
+    :type tags: dict[str, str]
+    :param location: Required. The geo-location where the resource lives
+    :type location: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'location': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'location': {'key': 'location', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(TrackedResource, self).__init__(**kwargs)
+        self.tags = kwargs.get('tags', None)
+        self.location = kwargs.get('location', None)
 
 
 class TrackedResourceModificationDetails(Model):

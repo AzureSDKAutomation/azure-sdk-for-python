@@ -10,6 +10,9 @@
 # --------------------------------------------------------------------------
 
 try:
+    from ._models_py3 import Attestation
+    from ._models_py3 import AttestationEvidence
+    from ._models_py3 import AzureEntityResource
     from ._models_py3 import ComplianceDetail
     from ._models_py3 import ComponentEventDetails
     from ._models_py3 import ComponentStateDetails
@@ -29,6 +32,7 @@ try:
     from ._models_py3 import PolicyMetadata
     from ._models_py3 import PolicyState
     from ._models_py3 import PolicyTrackedResource
+    from ._models_py3 import ProxyResource
     from ._models_py3 import QueryFailure, QueryFailureException
     from ._models_py3 import QueryFailureError
     from ._models_py3 import QueryOptions
@@ -36,13 +40,19 @@ try:
     from ._models_py3 import RemediationDeployment
     from ._models_py3 import RemediationDeploymentSummary
     from ._models_py3 import RemediationFilters
+    from ._models_py3 import Resource
     from ._models_py3 import SlimPolicyMetadata
     from ._models_py3 import SummarizeResults
     from ._models_py3 import Summary
     from ._models_py3 import SummaryResults
+    from ._models_py3 import SystemData
+    from ._models_py3 import TrackedResource
     from ._models_py3 import TrackedResourceModificationDetails
     from ._models_py3 import TypedErrorInfo
 except (SyntaxError, ImportError):
+    from ._models import Attestation
+    from ._models import AttestationEvidence
+    from ._models import AzureEntityResource
     from ._models import ComplianceDetail
     from ._models import ComponentEventDetails
     from ._models import ComponentStateDetails
@@ -62,6 +72,7 @@ except (SyntaxError, ImportError):
     from ._models import PolicyMetadata
     from ._models import PolicyState
     from ._models import PolicyTrackedResource
+    from ._models import ProxyResource
     from ._models import QueryFailure, QueryFailureException
     from ._models import QueryFailureError
     from ._models import QueryOptions
@@ -69,12 +80,16 @@ except (SyntaxError, ImportError):
     from ._models import RemediationDeployment
     from ._models import RemediationDeploymentSummary
     from ._models import RemediationFilters
+    from ._models import Resource
     from ._models import SlimPolicyMetadata
     from ._models import SummarizeResults
     from ._models import Summary
     from ._models import SummaryResults
+    from ._models import SystemData
+    from ._models import TrackedResource
     from ._models import TrackedResourceModificationDetails
     from ._models import TypedErrorInfo
+from ._paged_models import AttestationPaged
 from ._paged_models import PolicyEventPaged
 from ._paged_models import PolicyStatePaged
 from ._paged_models import PolicyTrackedResourcePaged
@@ -83,10 +98,15 @@ from ._paged_models import RemediationPaged
 from ._paged_models import SlimPolicyMetadataPaged
 from ._policy_insights_client_enums import (
     ResourceDiscoveryMode,
+    ComplianceState,
+    CreatedByType,
     PolicyStatesResource,
 )
 
 __all__ = [
+    'Attestation',
+    'AttestationEvidence',
+    'AzureEntityResource',
     'ComplianceDetail',
     'ComponentEventDetails',
     'ComponentStateDetails',
@@ -106,6 +126,7 @@ __all__ = [
     'PolicyMetadata',
     'PolicyState',
     'PolicyTrackedResource',
+    'ProxyResource',
     'QueryFailure', 'QueryFailureException',
     'QueryFailureError',
     'QueryOptions',
@@ -113,10 +134,13 @@ __all__ = [
     'RemediationDeployment',
     'RemediationDeploymentSummary',
     'RemediationFilters',
+    'Resource',
     'SlimPolicyMetadata',
     'SummarizeResults',
     'Summary',
     'SummaryResults',
+    'SystemData',
+    'TrackedResource',
     'TrackedResourceModificationDetails',
     'TypedErrorInfo',
     'PolicyTrackedResourcePaged',
@@ -125,6 +149,9 @@ __all__ = [
     'PolicyEventPaged',
     'PolicyStatePaged',
     'SlimPolicyMetadataPaged',
+    'AttestationPaged',
     'ResourceDiscoveryMode',
+    'ComplianceState',
+    'CreatedByType',
     'PolicyStatesResource',
 ]
