@@ -175,6 +175,8 @@ class SubscriptionOperations(object):
         # Construct parameters
         query_parameters = {}
         query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        if self.config.ignore_resource_check is not None:
+            query_parameters['IgnoreResourceCheck'] = self._serialize.query("self.config.ignore_resource_check", self.config.ignore_resource_check, 'bool')
 
         # Construct headers
         header_parameters = {}

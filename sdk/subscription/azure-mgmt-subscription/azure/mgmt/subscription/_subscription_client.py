@@ -41,13 +41,16 @@ class SubscriptionClient(SDKClient):
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
      object<msrestazure.azure_active_directory>`
+    :param ignore_resource_check: Ignore existing resources in the
+     subscription to be cancelled.
+    :type ignore_resource_check: bool
     :param str base_url: Service URL
     """
 
     def __init__(
-            self, credentials, base_url=None):
+            self, credentials, ignore_resource_check=None, base_url=None):
 
-        self.config = SubscriptionClientConfiguration(credentials, base_url)
+        self.config = SubscriptionClientConfiguration(credentials, ignore_resource_check, base_url)
         super(SubscriptionClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
