@@ -3973,18 +3973,19 @@ class NetworkProfile(msrest.serialization.Model):
 class OrchestrationServiceStateInput(msrest.serialization.Model):
     """The input for OrchestrationServiceState.
 
+    Variables are only populated by the server, and will be ignored when sending a request.
+
     All required parameters must be populated in order to send to Azure.
 
-    :param service_name: Required. The name of the service. Possible values include:
-     "AutomaticRepairs", "DummyOrchestrationServiceName".
-    :type service_name: str or ~azure.mgmt.compute.v2019_12_01.models.OrchestrationServiceNames
+    :ivar service_name: Required. The name of the service. Default value: "AutomaticRepairs".
+    :vartype service_name: str
     :param action: Required. The action to be performed. Possible values include: "Resume",
      "Suspend".
     :type action: str or ~azure.mgmt.compute.v2019_12_01.models.OrchestrationServiceStateAction
     """
 
     _validation = {
-        'service_name': {'required': True},
+        'service_name': {'required': True, 'constant': True},
         'action': {'required': True},
     }
 
@@ -3993,15 +3994,15 @@ class OrchestrationServiceStateInput(msrest.serialization.Model):
         'action': {'key': 'action', 'type': 'str'},
     }
 
+    service_name = "AutomaticRepairs"
+
     def __init__(
         self,
         *,
-        service_name: Union[str, "OrchestrationServiceNames"],
         action: Union[str, "OrchestrationServiceStateAction"],
         **kwargs
     ):
         super(OrchestrationServiceStateInput, self).__init__(**kwargs)
-        self.service_name = service_name
         self.action = action
 
 
@@ -4010,16 +4011,15 @@ class OrchestrationServiceSummary(msrest.serialization.Model):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar service_name: The name of the service. Possible values include: "AutomaticRepairs",
-     "DummyOrchestrationServiceName".
-    :vartype service_name: str or ~azure.mgmt.compute.v2019_12_01.models.OrchestrationServiceNames
+    :ivar service_name: The name of the service. Default value: "AutomaticRepairs".
+    :vartype service_name: str
     :ivar service_state: The current state of the service. Possible values include: "NotRunning",
      "Running", "Suspended".
     :vartype service_state: str or ~azure.mgmt.compute.v2019_12_01.models.OrchestrationServiceState
     """
 
     _validation = {
-        'service_name': {'readonly': True},
+        'service_name': {'readonly': True, 'constant': True},
         'service_state': {'readonly': True},
     }
 
@@ -4027,6 +4027,8 @@ class OrchestrationServiceSummary(msrest.serialization.Model):
         'service_name': {'key': 'serviceName', 'type': 'str'},
         'service_state': {'key': 'serviceState', 'type': 'str'},
     }
+
+    service_name = "AutomaticRepairs"
 
     def __init__(
         self,
