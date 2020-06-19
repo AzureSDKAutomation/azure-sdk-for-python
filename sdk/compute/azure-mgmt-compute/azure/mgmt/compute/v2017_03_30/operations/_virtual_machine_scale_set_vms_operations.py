@@ -574,16 +574,11 @@ class VirtualMachineScaleSetVMsOperations(object):
         :type resource_group_name: str
         :param virtual_machine_scale_set_name: The name of the VM scale set.
         :type virtual_machine_scale_set_name: str
-        :param filter: The filter to apply to the operation. Allowed values
-         are 'startswith(instanceView/statuses/code, 'PowerState') eq true',
-         'properties/latestModelApplied eq true',
-         'properties/latestModelApplied eq false'.
+        :param filter: The filter to apply to the operation.
         :type filter: str
-        :param select: The list parameters. Allowed values are 'instanceView',
-         'instanceView/statuses'.
+        :param select: The list parameters.
         :type select: str
         :param expand: The expand expression to apply to the operation.
-         Allowed values are 'instanceView'.
         :type expand: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the

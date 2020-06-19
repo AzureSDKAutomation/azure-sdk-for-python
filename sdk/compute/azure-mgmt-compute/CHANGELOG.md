@@ -1,12 +1,16 @@
 # Release History
 
-## 12.1.0 (2020-06-17)
+## 13.0.0 (2020-05-29)
 
 **Features**
 
 - Model DiffDiskSettings has a new parameter placement
 - Added operation VirtualMachinesOperations.simulate_eviction
 - Added operation VirtualMachineScaleSetVMsOperations.simulate_eviction
+
+**Breaking changes**
+
+- Operation VirtualMachineScaleSetsOperations.set_orchestration_service_state has a new signature
 
 ## 12.0.0 (2020-03-23)
 
