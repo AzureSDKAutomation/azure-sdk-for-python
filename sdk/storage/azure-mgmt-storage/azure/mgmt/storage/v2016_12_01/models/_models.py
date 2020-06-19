@@ -643,7 +643,7 @@ class StorageAccount(Resource):
         self.secondary_endpoints = None
         self.encryption = None
         self.access_tier = None
-        self.enable_https_traffic_only = kwargs.get('enable_https_traffic_only', False)
+        self.enable_https_traffic_only = kwargs.get('enable_https_traffic_only', True)
 
 
 class StorageAccountCheckNameAvailabilityParameters(msrest.serialization.Model):
@@ -742,7 +742,7 @@ class StorageAccountCreateParameters(msrest.serialization.Model):
         self.custom_domain = kwargs.get('custom_domain', None)
         self.encryption = kwargs.get('encryption', None)
         self.access_tier = kwargs.get('access_tier', None)
-        self.enable_https_traffic_only = kwargs.get('enable_https_traffic_only', False)
+        self.enable_https_traffic_only = kwargs.get('enable_https_traffic_only', True)
 
 
 class StorageAccountKey(msrest.serialization.Model):
@@ -901,7 +901,7 @@ class StorageAccountUpdateParameters(msrest.serialization.Model):
         self.custom_domain = kwargs.get('custom_domain', None)
         self.encryption = kwargs.get('encryption', None)
         self.access_tier = kwargs.get('access_tier', None)
-        self.enable_https_traffic_only = kwargs.get('enable_https_traffic_only', False)
+        self.enable_https_traffic_only = kwargs.get('enable_https_traffic_only', True)
 
 
 class Usage(msrest.serialization.Model):

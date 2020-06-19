@@ -1136,7 +1136,7 @@ class StorageAccount(Resource):
         location: Optional[str] = None,
         tags: Optional[Dict[str, str]] = None,
         identity: Optional["Identity"] = None,
-        enable_https_traffic_only: Optional[bool] = False,
+        enable_https_traffic_only: Optional[bool] = True,
         **kwargs
     ):
         super(StorageAccount, self).__init__(location=location, tags=tags, **kwargs)
@@ -1264,7 +1264,7 @@ class StorageAccountCreateParameters(msrest.serialization.Model):
         encryption: Optional["Encryption"] = None,
         network_rule_set: Optional["NetworkRuleSet"] = None,
         access_tier: Optional[Union[str, "AccessTier"]] = None,
-        enable_https_traffic_only: Optional[bool] = False,
+        enable_https_traffic_only: Optional[bool] = True,
         **kwargs
     ):
         super(StorageAccountCreateParameters, self).__init__(**kwargs)
@@ -1449,7 +1449,7 @@ class StorageAccountUpdateParameters(msrest.serialization.Model):
         custom_domain: Optional["CustomDomain"] = None,
         encryption: Optional["Encryption"] = None,
         access_tier: Optional[Union[str, "AccessTier"]] = None,
-        enable_https_traffic_only: Optional[bool] = False,
+        enable_https_traffic_only: Optional[bool] = True,
         network_rule_set: Optional["NetworkRuleSet"] = None,
         **kwargs
     ):
