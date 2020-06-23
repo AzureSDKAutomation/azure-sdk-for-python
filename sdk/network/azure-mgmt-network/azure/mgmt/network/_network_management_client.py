@@ -19,7 +19,7 @@ from ._operations_mixin import NetworkManagementClientOperationsMixin
 
 
 class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiClientMixin, SDKClient):
-    """Network Client.
+    """Network Client
 
     This ready contains multiple API versions, to help you deal with all Azure clouds
     (Azure Stack, Azure Government, Azure China, etc.).
@@ -53,7 +53,8 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
             None: DEFAULT_API_VERSION,
             'firewall_policy_rule_groups': '2020-04-01',
             'interface_endpoints': '2019-02-01',
-            'p2_svpn_server_configurations': '2019-07-01',
+            'p2s_vpn_server_configurations': '2019-07-01',
+            'virtual_wa_ns': '2018-07-01',
         }},
         _PROFILE_TAG + " latest"
     )
@@ -3786,90 +3787,90 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
-    def p2_svpn_gateways(self):
+    def p2s_vpn_gateways(self):
         """Instance depends on the API version:
 
-           * 2018-08-01: :class:`P2SVpnGatewaysOperations<azure.mgmt.network.v2018_08_01.operations.P2SVpnGatewaysOperations>`
-           * 2018-10-01: :class:`P2SVpnGatewaysOperations<azure.mgmt.network.v2018_10_01.operations.P2SVpnGatewaysOperations>`
-           * 2018-11-01: :class:`P2SVpnGatewaysOperations<azure.mgmt.network.v2018_11_01.operations.P2SVpnGatewaysOperations>`
-           * 2018-12-01: :class:`P2SVpnGatewaysOperations<azure.mgmt.network.v2018_12_01.operations.P2SVpnGatewaysOperations>`
-           * 2019-02-01: :class:`P2SVpnGatewaysOperations<azure.mgmt.network.v2019_02_01.operations.P2SVpnGatewaysOperations>`
-           * 2019-04-01: :class:`P2SVpnGatewaysOperations<azure.mgmt.network.v2019_04_01.operations.P2SVpnGatewaysOperations>`
-           * 2019-06-01: :class:`P2SVpnGatewaysOperations<azure.mgmt.network.v2019_06_01.operations.P2SVpnGatewaysOperations>`
-           * 2019-07-01: :class:`P2SVpnGatewaysOperations<azure.mgmt.network.v2019_07_01.operations.P2SVpnGatewaysOperations>`
-           * 2019-08-01: :class:`P2SVpnGatewaysOperations<azure.mgmt.network.v2019_08_01.operations.P2SVpnGatewaysOperations>`
-           * 2019-09-01: :class:`P2SVpnGatewaysOperations<azure.mgmt.network.v2019_09_01.operations.P2SVpnGatewaysOperations>`
-           * 2019-11-01: :class:`P2SVpnGatewaysOperations<azure.mgmt.network.v2019_11_01.operations.P2SVpnGatewaysOperations>`
-           * 2019-12-01: :class:`P2SVpnGatewaysOperations<azure.mgmt.network.v2019_12_01.operations.P2SVpnGatewaysOperations>`
-           * 2020-03-01: :class:`P2SVpnGatewaysOperations<azure.mgmt.network.v2020_03_01.operations.P2SVpnGatewaysOperations>`
-           * 2020-04-01: :class:`P2SVpnGatewaysOperations<azure.mgmt.network.v2020_04_01.operations.P2SVpnGatewaysOperations>`
-           * 2020-05-01: :class:`P2SVpnGatewaysOperations<azure.mgmt.network.v2020_05_01.operations.P2SVpnGatewaysOperations>`
+           * 2018-08-01: :class:`P2sVpnGatewaysOperations<azure.mgmt.network.v2018_08_01.operations.P2sVpnGatewaysOperations>`
+           * 2018-10-01: :class:`P2sVpnGatewaysOperations<azure.mgmt.network.v2018_10_01.operations.P2sVpnGatewaysOperations>`
+           * 2018-11-01: :class:`P2sVpnGatewaysOperations<azure.mgmt.network.v2018_11_01.operations.P2sVpnGatewaysOperations>`
+           * 2018-12-01: :class:`P2sVpnGatewaysOperations<azure.mgmt.network.v2018_12_01.operations.P2sVpnGatewaysOperations>`
+           * 2019-02-01: :class:`P2sVpnGatewaysOperations<azure.mgmt.network.v2019_02_01.operations.P2sVpnGatewaysOperations>`
+           * 2019-04-01: :class:`P2sVpnGatewaysOperations<azure.mgmt.network.v2019_04_01.operations.P2sVpnGatewaysOperations>`
+           * 2019-06-01: :class:`P2sVpnGatewaysOperations<azure.mgmt.network.v2019_06_01.operations.P2sVpnGatewaysOperations>`
+           * 2019-07-01: :class:`P2sVpnGatewaysOperations<azure.mgmt.network.v2019_07_01.operations.P2sVpnGatewaysOperations>`
+           * 2019-08-01: :class:`P2sVpnGatewaysOperations<azure.mgmt.network.v2019_08_01.operations.P2sVpnGatewaysOperations>`
+           * 2019-09-01: :class:`P2sVpnGatewaysOperations<azure.mgmt.network.v2019_09_01.operations.P2sVpnGatewaysOperations>`
+           * 2019-11-01: :class:`P2sVpnGatewaysOperations<azure.mgmt.network.v2019_11_01.operations.P2sVpnGatewaysOperations>`
+           * 2019-12-01: :class:`P2sVpnGatewaysOperations<azure.mgmt.network.v2019_12_01.operations.P2sVpnGatewaysOperations>`
+           * 2020-03-01: :class:`P2sVpnGatewaysOperations<azure.mgmt.network.v2020_03_01.operations.P2sVpnGatewaysOperations>`
+           * 2020-04-01: :class:`P2sVpnGatewaysOperations<azure.mgmt.network.v2020_04_01.operations.P2sVpnGatewaysOperations>`
+           * 2020-05-01: :class:`P2sVpnGatewaysOperations<azure.mgmt.network.v2020_05_01.operations.P2sVpnGatewaysOperations>`
         """
-        api_version = self._get_api_version('p2_svpn_gateways')
+        api_version = self._get_api_version('p2s_vpn_gateways')
         if api_version == '2018-08-01':
-            from .v2018_08_01.operations import P2SVpnGatewaysOperations as OperationClass
+            from .v2018_08_01.operations import P2sVpnGatewaysOperations as OperationClass
         elif api_version == '2018-10-01':
-            from .v2018_10_01.operations import P2SVpnGatewaysOperations as OperationClass
+            from .v2018_10_01.operations import P2sVpnGatewaysOperations as OperationClass
         elif api_version == '2018-11-01':
-            from .v2018_11_01.operations import P2SVpnGatewaysOperations as OperationClass
+            from .v2018_11_01.operations import P2sVpnGatewaysOperations as OperationClass
         elif api_version == '2018-12-01':
-            from .v2018_12_01.operations import P2SVpnGatewaysOperations as OperationClass
+            from .v2018_12_01.operations import P2sVpnGatewaysOperations as OperationClass
         elif api_version == '2019-02-01':
-            from .v2019_02_01.operations import P2SVpnGatewaysOperations as OperationClass
+            from .v2019_02_01.operations import P2sVpnGatewaysOperations as OperationClass
         elif api_version == '2019-04-01':
-            from .v2019_04_01.operations import P2SVpnGatewaysOperations as OperationClass
+            from .v2019_04_01.operations import P2sVpnGatewaysOperations as OperationClass
         elif api_version == '2019-06-01':
-            from .v2019_06_01.operations import P2SVpnGatewaysOperations as OperationClass
+            from .v2019_06_01.operations import P2sVpnGatewaysOperations as OperationClass
         elif api_version == '2019-07-01':
-            from .v2019_07_01.operations import P2SVpnGatewaysOperations as OperationClass
+            from .v2019_07_01.operations import P2sVpnGatewaysOperations as OperationClass
         elif api_version == '2019-08-01':
-            from .v2019_08_01.operations import P2SVpnGatewaysOperations as OperationClass
+            from .v2019_08_01.operations import P2sVpnGatewaysOperations as OperationClass
         elif api_version == '2019-09-01':
-            from .v2019_09_01.operations import P2SVpnGatewaysOperations as OperationClass
+            from .v2019_09_01.operations import P2sVpnGatewaysOperations as OperationClass
         elif api_version == '2019-11-01':
-            from .v2019_11_01.operations import P2SVpnGatewaysOperations as OperationClass
+            from .v2019_11_01.operations import P2sVpnGatewaysOperations as OperationClass
         elif api_version == '2019-12-01':
-            from .v2019_12_01.operations import P2SVpnGatewaysOperations as OperationClass
+            from .v2019_12_01.operations import P2sVpnGatewaysOperations as OperationClass
         elif api_version == '2020-03-01':
-            from .v2020_03_01.operations import P2SVpnGatewaysOperations as OperationClass
+            from .v2020_03_01.operations import P2sVpnGatewaysOperations as OperationClass
         elif api_version == '2020-04-01':
-            from .v2020_04_01.operations import P2SVpnGatewaysOperations as OperationClass
+            from .v2020_04_01.operations import P2sVpnGatewaysOperations as OperationClass
         elif api_version == '2020-05-01':
-            from .v2020_05_01.operations import P2SVpnGatewaysOperations as OperationClass
+            from .v2020_05_01.operations import P2sVpnGatewaysOperations as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
-    def p2_svpn_server_configurations(self):
+    def p2s_vpn_server_configurations(self):
         """Instance depends on the API version:
 
-           * 2018-08-01: :class:`P2SVpnServerConfigurationsOperations<azure.mgmt.network.v2018_08_01.operations.P2SVpnServerConfigurationsOperations>`
-           * 2018-10-01: :class:`P2SVpnServerConfigurationsOperations<azure.mgmt.network.v2018_10_01.operations.P2SVpnServerConfigurationsOperations>`
-           * 2018-11-01: :class:`P2SVpnServerConfigurationsOperations<azure.mgmt.network.v2018_11_01.operations.P2SVpnServerConfigurationsOperations>`
-           * 2018-12-01: :class:`P2SVpnServerConfigurationsOperations<azure.mgmt.network.v2018_12_01.operations.P2SVpnServerConfigurationsOperations>`
-           * 2019-02-01: :class:`P2SVpnServerConfigurationsOperations<azure.mgmt.network.v2019_02_01.operations.P2SVpnServerConfigurationsOperations>`
-           * 2019-04-01: :class:`P2SVpnServerConfigurationsOperations<azure.mgmt.network.v2019_04_01.operations.P2SVpnServerConfigurationsOperations>`
-           * 2019-06-01: :class:`P2SVpnServerConfigurationsOperations<azure.mgmt.network.v2019_06_01.operations.P2SVpnServerConfigurationsOperations>`
-           * 2019-07-01: :class:`P2SVpnServerConfigurationsOperations<azure.mgmt.network.v2019_07_01.operations.P2SVpnServerConfigurationsOperations>`
+           * 2018-08-01: :class:`P2sVpnServerConfigurationsOperations<azure.mgmt.network.v2018_08_01.operations.P2sVpnServerConfigurationsOperations>`
+           * 2018-10-01: :class:`P2sVpnServerConfigurationsOperations<azure.mgmt.network.v2018_10_01.operations.P2sVpnServerConfigurationsOperations>`
+           * 2018-11-01: :class:`P2sVpnServerConfigurationsOperations<azure.mgmt.network.v2018_11_01.operations.P2sVpnServerConfigurationsOperations>`
+           * 2018-12-01: :class:`P2sVpnServerConfigurationsOperations<azure.mgmt.network.v2018_12_01.operations.P2sVpnServerConfigurationsOperations>`
+           * 2019-02-01: :class:`P2sVpnServerConfigurationsOperations<azure.mgmt.network.v2019_02_01.operations.P2sVpnServerConfigurationsOperations>`
+           * 2019-04-01: :class:`P2sVpnServerConfigurationsOperations<azure.mgmt.network.v2019_04_01.operations.P2sVpnServerConfigurationsOperations>`
+           * 2019-06-01: :class:`P2sVpnServerConfigurationsOperations<azure.mgmt.network.v2019_06_01.operations.P2sVpnServerConfigurationsOperations>`
+           * 2019-07-01: :class:`P2sVpnServerConfigurationsOperations<azure.mgmt.network.v2019_07_01.operations.P2sVpnServerConfigurationsOperations>`
         """
-        api_version = self._get_api_version('p2_svpn_server_configurations')
+        api_version = self._get_api_version('p2s_vpn_server_configurations')
         if api_version == '2018-08-01':
-            from .v2018_08_01.operations import P2SVpnServerConfigurationsOperations as OperationClass
+            from .v2018_08_01.operations import P2sVpnServerConfigurationsOperations as OperationClass
         elif api_version == '2018-10-01':
-            from .v2018_10_01.operations import P2SVpnServerConfigurationsOperations as OperationClass
+            from .v2018_10_01.operations import P2sVpnServerConfigurationsOperations as OperationClass
         elif api_version == '2018-11-01':
-            from .v2018_11_01.operations import P2SVpnServerConfigurationsOperations as OperationClass
+            from .v2018_11_01.operations import P2sVpnServerConfigurationsOperations as OperationClass
         elif api_version == '2018-12-01':
-            from .v2018_12_01.operations import P2SVpnServerConfigurationsOperations as OperationClass
+            from .v2018_12_01.operations import P2sVpnServerConfigurationsOperations as OperationClass
         elif api_version == '2019-02-01':
-            from .v2019_02_01.operations import P2SVpnServerConfigurationsOperations as OperationClass
+            from .v2019_02_01.operations import P2sVpnServerConfigurationsOperations as OperationClass
         elif api_version == '2019-04-01':
-            from .v2019_04_01.operations import P2SVpnServerConfigurationsOperations as OperationClass
+            from .v2019_04_01.operations import P2sVpnServerConfigurationsOperations as OperationClass
         elif api_version == '2019-06-01':
-            from .v2019_06_01.operations import P2SVpnServerConfigurationsOperations as OperationClass
+            from .v2019_06_01.operations import P2sVpnServerConfigurationsOperations as OperationClass
         elif api_version == '2019-07-01':
-            from .v2019_07_01.operations import P2SVpnServerConfigurationsOperations as OperationClass
+            from .v2019_07_01.operations import P2sVpnServerConfigurationsOperations as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
@@ -5262,29 +5263,29 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
-    def virtual_hub_route_table_v2_s(self):
+    def virtual_hub_route_table_v2s(self):
         """Instance depends on the API version:
 
-           * 2019-09-01: :class:`VirtualHubRouteTableV2SOperations<azure.mgmt.network.v2019_09_01.operations.VirtualHubRouteTableV2SOperations>`
-           * 2019-11-01: :class:`VirtualHubRouteTableV2SOperations<azure.mgmt.network.v2019_11_01.operations.VirtualHubRouteTableV2SOperations>`
-           * 2019-12-01: :class:`VirtualHubRouteTableV2SOperations<azure.mgmt.network.v2019_12_01.operations.VirtualHubRouteTableV2SOperations>`
-           * 2020-03-01: :class:`VirtualHubRouteTableV2SOperations<azure.mgmt.network.v2020_03_01.operations.VirtualHubRouteTableV2SOperations>`
-           * 2020-04-01: :class:`VirtualHubRouteTableV2SOperations<azure.mgmt.network.v2020_04_01.operations.VirtualHubRouteTableV2SOperations>`
-           * 2020-05-01: :class:`VirtualHubRouteTableV2SOperations<azure.mgmt.network.v2020_05_01.operations.VirtualHubRouteTableV2SOperations>`
+           * 2019-09-01: :class:`VirtualHubRouteTableV2sOperations<azure.mgmt.network.v2019_09_01.operations.VirtualHubRouteTableV2sOperations>`
+           * 2019-11-01: :class:`VirtualHubRouteTableV2sOperations<azure.mgmt.network.v2019_11_01.operations.VirtualHubRouteTableV2sOperations>`
+           * 2019-12-01: :class:`VirtualHubRouteTableV2sOperations<azure.mgmt.network.v2019_12_01.operations.VirtualHubRouteTableV2sOperations>`
+           * 2020-03-01: :class:`VirtualHubRouteTableV2sOperations<azure.mgmt.network.v2020_03_01.operations.VirtualHubRouteTableV2sOperations>`
+           * 2020-04-01: :class:`VirtualHubRouteTableV2sOperations<azure.mgmt.network.v2020_04_01.operations.VirtualHubRouteTableV2sOperations>`
+           * 2020-05-01: :class:`VirtualHubRouteTableV2sOperations<azure.mgmt.network.v2020_05_01.operations.VirtualHubRouteTableV2sOperations>`
         """
-        api_version = self._get_api_version('virtual_hub_route_table_v2_s')
+        api_version = self._get_api_version('virtual_hub_route_table_v2s')
         if api_version == '2019-09-01':
-            from .v2019_09_01.operations import VirtualHubRouteTableV2SOperations as OperationClass
+            from .v2019_09_01.operations import VirtualHubRouteTableV2sOperations as OperationClass
         elif api_version == '2019-11-01':
-            from .v2019_11_01.operations import VirtualHubRouteTableV2SOperations as OperationClass
+            from .v2019_11_01.operations import VirtualHubRouteTableV2sOperations as OperationClass
         elif api_version == '2019-12-01':
-            from .v2019_12_01.operations import VirtualHubRouteTableV2SOperations as OperationClass
+            from .v2019_12_01.operations import VirtualHubRouteTableV2sOperations as OperationClass
         elif api_version == '2020-03-01':
-            from .v2020_03_01.operations import VirtualHubRouteTableV2SOperations as OperationClass
+            from .v2020_03_01.operations import VirtualHubRouteTableV2sOperations as OperationClass
         elif api_version == '2020-04-01':
-            from .v2020_04_01.operations import VirtualHubRouteTableV2SOperations as OperationClass
+            from .v2020_04_01.operations import VirtualHubRouteTableV2sOperations as OperationClass
         elif api_version == '2020-05-01':
-            from .v2020_05_01.operations import VirtualHubRouteTableV2SOperations as OperationClass
+            from .v2020_05_01.operations import VirtualHubRouteTableV2sOperations as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
@@ -5862,12 +5863,28 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
-    def virtual_wans(self):
+    def virtual_wa_ns(self):
         """Instance depends on the API version:
 
            * 2018-04-01: :class:`VirtualWANsOperations<azure.mgmt.network.v2018_04_01.operations.VirtualWANsOperations>`
            * 2018-06-01: :class:`VirtualWANsOperations<azure.mgmt.network.v2018_06_01.operations.VirtualWANsOperations>`
            * 2018-07-01: :class:`VirtualWANsOperations<azure.mgmt.network.v2018_07_01.operations.VirtualWANsOperations>`
+        """
+        api_version = self._get_api_version('virtual_wa_ns')
+        if api_version == '2018-04-01':
+            from .v2018_04_01.operations import VirtualWANsOperations as OperationClass
+        elif api_version == '2018-06-01':
+            from .v2018_06_01.operations import VirtualWANsOperations as OperationClass
+        elif api_version == '2018-07-01':
+            from .v2018_07_01.operations import VirtualWANsOperations as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
+    def virtual_wans(self):
+        """Instance depends on the API version:
+
            * 2018-08-01: :class:`VirtualWansOperations<azure.mgmt.network.v2018_08_01.operations.VirtualWansOperations>`
            * 2018-10-01: :class:`VirtualWansOperations<azure.mgmt.network.v2018_10_01.operations.VirtualWansOperations>`
            * 2018-11-01: :class:`VirtualWansOperations<azure.mgmt.network.v2018_11_01.operations.VirtualWansOperations>`
@@ -5885,13 +5902,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
            * 2020-05-01: :class:`VirtualWansOperations<azure.mgmt.network.v2020_05_01.operations.VirtualWansOperations>`
         """
         api_version = self._get_api_version('virtual_wans')
-        if api_version == '2018-04-01':
-            from .v2018_04_01.operations import VirtualWANsOperations as OperationClass
-        elif api_version == '2018-06-01':
-            from .v2018_06_01.operations import VirtualWANsOperations as OperationClass
-        elif api_version == '2018-07-01':
-            from .v2018_07_01.operations import VirtualWANsOperations as OperationClass
-        elif api_version == '2018-08-01':
+        if api_version == '2018-08-01':
             from .v2018_08_01.operations import VirtualWansOperations as OperationClass
         elif api_version == '2018-10-01':
             from .v2018_10_01.operations import VirtualWansOperations as OperationClass
