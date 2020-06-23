@@ -10846,8 +10846,8 @@ class HopLink(msrest.serialization.Model):
     :vartype link_type: str
     :ivar issues: List of issues.
     :vartype issues: list[~azure.mgmt.network.v2020_05_01.models.ConnectivityIssue]
-    :ivar context: Provides additional context on the issue.
-    :vartype context: list[dict[str, str]]
+    :ivar context: Provides additional context on links.
+    :vartype context: dict[str, str]
     :ivar resource_id: Resource ID.
     :vartype resource_id: str
     :ivar round_trip_time_min: Minimum roundtrip time in milliseconds.
@@ -10873,7 +10873,7 @@ class HopLink(msrest.serialization.Model):
         'next_hop_id': {'key': 'nextHopId', 'type': 'str'},
         'link_type': {'key': 'linkType', 'type': 'str'},
         'issues': {'key': 'issues', 'type': '[ConnectivityIssue]'},
-        'context': {'key': 'context', 'type': '[{str}]'},
+        'context': {'key': 'context', 'type': '{str}'},
         'resource_id': {'key': 'resourceId', 'type': 'str'},
         'round_trip_time_min': {'key': 'properties.roundTripTimeMin', 'type': 'int'},
         'round_trip_time_avg': {'key': 'properties.roundTripTimeAvg', 'type': 'int'},
