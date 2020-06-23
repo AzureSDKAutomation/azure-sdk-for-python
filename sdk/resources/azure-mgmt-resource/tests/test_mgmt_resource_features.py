@@ -5,14 +5,9 @@
 # Licensed under the MIT License. See License.txt in the project root for
 # license information.
 #--------------------------------------------------------------------------
-
-# covered ops:
-#   features: 4/4
-#   feature_client: 1/1
-
 import unittest
 
-import azure.mgmt.resource
+import azure.mgmt.resource.features.models
 from devtools_testutils import AzureMgmtTestCase
 
 class MgmtResourceFeaturesTest(AzureMgmtTestCase):
@@ -26,15 +21,12 @@ class MgmtResourceFeaturesTest(AzureMgmtTestCase):
     def test_features(self):
         features = list(self.features_client.features.list_all())
         self.assertGreater(len(features), 0)
-        
-        # [ZIM] temporarily disabled
-        # self.assertTrue(all(isinstance(v, azure.mgmt.resource.features.models.FeatureResult) for v in features))
+        self.assertTrue(all(isinstance(v, azure.mgmt.resource.features.models.FeatureResult) for v in features))
 
 
         features = list(self.features_client.features.list('Microsoft.Compute'))
         self.assertGreater(len(features), 0)
-        # [ZIM] temporarily disabled
-        # self.assertTrue(all(isinstance(v, azure.mgmt.resource.features.models.FeatureResult) for v in features))
+        self.assertTrue(all(isinstance(v, azure.mgmt.resource.features.models.FeatureResult) for v in features))
 
         one_feature = features[0]
         feature = self.features_client.features.get(
@@ -46,9 +38,6 @@ class MgmtResourceFeaturesTest(AzureMgmtTestCase):
             'Microsoft.Compute',
             feature.name.split('/')[1]
         )
-
-    def test_feature_client(self):
-        self.features_client.list_operations()
 
 
 #------------------------------------------------------------------------------
