@@ -1349,6 +1349,8 @@ class FileServiceProperties(Resource):
     :param share_delete_retention_policy: The file service properties for share soft delete.
     :type share_delete_retention_policy:
      ~azure.mgmt.storage.v2019_06_01.models.DeleteRetentionPolicy
+    :param protocol_settings: Protocol settings for file service.
+    :type protocol_settings: ~azure.mgmt.storage.v2019_06_01.models.ProtocolSettings
     """
 
     _validation = {
@@ -1365,6 +1367,7 @@ class FileServiceProperties(Resource):
         'sku': {'key': 'sku', 'type': 'Sku'},
         'cors': {'key': 'properties.cors', 'type': 'CorsRules'},
         'share_delete_retention_policy': {'key': 'properties.shareDeleteRetentionPolicy', 'type': 'DeleteRetentionPolicy'},
+        'protocol_settings': {'key': 'properties.protocolSettings', 'type': 'ProtocolSettings'},
     }
 
     def __init__(
@@ -1372,12 +1375,14 @@ class FileServiceProperties(Resource):
         *,
         cors: Optional["CorsRules"] = None,
         share_delete_retention_policy: Optional["DeleteRetentionPolicy"] = None,
+        protocol_settings: Optional["ProtocolSettings"] = None,
         **kwargs
     ):
         super(FileServiceProperties, self).__init__(**kwargs)
         self.sku = None
         self.cors = cors
         self.share_delete_retention_policy = share_delete_retention_policy
+        self.protocol_settings = protocol_settings
 
 
 class FileShare(AzureEntityResource):
@@ -2754,6 +2759,27 @@ class MetricSpecification(msrest.serialization.Model):
         self.resource_id_dimension_name_override = resource_id_dimension_name_override
 
 
+class Multichannel(msrest.serialization.Model):
+    """Multichannel.
+
+    :param enabled: Indicates whether multichannel is enabled.
+    :type enabled: bool
+    """
+
+    _attribute_map = {
+        'enabled': {'key': 'enabled', 'type': 'bool'},
+    }
+
+    def __init__(
+        self,
+        *,
+        enabled: Optional[bool] = None,
+        **kwargs
+    ):
+        super(Multichannel, self).__init__(**kwargs)
+        self.enabled = enabled
+
+
 class NetworkRuleSet(msrest.serialization.Model):
     """Network rule set.
 
@@ -3251,6 +3277,27 @@ class PrivateLinkServiceConnectionState(msrest.serialization.Model):
         self.action_required = action_required
 
 
+class ProtocolSettings(msrest.serialization.Model):
+    """ProtocolSettings.
+
+    :param smb: Setting for SMB protocol.
+    :type smb: ~azure.mgmt.storage.v2019_06_01.models.SmbSetting
+    """
+
+    _attribute_map = {
+        'smb': {'key': 'smb', 'type': 'SmbSetting'},
+    }
+
+    def __init__(
+        self,
+        *,
+        smb: Optional["SmbSetting"] = None,
+        **kwargs
+    ):
+        super(ProtocolSettings, self).__init__(**kwargs)
+        self.smb = smb
+
+
 class QueueServiceProperties(Resource):
     """The properties of a storage account’s Queue service.
 
@@ -3683,6 +3730,27 @@ class SkuInformation(msrest.serialization.Model):
         self.locations = None
         self.capabilities = None
         self.restrictions = restrictions
+
+
+class SmbSetting(msrest.serialization.Model):
+    """SmbSetting.
+
+    :param multichannel: Multichannel setting. Applies to Premium FileStorage only.
+    :type multichannel: ~azure.mgmt.storage.v2019_06_01.models.Multichannel
+    """
+
+    _attribute_map = {
+        'multichannel': {'key': 'multichannel', 'type': 'Multichannel'},
+    }
+
+    def __init__(
+        self,
+        *,
+        multichannel: Optional["Multichannel"] = None,
+        **kwargs
+    ):
+        super(SmbSetting, self).__init__(**kwargs)
+        self.multichannel = multichannel
 
 
 class TrackedResource(Resource):

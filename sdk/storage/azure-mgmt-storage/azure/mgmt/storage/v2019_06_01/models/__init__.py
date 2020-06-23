@@ -69,6 +69,7 @@ try:
     from ._models_py3 import ManagementPolicySchema
     from ._models_py3 import ManagementPolicySnapShot
     from ._models_py3 import MetricSpecification
+    from ._models_py3 import Multichannel
     from ._models_py3 import NetworkRuleSet
     from ._models_py3 import ObjectReplicationPolicies
     from ._models_py3 import ObjectReplicationPolicy
@@ -83,6 +84,7 @@ try:
     from ._models_py3 import PrivateLinkResource
     from ._models_py3 import PrivateLinkResourceListResult
     from ._models_py3 import PrivateLinkServiceConnectionState
+    from ._models_py3 import ProtocolSettings
     from ._models_py3 import QueueServiceProperties
     from ._models_py3 import Resource
     from ._models_py3 import RestorePolicyProperties
@@ -93,6 +95,7 @@ try:
     from ._models_py3 import ServiceSpecification
     from ._models_py3 import Sku
     from ._models_py3 import SkuInformation
+    from ._models_py3 import SmbSetting
     from ._models_py3 import StorageAccount
     from ._models_py3 import StorageAccountCheckNameAvailabilityParameters
     from ._models_py3 import StorageAccountCreateParameters
@@ -178,6 +181,7 @@ except (SyntaxError, ImportError):
     from ._models import ManagementPolicySchema  # type: ignore
     from ._models import ManagementPolicySnapShot  # type: ignore
     from ._models import MetricSpecification  # type: ignore
+    from ._models import Multichannel  # type: ignore
     from ._models import NetworkRuleSet  # type: ignore
     from ._models import ObjectReplicationPolicies  # type: ignore
     from ._models import ObjectReplicationPolicy  # type: ignore
@@ -192,6 +196,7 @@ except (SyntaxError, ImportError):
     from ._models import PrivateLinkResource  # type: ignore
     from ._models import PrivateLinkResourceListResult  # type: ignore
     from ._models import PrivateLinkServiceConnectionState  # type: ignore
+    from ._models import ProtocolSettings  # type: ignore
     from ._models import QueueServiceProperties  # type: ignore
     from ._models import Resource  # type: ignore
     from ._models import RestorePolicyProperties  # type: ignore
@@ -202,6 +207,7 @@ except (SyntaxError, ImportError):
     from ._models import ServiceSpecification  # type: ignore
     from ._models import Sku  # type: ignore
     from ._models import SkuInformation  # type: ignore
+    from ._models import SmbSetting  # type: ignore
     from ._models import StorageAccount  # type: ignore
     from ._models import StorageAccountCheckNameAvailabilityParameters  # type: ignore
     from ._models import StorageAccountCreateParameters  # type: ignore
@@ -333,6 +339,7 @@ __all__ = [
     'ManagementPolicySchema',
     'ManagementPolicySnapShot',
     'MetricSpecification',
+    'Multichannel',
     'NetworkRuleSet',
     'ObjectReplicationPolicies',
     'ObjectReplicationPolicy',
@@ -347,6 +354,7 @@ __all__ = [
     'PrivateLinkResource',
     'PrivateLinkResourceListResult',
     'PrivateLinkServiceConnectionState',
+    'ProtocolSettings',
     'QueueServiceProperties',
     'Resource',
     'RestorePolicyProperties',
@@ -357,6 +365,7 @@ __all__ = [
     'ServiceSpecification',
     'Sku',
     'SkuInformation',
+    'SmbSetting',
     'StorageAccount',
     'StorageAccountCheckNameAvailabilityParameters',
     'StorageAccountCreateParameters',
