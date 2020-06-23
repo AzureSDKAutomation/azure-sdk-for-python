@@ -27,7 +27,7 @@ class DataConnectionsOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client API Version. Constant value: "2020-02-15".
+    :ivar api_version: Client API Version. Constant value: "2020-06-14".
     """
 
     models = models
@@ -37,7 +37,7 @@ class DataConnectionsOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-02-15"
+        self.api_version = "2020-06-14"
 
         self.config = config
 
@@ -192,6 +192,117 @@ class DataConnectionsOperations(object):
 
         return deserialized
     data_connection_validation_method.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Kusto/clusters/{clusterName}/databases/{databaseName}/dataConnectionValidation'}
+
+
+    def _data_connection_validation_async_initial(
+            self, resource_group_name, cluster_name, database_name, data_connection_name=None, properties=None, custom_headers=None, raw=False, **operation_config):
+        parameters = models.DataConnectionValidation(data_connection_name=data_connection_name, properties=properties)
+
+        # Construct URL
+        url = self.data_connection_validation_async.metadata['url']
+        path_format_arguments = {
+            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
+            'clusterName': self._serialize.url("cluster_name", cluster_name, 'str'),
+            'databaseName': self._serialize.url("database_name", database_name, 'str'),
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct body
+        body_content = self._serialize.body(parameters, 'DataConnectionValidation')
+
+        # Construct and send request
+        request = self._client.post(url, query_parameters, header_parameters, body_content)
+        response = self._client.send(request, stream=False, **operation_config)
+
+        if response.status_code not in [200, 202]:
+            exp = CloudError(response)
+            exp.request_id = response.headers.get('x-ms-request-id')
+            raise exp
+
+        deserialized = None
+
+        if response.status_code == 200:
+            deserialized = self._deserialize('DataConnectionValidationListResult', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+
+    def data_connection_validation_async(
+            self, resource_group_name, cluster_name, database_name, data_connection_name=None, properties=None, custom_headers=None, raw=False, polling=True, **operation_config):
+        """Checks that the data connection parameters are valid.
+
+        :param resource_group_name: The name of the resource group containing
+         the Kusto cluster.
+        :type resource_group_name: str
+        :param cluster_name: The name of the Kusto cluster.
+        :type cluster_name: str
+        :param database_name: The name of the database in the Kusto cluster.
+        :type database_name: str
+        :param data_connection_name: The name of the data connection.
+        :type data_connection_name: str
+        :param properties: The data connection properties to validate.
+        :type properties: ~azure.mgmt.kusto.models.DataConnection
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: The poller return type is ClientRawResponse, the
+         direct response alongside the deserialized response
+        :param polling: True for ARMPolling, False for no polling, or a
+         polling object for personal polling strategy
+        :return: An instance of LROPoller that returns
+         DataConnectionValidationListResult or
+         ClientRawResponse<DataConnectionValidationListResult> if raw==True
+        :rtype:
+         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.kusto.models.DataConnectionValidationListResult]
+         or
+         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.kusto.models.DataConnectionValidationListResult]]
+        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        """
+        raw_result = self._data_connection_validation_async_initial(
+            resource_group_name=resource_group_name,
+            cluster_name=cluster_name,
+            database_name=database_name,
+            data_connection_name=data_connection_name,
+            properties=properties,
+            custom_headers=custom_headers,
+            raw=True,
+            **operation_config
+        )
+
+        def get_long_running_output(response):
+            deserialized = self._deserialize('DataConnectionValidationListResult', response)
+
+            if raw:
+                client_raw_response = ClientRawResponse(deserialized, response)
+                return client_raw_response
+
+            return deserialized
+
+        lro_delay = operation_config.get(
+            'long_running_operation_timeout',
+            self.config.long_running_operation_timeout)
+        if polling is True: polling_method = ARMPolling(lro_delay, lro_options={'final-state-via': 'location'}, **operation_config)
+        elif polling is False: polling_method = NoPolling()
+        else: polling_method = polling
+        return LROPoller(self._client, raw_result, get_long_running_output, polling_method)
+    data_connection_validation_async.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Kusto/clusters/{clusterName}/databases/{databaseName}/dataConnectionValidationAsync'}
 
     def check_name_availability(
             self, resource_group_name, cluster_name, database_name, name, custom_headers=None, raw=False, **operation_config):
