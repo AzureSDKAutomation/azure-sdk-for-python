@@ -417,9 +417,10 @@ class BudgetFilter(Model):
 
     :param and_property: The logical "AND" expression. Must have at least 2
      items.
-    :type and_property: list[~azure.mgmt.consumption.models.BudgetFilter]
+    :type and_property:
+     list[~azure.mgmt.consumption.models.BudgetFilterProperties]
     :param not_property: The logical "NOT" expression.
-    :type not_property: ~azure.mgmt.consumption.models.BudgetFilter
+    :type not_property: ~azure.mgmt.consumption.models.BudgetFilterProperties
     :param dimensions: Has comparison expression for a dimension
     :type dimensions:
      ~azure.mgmt.consumption.models.BudgetComparisonExpression
@@ -432,8 +433,8 @@ class BudgetFilter(Model):
     }
 
     _attribute_map = {
-        'and_property': {'key': 'and', 'type': '[BudgetFilter]'},
-        'not_property': {'key': 'not', 'type': 'BudgetFilter'},
+        'and_property': {'key': 'and', 'type': '[BudgetFilterProperties]'},
+        'not_property': {'key': 'not', 'type': 'BudgetFilterProperties'},
         'dimensions': {'key': 'dimensions', 'type': 'BudgetComparisonExpression'},
         'tags': {'key': 'tags', 'type': 'BudgetComparisonExpression'},
     }
@@ -442,6 +443,27 @@ class BudgetFilter(Model):
         super(BudgetFilter, self).__init__(**kwargs)
         self.and_property = and_property
         self.not_property = not_property
+        self.dimensions = dimensions
+        self.tags = tags
+
+
+class BudgetFilterProperties(Model):
+    """The Dimensions or Tags to filter a budget by.
+
+    :param dimensions: Has comparison expression for a dimension
+    :type dimensions:
+     ~azure.mgmt.consumption.models.BudgetComparisonExpression
+    :param tags: Has comparison expression for a tag
+    :type tags: ~azure.mgmt.consumption.models.BudgetComparisonExpression
+    """
+
+    _attribute_map = {
+        'dimensions': {'key': 'dimensions', 'type': 'BudgetComparisonExpression'},
+        'tags': {'key': 'tags', 'type': 'BudgetComparisonExpression'},
+    }
+
+    def __init__(self, *, dimensions=None, tags=None, **kwargs) -> None:
+        super(BudgetFilterProperties, self).__init__(**kwargs)
         self.dimensions = dimensions
         self.tags = tags
 

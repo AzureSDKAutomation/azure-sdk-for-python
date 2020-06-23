@@ -17,6 +17,7 @@ try:
     from ._models_py3 import Budget
     from ._models_py3 import BudgetComparisonExpression
     from ._models_py3 import BudgetFilter
+    from ._models_py3 import BudgetFilterProperties
     from ._models_py3 import BudgetTimePeriod
     from ._models_py3 import ChargesListResult
     from ._models_py3 import ChargeSummary
@@ -70,6 +71,7 @@ except (SyntaxError, ImportError):
     from ._models import Budget
     from ._models import BudgetComparisonExpression
     from ._models import BudgetFilter
+    from ._models import BudgetFilterProperties
     from ._models import BudgetTimePeriod
     from ._models import ChargesListResult
     from ._models import ChargeSummary
@@ -149,6 +151,7 @@ __all__ = [
     'Budget',
     'BudgetComparisonExpression',
     'BudgetFilter',
+    'BudgetFilterProperties',
     'BudgetTimePeriod',
     'ChargesListResult',
     'ChargeSummary',
