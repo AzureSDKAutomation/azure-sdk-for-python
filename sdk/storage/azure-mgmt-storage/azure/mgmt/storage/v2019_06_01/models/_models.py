@@ -1216,6 +1216,9 @@ class FileServiceProperties(Resource):
      share soft delete.
     :type share_delete_retention_policy:
      ~azure.mgmt.storage.v2019_06_01.models.DeleteRetentionPolicy
+    :param protocol_settings: Protocol settings for file service
+    :type protocol_settings:
+     ~azure.mgmt.storage.v2019_06_01.models.ProtocolSettings
     :ivar sku: Sku name and tier.
     :vartype sku: ~azure.mgmt.storage.v2019_06_01.models.Sku
     """
@@ -1233,6 +1236,7 @@ class FileServiceProperties(Resource):
         'type': {'key': 'type', 'type': 'str'},
         'cors': {'key': 'properties.cors', 'type': 'CorsRules'},
         'share_delete_retention_policy': {'key': 'properties.shareDeleteRetentionPolicy', 'type': 'DeleteRetentionPolicy'},
+        'protocol_settings': {'key': 'properties.protocolSettings', 'type': 'ProtocolSettings'},
         'sku': {'key': 'sku', 'type': 'Sku'},
     }
 
@@ -1240,6 +1244,7 @@ class FileServiceProperties(Resource):
         super(FileServiceProperties, self).__init__(**kwargs)
         self.cors = kwargs.get('cors', None)
         self.share_delete_retention_policy = kwargs.get('share_delete_retention_policy', None)
+        self.protocol_settings = kwargs.get('protocol_settings', None)
         self.sku = None
 
 
@@ -2442,6 +2447,22 @@ class MetricSpecification(Model):
         self.resource_id_dimension_name_override = kwargs.get('resource_id_dimension_name_override', None)
 
 
+class Multichannel(Model):
+    """Multichannel.
+
+    :param enabled: Indicates whether multichannel is enabled
+    :type enabled: bool
+    """
+
+    _attribute_map = {
+        'enabled': {'key': 'enabled', 'type': 'bool'},
+    }
+
+    def __init__(self, **kwargs):
+        super(Multichannel, self).__init__(**kwargs)
+        self.enabled = kwargs.get('enabled', None)
+
+
 class NetworkRuleSet(Model):
     """Network rule set.
 
@@ -2834,6 +2855,22 @@ class PrivateLinkServiceConnectionState(Model):
         self.status = kwargs.get('status', None)
         self.description = kwargs.get('description', None)
         self.action_required = kwargs.get('action_required', None)
+
+
+class ProtocolSettings(Model):
+    """ProtocolSettings.
+
+    :param smb: Setting for SMB protocol
+    :type smb: ~azure.mgmt.storage.v2019_06_01.models.SmbSetting
+    """
+
+    _attribute_map = {
+        'smb': {'key': 'smb', 'type': 'SmbSetting'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ProtocolSettings, self).__init__(**kwargs)
+        self.smb = kwargs.get('smb', None)
 
 
 class ProxyResource(Resource):
@@ -3262,6 +3299,23 @@ class SkuInformation(Model):
         self.locations = None
         self.capabilities = None
         self.restrictions = kwargs.get('restrictions', None)
+
+
+class SmbSetting(Model):
+    """SmbSetting.
+
+    :param multichannel: Multichannel setting. Applies to Premium FileStorage
+     only.
+    :type multichannel: ~azure.mgmt.storage.v2019_06_01.models.Multichannel
+    """
+
+    _attribute_map = {
+        'multichannel': {'key': 'multichannel', 'type': 'Multichannel'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SmbSetting, self).__init__(**kwargs)
+        self.multichannel = kwargs.get('multichannel', None)
 
 
 class TrackedResource(Resource):

@@ -65,6 +65,7 @@ try:
     from ._models_py3 import ManagementPolicySchema
     from ._models_py3 import ManagementPolicySnapShot
     from ._models_py3 import MetricSpecification
+    from ._models_py3 import Multichannel
     from ._models_py3 import NetworkRuleSet
     from ._models_py3 import ObjectReplicationPolicy
     from ._models_py3 import ObjectReplicationPolicyFilter
@@ -76,6 +77,7 @@ try:
     from ._models_py3 import PrivateLinkResource
     from ._models_py3 import PrivateLinkResourceListResult
     from ._models_py3 import PrivateLinkServiceConnectionState
+    from ._models_py3 import ProtocolSettings
     from ._models_py3 import ProxyResource
     from ._models_py3 import QueueServiceProperties
     from ._models_py3 import Resource
@@ -87,6 +89,7 @@ try:
     from ._models_py3 import Sku
     from ._models_py3 import SKUCapability
     from ._models_py3 import SkuInformation
+    from ._models_py3 import SmbSetting
     from ._models_py3 import StorageAccount
     from ._models_py3 import StorageAccountCheckNameAvailabilityParameters
     from ._models_py3 import StorageAccountCreateParameters
@@ -162,6 +165,7 @@ except (SyntaxError, ImportError):
     from ._models import ManagementPolicySchema
     from ._models import ManagementPolicySnapShot
     from ._models import MetricSpecification
+    from ._models import Multichannel
     from ._models import NetworkRuleSet
     from ._models import ObjectReplicationPolicy
     from ._models import ObjectReplicationPolicyFilter
@@ -173,6 +177,7 @@ except (SyntaxError, ImportError):
     from ._models import PrivateLinkResource
     from ._models import PrivateLinkResourceListResult
     from ._models import PrivateLinkServiceConnectionState
+    from ._models import ProtocolSettings
     from ._models import ProxyResource
     from ._models import QueueServiceProperties
     from ._models import Resource
@@ -184,6 +189,7 @@ except (SyntaxError, ImportError):
     from ._models import Sku
     from ._models import SKUCapability
     from ._models import SkuInformation
+    from ._models import SmbSetting
     from ._models import StorageAccount
     from ._models import StorageAccountCheckNameAvailabilityParameters
     from ._models import StorageAccountCreateParameters
@@ -319,6 +325,7 @@ __all__ = [
     'ManagementPolicySchema',
     'ManagementPolicySnapShot',
     'MetricSpecification',
+    'Multichannel',
     'NetworkRuleSet',
     'ObjectReplicationPolicy',
     'ObjectReplicationPolicyFilter',
@@ -330,6 +337,7 @@ __all__ = [
     'PrivateLinkResource',
     'PrivateLinkResourceListResult',
     'PrivateLinkServiceConnectionState',
+    'ProtocolSettings',
     'ProxyResource',
     'QueueServiceProperties',
     'Resource',
@@ -341,6 +349,7 @@ __all__ = [
     'Sku',
     'SKUCapability',
     'SkuInformation',
+    'SmbSetting',
     'StorageAccount',
     'StorageAccountCheckNameAvailabilityParameters',
     'StorageAccountCreateParameters',
