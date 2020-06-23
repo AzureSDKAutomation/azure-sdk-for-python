@@ -7483,16 +7483,16 @@ class ExpressRouteCrossConnection(Resource):
     :type tags: dict[str, str]
     :ivar etag: A unique read-only string that changes whenever the resource is updated.
     :vartype etag: str
-    :ivar primary_azure_port: The name of the primary port.
-    :vartype primary_azure_port: str
-    :ivar secondary_azure_port: The name of the secondary port.
-    :vartype secondary_azure_port: str
+    :param primary_azure_port: The name of the primary port.
+    :type primary_azure_port: str
+    :param secondary_azure_port: The name of the secondary port.
+    :type secondary_azure_port: str
     :ivar s_tag: The identifier of the circuit traffic.
     :vartype s_tag: int
-    :param peering_location: The peering location of the ExpressRoute circuit.
-    :type peering_location: str
-    :param bandwidth_in_mbps: The circuit bandwidth In Mbps.
-    :type bandwidth_in_mbps: int
+    :ivar peering_location: The peering location of the ExpressRoute circuit.
+    :vartype peering_location: str
+    :ivar bandwidth_in_mbps: The circuit bandwidth In Mbps.
+    :vartype bandwidth_in_mbps: int
     :param express_route_circuit: The ExpressRouteCircuit.
     :type express_route_circuit:
      ~azure.mgmt.network.v2020_03_01.models.ExpressRouteCircuitReference
@@ -7514,9 +7514,9 @@ class ExpressRouteCrossConnection(Resource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'etag': {'readonly': True},
-        'primary_azure_port': {'readonly': True},
-        'secondary_azure_port': {'readonly': True},
         's_tag': {'readonly': True},
+        'peering_location': {'readonly': True},
+        'bandwidth_in_mbps': {'readonly': True},
         'provisioning_state': {'readonly': True},
     }
 
@@ -7545,11 +7545,11 @@ class ExpressRouteCrossConnection(Resource):
     ):
         super(ExpressRouteCrossConnection, self).__init__(**kwargs)
         self.etag = None
-        self.primary_azure_port = None
-        self.secondary_azure_port = None
+        self.primary_azure_port = kwargs.get('primary_azure_port', None)
+        self.secondary_azure_port = kwargs.get('secondary_azure_port', None)
         self.s_tag = None
-        self.peering_location = kwargs.get('peering_location', None)
-        self.bandwidth_in_mbps = kwargs.get('bandwidth_in_mbps', None)
+        self.peering_location = None
+        self.bandwidth_in_mbps = None
         self.express_route_circuit = kwargs.get('express_route_circuit', None)
         self.service_provider_provisioning_state = kwargs.get('service_provider_provisioning_state', None)
         self.service_provider_notes = kwargs.get('service_provider_notes', None)

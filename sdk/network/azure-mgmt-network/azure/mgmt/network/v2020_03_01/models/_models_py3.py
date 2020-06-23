@@ -8360,16 +8360,16 @@ class ExpressRouteCrossConnection(Resource):
     :type tags: dict[str, str]
     :ivar etag: A unique read-only string that changes whenever the resource is updated.
     :vartype etag: str
-    :ivar primary_azure_port: The name of the primary port.
-    :vartype primary_azure_port: str
-    :ivar secondary_azure_port: The name of the secondary port.
-    :vartype secondary_azure_port: str
+    :param primary_azure_port: The name of the primary port.
+    :type primary_azure_port: str
+    :param secondary_azure_port: The name of the secondary port.
+    :type secondary_azure_port: str
     :ivar s_tag: The identifier of the circuit traffic.
     :vartype s_tag: int
-    :param peering_location: The peering location of the ExpressRoute circuit.
-    :type peering_location: str
-    :param bandwidth_in_mbps: The circuit bandwidth In Mbps.
-    :type bandwidth_in_mbps: int
+    :ivar peering_location: The peering location of the ExpressRoute circuit.
+    :vartype peering_location: str
+    :ivar bandwidth_in_mbps: The circuit bandwidth In Mbps.
+    :vartype bandwidth_in_mbps: int
     :param express_route_circuit: The ExpressRouteCircuit.
     :type express_route_circuit:
      ~azure.mgmt.network.v2020_03_01.models.ExpressRouteCircuitReference
@@ -8391,9 +8391,9 @@ class ExpressRouteCrossConnection(Resource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'etag': {'readonly': True},
-        'primary_azure_port': {'readonly': True},
-        'secondary_azure_port': {'readonly': True},
         's_tag': {'readonly': True},
+        'peering_location': {'readonly': True},
+        'bandwidth_in_mbps': {'readonly': True},
         'provisioning_state': {'readonly': True},
     }
 
@@ -8422,8 +8422,8 @@ class ExpressRouteCrossConnection(Resource):
         id: Optional[str] = None,
         location: Optional[str] = None,
         tags: Optional[Dict[str, str]] = None,
-        peering_location: Optional[str] = None,
-        bandwidth_in_mbps: Optional[int] = None,
+        primary_azure_port: Optional[str] = None,
+        secondary_azure_port: Optional[str] = None,
         express_route_circuit: Optional["ExpressRouteCircuitReference"] = None,
         service_provider_provisioning_state: Optional[Union[str, "ServiceProviderProvisioningState"]] = None,
         service_provider_notes: Optional[str] = None,
@@ -8432,11 +8432,11 @@ class ExpressRouteCrossConnection(Resource):
     ):
         super(ExpressRouteCrossConnection, self).__init__(id=id, location=location, tags=tags, **kwargs)
         self.etag = None
-        self.primary_azure_port = None
-        self.secondary_azure_port = None
+        self.primary_azure_port = primary_azure_port
+        self.secondary_azure_port = secondary_azure_port
         self.s_tag = None
-        self.peering_location = peering_location
-        self.bandwidth_in_mbps = bandwidth_in_mbps
+        self.peering_location = None
+        self.bandwidth_in_mbps = None
         self.express_route_circuit = express_route_circuit
         self.service_provider_provisioning_state = service_provider_provisioning_state
         self.service_provider_notes = service_provider_notes
