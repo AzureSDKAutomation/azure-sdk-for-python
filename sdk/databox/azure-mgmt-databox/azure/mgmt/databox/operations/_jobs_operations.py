@@ -27,7 +27,7 @@ class JobsOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The API Version. Constant value: "2019-09-01".
+    :ivar api_version: The API Version. Constant value: "2020-04-01".
     """
 
     models = models
@@ -37,7 +37,7 @@ class JobsOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2019-09-01"
+        self.api_version = "2020-04-01"
 
         self.config = config
 
@@ -111,6 +111,80 @@ class JobsOperations(object):
 
         return deserialized
     list.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.DataBox/jobs'}
+
+    def list_credentials(
+            self, resource_group_name, job_name, custom_headers=None, raw=False, **operation_config):
+        """This method gets the unencrypted secrets related to the job.
+
+        :param resource_group_name: The Resource Group Name
+        :type resource_group_name: str
+        :param job_name: The name of the job Resource within the specified
+         resource group. job names must be between 3 and 24 characters in
+         length and use any alphanumeric and underscore only
+        :type job_name: str
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: An iterator like instance of UnencryptedCredentials
+        :rtype:
+         ~azure.mgmt.databox.models.UnencryptedCredentialsPaged[~azure.mgmt.databox.models.UnencryptedCredentials]
+        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        """
+        def prepare_request(next_link=None):
+            if not next_link:
+                # Construct URL
+                url = self.list_credentials.metadata['url']
+                path_format_arguments = {
+                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
+                    'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
+                    'jobName': self._serialize.url("job_name", job_name, 'str', max_length=24, min_length=3, pattern=r'^[-\w\.]+$')
+                }
+                url = self._client.format_url(url, **path_format_arguments)
+
+                # Construct parameters
+                query_parameters = {}
+                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+
+            else:
+                url = next_link
+                query_parameters = {}
+
+            # Construct headers
+            header_parameters = {}
+            header_parameters['Accept'] = 'application/json'
+            if self.config.generate_client_request_id:
+                header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+            if custom_headers:
+                header_parameters.update(custom_headers)
+            if self.config.accept_language is not None:
+                header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+            # Construct and send request
+            request = self._client.post(url, query_parameters, header_parameters)
+            return request
+
+        def internal_paging(next_link=None):
+            request = prepare_request(next_link)
+
+            response = self._client.send(request, stream=False, **operation_config)
+
+            if response.status_code not in [200]:
+                exp = CloudError(response)
+                exp.request_id = response.headers.get('x-ms-request-id')
+                raise exp
+
+            return response
+
+        # Deserialize response
+        header_dict = None
+        if raw:
+            header_dict = {}
+        deserialized = models.UnencryptedCredentialsPaged(internal_paging, self._deserialize.dependencies, header_dict)
+
+        return deserialized
+    list_credentials.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataBox/jobs/{jobName}/listCredentials'}
 
     def list_by_resource_group(
             self, resource_group_name, skip_token=None, custom_headers=None, raw=False, **operation_config):
@@ -682,77 +756,3 @@ class JobsOperations(object):
             client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
     cancel.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataBox/jobs/{jobName}/cancel'}
-
-    def list_credentials(
-            self, resource_group_name, job_name, custom_headers=None, raw=False, **operation_config):
-        """This method gets the unencrypted secrets related to the job.
-
-        :param resource_group_name: The Resource Group Name
-        :type resource_group_name: str
-        :param job_name: The name of the job Resource within the specified
-         resource group. job names must be between 3 and 24 characters in
-         length and use any alphanumeric and underscore only
-        :type job_name: str
-        :param dict custom_headers: headers that will be added to the request
-        :param bool raw: returns the direct response alongside the
-         deserialized response
-        :param operation_config: :ref:`Operation configuration
-         overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of UnencryptedCredentials
-        :rtype:
-         ~azure.mgmt.databox.models.UnencryptedCredentialsPaged[~azure.mgmt.databox.models.UnencryptedCredentials]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
-        """
-        def prepare_request(next_link=None):
-            if not next_link:
-                # Construct URL
-                url = self.list_credentials.metadata['url']
-                path_format_arguments = {
-                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
-                    'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-                    'jobName': self._serialize.url("job_name", job_name, 'str', max_length=24, min_length=3, pattern=r'^[-\w\.]+$')
-                }
-                url = self._client.format_url(url, **path_format_arguments)
-
-                # Construct parameters
-                query_parameters = {}
-                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
-
-            else:
-                url = next_link
-                query_parameters = {}
-
-            # Construct headers
-            header_parameters = {}
-            header_parameters['Accept'] = 'application/json'
-            if self.config.generate_client_request_id:
-                header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
-            if custom_headers:
-                header_parameters.update(custom_headers)
-            if self.config.accept_language is not None:
-                header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
-
-            # Construct and send request
-            request = self._client.post(url, query_parameters, header_parameters)
-            return request
-
-        def internal_paging(next_link=None):
-            request = prepare_request(next_link)
-
-            response = self._client.send(request, stream=False, **operation_config)
-
-            if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
-
-            return response
-
-        # Deserialize response
-        header_dict = None
-        if raw:
-            header_dict = {}
-        deserialized = models.UnencryptedCredentialsPaged(internal_paging, self._deserialize.dependencies, header_dict)
-
-        return deserialized
-    list_credentials.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataBox/jobs/{jobName}/listCredentials'}

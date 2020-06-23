@@ -11,10 +11,13 @@
 
 try:
     from ._models_py3 import AccountCredentialDetails
+    from ._models_py3 import AdditionalErrorInfo
     from ._models_py3 import AddressValidationOutput
     from ._models_py3 import ApplianceNetworkConfiguration
     from ._models_py3 import ArmBaseObject
     from ._models_py3 import AvailableSkuRequest
+    from ._models_py3 import AzureFileFilterDetails
+    from ._models_py3 import BlobFilterDetails
     from ._models_py3 import CancellationReason
     from ._models_py3 import ContactDetails
     from ._models_py3 import CopyLogDetails
@@ -22,6 +25,7 @@ try:
     from ._models_py3 import CreateJobValidations
     from ._models_py3 import CreateOrderLimitForSubscriptionValidationRequest
     from ._models_py3 import CreateOrderLimitForSubscriptionValidationResponseProperties
+    from ._models_py3 import DataAccountDetails
     from ._models_py3 import DataBoxAccountCopyLogDetails
     from ._models_py3 import DataBoxDiskCopyLogDetails
     from ._models_py3 import DataBoxDiskCopyProgress
@@ -35,24 +39,24 @@ try:
     from ._models_py3 import DataboxJobSecrets
     from ._models_py3 import DataBoxScheduleAvailabilityRequest
     from ._models_py3 import DataBoxSecret
-    from ._models_py3 import DataDestinationDetailsValidationRequest
-    from ._models_py3 import DataDestinationDetailsValidationResponseProperties
+    from ._models_py3 import DataExportDetails
+    from ._models_py3 import DataImportDetails
+    from ._models_py3 import DataLocationToServiceLocationMap
+    from ._models_py3 import DataTransferDetailsValidationRequest
+    from ._models_py3 import DataTransferDetailsValidationResponseProperties
     from ._models_py3 import DcAccessSecurityCode
-    from ._models_py3 import DestinationAccountDetails
-    from ._models_py3 import DestinationManagedDiskDetails
-    from ._models_py3 import DestinationStorageAccountDetails
-    from ._models_py3 import DestinationToServiceLocationMap
     from ._models_py3 import DiskScheduleAvailabilityRequest
     from ._models_py3 import DiskSecret
-    from ._models_py3 import Error
+    from ._models_py3 import FilterFileDetails
     from ._models_py3 import HeavyScheduleAvailabilityRequest
     from ._models_py3 import JobDeliveryInfo
     from ._models_py3 import JobDetails
-    from ._models_py3 import JobErrorDetails
     from ._models_py3 import JobResource
     from ._models_py3 import JobResourceUpdateParameter
     from ._models_py3 import JobSecrets
     from ._models_py3 import JobStages
+    from ._models_py3 import KeyEncryptionKey
+    from ._models_py3 import ManagedDiskDetails
     from ._models_py3 import NotificationPreference
     from ._models_py3 import Operation
     from ._models_py3 import OperationDisplay
@@ -63,6 +67,7 @@ try:
     from ._models_py3 import RegionConfigurationRequest
     from ._models_py3 import RegionConfigurationResponse
     from ._models_py3 import Resource
+    from ._models_py3 import ResourceIdentity
     from ._models_py3 import ScheduleAvailabilityRequest
     from ._models_py3 import ScheduleAvailabilityResponse
     from ._models_py3 import ShareCredentialDetails
@@ -75,8 +80,14 @@ try:
     from ._models_py3 import SkuCapacity
     from ._models_py3 import SkuCost
     from ._models_py3 import SkuInformation
+    from ._models_py3 import StorageAccountDetails
     from ._models_py3 import SubscriptionIsAllowedToCreateJobValidationRequest
     from ._models_py3 import SubscriptionIsAllowedToCreateJobValidationResponseProperties
+    from ._models_py3 import TransferAllDetails
+    from ._models_py3 import TransferConfiguration
+    from ._models_py3 import TransferConfigurationTransferAllDetails
+    from ._models_py3 import TransferConfigurationTransferFilterDetails
+    from ._models_py3 import TransferFilterDetails
     from ._models_py3 import TransportAvailabilityDetails
     from ._models_py3 import TransportAvailabilityRequest
     from ._models_py3 import TransportAvailabilityResponse
@@ -90,10 +101,13 @@ try:
     from ._models_py3 import ValidationResponse
 except (SyntaxError, ImportError):
     from ._models import AccountCredentialDetails
+    from ._models import AdditionalErrorInfo
     from ._models import AddressValidationOutput
     from ._models import ApplianceNetworkConfiguration
     from ._models import ArmBaseObject
     from ._models import AvailableSkuRequest
+    from ._models import AzureFileFilterDetails
+    from ._models import BlobFilterDetails
     from ._models import CancellationReason
     from ._models import ContactDetails
     from ._models import CopyLogDetails
@@ -101,6 +115,7 @@ except (SyntaxError, ImportError):
     from ._models import CreateJobValidations
     from ._models import CreateOrderLimitForSubscriptionValidationRequest
     from ._models import CreateOrderLimitForSubscriptionValidationResponseProperties
+    from ._models import DataAccountDetails
     from ._models import DataBoxAccountCopyLogDetails
     from ._models import DataBoxDiskCopyLogDetails
     from ._models import DataBoxDiskCopyProgress
@@ -114,24 +129,24 @@ except (SyntaxError, ImportError):
     from ._models import DataboxJobSecrets
     from ._models import DataBoxScheduleAvailabilityRequest
     from ._models import DataBoxSecret
-    from ._models import DataDestinationDetailsValidationRequest
-    from ._models import DataDestinationDetailsValidationResponseProperties
+    from ._models import DataExportDetails
+    from ._models import DataImportDetails
+    from ._models import DataLocationToServiceLocationMap
+    from ._models import DataTransferDetailsValidationRequest
+    from ._models import DataTransferDetailsValidationResponseProperties
     from ._models import DcAccessSecurityCode
-    from ._models import DestinationAccountDetails
-    from ._models import DestinationManagedDiskDetails
-    from ._models import DestinationStorageAccountDetails
-    from ._models import DestinationToServiceLocationMap
     from ._models import DiskScheduleAvailabilityRequest
     from ._models import DiskSecret
-    from ._models import Error
+    from ._models import FilterFileDetails
     from ._models import HeavyScheduleAvailabilityRequest
     from ._models import JobDeliveryInfo
     from ._models import JobDetails
-    from ._models import JobErrorDetails
     from ._models import JobResource
     from ._models import JobResourceUpdateParameter
     from ._models import JobSecrets
     from ._models import JobStages
+    from ._models import KeyEncryptionKey
+    from ._models import ManagedDiskDetails
     from ._models import NotificationPreference
     from ._models import Operation
     from ._models import OperationDisplay
@@ -142,6 +157,7 @@ except (SyntaxError, ImportError):
     from ._models import RegionConfigurationRequest
     from ._models import RegionConfigurationResponse
     from ._models import Resource
+    from ._models import ResourceIdentity
     from ._models import ScheduleAvailabilityRequest
     from ._models import ScheduleAvailabilityResponse
     from ._models import ShareCredentialDetails
@@ -154,8 +170,14 @@ except (SyntaxError, ImportError):
     from ._models import SkuCapacity
     from ._models import SkuCost
     from ._models import SkuInformation
+    from ._models import StorageAccountDetails
     from ._models import SubscriptionIsAllowedToCreateJobValidationRequest
     from ._models import SubscriptionIsAllowedToCreateJobValidationResponseProperties
+    from ._models import TransferAllDetails
+    from ._models import TransferConfiguration
+    from ._models import TransferConfigurationTransferAllDetails
+    from ._models import TransferConfigurationTransferFilterDetails
+    from ._models import TransferFilterDetails
     from ._models import TransportAvailabilityDetails
     from ._models import TransportAvailabilityRequest
     from ._models import TransportAvailabilityResponse
@@ -172,29 +194,37 @@ from ._paged_models import OperationPaged
 from ._paged_models import SkuInformationPaged
 from ._paged_models import UnencryptedCredentialsPaged
 from ._data_box_management_client_enums import (
-    DataDestinationType,
+    DataAccountType,
     ShareDestinationFormatType,
     AccessProtocol,
     AddressValidationStatus,
     AddressType,
+    TransferType,
     SkuName,
     SkuDisabledReason,
     NotificationStageName,
     ValidationStatus,
     CopyStatus,
+    TransferConfigurationType,
+    FilterFileType,
+    LogCollectionLevel,
     StageName,
     StageStatus,
     TransportShipmentTypes,
+    KekType,
     JobDeliveryType,
     OverallValidationStatus,
 )
 
 __all__ = [
     'AccountCredentialDetails',
+    'AdditionalErrorInfo',
     'AddressValidationOutput',
     'ApplianceNetworkConfiguration',
     'ArmBaseObject',
     'AvailableSkuRequest',
+    'AzureFileFilterDetails',
+    'BlobFilterDetails',
     'CancellationReason',
     'ContactDetails',
     'CopyLogDetails',
@@ -202,6 +232,7 @@ __all__ = [
     'CreateJobValidations',
     'CreateOrderLimitForSubscriptionValidationRequest',
     'CreateOrderLimitForSubscriptionValidationResponseProperties',
+    'DataAccountDetails',
     'DataBoxAccountCopyLogDetails',
     'DataBoxDiskCopyLogDetails',
     'DataBoxDiskCopyProgress',
@@ -215,24 +246,24 @@ __all__ = [
     'DataboxJobSecrets',
     'DataBoxScheduleAvailabilityRequest',
     'DataBoxSecret',
-    'DataDestinationDetailsValidationRequest',
-    'DataDestinationDetailsValidationResponseProperties',
+    'DataExportDetails',
+    'DataImportDetails',
+    'DataLocationToServiceLocationMap',
+    'DataTransferDetailsValidationRequest',
+    'DataTransferDetailsValidationResponseProperties',
     'DcAccessSecurityCode',
-    'DestinationAccountDetails',
-    'DestinationManagedDiskDetails',
-    'DestinationStorageAccountDetails',
-    'DestinationToServiceLocationMap',
     'DiskScheduleAvailabilityRequest',
     'DiskSecret',
-    'Error',
+    'FilterFileDetails',
     'HeavyScheduleAvailabilityRequest',
     'JobDeliveryInfo',
     'JobDetails',
-    'JobErrorDetails',
     'JobResource',
     'JobResourceUpdateParameter',
     'JobSecrets',
     'JobStages',
+    'KeyEncryptionKey',
+    'ManagedDiskDetails',
     'NotificationPreference',
     'Operation',
     'OperationDisplay',
@@ -243,6 +274,7 @@ __all__ = [
     'RegionConfigurationRequest',
     'RegionConfigurationResponse',
     'Resource',
+    'ResourceIdentity',
     'ScheduleAvailabilityRequest',
     'ScheduleAvailabilityResponse',
     'ShareCredentialDetails',
@@ -255,8 +287,14 @@ __all__ = [
     'SkuCapacity',
     'SkuCost',
     'SkuInformation',
+    'StorageAccountDetails',
     'SubscriptionIsAllowedToCreateJobValidationRequest',
     'SubscriptionIsAllowedToCreateJobValidationResponseProperties',
+    'TransferAllDetails',
+    'TransferConfiguration',
+    'TransferConfigurationTransferAllDetails',
+    'TransferConfigurationTransferFilterDetails',
+    'TransferFilterDetails',
     'TransportAvailabilityDetails',
     'TransportAvailabilityRequest',
     'TransportAvailabilityResponse',
@@ -272,19 +310,24 @@ __all__ = [
     'JobResourcePaged',
     'UnencryptedCredentialsPaged',
     'SkuInformationPaged',
-    'DataDestinationType',
+    'DataAccountType',
     'ShareDestinationFormatType',
     'AccessProtocol',
     'AddressValidationStatus',
     'AddressType',
+    'TransferType',
     'SkuName',
     'SkuDisabledReason',
     'NotificationStageName',
     'ValidationStatus',
     'CopyStatus',
+    'TransferConfigurationType',
+    'FilterFileType',
+    'LogCollectionLevel',
     'StageName',
     'StageStatus',
     'TransportShipmentTypes',
+    'KekType',
     'JobDeliveryType',
     'OverallValidationStatus',
 ]

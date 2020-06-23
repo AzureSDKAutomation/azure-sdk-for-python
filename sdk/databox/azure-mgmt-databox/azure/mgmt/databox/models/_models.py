@@ -21,10 +21,10 @@ class AccountCredentialDetails(Model):
 
     :ivar account_name: Name of the account.
     :vartype account_name: str
-    :ivar data_destination_type: Data Destination Type. Possible values
-     include: 'StorageAccount', 'ManagedDisk'
-    :vartype data_destination_type: str or
-     ~azure.mgmt.databox.models.DataDestinationType
+    :ivar data_account_type: Type of the account. Possible values include:
+     'StorageAccount', 'ManagedDisk'
+    :vartype data_account_type: str or
+     ~azure.mgmt.databox.models.DataAccountType
     :ivar account_connection_string: Connection string of the account endpoint
      to use the account as a storage endpoint on the device.
     :vartype account_connection_string: str
@@ -36,14 +36,14 @@ class AccountCredentialDetails(Model):
 
     _validation = {
         'account_name': {'readonly': True},
-        'data_destination_type': {'readonly': True},
+        'data_account_type': {'readonly': True},
         'account_connection_string': {'readonly': True},
         'share_credential_details': {'readonly': True},
     }
 
     _attribute_map = {
         'account_name': {'key': 'accountName', 'type': 'str'},
-        'data_destination_type': {'key': 'dataDestinationType', 'type': 'DataDestinationType'},
+        'data_account_type': {'key': 'dataAccountType', 'type': 'DataAccountType'},
         'account_connection_string': {'key': 'accountConnectionString', 'type': 'str'},
         'share_credential_details': {'key': 'shareCredentialDetails', 'type': '[ShareCredentialDetails]'},
     }
@@ -51,9 +51,29 @@ class AccountCredentialDetails(Model):
     def __init__(self, **kwargs):
         super(AccountCredentialDetails, self).__init__(**kwargs)
         self.account_name = None
-        self.data_destination_type = None
+        self.data_account_type = None
         self.account_connection_string = None
         self.share_credential_details = None
+
+
+class AdditionalErrorInfo(Model):
+    """Additional error info.
+
+    :param type: Additional error type.
+    :type type: str
+    :param info: Additional error info.
+    :type info: object
+    """
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'info': {'key': 'info', 'type': 'object'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AdditionalErrorInfo, self).__init__(**kwargs)
+        self.type = kwargs.get('type', None)
+        self.info = kwargs.get('info', None)
 
 
 class AddressValidationOutput(Model):
@@ -63,7 +83,7 @@ class AddressValidationOutput(Model):
     sending a request.
 
     :ivar error: Error code and message of validation response.
-    :vartype error: ~azure.mgmt.databox.models.Error
+    :vartype error: ~azure.mgmt.databox.models.CloudError
     :ivar validation_status: The address validation status. Possible values
      include: 'Valid', 'Invalid', 'Ambiguous'
     :vartype validation_status: str or
@@ -80,7 +100,7 @@ class AddressValidationOutput(Model):
     }
 
     _attribute_map = {
-        'error': {'key': 'properties.error', 'type': 'Error'},
+        'error': {'key': 'properties.error', 'type': 'CloudError'},
         'validation_status': {'key': 'properties.validationStatus', 'type': 'AddressValidationStatus'},
         'alternate_addresses': {'key': 'properties.alternateAddresses', 'type': '[ShippingAddress]'},
     }
@@ -156,14 +176,11 @@ class ArmBaseObject(Model):
 class AvailableSkuRequest(Model):
     """The filters for showing the available skus.
 
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
     All required parameters must be populated in order to send to Azure.
 
-    :ivar transfer_type: Required. Type of the transfer. Default value:
-     "ImportToAzure" .
-    :vartype transfer_type: str
+    :param transfer_type: Required. Type of the transfer. Possible values
+     include: 'ImportToAzure', 'ExportFromAzure'
+    :type transfer_type: str or ~azure.mgmt.databox.models.TransferType
     :param country: Required. ISO country code. Country for hardware shipment.
      For codes check:
      https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements
@@ -177,25 +194,72 @@ class AvailableSkuRequest(Model):
     """
 
     _validation = {
-        'transfer_type': {'required': True, 'constant': True},
+        'transfer_type': {'required': True},
         'country': {'required': True},
         'location': {'required': True},
     }
 
     _attribute_map = {
-        'transfer_type': {'key': 'transferType', 'type': 'str'},
+        'transfer_type': {'key': 'transferType', 'type': 'TransferType'},
         'country': {'key': 'country', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'sku_names': {'key': 'skuNames', 'type': '[SkuName]'},
     }
 
-    transfer_type = "ImportToAzure"
-
     def __init__(self, **kwargs):
         super(AvailableSkuRequest, self).__init__(**kwargs)
+        self.transfer_type = kwargs.get('transfer_type', None)
         self.country = kwargs.get('country', None)
         self.location = kwargs.get('location', None)
         self.sku_names = kwargs.get('sku_names', None)
+
+
+class AzureFileFilterDetails(Model):
+    """Filter details to transfer Azure files.
+
+    :param file_prefix_list: Prefix list of the Azure files to be transferred.
+    :type file_prefix_list: list[str]
+    :param file_path_list: List of full path of the files to be transferred.
+    :type file_path_list: list[str]
+    :param file_share_list: List of file shares to be transferred.
+    :type file_share_list: list[str]
+    """
+
+    _attribute_map = {
+        'file_prefix_list': {'key': 'filePrefixList', 'type': '[str]'},
+        'file_path_list': {'key': 'filePathList', 'type': '[str]'},
+        'file_share_list': {'key': 'fileShareList', 'type': '[str]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AzureFileFilterDetails, self).__init__(**kwargs)
+        self.file_prefix_list = kwargs.get('file_prefix_list', None)
+        self.file_path_list = kwargs.get('file_path_list', None)
+        self.file_share_list = kwargs.get('file_share_list', None)
+
+
+class BlobFilterDetails(Model):
+    """Filter details to transfer Azure Blobs.
+
+    :param blob_prefix_list: Prefix list of the Azure blobs to be transferred.
+    :type blob_prefix_list: list[str]
+    :param blob_path_list: List of full path of the blobs to be transferred.
+    :type blob_path_list: list[str]
+    :param container_list: List of blob containers to be transferred.
+    :type container_list: list[str]
+    """
+
+    _attribute_map = {
+        'blob_prefix_list': {'key': 'blobPrefixList', 'type': '[str]'},
+        'blob_path_list': {'key': 'blobPathList', 'type': '[str]'},
+        'container_list': {'key': 'containerList', 'type': '[str]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(BlobFilterDetails, self).__init__(**kwargs)
+        self.blob_prefix_list = kwargs.get('blob_prefix_list', None)
+        self.blob_path_list = kwargs.get('blob_path_list', None)
+        self.container_list = kwargs.get('container_list', None)
 
 
 class CancellationReason(Model):
@@ -221,24 +285,27 @@ class CancellationReason(Model):
 
 
 class CloudError(Model):
-    """The error information object.
+    """Cloud error.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar code: Error code string.
-    :vartype code: str
-    :ivar message: Descriptive error information.
-    :vartype message: str
-    :param target: Error target
+    :param code: Cloud error code.
+    :type code: str
+    :param message: Cloud error message.
+    :type message: str
+    :param target: Cloud error target.
     :type target: str
-    :param details: More detailed error information.
-    :type details: list[~azure.mgmt.databox.models.CloudError]
+    :ivar details: Cloud error details.
+    :vartype details: list[~azure.mgmt.databox.models.CloudError]
+    :ivar additional_info: Cloud error additional info.
+    :vartype additional_info:
+     list[~azure.mgmt.databox.models.AdditionalErrorInfo]
     """
 
     _validation = {
-        'code': {'readonly': True},
-        'message': {'readonly': True},
+        'details': {'readonly': True},
+        'additional_info': {'readonly': True},
     }
 
     _attribute_map = {
@@ -246,14 +313,16 @@ class CloudError(Model):
         'message': {'key': 'message', 'type': 'str'},
         'target': {'key': 'target', 'type': 'str'},
         'details': {'key': 'details', 'type': '[CloudError]'},
+        'additional_info': {'key': 'additionalInfo', 'type': '[AdditionalErrorInfo]'},
     }
 
     def __init__(self, **kwargs):
         super(CloudError, self).__init__(**kwargs)
-        self.code = None
-        self.message = None
+        self.code = kwargs.get('code', None)
+        self.message = kwargs.get('message', None)
         self.target = kwargs.get('target', None)
-        self.details = kwargs.get('details', None)
+        self.details = None
+        self.additional_info = None
 
 
 class CloudErrorException(HttpOperationError):
@@ -350,24 +419,26 @@ class CopyProgress(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar storage_account_name: Name of the storage account where the data
-     needs to be uploaded.
+    :ivar storage_account_name: Name of the storage account. This will be
+     empty for data account types other than storage account.
     :vartype storage_account_name: str
-    :ivar data_destination_type: Data Destination Type. Possible values
-     include: 'StorageAccount', 'ManagedDisk'
-    :vartype data_destination_type: str or
-     ~azure.mgmt.databox.models.DataDestinationType
+    :ivar transfer_type: Transfer type of data. Possible values include:
+     'ImportToAzure', 'ExportFromAzure'
+    :vartype transfer_type: str or ~azure.mgmt.databox.models.TransferType
+    :ivar data_account_type: Data Account Type. Possible values include:
+     'StorageAccount', 'ManagedDisk'
+    :vartype data_account_type: str or
+     ~azure.mgmt.databox.models.DataAccountType
     :ivar account_id: Id of the account where the data needs to be uploaded.
     :vartype account_id: str
-    :ivar bytes_sent_to_cloud: Amount of data uploaded by the job as of now.
-    :vartype bytes_sent_to_cloud: long
+    :ivar bytes_processed: To indicate bytes transferred.
+    :vartype bytes_processed: long
     :ivar total_bytes_to_process: Total amount of data to be processed by the
      job.
     :vartype total_bytes_to_process: long
-    :ivar files_processed: Number of files processed by the job as of now.
+    :ivar files_processed: Number of files processed
     :vartype files_processed: long
-    :ivar total_files_to_process: Total number of files to be processed by the
-     job.
+    :ivar total_files_to_process: Total files to process
     :vartype total_files_to_process: long
     :ivar invalid_files_processed: Number of files not adhering to azure
      naming conventions which were processed by automatic renaming
@@ -380,13 +451,23 @@ class CopyProgress(Model):
     :vartype renamed_container_count: long
     :ivar files_errored_out: Number of files which could not be copied
     :vartype files_errored_out: long
+    :ivar directories_errored_out: To indicate directories errored out in the
+     job.
+    :vartype directories_errored_out: long
+    :ivar invalid_directories_processed: To indicate directories renamed
+    :vartype invalid_directories_processed: long
+    :ivar is_enumeration_in_progress: To indicate if enumeration of data is in
+     progress.
+     Until this is true, the TotalBytesToProcess may not be valid.
+    :vartype is_enumeration_in_progress: bool
     """
 
     _validation = {
         'storage_account_name': {'readonly': True},
-        'data_destination_type': {'readonly': True},
+        'transfer_type': {'readonly': True},
+        'data_account_type': {'readonly': True},
         'account_id': {'readonly': True},
-        'bytes_sent_to_cloud': {'readonly': True},
+        'bytes_processed': {'readonly': True},
         'total_bytes_to_process': {'readonly': True},
         'files_processed': {'readonly': True},
         'total_files_to_process': {'readonly': True},
@@ -394,13 +475,17 @@ class CopyProgress(Model):
         'invalid_file_bytes_uploaded': {'readonly': True},
         'renamed_container_count': {'readonly': True},
         'files_errored_out': {'readonly': True},
+        'directories_errored_out': {'readonly': True},
+        'invalid_directories_processed': {'readonly': True},
+        'is_enumeration_in_progress': {'readonly': True},
     }
 
     _attribute_map = {
         'storage_account_name': {'key': 'storageAccountName', 'type': 'str'},
-        'data_destination_type': {'key': 'dataDestinationType', 'type': 'DataDestinationType'},
+        'transfer_type': {'key': 'transferType', 'type': 'TransferType'},
+        'data_account_type': {'key': 'dataAccountType', 'type': 'DataAccountType'},
         'account_id': {'key': 'accountId', 'type': 'str'},
-        'bytes_sent_to_cloud': {'key': 'bytesSentToCloud', 'type': 'long'},
+        'bytes_processed': {'key': 'bytesProcessed', 'type': 'long'},
         'total_bytes_to_process': {'key': 'totalBytesToProcess', 'type': 'long'},
         'files_processed': {'key': 'filesProcessed', 'type': 'long'},
         'total_files_to_process': {'key': 'totalFilesToProcess', 'type': 'long'},
@@ -408,14 +493,18 @@ class CopyProgress(Model):
         'invalid_file_bytes_uploaded': {'key': 'invalidFileBytesUploaded', 'type': 'long'},
         'renamed_container_count': {'key': 'renamedContainerCount', 'type': 'long'},
         'files_errored_out': {'key': 'filesErroredOut', 'type': 'long'},
+        'directories_errored_out': {'key': 'directoriesErroredOut', 'type': 'long'},
+        'invalid_directories_processed': {'key': 'invalidDirectoriesProcessed', 'type': 'long'},
+        'is_enumeration_in_progress': {'key': 'isEnumerationInProgress', 'type': 'bool'},
     }
 
     def __init__(self, **kwargs):
         super(CopyProgress, self).__init__(**kwargs)
         self.storage_account_name = None
-        self.data_destination_type = None
+        self.transfer_type = None
+        self.data_account_type = None
         self.account_id = None
-        self.bytes_sent_to_cloud = None
+        self.bytes_processed = None
         self.total_bytes_to_process = None
         self.files_processed = None
         self.total_files_to_process = None
@@ -423,10 +512,13 @@ class CopyProgress(Model):
         self.invalid_file_bytes_uploaded = None
         self.renamed_container_count = None
         self.files_errored_out = None
+        self.directories_errored_out = None
+        self.invalid_directories_processed = None
+        self.is_enumeration_in_progress = None
 
 
 class ValidationRequest(Model):
-    """Input request for all pre job creation validation.
+    """Minimum request requirement of any validation category.
 
     You probably want to use the sub-classes and not this class directly. Known
     sub-classes are: CreateJobValidations
@@ -494,7 +586,7 @@ class ValidationInputRequest(Model):
 
     You probably want to use the sub-classes and not this class directly. Known
     sub-classes are: CreateOrderLimitForSubscriptionValidationRequest,
-    DataDestinationDetailsValidationRequest, PreferencesValidationRequest,
+    DataTransferDetailsValidationRequest, PreferencesValidationRequest,
     SkuAvailabilityValidationRequest,
     SubscriptionIsAllowedToCreateJobValidationRequest, ValidateAddress
 
@@ -513,7 +605,7 @@ class ValidationInputRequest(Model):
     }
 
     _subtype_map = {
-        'validation_type': {'ValidateCreateOrderLimit': 'CreateOrderLimitForSubscriptionValidationRequest', 'ValidateDataDestinationDetails': 'DataDestinationDetailsValidationRequest', 'ValidatePreferences': 'PreferencesValidationRequest', 'ValidateSkuAvailability': 'SkuAvailabilityValidationRequest', 'ValidateSubscriptionIsAllowedToCreateJob': 'SubscriptionIsAllowedToCreateJobValidationRequest', 'ValidateAddress': 'ValidateAddress'}
+        'validation_type': {'ValidateCreateOrderLimit': 'CreateOrderLimitForSubscriptionValidationRequest', 'ValidateDataTransferDetails': 'DataTransferDetailsValidationRequest', 'ValidatePreferences': 'PreferencesValidationRequest', 'ValidateSkuAvailability': 'SkuAvailabilityValidationRequest', 'ValidateSubscriptionIsAllowedToCreateJob': 'SubscriptionIsAllowedToCreateJobValidationRequest', 'ValidateAddress': 'ValidateAddress'}
     }
 
     def __init__(self, **kwargs):
@@ -556,7 +648,7 @@ class ValidationInputResponse(Model):
     You probably want to use the sub-classes and not this class directly. Known
     sub-classes are:
     CreateOrderLimitForSubscriptionValidationResponseProperties,
-    DataDestinationDetailsValidationResponseProperties,
+    DataTransferDetailsValidationResponseProperties,
     PreferencesValidationResponseProperties,
     SkuAvailabilityValidationResponseProperties,
     SubscriptionIsAllowedToCreateJobValidationResponseProperties
@@ -567,7 +659,7 @@ class ValidationInputResponse(Model):
     All required parameters must be populated in order to send to Azure.
 
     :ivar error: Error code and message of validation response.
-    :vartype error: ~azure.mgmt.databox.models.Error
+    :vartype error: ~azure.mgmt.databox.models.CloudError
     :param validation_type: Required. Constant filled by server.
     :type validation_type: str
     """
@@ -578,12 +670,12 @@ class ValidationInputResponse(Model):
     }
 
     _attribute_map = {
-        'error': {'key': 'error', 'type': 'Error'},
+        'error': {'key': 'error', 'type': 'CloudError'},
         'validation_type': {'key': 'validationType', 'type': 'str'},
     }
 
     _subtype_map = {
-        'validation_type': {'ValidateCreateOrderLimit': 'CreateOrderLimitForSubscriptionValidationResponseProperties', 'ValidateDataDestinationDetails': 'DataDestinationDetailsValidationResponseProperties', 'ValidatePreferences': 'PreferencesValidationResponseProperties', 'ValidateSkuAvailability': 'SkuAvailabilityValidationResponseProperties', 'ValidateSubscriptionIsAllowedToCreateJob': 'SubscriptionIsAllowedToCreateJobValidationResponseProperties'}
+        'validation_type': {'ValidateCreateOrderLimit': 'CreateOrderLimitForSubscriptionValidationResponseProperties', 'ValidateDataTransferDetails': 'DataTransferDetailsValidationResponseProperties', 'ValidatePreferences': 'PreferencesValidationResponseProperties', 'ValidateSkuAvailability': 'SkuAvailabilityValidationResponseProperties', 'ValidateSubscriptionIsAllowedToCreateJob': 'SubscriptionIsAllowedToCreateJobValidationResponseProperties'}
     }
 
     def __init__(self, **kwargs):
@@ -601,7 +693,7 @@ class CreateOrderLimitForSubscriptionValidationResponseProperties(ValidationInpu
     All required parameters must be populated in order to send to Azure.
 
     :ivar error: Error code and message of validation response.
-    :vartype error: ~azure.mgmt.databox.models.Error
+    :vartype error: ~azure.mgmt.databox.models.CloudError
     :param validation_type: Required. Constant filled by server.
     :type validation_type: str
     :ivar status: Create order limit validation status. Possible values
@@ -616,7 +708,7 @@ class CreateOrderLimitForSubscriptionValidationResponseProperties(ValidationInpu
     }
 
     _attribute_map = {
-        'error': {'key': 'error', 'type': 'Error'},
+        'error': {'key': 'error', 'type': 'CloudError'},
         'validation_type': {'key': 'validationType', 'type': 'str'},
         'status': {'key': 'status', 'type': 'ValidationStatus'},
     }
@@ -625,6 +717,46 @@ class CreateOrderLimitForSubscriptionValidationResponseProperties(ValidationInpu
         super(CreateOrderLimitForSubscriptionValidationResponseProperties, self).__init__(**kwargs)
         self.status = None
         self.validation_type = 'ValidateCreateOrderLimit'
+
+
+class DataAccountDetails(Model):
+    """Account details of the data to be transferred.
+
+    You probably want to use the sub-classes and not this class directly. Known
+    sub-classes are: ManagedDiskDetails, StorageAccountDetails
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param share_password: Password for all the shares to be created on the
+     device. Should not be passed for TransferType:ExportFromAzure jobs. If
+     this is not passed, the service will generate password itself. This will
+     not be returned in Get Call. Password Requirements :  Password must be
+     minimum of 12 and maximum of 64 characters. Password must have atleast one
+     uppercase alphabet, one number and one special character. Password cannot
+     have the following characters : IilLoO0 Password can have only alphabets,
+     numbers and these characters : @#\\-$%^!+=;:_()]+
+    :type share_password: str
+    :param data_account_type: Required. Constant filled by server.
+    :type data_account_type: str
+    """
+
+    _validation = {
+        'data_account_type': {'required': True},
+    }
+
+    _attribute_map = {
+        'share_password': {'key': 'sharePassword', 'type': 'str'},
+        'data_account_type': {'key': 'dataAccountType', 'type': 'str'},
+    }
+
+    _subtype_map = {
+        'data_account_type': {'ManagedDisk': 'ManagedDiskDetails', 'StorageAccount': 'StorageAccountDetails'}
+    }
+
+    def __init__(self, **kwargs):
+        super(DataAccountDetails, self).__init__(**kwargs)
+        self.share_password = kwargs.get('share_password', None)
+        self.data_account_type = None
 
 
 class DataBoxAccountCopyLogDetails(CopyLogDetails):
@@ -637,28 +769,34 @@ class DataBoxAccountCopyLogDetails(CopyLogDetails):
 
     :param copy_log_details_type: Required. Constant filled by server.
     :type copy_log_details_type: str
-    :ivar account_name: Destination account name.
+    :ivar account_name: Account name.
     :vartype account_name: str
     :ivar copy_log_link: Link for copy logs.
     :vartype copy_log_link: str
+    :ivar copy_verbose_log_link: Link for copy verbose logs. This will be set
+     only when LogCollectionLevel is set to Verbose.
+    :vartype copy_verbose_log_link: str
     """
 
     _validation = {
         'copy_log_details_type': {'required': True},
         'account_name': {'readonly': True},
         'copy_log_link': {'readonly': True},
+        'copy_verbose_log_link': {'readonly': True},
     }
 
     _attribute_map = {
         'copy_log_details_type': {'key': 'copyLogDetailsType', 'type': 'str'},
         'account_name': {'key': 'accountName', 'type': 'str'},
         'copy_log_link': {'key': 'copyLogLink', 'type': 'str'},
+        'copy_verbose_log_link': {'key': 'copyVerboseLogLink', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
         super(DataBoxAccountCopyLogDetails, self).__init__(**kwargs)
         self.account_name = None
         self.copy_log_link = None
+        self.copy_verbose_log_link = None
         self.copy_log_details_type = 'DataBox'
 
 
@@ -756,26 +894,24 @@ class JobDetails(Model):
 
     All required parameters must be populated in order to send to Azure.
 
-    :param expected_data_size_in_terabytes: The expected size of the data,
-     which needs to be transferred in this job, in terabytes.
-    :type expected_data_size_in_terabytes: int
     :ivar job_stages: List of stages that run in the job.
     :vartype job_stages: list[~azure.mgmt.databox.models.JobStages]
     :param contact_details: Required. Contact details for notification and
      shipping.
     :type contact_details: ~azure.mgmt.databox.models.ContactDetails
-    :param shipping_address: Required. Shipping address of the customer.
+    :param shipping_address: Shipping address of the customer.
     :type shipping_address: ~azure.mgmt.databox.models.ShippingAddress
     :ivar delivery_package: Delivery package shipping details.
     :vartype delivery_package:
      ~azure.mgmt.databox.models.PackageShippingDetails
     :ivar return_package: Return package shipping details.
     :vartype return_package: ~azure.mgmt.databox.models.PackageShippingDetails
-    :param destination_account_details: Required. Destination account details.
-    :type destination_account_details:
-     list[~azure.mgmt.databox.models.DestinationAccountDetails]
-    :ivar error_details: Error details for failure. This is optional.
-    :vartype error_details: list[~azure.mgmt.databox.models.JobErrorDetails]
+    :param data_import_details: Details of the data to be imported into azure.
+    :type data_import_details:
+     list[~azure.mgmt.databox.models.DataImportDetails]
+    :param data_export_details: Details of the data to be exported from azure.
+    :type data_export_details:
+     list[~azure.mgmt.databox.models.DataExportDetails]
     :param preferences: Preferences for the order.
     :type preferences: ~azure.mgmt.databox.models.Preferences
     :ivar copy_log_details: List of copy log details.
@@ -786,6 +922,12 @@ class JobDetails(Model):
     :ivar chain_of_custody_sas_key: Shared access key to download the chain of
      custody logs
     :vartype chain_of_custody_sas_key: str
+    :ivar key_encryption_key: Details about which key encryption type is being
+     used.
+    :vartype key_encryption_key: ~azure.mgmt.databox.models.KeyEncryptionKey
+    :param expected_data_size_in_terabytes: The expected size of the data,
+     which needs to be transfered in this job, in tera bytes.
+    :type expected_data_size_in_terabytes: int
     :param job_details_type: Required. Constant filled by server.
     :type job_details_type: str
     """
@@ -793,30 +935,29 @@ class JobDetails(Model):
     _validation = {
         'job_stages': {'readonly': True},
         'contact_details': {'required': True},
-        'shipping_address': {'required': True},
         'delivery_package': {'readonly': True},
         'return_package': {'readonly': True},
-        'destination_account_details': {'required': True},
-        'error_details': {'readonly': True},
         'copy_log_details': {'readonly': True},
         'reverse_shipment_label_sas_key': {'readonly': True},
         'chain_of_custody_sas_key': {'readonly': True},
+        'key_encryption_key': {'readonly': True},
         'job_details_type': {'required': True},
     }
 
     _attribute_map = {
-        'expected_data_size_in_terabytes': {'key': 'expectedDataSizeInTerabytes', 'type': 'int'},
         'job_stages': {'key': 'jobStages', 'type': '[JobStages]'},
         'contact_details': {'key': 'contactDetails', 'type': 'ContactDetails'},
         'shipping_address': {'key': 'shippingAddress', 'type': 'ShippingAddress'},
         'delivery_package': {'key': 'deliveryPackage', 'type': 'PackageShippingDetails'},
         'return_package': {'key': 'returnPackage', 'type': 'PackageShippingDetails'},
-        'destination_account_details': {'key': 'destinationAccountDetails', 'type': '[DestinationAccountDetails]'},
-        'error_details': {'key': 'errorDetails', 'type': '[JobErrorDetails]'},
+        'data_import_details': {'key': 'dataImportDetails', 'type': '[DataImportDetails]'},
+        'data_export_details': {'key': 'dataExportDetails', 'type': '[DataExportDetails]'},
         'preferences': {'key': 'preferences', 'type': 'Preferences'},
         'copy_log_details': {'key': 'copyLogDetails', 'type': '[CopyLogDetails]'},
         'reverse_shipment_label_sas_key': {'key': 'reverseShipmentLabelSasKey', 'type': 'str'},
         'chain_of_custody_sas_key': {'key': 'chainOfCustodySasKey', 'type': 'str'},
+        'key_encryption_key': {'key': 'keyEncryptionKey', 'type': 'KeyEncryptionKey'},
+        'expected_data_size_in_terabytes': {'key': 'expectedDataSizeInTerabytes', 'type': 'int'},
         'job_details_type': {'key': 'jobDetailsType', 'type': 'str'},
     }
 
@@ -826,18 +967,19 @@ class JobDetails(Model):
 
     def __init__(self, **kwargs):
         super(JobDetails, self).__init__(**kwargs)
-        self.expected_data_size_in_terabytes = kwargs.get('expected_data_size_in_terabytes', None)
         self.job_stages = None
         self.contact_details = kwargs.get('contact_details', None)
         self.shipping_address = kwargs.get('shipping_address', None)
         self.delivery_package = None
         self.return_package = None
-        self.destination_account_details = kwargs.get('destination_account_details', None)
-        self.error_details = None
+        self.data_import_details = kwargs.get('data_import_details', None)
+        self.data_export_details = kwargs.get('data_export_details', None)
         self.preferences = kwargs.get('preferences', None)
         self.copy_log_details = None
         self.reverse_shipment_label_sas_key = None
         self.chain_of_custody_sas_key = None
+        self.key_encryption_key = None
+        self.expected_data_size_in_terabytes = kwargs.get('expected_data_size_in_terabytes', None)
         self.job_details_type = None
 
 
@@ -849,26 +991,24 @@ class DataBoxDiskJobDetails(JobDetails):
 
     All required parameters must be populated in order to send to Azure.
 
-    :param expected_data_size_in_terabytes: The expected size of the data,
-     which needs to be transferred in this job, in terabytes.
-    :type expected_data_size_in_terabytes: int
     :ivar job_stages: List of stages that run in the job.
     :vartype job_stages: list[~azure.mgmt.databox.models.JobStages]
     :param contact_details: Required. Contact details for notification and
      shipping.
     :type contact_details: ~azure.mgmt.databox.models.ContactDetails
-    :param shipping_address: Required. Shipping address of the customer.
+    :param shipping_address: Shipping address of the customer.
     :type shipping_address: ~azure.mgmt.databox.models.ShippingAddress
     :ivar delivery_package: Delivery package shipping details.
     :vartype delivery_package:
      ~azure.mgmt.databox.models.PackageShippingDetails
     :ivar return_package: Return package shipping details.
     :vartype return_package: ~azure.mgmt.databox.models.PackageShippingDetails
-    :param destination_account_details: Required. Destination account details.
-    :type destination_account_details:
-     list[~azure.mgmt.databox.models.DestinationAccountDetails]
-    :ivar error_details: Error details for failure. This is optional.
-    :vartype error_details: list[~azure.mgmt.databox.models.JobErrorDetails]
+    :param data_import_details: Details of the data to be imported into azure.
+    :type data_import_details:
+     list[~azure.mgmt.databox.models.DataImportDetails]
+    :param data_export_details: Details of the data to be exported from azure.
+    :type data_export_details:
+     list[~azure.mgmt.databox.models.DataExportDetails]
     :param preferences: Preferences for the order.
     :type preferences: ~azure.mgmt.databox.models.Preferences
     :ivar copy_log_details: List of copy log details.
@@ -879,6 +1019,12 @@ class DataBoxDiskJobDetails(JobDetails):
     :ivar chain_of_custody_sas_key: Shared access key to download the chain of
      custody logs
     :vartype chain_of_custody_sas_key: str
+    :ivar key_encryption_key: Details about which key encryption type is being
+     used.
+    :vartype key_encryption_key: ~azure.mgmt.databox.models.KeyEncryptionKey
+    :param expected_data_size_in_terabytes: The expected size of the data,
+     which needs to be transfered in this job, in tera bytes.
+    :type expected_data_size_in_terabytes: int
     :param job_details_type: Required. Constant filled by server.
     :type job_details_type: str
     :param preferred_disks: User preference on what size disks are needed for
@@ -899,32 +1045,31 @@ class DataBoxDiskJobDetails(JobDetails):
     _validation = {
         'job_stages': {'readonly': True},
         'contact_details': {'required': True},
-        'shipping_address': {'required': True},
         'delivery_package': {'readonly': True},
         'return_package': {'readonly': True},
-        'destination_account_details': {'required': True},
-        'error_details': {'readonly': True},
         'copy_log_details': {'readonly': True},
         'reverse_shipment_label_sas_key': {'readonly': True},
         'chain_of_custody_sas_key': {'readonly': True},
+        'key_encryption_key': {'readonly': True},
         'job_details_type': {'required': True},
         'copy_progress': {'readonly': True},
         'disks_and_size_details': {'readonly': True},
     }
 
     _attribute_map = {
-        'expected_data_size_in_terabytes': {'key': 'expectedDataSizeInTerabytes', 'type': 'int'},
         'job_stages': {'key': 'jobStages', 'type': '[JobStages]'},
         'contact_details': {'key': 'contactDetails', 'type': 'ContactDetails'},
         'shipping_address': {'key': 'shippingAddress', 'type': 'ShippingAddress'},
         'delivery_package': {'key': 'deliveryPackage', 'type': 'PackageShippingDetails'},
         'return_package': {'key': 'returnPackage', 'type': 'PackageShippingDetails'},
-        'destination_account_details': {'key': 'destinationAccountDetails', 'type': '[DestinationAccountDetails]'},
-        'error_details': {'key': 'errorDetails', 'type': '[JobErrorDetails]'},
+        'data_import_details': {'key': 'dataImportDetails', 'type': '[DataImportDetails]'},
+        'data_export_details': {'key': 'dataExportDetails', 'type': '[DataExportDetails]'},
         'preferences': {'key': 'preferences', 'type': 'Preferences'},
         'copy_log_details': {'key': 'copyLogDetails', 'type': '[CopyLogDetails]'},
         'reverse_shipment_label_sas_key': {'key': 'reverseShipmentLabelSasKey', 'type': 'str'},
         'chain_of_custody_sas_key': {'key': 'chainOfCustodySasKey', 'type': 'str'},
+        'key_encryption_key': {'key': 'keyEncryptionKey', 'type': 'KeyEncryptionKey'},
+        'expected_data_size_in_terabytes': {'key': 'expectedDataSizeInTerabytes', 'type': 'int'},
         'job_details_type': {'key': 'jobDetailsType', 'type': 'str'},
         'preferred_disks': {'key': 'preferredDisks', 'type': '{int}'},
         'copy_progress': {'key': 'copyProgress', 'type': '[DataBoxDiskCopyProgress]'},
@@ -948,22 +1093,30 @@ class JobSecrets(Model):
     sub-classes are: DataBoxDiskJobSecrets, DataBoxHeavyJobSecrets,
     DataboxJobSecrets
 
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
     All required parameters must be populated in order to send to Azure.
 
-    :param dc_access_security_code: Dc Access Security Code for Customer
+    :ivar dc_access_security_code: Dc Access Security Code for Customer
      Managed Shipping
-    :type dc_access_security_code:
+    :vartype dc_access_security_code:
      ~azure.mgmt.databox.models.DcAccessSecurityCode
+    :ivar error: Error while fetching the secrets.
+    :vartype error: ~azure.mgmt.databox.models.CloudError
     :param job_secrets_type: Required. Constant filled by server.
     :type job_secrets_type: str
     """
 
     _validation = {
+        'dc_access_security_code': {'readonly': True},
+        'error': {'readonly': True},
         'job_secrets_type': {'required': True},
     }
 
     _attribute_map = {
         'dc_access_security_code': {'key': 'dcAccessSecurityCode', 'type': 'DcAccessSecurityCode'},
+        'error': {'key': 'error', 'type': 'CloudError'},
         'job_secrets_type': {'key': 'jobSecretsType', 'type': 'str'},
     }
 
@@ -973,7 +1126,8 @@ class JobSecrets(Model):
 
     def __init__(self, **kwargs):
         super(JobSecrets, self).__init__(**kwargs)
-        self.dc_access_security_code = kwargs.get('dc_access_security_code', None)
+        self.dc_access_security_code = None
+        self.error = None
         self.job_secrets_type = None
 
 
@@ -985,10 +1139,12 @@ class DataBoxDiskJobSecrets(JobSecrets):
 
     All required parameters must be populated in order to send to Azure.
 
-    :param dc_access_security_code: Dc Access Security Code for Customer
+    :ivar dc_access_security_code: Dc Access Security Code for Customer
      Managed Shipping
-    :type dc_access_security_code:
+    :vartype dc_access_security_code:
      ~azure.mgmt.databox.models.DcAccessSecurityCode
+    :ivar error: Error while fetching the secrets.
+    :vartype error: ~azure.mgmt.databox.models.CloudError
     :param job_secrets_type: Required. Constant filled by server.
     :type job_secrets_type: str
     :ivar disk_secrets: Contains the list of secrets object for that device.
@@ -1000,6 +1156,8 @@ class DataBoxDiskJobSecrets(JobSecrets):
     """
 
     _validation = {
+        'dc_access_security_code': {'readonly': True},
+        'error': {'readonly': True},
         'job_secrets_type': {'required': True},
         'disk_secrets': {'readonly': True},
         'pass_key': {'readonly': True},
@@ -1008,6 +1166,7 @@ class DataBoxDiskJobSecrets(JobSecrets):
 
     _attribute_map = {
         'dc_access_security_code': {'key': 'dcAccessSecurityCode', 'type': 'DcAccessSecurityCode'},
+        'error': {'key': 'error', 'type': 'CloudError'},
         'job_secrets_type': {'key': 'jobSecretsType', 'type': 'str'},
         'disk_secrets': {'key': 'diskSecrets', 'type': '[DiskSecret]'},
         'pass_key': {'key': 'passKey', 'type': 'str'},
@@ -1032,28 +1191,34 @@ class DataBoxHeavyAccountCopyLogDetails(CopyLogDetails):
 
     :param copy_log_details_type: Required. Constant filled by server.
     :type copy_log_details_type: str
-    :ivar account_name: Destination account name.
+    :ivar account_name: Account name.
     :vartype account_name: str
     :ivar copy_log_link: Link for copy logs.
     :vartype copy_log_link: list[str]
+    :ivar copy_verbose_log_link: Link for copy verbose logs. This will be set
+     only when the LogCollectionLevel is set to verbose.
+    :vartype copy_verbose_log_link: list[str]
     """
 
     _validation = {
         'copy_log_details_type': {'required': True},
         'account_name': {'readonly': True},
         'copy_log_link': {'readonly': True},
+        'copy_verbose_log_link': {'readonly': True},
     }
 
     _attribute_map = {
         'copy_log_details_type': {'key': 'copyLogDetailsType', 'type': 'str'},
         'account_name': {'key': 'accountName', 'type': 'str'},
         'copy_log_link': {'key': 'copyLogLink', 'type': '[str]'},
+        'copy_verbose_log_link': {'key': 'copyVerboseLogLink', 'type': '[str]'},
     }
 
     def __init__(self, **kwargs):
         super(DataBoxHeavyAccountCopyLogDetails, self).__init__(**kwargs)
         self.account_name = None
         self.copy_log_link = None
+        self.copy_verbose_log_link = None
         self.copy_log_details_type = 'DataBoxHeavy'
 
 
@@ -1065,26 +1230,24 @@ class DataBoxHeavyJobDetails(JobDetails):
 
     All required parameters must be populated in order to send to Azure.
 
-    :param expected_data_size_in_terabytes: The expected size of the data,
-     which needs to be transferred in this job, in terabytes.
-    :type expected_data_size_in_terabytes: int
     :ivar job_stages: List of stages that run in the job.
     :vartype job_stages: list[~azure.mgmt.databox.models.JobStages]
     :param contact_details: Required. Contact details for notification and
      shipping.
     :type contact_details: ~azure.mgmt.databox.models.ContactDetails
-    :param shipping_address: Required. Shipping address of the customer.
+    :param shipping_address: Shipping address of the customer.
     :type shipping_address: ~azure.mgmt.databox.models.ShippingAddress
     :ivar delivery_package: Delivery package shipping details.
     :vartype delivery_package:
      ~azure.mgmt.databox.models.PackageShippingDetails
     :ivar return_package: Return package shipping details.
     :vartype return_package: ~azure.mgmt.databox.models.PackageShippingDetails
-    :param destination_account_details: Required. Destination account details.
-    :type destination_account_details:
-     list[~azure.mgmt.databox.models.DestinationAccountDetails]
-    :ivar error_details: Error details for failure. This is optional.
-    :vartype error_details: list[~azure.mgmt.databox.models.JobErrorDetails]
+    :param data_import_details: Details of the data to be imported into azure.
+    :type data_import_details:
+     list[~azure.mgmt.databox.models.DataImportDetails]
+    :param data_export_details: Details of the data to be exported from azure.
+    :type data_export_details:
+     list[~azure.mgmt.databox.models.DataExportDetails]
     :param preferences: Preferences for the order.
     :type preferences: ~azure.mgmt.databox.models.Preferences
     :ivar copy_log_details: List of copy log details.
@@ -1095,42 +1258,54 @@ class DataBoxHeavyJobDetails(JobDetails):
     :ivar chain_of_custody_sas_key: Shared access key to download the chain of
      custody logs
     :vartype chain_of_custody_sas_key: str
+    :ivar key_encryption_key: Details about which key encryption type is being
+     used.
+    :vartype key_encryption_key: ~azure.mgmt.databox.models.KeyEncryptionKey
+    :param expected_data_size_in_terabytes: The expected size of the data,
+     which needs to be transfered in this job, in tera bytes.
+    :type expected_data_size_in_terabytes: int
     :param job_details_type: Required. Constant filled by server.
     :type job_details_type: str
     :ivar copy_progress: Copy progress per account.
     :vartype copy_progress: list[~azure.mgmt.databox.models.CopyProgress]
-    :param device_password: Set Device password for unlocking Databox Heavy
+    :param device_password: Set Device password for unlocking Databox Heavy.
+     Should not be passed for TransferType:ExportFromAzure jobs. If this is not
+     passed, the service will generate password itself. This will not be
+     returned in Get Call. Password Requirements :  Password must be minimum of
+     12 and maximum of 64 characters. Password must have atleast one uppercase
+     alphabet, one number and one special character. Password cannot have the
+     following characters : IilLoO0 Password can have only alphabets, numbers
+     and these characters : @#\\-$%^!+=;:_()]+
     :type device_password: str
     """
 
     _validation = {
         'job_stages': {'readonly': True},
         'contact_details': {'required': True},
-        'shipping_address': {'required': True},
         'delivery_package': {'readonly': True},
         'return_package': {'readonly': True},
-        'destination_account_details': {'required': True},
-        'error_details': {'readonly': True},
         'copy_log_details': {'readonly': True},
         'reverse_shipment_label_sas_key': {'readonly': True},
         'chain_of_custody_sas_key': {'readonly': True},
+        'key_encryption_key': {'readonly': True},
         'job_details_type': {'required': True},
         'copy_progress': {'readonly': True},
     }
 
     _attribute_map = {
-        'expected_data_size_in_terabytes': {'key': 'expectedDataSizeInTerabytes', 'type': 'int'},
         'job_stages': {'key': 'jobStages', 'type': '[JobStages]'},
         'contact_details': {'key': 'contactDetails', 'type': 'ContactDetails'},
         'shipping_address': {'key': 'shippingAddress', 'type': 'ShippingAddress'},
         'delivery_package': {'key': 'deliveryPackage', 'type': 'PackageShippingDetails'},
         'return_package': {'key': 'returnPackage', 'type': 'PackageShippingDetails'},
-        'destination_account_details': {'key': 'destinationAccountDetails', 'type': '[DestinationAccountDetails]'},
-        'error_details': {'key': 'errorDetails', 'type': '[JobErrorDetails]'},
+        'data_import_details': {'key': 'dataImportDetails', 'type': '[DataImportDetails]'},
+        'data_export_details': {'key': 'dataExportDetails', 'type': '[DataExportDetails]'},
         'preferences': {'key': 'preferences', 'type': 'Preferences'},
         'copy_log_details': {'key': 'copyLogDetails', 'type': '[CopyLogDetails]'},
         'reverse_shipment_label_sas_key': {'key': 'reverseShipmentLabelSasKey', 'type': 'str'},
         'chain_of_custody_sas_key': {'key': 'chainOfCustodySasKey', 'type': 'str'},
+        'key_encryption_key': {'key': 'keyEncryptionKey', 'type': 'KeyEncryptionKey'},
+        'expected_data_size_in_terabytes': {'key': 'expectedDataSizeInTerabytes', 'type': 'int'},
         'job_details_type': {'key': 'jobDetailsType', 'type': 'str'},
         'copy_progress': {'key': 'copyProgress', 'type': '[CopyProgress]'},
         'device_password': {'key': 'devicePassword', 'type': 'str'},
@@ -1151,10 +1326,12 @@ class DataBoxHeavyJobSecrets(JobSecrets):
 
     All required parameters must be populated in order to send to Azure.
 
-    :param dc_access_security_code: Dc Access Security Code for Customer
+    :ivar dc_access_security_code: Dc Access Security Code for Customer
      Managed Shipping
-    :type dc_access_security_code:
+    :vartype dc_access_security_code:
      ~azure.mgmt.databox.models.DcAccessSecurityCode
+    :ivar error: Error while fetching the secrets.
+    :vartype error: ~azure.mgmt.databox.models.CloudError
     :param job_secrets_type: Required. Constant filled by server.
     :type job_secrets_type: str
     :ivar cabinet_pod_secrets: Contains the list of secret objects for a
@@ -1164,12 +1341,15 @@ class DataBoxHeavyJobSecrets(JobSecrets):
     """
 
     _validation = {
+        'dc_access_security_code': {'readonly': True},
+        'error': {'readonly': True},
         'job_secrets_type': {'required': True},
         'cabinet_pod_secrets': {'readonly': True},
     }
 
     _attribute_map = {
         'dc_access_security_code': {'key': 'dcAccessSecurityCode', 'type': 'DcAccessSecurityCode'},
+        'error': {'key': 'error', 'type': 'CloudError'},
         'job_secrets_type': {'key': 'jobSecretsType', 'type': 'str'},
         'cabinet_pod_secrets': {'key': 'cabinetPodSecrets', 'type': '[DataBoxHeavySecret]'},
     }
@@ -1234,26 +1414,24 @@ class DataBoxJobDetails(JobDetails):
 
     All required parameters must be populated in order to send to Azure.
 
-    :param expected_data_size_in_terabytes: The expected size of the data,
-     which needs to be transferred in this job, in terabytes.
-    :type expected_data_size_in_terabytes: int
     :ivar job_stages: List of stages that run in the job.
     :vartype job_stages: list[~azure.mgmt.databox.models.JobStages]
     :param contact_details: Required. Contact details for notification and
      shipping.
     :type contact_details: ~azure.mgmt.databox.models.ContactDetails
-    :param shipping_address: Required. Shipping address of the customer.
+    :param shipping_address: Shipping address of the customer.
     :type shipping_address: ~azure.mgmt.databox.models.ShippingAddress
     :ivar delivery_package: Delivery package shipping details.
     :vartype delivery_package:
      ~azure.mgmt.databox.models.PackageShippingDetails
     :ivar return_package: Return package shipping details.
     :vartype return_package: ~azure.mgmt.databox.models.PackageShippingDetails
-    :param destination_account_details: Required. Destination account details.
-    :type destination_account_details:
-     list[~azure.mgmt.databox.models.DestinationAccountDetails]
-    :ivar error_details: Error details for failure. This is optional.
-    :vartype error_details: list[~azure.mgmt.databox.models.JobErrorDetails]
+    :param data_import_details: Details of the data to be imported into azure.
+    :type data_import_details:
+     list[~azure.mgmt.databox.models.DataImportDetails]
+    :param data_export_details: Details of the data to be exported from azure.
+    :type data_export_details:
+     list[~azure.mgmt.databox.models.DataExportDetails]
     :param preferences: Preferences for the order.
     :type preferences: ~azure.mgmt.databox.models.Preferences
     :ivar copy_log_details: List of copy log details.
@@ -1264,42 +1442,54 @@ class DataBoxJobDetails(JobDetails):
     :ivar chain_of_custody_sas_key: Shared access key to download the chain of
      custody logs
     :vartype chain_of_custody_sas_key: str
+    :ivar key_encryption_key: Details about which key encryption type is being
+     used.
+    :vartype key_encryption_key: ~azure.mgmt.databox.models.KeyEncryptionKey
+    :param expected_data_size_in_terabytes: The expected size of the data,
+     which needs to be transfered in this job, in tera bytes.
+    :type expected_data_size_in_terabytes: int
     :param job_details_type: Required. Constant filled by server.
     :type job_details_type: str
     :ivar copy_progress: Copy progress per storage account.
     :vartype copy_progress: list[~azure.mgmt.databox.models.CopyProgress]
-    :param device_password: Set Device password for unlocking Databox
+    :param device_password: Set Device password for unlocking Databox. Should
+     not be passed for TransferType:ExportFromAzure jobs. If this is not
+     passed, the service will generate password itself. This will not be
+     returned in Get Call. Password Requirements :  Password must be minimum of
+     12 and maximum of 64 characters. Password must have atleast one uppercase
+     alphabet, one number and one special character. Password cannot have the
+     following characters : IilLoO0 Password can have only alphabets, numbers
+     and these characters : @#\\-$%^!+=;:_()]+
     :type device_password: str
     """
 
     _validation = {
         'job_stages': {'readonly': True},
         'contact_details': {'required': True},
-        'shipping_address': {'required': True},
         'delivery_package': {'readonly': True},
         'return_package': {'readonly': True},
-        'destination_account_details': {'required': True},
-        'error_details': {'readonly': True},
         'copy_log_details': {'readonly': True},
         'reverse_shipment_label_sas_key': {'readonly': True},
         'chain_of_custody_sas_key': {'readonly': True},
+        'key_encryption_key': {'readonly': True},
         'job_details_type': {'required': True},
         'copy_progress': {'readonly': True},
     }
 
     _attribute_map = {
-        'expected_data_size_in_terabytes': {'key': 'expectedDataSizeInTerabytes', 'type': 'int'},
         'job_stages': {'key': 'jobStages', 'type': '[JobStages]'},
         'contact_details': {'key': 'contactDetails', 'type': 'ContactDetails'},
         'shipping_address': {'key': 'shippingAddress', 'type': 'ShippingAddress'},
         'delivery_package': {'key': 'deliveryPackage', 'type': 'PackageShippingDetails'},
         'return_package': {'key': 'returnPackage', 'type': 'PackageShippingDetails'},
-        'destination_account_details': {'key': 'destinationAccountDetails', 'type': '[DestinationAccountDetails]'},
-        'error_details': {'key': 'errorDetails', 'type': '[JobErrorDetails]'},
+        'data_import_details': {'key': 'dataImportDetails', 'type': '[DataImportDetails]'},
+        'data_export_details': {'key': 'dataExportDetails', 'type': '[DataExportDetails]'},
         'preferences': {'key': 'preferences', 'type': 'Preferences'},
         'copy_log_details': {'key': 'copyLogDetails', 'type': '[CopyLogDetails]'},
         'reverse_shipment_label_sas_key': {'key': 'reverseShipmentLabelSasKey', 'type': 'str'},
         'chain_of_custody_sas_key': {'key': 'chainOfCustodySasKey', 'type': 'str'},
+        'key_encryption_key': {'key': 'keyEncryptionKey', 'type': 'KeyEncryptionKey'},
+        'expected_data_size_in_terabytes': {'key': 'expectedDataSizeInTerabytes', 'type': 'int'},
         'job_details_type': {'key': 'jobDetailsType', 'type': 'str'},
         'copy_progress': {'key': 'copyProgress', 'type': '[CopyProgress]'},
         'device_password': {'key': 'devicePassword', 'type': 'str'},
@@ -1315,12 +1505,17 @@ class DataBoxJobDetails(JobDetails):
 class DataboxJobSecrets(JobSecrets):
     """The secrets related to a databox job.
 
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
     All required parameters must be populated in order to send to Azure.
 
-    :param dc_access_security_code: Dc Access Security Code for Customer
+    :ivar dc_access_security_code: Dc Access Security Code for Customer
      Managed Shipping
-    :type dc_access_security_code:
+    :vartype dc_access_security_code:
      ~azure.mgmt.databox.models.DcAccessSecurityCode
+    :ivar error: Error while fetching the secrets.
+    :vartype error: ~azure.mgmt.databox.models.CloudError
     :param job_secrets_type: Required. Constant filled by server.
     :type job_secrets_type: str
     :param pod_secrets: Contains the list of secret objects for a job.
@@ -1328,11 +1523,14 @@ class DataboxJobSecrets(JobSecrets):
     """
 
     _validation = {
+        'dc_access_security_code': {'readonly': True},
+        'error': {'readonly': True},
         'job_secrets_type': {'required': True},
     }
 
     _attribute_map = {
         'dc_access_security_code': {'key': 'dcAccessSecurityCode', 'type': 'DcAccessSecurityCode'},
+        'error': {'key': 'error', 'type': 'CloudError'},
         'job_secrets_type': {'key': 'jobSecretsType', 'type': 'str'},
         'pod_secrets': {'key': 'podSecrets', 'type': '[DataBoxSecret]'},
     }
@@ -1352,10 +1550,12 @@ class ScheduleAvailabilityRequest(Model):
 
     All required parameters must be populated in order to send to Azure.
 
-    :param storage_location: Required. Location for data transfer.
-     For locations check:
+    :param storage_location: Required. Location for data transfer. For
+     locations check:
      https://management.azure.com/subscriptions/SUBSCRIPTIONID/locations?api-version=2018-01-01
     :type storage_location: str
+    :param country: Country in which storage location should be supported.
+    :type country: str
     :param sku_name: Required. Constant filled by server.
     :type sku_name: str
     """
@@ -1367,6 +1567,7 @@ class ScheduleAvailabilityRequest(Model):
 
     _attribute_map = {
         'storage_location': {'key': 'storageLocation', 'type': 'str'},
+        'country': {'key': 'country', 'type': 'str'},
         'sku_name': {'key': 'skuName', 'type': 'str'},
     }
 
@@ -1377,6 +1578,7 @@ class ScheduleAvailabilityRequest(Model):
     def __init__(self, **kwargs):
         super(ScheduleAvailabilityRequest, self).__init__(**kwargs)
         self.storage_location = kwargs.get('storage_location', None)
+        self.country = kwargs.get('country', None)
         self.sku_name = None
 
 
@@ -1385,10 +1587,12 @@ class DataBoxScheduleAvailabilityRequest(ScheduleAvailabilityRequest):
 
     All required parameters must be populated in order to send to Azure.
 
-    :param storage_location: Required. Location for data transfer.
-     For locations check:
+    :param storage_location: Required. Location for data transfer. For
+     locations check:
      https://management.azure.com/subscriptions/SUBSCRIPTIONID/locations?api-version=2018-01-01
     :type storage_location: str
+    :param country: Country in which storage location should be supported.
+    :type country: str
     :param sku_name: Required. Constant filled by server.
     :type sku_name: str
     """
@@ -1400,6 +1604,7 @@ class DataBoxScheduleAvailabilityRequest(ScheduleAvailabilityRequest):
 
     _attribute_map = {
         'storage_location': {'key': 'storageLocation', 'type': 'str'},
+        'country': {'key': 'country', 'type': 'str'},
         'sku_name': {'key': 'skuName', 'type': 'str'},
     }
 
@@ -1454,42 +1659,141 @@ class DataBoxSecret(Model):
         self.account_credential_details = None
 
 
-class DataDestinationDetailsValidationRequest(ValidationInputRequest):
-    """Request to validate data destination details.
+class DataExportDetails(Model):
+    """Details of the data to be used for exporting data from azure.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param transfer_configuration: Required. Configuration for the data
+     transfer.
+    :type transfer_configuration:
+     ~azure.mgmt.databox.models.TransferConfiguration
+    :param log_collection_level: Level of the logs to be collected. Possible
+     values include: 'Error', 'Verbose'
+    :type log_collection_level: str or
+     ~azure.mgmt.databox.models.LogCollectionLevel
+    :param account_details: Required. Account details of the data to be
+     transferred
+    :type account_details: ~azure.mgmt.databox.models.DataAccountDetails
+    """
+
+    _validation = {
+        'transfer_configuration': {'required': True},
+        'account_details': {'required': True},
+    }
+
+    _attribute_map = {
+        'transfer_configuration': {'key': 'transferConfiguration', 'type': 'TransferConfiguration'},
+        'log_collection_level': {'key': 'logCollectionLevel', 'type': 'LogCollectionLevel'},
+        'account_details': {'key': 'accountDetails', 'type': 'DataAccountDetails'},
+    }
+
+    def __init__(self, **kwargs):
+        super(DataExportDetails, self).__init__(**kwargs)
+        self.transfer_configuration = kwargs.get('transfer_configuration', None)
+        self.log_collection_level = kwargs.get('log_collection_level', None)
+        self.account_details = kwargs.get('account_details', None)
+
+
+class DataImportDetails(Model):
+    """Details of the data to be used for importing data to azure.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param account_details: Required. Account details of the data to be
+     transferred
+    :type account_details: ~azure.mgmt.databox.models.DataAccountDetails
+    """
+
+    _validation = {
+        'account_details': {'required': True},
+    }
+
+    _attribute_map = {
+        'account_details': {'key': 'accountDetails', 'type': 'DataAccountDetails'},
+    }
+
+    def __init__(self, **kwargs):
+        super(DataImportDetails, self).__init__(**kwargs)
+        self.account_details = kwargs.get('account_details', None)
+
+
+class DataLocationToServiceLocationMap(Model):
+    """Map of data location to service location.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar data_location: Location of the data.
+    :vartype data_location: str
+    :ivar service_location: Location of the service.
+    :vartype service_location: str
+    """
+
+    _validation = {
+        'data_location': {'readonly': True},
+        'service_location': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'data_location': {'key': 'dataLocation', 'type': 'str'},
+        'service_location': {'key': 'serviceLocation', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(DataLocationToServiceLocationMap, self).__init__(**kwargs)
+        self.data_location = None
+        self.service_location = None
+
+
+class DataTransferDetailsValidationRequest(ValidationInputRequest):
+    """Request to validate export and import data details.
 
     All required parameters must be populated in order to send to Azure.
 
     :param validation_type: Required. Constant filled by server.
     :type validation_type: str
-    :param destination_account_details: Required. Destination account details
-     list.
-    :type destination_account_details:
-     list[~azure.mgmt.databox.models.DestinationAccountDetails]
-    :param location: Required. Location of stamp or geo.
-    :type location: str
+    :param data_export_details: List of DataTransfer details to be used to
+     export data from azure.
+    :type data_export_details:
+     list[~azure.mgmt.databox.models.DataExportDetails]
+    :param data_import_details: List of DataTransfer details to be used to
+     import data to azure.
+    :type data_import_details:
+     list[~azure.mgmt.databox.models.DataImportDetails]
+    :param device_type: Required. Device type. Possible values include:
+     'DataBox', 'DataBoxDisk', 'DataBoxHeavy'
+    :type device_type: str or ~azure.mgmt.databox.models.SkuName
+    :param transfer_type: Required. Type of the transfer. Possible values
+     include: 'ImportToAzure', 'ExportFromAzure'
+    :type transfer_type: str or ~azure.mgmt.databox.models.TransferType
     """
 
     _validation = {
         'validation_type': {'required': True},
-        'destination_account_details': {'required': True},
-        'location': {'required': True},
+        'device_type': {'required': True},
+        'transfer_type': {'required': True},
     }
 
     _attribute_map = {
         'validation_type': {'key': 'validationType', 'type': 'str'},
-        'destination_account_details': {'key': 'destinationAccountDetails', 'type': '[DestinationAccountDetails]'},
-        'location': {'key': 'location', 'type': 'str'},
+        'data_export_details': {'key': 'dataExportDetails', 'type': '[DataExportDetails]'},
+        'data_import_details': {'key': 'dataImportDetails', 'type': '[DataImportDetails]'},
+        'device_type': {'key': 'deviceType', 'type': 'SkuName'},
+        'transfer_type': {'key': 'transferType', 'type': 'TransferType'},
     }
 
     def __init__(self, **kwargs):
-        super(DataDestinationDetailsValidationRequest, self).__init__(**kwargs)
-        self.destination_account_details = kwargs.get('destination_account_details', None)
-        self.location = kwargs.get('location', None)
-        self.validation_type = 'ValidateDataDestinationDetails'
+        super(DataTransferDetailsValidationRequest, self).__init__(**kwargs)
+        self.data_export_details = kwargs.get('data_export_details', None)
+        self.data_import_details = kwargs.get('data_import_details', None)
+        self.device_type = kwargs.get('device_type', None)
+        self.transfer_type = kwargs.get('transfer_type', None)
+        self.validation_type = 'ValidateDataTransferDetails'
 
 
-class DataDestinationDetailsValidationResponseProperties(ValidationInputResponse):
-    """Properties of data destination details validation response.
+class DataTransferDetailsValidationResponseProperties(ValidationInputResponse):
+    """Properties of data transfer details validation response.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
@@ -1497,10 +1801,10 @@ class DataDestinationDetailsValidationResponseProperties(ValidationInputResponse
     All required parameters must be populated in order to send to Azure.
 
     :ivar error: Error code and message of validation response.
-    :vartype error: ~azure.mgmt.databox.models.Error
+    :vartype error: ~azure.mgmt.databox.models.CloudError
     :param validation_type: Required. Constant filled by server.
     :type validation_type: str
-    :ivar status: Data destination details validation status. Possible values
+    :ivar status: Data transfer details validation status. Possible values
      include: 'Valid', 'Invalid', 'Skipped'
     :vartype status: str or ~azure.mgmt.databox.models.ValidationStatus
     """
@@ -1512,177 +1816,35 @@ class DataDestinationDetailsValidationResponseProperties(ValidationInputResponse
     }
 
     _attribute_map = {
-        'error': {'key': 'error', 'type': 'Error'},
+        'error': {'key': 'error', 'type': 'CloudError'},
         'validation_type': {'key': 'validationType', 'type': 'str'},
         'status': {'key': 'status', 'type': 'ValidationStatus'},
     }
 
     def __init__(self, **kwargs):
-        super(DataDestinationDetailsValidationResponseProperties, self).__init__(**kwargs)
+        super(DataTransferDetailsValidationResponseProperties, self).__init__(**kwargs)
         self.status = None
-        self.validation_type = 'ValidateDataDestinationDetails'
+        self.validation_type = 'ValidateDataTransferDetails'
 
 
 class DcAccessSecurityCode(Model):
-    """Dc Access Security code for device.
+    """Dc access security code.
 
-    :param forward_dc_access_code: Dc Access Code for dispatching from DC.
-    :type forward_dc_access_code: str
-    :param reverse_dc_access_code: Dc Access code for dropping off at DC.
+    :param reverse_dc_access_code: Reverse Dc access security code.
     :type reverse_dc_access_code: str
+    :param forward_dc_access_code: Forward Dc access security code.
+    :type forward_dc_access_code: str
     """
 
     _attribute_map = {
-        'forward_dc_access_code': {'key': 'forwardDcAccessCode', 'type': 'str'},
         'reverse_dc_access_code': {'key': 'reverseDcAccessCode', 'type': 'str'},
+        'forward_dc_access_code': {'key': 'forwardDcAccessCode', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
         super(DcAccessSecurityCode, self).__init__(**kwargs)
-        self.forward_dc_access_code = kwargs.get('forward_dc_access_code', None)
         self.reverse_dc_access_code = kwargs.get('reverse_dc_access_code', None)
-
-
-class DestinationAccountDetails(Model):
-    """Details of the destination storage accounts.
-
-    You probably want to use the sub-classes and not this class directly. Known
-    sub-classes are: DestinationManagedDiskDetails,
-    DestinationStorageAccountDetails
-
-    All required parameters must be populated in order to send to Azure.
-
-    :param account_id: Arm Id of the destination where the data has to be
-     moved.
-    :type account_id: str
-    :param share_password: Share password to be shared by all shares in SA.
-    :type share_password: str
-    :param data_destination_type: Required. Constant filled by server.
-    :type data_destination_type: str
-    """
-
-    _validation = {
-        'data_destination_type': {'required': True},
-    }
-
-    _attribute_map = {
-        'account_id': {'key': 'accountId', 'type': 'str'},
-        'share_password': {'key': 'sharePassword', 'type': 'str'},
-        'data_destination_type': {'key': 'dataDestinationType', 'type': 'str'},
-    }
-
-    _subtype_map = {
-        'data_destination_type': {'ManagedDisk': 'DestinationManagedDiskDetails', 'StorageAccount': 'DestinationStorageAccountDetails'}
-    }
-
-    def __init__(self, **kwargs):
-        super(DestinationAccountDetails, self).__init__(**kwargs)
-        self.account_id = kwargs.get('account_id', None)
-        self.share_password = kwargs.get('share_password', None)
-        self.data_destination_type = None
-
-
-class DestinationManagedDiskDetails(DestinationAccountDetails):
-    """Details for the destination compute disks.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :param account_id: Arm Id of the destination where the data has to be
-     moved.
-    :type account_id: str
-    :param share_password: Share password to be shared by all shares in SA.
-    :type share_password: str
-    :param data_destination_type: Required. Constant filled by server.
-    :type data_destination_type: str
-    :param resource_group_id: Required. Destination Resource Group Id where
-     the Compute disks should be created.
-    :type resource_group_id: str
-    :param staging_storage_account_id: Required. Arm Id of the storage account
-     that can be used to copy the vhd for staging.
-    :type staging_storage_account_id: str
-    """
-
-    _validation = {
-        'data_destination_type': {'required': True},
-        'resource_group_id': {'required': True},
-        'staging_storage_account_id': {'required': True},
-    }
-
-    _attribute_map = {
-        'account_id': {'key': 'accountId', 'type': 'str'},
-        'share_password': {'key': 'sharePassword', 'type': 'str'},
-        'data_destination_type': {'key': 'dataDestinationType', 'type': 'str'},
-        'resource_group_id': {'key': 'resourceGroupId', 'type': 'str'},
-        'staging_storage_account_id': {'key': 'stagingStorageAccountId', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(DestinationManagedDiskDetails, self).__init__(**kwargs)
-        self.resource_group_id = kwargs.get('resource_group_id', None)
-        self.staging_storage_account_id = kwargs.get('staging_storage_account_id', None)
-        self.data_destination_type = 'ManagedDisk'
-
-
-class DestinationStorageAccountDetails(DestinationAccountDetails):
-    """Details for the destination storage account.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :param account_id: Arm Id of the destination where the data has to be
-     moved.
-    :type account_id: str
-    :param share_password: Share password to be shared by all shares in SA.
-    :type share_password: str
-    :param data_destination_type: Required. Constant filled by server.
-    :type data_destination_type: str
-    :param storage_account_id: Required. Destination Storage Account Arm Id.
-    :type storage_account_id: str
-    """
-
-    _validation = {
-        'data_destination_type': {'required': True},
-        'storage_account_id': {'required': True},
-    }
-
-    _attribute_map = {
-        'account_id': {'key': 'accountId', 'type': 'str'},
-        'share_password': {'key': 'sharePassword', 'type': 'str'},
-        'data_destination_type': {'key': 'dataDestinationType', 'type': 'str'},
-        'storage_account_id': {'key': 'storageAccountId', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(DestinationStorageAccountDetails, self).__init__(**kwargs)
-        self.storage_account_id = kwargs.get('storage_account_id', None)
-        self.data_destination_type = 'StorageAccount'
-
-
-class DestinationToServiceLocationMap(Model):
-    """Map of destination location to service location.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar destination_location: Location of the destination.
-    :vartype destination_location: str
-    :ivar service_location: Location of the service.
-    :vartype service_location: str
-    """
-
-    _validation = {
-        'destination_location': {'readonly': True},
-        'service_location': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'destination_location': {'key': 'destinationLocation', 'type': 'str'},
-        'service_location': {'key': 'serviceLocation', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(DestinationToServiceLocationMap, self).__init__(**kwargs)
-        self.destination_location = None
-        self.service_location = None
+        self.forward_dc_access_code = kwargs.get('forward_dc_access_code', None)
 
 
 class DiskScheduleAvailabilityRequest(ScheduleAvailabilityRequest):
@@ -1690,14 +1852,16 @@ class DiskScheduleAvailabilityRequest(ScheduleAvailabilityRequest):
 
     All required parameters must be populated in order to send to Azure.
 
-    :param storage_location: Required. Location for data transfer.
-     For locations check:
+    :param storage_location: Required. Location for data transfer. For
+     locations check:
      https://management.azure.com/subscriptions/SUBSCRIPTIONID/locations?api-version=2018-01-01
     :type storage_location: str
+    :param country: Country in which storage location should be supported.
+    :type country: str
     :param sku_name: Required. Constant filled by server.
     :type sku_name: str
     :param expected_data_size_in_terabytes: Required. The expected size of the
-     data, which needs to be transferred in this job, in terabytes.
+     data, which needs to be transferred in this job, in tera bytes.
     :type expected_data_size_in_terabytes: int
     """
 
@@ -1709,6 +1873,7 @@ class DiskScheduleAvailabilityRequest(ScheduleAvailabilityRequest):
 
     _attribute_map = {
         'storage_location': {'key': 'storageLocation', 'type': 'str'},
+        'country': {'key': 'country', 'type': 'str'},
         'sku_name': {'key': 'skuName', 'type': 'str'},
         'expected_data_size_in_terabytes': {'key': 'expectedDataSizeInTerabytes', 'type': 'int'},
     }
@@ -1748,34 +1913,33 @@ class DiskSecret(Model):
         self.bit_locker_key = None
 
 
-class Error(Model):
-    """Top level error for the job.
+class FilterFileDetails(Model):
+    """Details of the filter files to be used for data transfer.
 
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
+    All required parameters must be populated in order to send to Azure.
 
-    :ivar code: Error code that can be used to programmatically identify the
-     error.
-    :vartype code: str
-    :ivar message: Describes the error in detail and provides debugging
-     information.
-    :vartype message: str
+    :param filter_file_type: Required. Type of the filter file. Possible
+     values include: 'AzureBlob', 'AzureFile'
+    :type filter_file_type: str or ~azure.mgmt.databox.models.FilterFileType
+    :param filter_file_path: Required. Path of the file that contains the
+     details of all items to transfer.
+    :type filter_file_path: str
     """
 
     _validation = {
-        'code': {'readonly': True},
-        'message': {'readonly': True},
+        'filter_file_type': {'required': True},
+        'filter_file_path': {'required': True},
     }
 
     _attribute_map = {
-        'code': {'key': 'code', 'type': 'str'},
-        'message': {'key': 'message', 'type': 'str'},
+        'filter_file_type': {'key': 'filterFileType', 'type': 'FilterFileType'},
+        'filter_file_path': {'key': 'filterFilePath', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
-        super(Error, self).__init__(**kwargs)
-        self.code = None
-        self.message = None
+        super(FilterFileDetails, self).__init__(**kwargs)
+        self.filter_file_type = kwargs.get('filter_file_type', None)
+        self.filter_file_path = kwargs.get('filter_file_path', None)
 
 
 class HeavyScheduleAvailabilityRequest(ScheduleAvailabilityRequest):
@@ -1783,10 +1947,12 @@ class HeavyScheduleAvailabilityRequest(ScheduleAvailabilityRequest):
 
     All required parameters must be populated in order to send to Azure.
 
-    :param storage_location: Required. Location for data transfer.
-     For locations check:
+    :param storage_location: Required. Location for data transfer. For
+     locations check:
      https://management.azure.com/subscriptions/SUBSCRIPTIONID/locations?api-version=2018-01-01
     :type storage_location: str
+    :param country: Country in which storage location should be supported.
+    :type country: str
     :param sku_name: Required. Constant filled by server.
     :type sku_name: str
     """
@@ -1798,6 +1964,7 @@ class HeavyScheduleAvailabilityRequest(ScheduleAvailabilityRequest):
 
     _attribute_map = {
         'storage_location': {'key': 'storageLocation', 'type': 'str'},
+        'country': {'key': 'country', 'type': 'str'},
         'sku_name': {'key': 'skuName', 'type': 'str'},
     }
 
@@ -1822,44 +1989,6 @@ class JobDeliveryInfo(Model):
         self.scheduled_date_time = kwargs.get('scheduled_date_time', None)
 
 
-class JobErrorDetails(Model):
-    """Job Error Details for providing the information and recommended action.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar error_message: Message for the error.
-    :vartype error_message: str
-    :ivar error_code: Code for the error.
-    :vartype error_code: int
-    :ivar recommended_action: Recommended action for the error.
-    :vartype recommended_action: str
-    :ivar exception_message: Contains the non localized exception message
-    :vartype exception_message: str
-    """
-
-    _validation = {
-        'error_message': {'readonly': True},
-        'error_code': {'readonly': True},
-        'recommended_action': {'readonly': True},
-        'exception_message': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'error_message': {'key': 'errorMessage', 'type': 'str'},
-        'error_code': {'key': 'errorCode', 'type': 'int'},
-        'recommended_action': {'key': 'recommendedAction', 'type': 'str'},
-        'exception_message': {'key': 'exceptionMessage', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(JobErrorDetails, self).__init__(**kwargs)
-        self.error_message = None
-        self.error_code = None
-        self.recommended_action = None
-        self.exception_message = None
-
-
 class Resource(Model):
     """Model of the Resource.
 
@@ -1877,6 +2006,8 @@ class Resource(Model):
     :type tags: dict[str, str]
     :param sku: Required. The sku type.
     :type sku: ~azure.mgmt.databox.models.Sku
+    :param identity: Msi identity of the resource
+    :type identity: ~azure.mgmt.databox.models.ResourceIdentity
     """
 
     _validation = {
@@ -1888,6 +2019,7 @@ class Resource(Model):
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
         'sku': {'key': 'sku', 'type': 'Sku'},
+        'identity': {'key': 'identity', 'type': 'ResourceIdentity'},
     }
 
     def __init__(self, **kwargs):
@@ -1895,6 +2027,7 @@ class Resource(Model):
         self.location = kwargs.get('location', None)
         self.tags = kwargs.get('tags', None)
         self.sku = kwargs.get('sku', None)
+        self.identity = kwargs.get('identity', None)
 
 
 class JobResource(Resource):
@@ -1917,6 +2050,11 @@ class JobResource(Resource):
     :type tags: dict[str, str]
     :param sku: Required. The sku type.
     :type sku: ~azure.mgmt.databox.models.Sku
+    :param identity: Msi identity of the resource
+    :type identity: ~azure.mgmt.databox.models.ResourceIdentity
+    :param transfer_type: Required. Type of the data transfer. Possible values
+     include: 'ImportToAzure', 'ExportFromAzure'
+    :type transfer_type: str or ~azure.mgmt.databox.models.TransferType
     :ivar is_cancellable: Describes whether the job is cancellable or not.
     :vartype is_cancellable: bool
     :ivar is_deletable: Describes whether the job is deletable or not.
@@ -1924,6 +2062,8 @@ class JobResource(Resource):
     :ivar is_shipping_address_editable: Describes whether the shipping address
      is editable or not.
     :vartype is_shipping_address_editable: bool
+    :ivar is_prepare_to_ship_enabled: Is Prepare To Ship Enabled on this job
+    :vartype is_prepare_to_ship_enabled: bool
     :ivar status: Name of the stage which is in progress. Possible values
      include: 'DeviceOrdered', 'DevicePrepared', 'Dispatched', 'Delivered',
      'PickedUp', 'AtAzureDC', 'DataCopy', 'Completed', 'CompletedWithErrors',
@@ -1935,7 +2075,7 @@ class JobResource(Resource):
      format.
     :vartype start_time: datetime
     :ivar error: Top level error for the job.
-    :vartype error: ~azure.mgmt.databox.models.Error
+    :vartype error: ~azure.mgmt.databox.models.CloudError
     :param details: Details of a job run. This field will only be sent for
      expand details filter.
     :type details: ~azure.mgmt.databox.models.JobDetails
@@ -1960,9 +2100,11 @@ class JobResource(Resource):
     _validation = {
         'location': {'required': True},
         'sku': {'required': True},
+        'transfer_type': {'required': True},
         'is_cancellable': {'readonly': True},
         'is_deletable': {'readonly': True},
         'is_shipping_address_editable': {'readonly': True},
+        'is_prepare_to_ship_enabled': {'readonly': True},
         'status': {'readonly': True},
         'start_time': {'readonly': True},
         'error': {'readonly': True},
@@ -1977,12 +2119,15 @@ class JobResource(Resource):
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
         'sku': {'key': 'sku', 'type': 'Sku'},
+        'identity': {'key': 'identity', 'type': 'ResourceIdentity'},
+        'transfer_type': {'key': 'properties.transferType', 'type': 'TransferType'},
         'is_cancellable': {'key': 'properties.isCancellable', 'type': 'bool'},
         'is_deletable': {'key': 'properties.isDeletable', 'type': 'bool'},
         'is_shipping_address_editable': {'key': 'properties.isShippingAddressEditable', 'type': 'bool'},
+        'is_prepare_to_ship_enabled': {'key': 'properties.isPrepareToShipEnabled', 'type': 'bool'},
         'status': {'key': 'properties.status', 'type': 'StageName'},
         'start_time': {'key': 'properties.startTime', 'type': 'iso-8601'},
-        'error': {'key': 'properties.error', 'type': 'Error'},
+        'error': {'key': 'properties.error', 'type': 'CloudError'},
         'details': {'key': 'properties.details', 'type': 'JobDetails'},
         'cancellation_reason': {'key': 'properties.cancellationReason', 'type': 'str'},
         'delivery_type': {'key': 'properties.deliveryType', 'type': 'JobDeliveryType'},
@@ -1995,9 +2140,11 @@ class JobResource(Resource):
 
     def __init__(self, **kwargs):
         super(JobResource, self).__init__(**kwargs)
+        self.transfer_type = kwargs.get('transfer_type', None)
         self.is_cancellable = None
         self.is_deletable = None
         self.is_shipping_address_editable = None
+        self.is_prepare_to_ship_enabled = None
         self.status = None
         self.start_time = None
         self.error = None
@@ -2016,26 +2163,25 @@ class JobResourceUpdateParameter(Model):
 
     :param details: Details of a job to be updated.
     :type details: ~azure.mgmt.databox.models.UpdateJobDetails
-    :param destination_account_details: Destination account details.
-    :type destination_account_details:
-     list[~azure.mgmt.databox.models.DestinationAccountDetails]
     :param tags: The list of key value pairs that describe the resource. These
      tags can be used in viewing and grouping this resource (across resource
      groups).
     :type tags: dict[str, str]
+    :param identity: Msi identity of the resource
+    :type identity: ~azure.mgmt.databox.models.ResourceIdentity
     """
 
     _attribute_map = {
         'details': {'key': 'properties.details', 'type': 'UpdateJobDetails'},
-        'destination_account_details': {'key': 'properties.destinationAccountDetails', 'type': '[DestinationAccountDetails]'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'identity': {'key': 'identity', 'type': 'ResourceIdentity'},
     }
 
     def __init__(self, **kwargs):
         super(JobResourceUpdateParameter, self).__init__(**kwargs)
         self.details = kwargs.get('details', None)
-        self.destination_account_details = kwargs.get('destination_account_details', None)
         self.tags = kwargs.get('tags', None)
+        self.identity = kwargs.get('identity', None)
 
 
 class JobStages(Model):
@@ -2055,14 +2201,12 @@ class JobStages(Model):
     :vartype display_name: str
     :ivar stage_status: Status of the job stage. Possible values include:
      'None', 'InProgress', 'Succeeded', 'Failed', 'Cancelled', 'Cancelling',
-     'SucceededWithErrors'
+     'SucceededWithErrors', 'WaitingForCustomerAction', 'SucceededWithWarnings'
     :vartype stage_status: str or ~azure.mgmt.databox.models.StageStatus
     :ivar stage_time: Time for the job stage in UTC ISO 8601 format.
     :vartype stage_time: datetime
     :ivar job_stage_details: Job Stage Details
     :vartype job_stage_details: object
-    :ivar error_details: Error details for the stage.
-    :vartype error_details: list[~azure.mgmt.databox.models.JobErrorDetails]
     """
 
     _validation = {
@@ -2071,7 +2215,6 @@ class JobStages(Model):
         'stage_status': {'readonly': True},
         'stage_time': {'readonly': True},
         'job_stage_details': {'readonly': True},
-        'error_details': {'readonly': True},
     }
 
     _attribute_map = {
@@ -2080,7 +2223,6 @@ class JobStages(Model):
         'stage_status': {'key': 'stageStatus', 'type': 'StageStatus'},
         'stage_time': {'key': 'stageTime', 'type': 'iso-8601'},
         'job_stage_details': {'key': 'jobStageDetails', 'type': 'object'},
-        'error_details': {'key': 'errorDetails', 'type': '[JobErrorDetails]'},
     }
 
     def __init__(self, **kwargs):
@@ -2090,7 +2232,83 @@ class JobStages(Model):
         self.stage_status = None
         self.stage_time = None
         self.job_stage_details = None
-        self.error_details = None
+
+
+class KeyEncryptionKey(Model):
+    """Encryption key containing details about key to encrypt different keys.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param kek_type: Required. Type of encryption key used for key encryption.
+     Possible values include: 'MicrosoftManaged', 'CustomerManaged'
+    :type kek_type: str or ~azure.mgmt.databox.models.KekType
+    :param kek_url: Key encryption key. It is required in case of Customer
+     managed KekType.
+    :type kek_url: str
+    :param kek_vault_resource_id: Kek vault resource id. It is required in
+     case of Customer managed KekType.
+    :type kek_vault_resource_id: str
+    """
+
+    _validation = {
+        'kek_type': {'required': True},
+    }
+
+    _attribute_map = {
+        'kek_type': {'key': 'kekType', 'type': 'KekType'},
+        'kek_url': {'key': 'kekUrl', 'type': 'str'},
+        'kek_vault_resource_id': {'key': 'kekVaultResourceID', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(KeyEncryptionKey, self).__init__(**kwargs)
+        self.kek_type = kwargs.get('kek_type', None)
+        self.kek_url = kwargs.get('kek_url', None)
+        self.kek_vault_resource_id = kwargs.get('kek_vault_resource_id', None)
+
+
+class ManagedDiskDetails(DataAccountDetails):
+    """Details of the managed disks.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param share_password: Password for all the shares to be created on the
+     device. Should not be passed for TransferType:ExportFromAzure jobs. If
+     this is not passed, the service will generate password itself. This will
+     not be returned in Get Call. Password Requirements :  Password must be
+     minimum of 12 and maximum of 64 characters. Password must have atleast one
+     uppercase alphabet, one number and one special character. Password cannot
+     have the following characters : IilLoO0 Password can have only alphabets,
+     numbers and these characters : @#\\-$%^!+=;:_()]+
+    :type share_password: str
+    :param data_account_type: Required. Constant filled by server.
+    :type data_account_type: str
+    :param resource_group_id: Required. Resource Group Id of the compute
+     disks.
+    :type resource_group_id: str
+    :param staging_storage_account_id: Required. Resource Id of the storage
+     account that can be used to copy the vhd for staging.
+    :type staging_storage_account_id: str
+    """
+
+    _validation = {
+        'data_account_type': {'required': True},
+        'resource_group_id': {'required': True},
+        'staging_storage_account_id': {'required': True},
+    }
+
+    _attribute_map = {
+        'share_password': {'key': 'sharePassword', 'type': 'str'},
+        'data_account_type': {'key': 'dataAccountType', 'type': 'str'},
+        'resource_group_id': {'key': 'resourceGroupId', 'type': 'str'},
+        'staging_storage_account_id': {'key': 'stagingStorageAccountId', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ManagedDiskDetails, self).__init__(**kwargs)
+        self.resource_group_id = kwargs.get('resource_group_id', None)
+        self.staging_storage_account_id = kwargs.get('staging_storage_account_id', None)
+        self.data_account_type = 'ManagedDisk'
 
 
 class NotificationPreference(Model):
@@ -2226,7 +2444,7 @@ class PackageShippingDetails(Model):
 class Preferences(Model):
     """Preferences related to the order.
 
-    :param preferred_data_center_region: Preferred Data Center Region.
+    :param preferred_data_center_region: Preferrred data center region.
     :type preferred_data_center_region: list[str]
     :param transport_preferences: Preferences related to the shipment
      logistics of the sku.
@@ -2252,8 +2470,7 @@ class PreferencesValidationRequest(ValidationInputRequest):
 
     :param validation_type: Required. Constant filled by server.
     :type validation_type: str
-    :param preference: Preference requested with respect to transport type and
-     data center
+    :param preference: Preference of transport and data center.
     :type preference: ~azure.mgmt.databox.models.Preferences
     :param device_type: Required. Device type to be used for the job. Possible
      values include: 'DataBox', 'DataBoxDisk', 'DataBoxHeavy'
@@ -2287,7 +2504,7 @@ class PreferencesValidationResponseProperties(ValidationInputResponse):
     All required parameters must be populated in order to send to Azure.
 
     :ivar error: Error code and message of validation response.
-    :vartype error: ~azure.mgmt.databox.models.Error
+    :vartype error: ~azure.mgmt.databox.models.CloudError
     :param validation_type: Required. Constant filled by server.
     :type validation_type: str
     :ivar status: Validation status of requested data center and transport.
@@ -2302,7 +2519,7 @@ class PreferencesValidationResponseProperties(ValidationInputResponse):
     }
 
     _attribute_map = {
-        'error': {'key': 'error', 'type': 'Error'},
+        'error': {'key': 'error', 'type': 'CloudError'},
         'validation_type': {'key': 'validationType', 'type': 'str'},
         'status': {'key': 'status', 'type': 'ValidationStatus'},
     }
@@ -2316,8 +2533,10 @@ class PreferencesValidationResponseProperties(ValidationInputResponse):
 class RegionConfigurationRequest(Model):
     """Request body to get the configuration for the region.
 
-    :param schedule_availability_request: Request body to get the availability
-     for scheduling orders.
+    All required parameters must be populated in order to send to Azure.
+
+    :param schedule_availability_request: Required. Request body to get the
+     availability for scheduling orders.
     :type schedule_availability_request:
      ~azure.mgmt.databox.models.ScheduleAvailabilityRequest
     :param transport_availability_request: Request body to get the transport
@@ -2325,6 +2544,10 @@ class RegionConfigurationRequest(Model):
     :type transport_availability_request:
      ~azure.mgmt.databox.models.TransportAvailabilityRequest
     """
+
+    _validation = {
+        'schedule_availability_request': {'required': True},
+    }
 
     _attribute_map = {
         'schedule_availability_request': {'key': 'scheduleAvailabilityRequest', 'type': 'ScheduleAvailabilityRequest'},
@@ -2343,8 +2566,7 @@ class RegionConfigurationResponse(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar schedule_availability_response: Schedule availability for given sku
-     in a region.
+    :ivar schedule_availability_response: Schedule availability response
     :vartype schedule_availability_response:
      ~azure.mgmt.databox.models.ScheduleAvailabilityResponse
     :ivar transport_availability_response: Transport options available for
@@ -2369,8 +2591,40 @@ class RegionConfigurationResponse(Model):
         self.transport_availability_response = None
 
 
+class ResourceIdentity(Model):
+    """Msi identity details of the resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param type: Identity type
+    :type type: str
+    :ivar principal_id: Service Principal Id backing the Msi
+    :vartype principal_id: str
+    :ivar tenant_id: Home Tenant Id
+    :vartype tenant_id: str
+    """
+
+    _validation = {
+        'principal_id': {'readonly': True},
+        'tenant_id': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'principal_id': {'key': 'principalId', 'type': 'str'},
+        'tenant_id': {'key': 'tenantId', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ResourceIdentity, self).__init__(**kwargs)
+        self.type = kwargs.get('type', None)
+        self.principal_id = None
+        self.tenant_id = None
+
+
 class ScheduleAvailabilityResponse(Model):
-    """Schedule availability response for given sku in a region.
+    """Schedule availability for given sku in a region.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
@@ -2598,9 +2852,6 @@ class Sku(Model):
 class SkuAvailabilityValidationRequest(ValidationInputRequest):
     """Request to validate sku availability.
 
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
     All required parameters must be populated in order to send to Azure.
 
     :param validation_type: Required. Constant filled by server.
@@ -2608,9 +2859,9 @@ class SkuAvailabilityValidationRequest(ValidationInputRequest):
     :param device_type: Required. Device type to be used for the job. Possible
      values include: 'DataBox', 'DataBoxDisk', 'DataBoxHeavy'
     :type device_type: str or ~azure.mgmt.databox.models.SkuName
-    :ivar transfer_type: Required. Type of the transfer. Default value:
-     "ImportToAzure" .
-    :vartype transfer_type: str
+    :param transfer_type: Required. Type of the transfer. Possible values
+     include: 'ImportToAzure', 'ExportFromAzure'
+    :type transfer_type: str or ~azure.mgmt.databox.models.TransferType
     :param country: Required. ISO country code. Country for hardware shipment.
      For codes check:
      https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements
@@ -2624,7 +2875,7 @@ class SkuAvailabilityValidationRequest(ValidationInputRequest):
     _validation = {
         'validation_type': {'required': True},
         'device_type': {'required': True},
-        'transfer_type': {'required': True, 'constant': True},
+        'transfer_type': {'required': True},
         'country': {'required': True},
         'location': {'required': True},
     }
@@ -2632,16 +2883,15 @@ class SkuAvailabilityValidationRequest(ValidationInputRequest):
     _attribute_map = {
         'validation_type': {'key': 'validationType', 'type': 'str'},
         'device_type': {'key': 'deviceType', 'type': 'SkuName'},
-        'transfer_type': {'key': 'transferType', 'type': 'str'},
+        'transfer_type': {'key': 'transferType', 'type': 'TransferType'},
         'country': {'key': 'country', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
     }
 
-    transfer_type = "ImportToAzure"
-
     def __init__(self, **kwargs):
         super(SkuAvailabilityValidationRequest, self).__init__(**kwargs)
         self.device_type = kwargs.get('device_type', None)
+        self.transfer_type = kwargs.get('transfer_type', None)
         self.country = kwargs.get('country', None)
         self.location = kwargs.get('location', None)
         self.validation_type = 'ValidateSkuAvailability'
@@ -2656,7 +2906,7 @@ class SkuAvailabilityValidationResponseProperties(ValidationInputResponse):
     All required parameters must be populated in order to send to Azure.
 
     :ivar error: Error code and message of validation response.
-    :vartype error: ~azure.mgmt.databox.models.Error
+    :vartype error: ~azure.mgmt.databox.models.CloudError
     :param validation_type: Required. Constant filled by server.
     :type validation_type: str
     :ivar status: Sku availability validation status. Possible values include:
@@ -2671,7 +2921,7 @@ class SkuAvailabilityValidationResponseProperties(ValidationInputResponse):
     }
 
     _attribute_map = {
-        'error': {'key': 'error', 'type': 'Error'},
+        'error': {'key': 'error', 'type': 'CloudError'},
         'validation_type': {'key': 'validationType', 'type': 'str'},
         'status': {'key': 'status', 'type': 'ValidationStatus'},
     }
@@ -2720,22 +2970,29 @@ class SkuCost(Model):
     :vartype meter_id: str
     :ivar meter_type: The type of the meter.
     :vartype meter_type: str
+    :ivar multiplier: Multiplier specifies the region specific value to be
+     multiplied with 1$ guid. Eg: Our new regions will be using 1$ shipping
+     guid with appropriate multiplier specific to region.
+    :vartype multiplier: float
     """
 
     _validation = {
         'meter_id': {'readonly': True},
         'meter_type': {'readonly': True},
+        'multiplier': {'readonly': True},
     }
 
     _attribute_map = {
         'meter_id': {'key': 'meterId', 'type': 'str'},
         'meter_type': {'key': 'meterType', 'type': 'str'},
+        'multiplier': {'key': 'multiplier', 'type': 'float'},
     }
 
     def __init__(self, **kwargs):
         super(SkuCost, self).__init__(**kwargs)
         self.meter_id = None
         self.meter_type = None
+        self.multiplier = None
 
 
 class SkuInformation(Model):
@@ -2748,10 +3005,10 @@ class SkuInformation(Model):
     :vartype sku: ~azure.mgmt.databox.models.Sku
     :ivar enabled: The sku is enabled or not.
     :vartype enabled: bool
-    :ivar destination_to_service_location_map: The map of destination location
-     to service location.
-    :vartype destination_to_service_location_map:
-     list[~azure.mgmt.databox.models.DestinationToServiceLocationMap]
+    :ivar data_location_to_service_location_map: The map of data location to
+     service location.
+    :vartype data_location_to_service_location_map:
+     list[~azure.mgmt.databox.models.DataLocationToServiceLocationMap]
     :ivar capacity: Capacity of the Sku.
     :vartype capacity: ~azure.mgmt.databox.models.SkuCapacity
     :ivar costs: Cost of the Sku.
@@ -2760,7 +3017,7 @@ class SkuInformation(Model):
     :vartype api_versions: list[str]
     :ivar disabled_reason: Reason why the Sku is disabled. Possible values
      include: 'None', 'Country', 'Region', 'Feature', 'OfferType',
-     'NoSubscriptionInfo'
+     'NoSubscriptionInfo', 'CustomerUnregistered'
     :vartype disabled_reason: str or
      ~azure.mgmt.databox.models.SkuDisabledReason
     :ivar disabled_reason_message: Message for why the Sku is disabled.
@@ -2772,7 +3029,7 @@ class SkuInformation(Model):
     _validation = {
         'sku': {'readonly': True},
         'enabled': {'readonly': True},
-        'destination_to_service_location_map': {'readonly': True},
+        'data_location_to_service_location_map': {'readonly': True},
         'capacity': {'readonly': True},
         'costs': {'readonly': True},
         'api_versions': {'readonly': True},
@@ -2784,7 +3041,7 @@ class SkuInformation(Model):
     _attribute_map = {
         'sku': {'key': 'sku', 'type': 'Sku'},
         'enabled': {'key': 'enabled', 'type': 'bool'},
-        'destination_to_service_location_map': {'key': 'properties.destinationToServiceLocationMap', 'type': '[DestinationToServiceLocationMap]'},
+        'data_location_to_service_location_map': {'key': 'properties.dataLocationToServiceLocationMap', 'type': '[DataLocationToServiceLocationMap]'},
         'capacity': {'key': 'properties.capacity', 'type': 'SkuCapacity'},
         'costs': {'key': 'properties.costs', 'type': '[SkuCost]'},
         'api_versions': {'key': 'properties.apiVersions', 'type': '[str]'},
@@ -2797,13 +3054,50 @@ class SkuInformation(Model):
         super(SkuInformation, self).__init__(**kwargs)
         self.sku = None
         self.enabled = None
-        self.destination_to_service_location_map = None
+        self.data_location_to_service_location_map = None
         self.capacity = None
         self.costs = None
         self.api_versions = None
         self.disabled_reason = None
         self.disabled_reason_message = None
         self.required_feature = None
+
+
+class StorageAccountDetails(DataAccountDetails):
+    """Details for the storage account.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param share_password: Password for all the shares to be created on the
+     device. Should not be passed for TransferType:ExportFromAzure jobs. If
+     this is not passed, the service will generate password itself. This will
+     not be returned in Get Call. Password Requirements :  Password must be
+     minimum of 12 and maximum of 64 characters. Password must have atleast one
+     uppercase alphabet, one number and one special character. Password cannot
+     have the following characters : IilLoO0 Password can have only alphabets,
+     numbers and these characters : @#\\-$%^!+=;:_()]+
+    :type share_password: str
+    :param data_account_type: Required. Constant filled by server.
+    :type data_account_type: str
+    :param storage_account_id: Required. Storage Account Resource Id.
+    :type storage_account_id: str
+    """
+
+    _validation = {
+        'data_account_type': {'required': True},
+        'storage_account_id': {'required': True},
+    }
+
+    _attribute_map = {
+        'share_password': {'key': 'sharePassword', 'type': 'str'},
+        'data_account_type': {'key': 'dataAccountType', 'type': 'str'},
+        'storage_account_id': {'key': 'storageAccountId', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(StorageAccountDetails, self).__init__(**kwargs)
+        self.storage_account_id = kwargs.get('storage_account_id', None)
+        self.data_account_type = 'StorageAccount'
 
 
 class SubscriptionIsAllowedToCreateJobValidationRequest(ValidationInputRequest):
@@ -2837,7 +3131,7 @@ class SubscriptionIsAllowedToCreateJobValidationResponseProperties(ValidationInp
     All required parameters must be populated in order to send to Azure.
 
     :ivar error: Error code and message of validation response.
-    :vartype error: ~azure.mgmt.databox.models.Error
+    :vartype error: ~azure.mgmt.databox.models.CloudError
     :param validation_type: Required. Constant filled by server.
     :type validation_type: str
     :ivar status: Validation status of subscription permission to create job.
@@ -2852,7 +3146,7 @@ class SubscriptionIsAllowedToCreateJobValidationResponseProperties(ValidationInp
     }
 
     _attribute_map = {
-        'error': {'key': 'error', 'type': 'Error'},
+        'error': {'key': 'error', 'type': 'CloudError'},
         'validation_type': {'key': 'validationType', 'type': 'str'},
         'status': {'key': 'status', 'type': 'ValidationStatus'},
     }
@@ -2861,6 +3155,150 @@ class SubscriptionIsAllowedToCreateJobValidationResponseProperties(ValidationInp
         super(SubscriptionIsAllowedToCreateJobValidationResponseProperties, self).__init__(**kwargs)
         self.status = None
         self.validation_type = 'ValidateSubscriptionIsAllowedToCreateJob'
+
+
+class TransferAllDetails(Model):
+    """Details to transfer all data.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param data_account_type: Required. Type of the account of data. Possible
+     values include: 'StorageAccount', 'ManagedDisk'
+    :type data_account_type: str or ~azure.mgmt.databox.models.DataAccountType
+    :param transfer_all_blobs: To indicate if all Azure blobs have to be
+     transferred
+    :type transfer_all_blobs: bool
+    :param transfer_all_files: To indicate if all Azure Files have to be
+     transferred
+    :type transfer_all_files: bool
+    """
+
+    _validation = {
+        'data_account_type': {'required': True},
+    }
+
+    _attribute_map = {
+        'data_account_type': {'key': 'dataAccountType', 'type': 'DataAccountType'},
+        'transfer_all_blobs': {'key': 'transferAllBlobs', 'type': 'bool'},
+        'transfer_all_files': {'key': 'transferAllFiles', 'type': 'bool'},
+    }
+
+    def __init__(self, **kwargs):
+        super(TransferAllDetails, self).__init__(**kwargs)
+        self.data_account_type = kwargs.get('data_account_type', None)
+        self.transfer_all_blobs = kwargs.get('transfer_all_blobs', None)
+        self.transfer_all_files = kwargs.get('transfer_all_files', None)
+
+
+class TransferConfiguration(Model):
+    """Configuration for defining the transfer of data.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param transfer_configuration_type: Required. Type of the configuration
+     for transfer. Possible values include: 'TransferAll',
+     'TransferUsingFilter'
+    :type transfer_configuration_type: str or
+     ~azure.mgmt.databox.models.TransferConfigurationType
+    :param transfer_filter_details: Map of filter type and the details to
+     filter. This field is required only if the TransferConfigurationType is
+     given as TransferUsingFilter.
+    :type transfer_filter_details:
+     ~azure.mgmt.databox.models.TransferConfigurationTransferFilterDetails
+    :param transfer_all_details: Map of filter type and the details to
+     transfer all data. This field is required only if the
+     TransferConfigurationType is given as TransferAll
+    :type transfer_all_details:
+     ~azure.mgmt.databox.models.TransferConfigurationTransferAllDetails
+    """
+
+    _validation = {
+        'transfer_configuration_type': {'required': True},
+    }
+
+    _attribute_map = {
+        'transfer_configuration_type': {'key': 'transferConfigurationType', 'type': 'TransferConfigurationType'},
+        'transfer_filter_details': {'key': 'transferFilterDetails', 'type': 'TransferConfigurationTransferFilterDetails'},
+        'transfer_all_details': {'key': 'transferAllDetails', 'type': 'TransferConfigurationTransferAllDetails'},
+    }
+
+    def __init__(self, **kwargs):
+        super(TransferConfiguration, self).__init__(**kwargs)
+        self.transfer_configuration_type = kwargs.get('transfer_configuration_type', None)
+        self.transfer_filter_details = kwargs.get('transfer_filter_details', None)
+        self.transfer_all_details = kwargs.get('transfer_all_details', None)
+
+
+class TransferConfigurationTransferAllDetails(Model):
+    """Map of filter type and the details to transfer all data. This field is
+    required only if the TransferConfigurationType is given as TransferAll.
+
+    :param include: Details to transfer all data.
+    :type include: ~azure.mgmt.databox.models.TransferAllDetails
+    """
+
+    _attribute_map = {
+        'include': {'key': 'include', 'type': 'TransferAllDetails'},
+    }
+
+    def __init__(self, **kwargs):
+        super(TransferConfigurationTransferAllDetails, self).__init__(**kwargs)
+        self.include = kwargs.get('include', None)
+
+
+class TransferConfigurationTransferFilterDetails(Model):
+    """Map of filter type and the details to filter. This field is required only
+    if the TransferConfigurationType is given as TransferUsingFilter.
+
+    :param include: Details of the filtering the transfer of data.
+    :type include: ~azure.mgmt.databox.models.TransferFilterDetails
+    """
+
+    _attribute_map = {
+        'include': {'key': 'include', 'type': 'TransferFilterDetails'},
+    }
+
+    def __init__(self, **kwargs):
+        super(TransferConfigurationTransferFilterDetails, self).__init__(**kwargs)
+        self.include = kwargs.get('include', None)
+
+
+class TransferFilterDetails(Model):
+    """Details of the filtering the transfer of data.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param data_account_type: Required. Type of the account of data. Possible
+     values include: 'StorageAccount', 'ManagedDisk'
+    :type data_account_type: str or ~azure.mgmt.databox.models.DataAccountType
+    :param blob_filter_details: Filter details to transfer blobs.
+    :type blob_filter_details: ~azure.mgmt.databox.models.BlobFilterDetails
+    :param azure_file_filter_details: Filter details to transfer Azure files.
+    :type azure_file_filter_details:
+     ~azure.mgmt.databox.models.AzureFileFilterDetails
+    :param filter_file_details: Details of the filter files to be used for
+     data transfer.
+    :type filter_file_details:
+     list[~azure.mgmt.databox.models.FilterFileDetails]
+    """
+
+    _validation = {
+        'data_account_type': {'required': True},
+    }
+
+    _attribute_map = {
+        'data_account_type': {'key': 'dataAccountType', 'type': 'DataAccountType'},
+        'blob_filter_details': {'key': 'blobFilterDetails', 'type': 'BlobFilterDetails'},
+        'azure_file_filter_details': {'key': 'azureFileFilterDetails', 'type': 'AzureFileFilterDetails'},
+        'filter_file_details': {'key': 'filterFileDetails', 'type': '[FilterFileDetails]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(TransferFilterDetails, self).__init__(**kwargs)
+        self.data_account_type = kwargs.get('data_account_type', None)
+        self.blob_filter_details = kwargs.get('blob_filter_details', None)
+        self.azure_file_filter_details = kwargs.get('azure_file_filter_details', None)
+        self.filter_file_details = kwargs.get('filter_file_details', None)
 
 
 class TransportAvailabilityDetails(Model):
@@ -2990,17 +3428,21 @@ class UpdateJobDetails(Model):
     :type contact_details: ~azure.mgmt.databox.models.ContactDetails
     :param shipping_address: Shipping address of the customer.
     :type shipping_address: ~azure.mgmt.databox.models.ShippingAddress
+    :param key_encryption_key: Key encryption key for the job.
+    :type key_encryption_key: ~azure.mgmt.databox.models.KeyEncryptionKey
     """
 
     _attribute_map = {
         'contact_details': {'key': 'contactDetails', 'type': 'ContactDetails'},
         'shipping_address': {'key': 'shippingAddress', 'type': 'ShippingAddress'},
+        'key_encryption_key': {'key': 'keyEncryptionKey', 'type': 'KeyEncryptionKey'},
     }
 
     def __init__(self, **kwargs):
         super(UpdateJobDetails, self).__init__(**kwargs)
         self.contact_details = kwargs.get('contact_details', None)
         self.shipping_address = kwargs.get('shipping_address', None)
+        self.key_encryption_key = kwargs.get('key_encryption_key', None)
 
 
 class ValidateAddress(ValidationInputRequest):
