@@ -8644,10 +8644,12 @@ class HubRouteTable(SubResource):
     :type labels: list[str]
     :ivar associated_connections: List of all connections associated with this
      route table.
-    :vartype associated_connections: list[str]
+    :vartype associated_connections:
+     list[~azure.mgmt.network.v2020_04_01.models.SubResource]
     :ivar propagating_connections: List of all connections that advertise to
      this route table.
-    :vartype propagating_connections: list[str]
+    :vartype propagating_connections:
+     list[~azure.mgmt.network.v2020_04_01.models.SubResource]
     :ivar provisioning_state: The provisioning state of the RouteTable
      resource. Possible values include: 'Succeeded', 'Updating', 'Deleting',
      'Failed'
@@ -8675,8 +8677,8 @@ class HubRouteTable(SubResource):
         'id': {'key': 'id', 'type': 'str'},
         'routes': {'key': 'properties.routes', 'type': '[HubRoute]'},
         'labels': {'key': 'properties.labels', 'type': '[str]'},
-        'associated_connections': {'key': 'properties.associatedConnections', 'type': '[str]'},
-        'propagating_connections': {'key': 'properties.propagatingConnections', 'type': '[str]'},
+        'associated_connections': {'key': 'properties.associatedConnections', 'type': '[SubResource]'},
+        'propagating_connections': {'key': 'properties.propagatingConnections', 'type': '[SubResource]'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'etag': {'key': 'etag', 'type': 'str'},
