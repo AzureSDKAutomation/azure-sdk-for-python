@@ -17,7 +17,6 @@ from .operations import AzureMachineLearningWorkspacesOperationsMixin
 from .operations import Operations
 from .operations import WorkspacesOperations
 from .operations import WorkspaceFeaturesOperations
-from .operations import NotebooksOperations
 from .operations import UsagesOperations
 from .operations import VirtualMachineSizesOperations
 from .operations import QuotasOperations
@@ -39,8 +38,6 @@ class AzureMachineLearningWorkspaces(AzureMachineLearningWorkspacesOperationsMix
     :vartype workspaces: azure.mgmt.machinelearningservices.operations.WorkspacesOperations
     :ivar workspace_features: WorkspaceFeatures operations
     :vartype workspace_features: azure.mgmt.machinelearningservices.operations.WorkspaceFeaturesOperations
-    :ivar notebooks: Notebooks operations
-    :vartype notebooks: azure.mgmt.machinelearningservices.operations.NotebooksOperations
     :ivar usages: Usages operations
     :vartype usages: azure.mgmt.machinelearningservices.operations.UsagesOperations
     :ivar virtual_machine_sizes: VirtualMachineSizes operations
@@ -69,7 +66,7 @@ class AzureMachineLearningWorkspaces(AzureMachineLearningWorkspacesOperationsMix
         super(AzureMachineLearningWorkspaces, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
-        self.api_version = '2020-04-01'
+        self.api_version = '2020-05-15-preview'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
@@ -78,8 +75,6 @@ class AzureMachineLearningWorkspaces(AzureMachineLearningWorkspacesOperationsMix
         self.workspaces = WorkspacesOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.workspace_features = WorkspaceFeaturesOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.notebooks = NotebooksOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.usages = UsagesOperations(
             self._client, self.config, self._serialize, self._deserialize)

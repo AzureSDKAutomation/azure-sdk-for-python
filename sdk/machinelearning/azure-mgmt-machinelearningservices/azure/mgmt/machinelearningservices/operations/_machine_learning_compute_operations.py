@@ -26,7 +26,7 @@ class MachineLearningComputeOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Version of Azure Machine Learning resource provider API. Constant value: "2020-04-01".
+    :ivar api_version: Version of Azure Machine Learning resource provider API. Constant value: "2020-05-15-preview".
     """
 
     models = models
@@ -36,7 +36,7 @@ class MachineLearningComputeOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-04-01"
+        self.api_version = "2020-05-15-preview"
 
         self.config = config
 
@@ -305,8 +305,8 @@ class MachineLearningComputeOperations(object):
 
 
     def _update_initial(
-            self, resource_group_name, workspace_name, compute_name, scale_settings=None, custom_headers=None, raw=False, **operation_config):
-        parameters = models.ClusterUpdateParameters(scale_settings=scale_settings)
+            self, resource_group_name, workspace_name, compute_name, scale_settings=None, identity=None, custom_headers=None, raw=False, **operation_config):
+        parameters = models.ClusterUpdateParameters(scale_settings=scale_settings, identity=identity)
 
         # Construct URL
         url = self.update.metadata['url']
@@ -355,7 +355,7 @@ class MachineLearningComputeOperations(object):
         return deserialized
 
     def update(
-            self, resource_group_name, workspace_name, compute_name, scale_settings=None, custom_headers=None, raw=False, polling=True, **operation_config):
+            self, resource_group_name, workspace_name, compute_name, scale_settings=None, identity=None, custom_headers=None, raw=False, polling=True, **operation_config):
         """Updates properties of a compute. This call will overwrite a compute if
         it exists. This is a nonrecoverable operation.
 
@@ -370,6 +370,8 @@ class MachineLearningComputeOperations(object):
          amlCompute.
         :type scale_settings:
          ~azure.mgmt.machinelearningservices.models.ScaleSettings
+        :param identity: identity Identity of the compute
+        :type identity: ~azure.mgmt.machinelearningservices.models.Identity
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response
@@ -389,6 +391,7 @@ class MachineLearningComputeOperations(object):
             workspace_name=workspace_name,
             compute_name=compute_name,
             scale_settings=scale_settings,
+            identity=identity,
             custom_headers=custom_headers,
             raw=True,
             **operation_config

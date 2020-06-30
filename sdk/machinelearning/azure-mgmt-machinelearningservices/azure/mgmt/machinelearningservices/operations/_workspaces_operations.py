@@ -26,7 +26,7 @@ class WorkspacesOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Version of Azure Machine Learning resource provider API. Constant value: "2020-04-01".
+    :ivar api_version: Version of Azure Machine Learning resource provider API. Constant value: "2020-05-15-preview".
     """
 
     models = models
@@ -36,7 +36,7 @@ class WorkspacesOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-04-01"
+        self.api_version = "2020-05-15-preview"
 
         self.config = config
 
@@ -204,9 +204,25 @@ class WorkspacesOperations(object):
         return LROPoller(self._client, raw_result, get_long_running_output, polling_method)
     create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}'}
 
-
-    def _delete_initial(
+    def delete(
             self, resource_group_name, workspace_name, custom_headers=None, raw=False, **operation_config):
+        """Deletes a machine learning workspace.
+
+        :param resource_group_name: Name of the resource group in which
+         workspace is located.
+        :type resource_group_name: str
+        :param workspace_name: Name of Azure Machine Learning workspace.
+        :type workspace_name: str
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: None or ClientRawResponse if raw=true
+        :rtype: None or ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`MachineLearningServiceErrorException<azure.mgmt.machinelearningservices.models.MachineLearningServiceErrorException>`
+        """
         # Construct URL
         url = self.delete.metadata['url']
         path_format_arguments = {
@@ -233,54 +249,12 @@ class WorkspacesOperations(object):
         request = self._client.delete(url, query_parameters, header_parameters)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200, 202, 204]:
+        if response.status_code not in [200, 204]:
             raise models.MachineLearningServiceErrorException(self._deserialize, response)
 
         if raw:
             client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-
-    def delete(
-            self, resource_group_name, workspace_name, custom_headers=None, raw=False, polling=True, **operation_config):
-        """Deletes a machine learning workspace.
-
-        :param resource_group_name: Name of the resource group in which
-         workspace is located.
-        :type resource_group_name: str
-        :param workspace_name: Name of Azure Machine Learning workspace.
-        :type workspace_name: str
-        :param dict custom_headers: headers that will be added to the request
-        :param bool raw: The poller return type is ClientRawResponse, the
-         direct response alongside the deserialized response
-        :param polling: True for ARMPolling, False for no polling, or a
-         polling object for personal polling strategy
-        :return: An instance of LROPoller that returns None or
-         ClientRawResponse<None> if raw==True
-        :rtype: ~msrestazure.azure_operation.AzureOperationPoller[None] or
-         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[None]]
-        :raises:
-         :class:`MachineLearningServiceErrorException<azure.mgmt.machinelearningservices.models.MachineLearningServiceErrorException>`
-        """
-        raw_result = self._delete_initial(
-            resource_group_name=resource_group_name,
-            workspace_name=workspace_name,
-            custom_headers=custom_headers,
-            raw=True,
-            **operation_config
-        )
-
-        def get_long_running_output(response):
-            if raw:
-                client_raw_response = ClientRawResponse(None, response)
-                return client_raw_response
-
-        lro_delay = operation_config.get(
-            'long_running_operation_timeout',
-            self.config.long_running_operation_timeout)
-        if polling is True: polling_method = ARMPolling(lro_delay, **operation_config)
-        elif polling is False: polling_method = NoPolling()
-        else: polling_method = polling
-        return LROPoller(self._client, raw_result, get_long_running_output, polling_method)
     delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}'}
 
     def update(

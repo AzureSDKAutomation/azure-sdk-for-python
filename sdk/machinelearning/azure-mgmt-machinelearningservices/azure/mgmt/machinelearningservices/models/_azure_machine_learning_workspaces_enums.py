@@ -51,6 +51,19 @@ class UsageUnit(str, Enum):
     count = "Count"
 
 
+class VMPriceOSType(str, Enum):
+
+    linux = "Linux"
+    windows = "Windows"
+
+
+class VMTier(str, Enum):
+
+    standard = "Standard"
+    low_priority = "LowPriority"
+    spot = "Spot"
+
+
 class QuotaUnit(str, Enum):
 
     count = "Count"
@@ -72,8 +85,14 @@ class ResourceIdentityType(str, Enum):
 
     system_assigned = "SystemAssigned"
     user_assigned = "UserAssigned"
-    system_assigned_user_assigned = "SystemAssigned,UserAssigned"
+    system_assigned_user_assigned = "SystemAssigned, UserAssigned"
     none = "None"
+
+
+class OsType(str, Enum):
+
+    linux = "Linux"
+    windows = "Windows"
 
 
 class VmPriority(str, Enum):

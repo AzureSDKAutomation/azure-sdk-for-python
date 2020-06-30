@@ -508,12 +508,21 @@ class AmlComputeProperties(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
+    :param os_type: Compute OS Type. Possible values include: 'Linux',
+     'Windows'
+    :type os_type: str or ~azure.mgmt.machinelearningservices.models.OsType
     :param vm_size: Virtual Machine Size
     :type vm_size: str
     :param vm_priority: Virtual Machine priority. Possible values include:
      'Dedicated', 'LowPriority'
     :type vm_priority: str or
      ~azure.mgmt.machinelearningservices.models.VmPriority
+    :param virtual_machine_image: Virtual Machine image for AML Compute -
+     windows only
+    :type virtual_machine_image:
+     ~azure.mgmt.machinelearningservices.models.VirtualMachineImage
+    :param isolated_network: Network is isolated or not
+    :type isolated_network: bool
     :param scale_settings: Scale settings for AML Compute
     :type scale_settings:
      ~azure.mgmt.machinelearningservices.models.ScaleSettings
@@ -565,6 +574,12 @@ class AmlComputeProperties(Model):
      on the compute.
     :vartype node_state_counts:
      ~azure.mgmt.machinelearningservices.models.NodeStateCounts
+    :param enable_node_public_ip: Enable node public IP. Enable or disable
+     node public IP address provisioning. Possible values are: Possible values
+     are: true - Indicates that the compute nodes will have public IPs
+     provisioned. false - Indicates that the compute nodes will have a private
+     endpoint and no public IPs. Default value: True .
+    :type enable_node_public_ip: bool
     """
 
     _validation = {
@@ -577,8 +592,11 @@ class AmlComputeProperties(Model):
     }
 
     _attribute_map = {
+        'os_type': {'key': 'osType', 'type': 'str'},
         'vm_size': {'key': 'vmSize', 'type': 'str'},
         'vm_priority': {'key': 'vmPriority', 'type': 'str'},
+        'virtual_machine_image': {'key': 'virtualMachineImage', 'type': 'VirtualMachineImage'},
+        'isolated_network': {'key': 'isolatedNetwork', 'type': 'bool'},
         'scale_settings': {'key': 'scaleSettings', 'type': 'ScaleSettings'},
         'user_account_credentials': {'key': 'userAccountCredentials', 'type': 'UserAccountCredentials'},
         'subnet': {'key': 'subnet', 'type': 'ResourceId'},
@@ -589,12 +607,16 @@ class AmlComputeProperties(Model):
         'current_node_count': {'key': 'currentNodeCount', 'type': 'int'},
         'target_node_count': {'key': 'targetNodeCount', 'type': 'int'},
         'node_state_counts': {'key': 'nodeStateCounts', 'type': 'NodeStateCounts'},
+        'enable_node_public_ip': {'key': 'enableNodePublicIp', 'type': 'bool'},
     }
 
-    def __init__(self, *, vm_size: str=None, vm_priority=None, scale_settings=None, user_account_credentials=None, subnet=None, remote_login_port_public_access="NotSpecified", **kwargs) -> None:
+    def __init__(self, *, os_type=None, vm_size: str=None, vm_priority=None, virtual_machine_image=None, isolated_network: bool=None, scale_settings=None, user_account_credentials=None, subnet=None, remote_login_port_public_access="NotSpecified", enable_node_public_ip: bool=True, **kwargs) -> None:
         super(AmlComputeProperties, self).__init__(**kwargs)
+        self.os_type = os_type
         self.vm_size = vm_size
         self.vm_priority = vm_priority
+        self.virtual_machine_image = virtual_machine_image
+        self.isolated_network = isolated_network
         self.scale_settings = scale_settings
         self.user_account_credentials = user_account_credentials
         self.subnet = subnet
@@ -605,6 +627,7 @@ class AmlComputeProperties(Model):
         self.current_node_count = None
         self.target_node_count = None
         self.node_state_counts = None
+        self.enable_node_public_ip = enable_node_public_ip
 
 
 class AmlUserFeature(Model):
@@ -646,15 +669,19 @@ class ClusterUpdateParameters(Model):
      amlCompute.
     :type scale_settings:
      ~azure.mgmt.machinelearningservices.models.ScaleSettings
+    :param identity: identity. Identity of the compute
+    :type identity: ~azure.mgmt.machinelearningservices.models.Identity
     """
 
     _attribute_map = {
         'scale_settings': {'key': 'properties.scaleSettings', 'type': 'ScaleSettings'},
+        'identity': {'key': 'identity', 'type': 'Identity'},
     }
 
-    def __init__(self, *, scale_settings=None, **kwargs) -> None:
+    def __init__(self, *, scale_settings=None, identity=None, **kwargs) -> None:
         super(ClusterUpdateParameters, self).__init__(**kwargs)
         self.scale_settings = scale_settings
+        self.identity = identity
 
 
 class Resource(Model):
@@ -1106,6 +1133,85 @@ class ErrorResponseException(HttpOperationError):
         super(ErrorResponseException, self).__init__(deserialize, response, 'ErrorResponse', *args)
 
 
+class EstimatedVMPrice(Model):
+    """The estimated price info for using a VM of a particular OS type, tier, etc.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param retail_price: Required. Retail price. The price charged for using
+     the VM.
+    :type retail_price: float
+    :param os_type: Required. OS type. Operating system type used by the VM.
+     Possible values include: 'Linux', 'Windows'
+    :type os_type: str or
+     ~azure.mgmt.machinelearningservices.models.VMPriceOSType
+    :param vm_tier: Required. VM tier. The type of the VM. Possible values
+     include: 'Standard', 'LowPriority', 'Spot'
+    :type vm_tier: str or ~azure.mgmt.machinelearningservices.models.VMTier
+    """
+
+    _validation = {
+        'retail_price': {'required': True},
+        'os_type': {'required': True},
+        'vm_tier': {'required': True},
+    }
+
+    _attribute_map = {
+        'retail_price': {'key': 'retailPrice', 'type': 'float'},
+        'os_type': {'key': 'osType', 'type': 'str'},
+        'vm_tier': {'key': 'vmTier', 'type': 'str'},
+    }
+
+    def __init__(self, *, retail_price: float, os_type, vm_tier, **kwargs) -> None:
+        super(EstimatedVMPrice, self).__init__(**kwargs)
+        self.retail_price = retail_price
+        self.os_type = os_type
+        self.vm_tier = vm_tier
+
+
+class EstimatedVMPrices(Model):
+    """The estimated price info for using a VM.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar billing_currency: Required. Billing currency. Three lettered code
+     specifying the currency of the VM price. Example: USD. Default value:
+     "USD" .
+    :vartype billing_currency: str
+    :ivar unit_of_measure: Required. Unit of time measure. The unit of time
+     measurement for the specified VM price. Example: OneHour. Default value:
+     "OneHour" .
+    :vartype unit_of_measure: str
+    :param values: Required. List of estimated VM prices. The list of
+     estimated prices for using a VM of a particular OS type, tier, etc.
+    :type values:
+     list[~azure.mgmt.machinelearningservices.models.EstimatedVMPrice]
+    """
+
+    _validation = {
+        'billing_currency': {'required': True, 'constant': True},
+        'unit_of_measure': {'required': True, 'constant': True},
+        'values': {'required': True},
+    }
+
+    _attribute_map = {
+        'billing_currency': {'key': 'billingCurrency', 'type': 'str'},
+        'unit_of_measure': {'key': 'unitOfMeasure', 'type': 'str'},
+        'values': {'key': 'values', 'type': '[EstimatedVMPrice]'},
+    }
+
+    billing_currency = "USD"
+
+    unit_of_measure = "OneHour"
+
+    def __init__(self, *, values, **kwargs) -> None:
+        super(EstimatedVMPrices, self).__init__(**kwargs)
+        self.values = values
+
+
 class HDInsight(Compute):
     """A HDInsight compute.
 
@@ -1212,7 +1318,7 @@ class Identity(Model):
     :ivar tenant_id: The tenant ID of resource.
     :vartype tenant_id: str
     :param type: Required. The identity type. Possible values include:
-     'SystemAssigned', 'UserAssigned', 'SystemAssigned,UserAssigned', 'None'
+     'SystemAssigned', 'UserAssigned', 'SystemAssigned, UserAssigned', 'None'
     :type type: str or
      ~azure.mgmt.machinelearningservices.models.ResourceIdentityType
     :param user_assigned_identities: The list of user identities associated
@@ -1321,9 +1427,6 @@ class ListWorkspaceKeysResult(Model):
     :ivar container_registry_credentials:
     :vartype container_registry_credentials:
      ~azure.mgmt.machinelearningservices.models.RegistryListCredentialsResult
-    :param notebook_access_keys:
-    :type notebook_access_keys:
-     ~azure.mgmt.machinelearningservices.models.NotebookListCredentialsResult
     """
 
     _validation = {
@@ -1338,16 +1441,14 @@ class ListWorkspaceKeysResult(Model):
         'user_storage_resource_id': {'key': 'userStorageResourceId', 'type': 'str'},
         'app_insights_instrumentation_key': {'key': 'appInsightsInstrumentationKey', 'type': 'str'},
         'container_registry_credentials': {'key': 'containerRegistryCredentials', 'type': 'RegistryListCredentialsResult'},
-        'notebook_access_keys': {'key': 'notebookAccessKeys', 'type': 'NotebookListCredentialsResult'},
     }
 
-    def __init__(self, *, notebook_access_keys=None, **kwargs) -> None:
+    def __init__(self, **kwargs) -> None:
         super(ListWorkspaceKeysResult, self).__init__(**kwargs)
         self.user_storage_key = None
         self.user_storage_resource_id = None
         self.app_insights_instrumentation_key = None
         self.container_registry_credentials = None
-        self.notebook_access_keys = notebook_access_keys
 
 
 class MachineLearningServiceError(Model):
@@ -1437,73 +1538,6 @@ class NodeStateCounts(Model):
         self.unusable_node_count = None
         self.leaving_node_count = None
         self.preempted_node_count = None
-
-
-class NotebookListCredentialsResult(Model):
-    """NotebookListCredentialsResult.
-
-    :param primary_access_key:
-    :type primary_access_key: str
-    :param secondary_access_key:
-    :type secondary_access_key: str
-    """
-
-    _attribute_map = {
-        'primary_access_key': {'key': 'primaryAccessKey', 'type': 'str'},
-        'secondary_access_key': {'key': 'secondaryAccessKey', 'type': 'str'},
-    }
-
-    def __init__(self, *, primary_access_key: str=None, secondary_access_key: str=None, **kwargs) -> None:
-        super(NotebookListCredentialsResult, self).__init__(**kwargs)
-        self.primary_access_key = primary_access_key
-        self.secondary_access_key = secondary_access_key
-
-
-class NotebookPreparationError(Model):
-    """NotebookPreparationError.
-
-    :param error_message:
-    :type error_message: str
-    :param status_code:
-    :type status_code: int
-    """
-
-    _attribute_map = {
-        'error_message': {'key': 'errorMessage', 'type': 'str'},
-        'status_code': {'key': 'statusCode', 'type': 'int'},
-    }
-
-    def __init__(self, *, error_message: str=None, status_code: int=None, **kwargs) -> None:
-        super(NotebookPreparationError, self).__init__(**kwargs)
-        self.error_message = error_message
-        self.status_code = status_code
-
-
-class NotebookResourceInfo(Model):
-    """NotebookResourceInfo.
-
-    :param fqdn:
-    :type fqdn: str
-    :param resource_id: the data plane resourceId that used to initialize
-     notebook component
-    :type resource_id: str
-    :param notebook_preparation_error: The error that occurs when preparing
-     notebook.
-    :type notebook_preparation_error:
-     ~azure.mgmt.machinelearningservices.models.NotebookPreparationError
-    """
-
-    _attribute_map = {
-        'fqdn': {'key': 'fqdn', 'type': 'str'},
-        'resource_id': {'key': 'resourceId', 'type': 'str'},
-        'notebook_preparation_error': {'key': 'notebookPreparationError', 'type': 'NotebookPreparationError'},
-    }
-
-    def __init__(self, *, fqdn: str=None, resource_id: str=None, notebook_preparation_error=None, **kwargs) -> None:
-        super(NotebookResourceInfo, self).__init__(**kwargs)
-        self.fqdn = fqdn
-        self.resource_id = resource_id
-        self.notebook_preparation_error = notebook_preparation_error
 
 
 class Operation(Model):
@@ -2499,6 +2533,28 @@ class VirtualMachine(Compute):
         self.compute_type = 'VirtualMachine'
 
 
+class VirtualMachineImage(Model):
+    """Virtual Machine image for Windows AML Compute.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param id: Required. Virtual Machine image path
+    :type id: str
+    """
+
+    _validation = {
+        'id': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+    }
+
+    def __init__(self, *, id: str, **kwargs) -> None:
+        super(VirtualMachineImage, self).__init__(**kwargs)
+        self.id = id
+
+
 class VirtualMachineProperties(Model):
     """VirtualMachineProperties.
 
@@ -2588,6 +2644,10 @@ class VirtualMachineSize(Model):
     :ivar premium_io: Premium IO supported. Specifies if the virtual machine
      size supports premium IO.
     :vartype premium_io: bool
+    :param estimated_vm_prices: Estimated VM prices. The estimated price
+     information for using a VM.
+    :type estimated_vm_prices:
+     ~azure.mgmt.machinelearningservices.models.EstimatedVMPrices
     """
 
     _validation = {
@@ -2612,9 +2672,10 @@ class VirtualMachineSize(Model):
         'memory_gb': {'key': 'memoryGB', 'type': 'float'},
         'low_priority_capable': {'key': 'lowPriorityCapable', 'type': 'bool'},
         'premium_io': {'key': 'premiumIO', 'type': 'bool'},
+        'estimated_vm_prices': {'key': 'estimatedVMPrices', 'type': 'EstimatedVMPrices'},
     }
 
-    def __init__(self, **kwargs) -> None:
+    def __init__(self, *, estimated_vm_prices=None, **kwargs) -> None:
         super(VirtualMachineSize, self).__init__(**kwargs)
         self.name = None
         self.family = None
@@ -2625,6 +2686,7 @@ class VirtualMachineSize(Model):
         self.memory_gb = None
         self.low_priority_capable = None
         self.premium_io = None
+        self.estimated_vm_prices = estimated_vm_prices
 
 
 class VirtualMachineSizeListResult(Model):
@@ -2751,9 +2813,6 @@ class Workspace(Resource):
      resources in this workspace.
     :type shared_private_link_resources:
      list[~azure.mgmt.machinelearningservices.models.SharedPrivateLinkResource]
-    :ivar notebook_info: The notebook info of Azure ML workspace.
-    :vartype notebook_info:
-     ~azure.mgmt.machinelearningservices.models.NotebookResourceInfo
     """
 
     _validation = {
@@ -2766,7 +2825,6 @@ class Workspace(Resource):
         'service_provisioned_resource_group': {'readonly': True},
         'private_link_count': {'readonly': True},
         'private_endpoint_connections': {'readonly': True},
-        'notebook_info': {'readonly': True},
     }
 
     _attribute_map = {
@@ -2795,7 +2853,6 @@ class Workspace(Resource):
         'allow_public_access_when_behind_vnet': {'key': 'properties.allowPublicAccessWhenBehindVnet', 'type': 'bool'},
         'private_endpoint_connections': {'key': 'properties.privateEndpointConnections', 'type': '[PrivateEndpointConnection]'},
         'shared_private_link_resources': {'key': 'properties.sharedPrivateLinkResources', 'type': '[SharedPrivateLinkResource]'},
-        'notebook_info': {'key': 'properties.notebookInfo', 'type': 'NotebookResourceInfo'},
     }
 
     def __init__(self, *, identity=None, location: str=None, tags=None, sku=None, description: str=None, friendly_name: str=None, key_vault: str=None, application_insights: str=None, container_registry: str=None, storage_account: str=None, discovery_url: str=None, encryption=None, hbi_workspace: bool=False, image_build_compute: str=None, allow_public_access_when_behind_vnet: bool=False, shared_private_link_resources=None, **kwargs) -> None:
@@ -2818,7 +2875,6 @@ class Workspace(Resource):
         self.allow_public_access_when_behind_vnet = allow_public_access_when_behind_vnet
         self.private_endpoint_connections = None
         self.shared_private_link_resources = shared_private_link_resources
-        self.notebook_info = None
 
 
 class WorkspaceSku(Model):

@@ -33,6 +33,8 @@ try:
     from ._models_py3 import EncryptionProperty
     from ._models_py3 import ErrorDetail
     from ._models_py3 import ErrorResponse, ErrorResponseException
+    from ._models_py3 import EstimatedVMPrice
+    from ._models_py3 import EstimatedVMPrices
     from ._models_py3 import HDInsight
     from ._models_py3 import HDInsightProperties
     from ._models_py3 import Identity
@@ -41,9 +43,6 @@ try:
     from ._models_py3 import ListWorkspaceKeysResult
     from ._models_py3 import MachineLearningServiceError, MachineLearningServiceErrorException
     from ._models_py3 import NodeStateCounts
-    from ._models_py3 import NotebookListCredentialsResult
-    from ._models_py3 import NotebookPreparationError
-    from ._models_py3 import NotebookResourceInfo
     from ._models_py3 import Operation
     from ._models_py3 import OperationDisplay
     from ._models_py3 import Password
@@ -75,6 +74,7 @@ try:
     from ._models_py3 import UsageName
     from ._models_py3 import UserAccountCredentials
     from ._models_py3 import VirtualMachine
+    from ._models_py3 import VirtualMachineImage
     from ._models_py3 import VirtualMachineProperties
     from ._models_py3 import VirtualMachineSecrets
     from ._models_py3 import VirtualMachineSize
@@ -107,6 +107,8 @@ except (SyntaxError, ImportError):
     from ._models import EncryptionProperty
     from ._models import ErrorDetail
     from ._models import ErrorResponse, ErrorResponseException
+    from ._models import EstimatedVMPrice
+    from ._models import EstimatedVMPrices
     from ._models import HDInsight
     from ._models import HDInsightProperties
     from ._models import Identity
@@ -115,9 +117,6 @@ except (SyntaxError, ImportError):
     from ._models import ListWorkspaceKeysResult
     from ._models import MachineLearningServiceError, MachineLearningServiceErrorException
     from ._models import NodeStateCounts
-    from ._models import NotebookListCredentialsResult
-    from ._models import NotebookPreparationError
-    from ._models import NotebookResourceInfo
     from ._models import Operation
     from ._models import OperationDisplay
     from ._models import Password
@@ -149,6 +148,7 @@ except (SyntaxError, ImportError):
     from ._models import UsageName
     from ._models import UserAccountCredentials
     from ._models import VirtualMachine
+    from ._models import VirtualMachineImage
     from ._models import VirtualMachineProperties
     from ._models import VirtualMachineSecrets
     from ._models import VirtualMachineSize
@@ -170,9 +170,12 @@ from ._azure_machine_learning_workspaces_enums import (
     PrivateEndpointServiceConnectionStatus,
     PrivateEndpointConnectionProvisioningState,
     UsageUnit,
+    VMPriceOSType,
+    VMTier,
     QuotaUnit,
     Status,
     ResourceIdentityType,
+    OsType,
     VmPriority,
     RemoteLoginPortPublicAccess,
     AllocationState,
@@ -206,6 +209,8 @@ __all__ = [
     'EncryptionProperty',
     'ErrorDetail',
     'ErrorResponse', 'ErrorResponseException',
+    'EstimatedVMPrice',
+    'EstimatedVMPrices',
     'HDInsight',
     'HDInsightProperties',
     'Identity',
@@ -214,9 +219,6 @@ __all__ = [
     'ListWorkspaceKeysResult',
     'MachineLearningServiceError', 'MachineLearningServiceErrorException',
     'NodeStateCounts',
-    'NotebookListCredentialsResult',
-    'NotebookPreparationError',
-    'NotebookResourceInfo',
     'Operation',
     'OperationDisplay',
     'Password',
@@ -248,6 +250,7 @@ __all__ = [
     'UsageName',
     'UserAccountCredentials',
     'VirtualMachine',
+    'VirtualMachineImage',
     'VirtualMachineProperties',
     'VirtualMachineSecrets',
     'VirtualMachineSize',
@@ -268,9 +271,12 @@ __all__ = [
     'PrivateEndpointServiceConnectionStatus',
     'PrivateEndpointConnectionProvisioningState',
     'UsageUnit',
+    'VMPriceOSType',
+    'VMTier',
     'QuotaUnit',
     'Status',
     'ResourceIdentityType',
+    'OsType',
     'VmPriority',
     'RemoteLoginPortPublicAccess',
     'AllocationState',
