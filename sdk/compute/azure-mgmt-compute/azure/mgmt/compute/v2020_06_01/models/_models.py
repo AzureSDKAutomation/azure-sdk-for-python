@@ -4994,6 +4994,8 @@ class VirtualMachineInstanceView(msrest.serialization.Model):
     :param extensions: The extensions information.
     :type extensions:
      list[~azure.mgmt.compute.v2020_06_01.models.VirtualMachineExtensionInstanceView]
+    :ivar vm_health: The health status for the VM.
+    :vartype vm_health: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineHealthStatus
     :param boot_diagnostics: Boot Diagnostics is a debugging feature which allows you to view
      Console Output and Screenshot to diagnose VM status. :code:`<br>`:code:`<br>` You can easily
      view the output of your console log. :code:`<br>`:code:`<br>` Azure also enables you to see a
@@ -5009,6 +5011,7 @@ class VirtualMachineInstanceView(msrest.serialization.Model):
     """
 
     _validation = {
+        'vm_health': {'readonly': True},
         'assigned_host': {'readonly': True},
     }
 
@@ -5024,6 +5027,7 @@ class VirtualMachineInstanceView(msrest.serialization.Model):
         'maintenance_redeploy_status': {'key': 'maintenanceRedeployStatus', 'type': 'MaintenanceRedeployStatus'},
         'disks': {'key': 'disks', 'type': '[DiskInstanceView]'},
         'extensions': {'key': 'extensions', 'type': '[VirtualMachineExtensionInstanceView]'},
+        'vm_health': {'key': 'vmHealth', 'type': 'VirtualMachineHealthStatus'},
         'boot_diagnostics': {'key': 'bootDiagnostics', 'type': 'BootDiagnosticsInstanceView'},
         'assigned_host': {'key': 'assignedHost', 'type': 'str'},
         'statuses': {'key': 'statuses', 'type': '[InstanceViewStatus]'},
@@ -5045,6 +5049,7 @@ class VirtualMachineInstanceView(msrest.serialization.Model):
         self.maintenance_redeploy_status = kwargs.get('maintenance_redeploy_status', None)
         self.disks = kwargs.get('disks', None)
         self.extensions = kwargs.get('extensions', None)
+        self.vm_health = None
         self.boot_diagnostics = kwargs.get('boot_diagnostics', None)
         self.assigned_host = None
         self.statuses = kwargs.get('statuses', None)
