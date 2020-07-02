@@ -44,7 +44,6 @@ try:
     from ._models_py3 import ElasticPoolPerformanceLevelCapability
     from ._models_py3 import ElasticPoolUpdate
     from ._models_py3 import EncryptionProtector
-    from ._models_py3 import ExportRequest
     from ._models_py3 import ExtendedDatabaseBlobAuditingPolicy
     from ._models_py3 import ExtendedServerBlobAuditingPolicy
     from ._models_py3 import FailoverGroup
@@ -53,9 +52,8 @@ try:
     from ._models_py3 import FailoverGroupUpdate
     from ._models_py3 import FirewallRule
     from ._models_py3 import GeoBackupPolicy
-    from ._models_py3 import ImportExportResponse
-    from ._models_py3 import ImportExtensionRequest
-    from ._models_py3 import ImportRequest
+    from ._models_py3 import ImportExportDatabaseDefinition
+    from ._models_py3 import ImportExportOperationResult
     from ._models_py3 import InstanceFailoverGroup
     from ._models_py3 import InstanceFailoverGroupReadOnlyEndpoint
     from ._models_py3 import InstanceFailoverGroupReadWriteEndpoint
@@ -111,6 +109,7 @@ try:
     from ._models_py3 import MetricValue
     from ._models_py3 import MinCapacityCapability
     from ._models_py3 import Name
+    from ._models_py3 import NetworkIsolationSettings
     from ._models_py3 import Operation
     from ._models_py3 import OperationDisplay
     from ._models_py3 import OperationImpact
@@ -119,6 +118,7 @@ try:
     from ._models_py3 import PerformanceLevelCapability
     from ._models_py3 import PrivateEndpointConnection
     from ._models_py3 import PrivateEndpointConnectionProperties
+    from ._models_py3 import PrivateEndpointConnectionRequestStatus
     from ._models_py3 import PrivateEndpointProperty
     from ._models_py3 import PrivateLinkResource
     from ._models_py3 import PrivateLinkResourceProperties
@@ -222,7 +222,6 @@ except (SyntaxError, ImportError):
     from ._models import ElasticPoolPerformanceLevelCapability
     from ._models import ElasticPoolUpdate
     from ._models import EncryptionProtector
-    from ._models import ExportRequest
     from ._models import ExtendedDatabaseBlobAuditingPolicy
     from ._models import ExtendedServerBlobAuditingPolicy
     from ._models import FailoverGroup
@@ -231,9 +230,8 @@ except (SyntaxError, ImportError):
     from ._models import FailoverGroupUpdate
     from ._models import FirewallRule
     from ._models import GeoBackupPolicy
-    from ._models import ImportExportResponse
-    from ._models import ImportExtensionRequest
-    from ._models import ImportRequest
+    from ._models import ImportExportDatabaseDefinition
+    from ._models import ImportExportOperationResult
     from ._models import InstanceFailoverGroup
     from ._models import InstanceFailoverGroupReadOnlyEndpoint
     from ._models import InstanceFailoverGroupReadWriteEndpoint
@@ -289,6 +287,7 @@ except (SyntaxError, ImportError):
     from ._models import MetricValue
     from ._models import MinCapacityCapability
     from ._models import Name
+    from ._models import NetworkIsolationSettings
     from ._models import Operation
     from ._models import OperationDisplay
     from ._models import OperationImpact
@@ -297,6 +296,7 @@ except (SyntaxError, ImportError):
     from ._models import PerformanceLevelCapability
     from ._models import PrivateEndpointConnection
     from ._models import PrivateEndpointConnectionProperties
+    from ._models import PrivateEndpointConnectionRequestStatus
     from ._models import PrivateEndpointProperty
     from ._models import PrivateLinkResource
     from ._models import PrivateLinkResourceProperties
@@ -453,10 +453,6 @@ from ._sql_management_client_enums import (
     DataMaskingRuleState,
     DataMaskingFunction,
     GeoBackupPolicyState,
-    DatabaseEdition,
-    ServiceObjectiveName,
-    StorageKeyType,
-    AuthenticationType,
     UnitType,
     PrimaryAggregationType,
     UnitDefinitionType,
@@ -467,6 +463,7 @@ from ._sql_management_client_enums import (
     RecommendedIndexState,
     RecommendedIndexType,
     TransparentDataEncryptionStatus,
+    ServiceObjectiveName,
     TransparentDataEncryptionActivityStatus,
     AutomaticTuningMode,
     AutomaticTuningOptionModeDesired,
@@ -528,6 +525,7 @@ from ._sql_management_client_enums import (
     SyncGroupState,
     SyncDirection,
     SyncMemberState,
+    StorageKeyType,
     LongTermRetentionDatabaseState,
     VulnerabilityAssessmentPolicyBaselineName,
     SensitivityLabelSource,
@@ -576,7 +574,6 @@ __all__ = [
     'ElasticPoolPerformanceLevelCapability',
     'ElasticPoolUpdate',
     'EncryptionProtector',
-    'ExportRequest',
     'ExtendedDatabaseBlobAuditingPolicy',
     'ExtendedServerBlobAuditingPolicy',
     'FailoverGroup',
@@ -585,9 +582,8 @@ __all__ = [
     'FailoverGroupUpdate',
     'FirewallRule',
     'GeoBackupPolicy',
-    'ImportExportResponse',
-    'ImportExtensionRequest',
-    'ImportRequest',
+    'ImportExportDatabaseDefinition',
+    'ImportExportOperationResult',
     'InstanceFailoverGroup',
     'InstanceFailoverGroupReadOnlyEndpoint',
     'InstanceFailoverGroupReadWriteEndpoint',
@@ -643,6 +639,7 @@ __all__ = [
     'MetricValue',
     'MinCapacityCapability',
     'Name',
+    'NetworkIsolationSettings',
     'Operation',
     'OperationDisplay',
     'OperationImpact',
@@ -651,6 +648,7 @@ __all__ = [
     'PerformanceLevelCapability',
     'PrivateEndpointConnection',
     'PrivateEndpointConnectionProperties',
+    'PrivateEndpointConnectionRequestStatus',
     'PrivateEndpointProperty',
     'PrivateLinkResource',
     'PrivateLinkResourceProperties',
@@ -806,10 +804,6 @@ __all__ = [
     'DataMaskingRuleState',
     'DataMaskingFunction',
     'GeoBackupPolicyState',
-    'DatabaseEdition',
-    'ServiceObjectiveName',
-    'StorageKeyType',
-    'AuthenticationType',
     'UnitType',
     'PrimaryAggregationType',
     'UnitDefinitionType',
@@ -820,6 +814,7 @@ __all__ = [
     'RecommendedIndexState',
     'RecommendedIndexType',
     'TransparentDataEncryptionStatus',
+    'ServiceObjectiveName',
     'TransparentDataEncryptionActivityStatus',
     'AutomaticTuningMode',
     'AutomaticTuningOptionModeDesired',
@@ -881,6 +876,7 @@ __all__ = [
     'SyncGroupState',
     'SyncDirection',
     'SyncMemberState',
+    'StorageKeyType',
     'LongTermRetentionDatabaseState',
     'VulnerabilityAssessmentPolicyBaselineName',
     'SensitivityLabelSource',
