@@ -4737,6 +4737,9 @@ class VirtualMachineInstanceView(Model):
     :param extensions: The extensions information.
     :type extensions:
      list[~azure.mgmt.compute.v2020_06_01.models.VirtualMachineExtensionInstanceView]
+    :ivar vm_health: The health status for the VM.
+    :vartype vm_health:
+     ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineHealthStatus
     :param boot_diagnostics: Boot Diagnostics is a debugging feature which
      allows you to view Console Output and Screenshot to diagnose VM status.
      <br><br> You can easily view the output of your console log. <br><br>
@@ -4754,6 +4757,7 @@ class VirtualMachineInstanceView(Model):
     """
 
     _validation = {
+        'vm_health': {'readonly': True},
         'assigned_host': {'readonly': True},
     }
 
@@ -4769,6 +4773,7 @@ class VirtualMachineInstanceView(Model):
         'maintenance_redeploy_status': {'key': 'maintenanceRedeployStatus', 'type': 'MaintenanceRedeployStatus'},
         'disks': {'key': 'disks', 'type': '[DiskInstanceView]'},
         'extensions': {'key': 'extensions', 'type': '[VirtualMachineExtensionInstanceView]'},
+        'vm_health': {'key': 'vmHealth', 'type': 'VirtualMachineHealthStatus'},
         'boot_diagnostics': {'key': 'bootDiagnostics', 'type': 'BootDiagnosticsInstanceView'},
         'assigned_host': {'key': 'assignedHost', 'type': 'str'},
         'statuses': {'key': 'statuses', 'type': '[InstanceViewStatus]'},
@@ -4787,6 +4792,7 @@ class VirtualMachineInstanceView(Model):
         self.maintenance_redeploy_status = maintenance_redeploy_status
         self.disks = disks
         self.extensions = extensions
+        self.vm_health = None
         self.boot_diagnostics = boot_diagnostics
         self.assigned_host = None
         self.statuses = statuses
