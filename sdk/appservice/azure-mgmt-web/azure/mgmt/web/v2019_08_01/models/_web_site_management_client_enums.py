@@ -93,6 +93,7 @@ class IpFilterTag(str, Enum):
 
     default = "Default"
     xff_proxy = "XffProxy"
+    service_tag = "ServiceTag"
 
 
 class AutoHealActionType(str, Enum):
@@ -188,6 +189,12 @@ class SiteAvailabilityState(str, Enum):
     normal = "Normal"
     limited = "Limited"
     disaster_recovery_mode = "DisasterRecoveryMode"
+
+
+class ClientCertMode(str, Enum):
+
+    required = "Required"
+    optional = "Optional"
 
 
 class RedundancyMode(str, Enum):

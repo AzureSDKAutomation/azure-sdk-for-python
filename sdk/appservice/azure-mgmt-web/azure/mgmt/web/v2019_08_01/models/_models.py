@@ -6282,7 +6282,7 @@ class IpSecurityRestriction(Model):
     :type action: str
     :param tag: Defines what this IP filter will be used for. This is to
      support IP filtering on proxies. Possible values include: 'Default',
-     'XffProxy'
+     'XffProxy', 'ServiceTag'
     :type tag: str or ~azure.mgmt.web.v2019_08_01.models.IpFilterTag
     :param priority: Priority of IP restriction rule.
     :type priority: int
@@ -6290,6 +6290,28 @@ class IpSecurityRestriction(Model):
     :type name: str
     :param description: IP restriction rule description.
     :type description: str
+    :param headers: IP restriction rule headers.
+     X-Forwarded-Host
+     (https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Host#Examples).
+     The matching logic is ..
+     - If the property is null or empty (default), all hosts(or lack of) are
+     allowed.
+     - A value is compared using ordinal-ignore-case (excluding port number).
+     - Subdomain wildcards are permitted but don't match the root domain. For
+     example, *.contoso.com matches the subdomain foo.contoso.com
+     but not the root domain contoso.com or multi-level foo.bar.contoso.com
+     - Unicode host names are allowed but are converted to Punycode for
+     matching.
+     X-Forwarded-For
+     (https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For#Examples).
+     The matching logic is ..
+     - If the property is null or empty (default), any forwarded-for chains (or
+     lack of) are allowed.
+     - If any address (excluding port number) in the chain (comma separated)
+     matches the CIDR defined by the property.
+     X-Azure-FDID and X-FD-HealthProbe.
+     The matching logic is exact match.
+    :type headers: dict[str, list[str]]
     """
 
     _attribute_map = {
@@ -6303,6 +6325,7 @@ class IpSecurityRestriction(Model):
         'priority': {'key': 'priority', 'type': 'int'},
         'name': {'key': 'name', 'type': 'str'},
         'description': {'key': 'description', 'type': 'str'},
+        'headers': {'key': 'headers', 'type': '{[str]}'},
     }
 
     def __init__(self, **kwargs):
@@ -6317,6 +6340,7 @@ class IpSecurityRestriction(Model):
         self.priority = kwargs.get('priority', None)
         self.name = kwargs.get('name', None)
         self.description = kwargs.get('description', None)
+        self.headers = kwargs.get('headers', None)
 
 
 class KeyInfo(Model):
@@ -9126,6 +9150,14 @@ class Site(Resource):
      authentication (TLS mutual authentication); otherwise, <code>false</code>.
      Default is <code>false</code>.
     :type client_cert_enabled: bool
+    :param client_cert_mode: This composes with ClientCertEnabled setting.
+     - ClientCertEnabled: false means ClientCert is ignored.
+     - ClientCertEnabled: true and ClientCertMode: Required means ClientCert is
+     required.
+     - ClientCertEnabled: true and ClientCertMode: Optional means ClientCert is
+     optional or accepted. Possible values include: 'Required', 'Optional'
+    :type client_cert_mode: str or
+     ~azure.mgmt.web.v2019_08_01.models.ClientCertMode
     :param client_cert_exclusion_paths: client certificate authentication
      comma-separated exclusion paths
     :type client_cert_exclusion_paths: str
@@ -9234,6 +9266,7 @@ class Site(Resource):
         'hosting_environment_profile': {'key': 'properties.hostingEnvironmentProfile', 'type': 'HostingEnvironmentProfile'},
         'client_affinity_enabled': {'key': 'properties.clientAffinityEnabled', 'type': 'bool'},
         'client_cert_enabled': {'key': 'properties.clientCertEnabled', 'type': 'bool'},
+        'client_cert_mode': {'key': 'properties.clientCertMode', 'type': 'ClientCertMode'},
         'client_cert_exclusion_paths': {'key': 'properties.clientCertExclusionPaths', 'type': 'str'},
         'host_names_disabled': {'key': 'properties.hostNamesDisabled', 'type': 'bool'},
         'outbound_ip_addresses': {'key': 'properties.outboundIpAddresses', 'type': 'str'},
@@ -9275,6 +9308,7 @@ class Site(Resource):
         self.hosting_environment_profile = kwargs.get('hosting_environment_profile', None)
         self.client_affinity_enabled = kwargs.get('client_affinity_enabled', None)
         self.client_cert_enabled = kwargs.get('client_cert_enabled', None)
+        self.client_cert_mode = kwargs.get('client_cert_mode', None)
         self.client_cert_exclusion_paths = kwargs.get('client_cert_exclusion_paths', None)
         self.host_names_disabled = kwargs.get('host_names_disabled', None)
         self.outbound_ip_addresses = None
@@ -10519,6 +10553,14 @@ class SitePatchResource(ProxyOnlyResource):
      authentication (TLS mutual authentication); otherwise, <code>false</code>.
      Default is <code>false</code>.
     :type client_cert_enabled: bool
+    :param client_cert_mode: This composes with ClientCertEnabled setting.
+     - ClientCertEnabled: false means ClientCert is ignored.
+     - ClientCertEnabled: true and ClientCertMode: Required means ClientCert is
+     required.
+     - ClientCertEnabled: true and ClientCertMode: Optional means ClientCert is
+     optional or accepted. Possible values include: 'Required', 'Optional'
+    :type client_cert_mode: str or
+     ~azure.mgmt.web.v2019_08_01.models.ClientCertMode
     :param client_cert_exclusion_paths: client certificate authentication
      comma-separated exclusion paths
     :type client_cert_exclusion_paths: str
@@ -10624,6 +10666,7 @@ class SitePatchResource(ProxyOnlyResource):
         'hosting_environment_profile': {'key': 'properties.hostingEnvironmentProfile', 'type': 'HostingEnvironmentProfile'},
         'client_affinity_enabled': {'key': 'properties.clientAffinityEnabled', 'type': 'bool'},
         'client_cert_enabled': {'key': 'properties.clientCertEnabled', 'type': 'bool'},
+        'client_cert_mode': {'key': 'properties.clientCertMode', 'type': 'ClientCertMode'},
         'client_cert_exclusion_paths': {'key': 'properties.clientCertExclusionPaths', 'type': 'str'},
         'host_names_disabled': {'key': 'properties.hostNamesDisabled', 'type': 'bool'},
         'outbound_ip_addresses': {'key': 'properties.outboundIpAddresses', 'type': 'str'},
@@ -10665,6 +10708,7 @@ class SitePatchResource(ProxyOnlyResource):
         self.hosting_environment_profile = kwargs.get('hosting_environment_profile', None)
         self.client_affinity_enabled = kwargs.get('client_affinity_enabled', None)
         self.client_cert_enabled = kwargs.get('client_cert_enabled', None)
+        self.client_cert_mode = kwargs.get('client_cert_mode', None)
         self.client_cert_exclusion_paths = kwargs.get('client_cert_exclusion_paths', None)
         self.host_names_disabled = kwargs.get('host_names_disabled', None)
         self.outbound_ip_addresses = None
