@@ -4630,6 +4630,67 @@ class LongTermRetentionBackup(ProxyResource):
         self.backup_expiration_time = None
 
 
+class MaintenanceWindowSettings(Model):
+    """The properties of managed instance maintenance window.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param time_of_upgrade: Specifies time of upgrade for maintenance window
+     of managed instance.
+    :type time_of_upgrade: str
+    :param dates: Specifies days of the month when maintenance window is to be
+     opened.
+    :type dates: list[int]
+    :param scheduled_days: Specifies days in a week when maintenance window is
+     to be opened.
+    :type scheduled_days: list[str]
+    :param scheduled_weeks: Specifies weeks on which the maintenance window
+     should be opened. E.g. if '1,3' is provided and for ScheduledDays Sunday
+     is provided,
+     that means that window is to be opened on Sunday every first and third
+     week.
+    :type scheduled_weeks: list[int]
+    :param one_off_start_time: Specifies one off start time for a maintenance
+     window. This is the time when window will be opened for the first time.
+    :type one_off_start_time: datetime
+    :param frequency: Required. Specifies frequency of a maintenance window.
+     None - No recurring pattern,
+     Daily - Daily window; specified by days of week,
+     Monthly - Monthly window; specified by dates in a month,
+     Flexible - Flexible window; specified by week numbers and days of week.
+     Possible values include: 'NonRecurrent', 'Weekly', 'Monthly', 'Flexible'
+    :type frequency: str or ~azure.mgmt.sql.models.MaintenanceWindowFrequency
+    :param customer_time_zone: Required. Specifies the timezone for which the
+     window will be set. See reference for TimezoneId of ManagedInstance.
+    :type customer_time_zone: str
+    """
+
+    _validation = {
+        'frequency': {'required': True},
+        'customer_time_zone': {'required': True},
+    }
+
+    _attribute_map = {
+        'time_of_upgrade': {'key': 'timeOfUpgrade', 'type': 'str'},
+        'dates': {'key': 'dates', 'type': '[int]'},
+        'scheduled_days': {'key': 'scheduledDays', 'type': '[str]'},
+        'scheduled_weeks': {'key': 'scheduledWeeks', 'type': '[int]'},
+        'one_off_start_time': {'key': 'oneOffStartTime', 'type': 'iso-8601'},
+        'frequency': {'key': 'frequency', 'type': 'str'},
+        'customer_time_zone': {'key': 'customerTimeZone', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(MaintenanceWindowSettings, self).__init__(**kwargs)
+        self.time_of_upgrade = kwargs.get('time_of_upgrade', None)
+        self.dates = kwargs.get('dates', None)
+        self.scheduled_days = kwargs.get('scheduled_days', None)
+        self.scheduled_weeks = kwargs.get('scheduled_weeks', None)
+        self.one_off_start_time = kwargs.get('one_off_start_time', None)
+        self.frequency = kwargs.get('frequency', None)
+        self.customer_time_zone = kwargs.get('customer_time_zone', None)
+
+
 class ManagedBackupShortTermRetentionPolicy(ProxyResource):
     """A short term retention policy.
 
@@ -5090,6 +5151,9 @@ class ManagedInstance(TrackedResource):
     :param sku: Managed instance SKU. Allowed values for sku.name: GP_Gen4,
      GP_Gen5, BC_Gen4, BC_Gen5
     :type sku: ~azure.mgmt.sql.models.Sku
+    :ivar provisioning_state: Possible values include: 'Creating', 'Deleting',
+     'Updating', 'Unknown', 'Succeeded', 'Failed'
+    :vartype provisioning_state: str or ~azure.mgmt.sql.models.enum
     :param managed_instance_create_mode: Specifies the mode of database
      creation.
      Default: Regular instance creation.
@@ -5160,9 +5224,10 @@ class ManagedInstance(TrackedResource):
     :param instance_pool_id: The Id of the instance pool this managed server
      belongs to.
     :type instance_pool_id: str
-    :param maintenance_configuration_id: Specifies maintenance configuration
-     id to apply to this managed instance.
-    :type maintenance_configuration_id: str
+    :param maintenance_window_settings: Specifies maintenance window settings
+     for a managed instance.
+    :type maintenance_window_settings:
+     ~azure.mgmt.sql.models.MaintenanceWindowSettings
     :param minimal_tls_version: Minimal TLS version. Allowed values: 'None',
      '1.0', '1.1', '1.2'
     :type minimal_tls_version: str
@@ -5173,6 +5238,7 @@ class ManagedInstance(TrackedResource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'location': {'required': True},
+        'provisioning_state': {'readonly': True},
         'fully_qualified_domain_name': {'readonly': True},
         'state': {'readonly': True},
         'dns_zone': {'readonly': True},
@@ -5186,6 +5252,7 @@ class ManagedInstance(TrackedResource):
         'tags': {'key': 'tags', 'type': '{str}'},
         'identity': {'key': 'identity', 'type': 'ResourceIdentity'},
         'sku': {'key': 'sku', 'type': 'Sku'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'managed_instance_create_mode': {'key': 'properties.managedInstanceCreateMode', 'type': 'str'},
         'fully_qualified_domain_name': {'key': 'properties.fullyQualifiedDomainName', 'type': 'str'},
         'administrator_login': {'key': 'properties.administratorLogin', 'type': 'str'},
@@ -5204,7 +5271,7 @@ class ManagedInstance(TrackedResource):
         'proxy_override': {'key': 'properties.proxyOverride', 'type': 'str'},
         'timezone_id': {'key': 'properties.timezoneId', 'type': 'str'},
         'instance_pool_id': {'key': 'properties.instancePoolId', 'type': 'str'},
-        'maintenance_configuration_id': {'key': 'properties.maintenanceConfigurationId', 'type': 'str'},
+        'maintenance_window_settings': {'key': 'properties.maintenanceWindowSettings', 'type': 'MaintenanceWindowSettings'},
         'minimal_tls_version': {'key': 'properties.minimalTlsVersion', 'type': 'str'},
     }
 
@@ -5212,6 +5279,7 @@ class ManagedInstance(TrackedResource):
         super(ManagedInstance, self).__init__(**kwargs)
         self.identity = kwargs.get('identity', None)
         self.sku = kwargs.get('sku', None)
+        self.provisioning_state = None
         self.managed_instance_create_mode = kwargs.get('managed_instance_create_mode', None)
         self.fully_qualified_domain_name = None
         self.administrator_login = kwargs.get('administrator_login', None)
@@ -5230,7 +5298,7 @@ class ManagedInstance(TrackedResource):
         self.proxy_override = kwargs.get('proxy_override', None)
         self.timezone_id = kwargs.get('timezone_id', None)
         self.instance_pool_id = kwargs.get('instance_pool_id', None)
-        self.maintenance_configuration_id = kwargs.get('maintenance_configuration_id', None)
+        self.maintenance_window_settings = kwargs.get('maintenance_window_settings', None)
         self.minimal_tls_version = kwargs.get('minimal_tls_version', None)
 
 
@@ -5812,6 +5880,9 @@ class ManagedInstanceUpdate(Model):
 
     :param sku: Managed instance sku
     :type sku: ~azure.mgmt.sql.models.Sku
+    :ivar provisioning_state: Possible values include: 'Creating', 'Deleting',
+     'Updating', 'Unknown', 'Succeeded', 'Failed'
+    :vartype provisioning_state: str or ~azure.mgmt.sql.models.enum
     :param managed_instance_create_mode: Specifies the mode of database
      creation.
      Default: Regular instance creation.
@@ -5882,9 +5953,10 @@ class ManagedInstanceUpdate(Model):
     :param instance_pool_id: The Id of the instance pool this managed server
      belongs to.
     :type instance_pool_id: str
-    :param maintenance_configuration_id: Specifies maintenance configuration
-     id to apply to this managed instance.
-    :type maintenance_configuration_id: str
+    :param maintenance_window_settings: Specifies maintenance window settings
+     for a managed instance.
+    :type maintenance_window_settings:
+     ~azure.mgmt.sql.models.MaintenanceWindowSettings
     :param minimal_tls_version: Minimal TLS version. Allowed values: 'None',
      '1.0', '1.1', '1.2'
     :type minimal_tls_version: str
@@ -5893,6 +5965,7 @@ class ManagedInstanceUpdate(Model):
     """
 
     _validation = {
+        'provisioning_state': {'readonly': True},
         'fully_qualified_domain_name': {'readonly': True},
         'state': {'readonly': True},
         'dns_zone': {'readonly': True},
@@ -5900,6 +5973,7 @@ class ManagedInstanceUpdate(Model):
 
     _attribute_map = {
         'sku': {'key': 'sku', 'type': 'Sku'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'managed_instance_create_mode': {'key': 'properties.managedInstanceCreateMode', 'type': 'str'},
         'fully_qualified_domain_name': {'key': 'properties.fullyQualifiedDomainName', 'type': 'str'},
         'administrator_login': {'key': 'properties.administratorLogin', 'type': 'str'},
@@ -5918,7 +5992,7 @@ class ManagedInstanceUpdate(Model):
         'proxy_override': {'key': 'properties.proxyOverride', 'type': 'str'},
         'timezone_id': {'key': 'properties.timezoneId', 'type': 'str'},
         'instance_pool_id': {'key': 'properties.instancePoolId', 'type': 'str'},
-        'maintenance_configuration_id': {'key': 'properties.maintenanceConfigurationId', 'type': 'str'},
+        'maintenance_window_settings': {'key': 'properties.maintenanceWindowSettings', 'type': 'MaintenanceWindowSettings'},
         'minimal_tls_version': {'key': 'properties.minimalTlsVersion', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
     }
@@ -5926,6 +6000,7 @@ class ManagedInstanceUpdate(Model):
     def __init__(self, **kwargs):
         super(ManagedInstanceUpdate, self).__init__(**kwargs)
         self.sku = kwargs.get('sku', None)
+        self.provisioning_state = None
         self.managed_instance_create_mode = kwargs.get('managed_instance_create_mode', None)
         self.fully_qualified_domain_name = None
         self.administrator_login = kwargs.get('administrator_login', None)
@@ -5944,7 +6019,7 @@ class ManagedInstanceUpdate(Model):
         self.proxy_override = kwargs.get('proxy_override', None)
         self.timezone_id = kwargs.get('timezone_id', None)
         self.instance_pool_id = kwargs.get('instance_pool_id', None)
-        self.maintenance_configuration_id = kwargs.get('maintenance_configuration_id', None)
+        self.maintenance_window_settings = kwargs.get('maintenance_window_settings', None)
         self.minimal_tls_version = kwargs.get('minimal_tls_version', None)
         self.tags = kwargs.get('tags', None)
 

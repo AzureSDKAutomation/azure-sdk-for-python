@@ -82,6 +82,7 @@ try:
     from ._models_py3 import LocationCapabilities
     from ._models_py3 import LogSizeCapability
     from ._models_py3 import LongTermRetentionBackup
+    from ._models_py3 import MaintenanceWindowSettings
     from ._models_py3 import ManagedBackupShortTermRetentionPolicy
     from ._models_py3 import ManagedDatabase
     from ._models_py3 import ManagedDatabaseRestoreDetailsResult
@@ -264,6 +265,7 @@ except (SyntaxError, ImportError):
     from ._models import LocationCapabilities
     from ._models import LogSizeCapability
     from ._models import LongTermRetentionBackup
+    from ._models import MaintenanceWindowSettings
     from ._models import ManagedBackupShortTermRetentionPolicy
     from ._models import ManagedDatabase
     from ._models import ManagedDatabaseRestoreDetailsResult
@@ -515,13 +517,10 @@ from ._sql_management_client_enums import (
     VulnerabilityAssessmentScanState,
     InstanceFailoverGroupReplicationRole,
     InstancePoolLicenseType,
-    IdentityType,
-    ManagedServerCreateMode,
-    ManagedInstanceLicenseType,
-    ManagedInstanceProxyOverride,
     PrivateLinkServiceConnectionStateStatus,
     PrivateLinkServiceConnectionStateActionsRequire,
     PrivateEndpointProvisioningState,
+    IdentityType,
     ServerPublicNetworkAccess,
     CheckNameAvailabilityReason,
     MaxSizeUnit,
@@ -536,6 +535,10 @@ from ._sql_management_client_enums import (
     SyncGroupState,
     SyncDirection,
     SyncMemberState,
+    ManagedServerCreateMode,
+    ManagedInstanceLicenseType,
+    ManagedInstanceProxyOverride,
+    MaintenanceWindowFrequency,
     LongTermRetentionDatabaseState,
     VulnerabilityAssessmentPolicyBaselineName,
     SensitivityLabelSource,
@@ -622,6 +625,7 @@ __all__ = [
     'LocationCapabilities',
     'LogSizeCapability',
     'LongTermRetentionBackup',
+    'MaintenanceWindowSettings',
     'ManagedBackupShortTermRetentionPolicy',
     'ManagedDatabase',
     'ManagedDatabaseRestoreDetailsResult',
@@ -794,7 +798,6 @@ __all__ = [
     'ServerVulnerabilityAssessmentPaged',
     'InstancePoolPaged',
     'UsagePaged',
-    'ManagedInstancePaged',
     'PrivateEndpointConnectionPaged',
     'PrivateLinkResourcePaged',
     'ServerPaged',
@@ -810,6 +813,7 @@ __all__ = [
     'SyncGroupLogPropertiesPaged',
     'SyncGroupPaged',
     'SyncMemberPaged',
+    'ManagedInstancePaged',
     'ServerConnectionType',
     'SecurityAlertPolicyState',
     'SecurityAlertPolicyEmailAccountAdmins',
@@ -872,13 +876,10 @@ __all__ = [
     'VulnerabilityAssessmentScanState',
     'InstanceFailoverGroupReplicationRole',
     'InstancePoolLicenseType',
-    'IdentityType',
-    'ManagedServerCreateMode',
-    'ManagedInstanceLicenseType',
-    'ManagedInstanceProxyOverride',
     'PrivateLinkServiceConnectionStateStatus',
     'PrivateLinkServiceConnectionStateActionsRequire',
     'PrivateEndpointProvisioningState',
+    'IdentityType',
     'ServerPublicNetworkAccess',
     'CheckNameAvailabilityReason',
     'MaxSizeUnit',
@@ -893,6 +894,10 @@ __all__ = [
     'SyncGroupState',
     'SyncDirection',
     'SyncMemberState',
+    'ManagedServerCreateMode',
+    'ManagedInstanceLicenseType',
+    'ManagedInstanceProxyOverride',
+    'MaintenanceWindowFrequency',
     'LongTermRetentionDatabaseState',
     'VulnerabilityAssessmentPolicyBaselineName',
     'SensitivityLabelSource',

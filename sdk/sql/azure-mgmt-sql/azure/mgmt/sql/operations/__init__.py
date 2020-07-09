@@ -85,7 +85,6 @@ from ._server_vulnerability_assessments_operations import ServerVulnerabilityAss
 from ._managed_database_sensitivity_labels_operations import ManagedDatabaseSensitivityLabelsOperations
 from ._instance_pools_operations import InstancePoolsOperations
 from ._usages_operations import UsagesOperations
-from ._managed_instances_operations import ManagedInstancesOperations
 from ._private_endpoint_connections_operations import PrivateEndpointConnectionsOperations
 from ._private_link_resources_operations import PrivateLinkResourcesOperations
 from ._servers_operations import ServersOperations
@@ -100,6 +99,7 @@ from ._server_azure_ad_administrators_operations import ServerAzureADAdministrat
 from ._managed_instance_operations import ManagedInstanceOperations
 from ._sync_groups_operations import SyncGroupsOperations
 from ._sync_members_operations import SyncMembersOperations
+from ._managed_instances_operations import ManagedInstancesOperations
 
 __all__ = [
     'RecoverableDatabasesOperations',
@@ -178,7 +178,6 @@ __all__ = [
     'ManagedDatabaseSensitivityLabelsOperations',
     'InstancePoolsOperations',
     'UsagesOperations',
-    'ManagedInstancesOperations',
     'PrivateEndpointConnectionsOperations',
     'PrivateLinkResourcesOperations',
     'ServersOperations',
@@ -193,4 +192,5 @@ __all__ = [
     'ManagedInstanceOperations',
     'SyncGroupsOperations',
     'SyncMembersOperations',
+    'ManagedInstancesOperations',
 ]

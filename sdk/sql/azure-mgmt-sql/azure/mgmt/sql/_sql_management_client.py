@@ -89,7 +89,6 @@ from .operations import ServerVulnerabilityAssessmentsOperations
 from .operations import ManagedDatabaseSensitivityLabelsOperations
 from .operations import InstancePoolsOperations
 from .operations import UsagesOperations
-from .operations import ManagedInstancesOperations
 from .operations import PrivateEndpointConnectionsOperations
 from .operations import PrivateLinkResourcesOperations
 from .operations import ServersOperations
@@ -104,6 +103,7 @@ from .operations import ServerAzureADAdministratorsOperations
 from .operations import ManagedInstanceOperations
 from .operations import SyncGroupsOperations
 from .operations import SyncMembersOperations
+from .operations import ManagedInstancesOperations
 from . import models
 
 
@@ -265,8 +265,6 @@ class SqlManagementClient(SDKClient):
     :vartype instance_pools: azure.mgmt.sql.operations.InstancePoolsOperations
     :ivar usages: Usages operations
     :vartype usages: azure.mgmt.sql.operations.UsagesOperations
-    :ivar managed_instances: ManagedInstances operations
-    :vartype managed_instances: azure.mgmt.sql.operations.ManagedInstancesOperations
     :ivar private_endpoint_connections: PrivateEndpointConnections operations
     :vartype private_endpoint_connections: azure.mgmt.sql.operations.PrivateEndpointConnectionsOperations
     :ivar private_link_resources: PrivateLinkResources operations
@@ -295,6 +293,8 @@ class SqlManagementClient(SDKClient):
     :vartype sync_groups: azure.mgmt.sql.operations.SyncGroupsOperations
     :ivar sync_members: SyncMembers operations
     :vartype sync_members: azure.mgmt.sql.operations.SyncMembersOperations
+    :ivar managed_instances: ManagedInstances operations
+    :vartype managed_instances: azure.mgmt.sql.operations.ManagedInstancesOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -467,8 +467,6 @@ class SqlManagementClient(SDKClient):
             self._client, self.config, self._serialize, self._deserialize)
         self.usages = UsagesOperations(
             self._client, self.config, self._serialize, self._deserialize)
-        self.managed_instances = ManagedInstancesOperations(
-            self._client, self.config, self._serialize, self._deserialize)
         self.private_endpoint_connections = PrivateEndpointConnectionsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.private_link_resources = PrivateLinkResourcesOperations(
@@ -496,4 +494,6 @@ class SqlManagementClient(SDKClient):
         self.sync_groups = SyncGroupsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.sync_members = SyncMembersOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.managed_instances = ManagedInstancesOperations(
             self._client, self.config, self._serialize, self._deserialize)

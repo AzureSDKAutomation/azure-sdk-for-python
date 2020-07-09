@@ -563,30 +563,6 @@ class InstancePoolLicenseType(str, Enum):
     base_price = "BasePrice"
 
 
-class IdentityType(str, Enum):
-
-    system_assigned = "SystemAssigned"
-
-
-class ManagedServerCreateMode(str, Enum):
-
-    default = "Default"
-    point_in_time_restore = "PointInTimeRestore"
-
-
-class ManagedInstanceLicenseType(str, Enum):
-
-    license_included = "LicenseIncluded"
-    base_price = "BasePrice"
-
-
-class ManagedInstanceProxyOverride(str, Enum):
-
-    proxy = "Proxy"
-    redirect = "Redirect"
-    default = "Default"
-
-
 class PrivateLinkServiceConnectionStateStatus(str, Enum):
 
     approved = "Approved"
@@ -607,6 +583,11 @@ class PrivateEndpointProvisioningState(str, Enum):
     dropping = "Dropping"
     failed = "Failed"
     rejecting = "Rejecting"
+
+
+class IdentityType(str, Enum):
+
+    system_assigned = "SystemAssigned"
 
 
 class ServerPublicNetworkAccess(str, Enum):
@@ -727,6 +708,33 @@ class SyncMemberState(str, Enum):
     reprovisioning = "Reprovisioning"
     reprovision_failed = "ReprovisionFailed"
     un_reprovisioned = "UnReprovisioned"
+
+
+class ManagedServerCreateMode(str, Enum):
+
+    default = "Default"
+    point_in_time_restore = "PointInTimeRestore"
+
+
+class ManagedInstanceLicenseType(str, Enum):
+
+    license_included = "LicenseIncluded"
+    base_price = "BasePrice"
+
+
+class ManagedInstanceProxyOverride(str, Enum):
+
+    proxy = "Proxy"
+    redirect = "Redirect"
+    default = "Default"
+
+
+class MaintenanceWindowFrequency(str, Enum):
+
+    non_recurrent = "NonRecurrent"
+    weekly = "Weekly"
+    monthly = "Monthly"
+    flexible = "Flexible"
 
 
 class LongTermRetentionDatabaseState(str, Enum):
