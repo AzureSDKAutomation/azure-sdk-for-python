@@ -93,7 +93,7 @@ class PublicIPAddressesOperations:
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
-        :param public_ip_address_name: The name of the subnet.
+        :param public_ip_address_name: The name of the public IP address.
         :type public_ip_address_name: str
         :keyword callable cls: A custom type or function that will be passed the direct response
         :keyword str continuation_token: A continuation token to restart a poller from a saved state.
@@ -152,7 +152,7 @@ class PublicIPAddressesOperations:
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
-        :param public_ip_address_name: The name of the subnet.
+        :param public_ip_address_name: The name of the public IP address.
         :type public_ip_address_name: str
         :param expand: Expands referenced resources.
         :type expand: str
