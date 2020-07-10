@@ -279,8 +279,16 @@ class ComputerVisionError(Model):
 
     All required parameters must be populated in order to send to Azure.
 
-    :param code: Required. The error code.
-    :type code: object
+    :param code: Required. The error code. Possible values include:
+     'InvalidImageFormat', 'UnsupportedMediaType', 'InvalidImageUrl',
+     'NotSupportedFeature', 'NotSupportedImage', 'Timeout',
+     'InternalServerError', 'InvalidImageSize', 'BadArgument',
+     'DetectFaceError', 'NotSupportedLanguage', 'InvalidThumbnailSize',
+     'InvalidDetails', 'InvalidModel', 'CancelledRequest',
+     'NotSupportedVisualFeature', 'FailedToProcess', 'Unspecified',
+     'StorageException'
+    :type code: str or
+     ~azure.cognitiveservices.vision.computervision.models.ComputerVisionErrorCodes
     :param message: Required. A message explaining the error reported by the
      service.
     :type message: str
@@ -294,7 +302,7 @@ class ComputerVisionError(Model):
     }
 
     _attribute_map = {
-        'code': {'key': 'code', 'type': 'object'},
+        'code': {'key': 'code', 'type': 'str'},
         'message': {'key': 'message', 'type': 'str'},
         'request_id': {'key': 'requestId', 'type': 'str'},
     }

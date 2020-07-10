@@ -18,6 +18,29 @@ class Gender(str, Enum):
     female = "Female"
 
 
+class ComputerVisionErrorCodes(str, Enum):
+
+    invalid_image_format = "InvalidImageFormat"
+    unsupported_media_type = "UnsupportedMediaType"
+    invalid_image_url = "InvalidImageUrl"
+    not_supported_feature = "NotSupportedFeature"
+    not_supported_image = "NotSupportedImage"
+    timeout = "Timeout"
+    internal_server_error = "InternalServerError"
+    invalid_image_size = "InvalidImageSize"
+    bad_argument = "BadArgument"
+    detect_face_error = "DetectFaceError"
+    not_supported_language = "NotSupportedLanguage"
+    invalid_thumbnail_size = "InvalidThumbnailSize"
+    invalid_details = "InvalidDetails"
+    invalid_model = "InvalidModel"
+    cancelled_request = "CancelledRequest"
+    not_supported_visual_feature = "NotSupportedVisualFeature"
+    failed_to_process = "FailedToProcess"
+    unspecified = "Unspecified"
+    storage_exception = "StorageException"
+
+
 class OperationStatusCodes(str, Enum):
 
     not_started = "notStarted"

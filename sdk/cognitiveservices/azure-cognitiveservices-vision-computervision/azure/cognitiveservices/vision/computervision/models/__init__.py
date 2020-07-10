@@ -88,6 +88,7 @@ except (SyntaxError, ImportError):
     from ._models import TagResult
     from ._models import Word
 from ._computer_vision_client_enums import (
+    ComputerVisionErrorCodes,
     DescriptionExclude,
     Details,
     Gender,
@@ -138,6 +139,7 @@ __all__ = [
     'TagResult',
     'Word',
     'Gender',
+    'ComputerVisionErrorCodes',
     'OperationStatusCodes',
     'TextRecognitionResultDimensionUnit',
     'DescriptionExclude',
