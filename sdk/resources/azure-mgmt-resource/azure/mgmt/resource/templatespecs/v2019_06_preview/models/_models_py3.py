@@ -176,7 +176,41 @@ class SystemData(Model):
         self.last_modified_at = last_modified_at
 
 
-class TemplateSpec(AzureResourceBase):
+class TemplateSpecArtifact(Model):
+    """Represents a Template Spec artifact.
+
+    You probably want to use the sub-classes and not this class directly. Known
+    sub-classes are: TemplateSpecTemplateArtifact
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param path: Required. A filesystem safe relative path of the artifact.
+    :type path: str
+    :param kind: Required. Constant filled by server.
+    :type kind: str
+    """
+
+    _validation = {
+        'path': {'required': True},
+        'kind': {'required': True},
+    }
+
+    _attribute_map = {
+        'path': {'key': 'path', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+    }
+
+    _subtype_map = {
+        'kind': {'template': 'TemplateSpecTemplateArtifact'}
+    }
+
+    def __init__(self, *, path: str, **kwargs) -> None:
+        super(TemplateSpecArtifact, self).__init__(**kwargs)
+        self.path = path
+        self.kind = None
+
+
+class TemplateSpecModel(AzureResourceBase):
     """Template Spec object.
 
     Variables are only populated by the server, and will be ignored when
@@ -228,45 +262,11 @@ class TemplateSpec(AzureResourceBase):
     }
 
     def __init__(self, *, location: str, description: str=None, display_name: str=None, tags=None, **kwargs) -> None:
-        super(TemplateSpec, self).__init__(**kwargs)
+        super(TemplateSpecModel, self).__init__(**kwargs)
         self.location = location
         self.description = description
         self.display_name = display_name
         self.tags = tags
-
-
-class TemplateSpecArtifact(Model):
-    """Represents a Template Spec artifact.
-
-    You probably want to use the sub-classes and not this class directly. Known
-    sub-classes are: TemplateSpecTemplateArtifact
-
-    All required parameters must be populated in order to send to Azure.
-
-    :param path: Required. A filesystem safe relative path of the artifact.
-    :type path: str
-    :param kind: Required. Constant filled by server.
-    :type kind: str
-    """
-
-    _validation = {
-        'path': {'required': True},
-        'kind': {'required': True},
-    }
-
-    _attribute_map = {
-        'path': {'key': 'path', 'type': 'str'},
-        'kind': {'key': 'kind', 'type': 'str'},
-    }
-
-    _subtype_map = {
-        'kind': {'template': 'TemplateSpecTemplateArtifact'}
-    }
-
-    def __init__(self, *, path: str, **kwargs) -> None:
-        super(TemplateSpecArtifact, self).__init__(**kwargs)
-        self.path = path
-        self.kind = None
 
 
 class TemplateSpecsError(Model):
@@ -370,7 +370,7 @@ class TemplateSpecUpdateModel(AzureResourceBase):
         self.tags = tags
 
 
-class TemplateSpecVersion(AzureResourceBase):
+class TemplateSpecVersionModel(AzureResourceBase):
     """Template Spec Version object.
 
     Variables are only populated by the server, and will be ignored when
@@ -424,7 +424,7 @@ class TemplateSpecVersion(AzureResourceBase):
     }
 
     def __init__(self, *, location: str, artifacts=None, description: str=None, template=None, tags=None, **kwargs) -> None:
-        super(TemplateSpecVersion, self).__init__(**kwargs)
+        super(TemplateSpecVersionModel, self).__init__(**kwargs)
         self.location = location
         self.artifacts = artifacts
         self.description = description

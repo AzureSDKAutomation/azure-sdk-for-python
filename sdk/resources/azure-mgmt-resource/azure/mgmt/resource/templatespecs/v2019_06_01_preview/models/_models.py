@@ -28,7 +28,7 @@ class AzureResourceBase(Model):
     :ivar system_data: Azure Resource Manager metadata containing createdBy
      and modifiedBy information.
     :vartype system_data:
-     ~azure.mgmt.resource.templatespecs.v2019_06_preview.models.SystemData
+     ~azure.mgmt.resource.templatespecs.v2019_06_01_preview.models.SystemData
     """
 
     _validation = {
@@ -103,10 +103,10 @@ class ErrorResponse(Model):
     :vartype target: str
     :ivar details: The error details.
     :vartype details:
-     list[~azure.mgmt.resource.templatespecs.v2019_06_preview.models.ErrorResponse]
+     list[~azure.mgmt.resource.templatespecs.v2019_06_01_preview.models.ErrorResponse]
     :ivar additional_info: The error additional info.
     :vartype additional_info:
-     list[~azure.mgmt.resource.templatespecs.v2019_06_preview.models.ErrorAdditionalInfo]
+     list[~azure.mgmt.resource.templatespecs.v2019_06_01_preview.models.ErrorAdditionalInfo]
     """
 
     _validation = {
@@ -142,7 +142,7 @@ class SystemData(Model):
     :param created_by_type: The type of identity that created the resource.
      Possible values include: 'User', 'Application', 'ManagedIdentity', 'Key'
     :type created_by_type: str or
-     ~azure.mgmt.resource.templatespecs.v2019_06_preview.models.CreatedByType
+     ~azure.mgmt.resource.templatespecs.v2019_06_01_preview.models.CreatedByType
     :param created_at: The timestamp of resource creation (UTC).
     :type created_at: datetime
     :param last_modified_by: The identity that last modified the resource.
@@ -151,7 +151,7 @@ class SystemData(Model):
      resource. Possible values include: 'User', 'Application',
      'ManagedIdentity', 'Key'
     :type last_modified_by_type: str or
-     ~azure.mgmt.resource.templatespecs.v2019_06_preview.models.CreatedByType
+     ~azure.mgmt.resource.templatespecs.v2019_06_01_preview.models.CreatedByType
     :param last_modified_at: The type of identity that last modified the
      resource.
     :type last_modified_at: datetime
@@ -174,6 +174,65 @@ class SystemData(Model):
         self.last_modified_by = kwargs.get('last_modified_by', None)
         self.last_modified_by_type = kwargs.get('last_modified_by_type', None)
         self.last_modified_at = kwargs.get('last_modified_at', None)
+
+
+class TemplateSpec(AzureResourceBase):
+    """Template Spec object.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: String Id used to locate any resource on Azure.
+    :vartype id: str
+    :ivar name: Name of this resource.
+    :vartype name: str
+    :ivar type: Type of this resource.
+    :vartype type: str
+    :ivar system_data: Azure Resource Manager metadata containing createdBy
+     and modifiedBy information.
+    :vartype system_data:
+     ~azure.mgmt.resource.templatespecs.v2019_06_01_preview.models.SystemData
+    :param location: Required. The location of the Template Spec. It cannot be
+     changed after Template Spec creation. It must be one of the supported
+     Azure locations.
+    :type location: str
+    :param description: Template Spec description.
+    :type description: str
+    :param display_name: Template Spec display name.
+    :type display_name: str
+    :param tags: Resource tags.
+    :type tags: dict[str, str]
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'system_data': {'readonly': True},
+        'location': {'required': True},
+        'description': {'max_length': 4096},
+        'display_name': {'max_length': 64},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
+        'location': {'key': 'location', 'type': 'str'},
+        'description': {'key': 'properties.description', 'type': 'str'},
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+    }
+
+    def __init__(self, **kwargs):
+        super(TemplateSpec, self).__init__(**kwargs)
+        self.location = kwargs.get('location', None)
+        self.description = kwargs.get('description', None)
+        self.display_name = kwargs.get('display_name', None)
+        self.tags = kwargs.get('tags', None)
 
 
 class TemplateSpecArtifact(Model):
@@ -210,71 +269,12 @@ class TemplateSpecArtifact(Model):
         self.kind = None
 
 
-class TemplateSpecModel(AzureResourceBase):
-    """Template Spec object.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :ivar id: String Id used to locate any resource on Azure.
-    :vartype id: str
-    :ivar name: Name of this resource.
-    :vartype name: str
-    :ivar type: Type of this resource.
-    :vartype type: str
-    :ivar system_data: Azure Resource Manager metadata containing createdBy
-     and modifiedBy information.
-    :vartype system_data:
-     ~azure.mgmt.resource.templatespecs.v2019_06_preview.models.SystemData
-    :param location: Required. The location of the Template Spec. It cannot be
-     changed after Template Spec creation. It must be one of the supported
-     Azure locations.
-    :type location: str
-    :param description: Template Spec description.
-    :type description: str
-    :param display_name: Template Spec display name.
-    :type display_name: str
-    :param tags: Resource tags.
-    :type tags: dict[str, str]
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'system_data': {'readonly': True},
-        'location': {'required': True},
-        'description': {'max_length': 4096},
-        'display_name': {'max_length': 64},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'system_data': {'key': 'systemData', 'type': 'SystemData'},
-        'location': {'key': 'location', 'type': 'str'},
-        'description': {'key': 'properties.description', 'type': 'str'},
-        'display_name': {'key': 'properties.displayName', 'type': 'str'},
-        'tags': {'key': 'tags', 'type': '{str}'},
-    }
-
-    def __init__(self, **kwargs):
-        super(TemplateSpecModel, self).__init__(**kwargs)
-        self.location = kwargs.get('location', None)
-        self.description = kwargs.get('description', None)
-        self.display_name = kwargs.get('display_name', None)
-        self.tags = kwargs.get('tags', None)
-
-
 class TemplateSpecsError(Model):
     """Template Specs error response.
 
     :param error:
     :type error:
-     ~azure.mgmt.resource.templatespecs.v2019_06_preview.models.ErrorResponse
+     ~azure.mgmt.resource.templatespecs.v2019_06_01_preview.models.ErrorResponse
     """
 
     _attribute_map = {
@@ -345,7 +345,7 @@ class TemplateSpecUpdateModel(AzureResourceBase):
     :ivar system_data: Azure Resource Manager metadata containing createdBy
      and modifiedBy information.
     :vartype system_data:
-     ~azure.mgmt.resource.templatespecs.v2019_06_preview.models.SystemData
+     ~azure.mgmt.resource.templatespecs.v2019_06_01_preview.models.SystemData
     :param tags: Resource tags.
     :type tags: dict[str, str]
     """
@@ -370,7 +370,7 @@ class TemplateSpecUpdateModel(AzureResourceBase):
         self.tags = kwargs.get('tags', None)
 
 
-class TemplateSpecVersionModel(AzureResourceBase):
+class TemplateSpecVersion(AzureResourceBase):
     """Template Spec Version object.
 
     Variables are only populated by the server, and will be ignored when
@@ -387,13 +387,13 @@ class TemplateSpecVersionModel(AzureResourceBase):
     :ivar system_data: Azure Resource Manager metadata containing createdBy
      and modifiedBy information.
     :vartype system_data:
-     ~azure.mgmt.resource.templatespecs.v2019_06_preview.models.SystemData
+     ~azure.mgmt.resource.templatespecs.v2019_06_01_preview.models.SystemData
     :param location: Required. The location of the Template Spec Version. It
      must match the location of the parent Template Spec.
     :type location: str
     :param artifacts: An array of Template Spec artifacts.
     :type artifacts:
-     list[~azure.mgmt.resource.templatespecs.v2019_06_preview.models.TemplateSpecArtifact]
+     list[~azure.mgmt.resource.templatespecs.v2019_06_01_preview.models.TemplateSpecArtifact]
     :param description: Template Spec version description.
     :type description: str
     :param template: The Azure Resource Manager template content.
@@ -424,7 +424,7 @@ class TemplateSpecVersionModel(AzureResourceBase):
     }
 
     def __init__(self, **kwargs):
-        super(TemplateSpecVersionModel, self).__init__(**kwargs)
+        super(TemplateSpecVersion, self).__init__(**kwargs)
         self.location = kwargs.get('location', None)
         self.artifacts = kwargs.get('artifacts', None)
         self.description = kwargs.get('description', None)
@@ -448,7 +448,7 @@ class TemplateSpecVersionUpdateModel(AzureResourceBase):
     :ivar system_data: Azure Resource Manager metadata containing createdBy
      and modifiedBy information.
     :vartype system_data:
-     ~azure.mgmt.resource.templatespecs.v2019_06_preview.models.SystemData
+     ~azure.mgmt.resource.templatespecs.v2019_06_01_preview.models.SystemData
     :param tags: Resource tags.
     :type tags: dict[str, str]
     """
