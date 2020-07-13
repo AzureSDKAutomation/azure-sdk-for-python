@@ -2597,6 +2597,8 @@ class ApplicationRuleCondition(FirewallPolicyRuleCondition):
     :param protocols: Array of Application Protocols.
     :type protocols:
      list[~azure.mgmt.network.v2020_04_01.models.FirewallPolicyRuleConditionApplicationProtocol]
+    :param target_urls: List of Urls for this rule condition.
+    :type target_urls: list[str]
     :param target_fqdns: List of FQDNs for this rule condition.
     :type target_fqdns: list[str]
     :param fqdn_tags: List of FQDN Tags for this rule condition.
@@ -2616,6 +2618,7 @@ class ApplicationRuleCondition(FirewallPolicyRuleCondition):
         'source_addresses': {'key': 'sourceAddresses', 'type': '[str]'},
         'destination_addresses': {'key': 'destinationAddresses', 'type': '[str]'},
         'protocols': {'key': 'protocols', 'type': '[FirewallPolicyRuleConditionApplicationProtocol]'},
+        'target_urls': {'key': 'targetUrls', 'type': '[str]'},
         'target_fqdns': {'key': 'targetFqdns', 'type': '[str]'},
         'fqdn_tags': {'key': 'fqdnTags', 'type': '[str]'},
         'source_ip_groups': {'key': 'sourceIpGroups', 'type': '[str]'},
@@ -2629,6 +2632,7 @@ class ApplicationRuleCondition(FirewallPolicyRuleCondition):
         source_addresses: Optional[List[str]] = None,
         destination_addresses: Optional[List[str]] = None,
         protocols: Optional[List["FirewallPolicyRuleConditionApplicationProtocol"]] = None,
+        target_urls: Optional[List[str]] = None,
         target_fqdns: Optional[List[str]] = None,
         fqdn_tags: Optional[List[str]] = None,
         source_ip_groups: Optional[List[str]] = None,
@@ -2639,6 +2643,7 @@ class ApplicationRuleCondition(FirewallPolicyRuleCondition):
         self.source_addresses = source_addresses
         self.destination_addresses = destination_addresses
         self.protocols = protocols
+        self.target_urls = target_urls
         self.target_fqdns = target_fqdns
         self.fqdn_tags = fqdn_tags
         self.source_ip_groups = source_ip_groups
@@ -9360,6 +9365,8 @@ class FirewallPolicy(Resource):
     :type tags: dict[str, str]
     :ivar etag: A unique read-only string that changes whenever the resource is updated.
     :vartype etag: str
+    :param identity: The identity of the firewall policy.
+    :type identity: ~azure.mgmt.network.v2020_04_01.models.ManagedServiceIdentity
     :ivar rule_groups: List of references to FirewallPolicyRuleGroups.
     :vartype rule_groups: list[~azure.mgmt.network.v2020_04_01.models.SubResource]
     :ivar provisioning_state: The provisioning state of the firewall policy resource. Possible
@@ -9379,6 +9386,13 @@ class FirewallPolicy(Resource):
     :param threat_intel_whitelist: ThreatIntel Whitelist for Firewall Policy.
     :type threat_intel_whitelist:
      ~azure.mgmt.network.v2020_04_01.models.FirewallPolicyThreatIntelWhitelist
+    :param intrusion_system_mode: The operation mode for Intrusion system. Possible values include:
+     "Enabled", "Disabled".
+    :type intrusion_system_mode: str or
+     ~azure.mgmt.network.v2020_04_01.models.FirewallPolicyIntrusionSystemMode
+    :param transport_security: TLS Configuration definition.
+    :type transport_security:
+     ~azure.mgmt.network.v2020_04_01.models.FirewallPolicyTransportSecurity
     """
 
     _validation = {
@@ -9398,6 +9412,7 @@ class FirewallPolicy(Resource):
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
         'etag': {'key': 'etag', 'type': 'str'},
+        'identity': {'key': 'identity', 'type': 'ManagedServiceIdentity'},
         'rule_groups': {'key': 'properties.ruleGroups', 'type': '[SubResource]'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'base_policy': {'key': 'properties.basePolicy', 'type': 'SubResource'},
@@ -9405,6 +9420,8 @@ class FirewallPolicy(Resource):
         'child_policies': {'key': 'properties.childPolicies', 'type': '[SubResource]'},
         'threat_intel_mode': {'key': 'properties.threatIntelMode', 'type': 'str'},
         'threat_intel_whitelist': {'key': 'properties.threatIntelWhitelist', 'type': 'FirewallPolicyThreatIntelWhitelist'},
+        'intrusion_system_mode': {'key': 'properties.intrusionSystemMode', 'type': 'str'},
+        'transport_security': {'key': 'properties.transportSecurity', 'type': 'FirewallPolicyTransportSecurity'},
     }
 
     def __init__(
@@ -9413,13 +9430,17 @@ class FirewallPolicy(Resource):
         id: Optional[str] = None,
         location: Optional[str] = None,
         tags: Optional[Dict[str, str]] = None,
+        identity: Optional["ManagedServiceIdentity"] = None,
         base_policy: Optional["SubResource"] = None,
         threat_intel_mode: Optional[Union[str, "AzureFirewallThreatIntelMode"]] = None,
         threat_intel_whitelist: Optional["FirewallPolicyThreatIntelWhitelist"] = None,
+        intrusion_system_mode: Optional[Union[str, "FirewallPolicyIntrusionSystemMode"]] = None,
+        transport_security: Optional["FirewallPolicyTransportSecurity"] = None,
         **kwargs
     ):
         super(FirewallPolicy, self).__init__(id=id, location=location, tags=tags, **kwargs)
         self.etag = None
+        self.identity = identity
         self.rule_groups = None
         self.provisioning_state = None
         self.base_policy = base_policy
@@ -9427,6 +9448,35 @@ class FirewallPolicy(Resource):
         self.child_policies = None
         self.threat_intel_mode = threat_intel_mode
         self.threat_intel_whitelist = threat_intel_whitelist
+        self.intrusion_system_mode = intrusion_system_mode
+        self.transport_security = transport_security
+
+
+class FirewallPolicyCertificateAuthority(msrest.serialization.Model):
+    """Trusted Root certificates properties for tls.
+
+    :param name: Name of the CA certificate.
+    :type name: str
+    :param key_vault_secret_id: Secret Id of (base-64 encoded unencrypted pfx) 'Secret' or
+     'Certificate' object stored in KeyVault.
+    :type key_vault_secret_id: str
+    """
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'key_vault_secret_id': {'key': 'properties.keyVaultSecretId', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        *,
+        name: Optional[str] = None,
+        key_vault_secret_id: Optional[str] = None,
+        **kwargs
+    ):
+        super(FirewallPolicyCertificateAuthority, self).__init__(**kwargs)
+        self.name = name
+        self.key_vault_secret_id = key_vault_secret_id
 
 
 class FirewallPolicyRule(msrest.serialization.Model):
@@ -9788,6 +9838,66 @@ class FirewallPolicyThreatIntelWhitelist(msrest.serialization.Model):
         super(FirewallPolicyThreatIntelWhitelist, self).__init__(**kwargs)
         self.ip_addresses = ip_addresses
         self.fqdns = fqdns
+
+
+class FirewallPolicyTransportSecurity(msrest.serialization.Model):
+    """Configuration needed to perform TLS termination & initiation.
+
+    :param certificate_authority: The CA used for intermediate CA generation.
+    :type certificate_authority:
+     ~azure.mgmt.network.v2020_04_01.models.FirewallPolicyCertificateAuthority
+    :param excluded_domains: List of domains which are excluded from TLS termination.
+    :type excluded_domains: list[str]
+    :param trusted_root_certificates: Certificates which are to be trusted by the firewall.
+    :type trusted_root_certificates:
+     list[~azure.mgmt.network.v2020_04_01.models.FirewallPolicyTrustedRootCertificate]
+    """
+
+    _attribute_map = {
+        'certificate_authority': {'key': 'certificateAuthority', 'type': 'FirewallPolicyCertificateAuthority'},
+        'excluded_domains': {'key': 'excludedDomains', 'type': '[str]'},
+        'trusted_root_certificates': {'key': 'trustedRootCertificates', 'type': '[FirewallPolicyTrustedRootCertificate]'},
+    }
+
+    def __init__(
+        self,
+        *,
+        certificate_authority: Optional["FirewallPolicyCertificateAuthority"] = None,
+        excluded_domains: Optional[List[str]] = None,
+        trusted_root_certificates: Optional[List["FirewallPolicyTrustedRootCertificate"]] = None,
+        **kwargs
+    ):
+        super(FirewallPolicyTransportSecurity, self).__init__(**kwargs)
+        self.certificate_authority = certificate_authority
+        self.excluded_domains = excluded_domains
+        self.trusted_root_certificates = trusted_root_certificates
+
+
+class FirewallPolicyTrustedRootCertificate(msrest.serialization.Model):
+    """Trusted Root certificates of a firewall policy.
+
+    :param name: Name of the trusted root certificate that is unique within a firewall policy.
+    :type name: str
+    :param key_vault_secret_id: Secret Id of (base-64 encoded unencrypted pfx) the public
+     certificate data stored in KeyVault.
+    :type key_vault_secret_id: str
+    """
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'key_vault_secret_id': {'key': 'properties.keyVaultSecretId', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        *,
+        name: Optional[str] = None,
+        key_vault_secret_id: Optional[str] = None,
+        **kwargs
+    ):
+        super(FirewallPolicyTrustedRootCertificate, self).__init__(**kwargs)
+        self.name = name
+        self.key_vault_secret_id = key_vault_secret_id
 
 
 class FlowLog(Resource):
@@ -10403,9 +10513,9 @@ class HubRouteTable(SubResource):
     :param labels: List of labels associated with this route table.
     :type labels: list[str]
     :ivar associated_connections: List of all connections associated with this route table.
-    :vartype associated_connections: list[str]
+    :vartype associated_connections: list[~azure.mgmt.network.v2020_04_01.models.SubResource]
     :ivar propagating_connections: List of all connections that advertise to this route table.
-    :vartype propagating_connections: list[str]
+    :vartype propagating_connections: list[~azure.mgmt.network.v2020_04_01.models.SubResource]
     :ivar provisioning_state: The provisioning state of the RouteTable resource. Possible values
      include: "Succeeded", "Updating", "Deleting", "Failed".
     :vartype provisioning_state: str or ~azure.mgmt.network.v2020_04_01.models.ProvisioningState
@@ -10426,8 +10536,8 @@ class HubRouteTable(SubResource):
         'type': {'key': 'type', 'type': 'str'},
         'routes': {'key': 'properties.routes', 'type': '[HubRoute]'},
         'labels': {'key': 'properties.labels', 'type': '[str]'},
-        'associated_connections': {'key': 'properties.associatedConnections', 'type': '[str]'},
-        'propagating_connections': {'key': 'properties.propagatingConnections', 'type': '[str]'},
+        'associated_connections': {'key': 'properties.associatedConnections', 'type': '[SubResource]'},
+        'propagating_connections': {'key': 'properties.propagatingConnections', 'type': '[SubResource]'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
     }
 
@@ -12798,6 +12908,8 @@ class NatRuleCondition(FirewallPolicyRuleCondition):
     :type destination_ports: list[str]
     :param source_ip_groups: List of source IpGroups for this rule.
     :type source_ip_groups: list[str]
+    :param terminate_tls: Terminate TLS connections for this rule.
+    :type terminate_tls: bool
     """
 
     _validation = {
@@ -12813,6 +12925,7 @@ class NatRuleCondition(FirewallPolicyRuleCondition):
         'destination_addresses': {'key': 'destinationAddresses', 'type': '[str]'},
         'destination_ports': {'key': 'destinationPorts', 'type': '[str]'},
         'source_ip_groups': {'key': 'sourceIpGroups', 'type': '[str]'},
+        'terminate_tls': {'key': 'terminateTLS', 'type': 'bool'},
     }
 
     def __init__(
@@ -12825,6 +12938,7 @@ class NatRuleCondition(FirewallPolicyRuleCondition):
         destination_addresses: Optional[List[str]] = None,
         destination_ports: Optional[List[str]] = None,
         source_ip_groups: Optional[List[str]] = None,
+        terminate_tls: Optional[bool] = None,
         **kwargs
     ):
         super(NatRuleCondition, self).__init__(name=name, description=description, **kwargs)
@@ -12834,6 +12948,7 @@ class NatRuleCondition(FirewallPolicyRuleCondition):
         self.destination_addresses = destination_addresses
         self.destination_ports = destination_ports
         self.source_ip_groups = source_ip_groups
+        self.terminate_tls = terminate_tls
 
 
 class NetworkConfigurationDiagnosticParameters(msrest.serialization.Model):
