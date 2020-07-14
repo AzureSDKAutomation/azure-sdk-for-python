@@ -4964,6 +4964,9 @@ class VirtualMachineExtension(Resource):
      version if one is available at deployment time. Once deployed, however, the extension will not
      upgrade minor versions unless redeployed, even with this property set to true.
     :type auto_upgrade_minor_version: bool
+    :param enable_automatic_upgrade: Indicates whether the extension should be automatically
+     upgraded by the platform if there is a newer version of the extension available.
+    :type enable_automatic_upgrade: bool
     :param settings: Json formatted public settings for the extension.
     :type settings: object
     :param protected_settings: The extension can contain either protectedSettings or
@@ -4994,6 +4997,7 @@ class VirtualMachineExtension(Resource):
         'type_properties_type': {'key': 'properties.type', 'type': 'str'},
         'type_handler_version': {'key': 'properties.typeHandlerVersion', 'type': 'str'},
         'auto_upgrade_minor_version': {'key': 'properties.autoUpgradeMinorVersion', 'type': 'bool'},
+        'enable_automatic_upgrade': {'key': 'properties.enableAutomaticUpgrade', 'type': 'bool'},
         'settings': {'key': 'properties.settings', 'type': 'object'},
         'protected_settings': {'key': 'properties.protectedSettings', 'type': 'object'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
@@ -5010,6 +5014,7 @@ class VirtualMachineExtension(Resource):
         type_properties_type: Optional[str] = None,
         type_handler_version: Optional[str] = None,
         auto_upgrade_minor_version: Optional[bool] = None,
+        enable_automatic_upgrade: Optional[bool] = None,
         settings: Optional[object] = None,
         protected_settings: Optional[object] = None,
         instance_view: Optional["VirtualMachineExtensionInstanceView"] = None,
@@ -5021,6 +5026,7 @@ class VirtualMachineExtension(Resource):
         self.type_properties_type = type_properties_type
         self.type_handler_version = type_handler_version
         self.auto_upgrade_minor_version = auto_upgrade_minor_version
+        self.enable_automatic_upgrade = enable_automatic_upgrade
         self.settings = settings
         self.protected_settings = protected_settings
         self.provisioning_state = None
@@ -5210,6 +5216,9 @@ class VirtualMachineExtensionUpdate(UpdateResource):
      version if one is available at deployment time. Once deployed, however, the extension will not
      upgrade minor versions unless redeployed, even with this property set to true.
     :type auto_upgrade_minor_version: bool
+    :param enable_automatic_upgrade: Indicates whether the extension should be automatically
+     upgraded by the platform if there is a newer version of the extension available.
+    :type enable_automatic_upgrade: bool
     :param settings: Json formatted public settings for the extension.
     :type settings: object
     :param protected_settings: The extension can contain either protectedSettings or
@@ -5224,6 +5233,7 @@ class VirtualMachineExtensionUpdate(UpdateResource):
         'type': {'key': 'properties.type', 'type': 'str'},
         'type_handler_version': {'key': 'properties.typeHandlerVersion', 'type': 'str'},
         'auto_upgrade_minor_version': {'key': 'properties.autoUpgradeMinorVersion', 'type': 'bool'},
+        'enable_automatic_upgrade': {'key': 'properties.enableAutomaticUpgrade', 'type': 'bool'},
         'settings': {'key': 'properties.settings', 'type': 'object'},
         'protected_settings': {'key': 'properties.protectedSettings', 'type': 'object'},
     }
@@ -5237,6 +5247,7 @@ class VirtualMachineExtensionUpdate(UpdateResource):
         type: Optional[str] = None,
         type_handler_version: Optional[str] = None,
         auto_upgrade_minor_version: Optional[bool] = None,
+        enable_automatic_upgrade: Optional[bool] = None,
         settings: Optional[object] = None,
         protected_settings: Optional[object] = None,
         **kwargs
@@ -5247,6 +5258,7 @@ class VirtualMachineExtensionUpdate(UpdateResource):
         self.type = type
         self.type_handler_version = type_handler_version
         self.auto_upgrade_minor_version = auto_upgrade_minor_version
+        self.enable_automatic_upgrade = enable_automatic_upgrade
         self.settings = settings
         self.protected_settings = protected_settings
 
@@ -5474,6 +5486,8 @@ class VirtualMachineInstanceView(msrest.serialization.Model):
     :param extensions: The extensions information.
     :type extensions:
      list[~azure.mgmt.compute.v2020_06_01.models.VirtualMachineExtensionInstanceView]
+    :ivar vm_health: The health status for the VM.
+    :vartype vm_health: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineHealthStatus
     :param boot_diagnostics: Boot Diagnostics is a debugging feature which allows you to view
      Console Output and Screenshot to diagnose VM status. :code:`<br>`:code:`<br>` You can easily
      view the output of your console log. :code:`<br>`:code:`<br>` Azure also enables you to see a
@@ -5489,6 +5503,7 @@ class VirtualMachineInstanceView(msrest.serialization.Model):
     """
 
     _validation = {
+        'vm_health': {'readonly': True},
         'assigned_host': {'readonly': True},
     }
 
@@ -5504,6 +5519,7 @@ class VirtualMachineInstanceView(msrest.serialization.Model):
         'maintenance_redeploy_status': {'key': 'maintenanceRedeployStatus', 'type': 'MaintenanceRedeployStatus'},
         'disks': {'key': 'disks', 'type': '[DiskInstanceView]'},
         'extensions': {'key': 'extensions', 'type': '[VirtualMachineExtensionInstanceView]'},
+        'vm_health': {'key': 'vmHealth', 'type': 'VirtualMachineHealthStatus'},
         'boot_diagnostics': {'key': 'bootDiagnostics', 'type': 'BootDiagnosticsInstanceView'},
         'assigned_host': {'key': 'assignedHost', 'type': 'str'},
         'statuses': {'key': 'statuses', 'type': '[InstanceViewStatus]'},
@@ -5539,6 +5555,7 @@ class VirtualMachineInstanceView(msrest.serialization.Model):
         self.maintenance_redeploy_status = maintenance_redeploy_status
         self.disks = disks
         self.extensions = extensions
+        self.vm_health = None
         self.boot_diagnostics = boot_diagnostics
         self.assigned_host = None
         self.statuses = statuses
@@ -5860,6 +5877,9 @@ class VirtualMachineScaleSetExtension(SubResourceReadOnly):
      version if one is available at deployment time. Once deployed, however, the extension will not
      upgrade minor versions unless redeployed, even with this property set to true.
     :type auto_upgrade_minor_version: bool
+    :param enable_automatic_upgrade: Indicates whether the extension should be automatically
+     upgraded by the platform if there is a newer version of the extension available.
+    :type enable_automatic_upgrade: bool
     :param settings: Json formatted public settings for the extension.
     :type settings: object
     :param protected_settings: The extension can contain either protectedSettings or
@@ -5887,6 +5907,7 @@ class VirtualMachineScaleSetExtension(SubResourceReadOnly):
         'type_properties_type': {'key': 'properties.type', 'type': 'str'},
         'type_handler_version': {'key': 'properties.typeHandlerVersion', 'type': 'str'},
         'auto_upgrade_minor_version': {'key': 'properties.autoUpgradeMinorVersion', 'type': 'bool'},
+        'enable_automatic_upgrade': {'key': 'properties.enableAutomaticUpgrade', 'type': 'bool'},
         'settings': {'key': 'properties.settings', 'type': 'object'},
         'protected_settings': {'key': 'properties.protectedSettings', 'type': 'object'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
@@ -5902,6 +5923,7 @@ class VirtualMachineScaleSetExtension(SubResourceReadOnly):
         type_properties_type: Optional[str] = None,
         type_handler_version: Optional[str] = None,
         auto_upgrade_minor_version: Optional[bool] = None,
+        enable_automatic_upgrade: Optional[bool] = None,
         settings: Optional[object] = None,
         protected_settings: Optional[object] = None,
         provision_after_extensions: Optional[List[str]] = None,
@@ -5915,6 +5937,7 @@ class VirtualMachineScaleSetExtension(SubResourceReadOnly):
         self.type_properties_type = type_properties_type
         self.type_handler_version = type_handler_version
         self.auto_upgrade_minor_version = auto_upgrade_minor_version
+        self.enable_automatic_upgrade = enable_automatic_upgrade
         self.settings = settings
         self.protected_settings = protected_settings
         self.provisioning_state = None
@@ -6008,6 +6031,9 @@ class VirtualMachineScaleSetExtensionUpdate(SubResourceReadOnly):
      version if one is available at deployment time. Once deployed, however, the extension will not
      upgrade minor versions unless redeployed, even with this property set to true.
     :type auto_upgrade_minor_version: bool
+    :param enable_automatic_upgrade: Indicates whether the extension should be automatically
+     upgraded by the platform if there is a newer version of the extension available.
+    :type enable_automatic_upgrade: bool
     :param settings: Json formatted public settings for the extension.
     :type settings: object
     :param protected_settings: The extension can contain either protectedSettings or
@@ -6036,6 +6062,7 @@ class VirtualMachineScaleSetExtensionUpdate(SubResourceReadOnly):
         'type_properties_type': {'key': 'properties.type', 'type': 'str'},
         'type_handler_version': {'key': 'properties.typeHandlerVersion', 'type': 'str'},
         'auto_upgrade_minor_version': {'key': 'properties.autoUpgradeMinorVersion', 'type': 'bool'},
+        'enable_automatic_upgrade': {'key': 'properties.enableAutomaticUpgrade', 'type': 'bool'},
         'settings': {'key': 'properties.settings', 'type': 'object'},
         'protected_settings': {'key': 'properties.protectedSettings', 'type': 'object'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
@@ -6050,6 +6077,7 @@ class VirtualMachineScaleSetExtensionUpdate(SubResourceReadOnly):
         type_properties_type: Optional[str] = None,
         type_handler_version: Optional[str] = None,
         auto_upgrade_minor_version: Optional[bool] = None,
+        enable_automatic_upgrade: Optional[bool] = None,
         settings: Optional[object] = None,
         protected_settings: Optional[object] = None,
         provision_after_extensions: Optional[List[str]] = None,
@@ -6063,6 +6091,7 @@ class VirtualMachineScaleSetExtensionUpdate(SubResourceReadOnly):
         self.type_properties_type = type_properties_type
         self.type_handler_version = type_handler_version
         self.auto_upgrade_minor_version = auto_upgrade_minor_version
+        self.enable_automatic_upgrade = enable_automatic_upgrade
         self.settings = settings
         self.protected_settings = protected_settings
         self.provisioning_state = None
