@@ -2764,6 +2764,8 @@ class NetworkRuleSet(msrest.serialization.Model):
      Metrics"), or None to bypass none of those traffics. Possible values include: "None",
      "Logging", "Metrics", "AzureServices". Default value: "AzureServices".
     :type bypass: str or ~azure.mgmt.storage.v2019_06_01.models.Bypass
+    :param resource_access_rules:
+    :type resource_access_rules: list[~azure.mgmt.storage.v2019_06_01.models.ResourceAccessRule]
     :param virtual_network_rules: Sets the virtual network rules.
     :type virtual_network_rules: list[~azure.mgmt.storage.v2019_06_01.models.VirtualNetworkRule]
     :param ip_rules: Sets the IP ACL rules.
@@ -2779,6 +2781,7 @@ class NetworkRuleSet(msrest.serialization.Model):
 
     _attribute_map = {
         'bypass': {'key': 'bypass', 'type': 'str'},
+        'resource_access_rules': {'key': 'resourceAccessRules', 'type': '[ResourceAccessRule]'},
         'virtual_network_rules': {'key': 'virtualNetworkRules', 'type': '[VirtualNetworkRule]'},
         'ip_rules': {'key': 'ipRules', 'type': '[IPRule]'},
         'default_action': {'key': 'defaultAction', 'type': 'str'},
@@ -2789,12 +2792,14 @@ class NetworkRuleSet(msrest.serialization.Model):
         *,
         default_action: Union[str, "DefaultAction"] = "Allow",
         bypass: Optional[Union[str, "Bypass"]] = "AzureServices",
+        resource_access_rules: Optional[List["ResourceAccessRule"]] = None,
         virtual_network_rules: Optional[List["VirtualNetworkRule"]] = None,
         ip_rules: Optional[List["IPRule"]] = None,
         **kwargs
     ):
         super(NetworkRuleSet, self).__init__(**kwargs)
         self.bypass = bypass
+        self.resource_access_rules = resource_access_rules
         self.virtual_network_rules = virtual_network_rules
         self.ip_rules = ip_rules
         self.default_action = default_action
@@ -3291,6 +3296,32 @@ class QueueServiceProperties(Resource):
     ):
         super(QueueServiceProperties, self).__init__(**kwargs)
         self.cors = cors
+
+
+class ResourceAccessRule(msrest.serialization.Model):
+    """Resource Access Rule.
+
+    :param tenant_id: Tenant Id.
+    :type tenant_id: str
+    :param resource_id: Resource Id.
+    :type resource_id: str
+    """
+
+    _attribute_map = {
+        'tenant_id': {'key': 'tenantId', 'type': 'str'},
+        'resource_id': {'key': 'resourceId', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        *,
+        tenant_id: Optional[str] = None,
+        resource_id: Optional[str] = None,
+        **kwargs
+    ):
+        super(ResourceAccessRule, self).__init__(**kwargs)
+        self.tenant_id = tenant_id
+        self.resource_id = resource_id
 
 
 class RestorePolicyProperties(msrest.serialization.Model):

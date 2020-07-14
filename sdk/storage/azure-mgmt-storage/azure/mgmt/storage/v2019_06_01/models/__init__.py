@@ -85,6 +85,7 @@ try:
     from ._models_py3 import PrivateLinkServiceConnectionState
     from ._models_py3 import QueueServiceProperties
     from ._models_py3 import Resource
+    from ._models_py3 import ResourceAccessRule
     from ._models_py3 import RestorePolicyProperties
     from ._models_py3 import Restriction
     from ._models_py3 import RoutingPreference
@@ -194,6 +195,7 @@ except (SyntaxError, ImportError):
     from ._models import PrivateLinkServiceConnectionState  # type: ignore
     from ._models import QueueServiceProperties  # type: ignore
     from ._models import Resource  # type: ignore
+    from ._models import ResourceAccessRule  # type: ignore
     from ._models import RestorePolicyProperties  # type: ignore
     from ._models import Restriction  # type: ignore
     from ._models import RoutingPreference  # type: ignore
@@ -349,6 +351,7 @@ __all__ = [
     'PrivateLinkServiceConnectionState',
     'QueueServiceProperties',
     'Resource',
+    'ResourceAccessRule',
     'RestorePolicyProperties',
     'Restriction',
     'RoutingPreference',
