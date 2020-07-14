@@ -2453,6 +2453,9 @@ class NetworkRuleSet(Model):
      to bypass none of those traffics. Possible values include: 'None',
      'Logging', 'Metrics', 'AzureServices'. Default value: "AzureServices" .
     :type bypass: str or ~azure.mgmt.storage.v2019_06_01.models.Bypass
+    :param resource_access_rules:
+    :type resource_access_rules:
+     list[~azure.mgmt.storage.v2019_06_01.models.ResourceAccessRule]
     :param virtual_network_rules: Sets the virtual network rules
     :type virtual_network_rules:
      list[~azure.mgmt.storage.v2019_06_01.models.VirtualNetworkRule]
@@ -2471,6 +2474,7 @@ class NetworkRuleSet(Model):
 
     _attribute_map = {
         'bypass': {'key': 'bypass', 'type': 'str'},
+        'resource_access_rules': {'key': 'resourceAccessRules', 'type': '[ResourceAccessRule]'},
         'virtual_network_rules': {'key': 'virtualNetworkRules', 'type': '[VirtualNetworkRule]'},
         'ip_rules': {'key': 'ipRules', 'type': '[IPRule]'},
         'default_action': {'key': 'defaultAction', 'type': 'DefaultAction'},
@@ -2479,6 +2483,7 @@ class NetworkRuleSet(Model):
     def __init__(self, **kwargs):
         super(NetworkRuleSet, self).__init__(**kwargs)
         self.bypass = kwargs.get('bypass', "AzureServices")
+        self.resource_access_rules = kwargs.get('resource_access_rules', None)
         self.virtual_network_rules = kwargs.get('virtual_network_rules', None)
         self.ip_rules = kwargs.get('ip_rules', None)
         self.default_action = kwargs.get('default_action', "Allow")
@@ -2906,6 +2911,26 @@ class QueueServiceProperties(Resource):
     def __init__(self, **kwargs):
         super(QueueServiceProperties, self).__init__(**kwargs)
         self.cors = kwargs.get('cors', None)
+
+
+class ResourceAccessRule(Model):
+    """Resource Access Rule.
+
+    :param tenant_id: Tenant Id
+    :type tenant_id: str
+    :param resource_id: Resource Id
+    :type resource_id: str
+    """
+
+    _attribute_map = {
+        'tenant_id': {'key': 'tenantId', 'type': 'str'},
+        'resource_id': {'key': 'resourceId', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ResourceAccessRule, self).__init__(**kwargs)
+        self.tenant_id = kwargs.get('tenant_id', None)
+        self.resource_id = kwargs.get('resource_id', None)
 
 
 class RestorePolicyProperties(Model):

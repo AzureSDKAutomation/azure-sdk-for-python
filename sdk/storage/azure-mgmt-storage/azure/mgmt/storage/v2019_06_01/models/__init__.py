@@ -79,6 +79,7 @@ try:
     from ._models_py3 import ProxyResource
     from ._models_py3 import QueueServiceProperties
     from ._models_py3 import Resource
+    from ._models_py3 import ResourceAccessRule
     from ._models_py3 import RestorePolicyProperties
     from ._models_py3 import Restriction
     from ._models_py3 import RoutingPreference
@@ -176,6 +177,7 @@ except (SyntaxError, ImportError):
     from ._models import ProxyResource
     from ._models import QueueServiceProperties
     from ._models import Resource
+    from ._models import ResourceAccessRule
     from ._models import RestorePolicyProperties
     from ._models import Restriction
     from ._models import RoutingPreference
@@ -333,6 +335,7 @@ __all__ = [
     'ProxyResource',
     'QueueServiceProperties',
     'Resource',
+    'ResourceAccessRule',
     'RestorePolicyProperties',
     'Restriction',
     'RoutingPreference',
