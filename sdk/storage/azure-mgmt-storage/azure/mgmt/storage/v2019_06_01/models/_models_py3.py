@@ -560,15 +560,25 @@ class ChangeFeed(Model):
     :param enabled: Indicates whether change feed event logging is enabled for
      the Blob service.
     :type enabled: bool
+    :param retention_in_days: Indicates the duration of changeFeed retention
+     in days. Minimum value is 1 day and maximum value is 146000 days (400
+     years). A null value indicates an infinite retention of the change feed.
+    :type retention_in_days: int
     """
+
+    _validation = {
+        'retention_in_days': {'maximum': 146000, 'minimum': 1},
+    }
 
     _attribute_map = {
         'enabled': {'key': 'enabled', 'type': 'bool'},
+        'retention_in_days': {'key': 'retentionInDays', 'type': 'int'},
     }
 
-    def __init__(self, *, enabled: bool=None, **kwargs) -> None:
+    def __init__(self, *, enabled: bool=None, retention_in_days: int=None, **kwargs) -> None:
         super(ChangeFeed, self).__init__(**kwargs)
         self.enabled = enabled
+        self.retention_in_days = retention_in_days
 
 
 class CheckNameAvailabilityResult(Model):
