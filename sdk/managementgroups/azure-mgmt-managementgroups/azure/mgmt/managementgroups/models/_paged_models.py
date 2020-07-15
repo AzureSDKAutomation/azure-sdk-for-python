@@ -38,6 +38,19 @@ class DescendantInfoPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(DescendantInfoPaged, self).__init__(*args, **kwargs)
+class SubscriptionUnderManagementGroupPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`SubscriptionUnderManagementGroup <azure.mgmt.managementgroups.models.SubscriptionUnderManagementGroup>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[SubscriptionUnderManagementGroup]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(SubscriptionUnderManagementGroupPaged, self).__init__(*args, **kwargs)
 class OperationPaged(Paged):
     """
     A paging container for iterating over a list of :class:`Operation <azure.mgmt.managementgroups.models.Operation>` object

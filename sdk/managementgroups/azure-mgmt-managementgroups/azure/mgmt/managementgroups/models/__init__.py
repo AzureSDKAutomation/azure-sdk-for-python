@@ -38,6 +38,7 @@ try:
     from ._models_py3 import OperationResults
     from ._models_py3 import ParentGroupInfo
     from ._models_py3 import PatchManagementGroupRequest
+    from ._models_py3 import SubscriptionUnderManagementGroup
     from ._models_py3 import TenantBackfillStatusResult
 except (SyntaxError, ImportError):
     from ._models import AzureAsyncOperationResults
@@ -68,11 +69,13 @@ except (SyntaxError, ImportError):
     from ._models import OperationResults
     from ._models import ParentGroupInfo
     from ._models import PatchManagementGroupRequest
+    from ._models import SubscriptionUnderManagementGroup
     from ._models import TenantBackfillStatusResult
 from ._paged_models import DescendantInfoPaged
 from ._paged_models import EntityInfoPaged
 from ._paged_models import ManagementGroupInfoPaged
 from ._paged_models import OperationPaged
+from ._paged_models import SubscriptionUnderManagementGroupPaged
 from ._management_groups_api_enums import (
     Reason,
     Status,
@@ -108,9 +111,11 @@ __all__ = [
     'OperationResults',
     'ParentGroupInfo',
     'PatchManagementGroupRequest',
+    'SubscriptionUnderManagementGroup',
     'TenantBackfillStatusResult',
     'ManagementGroupInfoPaged',
     'DescendantInfoPaged',
+    'SubscriptionUnderManagementGroupPaged',
     'OperationPaged',
     'EntityInfoPaged',
     'Reason',

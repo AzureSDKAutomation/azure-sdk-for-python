@@ -70,7 +70,8 @@ class CheckNameAvailabilityRequest(Model):
     :param name: the name to check for availability
     :type name: str
     :param type: fully qualified resource type which includes provider
-     namespace. Possible values include: 'Microsoft.Management/managementGroup'
+     namespace. Possible values include:
+     'Microsoft.Management/managementGroups'
     :type type: str or ~azure.mgmt.managementgroups.models.Type
     """
 
@@ -155,8 +156,6 @@ class CreateManagementGroupChildInfo(Model):
     :vartype name: str
     :ivar display_name: The friendly name of the child resource.
     :vartype display_name: str
-    :ivar roles: The roles definitions associated with the management group.
-    :vartype roles: list[str]
     :ivar children: The list of children.
     :vartype children:
      list[~azure.mgmt.managementgroups.models.CreateManagementGroupChildInfo]
@@ -167,7 +166,6 @@ class CreateManagementGroupChildInfo(Model):
         'id': {'readonly': True},
         'name': {'readonly': True},
         'display_name': {'readonly': True},
-        'roles': {'readonly': True},
         'children': {'readonly': True},
     }
 
@@ -176,7 +174,6 @@ class CreateManagementGroupChildInfo(Model):
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'display_name': {'key': 'displayName', 'type': 'str'},
-        'roles': {'key': 'roles', 'type': '[str]'},
         'children': {'key': 'children', 'type': '[CreateManagementGroupChildInfo]'},
     }
 
@@ -186,7 +183,6 @@ class CreateManagementGroupChildInfo(Model):
         self.id = None
         self.name = None
         self.display_name = None
-        self.roles = None
         self.children = None
 
 
@@ -249,8 +245,6 @@ class CreateManagementGroupRequest(Model):
     :param display_name: The friendly name of the management group. If no
      value is passed then this  field will be set to the groupId.
     :type display_name: str
-    :ivar roles: The roles definitions associated with the management group.
-    :vartype roles: list[str]
     :param details: Details.
     :type details:
      ~azure.mgmt.managementgroups.models.CreateManagementGroupDetails
@@ -263,7 +257,6 @@ class CreateManagementGroupRequest(Model):
         'id': {'readonly': True},
         'type': {'readonly': True},
         'tenant_id': {'readonly': True},
-        'roles': {'readonly': True},
         'children': {'readonly': True},
     }
 
@@ -273,7 +266,6 @@ class CreateManagementGroupRequest(Model):
         'name': {'key': 'name', 'type': 'str'},
         'tenant_id': {'key': 'properties.tenantId', 'type': 'str'},
         'display_name': {'key': 'properties.displayName', 'type': 'str'},
-        'roles': {'key': 'properties.roles', 'type': '[str]'},
         'details': {'key': 'properties.details', 'type': 'CreateManagementGroupDetails'},
         'children': {'key': 'properties.children', 'type': '[CreateManagementGroupChildInfo]'},
     }
@@ -285,7 +277,6 @@ class CreateManagementGroupRequest(Model):
         self.name = kwargs.get('name', None)
         self.tenant_id = None
         self.display_name = kwargs.get('display_name', None)
-        self.roles = None
         self.details = kwargs.get('details', None)
         self.children = None
 
@@ -779,8 +770,6 @@ class ManagementGroup(Model):
     :type tenant_id: str
     :param display_name: The friendly name of the management group.
     :type display_name: str
-    :param roles: The role definitions associated with the management group.
-    :type roles: list[str]
     :param details: Details.
     :type details: ~azure.mgmt.managementgroups.models.ManagementGroupDetails
     :param children: The list of children.
@@ -803,7 +792,6 @@ class ManagementGroup(Model):
         'name': {'key': 'name', 'type': 'str'},
         'tenant_id': {'key': 'properties.tenantId', 'type': 'str'},
         'display_name': {'key': 'properties.displayName', 'type': 'str'},
-        'roles': {'key': 'properties.roles', 'type': '[str]'},
         'details': {'key': 'properties.details', 'type': 'ManagementGroupDetails'},
         'children': {'key': 'properties.children', 'type': '[ManagementGroupChildInfo]'},
         'path': {'key': 'properties.path', 'type': '[ManagementGroupPathElement]'},
@@ -816,7 +804,6 @@ class ManagementGroup(Model):
         self.name = None
         self.tenant_id = kwargs.get('tenant_id', None)
         self.display_name = kwargs.get('display_name', None)
-        self.roles = kwargs.get('roles', None)
         self.details = kwargs.get('details', None)
         self.children = kwargs.get('children', None)
         self.path = kwargs.get('path', None)
@@ -838,8 +825,6 @@ class ManagementGroupChildInfo(Model):
     :type name: str
     :param display_name: The friendly name of the child resource.
     :type display_name: str
-    :param roles: The roles definitions associated with the management group.
-    :type roles: list[str]
     :param children: The list of children.
     :type children:
      list[~azure.mgmt.managementgroups.models.ManagementGroupChildInfo]
@@ -850,7 +835,6 @@ class ManagementGroupChildInfo(Model):
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'display_name': {'key': 'displayName', 'type': 'str'},
-        'roles': {'key': 'roles', 'type': '[str]'},
         'children': {'key': 'children', 'type': '[ManagementGroupChildInfo]'},
     }
 
@@ -860,7 +844,6 @@ class ManagementGroupChildInfo(Model):
         self.id = kwargs.get('id', None)
         self.name = kwargs.get('name', None)
         self.display_name = kwargs.get('display_name', None)
-        self.roles = kwargs.get('roles', None)
         self.children = kwargs.get('children', None)
 
 
@@ -1100,21 +1083,75 @@ class PatchManagementGroupRequest(Model):
 
     :param display_name: The friendly name of the management group.
     :type display_name: str
-    :param parent_id: (Optional) The fully qualified ID for the parent
+    :param parent_group_id: (Optional) The fully qualified ID for the parent
      management group.  For example,
      /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-    :type parent_id: str
+    :type parent_group_id: str
     """
 
     _attribute_map = {
         'display_name': {'key': 'displayName', 'type': 'str'},
-        'parent_id': {'key': 'parentId', 'type': 'str'},
+        'parent_group_id': {'key': 'parentGroupId', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
         super(PatchManagementGroupRequest, self).__init__(**kwargs)
         self.display_name = kwargs.get('display_name', None)
-        self.parent_id = kwargs.get('parent_id', None)
+        self.parent_group_id = kwargs.get('parent_group_id', None)
+
+
+class SubscriptionUnderManagementGroup(Model):
+    """The details of subscription under management group.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: The fully qualified ID for the subscription.  For example,
+     /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000/subscriptions/0000000-0000-0000-0000-000000000001
+    :vartype id: str
+    :ivar type: The type of the resource.  For example,
+     Microsoft.Management/managementGroups/subscriptions
+    :vartype type: str
+    :ivar name: The stringified id of the subscription. For example,
+     00000000-0000-0000-0000-000000000000
+    :vartype name: str
+    :param tenant: The AAD Tenant ID associated with the subscription. For
+     example, 00000000-0000-0000-0000-000000000000
+    :type tenant: str
+    :param display_name: The friendly name of the subscription.
+    :type display_name: str
+    :param parent: Parent.
+    :type parent:
+     ~azure.mgmt.managementgroups.models.DescendantParentGroupInfo
+    :param state: The state of the subscription.
+    :type state: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'type': {'readonly': True},
+        'name': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'tenant': {'key': 'properties.tenant', 'type': 'str'},
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
+        'parent': {'key': 'properties.parent', 'type': 'DescendantParentGroupInfo'},
+        'state': {'key': 'properties.state', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SubscriptionUnderManagementGroup, self).__init__(**kwargs)
+        self.id = None
+        self.type = None
+        self.name = None
+        self.tenant = kwargs.get('tenant', None)
+        self.display_name = kwargs.get('display_name', None)
+        self.parent = kwargs.get('parent', None)
+        self.state = kwargs.get('state', None)
 
 
 class TenantBackfillStatusResult(Model):
