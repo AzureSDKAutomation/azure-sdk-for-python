@@ -79,6 +79,12 @@ class FindSimilarMatchMode(str, Enum):
     match_face = "matchFace"
 
 
+class DetectionModel(str, Enum):
+
+    detection_01 = "detection_01"
+    detection_02 = "detection_02"
+
+
 class TrainingStatusType(str, Enum):
 
     nonstarted = "nonstarted"
@@ -124,9 +130,3 @@ class FaceAttributeType(str, Enum):
     blur = "blur"
     exposure = "exposure"
     noise = "noise"
-
-
-class DetectionModel(str, Enum):
-
-    detection_01 = "detection_01"
-    detection_02 = "detection_02"

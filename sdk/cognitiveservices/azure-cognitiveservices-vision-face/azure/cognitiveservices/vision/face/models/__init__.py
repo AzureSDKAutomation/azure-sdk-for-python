@@ -14,6 +14,8 @@ try:
     from ._models_py3 import APIError, APIErrorException
     from ._models_py3 import ApplySnapshotRequest
     from ._models_py3 import Blur
+    from ._models_py3 import CompareFaceToFaceRequest
+    from ._models_py3 import CompareResult
     from ._models_py3 import Coordinate
     from ._models_py3 import DetectedFace
     from ._models_py3 import Emotion
@@ -47,7 +49,9 @@ try:
     from ._models_py3 import PersonGroup
     from ._models_py3 import SimilarFace
     from ._models_py3 import Snapshot
+    from ._models_py3 import SourceImageFace
     from ._models_py3 import TakeSnapshotRequest
+    from ._models_py3 import TargetImageFace
     from ._models_py3 import TrainingStatus
     from ._models_py3 import UpdateFaceRequest
     from ._models_py3 import UpdateSnapshotRequest
@@ -59,6 +63,8 @@ except (SyntaxError, ImportError):
     from ._models import APIError, APIErrorException
     from ._models import ApplySnapshotRequest
     from ._models import Blur
+    from ._models import CompareFaceToFaceRequest
+    from ._models import CompareResult
     from ._models import Coordinate
     from ._models import DetectedFace
     from ._models import Emotion
@@ -92,7 +98,9 @@ except (SyntaxError, ImportError):
     from ._models import PersonGroup
     from ._models import SimilarFace
     from ._models import Snapshot
+    from ._models import SourceImageFace
     from ._models import TakeSnapshotRequest
+    from ._models import TargetImageFace
     from ._models import TrainingStatus
     from ._models import UpdateFaceRequest
     from ._models import UpdateSnapshotRequest
@@ -122,6 +130,8 @@ __all__ = [
     'APIError', 'APIErrorException',
     'ApplySnapshotRequest',
     'Blur',
+    'CompareFaceToFaceRequest',
+    'CompareResult',
     'Coordinate',
     'DetectedFace',
     'Emotion',
@@ -155,7 +165,9 @@ __all__ = [
     'PersonGroup',
     'SimilarFace',
     'Snapshot',
+    'SourceImageFace',
     'TakeSnapshotRequest',
+    'TargetImageFace',
     'TrainingStatus',
     'UpdateFaceRequest',
     'UpdateSnapshotRequest',
@@ -171,10 +183,10 @@ __all__ = [
     'ExposureLevel',
     'NoiseLevel',
     'FindSimilarMatchMode',
+    'DetectionModel',
     'TrainingStatusType',
     'SnapshotApplyMode',
     'SnapshotObjectType',
     'OperationStatusType',
     'FaceAttributeType',
-    'DetectionModel',
 ]

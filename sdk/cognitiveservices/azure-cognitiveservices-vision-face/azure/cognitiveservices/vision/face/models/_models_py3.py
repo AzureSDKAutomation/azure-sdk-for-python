@@ -118,6 +118,90 @@ class Blur(Model):
         self.value = value
 
 
+class CompareFaceToFaceRequest(Model):
+    """Request body for face to face comparison.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param source_image_url: Required. Publicly reachable URL of the source
+     image
+    :type source_image_url: str
+    :param target_image_url: Required. Publicly reachable URL of the target
+     image
+    :type target_image_url: str
+    """
+
+    _validation = {
+        'source_image_url': {'required': True},
+        'target_image_url': {'required': True},
+    }
+
+    _attribute_map = {
+        'source_image_url': {'key': 'sourceImageUrl', 'type': 'str'},
+        'target_image_url': {'key': 'targetImageUrl', 'type': 'str'},
+    }
+
+    def __init__(self, *, source_image_url: str, target_image_url: str, **kwargs) -> None:
+        super(CompareFaceToFaceRequest, self).__init__(**kwargs)
+        self.source_image_url = source_image_url
+        self.target_image_url = target_image_url
+
+
+class CompareResult(Model):
+    """Result of the compare operation.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param target_image_face: Required. The face used for comparison from
+     source image. along with confidence and isIdentical flag.
+    :type target_image_face:
+     ~azure.cognitiveservices.vision.face.models.TargetImageFace
+    :param source_image_face: Required. The face used for comparison from
+     target image.
+    :type source_image_face:
+     ~azure.cognitiveservices.vision.face.models.SourceImageFace
+    :param detection_model: Required. A number indicates the similarity
+     confidence of whether two faces belong to the same person, or whether the
+     face belongs to the person. By default, isIdentical is set to True if
+     similarity confidence is greater than or equal to 0.5. This is useful for
+     advanced users to override "isIdentical" and fine-tune the result on their
+     own data. Possible values include: 'detection_01', 'detection_02'. Default
+     value: "detection_02" .
+    :type detection_model: str or
+     ~azure.cognitiveservices.vision.face.models.DetectionModel
+    :param recognition_model: Required. A number indicates the similarity
+     confidence of whether two faces belong to the same person, or whether the
+     face belongs to the person. By default, isIdentical is set to True if
+     similarity confidence is greater than or equal to 0.5. This is useful for
+     advanced users to override "isIdentical" and fine-tune the result on their
+     own data. Possible values include: 'recognition_01', 'recognition_02',
+     'recognition_03'. Default value: "recognition_01" .
+    :type recognition_model: str or
+     ~azure.cognitiveservices.vision.face.models.RecognitionModel
+    """
+
+    _validation = {
+        'target_image_face': {'required': True},
+        'source_image_face': {'required': True},
+        'detection_model': {'required': True},
+        'recognition_model': {'required': True},
+    }
+
+    _attribute_map = {
+        'target_image_face': {'key': 'targetImageFace', 'type': 'TargetImageFace'},
+        'source_image_face': {'key': 'sourceImageFace', 'type': 'SourceImageFace'},
+        'detection_model': {'key': 'detectionModel', 'type': 'str'},
+        'recognition_model': {'key': 'recognitionModel', 'type': 'str'},
+    }
+
+    def __init__(self, *, target_image_face, source_image_face, detection_model="detection_02", recognition_model="recognition_01", **kwargs) -> None:
+        super(CompareResult, self).__init__(**kwargs)
+        self.target_image_face = target_image_face
+        self.source_image_face = source_image_face
+        self.detection_model = detection_model
+        self.recognition_model = recognition_model
+
+
 class Coordinate(Model):
     """Coordinates within an image.
 
@@ -1382,6 +1466,29 @@ class Snapshot(Model):
         self.last_update_time = last_update_time
 
 
+class SourceImageFace(Model):
+    """The face used for comparison from source image.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param face_rectangle: Required.
+    :type face_rectangle:
+     ~azure.cognitiveservices.vision.face.models.FaceRectangle
+    """
+
+    _validation = {
+        'face_rectangle': {'required': True},
+    }
+
+    _attribute_map = {
+        'face_rectangle': {'key': 'faceRectangle', 'type': 'FaceRectangle'},
+    }
+
+    def __init__(self, *, face_rectangle, **kwargs) -> None:
+        super(SourceImageFace, self).__init__(**kwargs)
+        self.face_rectangle = face_rectangle
+
+
 class TakeSnapshotRequest(Model):
     """Request body for taking snapshot operation.
 
@@ -1425,6 +1532,43 @@ class TakeSnapshotRequest(Model):
         self.object_id = object_id
         self.apply_scope = apply_scope
         self.user_data = user_data
+
+
+class TargetImageFace(Model):
+    """The face used for comparison from target image.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param face_rectangle: Required.
+    :type face_rectangle:
+     ~azure.cognitiveservices.vision.face.models.FaceRectangle
+    :param confidence: Required. A number indicates the similarity confidence
+     two faces. By default, isIdentical is set to True if similarity confidence
+     is greater than or equal to 0.5. This is useful for advanced users to
+     override "isIdentical" and fine-tune the result on their own data.
+    :type confidence: float
+    :param is_identical: Required. True if the two faces belong to the same
+     person, otherwise false.
+    :type is_identical: bool
+    """
+
+    _validation = {
+        'face_rectangle': {'required': True},
+        'confidence': {'required': True},
+        'is_identical': {'required': True},
+    }
+
+    _attribute_map = {
+        'face_rectangle': {'key': 'faceRectangle', 'type': 'FaceRectangle'},
+        'confidence': {'key': 'confidence', 'type': 'float'},
+        'is_identical': {'key': 'isIdentical', 'type': 'bool'},
+    }
+
+    def __init__(self, *, face_rectangle, confidence: float, is_identical: bool, **kwargs) -> None:
+        super(TargetImageFace, self).__init__(**kwargs)
+        self.face_rectangle = face_rectangle
+        self.confidence = confidence
+        self.is_identical = is_identical
 
 
 class TrainingStatus(Model):

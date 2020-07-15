@@ -394,6 +394,86 @@ class FaceOperations(object):
         return deserialized
     verify_face_to_face.metadata = {'url': '/verify'}
 
+    def compare_with_url(
+            self, source_image_url, target_image_url, detection_model="detection_02", recognition_model="recognition_03", custom_headers=None, raw=False, **operation_config):
+        """Compare faces from two image URLs based on similarity.
+        <br/>
+        Remarks:<br />
+        * Higher face image quality means better identification precision.
+        Please consider high-quality faces: frontal, clear, and face size is
+        200x200 pixels (100 pixels between eyes) or bigger.
+        * For the scenarios that are sensitive to accuracy please make your own
+        judgment.
+        .
+
+        :param source_image_url: Publicly reachable URL of the source image
+        :type source_image_url: str
+        :param target_image_url: Publicly reachable URL of the target image
+        :type target_image_url: str
+        :param detection_model: Name of detection model. Detection model is
+         used to detect faces in the submitted image. Possible values include:
+         'detection_01', 'detection_02'
+        :type detection_model: str or
+         ~azure.cognitiveservices.vision.face.models.DetectionModel
+        :param recognition_model: Name of recognition model. Possible values
+         include: 'recognition_01', 'recognition_02', 'recognition_03'
+        :type recognition_model: str or
+         ~azure.cognitiveservices.vision.face.models.RecognitionModel
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: CompareResult or ClientRawResponse if raw=true
+        :rtype: ~azure.cognitiveservices.vision.face.models.CompareResult or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`APIErrorException<azure.cognitiveservices.vision.face.models.APIErrorException>`
+        """
+        body = models.CompareFaceToFaceRequest(source_image_url=source_image_url, target_image_url=target_image_url)
+
+        # Construct URL
+        url = self.compare_with_url.metadata['url']
+        path_format_arguments = {
+            'Endpoint': self._serialize.url("self.config.endpoint", self.config.endpoint, 'str', skip_quote=True)
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        if detection_model is not None:
+            query_parameters['detectionModel'] = self._serialize.query("detection_model", detection_model, 'str')
+        if recognition_model is not None:
+            query_parameters['recognitionModel'] = self._serialize.query("recognition_model", recognition_model, 'str')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if custom_headers:
+            header_parameters.update(custom_headers)
+
+        # Construct body
+        body_content = self._serialize.body(body, 'CompareFaceToFaceRequest')
+
+        # Construct and send request
+        request = self._client.post(url, query_parameters, header_parameters, body_content)
+        response = self._client.send(request, stream=False, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.APIErrorException(self._deserialize, response)
+
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('CompareResult', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+    compare_with_url.metadata = {'url': '/compare'}
+
     def detect_with_url(
             self, url, return_face_id=True, return_face_landmarks=False, return_face_attributes=None, recognition_model="recognition_01", return_recognition_model=False, detection_model="detection_01", custom_headers=None, raw=False, **operation_config):
         """Detect human faces in an image, return face rectangles, and optionally
@@ -631,6 +711,87 @@ class FaceOperations(object):
 
         return deserialized
     verify_face_to_person.metadata = {'url': '/verify'}
+
+    def compare_with_stream(
+            self, source, target, detection_model="detection_02", recognition_model="recognition_03", custom_headers=None, raw=False, **operation_config):
+        """Compare faces from two image streams based on similarity.
+        <br/>
+        Remarks:<br />
+        * Higher face image quality means better identification precision.
+        Please consider high-quality faces: frontal, clear, and face size is
+        200x200 pixels (100 pixels between eyes) or bigger.
+        * For the scenarios that are sensitive to accuracy please make your own
+        judgment.
+        .
+
+        :param source: Source image files for face to face comparison.
+        :type source: Generator
+        :param target: Target image files for face to face comparison.
+        :type target: Generator
+        :param detection_model: Name of detection model. Detection model is
+         used to detect faces in the submitted image. Possible values include:
+         'detection_01', 'detection_02'
+        :type detection_model: str or
+         ~azure.cognitiveservices.vision.face.models.DetectionModel
+        :param recognition_model: Name of recognition model. Possible values
+         include: 'recognition_01', 'recognition_02', 'recognition_03'
+        :type recognition_model: str or
+         ~azure.cognitiveservices.vision.face.models.RecognitionModel
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: CompareResult or ClientRawResponse if raw=true
+        :rtype: ~azure.cognitiveservices.vision.face.models.CompareResult or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`APIErrorException<azure.cognitiveservices.vision.face.models.APIErrorException>`
+        """
+        # Construct URL
+        url = self.compare_with_stream.metadata['url']
+        path_format_arguments = {
+            'Endpoint': self._serialize.url("self.config.endpoint", self.config.endpoint, 'str', skip_quote=True)
+        }
+        url = self._client.format_url(url, **path_format_arguments)
+
+        # Construct parameters
+        query_parameters = {}
+        if detection_model is not None:
+            query_parameters['detectionModel'] = self._serialize.query("detection_model", detection_model, 'str')
+        if recognition_model is not None:
+            query_parameters['recognitionModel'] = self._serialize.query("recognition_model", recognition_model, 'str')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
+        header_parameters['Content-Type'] = 'multipart/form-data'
+        if custom_headers:
+            header_parameters.update(custom_headers)
+
+        # Construct form data
+        form_data_content = {
+            'source': source,
+            'target': target,
+        }
+
+        # Construct and send request
+        request = self._client.post(url, query_parameters, header_parameters, form_content=form_data_content)
+        response = self._client.send(request, stream=False, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.APIErrorException(self._deserialize, response)
+
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('CompareResult', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+    compare_with_stream.metadata = {'url': '/compare'}
 
     def detect_with_stream(
             self, image, return_face_id=True, return_face_landmarks=False, return_face_attributes=None, recognition_model="recognition_01", return_recognition_model=False, detection_model="detection_01", custom_headers=None, raw=False, callback=None, **operation_config):
