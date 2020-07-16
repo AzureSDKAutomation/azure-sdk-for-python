@@ -9,11 +9,5 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from ._configuration import KeyVaultManagementClientConfiguration
-from ._key_vault_management_client import KeyVaultManagementClient
-__all__ = ['KeyVaultManagementClient', 'KeyVaultManagementClientConfiguration']
-
-from .version import VERSION
-
-__version__ = VERSION
+VERSION = "2019-09-01"
 
