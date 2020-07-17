@@ -188,6 +188,7 @@ try:
     from ._models_py3 import ExpressRouteServiceProvider
     from ._models_py3 import ExpressRouteServiceProviderBandwidthsOffered
     from ._models_py3 import FirewallPolicy
+    from ._models_py3 import FirewallPolicyCertificateAuthority
     from ._models_py3 import FirewallPolicyFilterRule
     from ._models_py3 import FirewallPolicyFilterRuleAction
     from ._models_py3 import FirewallPolicyNatRule
@@ -197,6 +198,8 @@ try:
     from ._models_py3 import FirewallPolicyRuleConditionApplicationProtocol
     from ._models_py3 import FirewallPolicyRuleGroup
     from ._models_py3 import FirewallPolicyThreatIntelWhitelist
+    from ._models_py3 import FirewallPolicyTransportSecurity
+    from ._models_py3 import FirewallPolicyTrustedRootCertificate
     from ._models_py3 import FlowLog
     from ._models_py3 import FlowLogFormatParameters
     from ._models_py3 import FlowLogInformation
@@ -591,6 +594,7 @@ except (SyntaxError, ImportError):
     from ._models import ExpressRouteServiceProvider
     from ._models import ExpressRouteServiceProviderBandwidthsOffered
     from ._models import FirewallPolicy
+    from ._models import FirewallPolicyCertificateAuthority
     from ._models import FirewallPolicyFilterRule
     from ._models import FirewallPolicyFilterRuleAction
     from ._models import FirewallPolicyNatRule
@@ -600,6 +604,8 @@ except (SyntaxError, ImportError):
     from ._models import FirewallPolicyRuleConditionApplicationProtocol
     from ._models import FirewallPolicyRuleGroup
     from ._models import FirewallPolicyThreatIntelWhitelist
+    from ._models import FirewallPolicyTransportSecurity
+    from ._models import FirewallPolicyTrustedRootCertificate
     from ._models import FlowLog
     from ._models import FlowLogFormatParameters
     from ._models import FlowLogInformation
@@ -953,6 +959,7 @@ from ._network_management_client_enums import (
     ExpressRouteLinkConnectorType,
     ExpressRouteLinkAdminState,
     ExpressRoutePortsEncapsulation,
+    FirewallPolicyIntrusionSystemMode,
     FirewallPolicyNatRuleActionType,
     FirewallPolicyFilterRuleActionType,
     FirewallPolicyRuleConditionApplicationProtocolType,
@@ -1213,6 +1220,7 @@ __all__ = [
     'ExpressRouteServiceProvider',
     'ExpressRouteServiceProviderBandwidthsOffered',
     'FirewallPolicy',
+    'FirewallPolicyCertificateAuthority',
     'FirewallPolicyFilterRule',
     'FirewallPolicyFilterRuleAction',
     'FirewallPolicyNatRule',
@@ -1222,6 +1230,8 @@ __all__ = [
     'FirewallPolicyRuleConditionApplicationProtocol',
     'FirewallPolicyRuleGroup',
     'FirewallPolicyThreatIntelWhitelist',
+    'FirewallPolicyTransportSecurity',
+    'FirewallPolicyTrustedRootCertificate',
     'FlowLog',
     'FlowLogFormatParameters',
     'FlowLogInformation',
@@ -1574,6 +1584,7 @@ __all__ = [
     'ExpressRouteLinkConnectorType',
     'ExpressRouteLinkAdminState',
     'ExpressRoutePortsEncapsulation',
+    'FirewallPolicyIntrusionSystemMode',
     'FirewallPolicyNatRuleActionType',
     'FirewallPolicyFilterRuleActionType',
     'FirewallPolicyRuleConditionApplicationProtocolType',
