@@ -20,6 +20,10 @@ try:
     from ._models_py3 import Operation
     from ._models_py3 import OperationDisplay
     from ._models_py3 import OperationListResult
+    from ._models_py3 import PutSubscriptionRequest
+    from ._models_py3 import PutSubscriptionRequestProperties
+    from ._models_py3 import PutSubscriptionResponse
+    from ._models_py3 import PutSubscriptionResponseProperties
     from ._models_py3 import RenamedSubscriptionId
     from ._models_py3 import Subscription
     from ._models_py3 import SubscriptionCreationParameters
@@ -38,6 +42,10 @@ except (SyntaxError, ImportError):
     from ._models import Operation
     from ._models import OperationDisplay
     from ._models import OperationListResult
+    from ._models import PutSubscriptionRequest
+    from ._models import PutSubscriptionRequestProperties
+    from ._models import PutSubscriptionResponse
+    from ._models import PutSubscriptionResponseProperties
     from ._models import RenamedSubscriptionId
     from ._models import Subscription
     from ._models import SubscriptionCreationParameters
@@ -65,6 +73,10 @@ __all__ = [
     'Operation',
     'OperationDisplay',
     'OperationListResult',
+    'PutSubscriptionRequest',
+    'PutSubscriptionRequestProperties',
+    'PutSubscriptionResponse',
+    'PutSubscriptionResponseProperties',
     'RenamedSubscriptionId',
     'Subscription',
     'SubscriptionCreationParameters',

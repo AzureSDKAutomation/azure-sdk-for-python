@@ -179,7 +179,7 @@ class ModernCspSubscriptionCreationParameters(Model):
     :type display_name: str
     :param sku_id: Required. The SKU ID of the Azure plan. Azure plan
      determines the pricing and service-level agreement of the subscription.
-     Use 001 for Microsoft Azure Plan and 002 for Microsoft Azure Plan for
+     Use 0001 for Microsoft Azure Plan and 0002 for Microsoft Azure Plan for
      DevTest.
     :type sku_id: str
     :param reseller_id: Reseller ID, basically MPN Id.
@@ -213,7 +213,7 @@ class ModernSubscriptionCreationParameters(Model):
     :type display_name: str
     :param sku_id: Required. The SKU ID of the Azure plan. Azure plan
      determines the pricing and service-level agreement of the subscription.
-     Use 001 for Microsoft Azure Plan and 002 for Microsoft Azure Plan for
+     Use 0001 for Microsoft Azure Plan and 0002 for Microsoft Azure Plan for
      DevTest.
     :type sku_id: str
     :param cost_center: If set, the cost center will show up on the Azure
@@ -320,6 +320,129 @@ class OperationListResult(Model):
         super(OperationListResult, self).__init__(**kwargs)
         self.value = kwargs.get('value', None)
         self.next_link = kwargs.get('next_link', None)
+
+
+class PutSubscriptionRequest(Model):
+    """The parameters required to create a new subscription.
+
+    :param properties: Put subscription request properties.
+    :type properties:
+     ~azure.mgmt.subscription.models.PutSubscriptionRequestProperties
+    """
+
+    _attribute_map = {
+        'properties': {'key': 'properties', 'type': 'PutSubscriptionRequestProperties'},
+    }
+
+    def __init__(self, **kwargs):
+        super(PutSubscriptionRequest, self).__init__(**kwargs)
+        self.properties = kwargs.get('properties', None)
+
+
+class PutSubscriptionRequestProperties(Model):
+    """Put subscription properties.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param display_name: Required. The friendly name of the subscription.
+    :type display_name: str
+    :param sku_id: Required. The SKU ID of the Azure plan. Azure plan
+     determines the pricing and service-level agreement of the subscription.
+     Use 0001 for Microsoft Azure Plan and 0002 for Microsoft Azure Plan for
+     DevTest.
+    :type sku_id: str
+    :param billing_scope: Required. Determines customerLed / fieldLed
+     (/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}/invoiceSections/{invoiceSectionId}),
+     partnerLed (/billingAccounts/{billingAccountId}/customers/{customerId}).
+    :type billing_scope: str
+    :param initial_owner_principal_id: Initial owner principal Id.
+    :type initial_owner_principal_id: str
+    :param initial_owner_tenant_id: Initial owner tenant Id.
+    :type initial_owner_tenant_id: str
+    """
+
+    _validation = {
+        'display_name': {'required': True},
+        'sku_id': {'required': True},
+        'billing_scope': {'required': True},
+    }
+
+    _attribute_map = {
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'sku_id': {'key': 'skuId', 'type': 'str'},
+        'billing_scope': {'key': 'billingScope', 'type': 'str'},
+        'initial_owner_principal_id': {'key': 'initialOwnerPrincipalId', 'type': 'str'},
+        'initial_owner_tenant_id': {'key': 'initialOwnerTenantId', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(PutSubscriptionRequestProperties, self).__init__(**kwargs)
+        self.display_name = kwargs.get('display_name', None)
+        self.sku_id = kwargs.get('sku_id', None)
+        self.billing_scope = kwargs.get('billing_scope', None)
+        self.initial_owner_principal_id = kwargs.get('initial_owner_principal_id', None)
+        self.initial_owner_tenant_id = kwargs.get('initial_owner_tenant_id', None)
+
+
+class PutSubscriptionResponse(Model):
+    """Subscription information (same as Microsoft.Resources/subscription).
+
+    :param id: Fully qualified ID for the subscription resource.
+    :type id: str
+    :param name: Subscription ID.
+    :type name: str
+    :param type: Resource type, Microsoft.Subscriptions.
+    :type type: str
+    :param properties: Put subscription response properties.
+    :type properties:
+     ~azure.mgmt.subscription.models.PutSubscriptionResponseProperties
+    """
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'PutSubscriptionResponseProperties'},
+    }
+
+    def __init__(self, **kwargs):
+        super(PutSubscriptionResponse, self).__init__(**kwargs)
+        self.id = kwargs.get('id', None)
+        self.name = kwargs.get('name', None)
+        self.type = kwargs.get('type', None)
+        self.properties = kwargs.get('properties', None)
+
+
+class PutSubscriptionResponseProperties(Model):
+    """Put subscription creation result properties.
+
+    :param display_name: The friendly name of the subscription.
+    :type display_name: str
+    :param sku_id: The SKU ID of the Azure plan.
+    :type sku_id: str
+    :param billing_scope: Corresponding billing scope.
+    :type billing_scope: str
+    :param initial_owner_principal_id: Initial owner principal Id.
+    :type initial_owner_principal_id: str
+    :param initial_owner_tenant_id: Initial owner tenant Id.
+    :type initial_owner_tenant_id: str
+    """
+
+    _attribute_map = {
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'sku_id': {'key': 'skuId', 'type': 'str'},
+        'billing_scope': {'key': 'billingScope', 'type': 'str'},
+        'initial_owner_principal_id': {'key': 'initialOwnerPrincipalId', 'type': 'str'},
+        'initial_owner_tenant_id': {'key': 'initialOwnerTenantId', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(PutSubscriptionResponseProperties, self).__init__(**kwargs)
+        self.display_name = kwargs.get('display_name', None)
+        self.sku_id = kwargs.get('sku_id', None)
+        self.billing_scope = kwargs.get('billing_scope', None)
+        self.initial_owner_principal_id = kwargs.get('initial_owner_principal_id', None)
+        self.initial_owner_tenant_id = kwargs.get('initial_owner_tenant_id', None)
 
 
 class RenamedSubscriptionId(Model):
