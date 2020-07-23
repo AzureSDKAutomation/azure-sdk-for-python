@@ -85,12 +85,12 @@ class WorkspaceSkuNameEnum(str, Enum):
 
 class DataIngestionStatus(str, Enum):
 
-    respect_quota = "RespectQuota"  #: Ingestion enabled following daily cap quota reset, or subscription enablement.
+    respect_quota = "RespectQuota"  #: Renewed ingestion following daily cap quota reset, or subscription activation.
     force_on = "ForceOn"  #: Ingestion started following service setting change.
     force_off = "ForceOff"  #: Ingestion stopped following service setting change.
-    over_quota = "OverQuota"  #: Reached daily cap quota, ingestion stopped.
-    subscription_suspended = "SubscriptionSuspended"  #: Ingestion stopped following suspended subscription.
-    approaching_quota = "ApproachingQuota"  #: 80% of daily cap quota reached.
+    over_quota = "OverQuota"  #: Stopped ingestion following daily cap quota reach.
+    subscription_suspended = "SubscriptionSuspended"  #: Stopped ingestion following subscription getting into suspended state.
+    approaching_quota = "ApproachingQuota"  #: 80% of the daily cap quota reached.
 
 
 class WorkspaceEntityStatus(str, Enum):
