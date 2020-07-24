@@ -29,6 +29,7 @@ try:
     from ._models_py3 import AvailableOperationDisplay
     from ._models_py3 import AzureActiveDirectory
     from ._models_py3 import CertificateDescription
+    from ._models_py3 import ClientCertificate
     from ._models_py3 import ClientCertificateCommonName
     from ._models_py3 import ClientCertificateThumbprint
     from ._models_py3 import Cluster
@@ -44,9 +45,17 @@ try:
     from ._models_py3 import EndpointRangeDescription
     from ._models_py3 import ErrorModel, ErrorModelException
     from ._models_py3 import ErrorModelError
+    from ._models_py3 import LoadBalancingRule
+    from ._models_py3 import ManagedCluster
+    from ._models_py3 import ManagedClusterUpdateParameters
+    from ._models_py3 import ManagedClusterVersionDetails
     from ._models_py3 import ManagedIdentity
+    from ._models_py3 import ManagedProxyResource
     from ._models_py3 import NamedPartitionSchemeDescription
+    from ._models_py3 import NodeType
+    from ._models_py3 import NodeTypeActionParameters
     from ._models_py3 import NodeTypeDescription
+    from ._models_py3 import NodeTypeUpdateParameters
     from ._models_py3 import OperationResult
     from ._models_py3 import PartitionSchemeDescription
     from ._models_py3 import ProxyResource
@@ -67,12 +76,17 @@ try:
     from ._models_py3 import SettingsParameterDescription
     from ._models_py3 import SettingsSectionDescription
     from ._models_py3 import SingletonPartitionSchemeDescription
+    from ._models_py3 import Sku
     from ._models_py3 import StatefulServiceProperties
     from ._models_py3 import StatefulServiceUpdateProperties
     from ._models_py3 import StatelessServiceProperties
     from ._models_py3 import StatelessServiceUpdateProperties
+    from ._models_py3 import SubResource
     from ._models_py3 import UniformInt64RangePartitionSchemeDescription
     from ._models_py3 import UserAssignedIdentity
+    from ._models_py3 import VaultCertificate
+    from ._models_py3 import VaultSecretGroup
+    from ._models_py3 import VMSSExtension
 except (SyntaxError, ImportError):
     from ._models import ApplicationDeltaHealthPolicy
     from ._models import ApplicationHealthPolicy
@@ -93,6 +107,7 @@ except (SyntaxError, ImportError):
     from ._models import AvailableOperationDisplay
     from ._models import AzureActiveDirectory
     from ._models import CertificateDescription
+    from ._models import ClientCertificate
     from ._models import ClientCertificateCommonName
     from ._models import ClientCertificateThumbprint
     from ._models import Cluster
@@ -108,9 +123,17 @@ except (SyntaxError, ImportError):
     from ._models import EndpointRangeDescription
     from ._models import ErrorModel, ErrorModelException
     from ._models import ErrorModelError
+    from ._models import LoadBalancingRule
+    from ._models import ManagedCluster
+    from ._models import ManagedClusterUpdateParameters
+    from ._models import ManagedClusterVersionDetails
     from ._models import ManagedIdentity
+    from ._models import ManagedProxyResource
     from ._models import NamedPartitionSchemeDescription
+    from ._models import NodeType
+    from ._models import NodeTypeActionParameters
     from ._models import NodeTypeDescription
+    from ._models import NodeTypeUpdateParameters
     from ._models import OperationResult
     from ._models import PartitionSchemeDescription
     from ._models import ProxyResource
@@ -131,12 +154,19 @@ except (SyntaxError, ImportError):
     from ._models import SettingsParameterDescription
     from ._models import SettingsSectionDescription
     from ._models import SingletonPartitionSchemeDescription
+    from ._models import Sku
     from ._models import StatefulServiceProperties
     from ._models import StatefulServiceUpdateProperties
     from ._models import StatelessServiceProperties
     from ._models import StatelessServiceUpdateProperties
+    from ._models import SubResource
     from ._models import UniformInt64RangePartitionSchemeDescription
     from ._models import UserAssignedIdentity
+    from ._models import VaultCertificate
+    from ._models import VaultSecretGroup
+    from ._models import VMSSExtension
+from ._paged_models import ManagedClusterPaged
+from ._paged_models import NodeTypePaged
 from ._paged_models import OperationResultPaged
 from ._service_fabric_management_client_enums import (
     ProvisioningState,
@@ -150,6 +180,8 @@ from ._service_fabric_management_client_enums import (
     ServiceLoadMetricWeight,
     ServicePlacementPolicyType,
     ArmServicePackageActivationMode,
+    Protocol,
+    ProbeProtocol,
 )
 
 __all__ = [
@@ -172,6 +204,7 @@ __all__ = [
     'AvailableOperationDisplay',
     'AzureActiveDirectory',
     'CertificateDescription',
+    'ClientCertificate',
     'ClientCertificateCommonName',
     'ClientCertificateThumbprint',
     'Cluster',
@@ -187,9 +220,17 @@ __all__ = [
     'EndpointRangeDescription',
     'ErrorModel', 'ErrorModelException',
     'ErrorModelError',
+    'LoadBalancingRule',
+    'ManagedCluster',
+    'ManagedClusterUpdateParameters',
+    'ManagedClusterVersionDetails',
     'ManagedIdentity',
+    'ManagedProxyResource',
     'NamedPartitionSchemeDescription',
+    'NodeType',
+    'NodeTypeActionParameters',
     'NodeTypeDescription',
+    'NodeTypeUpdateParameters',
     'OperationResult',
     'PartitionSchemeDescription',
     'ProxyResource',
@@ -210,13 +251,20 @@ __all__ = [
     'SettingsParameterDescription',
     'SettingsSectionDescription',
     'SingletonPartitionSchemeDescription',
+    'Sku',
     'StatefulServiceProperties',
     'StatefulServiceUpdateProperties',
     'StatelessServiceProperties',
     'StatelessServiceUpdateProperties',
+    'SubResource',
     'UniformInt64RangePartitionSchemeDescription',
     'UserAssignedIdentity',
+    'VaultCertificate',
+    'VaultSecretGroup',
+    'VMSSExtension',
     'OperationResultPaged',
+    'ManagedClusterPaged',
+    'NodeTypePaged',
     'ProvisioningState',
     'ManagedIdentityType',
     'ArmUpgradeFailureAction',
@@ -228,4 +276,6 @@ __all__ = [
     'ServiceLoadMetricWeight',
     'ServicePlacementPolicyType',
     'ArmServicePackageActivationMode',
+    'Protocol',
+    'ProbeProtocol',
 ]

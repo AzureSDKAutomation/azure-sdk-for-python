@@ -95,3 +95,16 @@ class ArmServicePackageActivationMode(str, Enum):
 
     shared_process = "SharedProcess"  #: Indicates the application package activation mode will use shared process.
     exclusive_process = "ExclusiveProcess"  #: Indicates the application package activation mode will use exclusive process.
+
+
+class Protocol(str, Enum):
+
+    tcp = "tcp"
+    udp = "udp"
+
+
+class ProbeProtocol(str, Enum):
+
+    tcp = "tcp"
+    http = "http"
+    https = "https"
