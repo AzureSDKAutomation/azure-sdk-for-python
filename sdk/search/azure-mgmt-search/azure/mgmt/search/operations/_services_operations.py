@@ -178,7 +178,7 @@ class ServicesOperations(object):
          service to update.
         :type search_service_name: str
         :param service: The definition of the Search service to update.
-        :type service: ~azure.mgmt.search.models.SearchService
+        :type service: ~azure.mgmt.search.models.SearchServiceUpdate
         :param search_management_request_options: Additional parameters for
          the operation
         :type search_management_request_options:
@@ -224,7 +224,7 @@ class ServicesOperations(object):
             header_parameters['x-ms-client-request-id'] = self._serialize.header("client_request_id", client_request_id, 'str')
 
         # Construct body
-        body_content = self._serialize.body(service, 'SearchService')
+        body_content = self._serialize.body(service, 'SearchServiceUpdate')
 
         # Construct and send request
         request = self._client.patch(url, query_parameters, header_parameters, body_content)

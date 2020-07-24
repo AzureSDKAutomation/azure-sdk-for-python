@@ -42,6 +42,79 @@ class AdminKeyResult(Model):
         self.secondary_key = None
 
 
+class Resource(Model):
+    """Resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :vartype type: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(Resource, self).__init__(**kwargs)
+        self.id = None
+        self.name = None
+        self.type = None
+
+
+class AzureEntityResource(Resource):
+    """The resource model definition for a Azure Resource Manager resource with an
+    etag.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :vartype type: str
+    :ivar etag: Resource Etag.
+    :vartype etag: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'etag': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AzureEntityResource, self).__init__(**kwargs)
+        self.etag = None
+
+
 class CheckNameAvailabilityInput(Model):
     """Input of check name availability API.
 
@@ -323,19 +396,20 @@ class OperationDisplay(Model):
         self.description = None
 
 
-class PrivateEndpointConnection(Model):
+class PrivateEndpointConnection(Resource):
     """Describes an existing Private Endpoint connection to the Azure Cognitive
     Search service.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: The ID of the private endpoint connection. This can be used with
-     the Azure Resource Manager to link resources together.
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
-    :ivar name: The name of the private endpoint connection.
+    :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The resource type.
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
     :vartype type: str
     :param properties: Describes the properties of an existing Private
      Endpoint connection to the Azure Cognitive Search service.
@@ -358,9 +432,6 @@ class PrivateEndpointConnection(Model):
 
     def __init__(self, **kwargs):
         super(PrivateEndpointConnection, self).__init__(**kwargs)
-        self.id = None
-        self.name = None
-        self.type = None
         self.properties = kwargs.get('properties', None)
 
 
@@ -437,18 +508,20 @@ class PrivateEndpointConnectionPropertiesPrivateLinkServiceConnectionState(Model
         self.actions_required = kwargs.get('actions_required', "None")
 
 
-class PrivateLinkResource(Model):
+class PrivateLinkResource(Resource):
     """Describes a supported private link resource for the Azure Cognitive Search
     service.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: The ID of the private link resource.
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
-    :ivar name: The name of the private link resource.
+    :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The resource type.
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
     :vartype type: str
     :ivar properties: Describes the properties of a supported private link
      resource for the Azure Cognitive Search service.
@@ -472,9 +545,6 @@ class PrivateLinkResource(Model):
 
     def __init__(self, **kwargs):
         super(PrivateLinkResource, self).__init__(**kwargs)
-        self.id = None
-        self.name = None
-        self.type = None
         self.properties = None
 
 
@@ -523,6 +593,39 @@ class PrivateLinkResourceProperties(Model):
         self.shareable_private_link_resource_types = None
 
 
+class ProxyResource(Resource):
+    """The resource model definition for a ARM proxy resource. It will have
+    everything other than required location and tags.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :vartype type: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ProxyResource, self).__init__(**kwargs)
+
+
 class QueryKey(Model):
     """Describes an API key for a given Azure Cognitive Search service that has
     permissions for query operations only.
@@ -552,55 +655,6 @@ class QueryKey(Model):
         self.key = None
 
 
-class Resource(Model):
-    """Base type for all Azure resources.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: The ID of the resource. This can be used with the Azure Resource
-     Manager to link resources together.
-    :vartype id: str
-    :ivar name: The name of the resource.
-    :vartype name: str
-    :ivar type: The resource type.
-    :vartype type: str
-    :param location: The geographic location of the resource. This must be one
-     of the supported and registered Azure Geo Regions (for example, West US,
-     East US, Southeast Asia, and so forth). This property is required when
-     creating a new resource.
-    :type location: str
-    :param tags: Tags to help categorize the resource in the Azure portal.
-    :type tags: dict[str, str]
-    :param identity: The identity of the resource.
-    :type identity: ~azure.mgmt.search.models.Identity
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'location': {'key': 'location', 'type': 'str'},
-        'tags': {'key': 'tags', 'type': '{str}'},
-        'identity': {'key': 'identity', 'type': 'Identity'},
-    }
-
-    def __init__(self, **kwargs):
-        super(Resource, self).__init__(**kwargs)
-        self.id = None
-        self.name = None
-        self.type = None
-        self.location = kwargs.get('location', None)
-        self.tags = kwargs.get('tags', None)
-        self.identity = kwargs.get('identity', None)
-
-
 class SearchManagementRequestOptions(Model):
     """Additional parameters for a set of operations.
 
@@ -619,28 +673,69 @@ class SearchManagementRequestOptions(Model):
         self.client_request_id = kwargs.get('client_request_id', None)
 
 
-class SearchService(Resource):
+class TrackedResource(Resource):
+    """The resource model definition for a ARM tracked top level resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :vartype type: str
+    :param tags: Resource tags.
+    :type tags: dict[str, str]
+    :param location: Required. The geo-location where the resource lives
+    :type location: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'location': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'location': {'key': 'location', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(TrackedResource, self).__init__(**kwargs)
+        self.tags = kwargs.get('tags', None)
+        self.location = kwargs.get('location', None)
+
+
+class SearchService(TrackedResource):
     """Describes an Azure Cognitive Search service and its current state.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: The ID of the resource. This can be used with the Azure Resource
-     Manager to link resources together.
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
-    :ivar name: The name of the resource.
+    :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The resource type.
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
     :vartype type: str
-    :param location: The geographic location of the resource. This must be one
-     of the supported and registered Azure Geo Regions (for example, West US,
-     East US, Southeast Asia, and so forth). This property is required when
-     creating a new resource.
-    :type location: str
-    :param tags: Tags to help categorize the resource in the Azure portal.
+    :param tags: Resource tags.
     :type tags: dict[str, str]
-    :param identity: The identity of the resource.
-    :type identity: ~azure.mgmt.search.models.Identity
+    :param location: Required. The geo-location where the resource lives
+    :type location: str
     :param replica_count: The number of replicas in the Search service. If
      specified, it must be a value between 1 and 12 inclusive for standard SKUs
      or between 1 and 3 inclusive for basic SKU. Default value: 1 .
@@ -710,6 +805,152 @@ class SearchService(Resource):
      capacity limits. This property is required when creating a new Search
      Service.
     :type sku: ~azure.mgmt.search.models.Sku
+    :param identity: The identity of the resource.
+    :type identity: ~azure.mgmt.search.models.Identity
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'location': {'required': True},
+        'replica_count': {'maximum': 12, 'minimum': 1},
+        'partition_count': {'maximum': 12, 'minimum': 1},
+        'status': {'readonly': True},
+        'status_details': {'readonly': True},
+        'provisioning_state': {'readonly': True},
+        'private_endpoint_connections': {'readonly': True},
+        'shared_private_link_resources': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'location': {'key': 'location', 'type': 'str'},
+        'replica_count': {'key': 'properties.replicaCount', 'type': 'int'},
+        'partition_count': {'key': 'properties.partitionCount', 'type': 'int'},
+        'hosting_mode': {'key': 'properties.hostingMode', 'type': 'HostingMode'},
+        'public_network_access': {'key': 'properties.publicNetworkAccess', 'type': 'PublicNetworkAccess'},
+        'status': {'key': 'properties.status', 'type': 'SearchServiceStatus'},
+        'status_details': {'key': 'properties.statusDetails', 'type': 'str'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'ProvisioningState'},
+        'network_rule_set': {'key': 'properties.networkRuleSet', 'type': 'NetworkRuleSet'},
+        'private_endpoint_connections': {'key': 'properties.privateEndpointConnections', 'type': '[PrivateEndpointConnection]'},
+        'shared_private_link_resources': {'key': 'properties.sharedPrivateLinkResources', 'type': '[SharedPrivateLinkResource]'},
+        'sku': {'key': 'sku', 'type': 'Sku'},
+        'identity': {'key': 'identity', 'type': 'Identity'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SearchService, self).__init__(**kwargs)
+        self.replica_count = kwargs.get('replica_count', 1)
+        self.partition_count = kwargs.get('partition_count', 1)
+        self.hosting_mode = kwargs.get('hosting_mode', "default")
+        self.public_network_access = kwargs.get('public_network_access', "enabled")
+        self.status = None
+        self.status_details = None
+        self.provisioning_state = None
+        self.network_rule_set = kwargs.get('network_rule_set', None)
+        self.private_endpoint_connections = None
+        self.shared_private_link_resources = None
+        self.sku = kwargs.get('sku', None)
+        self.identity = kwargs.get('identity', None)
+
+
+class SearchServiceUpdate(Resource):
+    """The parameters used to update an Azure Cognitive Search service.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :vartype type: str
+    :param replica_count: The number of replicas in the Search service. If
+     specified, it must be a value between 1 and 12 inclusive for standard SKUs
+     or between 1 and 3 inclusive for basic SKU. Default value: 1 .
+    :type replica_count: int
+    :param partition_count: The number of partitions in the Search service; if
+     specified, it can be 1, 2, 3, 4, 6, or 12. Values greater than 1 are only
+     valid for standard SKUs. For 'standard3' services with hostingMode set to
+     'highDensity', the allowed values are between 1 and 3. Default value: 1 .
+    :type partition_count: int
+    :param hosting_mode: Applicable only for the standard3 SKU. You can set
+     this property to enable up to 3 high density partitions that allow up to
+     1000 indexes, which is much higher than the maximum indexes allowed for
+     any other SKU. For the standard3 SKU, the value is either 'default' or
+     'highDensity'. For all other SKUs, this value must be 'default'. Possible
+     values include: 'default', 'highDensity'. Default value: "default" .
+    :type hosting_mode: str or ~azure.mgmt.search.models.HostingMode
+    :param public_network_access: This value can be set to 'enabled' to avoid
+     breaking changes on existing customer resources and templates. If set to
+     'disabled', traffic over public interface is not allowed, and private
+     endpoint connections would be the exclusive access method. Possible values
+     include: 'enabled', 'disabled'. Default value: "enabled" .
+    :type public_network_access: str or
+     ~azure.mgmt.search.models.PublicNetworkAccess
+    :ivar status: The status of the Search service. Possible values include:
+     'running': The Search service is running and no provisioning operations
+     are underway. 'provisioning': The Search service is being provisioned or
+     scaled up or down. 'deleting': The Search service is being deleted.
+     'degraded': The Search service is degraded. This can occur when the
+     underlying search units are not healthy. The Search service is most likely
+     operational, but performance might be slow and some requests might be
+     dropped. 'disabled': The Search service is disabled. In this state, the
+     service will reject all API requests. 'error': The Search service is in an
+     error state. If your service is in the degraded, disabled, or error
+     states, it means the Azure Cognitive Search team is actively investigating
+     the underlying issue. Dedicated services in these states are still
+     chargeable based on the number of search units provisioned. Possible
+     values include: 'running', 'provisioning', 'deleting', 'degraded',
+     'disabled', 'error'
+    :vartype status: str or ~azure.mgmt.search.models.SearchServiceStatus
+    :ivar status_details: The details of the Search service status.
+    :vartype status_details: str
+    :ivar provisioning_state: The state of the last provisioning operation
+     performed on the Search service. Provisioning is an intermediate state
+     that occurs while service capacity is being established. After capacity is
+     set up, provisioningState changes to either 'succeeded' or 'failed'.
+     Client applications can poll provisioning status (the recommended polling
+     interval is from 30 seconds to one minute) by using the Get Search Service
+     operation to see when an operation is completed. If you are using the free
+     service, this value tends to come back as 'succeeded' directly in the call
+     to Create Search service. This is because the free service uses capacity
+     that is already set up. Possible values include: 'succeeded',
+     'provisioning', 'failed'
+    :vartype provisioning_state: str or
+     ~azure.mgmt.search.models.ProvisioningState
+    :param network_rule_set: Network specific rules that determine how the
+     Azure Cognitive Search service may be reached.
+    :type network_rule_set: ~azure.mgmt.search.models.NetworkRuleSet
+    :ivar private_endpoint_connections: The list of private endpoint
+     connections to the Azure Cognitive Search service.
+    :vartype private_endpoint_connections:
+     list[~azure.mgmt.search.models.PrivateEndpointConnection]
+    :ivar shared_private_link_resources: The list of shared private link
+     resources managed by the Azure Cognitive Search service.
+    :vartype shared_private_link_resources:
+     list[~azure.mgmt.search.models.SharedPrivateLinkResource]
+    :param sku: The SKU of the Search Service, which determines price tier and
+     capacity limits. This property is required when creating a new Search
+     Service.
+    :type sku: ~azure.mgmt.search.models.Sku
+    :param location: The geographic location of the resource. This must be one
+     of the supported and registered Azure Geo Regions (for example, West US,
+     East US, Southeast Asia, and so forth). This property is required when
+     creating a new resource.
+    :type location: str
+    :param tags: Tags to help categorize the resource in the Azure portal.
+    :type tags: dict[str, str]
+    :param identity: The identity of the resource.
+    :type identity: ~azure.mgmt.search.models.Identity
     """
 
     _validation = {
@@ -729,9 +970,6 @@ class SearchService(Resource):
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
-        'location': {'key': 'location', 'type': 'str'},
-        'tags': {'key': 'tags', 'type': '{str}'},
-        'identity': {'key': 'identity', 'type': 'Identity'},
         'replica_count': {'key': 'properties.replicaCount', 'type': 'int'},
         'partition_count': {'key': 'properties.partitionCount', 'type': 'int'},
         'hosting_mode': {'key': 'properties.hostingMode', 'type': 'HostingMode'},
@@ -743,10 +981,13 @@ class SearchService(Resource):
         'private_endpoint_connections': {'key': 'properties.privateEndpointConnections', 'type': '[PrivateEndpointConnection]'},
         'shared_private_link_resources': {'key': 'properties.sharedPrivateLinkResources', 'type': '[SharedPrivateLinkResource]'},
         'sku': {'key': 'sku', 'type': 'Sku'},
+        'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'identity': {'key': 'identity', 'type': 'Identity'},
     }
 
     def __init__(self, **kwargs):
-        super(SearchService, self).__init__(**kwargs)
+        super(SearchServiceUpdate, self).__init__(**kwargs)
         self.replica_count = kwargs.get('replica_count', 1)
         self.partition_count = kwargs.get('partition_count', 1)
         self.hosting_mode = kwargs.get('hosting_mode', "default")
@@ -758,6 +999,9 @@ class SearchService(Resource):
         self.private_endpoint_connections = None
         self.shared_private_link_resources = None
         self.sku = kwargs.get('sku', None)
+        self.location = kwargs.get('location', None)
+        self.tags = kwargs.get('tags', None)
+        self.identity = kwargs.get('identity', None)
 
 
 class ShareablePrivateLinkResourceProperties(Model):
@@ -831,18 +1075,20 @@ class ShareablePrivateLinkResourceType(Model):
         self.properties = None
 
 
-class SharedPrivateLinkResource(Model):
+class SharedPrivateLinkResource(Resource):
     """Describes a Shared Private Link Resource managed by the Azure Cognitive
     Search service.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar name: The name of the shared private link resource.
-    :vartype name: str
-    :ivar id: The ID of the shared private link resource.
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
-    :ivar type: The resource type.
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
     :vartype type: str
     :param properties: Describes the properties of a Shared Private Link
      Resource managed by the Azure Cognitive Search service.
@@ -851,23 +1097,20 @@ class SharedPrivateLinkResource(Model):
     """
 
     _validation = {
-        'name': {'readonly': True},
         'id': {'readonly': True},
+        'name': {'readonly': True},
         'type': {'readonly': True},
     }
 
     _attribute_map = {
-        'name': {'key': 'name', 'type': 'str'},
         'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
         'properties': {'key': 'properties', 'type': 'SharedPrivateLinkResourceProperties'},
     }
 
     def __init__(self, **kwargs):
         super(SharedPrivateLinkResource, self).__init__(**kwargs)
-        self.name = None
-        self.id = None
-        self.type = None
         self.properties = kwargs.get('properties', None)
 
 
