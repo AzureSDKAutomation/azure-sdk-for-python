@@ -15,8 +15,8 @@ from msrest.pipeline import ClientRawResponse
 from .. import models
 
 
-class ProductApiOperations(object):
-    """ProductApiOperations operations.
+class ContentTypeOperations(object):
+    """ContentTypeOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -38,64 +38,38 @@ class ProductApiOperations(object):
 
         self.config = config
 
-    def list_by_product(
-            self, resource_group_name, service_name, product_id, filter=None, top=None, skip=None, custom_headers=None, raw=False, **operation_config):
-        """Lists a collection of the APIs associated with a product.
+    def list_by_service(
+            self, resource_group_name, service_name, custom_headers=None, raw=False, **operation_config):
+        """Returns list of content types.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param service_name: The name of the API Management service.
         :type service_name: str
-        :param product_id: Product identifier. Must be unique in the current
-         API Management service instance.
-        :type product_id: str
-        :param filter: |   Field     |     Usage     |     Supported operators
-         |     Supported functions
-         |</br>|-------------|-------------|-------------|-------------|</br>|
-         name | filter | ge, le, eq, ne, gt, lt | substringof, contains,
-         startswith, endswith | </br>| displayName | filter | ge, le, eq, ne,
-         gt, lt | substringof, contains, startswith, endswith | </br>|
-         description | filter | ge, le, eq, ne, gt, lt | substringof, contains,
-         startswith, endswith | </br>| serviceUrl | filter | ge, le, eq, ne,
-         gt, lt | substringof, contains, startswith, endswith | </br>| path |
-         filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith,
-         endswith | </br>
-        :type filter: str
-        :param top: Number of records to return.
-        :type top: int
-        :param skip: Number of records to skip.
-        :type skip: int
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of ApiContract
+        :return: An iterator like instance of ContentTypeContract
         :rtype:
-         ~azure.mgmt.apimanagement.models.ApiContractPaged[~azure.mgmt.apimanagement.models.ApiContract]
+         ~azure.mgmt.apimanagement.models.ContentTypeContractPaged[~azure.mgmt.apimanagement.models.ContentTypeContract]
         :raises:
          :class:`ErrorResponseException<azure.mgmt.apimanagement.models.ErrorResponseException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
-                url = self.list_by_product.metadata['url']
+                url = self.list_by_service.metadata['url']
                 path_format_arguments = {
                     'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
                     'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
-                    'productId': self._serialize.url("product_id", product_id, 'str', max_length=256, min_length=1),
                     'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
                 }
                 url = self._client.format_url(url, **path_format_arguments)
 
                 # Construct parameters
                 query_parameters = {}
-                if filter is not None:
-                    query_parameters['$filter'] = self._serialize.query("filter", filter, 'str')
-                if top is not None:
-                    query_parameters['$top'] = self._serialize.query("top", top, 'int', minimum=1)
-                if skip is not None:
-                    query_parameters['$skip'] = self._serialize.query("skip", skip, 'int', minimum=0)
                 query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
 
             else:
@@ -130,27 +104,21 @@ class ProductApiOperations(object):
         header_dict = None
         if raw:
             header_dict = {}
-        deserialized = models.ApiContractPaged(internal_paging, self._deserialize.dependencies, header_dict)
+        deserialized = models.ContentTypeContractPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list_by_product.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/apis'}
+    list_by_service.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/contentTypes'}
 
-    def check_entity_exists(
-            self, resource_group_name, service_name, product_id, api_id, custom_headers=None, raw=False, **operation_config):
-        """Checks that API entity specified by identifier is associated with the
-        Product entity.
+    def get_entity_tag(
+            self, resource_group_name, service_name, content_type_id, custom_headers=None, raw=False, **operation_config):
+        """Returns content type metadata.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param service_name: The name of the API Management service.
         :type service_name: str
-        :param product_id: Product identifier. Must be unique in the current
-         API Management service instance.
-        :type product_id: str
-        :param api_id: API revision identifier. Must be unique in the current
-         API Management service instance. Non-current revision has ;rev=n as a
-         suffix where n is the revision number.
-        :type api_id: str
+        :param content_type_id: Content type identifier.
+        :type content_type_id: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -162,12 +130,11 @@ class ProductApiOperations(object):
          :class:`ErrorResponseException<azure.mgmt.apimanagement.models.ErrorResponseException>`
         """
         # Construct URL
-        url = self.check_entity_exists.metadata['url']
+        url = self.get_entity_tag.metadata['url']
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
-            'productId': self._serialize.url("product_id", product_id, 'str', max_length=256, min_length=1),
-            'apiId': self._serialize.url("api_id", api_id, 'str', max_length=256, min_length=1, pattern=r'^[^*#&+:<>?]+$'),
+            'contentTypeId': self._serialize.url("content_type_id", content_type_id, 'str', max_length=80, min_length=1),
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -189,36 +156,34 @@ class ProductApiOperations(object):
         request = self._client.head(url, query_parameters, header_parameters)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [204]:
+        if response.status_code not in [200]:
             raise models.ErrorResponseException(self._deserialize, response)
 
         if raw:
             client_raw_response = ClientRawResponse(None, response)
+            client_raw_response.add_headers({
+                'ETag': 'str',
+            })
             return client_raw_response
-    check_entity_exists.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/apis/{apiId}'}
+    get_entity_tag.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/contentTypes/{contentTypeId}'}
 
     def create_or_update(
-            self, resource_group_name, service_name, product_id, api_id, custom_headers=None, raw=False, **operation_config):
-        """Adds an API to the specified product.
+            self, resource_group_name, service_name, content_type_id, custom_headers=None, raw=False, **operation_config):
+        """Creates new content type.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param service_name: The name of the API Management service.
         :type service_name: str
-        :param product_id: Product identifier. Must be unique in the current
-         API Management service instance.
-        :type product_id: str
-        :param api_id: API revision identifier. Must be unique in the current
-         API Management service instance. Non-current revision has ;rev=n as a
-         suffix where n is the revision number.
-        :type api_id: str
+        :param content_type_id: Content type identifier.
+        :type content_type_id: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: ApiContract or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.apimanagement.models.ApiContract or
+        :return: ContentTypeContract or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.apimanagement.models.ContentTypeContract or
          ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`ErrorResponseException<azure.mgmt.apimanagement.models.ErrorResponseException>`
@@ -228,8 +193,7 @@ class ProductApiOperations(object):
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
-            'productId': self._serialize.url("product_id", product_id, 'str', max_length=256, min_length=1),
-            'apiId': self._serialize.url("api_id", api_id, 'str', max_length=256, min_length=1, pattern=r'^[^*#&+:<>?]+$'),
+            'contentTypeId': self._serialize.url("content_type_id", content_type_id, 'str', max_length=80, min_length=1),
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -255,34 +219,37 @@ class ProductApiOperations(object):
         if response.status_code not in [200, 201]:
             raise models.ErrorResponseException(self._deserialize, response)
 
+        header_dict = {}
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('ApiContract', response)
+            deserialized = self._deserialize('ContentTypeContract', response)
+            header_dict = {
+                'ETag': 'str',
+            }
         if response.status_code == 201:
-            deserialized = self._deserialize('ApiContract', response)
+            deserialized = self._deserialize('ContentTypeContract', response)
+            header_dict = {
+                'ETag': 'str',
+            }
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
+            client_raw_response.add_headers(header_dict)
             return client_raw_response
 
         return deserialized
-    create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/apis/{apiId}'}
+    create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/contentTypes/{contentTypeId}'}
 
     def delete(
-            self, resource_group_name, service_name, product_id, api_id, custom_headers=None, raw=False, **operation_config):
-        """Deletes the specified API from the specified product.
+            self, resource_group_name, service_name, content_type_id, custom_headers=None, raw=False, **operation_config):
+        """Removes specified content type.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param service_name: The name of the API Management service.
         :type service_name: str
-        :param product_id: Product identifier. Must be unique in the current
-         API Management service instance.
-        :type product_id: str
-        :param api_id: API revision identifier. Must be unique in the current
-         API Management service instance. Non-current revision has ;rev=n as a
-         suffix where n is the revision number.
-        :type api_id: str
+        :param content_type_id: Content type identifier.
+        :type content_type_id: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -298,8 +265,7 @@ class ProductApiOperations(object):
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
-            'productId': self._serialize.url("product_id", product_id, 'str', max_length=256, min_length=1),
-            'apiId': self._serialize.url("api_id", api_id, 'str', max_length=256, min_length=1, pattern=r'^[^*#&+:<>?]+$'),
+            'contentTypeId': self._serialize.url("content_type_id", content_type_id, 'str', max_length=80, min_length=1),
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -321,10 +287,10 @@ class ProductApiOperations(object):
         request = self._client.delete(url, query_parameters, header_parameters)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200, 204]:
+        if response.status_code not in [200]:
             raise models.ErrorResponseException(self._deserialize, response)
 
         if raw:
             client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-    delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/apis/{apiId}'}
+    delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/contentTypes/{contentTypeId}'}
