@@ -276,6 +276,205 @@ class AlertsResult(Model):
         self.next_link = None
 
 
+class AnomalyDetails(Model):
+    """Details of cost insights Anomaly.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar contributors: The list of cost insights Anomaly contributors.
+    :vartype contributors:
+     list[~azure.mgmt.costmanagement.models.InsightsAnomalyContributors]
+    """
+
+    _validation = {
+        'contributors': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'contributors': {'key': 'contributors', 'type': '[InsightsAnomalyContributors]'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(AnomalyDetails, self).__init__(**kwargs)
+        self.contributors = None
+
+
+class ProxyResource(Model):
+    """The Resource model definition.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param e_tag: eTag of the resource. To handle concurrent update scenario,
+     this field will be used to determine whether the user is updating the
+     latest version or not.
+    :type e_tag: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'e_tag': {'key': 'eTag', 'type': 'str'},
+    }
+
+    def __init__(self, *, e_tag: str=None, **kwargs) -> None:
+        super(ProxyResource, self).__init__(**kwargs)
+        self.id = None
+        self.name = None
+        self.type = None
+        self.e_tag = e_tag
+
+
+class Insights(ProxyResource):
+    """Cost insights.
+
+    You probably want to use the sub-classes and not this class directly. Known
+    sub-classes are: AnomalyInsights
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param e_tag: eTag of the resource. To handle concurrent update scenario,
+     this field will be used to determine whether the user is updating the
+     latest version or not.
+    :type e_tag: str
+    :param kind: Required. Constant filled by server.
+    :type kind: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'kind': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'e_tag': {'key': 'eTag', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+    }
+
+    _subtype_map = {
+        'kind': {'anomaly': 'AnomalyInsights'}
+    }
+
+    def __init__(self, *, e_tag: str=None, **kwargs) -> None:
+        super(Insights, self).__init__(e_tag=e_tag, **kwargs)
+        self.kind = None
+        self.kind = 'Insights'
+
+
+class AnomalyInsights(Insights):
+    """Anomaly Insights.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param e_tag: eTag of the resource. To handle concurrent update scenario,
+     this field will be used to determine whether the user is updating the
+     latest version or not.
+    :type e_tag: str
+    :param kind: Required. Constant filled by server.
+    :type kind: str
+    :param status: Status of the insight. Possible values include: 'New',
+     'Dismissed', 'Acknowledged', 'Resolved'
+    :type status: str or ~azure.mgmt.costmanagement.models.InsightsStatus
+    :ivar event_date: The date of event resulting in this Anomaly
+    :vartype event_date: datetime
+    :ivar scope: The scope at which the Anomaly was detected.
+    :vartype scope: str
+    :ivar impact_term: The period where the impact was observed
+    :vartype impact_term: str
+    :ivar impact_resolution: The datetime when this impact was resolved.
+    :vartype impact_resolution: datetime
+    :ivar time_detected: The datetime when this Anomaly was detected.
+    :vartype time_detected: datetime
+    :ivar severity: Severity of Anomaly.
+    :vartype severity: str
+    :param details: Details of Anomaly.
+    :type details: object
+    :param justification: Justification as why the impact qualifies as
+     Anomaly.
+    :type justification: object
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'kind': {'required': True},
+        'event_date': {'readonly': True},
+        'scope': {'readonly': True},
+        'impact_term': {'readonly': True},
+        'impact_resolution': {'readonly': True},
+        'time_detected': {'readonly': True},
+        'severity': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'e_tag': {'key': 'eTag', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'status': {'key': 'properties.status', 'type': 'str'},
+        'event_date': {'key': 'properties.eventDate', 'type': 'iso-8601'},
+        'scope': {'key': 'properties.scope', 'type': 'str'},
+        'impact_term': {'key': 'properties.impactTerm', 'type': 'str'},
+        'impact_resolution': {'key': 'properties.impactResolution', 'type': 'iso-8601'},
+        'time_detected': {'key': 'properties.timeDetected', 'type': 'iso-8601'},
+        'severity': {'key': 'properties.severity', 'type': 'str'},
+        'details': {'key': 'properties.details', 'type': 'object'},
+        'justification': {'key': 'properties.justification', 'type': 'object'},
+    }
+
+    def __init__(self, *, e_tag: str=None, status=None, details=None, justification=None, **kwargs) -> None:
+        super(AnomalyInsights, self).__init__(e_tag=e_tag, **kwargs)
+        self.status = status
+        self.event_date = None
+        self.scope = None
+        self.impact_term = None
+        self.impact_resolution = None
+        self.time_detected = None
+        self.severity = None
+        self.details = details
+        self.justification = justification
+        self.kind = 'anomaly'
+
+
 class CloudError(Model):
     """CloudError.
     """
@@ -529,45 +728,6 @@ class ErrorResponseException(HttpOperationError):
     def __init__(self, deserialize, response, *args):
 
         super(ErrorResponseException, self).__init__(deserialize, response, 'ErrorResponse', *args)
-
-
-class ProxyResource(Model):
-    """The Resource model definition.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Resource Id.
-    :vartype id: str
-    :ivar name: Resource name.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :param e_tag: eTag of the resource. To handle concurrent update scenario,
-     this field will be used to determine whether the user is updating the
-     latest version or not.
-    :type e_tag: str
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'e_tag': {'key': 'eTag', 'type': 'str'},
-    }
-
-    def __init__(self, *, e_tag: str=None, **kwargs) -> None:
-        super(ProxyResource, self).__init__(**kwargs)
-        self.id = None
-        self.name = None
-        self.type = None
-        self.e_tag = e_tag
 
 
 class Export(ProxyResource):
@@ -1049,6 +1209,165 @@ class ForecastDefinition(Model):
         self.dataset = dataset
         self.include_actual_cost = include_actual_cost
         self.include_fresh_partial_cost = include_fresh_partial_cost
+
+
+class InsightsAnomalyBoundary(Model):
+    """The list of boundaries.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar threshold: Description og threshold
+    :vartype threshold: str
+    :ivar value: Threshold value
+    :vartype value: float
+    :ivar type: Type of threshold
+    :vartype type: str
+    """
+
+    _validation = {
+        'threshold': {'readonly': True},
+        'value': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'threshold': {'key': 'threshold', 'type': 'str'},
+        'value': {'key': 'value', 'type': 'float'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(InsightsAnomalyBoundary, self).__init__(**kwargs)
+        self.threshold = None
+        self.value = None
+        self.type = None
+
+
+class InsightsAnomalyContributors(Model):
+    """Cost insights Anomaly contributors.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar reason: Contribution Reason.
+    :vartype reason: str
+    :ivar current_count: Current count.
+    :vartype current_count: float
+    :ivar id: Id of resource triggering the change
+    :vartype id: float
+    :ivar change: Value of change
+    :vartype change: float
+    :ivar change_percentage: Percentage of change
+    :vartype change_percentage: float
+    :ivar total_cost_in_usd: Cost in USD
+    :vartype total_cost_in_usd: float
+    :ivar comparison_period: Time period used for comparison
+    :vartype comparison_period: str
+    :ivar comparison_type: Method used for comparison.
+    :vartype comparison_type: str
+    """
+
+    _validation = {
+        'reason': {'readonly': True},
+        'current_count': {'readonly': True},
+        'id': {'readonly': True},
+        'change': {'readonly': True},
+        'change_percentage': {'readonly': True},
+        'total_cost_in_usd': {'readonly': True},
+        'comparison_period': {'readonly': True},
+        'comparison_type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'reason': {'key': 'reason', 'type': 'str'},
+        'current_count': {'key': 'currentCount', 'type': 'float'},
+        'id': {'key': 'id', 'type': 'float'},
+        'change': {'key': 'change', 'type': 'float'},
+        'change_percentage': {'key': 'changePercentage', 'type': 'float'},
+        'total_cost_in_usd': {'key': 'totalCostInUSD', 'type': 'float'},
+        'comparison_period': {'key': 'comparisonPeriod', 'type': 'str'},
+        'comparison_type': {'key': 'comparisonType', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(InsightsAnomalyContributors, self).__init__(**kwargs)
+        self.reason = None
+        self.current_count = None
+        self.id = None
+        self.change = None
+        self.change_percentage = None
+        self.total_cost_in_usd = None
+        self.comparison_period = None
+        self.comparison_type = None
+
+
+class InsightsAnomalyForecast(Model):
+    """The list of expected forecasts.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar is_anomaly: Flag indicating if this Anomaly or not.
+    :vartype is_anomaly: bool
+    :ivar expected: Expected value
+    :vartype expected: float
+    :ivar actual: Actual value
+    :vartype actual: float
+    :ivar delta: Delta value
+    :vartype delta: float
+    """
+
+    _validation = {
+        'is_anomaly': {'readonly': True},
+        'expected': {'readonly': True},
+        'actual': {'readonly': True},
+        'delta': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'is_anomaly': {'key': 'isAnomaly', 'type': 'bool'},
+        'expected': {'key': 'expected', 'type': 'float'},
+        'actual': {'key': 'actual', 'type': 'float'},
+        'delta': {'key': 'delta', 'type': 'float'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(InsightsAnomalyForecast, self).__init__(**kwargs)
+        self.is_anomaly = None
+        self.expected = None
+        self.actual = None
+        self.delta = None
+
+
+class InsightsAnomalyJustification(Model):
+    """Justification as why the impact qualifies as Anomaly.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar forecast: The list of expected forecasts.
+    :vartype forecast:
+     list[~azure.mgmt.costmanagement.models.InsightsAnomalyForecast]
+    :ivar boundary: The list of boundaries.
+    :vartype boundary:
+     list[~azure.mgmt.costmanagement.models.InsightsAnomalyBoundary]
+    """
+
+    _validation = {
+        'forecast': {'readonly': True},
+        'boundary': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'forecast': {'key': 'forecast', 'type': '[InsightsAnomalyForecast]'},
+        'boundary': {'key': 'boundary', 'type': '[InsightsAnomalyBoundary]'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(InsightsAnomalyJustification, self).__init__(**kwargs)
+        self.forecast = None
+        self.boundary = None
 
 
 class KpiProperties(Model):

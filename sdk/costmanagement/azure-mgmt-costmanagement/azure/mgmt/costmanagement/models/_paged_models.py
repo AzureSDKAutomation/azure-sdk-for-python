@@ -38,6 +38,19 @@ class DimensionPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(DimensionPaged, self).__init__(*args, **kwargs)
+class InsightsPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`Insights <azure.mgmt.costmanagement.models.Insights>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[Insights]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(InsightsPaged, self).__init__(*args, **kwargs)
 class OperationPaged(Paged):
     """
     A paging container for iterating over a list of :class:`Operation <azure.mgmt.costmanagement.models.Operation>` object

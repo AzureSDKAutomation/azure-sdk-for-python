@@ -19,6 +19,7 @@ from .operations import ForecastOperations
 from .operations import DimensionsOperations
 from .operations import QueryOperations
 from .operations import ExportsOperations
+from .operations import InsightsOperations
 from .operations import Operations
 from . import models
 
@@ -41,6 +42,8 @@ class CostManagementClient(SDKClient):
     :vartype query: azure.mgmt.costmanagement.operations.QueryOperations
     :ivar exports: Exports operations
     :vartype exports: azure.mgmt.costmanagement.operations.ExportsOperations
+    :ivar insights: Insights operations
+    :vartype insights: azure.mgmt.costmanagement.operations.InsightsOperations
     :ivar operations: Operations operations
     :vartype operations: azure.mgmt.costmanagement.operations.Operations
 
@@ -59,7 +62,7 @@ class CostManagementClient(SDKClient):
         super(CostManagementClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
-        self.api_version = '2020-06-01'
+        self.api_version = '2020-08-01-preview'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
@@ -74,6 +77,8 @@ class CostManagementClient(SDKClient):
         self.query = QueryOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.exports = ExportsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.insights = InsightsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.operations = Operations(
             self._client, self.config, self._serialize, self._deserialize)

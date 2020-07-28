@@ -14,6 +14,8 @@ try:
     from ._models_py3 import AlertPropertiesDefinition
     from ._models_py3 import AlertPropertiesDetails
     from ._models_py3 import AlertsResult
+    from ._models_py3 import AnomalyDetails
+    from ._models_py3 import AnomalyInsights
     from ._models_py3 import CommonExportProperties
     from ._models_py3 import Dimension
     from ._models_py3 import DismissAlertPayload
@@ -32,6 +34,11 @@ try:
     from ._models_py3 import ExportSchedule
     from ._models_py3 import ExportTimePeriod
     from ._models_py3 import ForecastDefinition
+    from ._models_py3 import Insights
+    from ._models_py3 import InsightsAnomalyBoundary
+    from ._models_py3 import InsightsAnomalyContributors
+    from ._models_py3 import InsightsAnomalyForecast
+    from ._models_py3 import InsightsAnomalyJustification
     from ._models_py3 import KpiProperties
     from ._models_py3 import Operation
     from ._models_py3 import OperationDisplay
@@ -62,6 +69,8 @@ except (SyntaxError, ImportError):
     from ._models import AlertPropertiesDefinition
     from ._models import AlertPropertiesDetails
     from ._models import AlertsResult
+    from ._models import AnomalyDetails
+    from ._models import AnomalyInsights
     from ._models import CommonExportProperties
     from ._models import Dimension
     from ._models import DismissAlertPayload
@@ -80,6 +89,11 @@ except (SyntaxError, ImportError):
     from ._models import ExportSchedule
     from ._models import ExportTimePeriod
     from ._models import ForecastDefinition
+    from ._models import Insights
+    from ._models import InsightsAnomalyBoundary
+    from ._models import InsightsAnomalyContributors
+    from ._models import InsightsAnomalyForecast
+    from ._models import InsightsAnomalyJustification
     from ._models import KpiProperties
     from ._models import Operation
     from ._models import OperationDisplay
@@ -106,6 +120,7 @@ except (SyntaxError, ImportError):
     from ._models import Resource
     from ._models import View
 from ._paged_models import DimensionPaged
+from ._paged_models import InsightsPaged
 from ._paged_models import OperationPaged
 from ._paged_models import ViewPaged
 from ._cost_management_client_enums import (
@@ -118,6 +133,7 @@ from ._cost_management_client_enums import (
     MetricType,
     KpiTypeType,
     PivotTypeType,
+    InsightsStatus,
     AlertType,
     AlertCategory,
     AlertCriteria,
@@ -144,6 +160,8 @@ __all__ = [
     'AlertPropertiesDefinition',
     'AlertPropertiesDetails',
     'AlertsResult',
+    'AnomalyDetails',
+    'AnomalyInsights',
     'CommonExportProperties',
     'Dimension',
     'DismissAlertPayload',
@@ -162,6 +180,11 @@ __all__ = [
     'ExportSchedule',
     'ExportTimePeriod',
     'ForecastDefinition',
+    'Insights',
+    'InsightsAnomalyBoundary',
+    'InsightsAnomalyContributors',
+    'InsightsAnomalyForecast',
+    'InsightsAnomalyJustification',
     'KpiProperties',
     'Operation',
     'OperationDisplay',
@@ -189,6 +212,7 @@ __all__ = [
     'View',
     'ViewPaged',
     'DimensionPaged',
+    'InsightsPaged',
     'OperationPaged',
     'ReportTimeframeType',
     'ReportGranularityType',
@@ -199,6 +223,7 @@ __all__ = [
     'MetricType',
     'KpiTypeType',
     'PivotTypeType',
+    'InsightsStatus',
     'AlertType',
     'AlertCategory',
     'AlertCriteria',

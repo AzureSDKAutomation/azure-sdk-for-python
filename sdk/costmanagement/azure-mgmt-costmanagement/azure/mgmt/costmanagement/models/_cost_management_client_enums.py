@@ -72,6 +72,14 @@ class PivotTypeType(str, Enum):
     tag_key = "TagKey"
 
 
+class InsightsStatus(str, Enum):
+
+    new = "New"
+    dismissed = "Dismissed"
+    acknowledged = "Acknowledged"
+    resolved = "Resolved"
+
+
 class AlertType(str, Enum):
 
     budget = "Budget"
