@@ -51,7 +51,7 @@ class VirtualMachineScaleSetRollingUpgradesOperations:
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self._cancel_initial.metadata['url']  # type: ignore
@@ -149,7 +149,7 @@ class VirtualMachineScaleSetRollingUpgradesOperations:
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self._start_os_upgrade_initial.metadata['url']  # type: ignore
@@ -249,7 +249,7 @@ class VirtualMachineScaleSetRollingUpgradesOperations:
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self._start_extension_upgrade_initial.metadata['url']  # type: ignore
@@ -360,7 +360,7 @@ class VirtualMachineScaleSetRollingUpgradesOperations:
         cls = kwargs.pop('cls', None)  # type: ClsType["models.RollingUpgradeStatusInfo"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.get_latest.metadata['url']  # type: ignore

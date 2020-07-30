@@ -56,7 +56,7 @@ class SshPublicKeysOperations:
         cls = kwargs.pop('cls', None)  # type: ClsType["models.SshPublicKeysGroupListResult"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         def prepare_request(next_link=None):
             # Construct headers
@@ -123,7 +123,7 @@ class SshPublicKeysOperations:
         cls = kwargs.pop('cls', None)  # type: ClsType["models.SshPublicKeysGroupListResult"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         def prepare_request(next_link=None):
             # Construct headers
@@ -196,7 +196,7 @@ class SshPublicKeysOperations:
         cls = kwargs.pop('cls', None)  # type: ClsType["models.SshPublicKeyResource"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -264,7 +264,7 @@ class SshPublicKeysOperations:
         cls = kwargs.pop('cls', None)  # type: ClsType["models.SshPublicKeyResource"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -325,7 +325,7 @@ class SshPublicKeysOperations:
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.delete.metadata['url']  # type: ignore
@@ -376,7 +376,7 @@ class SshPublicKeysOperations:
         cls = kwargs.pop('cls', None)  # type: ClsType["models.SshPublicKeyResource"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.get.metadata['url']  # type: ignore
@@ -433,7 +433,7 @@ class SshPublicKeysOperations:
         cls = kwargs.pop('cls', None)  # type: ClsType["models.SshPublicKeyGenerateKeyPairResult"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.generate_key_pair.metadata['url']  # type: ignore

@@ -58,7 +58,7 @@ class ImagesOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.Image"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -180,7 +180,7 @@ class ImagesOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.Image"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -301,7 +301,7 @@ class ImagesOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self._delete_initial.metadata['url']  # type: ignore
@@ -415,7 +415,7 @@ class ImagesOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.Image"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.get.metadata['url']  # type: ignore
@@ -470,7 +470,7 @@ class ImagesOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.ImageListResult"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         def prepare_request(next_link=None):
             # Construct headers
@@ -536,7 +536,7 @@ class ImagesOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.ImageListResult"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         def prepare_request(next_link=None):
             # Construct headers

@@ -58,7 +58,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualMachineScaleSet"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -180,7 +180,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualMachineScaleSet"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -297,7 +297,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self._delete_initial.metadata['url']  # type: ignore
@@ -408,7 +408,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualMachineScaleSet"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.get.metadata['url']  # type: ignore
@@ -454,7 +454,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -570,7 +570,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -691,7 +691,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualMachineScaleSetInstanceView"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.get_instance_view.metadata['url']  # type: ignore
@@ -744,7 +744,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualMachineScaleSetListResult"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         def prepare_request(next_link=None):
             # Construct headers
@@ -811,7 +811,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualMachineScaleSetListWithLinkResult"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         def prepare_request(next_link=None):
             # Construct headers
@@ -882,7 +882,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualMachineScaleSetListSkusResult"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         def prepare_request(next_link=None):
             # Construct headers
@@ -954,7 +954,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualMachineScaleSetListOSUpgradeHistory"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         def prepare_request(next_link=None):
             # Construct headers
@@ -1017,7 +1017,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -1141,7 +1141,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -1255,7 +1255,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -1369,7 +1369,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -1484,7 +1484,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -1601,7 +1601,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -1712,7 +1712,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -1828,7 +1828,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -1958,7 +1958,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.RecoveryWalkResponse"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.force_recovery_service_fabric_platform_update_domain_walk.metadata['url']  # type: ignore
@@ -2018,7 +2018,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -2066,7 +2066,7 @@ class VirtualMachineScaleSetsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL

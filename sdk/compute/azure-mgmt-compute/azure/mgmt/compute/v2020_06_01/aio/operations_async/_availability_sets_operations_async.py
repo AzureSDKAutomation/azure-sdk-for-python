@@ -64,7 +64,7 @@ class AvailabilitySetsOperations:
         cls = kwargs.pop('cls', None)  # type: ClsType["models.AvailabilitySet"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -128,7 +128,7 @@ class AvailabilitySetsOperations:
         cls = kwargs.pop('cls', None)  # type: ClsType["models.AvailabilitySet"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -189,7 +189,7 @@ class AvailabilitySetsOperations:
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.delete.metadata['url']  # type: ignore
@@ -240,7 +240,7 @@ class AvailabilitySetsOperations:
         cls = kwargs.pop('cls', None)  # type: ClsType["models.AvailabilitySet"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.get.metadata['url']  # type: ignore
@@ -293,7 +293,7 @@ class AvailabilitySetsOperations:
         cls = kwargs.pop('cls', None)  # type: ClsType["models.AvailabilitySetListResult"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         def prepare_request(next_link=None):
             # Construct headers
@@ -361,7 +361,7 @@ class AvailabilitySetsOperations:
         cls = kwargs.pop('cls', None)  # type: ClsType["models.AvailabilitySetListResult"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         def prepare_request(next_link=None):
             # Construct headers
@@ -432,7 +432,7 @@ class AvailabilitySetsOperations:
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualMachineSizeListResult"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         def prepare_request(next_link=None):
             # Construct headers

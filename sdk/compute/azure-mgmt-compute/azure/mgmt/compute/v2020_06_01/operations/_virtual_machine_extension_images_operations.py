@@ -71,7 +71,7 @@ class VirtualMachineExtensionImagesOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualMachineExtensionImage"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.get.metadata['url']  # type: ignore
@@ -129,7 +129,7 @@ class VirtualMachineExtensionImagesOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[List["models.VirtualMachineExtensionImage"]]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.list_types.metadata['url']  # type: ignore
@@ -197,7 +197,7 @@ class VirtualMachineExtensionImagesOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[List["models.VirtualMachineExtensionImage"]]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.list_versions.metadata['url']  # type: ignore

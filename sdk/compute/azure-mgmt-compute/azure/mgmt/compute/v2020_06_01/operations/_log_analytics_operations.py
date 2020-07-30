@@ -56,7 +56,7 @@ class LogAnalyticsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[Optional["models.LogAnalyticsOperationResult"]]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -171,7 +171,7 @@ class LogAnalyticsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[Optional["models.LogAnalyticsOperationResult"]]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL

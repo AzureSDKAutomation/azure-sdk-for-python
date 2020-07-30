@@ -59,7 +59,7 @@ class VirtualMachineScaleSetVMsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -178,7 +178,7 @@ class VirtualMachineScaleSetVMsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self._reimage_all_initial.metadata['url']  # type: ignore
@@ -285,7 +285,7 @@ class VirtualMachineScaleSetVMsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self._deallocate_initial.metadata['url']  # type: ignore
@@ -394,7 +394,7 @@ class VirtualMachineScaleSetVMsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualMachineScaleSetVM"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
         content_type = kwargs.pop("content_type", "application/json")
 
         # Construct URL
@@ -522,7 +522,7 @@ class VirtualMachineScaleSetVMsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self._delete_initial.metadata['url']  # type: ignore
@@ -644,7 +644,7 @@ class VirtualMachineScaleSetVMsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualMachineScaleSetVM"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.get.metadata['url']  # type: ignore
@@ -706,7 +706,7 @@ class VirtualMachineScaleSetVMsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualMachineScaleSetVMInstanceView"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.get_instance_view.metadata['url']  # type: ignore
@@ -775,7 +775,7 @@ class VirtualMachineScaleSetVMsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualMachineScaleSetVMListResult"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         def prepare_request(next_link=None):
             # Construct headers
@@ -844,7 +844,7 @@ class VirtualMachineScaleSetVMsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self._power_off_initial.metadata['url']  # type: ignore
@@ -960,7 +960,7 @@ class VirtualMachineScaleSetVMsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self._restart_initial.metadata['url']  # type: ignore
@@ -1066,7 +1066,7 @@ class VirtualMachineScaleSetVMsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self._start_initial.metadata['url']  # type: ignore
@@ -1172,7 +1172,7 @@ class VirtualMachineScaleSetVMsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self._redeploy_initial.metadata['url']  # type: ignore
@@ -1298,7 +1298,7 @@ class VirtualMachineScaleSetVMsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.RetrieveBootDiagnosticsDataResult"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.retrieve_boot_diagnostics_data.metadata['url']  # type: ignore
@@ -1347,7 +1347,7 @@ class VirtualMachineScaleSetVMsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self._perform_maintenance_initial.metadata['url']  # type: ignore
@@ -1467,7 +1467,7 @@ class VirtualMachineScaleSetVMsOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.simulate_eviction.metadata['url']  # type: ignore

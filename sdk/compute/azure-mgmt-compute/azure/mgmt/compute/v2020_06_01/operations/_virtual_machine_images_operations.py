@@ -74,7 +74,7 @@ class VirtualMachineImagesOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualMachineImage"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.get.metadata['url']  # type: ignore
@@ -149,7 +149,7 @@ class VirtualMachineImagesOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[List["models.VirtualMachineImageResource"]]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.list.metadata['url']  # type: ignore
@@ -213,7 +213,7 @@ class VirtualMachineImagesOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[List["models.VirtualMachineImageResource"]]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.list_offers.metadata['url']  # type: ignore
@@ -266,7 +266,7 @@ class VirtualMachineImagesOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[List["models.VirtualMachineImageResource"]]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.list_publishers.metadata['url']  # type: ignore
@@ -324,7 +324,7 @@ class VirtualMachineImagesOperations(object):
         cls = kwargs.pop('cls', None)  # type: ClsType[List["models.VirtualMachineImageResource"]]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-06-01"
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.list_skus.metadata['url']  # type: ignore
