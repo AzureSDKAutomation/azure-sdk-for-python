@@ -3230,34 +3230,6 @@ class ConnectivityStatusContract(Model):
         self.last_status_change = kwargs.get('last_status_change', None)
 
 
-class ContentItemCollection(Model):
-    """Paged list of content items.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar value: Collection of content items.
-    :vartype value: list[~azure.mgmt.apimanagement.models.ContentItemContract]
-    :ivar next_link: Next page link, if any.
-    :vartype next_link: str
-    """
-
-    _validation = {
-        'value': {'readonly': True},
-        'next_link': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'value': {'key': 'value', 'type': '[ContentItemContract]'},
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ContentItemCollection, self).__init__(**kwargs)
-        self.value = None
-        self.next_link = None
-
-
 class ContentItemContract(Resource):
     """Content type contract details.
 
@@ -3290,34 +3262,6 @@ class ContentItemContract(Resource):
     def __init__(self, **kwargs):
         super(ContentItemContract, self).__init__(**kwargs)
         self.properties = kwargs.get('properties', None)
-
-
-class ContentTypeCollection(Model):
-    """Paged list of content types.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar value: Collection of content types.
-    :vartype value: list[~azure.mgmt.apimanagement.models.ContentTypeContract]
-    :ivar next_link: Next page link, if any.
-    :vartype next_link: str
-    """
-
-    _validation = {
-        'value': {'readonly': True},
-        'next_link': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'value': {'key': 'value', 'type': '[ContentTypeContract]'},
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ContentTypeCollection, self).__init__(**kwargs)
-        self.value = None
-        self.next_link = None
 
 
 class ContentTypeContract(Resource):
