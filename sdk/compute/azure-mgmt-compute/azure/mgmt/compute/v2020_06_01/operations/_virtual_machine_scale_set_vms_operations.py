@@ -27,7 +27,6 @@ class VirtualMachineScaleSetVMsOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client Api Version. Constant value: "2020-06-01".
     """
 
     models = models
@@ -37,7 +36,6 @@ class VirtualMachineScaleSetVMsOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-06-01"
 
         self.config = config
 
@@ -47,6 +45,8 @@ class VirtualMachineScaleSetVMsOperations(object):
         vm_scale_set_vm_reimage_input = None
         if temp_disk is not None:
             vm_scale_set_vm_reimage_input = models.VirtualMachineScaleSetVMReimageParameters(temp_disk=temp_disk)
+
+        api_version = "2020-06-19"
 
         # Construct URL
         url = self.reimage.metadata['url']
@@ -60,7 +60,7 @@ class VirtualMachineScaleSetVMsOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -144,6 +144,8 @@ class VirtualMachineScaleSetVMsOperations(object):
 
     def _reimage_all_initial(
             self, resource_group_name, vm_scale_set_name, instance_id, custom_headers=None, raw=False, **operation_config):
+        api_version = "2020-06-19"
+
         # Construct URL
         url = self.reimage_all.metadata['url']
         path_format_arguments = {
@@ -156,7 +158,7 @@ class VirtualMachineScaleSetVMsOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -229,6 +231,8 @@ class VirtualMachineScaleSetVMsOperations(object):
 
     def _deallocate_initial(
             self, resource_group_name, vm_scale_set_name, instance_id, custom_headers=None, raw=False, **operation_config):
+        api_version = "2020-06-19"
+
         # Construct URL
         url = self.deallocate.metadata['url']
         path_format_arguments = {
@@ -241,7 +245,7 @@ class VirtualMachineScaleSetVMsOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -315,6 +319,8 @@ class VirtualMachineScaleSetVMsOperations(object):
 
     def _update_initial(
             self, resource_group_name, vm_scale_set_name, instance_id, parameters, custom_headers=None, raw=False, **operation_config):
+        api_version = "2020-06-19"
+
         # Construct URL
         url = self.update.metadata['url']
         path_format_arguments = {
@@ -327,7 +333,7 @@ class VirtualMachineScaleSetVMsOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -425,6 +431,8 @@ class VirtualMachineScaleSetVMsOperations(object):
 
     def _delete_initial(
             self, resource_group_name, vm_scale_set_name, instance_id, custom_headers=None, raw=False, **operation_config):
+        api_version = "2020-06-19"
+
         # Construct URL
         url = self.delete.metadata['url']
         path_format_arguments = {
@@ -437,7 +445,7 @@ class VirtualMachineScaleSetVMsOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -530,6 +538,8 @@ class VirtualMachineScaleSetVMsOperations(object):
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
+        api_version = "2020-06-19"
+
         # Construct URL
         url = self.get.metadata['url']
         path_format_arguments = {
@@ -544,7 +554,7 @@ class VirtualMachineScaleSetVMsOperations(object):
         query_parameters = {}
         if expand is not None:
             query_parameters['$expand'] = self._serialize.query("expand", expand, 'InstanceViewTypes')
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -598,6 +608,8 @@ class VirtualMachineScaleSetVMsOperations(object):
          or ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
+        api_version = "2020-06-19"
+
         # Construct URL
         url = self.get_instance_view.metadata['url']
         path_format_arguments = {
@@ -610,7 +622,7 @@ class VirtualMachineScaleSetVMsOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -671,6 +683,8 @@ class VirtualMachineScaleSetVMsOperations(object):
          ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineScaleSetVMPaged[~azure.mgmt.compute.v2020_06_01.models.VirtualMachineScaleSetVM]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
+        api_version = "2020-06-19"
+
         def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
@@ -690,7 +704,7 @@ class VirtualMachineScaleSetVMsOperations(object):
                     query_parameters['$select'] = self._serialize.query("select", select, 'str')
                 if expand is not None:
                     query_parameters['$expand'] = self._serialize.query("expand", expand, 'str')
-                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+                query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
             else:
                 url = next_link
@@ -734,6 +748,8 @@ class VirtualMachineScaleSetVMsOperations(object):
 
     def _power_off_initial(
             self, resource_group_name, vm_scale_set_name, instance_id, skip_shutdown=False, custom_headers=None, raw=False, **operation_config):
+        api_version = "2020-06-19"
+
         # Construct URL
         url = self.power_off.metadata['url']
         path_format_arguments = {
@@ -748,7 +764,7 @@ class VirtualMachineScaleSetVMsOperations(object):
         query_parameters = {}
         if skip_shutdown is not None:
             query_parameters['skipShutdown'] = self._serialize.query("skip_shutdown", skip_shutdown, 'bool')
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -828,6 +844,8 @@ class VirtualMachineScaleSetVMsOperations(object):
 
     def _restart_initial(
             self, resource_group_name, vm_scale_set_name, instance_id, custom_headers=None, raw=False, **operation_config):
+        api_version = "2020-06-19"
+
         # Construct URL
         url = self.restart.metadata['url']
         path_format_arguments = {
@@ -840,7 +858,7 @@ class VirtualMachineScaleSetVMsOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -911,6 +929,8 @@ class VirtualMachineScaleSetVMsOperations(object):
 
     def _start_initial(
             self, resource_group_name, vm_scale_set_name, instance_id, custom_headers=None, raw=False, **operation_config):
+        api_version = "2020-06-19"
+
         # Construct URL
         url = self.start.metadata['url']
         path_format_arguments = {
@@ -923,7 +943,7 @@ class VirtualMachineScaleSetVMsOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -994,6 +1014,8 @@ class VirtualMachineScaleSetVMsOperations(object):
 
     def _redeploy_initial(
             self, resource_group_name, vm_scale_set_name, instance_id, custom_headers=None, raw=False, **operation_config):
+        api_version = "2020-06-19"
+
         # Construct URL
         url = self.redeploy.metadata['url']
         path_format_arguments = {
@@ -1006,7 +1028,7 @@ class VirtualMachineScaleSetVMsOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -1078,6 +1100,8 @@ class VirtualMachineScaleSetVMsOperations(object):
 
     def _retrieve_boot_diagnostics_data_initial(
             self, resource_group_name, vm_scale_set_name, instance_id, sas_uri_expiration_time_in_minutes=None, custom_headers=None, raw=False, **operation_config):
+        api_version = "2020-06-19"
+
         # Construct URL
         url = self.retrieve_boot_diagnostics_data.metadata['url']
         path_format_arguments = {
@@ -1092,7 +1116,7 @@ class VirtualMachineScaleSetVMsOperations(object):
         query_parameters = {}
         if sas_uri_expiration_time_in_minutes is not None:
             query_parameters['sasUriExpirationTimeInMinutes'] = self._serialize.query("sas_uri_expiration_time_in_minutes", sas_uri_expiration_time_in_minutes, 'int')
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -1185,6 +1209,8 @@ class VirtualMachineScaleSetVMsOperations(object):
 
     def _perform_maintenance_initial(
             self, resource_group_name, vm_scale_set_name, instance_id, custom_headers=None, raw=False, **operation_config):
+        api_version = "2020-06-19"
+
         # Construct URL
         url = self.perform_maintenance.metadata['url']
         path_format_arguments = {
@@ -1197,7 +1223,7 @@ class VirtualMachineScaleSetVMsOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -1268,6 +1294,8 @@ class VirtualMachineScaleSetVMsOperations(object):
 
     def _simulate_eviction_initial(
             self, resource_group_name, vm_scale_set_name, instance_id, custom_headers=None, raw=False, **operation_config):
+        api_version = "2020-06-19"
+
         # Construct URL
         url = self.simulate_eviction.metadata['url']
         path_format_arguments = {
@@ -1280,7 +1308,7 @@ class VirtualMachineScaleSetVMsOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -1353,6 +1381,8 @@ class VirtualMachineScaleSetVMsOperations(object):
 
     def _run_command_initial(
             self, resource_group_name, vm_scale_set_name, instance_id, parameters, custom_headers=None, raw=False, **operation_config):
+        api_version = "2020-06-01"
+
         # Construct URL
         url = self.run_command.metadata['url']
         path_format_arguments = {
@@ -1365,7 +1395,7 @@ class VirtualMachineScaleSetVMsOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}
