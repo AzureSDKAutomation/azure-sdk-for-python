@@ -272,3 +272,16 @@ class ManagedClusterSKUTier(str, Enum):
 
     paid = "Paid"
     free = "Free"
+
+
+class Format(str, Enum):
+
+    azure = "azure"
+    exec_enum = "exec"
+
+
+class Login(str, Enum):
+
+    devicecode = "devicecode"
+    spn = "spn"
+    msi = "msi"

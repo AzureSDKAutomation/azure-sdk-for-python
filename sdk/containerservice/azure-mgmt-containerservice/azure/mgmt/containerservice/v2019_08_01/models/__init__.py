@@ -97,6 +97,8 @@ from ._container_service_client_enums import (
     NetworkPolicy,
     LoadBalancerSku,
     ResourceIdentityType,
+    Format,
+    Login,
 )
 
 __all__ = [
@@ -149,4 +151,6 @@ __all__ = [
     'NetworkPolicy',
     'LoadBalancerSku',
     'ResourceIdentityType',
+    'Format',
+    'Login',
 ]

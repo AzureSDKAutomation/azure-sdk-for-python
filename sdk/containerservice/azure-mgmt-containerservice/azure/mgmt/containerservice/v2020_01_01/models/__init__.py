@@ -104,6 +104,8 @@ from ._container_service_client_enums import (
     OutboundType,
     LoadBalancerSku,
     ResourceIdentityType,
+    Format,
+    Login,
 )
 
 __all__ = [
@@ -160,4 +162,6 @@ __all__ = [
     'OutboundType',
     'LoadBalancerSku',
     'ResourceIdentityType',
+    'Format',
+    'Login',
 ]

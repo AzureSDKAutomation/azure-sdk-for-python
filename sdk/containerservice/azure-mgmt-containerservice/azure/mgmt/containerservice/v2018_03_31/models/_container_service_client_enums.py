@@ -211,3 +211,16 @@ class NetworkPlugin(str, Enum):
 class NetworkPolicy(str, Enum):
 
     calico = "calico"
+
+
+class Format(str, Enum):
+
+    azure = "azure"
+    exec_enum = "exec"
+
+
+class Login(str, Enum):
+
+    devicecode = "devicecode"
+    spn = "spn"
+    msi = "msi"

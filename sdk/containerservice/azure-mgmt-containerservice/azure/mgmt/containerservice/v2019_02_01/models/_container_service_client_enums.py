@@ -218,3 +218,16 @@ class NetworkPolicy(str, Enum):
 
     calico = "calico"
     azure = "azure"
+
+
+class Format(str, Enum):
+
+    azure = "azure"
+    exec_enum = "exec"
+
+
+class Login(str, Enum):
+
+    devicecode = "devicecode"
+    spn = "spn"
+    msi = "msi"

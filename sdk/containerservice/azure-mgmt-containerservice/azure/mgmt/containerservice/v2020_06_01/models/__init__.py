@@ -126,6 +126,8 @@ from ._container_service_client_enums import (
     ManagedClusterSKUTier,
     PrivateEndpointConnectionProvisioningState,
     ConnectionStatus,
+    Format,
+    Login,
 )
 
 __all__ = [
@@ -196,4 +198,6 @@ __all__ = [
     'ManagedClusterSKUTier',
     'PrivateEndpointConnectionProvisioningState',
     'ConnectionStatus',
+    'Format',
+    'Login',
 ]

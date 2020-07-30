@@ -112,6 +112,8 @@ from ._container_service_client_enums import (
     ResourceIdentityType,
     ManagedClusterSKUName,
     ManagedClusterSKUTier,
+    Format,
+    Login,
 )
 
 __all__ = [
@@ -174,4 +176,6 @@ __all__ = [
     'ResourceIdentityType',
     'ManagedClusterSKUName',
     'ManagedClusterSKUTier',
+    'Format',
+    'Login',
 ]

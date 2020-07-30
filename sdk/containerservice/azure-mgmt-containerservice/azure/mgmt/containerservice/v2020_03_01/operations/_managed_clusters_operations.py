@@ -383,7 +383,7 @@ class ManagedClustersOperations(object):
     list_cluster_admin_credentials.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/listClusterAdminCredential'}
 
     def list_cluster_user_credentials(
-            self, resource_group_name, resource_name, custom_headers=None, raw=False, **operation_config):
+            self, resource_group_name, resource_name, format="azure", login="devicecode", custom_headers=None, raw=False, **operation_config):
         """Gets cluster user credential of a managed cluster.
 
         Gets cluster user credential of the managed cluster with a specified
@@ -393,6 +393,14 @@ class ManagedClustersOperations(object):
         :type resource_group_name: str
         :param resource_name: The name of the managed cluster resource.
         :type resource_name: str
+        :param format: Credential Format. Possible values: azure, exec.
+         Possible values include: 'azure', 'exec'
+        :type format: str or
+         ~azure.mgmt.containerservice.v2020_03_01.models.Format
+        :param login: Credential Format. Possible values: devicecode, spn,
+         msi. Possible values include: 'devicecode', 'spn', 'msi'
+        :type login: str or
+         ~azure.mgmt.containerservice.v2020_03_01.models.Login
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -416,6 +424,10 @@ class ManagedClustersOperations(object):
         # Construct parameters
         query_parameters = {}
         query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        if format is not None:
+            query_parameters['format'] = self._serialize.query("format", format, 'str')
+        if login is not None:
+            query_parameters['login'] = self._serialize.query("login", login, 'str')
 
         # Construct headers
         header_parameters = {}

@@ -63,6 +63,8 @@ from ._container_service_client_enums import (
     OSType,
     NetworkPlugin,
     NetworkPolicy,
+    Format,
+    Login,
 )
 
 __all__ = [
@@ -95,4 +97,6 @@ __all__ = [
     'OSType',
     'NetworkPlugin',
     'NetworkPolicy',
+    'Format',
+    'Login',
 ]
