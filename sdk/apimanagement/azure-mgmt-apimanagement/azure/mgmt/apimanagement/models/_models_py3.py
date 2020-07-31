@@ -5864,12 +5864,12 @@ class ProductContract(Resource):
      developers to call the product’s APIs immediately after subscribing. If
      true, administrators must manually approve the subscription before the
      developer can any of the product’s APIs. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type approval_required: bool
     :param subscriptions_limit: Whether the number of subscriptions a user can
      have to this product at the same time. Set to null or omit to allow
      unlimited per user subscriptions. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type subscriptions_limit: int
     :param state: whether product is published or not. Published products are
      discoverable by users of developer portal. Non published products are
@@ -5934,12 +5934,12 @@ class ProductEntityBaseParameters(Model):
      developers to call the product’s APIs immediately after subscribing. If
      true, administrators must manually approve the subscription before the
      developer can any of the product’s APIs. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type approval_required: bool
     :param subscriptions_limit: Whether the number of subscriptions a user can
      have to this product at the same time. Set to null or omit to allow
      unlimited per user subscriptions. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type subscriptions_limit: int
     :param state: whether product is published or not. Published products are
      discoverable by users of developer portal. Non published products are
@@ -5995,12 +5995,12 @@ class ProductTagResourceContractProperties(ProductEntityBaseParameters):
      developers to call the product’s APIs immediately after subscribing. If
      true, administrators must manually approve the subscription before the
      developer can any of the product’s APIs. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type approval_required: bool
     :param subscriptions_limit: Whether the number of subscriptions a user can
      have to this product at the same time. Set to null or omit to allow
      unlimited per user subscriptions. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type subscriptions_limit: int
     :param state: whether product is published or not. Published products are
      discoverable by users of developer portal. Non published products are
@@ -6057,12 +6057,12 @@ class ProductUpdateParameters(Model):
      developers to call the product’s APIs immediately after subscribing. If
      true, administrators must manually approve the subscription before the
      developer can any of the product’s APIs. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type approval_required: bool
     :param subscriptions_limit: Whether the number of subscriptions a user can
      have to this product at the same time. Set to null or omit to allow
      unlimited per user subscriptions. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type subscriptions_limit: int
     :param state: whether product is published or not. Published products are
      discoverable by users of developer portal. Non published products are
