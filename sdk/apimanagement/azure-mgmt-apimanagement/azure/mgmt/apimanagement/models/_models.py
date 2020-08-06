@@ -74,6 +74,9 @@ class AdditionalLocation(Model):
     :param sku: Required. SKU properties of the API Management service.
     :type sku:
      ~azure.mgmt.apimanagement.models.ApiManagementServiceSkuProperties
+    :param zones: A list of availability zones denoting where the resource
+     needs to come from.
+    :type zones: list[str]
     :ivar public_ip_addresses: Public Static Load Balanced IP addresses of the
      API Management service in the additional location. Available only for
      Basic, Standard and Premium SKU.
@@ -107,6 +110,7 @@ class AdditionalLocation(Model):
     _attribute_map = {
         'location': {'key': 'location', 'type': 'str'},
         'sku': {'key': 'sku', 'type': 'ApiManagementServiceSkuProperties'},
+        'zones': {'key': 'zones', 'type': '[str]'},
         'public_ip_addresses': {'key': 'publicIPAddresses', 'type': '[str]'},
         'private_ip_addresses': {'key': 'privateIPAddresses', 'type': '[str]'},
         'virtual_network_configuration': {'key': 'virtualNetworkConfiguration', 'type': 'VirtualNetworkConfiguration'},
@@ -118,6 +122,7 @@ class AdditionalLocation(Model):
         super(AdditionalLocation, self).__init__(**kwargs)
         self.location = kwargs.get('location', None)
         self.sku = kwargs.get('sku', None)
+        self.zones = kwargs.get('zones', None)
         self.public_ip_addresses = None
         self.private_ip_addresses = None
         self.virtual_network_configuration = kwargs.get('virtual_network_configuration', None)
@@ -1230,6 +1235,9 @@ class ApiManagementServiceResource(ApimResource):
     :type location: str
     :ivar etag: ETag of the resource.
     :vartype etag: str
+    :param zones: A list of availability zones denoting where the resource
+     needs to come from.
+    :type zones: list[str]
     """
 
     _validation = {
@@ -1287,6 +1295,7 @@ class ApiManagementServiceResource(ApimResource):
         'identity': {'key': 'identity', 'type': 'ApiManagementServiceIdentity'},
         'location': {'key': 'location', 'type': 'str'},
         'etag': {'key': 'etag', 'type': 'str'},
+        'zones': {'key': 'zones', 'type': '[str]'},
     }
 
     def __init__(self, **kwargs):
@@ -1318,6 +1327,7 @@ class ApiManagementServiceResource(ApimResource):
         self.identity = kwargs.get('identity', None)
         self.location = kwargs.get('location', None)
         self.etag = None
+        self.zones = kwargs.get('zones', None)
 
 
 class ApiManagementServiceSkuProperties(Model):
@@ -5864,12 +5874,12 @@ class ProductContract(Resource):
      developers to call the product’s APIs immediately after subscribing. If
      true, administrators must manually approve the subscription before the
      developer can any of the product’s APIs. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type approval_required: bool
     :param subscriptions_limit: Whether the number of subscriptions a user can
      have to this product at the same time. Set to null or omit to allow
      unlimited per user subscriptions. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type subscriptions_limit: int
     :param state: whether product is published or not. Published products are
      discoverable by users of developer portal. Non published products are
@@ -5934,12 +5944,12 @@ class ProductEntityBaseParameters(Model):
      developers to call the product’s APIs immediately after subscribing. If
      true, administrators must manually approve the subscription before the
      developer can any of the product’s APIs. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type approval_required: bool
     :param subscriptions_limit: Whether the number of subscriptions a user can
      have to this product at the same time. Set to null or omit to allow
      unlimited per user subscriptions. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type subscriptions_limit: int
     :param state: whether product is published or not. Published products are
      discoverable by users of developer portal. Non published products are
@@ -5995,12 +6005,12 @@ class ProductTagResourceContractProperties(ProductEntityBaseParameters):
      developers to call the product’s APIs immediately after subscribing. If
      true, administrators must manually approve the subscription before the
      developer can any of the product’s APIs. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type approval_required: bool
     :param subscriptions_limit: Whether the number of subscriptions a user can
      have to this product at the same time. Set to null or omit to allow
      unlimited per user subscriptions. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type subscriptions_limit: int
     :param state: whether product is published or not. Published products are
      discoverable by users of developer portal. Non published products are
@@ -6057,12 +6067,12 @@ class ProductUpdateParameters(Model):
      developers to call the product’s APIs immediately after subscribing. If
      true, administrators must manually approve the subscription before the
      developer can any of the product’s APIs. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type approval_required: bool
     :param subscriptions_limit: Whether the number of subscriptions a user can
      have to this product at the same time. Set to null or omit to allow
      unlimited per user subscriptions. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type subscriptions_limit: int
     :param state: whether product is published or not. Published products are
      discoverable by users of developer portal. Non published products are
