@@ -20,7 +20,9 @@ from .operations import PolicyOperations
 from .operations import EvaluationsOperations
 from .operations import EventsOperations
 from .operations import LogOperations
+from .operations import LearningMetricsOperations
 from .operations import ModelOperations
+from .operations import StagedModelOperations
 from . import models
 
 
@@ -40,8 +42,12 @@ class PersonalizerClient(PersonalizerClientOperationsMixin, SDKClient):
     :vartype events: azure.cognitiveservices.personalizer.operations.EventsOperations
     :ivar log: Log operations
     :vartype log: azure.cognitiveservices.personalizer.operations.LogOperations
+    :ivar learning_metrics: LearningMetrics operations
+    :vartype learning_metrics: azure.cognitiveservices.personalizer.operations.LearningMetricsOperations
     :ivar model: Model operations
     :vartype model: azure.cognitiveservices.personalizer.operations.ModelOperations
+    :ivar staged_model: StagedModel operations
+    :vartype staged_model: azure.cognitiveservices.personalizer.operations.StagedModelOperations
 
     :param endpoint: Supported Cognitive Services endpoint.
     :type endpoint: str
@@ -71,5 +77,9 @@ class PersonalizerClient(PersonalizerClientOperationsMixin, SDKClient):
             self._client, self.config, self._serialize, self._deserialize)
         self.log = LogOperations(
             self._client, self.config, self._serialize, self._deserialize)
+        self.learning_metrics = LearningMetricsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
         self.model = ModelOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.staged_model = StagedModelOperations(
             self._client, self.config, self._serialize, self._deserialize)

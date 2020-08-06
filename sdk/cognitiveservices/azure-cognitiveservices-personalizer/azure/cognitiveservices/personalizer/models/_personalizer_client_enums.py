@@ -12,26 +12,51 @@
 from enum import Enum
 
 
+class LearningMode(str, Enum):
+
+    online = "Online"
+    apprentice = "Apprentice"
+    logging_only = "LoggingOnly"
+
+
 class PersonalizerErrorCode(str, Enum):
 
     bad_request = "BadRequest"  #: Request could not be understood by the server.
-    resource_not_found = "ResourceNotFound"  #: Requested resource does not exist on the server.
-    internal_server_error = "InternalServerError"  #: A generic error has occurred on the server.
     invalid_service_configuration = "InvalidServiceConfiguration"  #: Invalid service configuration.
+    invalid_learning_mode_service_configuration = "InvalidLearningModeServiceConfiguration"  #: Updating defaultReward, rewardWaitTime and rewardAggregation when changing learning mode from Online to Apprentice mode and vice versa is not allowed.
     invalid_policy_configuration = "InvalidPolicyConfiguration"  #: Invalid policy configuration.
     invalid_policy_contract = "InvalidPolicyContract"  #: Invalid policy contract.
     invalid_evaluation_contract = "InvalidEvaluationContract"  #: Invalid evaluation contract.
+    duplicate_custom_policy_names = "DuplicateCustomPolicyNames"  #: Custom policy names should be unique.
+    no_logs_exist_in_date_range = "NoLogsExistInDateRange"  #: No logs exist in date range.
+    logs_size_exceed_allowed_limit = "LogsSizeExceedAllowedLimit"  #: Total size of logs exceed allowed limit.
     invalid_reward_request = "InvalidRewardRequest"  #: Invalid reward request.
     invalid_event_id_to_activate = "InvalidEventIdToActivate"  #: Invalid activate event request.
     invalid_rank_request = "InvalidRankRequest"  #: Invalid rank request.
     invalid_export_logs_request = "InvalidExportLogsRequest"  #: Invalid export logs request.
     invalid_container = "InvalidContainer"  #: SAS Uri must be the Uri to a container that has write permissions.
+    invalid_model_metadata = "InvalidModelMetadata"  #: Invalid model metadata.
+    apprentice_mode_never_turned_on = "ApprenticeModeNeverTurnedOn"  #: Apprentice mode never turned on.
+    missing_app_id = "MissingAppId"  #: AppId is missing in the header.
+    aggregation_interval_too_short = "AggregationIntervalTooShort"  #: Aggregation interval must not be less than an hour.
+    aggregation_interval_invalid = "AggregationIntervalInvalid"  #: Aggregation interval must be a multiple of one hour.
+    invalid_start_date_end_date = "InvalidStartDateEndDate"  #: Start date must not exceed the end date.
+    aggregation_event_count_too_small = "AggregationEventCountTooSmall"  #: Aggregation transaction count cannot be less ten thousand.
+    aggregation_event_count_invalid = "AggregationEventCountInvalid"  #: Aggregation transaction count must be a multiple of ten thousand.
+    model_file_access_denied = "ModelFileAccessDenied"  #: Key vault Key used for customer managed key cannot be accessed.
+    resource_not_found = "ResourceNotFound"  #: Requested resource does not exist on the server.
     front_end_not_found = "FrontEndNotFound"  #: Front end not found.
     evaluation_not_found = "EvaluationNotFound"  #: Evaluation not found.
     logs_properties_not_found = "LogsPropertiesNotFound"  #: Logs properties not found.
+    model_ranking_error = "ModelRankingError"  #: Error while ranking actions using model. Please verify the learning settings are valid.
+    internal_server_error = "InternalServerError"  #: A generic error has occurred on the server.
     rank_null_response = "RankNullResponse"  #: Rank call returned null response.
     update_configuration_failed = "UpdateConfigurationFailed"  #: Failed to update configuration.
     model_reset_failed = "ModelResetFailed"  #: Model reset failed.
+    model_publish_failed = "ModelPublishFailed"  #: Model publish failed.
+    model_metadata_update_failed = "ModelMetadataUpdateFailed"  #: Model metadata update failed.
+    key_vault_not_found = "KeyVaultNotFound"  #: Key vault not found.
+    none = "None"  #: None
 
 
 class EvaluationJobStatus(str, Enum):
@@ -40,3 +65,4 @@ class EvaluationJobStatus(str, Enum):
     pending = "pending"
     failed = "failed"
     not_submitted = "notSubmitted"
+    timeout = "timeout"

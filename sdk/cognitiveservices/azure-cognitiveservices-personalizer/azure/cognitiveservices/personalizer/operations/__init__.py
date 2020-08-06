@@ -14,7 +14,9 @@ from ._policy_operations import PolicyOperations
 from ._evaluations_operations import EvaluationsOperations
 from ._events_operations import EventsOperations
 from ._log_operations import LogOperations
+from ._learning_metrics_operations import LearningMetricsOperations
 from ._model_operations import ModelOperations
+from ._staged_model_operations import StagedModelOperations
 from ._personalizer_client_operations import PersonalizerClientOperationsMixin
 
 __all__ = [
@@ -23,6 +25,8 @@ __all__ = [
     'EvaluationsOperations',
     'EventsOperations',
     'LogOperations',
+    'LearningMetricsOperations',
     'ModelOperations',
+    'StagedModelOperations',
     'PersonalizerClientOperationsMixin',
 ]

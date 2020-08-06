@@ -117,7 +117,7 @@ class Evaluation(Model):
     :ivar job_id:
     :vartype job_id: str
     :ivar status: Possible values include: 'completed', 'pending', 'failed',
-     'notSubmitted'
+     'notSubmitted', 'timeout'
     :vartype status: str or
      ~azure.cognitiveservices.personalizer.models.EvaluationJobStatus
     :param policy_results:
@@ -165,7 +165,7 @@ class EvaluationContract(Model):
     All required parameters must be populated in order to send to Azure.
 
     :param enable_offline_experimentation: True if the evaluation should
-     explore for a more optimal Learning settings.
+     explore for a more optimal learning settings.
     :type enable_offline_experimentation: bool
     :param name: Required. The name of the evaluation.
     :type name: str
@@ -173,7 +173,7 @@ class EvaluationContract(Model):
     :type start_time: datetime
     :param end_time: Required. The end time of the evaluation.
     :type end_time: datetime
-    :param policies: Required. Additional Learning settings to evaluate.
+    :param policies: Required. Additional learning settings to evaluate.
     :type policies:
      list[~azure.cognitiveservices.personalizer.models.PolicyContract]
     """
@@ -274,6 +274,137 @@ class LogsPropertiesDateRange(DateRange):
         super(LogsPropertiesDateRange, self).__init__(**kwargs)
 
 
+class Metric(Model):
+    """Metric.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param learning_mode: Required. Possible values include: 'Online',
+     'Apprentice', 'LoggingOnly'
+    :type learning_mode: str or
+     ~azure.cognitiveservices.personalizer.models.LearningMode
+    :param start_date: Required.
+    :type start_date: datetime
+    :param end_date: Required.
+    :type end_date: datetime
+    :param number_of_events: Required.
+    :type number_of_events: long
+    :param sum_of_rewards: Required.
+    :type sum_of_rewards: float
+    :param number_of_matched_events: Required.
+    :type number_of_matched_events: long
+    :param sum_of_imitated_rewards: Required.
+    :type sum_of_imitated_rewards: float
+    :param cumulative_number_of_events: Required.
+    :type cumulative_number_of_events: long
+    :param cumulative_sum_of_rewards: Required.
+    :type cumulative_sum_of_rewards: float
+    :param cumulative_number_of_matched_events: Required.
+    :type cumulative_number_of_matched_events: long
+    :param cumulative_sum_of_imitated_rewards: Required.
+    :type cumulative_sum_of_imitated_rewards: float
+    """
+
+    _validation = {
+        'learning_mode': {'required': True},
+        'start_date': {'required': True},
+        'end_date': {'required': True},
+        'number_of_events': {'required': True},
+        'sum_of_rewards': {'required': True},
+        'number_of_matched_events': {'required': True},
+        'sum_of_imitated_rewards': {'required': True},
+        'cumulative_number_of_events': {'required': True},
+        'cumulative_sum_of_rewards': {'required': True},
+        'cumulative_number_of_matched_events': {'required': True},
+        'cumulative_sum_of_imitated_rewards': {'required': True},
+    }
+
+    _attribute_map = {
+        'learning_mode': {'key': 'learningMode', 'type': 'str'},
+        'start_date': {'key': 'startDate', 'type': 'iso-8601'},
+        'end_date': {'key': 'endDate', 'type': 'iso-8601'},
+        'number_of_events': {'key': 'numberOfEvents', 'type': 'long'},
+        'sum_of_rewards': {'key': 'sumOfRewards', 'type': 'float'},
+        'number_of_matched_events': {'key': 'numberOfMatchedEvents', 'type': 'long'},
+        'sum_of_imitated_rewards': {'key': 'sumOfImitatedRewards', 'type': 'float'},
+        'cumulative_number_of_events': {'key': 'cumulativeNumberOfEvents', 'type': 'long'},
+        'cumulative_sum_of_rewards': {'key': 'cumulativeSumOfRewards', 'type': 'float'},
+        'cumulative_number_of_matched_events': {'key': 'cumulativeNumberOfMatchedEvents', 'type': 'long'},
+        'cumulative_sum_of_imitated_rewards': {'key': 'cumulativeSumOfImitatedRewards', 'type': 'float'},
+    }
+
+    def __init__(self, **kwargs):
+        super(Metric, self).__init__(**kwargs)
+        self.learning_mode = kwargs.get('learning_mode', None)
+        self.start_date = kwargs.get('start_date', None)
+        self.end_date = kwargs.get('end_date', None)
+        self.number_of_events = kwargs.get('number_of_events', None)
+        self.sum_of_rewards = kwargs.get('sum_of_rewards', None)
+        self.number_of_matched_events = kwargs.get('number_of_matched_events', None)
+        self.sum_of_imitated_rewards = kwargs.get('sum_of_imitated_rewards', None)
+        self.cumulative_number_of_events = kwargs.get('cumulative_number_of_events', None)
+        self.cumulative_sum_of_rewards = kwargs.get('cumulative_sum_of_rewards', None)
+        self.cumulative_number_of_matched_events = kwargs.get('cumulative_number_of_matched_events', None)
+        self.cumulative_sum_of_imitated_rewards = kwargs.get('cumulative_sum_of_imitated_rewards', None)
+
+
+class ModelMetadata(Model):
+    """ModelMetadata.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param model_id: Required.
+    :type model_id: str
+    :param user_description: Required.
+    :type user_description: str
+    :param creation_date: Required.
+    :type creation_date: datetime
+    :param last_config_edit_date: Required.
+    :type last_config_edit_date: datetime
+    :param first_event_id: Required.
+    :type first_event_id: str
+    :param last_event_id: Required.
+    :type last_event_id: str
+    :param saved_in_history: Required.
+    :type saved_in_history: bool
+    :param number_of_events_learned_since_last_export: Required.
+    :type number_of_events_learned_since_last_export: int
+    """
+
+    _validation = {
+        'model_id': {'required': True},
+        'user_description': {'required': True},
+        'creation_date': {'required': True},
+        'last_config_edit_date': {'required': True},
+        'first_event_id': {'required': True},
+        'last_event_id': {'required': True},
+        'saved_in_history': {'required': True},
+        'number_of_events_learned_since_last_export': {'required': True},
+    }
+
+    _attribute_map = {
+        'model_id': {'key': 'modelId', 'type': 'str'},
+        'user_description': {'key': 'userDescription', 'type': 'str'},
+        'creation_date': {'key': 'creationDate', 'type': 'iso-8601'},
+        'last_config_edit_date': {'key': 'lastConfigEditDate', 'type': 'iso-8601'},
+        'first_event_id': {'key': 'firstEventId', 'type': 'str'},
+        'last_event_id': {'key': 'lastEventId', 'type': 'str'},
+        'saved_in_history': {'key': 'savedInHistory', 'type': 'bool'},
+        'number_of_events_learned_since_last_export': {'key': 'numberOfEventsLearnedSinceLastExport', 'type': 'int'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ModelMetadata, self).__init__(**kwargs)
+        self.model_id = kwargs.get('model_id', None)
+        self.user_description = kwargs.get('user_description', None)
+        self.creation_date = kwargs.get('creation_date', None)
+        self.last_config_edit_date = kwargs.get('last_config_edit_date', None)
+        self.first_event_id = kwargs.get('first_event_id', None)
+        self.last_event_id = kwargs.get('last_event_id', None)
+        self.saved_in_history = kwargs.get('saved_in_history', None)
+        self.number_of_events_learned_since_last_export = kwargs.get('number_of_events_learned_since_last_export', None)
+
+
 class ModelProperties(Model):
     """ModelProperties.
 
@@ -308,13 +439,22 @@ class PersonalizerError(Model):
     All required parameters must be populated in order to send to Azure.
 
     :param code: Required. High level error code. Possible values include:
-     'BadRequest', 'ResourceNotFound', 'InternalServerError',
-     'InvalidServiceConfiguration', 'InvalidPolicyConfiguration',
+     'BadRequest', 'InvalidServiceConfiguration',
+     'InvalidLearningModeServiceConfiguration', 'InvalidPolicyConfiguration',
      'InvalidPolicyContract', 'InvalidEvaluationContract',
-     'InvalidRewardRequest', 'InvalidEventIdToActivate', 'InvalidRankRequest',
-     'InvalidExportLogsRequest', 'InvalidContainer', 'FrontEndNotFound',
-     'EvaluationNotFound', 'LogsPropertiesNotFound', 'RankNullResponse',
-     'UpdateConfigurationFailed', 'ModelResetFailed'
+     'DuplicateCustomPolicyNames', 'NoLogsExistInDateRange',
+     'LogsSizeExceedAllowedLimit', 'InvalidRewardRequest',
+     'InvalidEventIdToActivate', 'InvalidRankRequest',
+     'InvalidExportLogsRequest', 'InvalidContainer', 'InvalidModelMetadata',
+     'ApprenticeModeNeverTurnedOn', 'MissingAppId',
+     'AggregationIntervalTooShort', 'AggregationIntervalInvalid',
+     'InvalidStartDateEndDate', 'AggregationEventCountTooSmall',
+     'AggregationEventCountInvalid', 'ModelFileAccessDenied',
+     'ResourceNotFound', 'FrontEndNotFound', 'EvaluationNotFound',
+     'LogsPropertiesNotFound', 'ModelRankingError', 'InternalServerError',
+     'RankNullResponse', 'UpdateConfigurationFailed', 'ModelResetFailed',
+     'ModelPublishFailed', 'ModelMetadataUpdateFailed', 'KeyVaultNotFound',
+     'None'
     :type code: str or
      ~azure.cognitiveservices.personalizer.models.PersonalizerErrorCode
     :param message: Required. A message explaining the error reported by the
@@ -358,9 +498,9 @@ class PolicyContract(Model):
 
     All required parameters must be populated in order to send to Azure.
 
-    :param name: Required. Name of the Learning settings.
+    :param name: Required. Name of the learning settings.
     :type name: str
-    :param arguments: Required. Arguments of the Learning settings.
+    :param arguments: Required. Arguments of the learning settings.
     :type arguments: str
     """
 
@@ -538,7 +678,7 @@ class RankableAction(Model):
     """
 
     _validation = {
-        'id': {'required': True, 'max_length': 256},
+        'id': {'required': True, 'max_length': 256, 'min_length': 1},
         'features': {'required': True},
     }
 
@@ -743,6 +883,23 @@ class ServiceConfiguration(Model):
     :param log_retention_days: Required. Number of days historical logs are to
      be maintained. -1 implies the logs will never be deleted.
     :type log_retention_days: int
+    :param model_auto_publish: When auto-publish is enabled (= default), the
+     trainer exports the model and override the "current" model.
+     When auto-publish is disabled, the trainer exports models but does not
+     override the "current" model (this is done by the user through API calls).
+     Default value: True .
+    :type model_auto_publish: bool
+    :param staged_model_history_length: Old models are automatically cleaned
+     except the last N models. Default value: 10 .
+    :type staged_model_history_length: int
+    :param last_configuration_edit_date: Last time model training
+     configuration was updated
+    :type last_configuration_edit_date: datetime
+    :param learning_mode: Learning mode for Personalizer
+     Microsoft.DecisionService.Common.LearningMode. Possible values include:
+     'Online', 'Apprentice', 'LoggingOnly'
+    :type learning_mode: str or
+     ~azure.cognitiveservices.personalizer.models.LearningMode
     """
 
     _validation = {
@@ -763,6 +920,10 @@ class ServiceConfiguration(Model):
         'log_mirror_enabled': {'key': 'logMirrorEnabled', 'type': 'bool'},
         'log_mirror_sas_uri': {'key': 'logMirrorSasUri', 'type': 'str'},
         'log_retention_days': {'key': 'logRetentionDays', 'type': 'int'},
+        'model_auto_publish': {'key': 'modelAutoPublish', 'type': 'bool'},
+        'staged_model_history_length': {'key': 'stagedModelHistoryLength', 'type': 'int'},
+        'last_configuration_edit_date': {'key': 'lastConfigurationEditDate', 'type': 'iso-8601'},
+        'learning_mode': {'key': 'learningMode', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -775,3 +936,7 @@ class ServiceConfiguration(Model):
         self.log_mirror_enabled = kwargs.get('log_mirror_enabled', None)
         self.log_mirror_sas_uri = kwargs.get('log_mirror_sas_uri', None)
         self.log_retention_days = kwargs.get('log_retention_days', None)
+        self.model_auto_publish = kwargs.get('model_auto_publish', True)
+        self.staged_model_history_length = kwargs.get('staged_model_history_length', 10)
+        self.last_configuration_edit_date = kwargs.get('last_configuration_edit_date', None)
+        self.learning_mode = kwargs.get('learning_mode', None)

@@ -18,6 +18,8 @@ try:
     from ._models_py3 import InternalError
     from ._models_py3 import LogsProperties
     from ._models_py3 import LogsPropertiesDateRange
+    from ._models_py3 import Metric
+    from ._models_py3 import ModelMetadata
     from ._models_py3 import ModelProperties
     from ._models_py3 import PersonalizerError
     from ._models_py3 import PolicyContract
@@ -39,6 +41,8 @@ except (SyntaxError, ImportError):
     from ._models import InternalError
     from ._models import LogsProperties
     from ._models import LogsPropertiesDateRange
+    from ._models import Metric
+    from ._models import ModelMetadata
     from ._models import ModelProperties
     from ._models import PersonalizerError
     from ._models import PolicyContract
@@ -53,6 +57,7 @@ except (SyntaxError, ImportError):
     from ._models import ServiceConfiguration
 from ._personalizer_client_enums import (
     EvaluationJobStatus,
+    LearningMode,
     PersonalizerErrorCode,
 )
 
@@ -65,6 +70,8 @@ __all__ = [
     'InternalError',
     'LogsProperties',
     'LogsPropertiesDateRange',
+    'Metric',
+    'ModelMetadata',
     'ModelProperties',
     'PersonalizerError',
     'PolicyContract',
@@ -77,6 +84,7 @@ __all__ = [
     'RankResponse',
     'RewardRequest',
     'ServiceConfiguration',
+    'LearningMode',
     'PersonalizerErrorCode',
     'EvaluationJobStatus',
 ]

@@ -40,7 +40,7 @@ class PolicyOperations(object):
             self, custom_headers=None, raw=False, **operation_config):
         """Get Policy.
 
-        Get the Learning settings currently used by the Personalizer service.
+        Get the learning settings currently used by the Personalizer service.
 
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -91,12 +91,12 @@ class PolicyOperations(object):
             self, name, arguments, custom_headers=None, raw=False, **operation_config):
         """Update Policy.
 
-        Update the Learning settings that the Personalizer service will use to
+        Update the learning settings that the Personalizer service will use to
         train models.
 
-        :param name: Name of the Learning settings.
+        :param name: Name of the learning settings.
         :type name: str
-        :param arguments: Arguments of the Learning settings.
+        :param arguments: Arguments of the learning settings.
         :type arguments: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -153,7 +153,7 @@ class PolicyOperations(object):
             self, custom_headers=None, raw=False, **operation_config):
         """Reset Policy.
 
-        Resets the Learning settings of the Personalizer service to default.
+        Resets the learning settings of the Personalizer service to default.
 
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
