@@ -34,7 +34,7 @@ class FormRecognizerClientConfiguration(Configuration):
             raise ValueError("Parameter 'endpoint' must not be None.")
         if credentials is None:
             raise ValueError("Parameter 'credentials' must not be None.")
-        base_url = '{endpoint}/formrecognizer/v2.0-preview'
+        base_url = '{endpoint}/formrecognizer/v2.0'
 
         super(FormRecognizerClientConfiguration, self).__init__(base_url)
 
