@@ -25,3 +25,29 @@ class PrivateZonePaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(PrivateZonePaged, self).__init__(*args, **kwargs)
+class VirtualNetworkLinkPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`VirtualNetworkLink <azure.mgmt.privatedns.models.VirtualNetworkLink>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[VirtualNetworkLink]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(VirtualNetworkLinkPaged, self).__init__(*args, **kwargs)
+class RecordSetPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`RecordSet <azure.mgmt.privatedns.models.RecordSet>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[RecordSet]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(RecordSetPaged, self).__init__(*args, **kwargs)

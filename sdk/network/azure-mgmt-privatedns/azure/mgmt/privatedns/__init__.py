@@ -9,10 +9,11 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from .private_dns_management_client import PrivateDnsManagementClient
-from .version import VERSION
+from ._configuration import PrivateDnsManagementClientConfiguration
+from ._private_dns_management_client import PrivateDnsManagementClient
+__all__ = ['PrivateDnsManagementClient', 'PrivateDnsManagementClientConfiguration']
 
-__all__ = ['PrivateDnsManagementClient']
+from .version import VERSION
 
 __version__ = VERSION
 
