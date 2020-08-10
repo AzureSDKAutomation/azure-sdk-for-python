@@ -53,6 +53,7 @@ from ._secure_score_controls_operations import SecureScoreControlsOperations
 from ._secure_score_control_definitions_operations import SecureScoreControlDefinitionsOperations
 from ._security_solutions_operations import SecuritySolutionsOperations
 from ._connectors_operations import ConnectorsOperations
+from ._iot_defender_settings_operations import IotDefenderSettingsOperations
 
 __all__ = [
     'ComplianceResultsOperations',
@@ -99,4 +100,5 @@ __all__ = [
     'SecureScoreControlDefinitionsOperations',
     'SecuritySolutionsOperations',
     'ConnectorsOperations',
+    'IotDefenderSettingsOperations',
 ]

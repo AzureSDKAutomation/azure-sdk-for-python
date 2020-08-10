@@ -88,6 +88,8 @@ try:
     from ._models_py3 import IotAlert
     from ._models_py3 import IotAlertType
     from ._models_py3 import IotAlertTypeList
+    from ._models_py3 import IotDefenderSettingsList
+    from ._models_py3 import IotDefenderSettingsModel
     from ._models_py3 import IotRecommendation
     from ._models_py3 import IotRecommendationType
     from ._models_py3 import IotRecommendationTypeList
@@ -119,6 +121,7 @@ try:
     from ._models_py3 import MqttC2DRejectedMessagesNotInAllowedRange
     from ._models_py3 import MqttD2CMessagesNotInAllowedRange
     from ._models_py3 import OnPremiseResourceDetails
+    from ._models_py3 import OnPremiseSensorProperties
     from ._models_py3 import OnPremiseSqlResourceDetails
     from ._models_py3 import Operation
     from ._models_py3 import OperationDisplay
@@ -261,6 +264,8 @@ except (SyntaxError, ImportError):
     from ._models import IotAlert
     from ._models import IotAlertType
     from ._models import IotAlertTypeList
+    from ._models import IotDefenderSettingsList
+    from ._models import IotDefenderSettingsModel
     from ._models import IotRecommendation
     from ._models import IotRecommendationType
     from ._models import IotRecommendationTypeList
@@ -292,6 +297,7 @@ except (SyntaxError, ImportError):
     from ._models import MqttC2DRejectedMessagesNotInAllowedRange
     from ._models import MqttD2CMessagesNotInAllowedRange
     from ._models import OnPremiseResourceDetails
+    from ._models import OnPremiseSensorProperties
     from ._models import OnPremiseSqlResourceDetails
     from ._models import Operation
     from ._models import OperationDisplay
@@ -519,6 +525,8 @@ __all__ = [
     'IotAlert',
     'IotAlertType',
     'IotAlertTypeList',
+    'IotDefenderSettingsList',
+    'IotDefenderSettingsModel',
     'IotRecommendation',
     'IotRecommendationType',
     'IotRecommendationTypeList',
@@ -550,6 +558,7 @@ __all__ = [
     'MqttC2DRejectedMessagesNotInAllowedRange',
     'MqttD2CMessagesNotInAllowedRange',
     'OnPremiseResourceDetails',
+    'OnPremiseSensorProperties',
     'OnPremiseSqlResourceDetails',
     'Operation',
     'OperationDisplay',

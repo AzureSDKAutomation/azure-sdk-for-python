@@ -3728,6 +3728,64 @@ class IotAlertTypeList(Model):
         self.value = kwargs.get('value', None)
 
 
+class IotDefenderSettingsList(Model):
+    """List of IoT Defender settings.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar value: List data
+    :vartype value: list[~azure.mgmt.security.models.IotDefenderSettingsModel]
+    """
+
+    _validation = {
+        'value': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': '[IotDefenderSettingsModel]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(IotDefenderSettingsList, self).__init__(**kwargs)
+        self.value = None
+
+
+class IotDefenderSettingsModel(Resource):
+    """IoT Defender settings.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id
+    :vartype id: str
+    :ivar name: Resource name
+    :vartype name: str
+    :ivar type: Resource type
+    :vartype type: str
+    :param on_premise_sensors: List of on-premise sensors
+    :type on_premise_sensors:
+     list[~azure.mgmt.security.models.OnPremiseSensorProperties]
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'on_premise_sensors': {'key': 'properties.onPremiseSensors', 'type': '[OnPremiseSensorProperties]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(IotDefenderSettingsModel, self).__init__(**kwargs)
+        self.on_premise_sensors = kwargs.get('on_premise_sensors', None)
+
+
 class IotRecommendation(Resource):
     """IoT recommendation.
 
@@ -5084,6 +5142,22 @@ class OnPremiseResourceDetails(ResourceDetails):
         self.source_computer_id = kwargs.get('source_computer_id', None)
         self.machine_name = kwargs.get('machine_name', None)
         self.source = 'OnPremise'
+
+
+class OnPremiseSensorProperties(Model):
+    """On-premise sensor properties.
+
+    :param name: Name of the sensor
+    :type name: str
+    """
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(OnPremiseSensorProperties, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
 
 
 class OnPremiseSqlResourceDetails(OnPremiseResourceDetails):

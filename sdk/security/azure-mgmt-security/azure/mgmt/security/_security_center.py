@@ -57,6 +57,7 @@ from .operations import SecureScoreControlsOperations
 from .operations import SecureScoreControlDefinitionsOperations
 from .operations import SecuritySolutionsOperations
 from .operations import ConnectorsOperations
+from .operations import IotDefenderSettingsOperations
 from . import models
 
 
@@ -154,6 +155,8 @@ class SecurityCenter(SDKClient):
     :vartype security_solutions: azure.mgmt.security.operations.SecuritySolutionsOperations
     :ivar connectors: Connectors operations
     :vartype connectors: azure.mgmt.security.operations.ConnectorsOperations
+    :ivar iot_defender_settings: IotDefenderSettings operations
+    :vartype iot_defender_settings: azure.mgmt.security.operations.IotDefenderSettingsOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -263,4 +266,6 @@ class SecurityCenter(SDKClient):
         self.security_solutions = SecuritySolutionsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.connectors = ConnectorsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.iot_defender_settings = IotDefenderSettingsOperations(
             self._client, self.config, self._serialize, self._deserialize)
