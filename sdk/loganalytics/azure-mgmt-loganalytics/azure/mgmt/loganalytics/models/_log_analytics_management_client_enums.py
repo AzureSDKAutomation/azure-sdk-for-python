@@ -68,7 +68,6 @@ class DataSourceType(str, Enum):
     custom_logs = "CustomLogs"
     azure_watson = "AzureWatson"
     query = "Query"
-    ingestion = "Ingestion"
     alerts = "Alerts"
 
 
