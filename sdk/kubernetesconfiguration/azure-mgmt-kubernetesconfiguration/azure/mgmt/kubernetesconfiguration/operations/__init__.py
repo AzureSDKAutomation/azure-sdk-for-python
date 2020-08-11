@@ -11,8 +11,10 @@
 
 from ._source_control_configurations_operations import SourceControlConfigurationsOperations
 from ._operations import Operations
+from ._extensions_operations import ExtensionsOperations
 
 __all__ = [
     'SourceControlConfigurationsOperations',
     'Operations',
+    'ExtensionsOperations',
 ]

@@ -15,11 +15,12 @@ from msrest import Serializer, Deserializer
 from ._configuration import SourceControlConfigurationClientConfiguration
 from .operations import SourceControlConfigurationsOperations
 from .operations import Operations
+from .operations import ExtensionsOperations
 from . import models
 
 
 class SourceControlConfigurationClient(SDKClient):
-    """Use these APIs to create Source Control Configuration resources through ARM, for Kubernetes Clusters.
+    """KubernetesConfiguration Client
 
     :ivar config: Configuration for client.
     :vartype config: SourceControlConfigurationClientConfiguration
@@ -28,6 +29,8 @@ class SourceControlConfigurationClient(SDKClient):
     :vartype source_control_configurations: azure.mgmt.kubernetesconfiguration.operations.SourceControlConfigurationsOperations
     :ivar operations: Operations operations
     :vartype operations: azure.mgmt.kubernetesconfiguration.operations.Operations
+    :ivar extensions: Extensions operations
+    :vartype extensions: azure.mgmt.kubernetesconfiguration.operations.ExtensionsOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -45,11 +48,13 @@ class SourceControlConfigurationClient(SDKClient):
         super(SourceControlConfigurationClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
-        self.api_version = '2019-11-01-preview'
+        self.api_version = '2020-07-01-preview'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
         self.source_control_configurations = SourceControlConfigurationsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.operations = Operations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.extensions = ExtensionsOperations(
             self._client, self.config, self._serialize, self._deserialize)

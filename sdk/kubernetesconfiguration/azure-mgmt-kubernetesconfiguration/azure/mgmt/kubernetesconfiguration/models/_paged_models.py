@@ -38,3 +38,16 @@ class ResourceProviderOperationPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(ResourceProviderOperationPaged, self).__init__(*args, **kwargs)
+class ExtensionInstanceForListPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`ExtensionInstanceForList <azure.mgmt.kubernetesconfiguration.models.ExtensionInstanceForList>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[ExtensionInstanceForList]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(ExtensionInstanceForListPaged, self).__init__(*args, **kwargs)
