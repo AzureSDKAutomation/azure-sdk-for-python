@@ -14,6 +14,7 @@ try:
     from ._models_py3 import AppConfigurationKeyValueModifiedEventData
     from ._models_py3 import AppEventTypeDetail
     from ._models_py3 import AppServicePlanEventTypeDetail
+    from ._models_py3 import CloudEventEvent
     from ._models_py3 import ContainerRegistryArtifactEventData
     from ._models_py3 import ContainerRegistryArtifactEventTarget
     from ._models_py3 import ContainerRegistryChartDeletedEventData
@@ -135,6 +136,7 @@ except (SyntaxError, ImportError):
     from ._models import AppConfigurationKeyValueModifiedEventData
     from ._models import AppEventTypeDetail
     from ._models import AppServicePlanEventTypeDetail
+    from ._models import CloudEventEvent
     from ._models import ContainerRegistryArtifactEventData
     from ._models import ContainerRegistryArtifactEventTarget
     from ._models import ContainerRegistryChartDeletedEventData
@@ -267,6 +269,7 @@ __all__ = [
     'AppConfigurationKeyValueModifiedEventData',
     'AppEventTypeDetail',
     'AppServicePlanEventTypeDetail',
+    'CloudEventEvent',
     'ContainerRegistryArtifactEventData',
     'ContainerRegistryArtifactEventTarget',
     'ContainerRegistryChartDeletedEventData',
