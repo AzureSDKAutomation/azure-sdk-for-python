@@ -114,6 +114,9 @@ try:
     from ._models_py3 import FunctionEnvelope
     from ._models_py3 import FunctionSecrets
     from ._models_py3 import GeoRegion
+    from ._models_py3 import GitHubActionCodeConfiguration
+    from ._models_py3 import GitHubActionConfiguration
+    from ._models_py3 import GitHubActionContainerConfiguration
     from ._models_py3 import GlobalCsmSkuDescription
     from ._models_py3 import HandlerMapping
     from ._models_py3 import HostingEnvironmentDeploymentInfo
@@ -369,6 +372,9 @@ except (SyntaxError, ImportError):
     from ._models import FunctionEnvelope
     from ._models import FunctionSecrets
     from ._models import GeoRegion
+    from ._models import GitHubActionCodeConfiguration
+    from ._models import GitHubActionConfiguration
+    from ._models import GitHubActionContainerConfiguration
     from ._models import GlobalCsmSkuDescription
     from ._models import HandlerMapping
     from ._models import HostingEnvironmentDeploymentInfo
@@ -756,6 +762,9 @@ __all__ = [
     'FunctionEnvelope',
     'FunctionSecrets',
     'GeoRegion',
+    'GitHubActionCodeConfiguration',
+    'GitHubActionConfiguration',
+    'GitHubActionContainerConfiguration',
     'GlobalCsmSkuDescription',
     'HandlerMapping',
     'HostingEnvironmentDeploymentInfo',

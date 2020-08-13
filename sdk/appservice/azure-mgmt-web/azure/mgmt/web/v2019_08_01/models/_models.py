@@ -5688,6 +5688,91 @@ class GeoRegion(ProxyOnlyResource):
         self.org_domain = None
 
 
+class GitHubActionCodeConfiguration(Model):
+    """The GitHub action code configuration.
+
+    :param runtime_stack: Runtime stack is used to determine the workflow file
+     content for code base apps.
+    :type runtime_stack: str
+    :param runtime_version: Runtime version is used to determine what build
+     version to set in the workflow file.
+    :type runtime_version: str
+    """
+
+    _attribute_map = {
+        'runtime_stack': {'key': 'runtimeStack', 'type': 'str'},
+        'runtime_version': {'key': 'runtimeVersion', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(GitHubActionCodeConfiguration, self).__init__(**kwargs)
+        self.runtime_stack = kwargs.get('runtime_stack', None)
+        self.runtime_version = kwargs.get('runtime_version', None)
+
+
+class GitHubActionConfiguration(Model):
+    """The GitHub action configuration.
+
+    :param code_configuration: GitHub Action code configuration.
+    :type code_configuration:
+     ~azure.mgmt.web.v2019_08_01.models.GitHubActionCodeConfiguration
+    :param container_configuration: GitHub Action container configuration.
+    :type container_configuration:
+     ~azure.mgmt.web.v2019_08_01.models.GitHubActionContainerConfiguration
+    :param is_linux: This will help determine the workflow configuration to
+     select.
+    :type is_linux: bool
+    :param generate_workflow_file: Workflow option to determine whether the
+     workflow file should be generated and written to the repository.
+    :type generate_workflow_file: bool
+    """
+
+    _attribute_map = {
+        'code_configuration': {'key': 'codeConfiguration', 'type': 'GitHubActionCodeConfiguration'},
+        'container_configuration': {'key': 'containerConfiguration', 'type': 'GitHubActionContainerConfiguration'},
+        'is_linux': {'key': 'isLinux', 'type': 'bool'},
+        'generate_workflow_file': {'key': 'generateWorkflowFile', 'type': 'bool'},
+    }
+
+    def __init__(self, **kwargs):
+        super(GitHubActionConfiguration, self).__init__(**kwargs)
+        self.code_configuration = kwargs.get('code_configuration', None)
+        self.container_configuration = kwargs.get('container_configuration', None)
+        self.is_linux = kwargs.get('is_linux', None)
+        self.generate_workflow_file = kwargs.get('generate_workflow_file', None)
+
+
+class GitHubActionContainerConfiguration(Model):
+    """The GitHub action container configuration.
+
+    :param server_url: The server URL for the container registry where the
+     build will be hosted.
+    :type server_url: str
+    :param image_name: The image name for the build.
+    :type image_name: str
+    :param username: The username used to upload the image to the container
+     registry.
+    :type username: str
+    :param password: The password used to upload the image to the container
+     registry.
+    :type password: str
+    """
+
+    _attribute_map = {
+        'server_url': {'key': 'serverUrl', 'type': 'str'},
+        'image_name': {'key': 'imageName', 'type': 'str'},
+        'username': {'key': 'username', 'type': 'str'},
+        'password': {'key': 'password', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(GitHubActionContainerConfiguration, self).__init__(**kwargs)
+        self.server_url = kwargs.get('server_url', None)
+        self.image_name = kwargs.get('image_name', None)
+        self.username = kwargs.get('username', None)
+        self.password = kwargs.get('password', None)
+
+
 class GlobalCsmSkuDescription(Model):
     """A Global SKU Description.
 
@@ -10818,12 +10903,19 @@ class SiteSourceControl(ProxyOnlyResource):
      integration; <code>false</code> to enable continuous integration (which
      configures webhooks into online repos like GitHub).
     :type is_manual_integration: bool
+    :param is_git_hub_action: <code>true</code> if this is deployed via GitHub
+     action.
+    :type is_git_hub_action: bool
     :param deployment_rollback_enabled: <code>true</code> to enable deployment
      rollback; otherwise, <code>false</code>.
     :type deployment_rollback_enabled: bool
     :param is_mercurial: <code>true</code> for a Mercurial repository;
      <code>false</code> for a Git repository.
     :type is_mercurial: bool
+    :param git_hub_action_configuration: If GitHub Action is selected, than
+     the associated configuration.
+    :type git_hub_action_configuration:
+     ~azure.mgmt.web.v2019_08_01.models.GitHubActionConfiguration
     """
 
     _validation = {
@@ -10840,8 +10932,10 @@ class SiteSourceControl(ProxyOnlyResource):
         'repo_url': {'key': 'properties.repoUrl', 'type': 'str'},
         'branch': {'key': 'properties.branch', 'type': 'str'},
         'is_manual_integration': {'key': 'properties.isManualIntegration', 'type': 'bool'},
+        'is_git_hub_action': {'key': 'properties.isGitHubAction', 'type': 'bool'},
         'deployment_rollback_enabled': {'key': 'properties.deploymentRollbackEnabled', 'type': 'bool'},
         'is_mercurial': {'key': 'properties.isMercurial', 'type': 'bool'},
+        'git_hub_action_configuration': {'key': 'properties.gitHubActionConfiguration', 'type': 'GitHubActionConfiguration'},
     }
 
     def __init__(self, **kwargs):
@@ -10849,8 +10943,10 @@ class SiteSourceControl(ProxyOnlyResource):
         self.repo_url = kwargs.get('repo_url', None)
         self.branch = kwargs.get('branch', None)
         self.is_manual_integration = kwargs.get('is_manual_integration', None)
+        self.is_git_hub_action = kwargs.get('is_git_hub_action', None)
         self.deployment_rollback_enabled = kwargs.get('deployment_rollback_enabled', None)
         self.is_mercurial = kwargs.get('is_mercurial', None)
+        self.git_hub_action_configuration = kwargs.get('git_hub_action_configuration', None)
 
 
 class SkuCapacity(Model):
