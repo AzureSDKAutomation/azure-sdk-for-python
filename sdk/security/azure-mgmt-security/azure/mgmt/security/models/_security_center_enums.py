@@ -34,6 +34,55 @@ class ReportedSeverity(str, Enum):
     high = "High"
 
 
+class MacSignificance(str, Enum):
+
+    primary = "Primary"
+    secondary = "Secondary"
+
+
+class RelationToIpStatus(str, Enum):
+
+    guess = "Guess"
+    certain = "Certain"
+
+
+class ManagementState(str, Enum):
+
+    managed = "Managed"
+    unmanaged = "Unmanaged"
+
+
+class AuthorizationState(str, Enum):
+
+    authorized = "Authorized"
+    unauthorized = "Unauthorized"
+
+
+class DeviceCriticality(str, Enum):
+
+    important = "Important"
+    standard = "Standard"
+
+
+class PurdueLevel(str, Enum):
+
+    process_control = "ProcessControl"
+    supervisory = "Supervisory"
+    enterprise = "Enterprise"
+
+
+class ProgrammingState(str, Enum):
+
+    programming_device = "ProgrammingDevice"
+    not_programming_device = "NotProgrammingDevice"
+
+
+class ScanningFunctionality(str, Enum):
+
+    scanner_device = "ScannerDevice"
+    not_scanner_device = "NotScannerDevice"
+
+
 class ValueType(str, Enum):
 
     ip_cidr = "IpCidr"  #: An IP range in CIDR format (e.g. '192.168.0.1/8').

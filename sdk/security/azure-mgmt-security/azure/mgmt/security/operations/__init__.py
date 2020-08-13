@@ -14,6 +14,8 @@ from ._pricings_operations import PricingsOperations
 from ._alerts_operations import AlertsOperations
 from ._settings_operations import SettingsOperations
 from ._advanced_threat_protection_operations import AdvancedThreatProtectionOperations
+from ._devices_operations import DevicesOperations
+from ._device_operations import DeviceOperations
 from ._device_security_groups_operations import DeviceSecurityGroupsOperations
 from ._iot_security_solution_operations import IotSecuritySolutionOperations
 from ._iot_security_solution_analytics_operations import IotSecuritySolutionAnalyticsOperations
@@ -60,6 +62,8 @@ __all__ = [
     'AlertsOperations',
     'SettingsOperations',
     'AdvancedThreatProtectionOperations',
+    'DevicesOperations',
+    'DeviceOperations',
     'DeviceSecurityGroupsOperations',
     'IotSecuritySolutionOperations',
     'IotSecuritySolutionAnalyticsOperations',

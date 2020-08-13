@@ -67,6 +67,7 @@ try:
     from ._models_py3 import CVSS
     from ._models_py3 import DataExportSettings
     from ._models_py3 import DenylistCustomAlertRule
+    from ._models_py3 import Device
     from ._models_py3 import DeviceSecurityGroup
     from ._models_py3 import DirectMethodInvokesNotInAllowedRange
     from ._models_py3 import DiscoveredSecuritySolution
@@ -77,6 +78,7 @@ try:
     from ._models_py3 import ExternalSecuritySolutionProperties
     from ._models_py3 import FailedLocalLoginsNotInAllowedRange
     from ._models_py3 import FileUploadsNotInAllowedRange
+    from ._models_py3 import Firmware
     from ._models_py3 import GcpCredentialsDetailsProperties
     from ._models_py3 import HttpC2DMessagesNotInAllowedRange
     from ._models_py3 import HttpC2DRejectedMessagesNotInAllowedRange
@@ -102,6 +104,7 @@ try:
     from ._models_py3 import IoTSecuritySolutionAnalyticsModelPropertiesDevicesMetricsItem
     from ._models_py3 import IoTSecuritySolutionModel
     from ._models_py3 import IoTSeverityMetrics
+    from ._models_py3 import IpAddress
     from ._models_py3 import JitNetworkAccessPolicy
     from ._models_py3 import JitNetworkAccessPolicyInitiatePort
     from ._models_py3 import JitNetworkAccessPolicyInitiateRequest
@@ -115,9 +118,11 @@ try:
     from ._models_py3 import ListCustomAlertRule
     from ._models_py3 import LocalUserNotAllowed
     from ._models_py3 import Location
+    from ._models_py3 import MacAddress
     from ._models_py3 import MqttC2DMessagesNotInAllowedRange
     from ._models_py3 import MqttC2DRejectedMessagesNotInAllowedRange
     from ._models_py3 import MqttD2CMessagesNotInAllowedRange
+    from ._models_py3 import NetworkInterface
     from ._models_py3 import OnPremiseResourceDetails
     from ._models_py3 import OnPremiseSqlResourceDetails
     from ._models_py3 import Operation
@@ -127,6 +132,7 @@ try:
     from ._models_py3 import PricingList
     from ._models_py3 import ProcessNotAllowed
     from ._models_py3 import ProtectionMode
+    from ._models_py3 import Protocol1
     from ._models_py3 import ProxyServerProperties
     from ._models_py3 import PublisherInfo
     from ._models_py3 import QueuePurgesNotInAllowedRange
@@ -240,6 +246,7 @@ except (SyntaxError, ImportError):
     from ._models import CVSS
     from ._models import DataExportSettings
     from ._models import DenylistCustomAlertRule
+    from ._models import Device
     from ._models import DeviceSecurityGroup
     from ._models import DirectMethodInvokesNotInAllowedRange
     from ._models import DiscoveredSecuritySolution
@@ -250,6 +257,7 @@ except (SyntaxError, ImportError):
     from ._models import ExternalSecuritySolutionProperties
     from ._models import FailedLocalLoginsNotInAllowedRange
     from ._models import FileUploadsNotInAllowedRange
+    from ._models import Firmware
     from ._models import GcpCredentialsDetailsProperties
     from ._models import HttpC2DMessagesNotInAllowedRange
     from ._models import HttpC2DRejectedMessagesNotInAllowedRange
@@ -275,6 +283,7 @@ except (SyntaxError, ImportError):
     from ._models import IoTSecuritySolutionAnalyticsModelPropertiesDevicesMetricsItem
     from ._models import IoTSecuritySolutionModel
     from ._models import IoTSeverityMetrics
+    from ._models import IpAddress
     from ._models import JitNetworkAccessPolicy
     from ._models import JitNetworkAccessPolicyInitiatePort
     from ._models import JitNetworkAccessPolicyInitiateRequest
@@ -288,9 +297,11 @@ except (SyntaxError, ImportError):
     from ._models import ListCustomAlertRule
     from ._models import LocalUserNotAllowed
     from ._models import Location
+    from ._models import MacAddress
     from ._models import MqttC2DMessagesNotInAllowedRange
     from ._models import MqttC2DRejectedMessagesNotInAllowedRange
     from ._models import MqttD2CMessagesNotInAllowedRange
+    from ._models import NetworkInterface
     from ._models import OnPremiseResourceDetails
     from ._models import OnPremiseSqlResourceDetails
     from ._models import Operation
@@ -300,6 +311,7 @@ except (SyntaxError, ImportError):
     from ._models import PricingList
     from ._models import ProcessNotAllowed
     from ._models import ProtectionMode
+    from ._models import Protocol1
     from ._models import ProxyServerProperties
     from ._models import PublisherInfo
     from ._models import QueuePurgesNotInAllowedRange
@@ -365,6 +377,7 @@ from ._paged_models import AutoProvisioningSettingPaged
 from ._paged_models import CompliancePaged
 from ._paged_models import ComplianceResultPaged
 from ._paged_models import ConnectorSettingPaged
+from ._paged_models import DevicePaged
 from ._paged_models import DeviceSecurityGroupPaged
 from ._paged_models import DiscoveredSecuritySolutionPaged
 from ._paged_models import ExternalSecuritySolutionPaged
@@ -395,6 +408,14 @@ from ._security_center_enums import (
     ResourceStatus,
     PricingTier,
     ReportedSeverity,
+    MacSignificance,
+    RelationToIpStatus,
+    ManagementState,
+    AuthorizationState,
+    DeviceCriticality,
+    PurdueLevel,
+    ProgrammingState,
+    ScanningFunctionality,
     ValueType,
     SecuritySolutionStatus,
     ExportData,
@@ -498,6 +519,7 @@ __all__ = [
     'CVSS',
     'DataExportSettings',
     'DenylistCustomAlertRule',
+    'Device',
     'DeviceSecurityGroup',
     'DirectMethodInvokesNotInAllowedRange',
     'DiscoveredSecuritySolution',
@@ -508,6 +530,7 @@ __all__ = [
     'ExternalSecuritySolutionProperties',
     'FailedLocalLoginsNotInAllowedRange',
     'FileUploadsNotInAllowedRange',
+    'Firmware',
     'GcpCredentialsDetailsProperties',
     'HttpC2DMessagesNotInAllowedRange',
     'HttpC2DRejectedMessagesNotInAllowedRange',
@@ -533,6 +556,7 @@ __all__ = [
     'IoTSecuritySolutionAnalyticsModelPropertiesDevicesMetricsItem',
     'IoTSecuritySolutionModel',
     'IoTSeverityMetrics',
+    'IpAddress',
     'JitNetworkAccessPolicy',
     'JitNetworkAccessPolicyInitiatePort',
     'JitNetworkAccessPolicyInitiateRequest',
@@ -546,9 +570,11 @@ __all__ = [
     'ListCustomAlertRule',
     'LocalUserNotAllowed',
     'Location',
+    'MacAddress',
     'MqttC2DMessagesNotInAllowedRange',
     'MqttC2DRejectedMessagesNotInAllowedRange',
     'MqttD2CMessagesNotInAllowedRange',
+    'NetworkInterface',
     'OnPremiseResourceDetails',
     'OnPremiseSqlResourceDetails',
     'Operation',
@@ -558,6 +584,7 @@ __all__ = [
     'PricingList',
     'ProcessNotAllowed',
     'ProtectionMode',
+    'Protocol1',
     'ProxyServerProperties',
     'PublisherInfo',
     'QueuePurgesNotInAllowedRange',
@@ -616,6 +643,7 @@ __all__ = [
     'ComplianceResultPaged',
     'AlertPaged',
     'SettingPaged',
+    'DevicePaged',
     'DeviceSecurityGroupPaged',
     'IoTSecuritySolutionModelPaged',
     'IoTSecurityAggregatedAlertPaged',
@@ -652,6 +680,14 @@ __all__ = [
     'ResourceStatus',
     'PricingTier',
     'ReportedSeverity',
+    'MacSignificance',
+    'RelationToIpStatus',
+    'ManagementState',
+    'AuthorizationState',
+    'DeviceCriticality',
+    'PurdueLevel',
+    'ProgrammingState',
+    'ScanningFunctionality',
     'ValueType',
     'SecuritySolutionStatus',
     'ExportData',

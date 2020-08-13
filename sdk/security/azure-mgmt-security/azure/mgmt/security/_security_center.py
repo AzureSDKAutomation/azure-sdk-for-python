@@ -18,6 +18,8 @@ from .operations import PricingsOperations
 from .operations import AlertsOperations
 from .operations import SettingsOperations
 from .operations import AdvancedThreatProtectionOperations
+from .operations import DevicesOperations
+from .operations import DeviceOperations
 from .operations import DeviceSecurityGroupsOperations
 from .operations import IotSecuritySolutionOperations
 from .operations import IotSecuritySolutionAnalyticsOperations
@@ -76,6 +78,10 @@ class SecurityCenter(SDKClient):
     :vartype settings: azure.mgmt.security.operations.SettingsOperations
     :ivar advanced_threat_protection: AdvancedThreatProtection operations
     :vartype advanced_threat_protection: azure.mgmt.security.operations.AdvancedThreatProtectionOperations
+    :ivar devices: Devices operations
+    :vartype devices: azure.mgmt.security.operations.DevicesOperations
+    :ivar device: Device operations
+    :vartype device: azure.mgmt.security.operations.DeviceOperations
     :ivar device_security_groups: DeviceSecurityGroups operations
     :vartype device_security_groups: azure.mgmt.security.operations.DeviceSecurityGroupsOperations
     :ivar iot_security_solution: IotSecuritySolution operations
@@ -185,6 +191,10 @@ class SecurityCenter(SDKClient):
         self.settings = SettingsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.advanced_threat_protection = AdvancedThreatProtectionOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.devices = DevicesOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.device = DeviceOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.device_security_groups = DeviceSecurityGroupsOperations(
             self._client, self.config, self._serialize, self._deserialize)

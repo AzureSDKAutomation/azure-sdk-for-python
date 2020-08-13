@@ -51,6 +51,19 @@ class SettingPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(SettingPaged, self).__init__(*args, **kwargs)
+class DevicePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`Device <azure.mgmt.security.models.Device>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[Device]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(DevicePaged, self).__init__(*args, **kwargs)
 class DeviceSecurityGroupPaged(Paged):
     """
     A paging container for iterating over a list of :class:`DeviceSecurityGroup <azure.mgmt.security.models.DeviceSecurityGroup>` object

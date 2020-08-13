@@ -2834,6 +2834,155 @@ class DenylistCustomAlertRule(ListCustomAlertRule):
         self.rule_type = 'DenylistCustomAlertRule'
 
 
+class Device(Resource):
+    """Device model.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id
+    :vartype id: str
+    :ivar name: Resource name
+    :vartype name: str
+    :ivar type: Resource type
+    :vartype type: str
+    :param display_name: Device display name given by the collector
+    :type display_name: str
+    :param device_type: Device type.
+    :type device_type: str
+    :ivar source_name: The source that created the device
+    :vartype source_name: str
+    :ivar network_interfaces: List of network interfaces.
+    :vartype network_interfaces:
+     list[~azure.mgmt.security.models.NetworkInterface]
+    :ivar vendor: Device vendor
+    :vartype vendor: str
+    :param os_name: Device operating system name.
+    :type os_name: str
+    :ivar protocols: List of protocols.
+    :vartype protocols: list[~azure.mgmt.security.models.Protocol1]
+    :ivar last_active_time: last time the device was active in the network
+    :vartype last_active_time: datetime
+    :ivar last_update_time: last time the device was updated
+    :vartype last_update_time: datetime
+    :ivar management_state: Managed state of the device. Possible values
+     include: 'Managed', 'Unmanaged'
+    :vartype management_state: str or
+     ~azure.mgmt.security.models.ManagementState
+    :param authorization_state: Authorized state of the device. Possible
+     values include: 'Authorized', 'Unauthorized'. Default value:
+     "Unauthorized" .
+    :type authorization_state: str or
+     ~azure.mgmt.security.models.AuthorizationState
+    :param device_criticality: Device criticality. Possible values include:
+     'Important', 'Standard'. Default value: "Standard" .
+    :type device_criticality: str or
+     ~azure.mgmt.security.models.DeviceCriticality
+    :param purdue_level: Purdue level of the device. Possible values include:
+     'ProcessControl', 'Supervisory', 'Enterprise'. Default value:
+     "ProcessControl" .
+    :type purdue_level: str or ~azure.mgmt.security.models.PurdueLevel
+    :param notes: user notes for the device, up to 300 characters.
+    :type notes: str
+    :ivar firmwares: List of device firmwares.
+    :vartype firmwares: list[~azure.mgmt.security.models.Firmware]
+    :ivar vlans: List of device vlans.
+    :vartype vlans: list[str]
+    :ivar discovery_time: Discovered time of the device.
+    :vartype discovery_time: datetime
+    :ivar programming_state: Indicates whether this device is programming.
+     Possible values include: 'ProgrammingDevice', 'NotProgrammingDevice'
+    :vartype programming_state: str or
+     ~azure.mgmt.security.models.ProgrammingState
+    :ivar last_programming_time: last time the device was programming or
+     programed.
+    :vartype last_programming_time: datetime
+    :ivar scanning_functionality: Indicates whether the device is a scanner.
+     Possible values include: 'ScannerDevice', 'NotScannerDevice'
+    :vartype scanning_functionality: str or
+     ~azure.mgmt.security.models.ScanningFunctionality
+    :ivar last_scan_time: last time the device was scanning.
+    :vartype last_scan_time: datetime
+    :ivar fields_changed_by_user: List of field names that their value was
+     modified by the user.
+    :vartype fields_changed_by_user: list[str]
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'source_name': {'readonly': True},
+        'network_interfaces': {'readonly': True},
+        'vendor': {'readonly': True},
+        'protocols': {'readonly': True},
+        'last_active_time': {'readonly': True},
+        'last_update_time': {'readonly': True},
+        'management_state': {'readonly': True},
+        'firmwares': {'readonly': True},
+        'vlans': {'readonly': True},
+        'discovery_time': {'readonly': True},
+        'programming_state': {'readonly': True},
+        'last_programming_time': {'readonly': True},
+        'scanning_functionality': {'readonly': True},
+        'last_scan_time': {'readonly': True},
+        'fields_changed_by_user': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
+        'device_type': {'key': 'properties.deviceType', 'type': 'str'},
+        'source_name': {'key': 'properties.sourceName', 'type': 'str'},
+        'network_interfaces': {'key': 'properties.networkInterfaces', 'type': '[NetworkInterface]'},
+        'vendor': {'key': 'properties.vendor', 'type': 'str'},
+        'os_name': {'key': 'properties.osName', 'type': 'str'},
+        'protocols': {'key': 'properties.protocols', 'type': '[Protocol1]'},
+        'last_active_time': {'key': 'properties.lastActiveTime', 'type': 'iso-8601'},
+        'last_update_time': {'key': 'properties.lastUpdateTime', 'type': 'iso-8601'},
+        'management_state': {'key': 'properties.managementState', 'type': 'str'},
+        'authorization_state': {'key': 'properties.authorizationState', 'type': 'str'},
+        'device_criticality': {'key': 'properties.deviceCriticality', 'type': 'str'},
+        'purdue_level': {'key': 'properties.purdueLevel', 'type': 'str'},
+        'notes': {'key': 'properties.notes', 'type': 'str'},
+        'firmwares': {'key': 'properties.firmwares', 'type': '[Firmware]'},
+        'vlans': {'key': 'properties.vlans', 'type': '[str]'},
+        'discovery_time': {'key': 'properties.discoveryTime', 'type': 'iso-8601'},
+        'programming_state': {'key': 'properties.programmingState', 'type': 'str'},
+        'last_programming_time': {'key': 'properties.lastProgrammingTime', 'type': 'iso-8601'},
+        'scanning_functionality': {'key': 'properties.scanningFunctionality', 'type': 'str'},
+        'last_scan_time': {'key': 'properties.lastScanTime', 'type': 'iso-8601'},
+        'fields_changed_by_user': {'key': 'properties.fieldsChangedByUser', 'type': '[str]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(Device, self).__init__(**kwargs)
+        self.display_name = kwargs.get('display_name', None)
+        self.device_type = kwargs.get('device_type', None)
+        self.source_name = None
+        self.network_interfaces = None
+        self.vendor = None
+        self.os_name = kwargs.get('os_name', None)
+        self.protocols = None
+        self.last_active_time = None
+        self.last_update_time = None
+        self.management_state = None
+        self.authorization_state = kwargs.get('authorization_state', "Unauthorized")
+        self.device_criticality = kwargs.get('device_criticality', "Standard")
+        self.purdue_level = kwargs.get('purdue_level', "ProcessControl")
+        self.notes = kwargs.get('notes', None)
+        self.firmwares = None
+        self.vlans = None
+        self.discovery_time = None
+        self.programming_state = None
+        self.last_programming_time = None
+        self.scanning_functionality = None
+        self.last_scan_time = None
+        self.fields_changed_by_user = None
+
+
 class DeviceSecurityGroup(Resource):
     """The device security group resource.
 
@@ -3147,6 +3296,61 @@ class FileUploadsNotInAllowedRange(TimeWindowCustomAlertRule):
     def __init__(self, **kwargs):
         super(FileUploadsNotInAllowedRange, self).__init__(**kwargs)
         self.rule_type = 'FileUploadsNotInAllowedRange'
+
+
+class Firmware(Model):
+    """Firmware information.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar module_address: Address of the specific module a firmware is related
+     to
+    :vartype module_address: str
+    :ivar rack: Rack number of the module a firmware is related to.
+    :vartype rack: str
+    :ivar slot: Slot number in the rack of the module a firmware is related to
+    :vartype slot: str
+    :ivar serial: Serial of the firmware
+    :vartype serial: str
+    :ivar model: Firmware model
+    :vartype model: str
+    :ivar version: Firmware version
+    :vartype version: str
+    :ivar additional_data:  A bag of fields which extends the firmware
+     information.
+    :vartype additional_data: object
+    """
+
+    _validation = {
+        'module_address': {'readonly': True},
+        'rack': {'readonly': True},
+        'slot': {'readonly': True},
+        'serial': {'readonly': True},
+        'model': {'readonly': True},
+        'version': {'readonly': True},
+        'additional_data': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'module_address': {'key': 'moduleAddress', 'type': 'str'},
+        'rack': {'key': 'rack', 'type': 'str'},
+        'slot': {'key': 'slot', 'type': 'str'},
+        'serial': {'key': 'serial', 'type': 'str'},
+        'model': {'key': 'model', 'type': 'str'},
+        'version': {'key': 'version', 'type': 'str'},
+        'additional_data': {'key': 'additionalData', 'type': 'object'},
+    }
+
+    def __init__(self, **kwargs):
+        super(Firmware, self).__init__(**kwargs)
+        self.module_address = None
+        self.rack = None
+        self.slot = None
+        self.serial = None
+        self.model = None
+        self.version = None
+        self.additional_data = None
 
 
 class GcpCredentialsDetailsProperties(AuthenticationDetailsProperties):
@@ -4448,6 +4652,49 @@ class IoTSeverityMetrics(Model):
         self.low = kwargs.get('low', None)
 
 
+class IpAddress(Model):
+    """IP Address information.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar v4_address: IPV4 address
+    :vartype v4_address: str
+    :ivar detection_time: Detection time of the ip address.
+    :vartype detection_time: datetime
+    :ivar subnet_cidr: Subnet Classless Inter-Domain Routing
+    :vartype subnet_cidr: str
+    :ivar fqdn: Fully qualified domain name
+    :vartype fqdn: str
+    :ivar fqdn_last_lookup_time: FQDN last lookup time.
+    :vartype fqdn_last_lookup_time: datetime
+    """
+
+    _validation = {
+        'v4_address': {'readonly': True},
+        'detection_time': {'readonly': True},
+        'subnet_cidr': {'readonly': True},
+        'fqdn': {'readonly': True},
+        'fqdn_last_lookup_time': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'v4_address': {'key': 'v4Address', 'type': 'str'},
+        'detection_time': {'key': 'detectionTime', 'type': 'iso-8601'},
+        'subnet_cidr': {'key': 'subnetCidr', 'type': 'str'},
+        'fqdn': {'key': 'fqdn', 'type': 'str'},
+        'fqdn_last_lookup_time': {'key': 'fqdnLastLookupTime', 'type': 'iso-8601'},
+    }
+
+    def __init__(self, **kwargs):
+        super(IpAddress, self).__init__(**kwargs)
+        self.v4_address = None
+        self.detection_time = None
+        self.subnet_cidr = None
+        self.fqdn = None
+        self.fqdn_last_lookup_time = None
+
+
 class JitNetworkAccessPolicy(Model):
     """JitNetworkAccessPolicy.
 
@@ -4887,6 +5134,48 @@ class Location(Model):
         self.location = None
 
 
+class MacAddress(Model):
+    """MAC Address information.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar address: MAC address
+    :vartype address: str
+    :ivar detection_time: Detection time of the mac address.
+    :vartype detection_time: datetime
+    :ivar significance: Indicates whether this is the primary secondary MAC
+     address of the device. Possible values include: 'Primary', 'Secondary'
+    :vartype significance: str or ~azure.mgmt.security.models.MacSignificance
+    :ivar relation_to_ip_status: Indicates whether the relation of the mac to
+     the ip address is certain or a guess. Possible values include: 'Guess',
+     'Certain'
+    :vartype relation_to_ip_status: str or
+     ~azure.mgmt.security.models.RelationToIpStatus
+    """
+
+    _validation = {
+        'address': {'readonly': True},
+        'detection_time': {'readonly': True},
+        'significance': {'readonly': True},
+        'relation_to_ip_status': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'address': {'key': 'address', 'type': 'str'},
+        'detection_time': {'key': 'detectionTime', 'type': 'iso-8601'},
+        'significance': {'key': 'significance', 'type': 'str'},
+        'relation_to_ip_status': {'key': 'relationToIpStatus', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(MacAddress, self).__init__(**kwargs)
+        self.address = None
+        self.detection_time = None
+        self.significance = None
+        self.relation_to_ip_status = None
+
+
 class MqttC2DMessagesNotInAllowedRange(TimeWindowCustomAlertRule):
     """Number of cloud to device messages (MQTT protocol) is not in allowed range.
 
@@ -5033,6 +5322,26 @@ class MqttD2CMessagesNotInAllowedRange(TimeWindowCustomAlertRule):
     def __init__(self, **kwargs):
         super(MqttD2CMessagesNotInAllowedRange, self).__init__(**kwargs)
         self.rule_type = 'MqttD2CMessagesNotInAllowedRange'
+
+
+class NetworkInterface(Model):
+    """Network interface.
+
+    :param ip_address:
+    :type ip_address: ~azure.mgmt.security.models.IpAddress
+    :param mac_address:
+    :type mac_address: ~azure.mgmt.security.models.MacAddress
+    """
+
+    _attribute_map = {
+        'ip_address': {'key': 'ipAddress', 'type': 'IpAddress'},
+        'mac_address': {'key': 'macAddress', 'type': 'MacAddress'},
+    }
+
+    def __init__(self, **kwargs):
+        super(NetworkInterface, self).__init__(**kwargs)
+        self.ip_address = kwargs.get('ip_address', None)
+        self.mac_address = kwargs.get('mac_address', None)
 
 
 class OnPremiseResourceDetails(ResourceDetails):
@@ -5407,6 +5716,33 @@ class ProtectionMode(Model):
         self.msi = kwargs.get('msi', None)
         self.script = kwargs.get('script', None)
         self.executable = kwargs.get('executable', None)
+
+
+class Protocol1(Model):
+    """Protocol data.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar name: Protocol name
+    :vartype name: str
+    :param identifiers: list of protocol identifiers.
+    :type identifiers: str
+    """
+
+    _validation = {
+        'name': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'identifiers': {'key': 'identifiers', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(Protocol1, self).__init__(**kwargs)
+        self.name = None
+        self.identifiers = kwargs.get('identifiers', None)
 
 
 class ProxyServerProperties(Model):
