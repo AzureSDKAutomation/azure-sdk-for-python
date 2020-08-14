@@ -1621,6 +1621,8 @@ class ServerSecurityAlertPolicy(ProxyResource):
     :param retention_days: Specifies the number of days to keep in the Threat
      Detection audit logs.
     :type retention_days: int
+    :ivar system_data:
+    :vartype system_data: ~azure.mgmt.rdbms.postgresql.models.SystemData
     """
 
     _validation = {
@@ -1628,6 +1630,7 @@ class ServerSecurityAlertPolicy(ProxyResource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'state': {'required': True},
+        'system_data': {'readonly': True},
     }
 
     _attribute_map = {
@@ -1641,6 +1644,7 @@ class ServerSecurityAlertPolicy(ProxyResource):
         'storage_endpoint': {'key': 'properties.storageEndpoint', 'type': 'str'},
         'storage_account_access_key': {'key': 'properties.storageAccountAccessKey', 'type': 'str'},
         'retention_days': {'key': 'properties.retentionDays', 'type': 'int'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
     }
 
     def __init__(self, **kwargs):
@@ -1652,6 +1656,7 @@ class ServerSecurityAlertPolicy(ProxyResource):
         self.storage_endpoint = kwargs.get('storage_endpoint', None)
         self.storage_account_access_key = kwargs.get('storage_account_access_key', None)
         self.retention_days = kwargs.get('retention_days', None)
+        self.system_data = None
 
 
 class ServerUpdateParameters(Model):
@@ -1785,6 +1790,48 @@ class StorageProfile(Model):
         self.geo_redundant_backup = kwargs.get('geo_redundant_backup', None)
         self.storage_mb = kwargs.get('storage_mb', None)
         self.storage_autogrow = kwargs.get('storage_autogrow', None)
+
+
+class SystemData(Model):
+    """Metadata pertaining to creation and last modification of the resource.
+
+    :param created_by: The identity that created the resource.
+    :type created_by: str
+    :param created_by_type: The type of identity that created the resource.
+     Possible values include: 'User', 'Application', 'ManagedIdentity', 'Key'
+    :type created_by_type: str or
+     ~azure.mgmt.rdbms.postgresql.models.CreatedByType
+    :param created_at: The timestamp of resource creation (UTC).
+    :type created_at: datetime
+    :param last_modified_by: The identity that last modified the resource.
+    :type last_modified_by: str
+    :param last_modified_by_type: The type of identity that last modified the
+     resource. Possible values include: 'User', 'Application',
+     'ManagedIdentity', 'Key'
+    :type last_modified_by_type: str or
+     ~azure.mgmt.rdbms.postgresql.models.CreatedByType
+    :param last_modified_at: The type of identity that last modified the
+     resource.
+    :type last_modified_at: datetime
+    """
+
+    _attribute_map = {
+        'created_by': {'key': 'createdBy', 'type': 'str'},
+        'created_by_type': {'key': 'createdByType', 'type': 'str'},
+        'created_at': {'key': 'createdAt', 'type': 'iso-8601'},
+        'last_modified_by': {'key': 'lastModifiedBy', 'type': 'str'},
+        'last_modified_by_type': {'key': 'lastModifiedByType', 'type': 'str'},
+        'last_modified_at': {'key': 'lastModifiedAt', 'type': 'iso-8601'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SystemData, self).__init__(**kwargs)
+        self.created_by = kwargs.get('created_by', None)
+        self.created_by_type = kwargs.get('created_by_type', None)
+        self.created_at = kwargs.get('created_at', None)
+        self.last_modified_by = kwargs.get('last_modified_by', None)
+        self.last_modified_by_type = kwargs.get('last_modified_by_type', None)
+        self.last_modified_at = kwargs.get('last_modified_at', None)
 
 
 class TagsObject(Model):

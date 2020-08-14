@@ -1864,6 +1864,26 @@ class ServerSecurityAlertPolicy(ProxyResource):
      enabled or disabled. Possible values include: 'Enabled', 'Disabled'
     :type state: str or
      ~azure.mgmt.rdbms.mysql.models.ServerSecurityAlertPolicyState
+    :param disabled_alerts: Specifies an array of alerts that are disabled.
+     Allowed values are: Sql_Injection, Sql_Injection_Vulnerability,
+     Access_Anomaly
+    :type disabled_alerts: list[str]
+    :param email_addresses: Specifies an array of e-mail addresses to which
+     the alert is sent.
+    :type email_addresses: list[str]
+    :param email_account_admins: Specifies that the alert is sent to the
+     account administrators.
+    :type email_account_admins: bool
+    :param storage_endpoint: Specifies the blob storage endpoint (e.g.
+     https://MyAccount.blob.core.windows.net). This blob storage will hold all
+     Threat Detection audit logs.
+    :type storage_endpoint: str
+    :param storage_account_access_key: Specifies the identifier key of the
+     Threat Detection audit storage account.
+    :type storage_account_access_key: str
+    :param retention_days: Specifies the number of days to keep in the Threat
+     Detection audit logs.
+    :type retention_days: int
     :ivar system_data:
     :vartype system_data: ~azure.mgmt.rdbms.mysql.models.SystemData
     """
@@ -1881,12 +1901,24 @@ class ServerSecurityAlertPolicy(ProxyResource):
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
         'state': {'key': 'properties.state', 'type': 'ServerSecurityAlertPolicyState'},
+        'disabled_alerts': {'key': 'properties.disabledAlerts', 'type': '[str]'},
+        'email_addresses': {'key': 'properties.emailAddresses', 'type': '[str]'},
+        'email_account_admins': {'key': 'properties.emailAccountAdmins', 'type': 'bool'},
+        'storage_endpoint': {'key': 'properties.storageEndpoint', 'type': 'str'},
+        'storage_account_access_key': {'key': 'properties.storageAccountAccessKey', 'type': 'str'},
+        'retention_days': {'key': 'properties.retentionDays', 'type': 'int'},
         'system_data': {'key': 'systemData', 'type': 'SystemData'},
     }
 
-    def __init__(self, *, state, **kwargs) -> None:
+    def __init__(self, *, state, disabled_alerts=None, email_addresses=None, email_account_admins: bool=None, storage_endpoint: str=None, storage_account_access_key: str=None, retention_days: int=None, **kwargs) -> None:
         super(ServerSecurityAlertPolicy, self).__init__(**kwargs)
         self.state = state
+        self.disabled_alerts = disabled_alerts
+        self.email_addresses = email_addresses
+        self.email_account_admins = email_account_admins
+        self.storage_endpoint = storage_endpoint
+        self.storage_account_access_key = storage_account_access_key
+        self.retention_days = retention_days
         self.system_data = None
 
 

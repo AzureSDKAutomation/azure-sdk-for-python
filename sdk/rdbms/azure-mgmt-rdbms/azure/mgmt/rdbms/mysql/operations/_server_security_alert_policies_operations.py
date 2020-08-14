@@ -108,9 +108,7 @@ class ServerSecurityAlertPoliciesOperations(object):
 
 
     def _create_or_update_initial(
-            self, resource_group_name, server_name, state, custom_headers=None, raw=False, **operation_config):
-        parameters = models.ServerSecurityAlertPolicy(state=state)
-
+            self, resource_group_name, server_name, parameters, custom_headers=None, raw=False, **operation_config):
         # Construct URL
         url = self.create_or_update.metadata['url']
         path_format_arguments = {
@@ -160,7 +158,7 @@ class ServerSecurityAlertPoliciesOperations(object):
         return deserialized
 
     def create_or_update(
-            self, resource_group_name, server_name, state, custom_headers=None, raw=False, polling=True, **operation_config):
+            self, resource_group_name, server_name, parameters, custom_headers=None, raw=False, polling=True, **operation_config):
         """Creates or updates a threat detection policy.
 
         :param resource_group_name: The name of the resource group. The name
@@ -168,10 +166,9 @@ class ServerSecurityAlertPoliciesOperations(object):
         :type resource_group_name: str
         :param server_name: The name of the server.
         :type server_name: str
-        :param state: Specifies the state of the policy, whether it is enabled
-         or disabled. Possible values include: 'Enabled', 'Disabled'
-        :type state: str or
-         ~azure.mgmt.rdbms.mysql.models.ServerSecurityAlertPolicyState
+        :param parameters: The server security alert policy.
+        :type parameters:
+         ~azure.mgmt.rdbms.mysql.models.ServerSecurityAlertPolicy
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response
@@ -189,7 +186,7 @@ class ServerSecurityAlertPoliciesOperations(object):
         raw_result = self._create_or_update_initial(
             resource_group_name=resource_group_name,
             server_name=server_name,
-            state=state,
+            parameters=parameters,
             custom_headers=custom_headers,
             raw=True,
             **operation_config
