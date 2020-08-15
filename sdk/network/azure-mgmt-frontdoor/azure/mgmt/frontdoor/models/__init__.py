@@ -10,6 +10,7 @@
 # --------------------------------------------------------------------------
 
 try:
+    from ._models_py3 import AssignmentPathLink
     from ._models_py3 import AzureAsyncOperationResult
     from ._models_py3 import Backend
     from ._models_py3 import BackendPool
@@ -31,6 +32,8 @@ try:
     from ._models_py3 import ForwardingConfiguration
     from ._models_py3 import FrontDoor
     from ._models_py3 import FrontDoorUpdateParameters
+    from ._models_py3 import FrontDoorUpdateParametersWebApplicationFirewallPolicyLinksItem
+    from ._models_py3 import FrontDoorUpdateParametersWebApplicationFirewallPolicyLinksItemPatternsItem
     from ._models_py3 import FrontendEndpoint
     from ._models_py3 import FrontendEndpointLink
     from ._models_py3 import FrontendEndpointUpdateParameters
@@ -80,6 +83,7 @@ try:
     from ._models_py3 import ValidateCustomDomainOutput
     from ._models_py3 import WebApplicationFirewallPolicy
 except (SyntaxError, ImportError):
+    from ._models import AssignmentPathLink
     from ._models import AzureAsyncOperationResult
     from ._models import Backend
     from ._models import BackendPool
@@ -101,6 +105,8 @@ except (SyntaxError, ImportError):
     from ._models import ForwardingConfiguration
     from ._models import FrontDoor
     from ._models import FrontDoorUpdateParameters
+    from ._models import FrontDoorUpdateParametersWebApplicationFirewallPolicyLinksItem
+    from ._models import FrontDoorUpdateParametersWebApplicationFirewallPolicyLinksItemPatternsItem
     from ._models import FrontendEndpoint
     from ._models import FrontendEndpointLink
     from ._models import FrontendEndpointUpdateParameters
@@ -208,6 +214,7 @@ from ._front_door_management_client_enums import (
 )
 
 __all__ = [
+    'AssignmentPathLink',
     'AzureAsyncOperationResult',
     'Backend',
     'BackendPool',
@@ -229,6 +236,8 @@ __all__ = [
     'ForwardingConfiguration',
     'FrontDoor',
     'FrontDoorUpdateParameters',
+    'FrontDoorUpdateParametersWebApplicationFirewallPolicyLinksItem',
+    'FrontDoorUpdateParametersWebApplicationFirewallPolicyLinksItemPatternsItem',
     'FrontendEndpoint',
     'FrontendEndpointLink',
     'FrontendEndpointUpdateParameters',

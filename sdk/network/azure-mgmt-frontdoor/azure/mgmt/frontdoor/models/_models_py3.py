@@ -13,6 +13,22 @@ from msrest.serialization import Model
 from msrest.exceptions import HttpOperationError
 
 
+class AssignmentPathLink(Model):
+    """Defines the Resource ID for an Assignment Path.
+
+    :param id: Resource ID.
+    :type id: str
+    """
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+    }
+
+    def __init__(self, *, id: str=None, **kwargs) -> None:
+        super(AssignmentPathLink, self).__init__(**kwargs)
+        self.id = id
+
+
 class AzureAsyncOperationResult(Model):
     """The response body contains the status of the specified asynchronous
     operation, indicating whether it has succeeded, is in progress, or has
@@ -898,6 +914,10 @@ class FrontDoor(Resource):
      'Enabled', 'Disabled'
     :type enabled_state: str or
      ~azure.mgmt.frontdoor.models.FrontDoorEnabledState
+    :param web_application_firewall_policy_links: Defines the Web Application
+     Firewall links (if applicable)
+    :type web_application_firewall_policy_links:
+     list[~azure.mgmt.frontdoor.models.FrontDoorUpdateParametersWebApplicationFirewallPolicyLinksItem]
     :param resource_state: Resource status of the Front Door. Possible values
      include: 'Creating', 'Enabling', 'Enabled', 'Disabling', 'Disabled',
      'Deleting'
@@ -938,6 +958,7 @@ class FrontDoor(Resource):
         'frontend_endpoints': {'key': 'properties.frontendEndpoints', 'type': '[FrontendEndpoint]'},
         'backend_pools_settings': {'key': 'properties.backendPoolsSettings', 'type': 'BackendPoolsSettings'},
         'enabled_state': {'key': 'properties.enabledState', 'type': 'str'},
+        'web_application_firewall_policy_links': {'key': 'properties.webApplicationFirewallPolicyLinks', 'type': '[FrontDoorUpdateParametersWebApplicationFirewallPolicyLinksItem]'},
         'resource_state': {'key': 'properties.resourceState', 'type': 'str'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'cname': {'key': 'properties.cname', 'type': 'str'},
@@ -945,7 +966,7 @@ class FrontDoor(Resource):
         'rules_engines': {'key': 'properties.rulesEngines', 'type': '[RulesEngine]'},
     }
 
-    def __init__(self, *, location: str=None, tags=None, friendly_name: str=None, routing_rules=None, load_balancing_settings=None, health_probe_settings=None, backend_pools=None, frontend_endpoints=None, backend_pools_settings=None, enabled_state=None, resource_state=None, **kwargs) -> None:
+    def __init__(self, *, location: str=None, tags=None, friendly_name: str=None, routing_rules=None, load_balancing_settings=None, health_probe_settings=None, backend_pools=None, frontend_endpoints=None, backend_pools_settings=None, enabled_state=None, web_application_firewall_policy_links=None, resource_state=None, **kwargs) -> None:
         super(FrontDoor, self).__init__(location=location, tags=tags, **kwargs)
         self.friendly_name = friendly_name
         self.routing_rules = routing_rules
@@ -955,6 +976,7 @@ class FrontDoor(Resource):
         self.frontend_endpoints = frontend_endpoints
         self.backend_pools_settings = backend_pools_settings
         self.enabled_state = enabled_state
+        self.web_application_firewall_policy_links = web_application_firewall_policy_links
         self.resource_state = resource_state
         self.provisioning_state = None
         self.cname = None
@@ -990,6 +1012,10 @@ class FrontDoorUpdateParameters(Model):
      'Enabled', 'Disabled'
     :type enabled_state: str or
      ~azure.mgmt.frontdoor.models.FrontDoorEnabledState
+    :param web_application_firewall_policy_links: Defines the Web Application
+     Firewall links (if applicable)
+    :type web_application_firewall_policy_links:
+     list[~azure.mgmt.frontdoor.models.FrontDoorUpdateParametersWebApplicationFirewallPolicyLinksItem]
     """
 
     _attribute_map = {
@@ -1001,9 +1027,10 @@ class FrontDoorUpdateParameters(Model):
         'frontend_endpoints': {'key': 'frontendEndpoints', 'type': '[FrontendEndpoint]'},
         'backend_pools_settings': {'key': 'backendPoolsSettings', 'type': 'BackendPoolsSettings'},
         'enabled_state': {'key': 'enabledState', 'type': 'str'},
+        'web_application_firewall_policy_links': {'key': 'webApplicationFirewallPolicyLinks', 'type': '[FrontDoorUpdateParametersWebApplicationFirewallPolicyLinksItem]'},
     }
 
-    def __init__(self, *, friendly_name: str=None, routing_rules=None, load_balancing_settings=None, health_probe_settings=None, backend_pools=None, frontend_endpoints=None, backend_pools_settings=None, enabled_state=None, **kwargs) -> None:
+    def __init__(self, *, friendly_name: str=None, routing_rules=None, load_balancing_settings=None, health_probe_settings=None, backend_pools=None, frontend_endpoints=None, backend_pools_settings=None, enabled_state=None, web_application_firewall_policy_links=None, **kwargs) -> None:
         super(FrontDoorUpdateParameters, self).__init__(**kwargs)
         self.friendly_name = friendly_name
         self.routing_rules = routing_rules
@@ -1013,6 +1040,48 @@ class FrontDoorUpdateParameters(Model):
         self.frontend_endpoints = frontend_endpoints
         self.backend_pools_settings = backend_pools_settings
         self.enabled_state = enabled_state
+        self.web_application_firewall_policy_links = web_application_firewall_policy_links
+
+
+class FrontDoorUpdateParametersWebApplicationFirewallPolicyLinksItem(Model):
+    """Defines the Web Application Firewall link.
+
+    :param id: Resource ID.
+    :type id: str
+    :param patterns: List of patterns to match.
+    :type patterns:
+     list[~azure.mgmt.frontdoor.models.FrontDoorUpdateParametersWebApplicationFirewallPolicyLinksItemPatternsItem]
+    """
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'patterns': {'key': 'patterns', 'type': '[FrontDoorUpdateParametersWebApplicationFirewallPolicyLinksItemPatternsItem]'},
+    }
+
+    def __init__(self, *, id: str=None, patterns=None, **kwargs) -> None:
+        super(FrontDoorUpdateParametersWebApplicationFirewallPolicyLinksItem, self).__init__(**kwargs)
+        self.id = id
+        self.patterns = patterns
+
+
+class FrontDoorUpdateParametersWebApplicationFirewallPolicyLinksItemPatternsItem(Model):
+    """Patterns to match.
+
+    :param domains: Domains to match.
+    :type domains: list[str]
+    :param paths: Paths to match.
+    :type paths: list[str]
+    """
+
+    _attribute_map = {
+        'domains': {'key': 'domains', 'type': '[str]'},
+        'paths': {'key': 'paths', 'type': '[str]'},
+    }
+
+    def __init__(self, *, domains=None, paths=None, **kwargs) -> None:
+        super(FrontDoorUpdateParametersWebApplicationFirewallPolicyLinksItemPatternsItem, self).__init__(**kwargs)
+        self.domains = domains
+        self.paths = paths
 
 
 class FrontendEndpoint(SubResource):
@@ -2802,6 +2871,10 @@ class WebApplicationFirewallPolicy(Resource):
      Application Firewall policy.
     :vartype routing_rule_links:
      list[~azure.mgmt.frontdoor.models.RoutingRuleLink]
+    :ivar assignment_path_links: Describes paths associated with this Web
+     Application Firewall policy.
+    :vartype assignment_path_links:
+     list[~azure.mgmt.frontdoor.models.AssignmentPathLink]
     :ivar provisioning_state: Provisioning state of the policy.
     :vartype provisioning_state: str
     :ivar resource_state: Resource status of the policy. Possible values
@@ -2820,6 +2893,7 @@ class WebApplicationFirewallPolicy(Resource):
         'type': {'readonly': True},
         'frontend_endpoint_links': {'readonly': True},
         'routing_rule_links': {'readonly': True},
+        'assignment_path_links': {'readonly': True},
         'provisioning_state': {'readonly': True},
         'resource_state': {'readonly': True},
     }
@@ -2835,6 +2909,7 @@ class WebApplicationFirewallPolicy(Resource):
         'managed_rules': {'key': 'properties.managedRules', 'type': 'ManagedRuleSetList'},
         'frontend_endpoint_links': {'key': 'properties.frontendEndpointLinks', 'type': '[FrontendEndpointLink]'},
         'routing_rule_links': {'key': 'properties.routingRuleLinks', 'type': '[RoutingRuleLink]'},
+        'assignment_path_links': {'key': 'properties.assignmentPathLinks', 'type': '[AssignmentPathLink]'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'resource_state': {'key': 'properties.resourceState', 'type': 'str'},
         'etag': {'key': 'etag', 'type': 'str'},
@@ -2847,6 +2922,7 @@ class WebApplicationFirewallPolicy(Resource):
         self.managed_rules = managed_rules
         self.frontend_endpoint_links = None
         self.routing_rule_links = None
+        self.assignment_path_links = None
         self.provisioning_state = None
         self.resource_state = None
         self.etag = etag
