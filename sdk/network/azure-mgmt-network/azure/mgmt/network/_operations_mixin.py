@@ -95,6 +95,8 @@ class NetworkManagementClientOperationsMixin(object):
             from .v2020_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-05-01':
             from .v2020_05_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+        elif api_version == '2020-06-01':
+            from .v2020_06_01.operations import NetworkManagementClientOperationsMixin as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         mixin_instance = OperationClass()
@@ -141,6 +143,8 @@ class NetworkManagementClientOperationsMixin(object):
             from .v2020_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-05-01':
             from .v2020_05_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+        elif api_version == '2020-06-01':
+            from .v2020_06_01.operations import NetworkManagementClientOperationsMixin as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         mixin_instance = OperationClass()
@@ -184,6 +188,8 @@ class NetworkManagementClientOperationsMixin(object):
             from .v2020_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-05-01':
             from .v2020_05_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+        elif api_version == '2020-06-01':
+            from .v2020_06_01.operations import NetworkManagementClientOperationsMixin as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         mixin_instance = OperationClass()
@@ -240,6 +246,8 @@ class NetworkManagementClientOperationsMixin(object):
             from .v2020_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-05-01':
             from .v2020_05_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+        elif api_version == '2020-06-01':
+            from .v2020_06_01.operations import NetworkManagementClientOperationsMixin as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         mixin_instance = OperationClass()
@@ -285,6 +293,8 @@ class NetworkManagementClientOperationsMixin(object):
             from .v2020_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-05-01':
             from .v2020_05_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+        elif api_version == '2020-06-01':
+            from .v2020_06_01.operations import NetworkManagementClientOperationsMixin as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         mixin_instance = OperationClass()
@@ -330,6 +340,8 @@ class NetworkManagementClientOperationsMixin(object):
             from .v2020_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-05-01':
             from .v2020_05_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+        elif api_version == '2020-06-01':
+            from .v2020_06_01.operations import NetworkManagementClientOperationsMixin as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         mixin_instance = OperationClass()
@@ -379,6 +391,8 @@ class NetworkManagementClientOperationsMixin(object):
             from .v2020_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-05-01':
             from .v2020_05_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+        elif api_version == '2020-06-01':
+            from .v2020_06_01.operations import NetworkManagementClientOperationsMixin as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         mixin_instance = OperationClass()
@@ -440,6 +454,8 @@ class NetworkManagementClientOperationsMixin(object):
             from .v2020_04_01.operations import NetworkManagementClientOperationsMixin as OperationClass
         elif api_version == '2020-05-01':
             from .v2020_05_01.operations import NetworkManagementClientOperationsMixin as OperationClass
+        elif api_version == '2020-06-01':
+            from .v2020_06_01.operations import NetworkManagementClientOperationsMixin as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         mixin_instance = OperationClass()
