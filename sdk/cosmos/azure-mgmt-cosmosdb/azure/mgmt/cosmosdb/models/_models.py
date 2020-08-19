@@ -251,6 +251,35 @@ class AzureEntityResource(Resource):
         self.etag = None
 
 
+class BackupPolicy(Model):
+    """The object representing the policy for taking backups on an account.
+
+    You probably want to use the sub-classes and not this class directly. Known
+    sub-classes are: PeriodicModeBackupPolicy, ContinuousModeBackupPolicy
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param type: Required. Constant filled by server.
+    :type type: str
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    _subtype_map = {
+        'type': {'Periodic': 'PeriodicModeBackupPolicy', 'Continuous': 'ContinuousModeBackupPolicy'}
+    }
+
+    def __init__(self, **kwargs):
+        super(BackupPolicy, self).__init__(**kwargs)
+        self.type = None
+
+
 class Capability(Model):
     """Cosmos DB capability object.
 
@@ -890,6 +919,28 @@ class ContainerPartitionKey(Model):
         self.version = kwargs.get('version', None)
 
 
+class ContinuousModeBackupPolicy(BackupPolicy):
+    """The object representing continuous mode backup policy.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param type: Required. Constant filled by server.
+    :type type: str
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ContinuousModeBackupPolicy, self).__init__(**kwargs)
+        self.type = 'Continuous'
+
+
 class CorsPolicy(Model):
     """The CORS policy for the Cosmos DB database account.
 
@@ -1060,6 +1111,9 @@ class DatabaseAccountCreateUpdateParameters(ARMResourceProperties):
     :param enable_analytical_storage: Flag to indicate whether to enable
      storage analytics.
     :type enable_analytical_storage: bool
+    :param backup_policy: The object representing the policy for taking
+     backups on an account.
+    :type backup_policy: ~azure.mgmt.cosmosdb.models.BackupPolicy
     :param cors: The CORS policy for the Cosmos DB database account.
     :type cors: list[~azure.mgmt.cosmosdb.models.CorsPolicy]
     """
@@ -1096,6 +1150,7 @@ class DatabaseAccountCreateUpdateParameters(ARMResourceProperties):
         'enable_free_tier': {'key': 'properties.enableFreeTier', 'type': 'bool'},
         'api_properties': {'key': 'properties.apiProperties', 'type': 'ApiProperties'},
         'enable_analytical_storage': {'key': 'properties.enableAnalyticalStorage', 'type': 'bool'},
+        'backup_policy': {'key': 'properties.backupPolicy', 'type': 'BackupPolicy'},
         'cors': {'key': 'properties.cors', 'type': '[CorsPolicy]'},
     }
 
@@ -1120,6 +1175,7 @@ class DatabaseAccountCreateUpdateParameters(ARMResourceProperties):
         self.enable_free_tier = kwargs.get('enable_free_tier', None)
         self.api_properties = kwargs.get('api_properties', None)
         self.enable_analytical_storage = kwargs.get('enable_analytical_storage', None)
+        self.backup_policy = kwargs.get('backup_policy', None)
         self.cors = kwargs.get('cors', None)
 
 
@@ -1215,6 +1271,9 @@ class DatabaseAccountGetResults(ARMResourceProperties):
     :param enable_analytical_storage: Flag to indicate whether to enable
      storage analytics.
     :type enable_analytical_storage: bool
+    :param backup_policy: The object representing the policy for taking
+     backups on an account.
+    :type backup_policy: ~azure.mgmt.cosmosdb.models.BackupPolicy
     :param cors: The CORS policy for the Cosmos DB database account.
     :type cors: list[~azure.mgmt.cosmosdb.models.CorsPolicy]
     """
@@ -1262,6 +1321,7 @@ class DatabaseAccountGetResults(ARMResourceProperties):
         'enable_free_tier': {'key': 'properties.enableFreeTier', 'type': 'bool'},
         'api_properties': {'key': 'properties.apiProperties', 'type': 'ApiProperties'},
         'enable_analytical_storage': {'key': 'properties.enableAnalyticalStorage', 'type': 'bool'},
+        'backup_policy': {'key': 'properties.backupPolicy', 'type': 'BackupPolicy'},
         'cors': {'key': 'properties.cors', 'type': '[CorsPolicy]'},
     }
 
@@ -1291,6 +1351,7 @@ class DatabaseAccountGetResults(ARMResourceProperties):
         self.enable_free_tier = kwargs.get('enable_free_tier', None)
         self.api_properties = kwargs.get('api_properties', None)
         self.enable_analytical_storage = kwargs.get('enable_analytical_storage', None)
+        self.backup_policy = kwargs.get('backup_policy', None)
         self.cors = kwargs.get('cors', None)
 
 
@@ -1461,6 +1522,9 @@ class DatabaseAccountUpdateParameters(Model):
     :param enable_analytical_storage: Flag to indicate whether to enable
      storage analytics.
     :type enable_analytical_storage: bool
+    :param backup_policy: The object representing the policy for taking
+     backups on an account.
+    :type backup_policy: ~azure.mgmt.cosmosdb.models.BackupPolicy
     :param cors: The CORS policy for the Cosmos DB database account.
     :type cors: list[~azure.mgmt.cosmosdb.models.CorsPolicy]
     """
@@ -1484,6 +1548,7 @@ class DatabaseAccountUpdateParameters(Model):
         'enable_free_tier': {'key': 'properties.enableFreeTier', 'type': 'bool'},
         'api_properties': {'key': 'properties.apiProperties', 'type': 'ApiProperties'},
         'enable_analytical_storage': {'key': 'properties.enableAnalyticalStorage', 'type': 'bool'},
+        'backup_policy': {'key': 'properties.backupPolicy', 'type': 'BackupPolicy'},
         'cors': {'key': 'properties.cors', 'type': '[CorsPolicy]'},
     }
 
@@ -1507,6 +1572,7 @@ class DatabaseAccountUpdateParameters(Model):
         self.enable_free_tier = kwargs.get('enable_free_tier', None)
         self.api_properties = kwargs.get('api_properties', None)
         self.enable_analytical_storage = kwargs.get('enable_analytical_storage', None)
+        self.backup_policy = kwargs.get('backup_policy', None)
         self.cors = kwargs.get('cors', None)
 
 
@@ -3305,6 +3371,61 @@ class PercentileMetricValue(MetricValue):
         self.p90 = None
         self.p95 = None
         self.p99 = None
+
+
+class PeriodicModeBackupPolicy(BackupPolicy):
+    """The object representing periodic mode backup policy.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param periodic_mode_properties: Configuration values for periodic mode
+     backup
+    :type periodic_mode_properties:
+     ~azure.mgmt.cosmosdb.models.PeriodicModeProperties
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'periodic_mode_properties': {'key': 'periodicModeProperties', 'type': 'PeriodicModeProperties'},
+    }
+
+    def __init__(self, **kwargs):
+        super(PeriodicModeBackupPolicy, self).__init__(**kwargs)
+        self.periodic_mode_properties = kwargs.get('periodic_mode_properties', None)
+        self.type = 'Periodic'
+
+
+class PeriodicModeProperties(Model):
+    """Configuration values for periodic mode backup.
+
+    :param backup_interval_in_minutes: An integer representing the interval in
+     minutes between two backups
+    :type backup_interval_in_minutes: int
+    :param backup_retention_interval_in_hours: An integer representing the
+     time (in hours) that each backup is retained
+    :type backup_retention_interval_in_hours: int
+    """
+
+    _validation = {
+        'backup_interval_in_minutes': {'minimum': 0},
+        'backup_retention_interval_in_hours': {'minimum': 0},
+    }
+
+    _attribute_map = {
+        'backup_interval_in_minutes': {'key': 'backupIntervalInMinutes', 'type': 'int'},
+        'backup_retention_interval_in_hours': {'key': 'backupRetentionIntervalInHours', 'type': 'int'},
+    }
+
+    def __init__(self, **kwargs):
+        super(PeriodicModeProperties, self).__init__(**kwargs)
+        self.backup_interval_in_minutes = kwargs.get('backup_interval_in_minutes', None)
+        self.backup_retention_interval_in_hours = kwargs.get('backup_retention_interval_in_hours', None)
 
 
 class ProxyResource(Resource):

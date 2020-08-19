@@ -17,6 +17,7 @@ try:
     from ._models_py3 import AutoscaleSettingsResource
     from ._models_py3 import AutoUpgradePolicyResource
     from ._models_py3 import AzureEntityResource
+    from ._models_py3 import BackupPolicy
     from ._models_py3 import Capability
     from ._models_py3 import CassandraKeyspaceCreateUpdateParameters
     from ._models_py3 import CassandraKeyspaceGetPropertiesOptions
@@ -36,6 +37,7 @@ try:
     from ._models_py3 import ConflictResolutionPolicy
     from ._models_py3 import ConsistencyPolicy
     from ._models_py3 import ContainerPartitionKey
+    from ._models_py3 import ContinuousModeBackupPolicy
     from ._models_py3 import CorsPolicy
     from ._models_py3 import CreateUpdateOptions
     from ._models_py3 import DatabaseAccountConnectionString
@@ -94,6 +96,8 @@ try:
     from ._models_py3 import PartitionUsage
     from ._models_py3 import PercentileMetric
     from ._models_py3 import PercentileMetricValue
+    from ._models_py3 import PeriodicModeBackupPolicy
+    from ._models_py3 import PeriodicModeProperties
     from ._models_py3 import PrivateEndpointConnection
     from ._models_py3 import PrivateEndpointProperty
     from ._models_py3 import PrivateLinkResource
@@ -147,6 +151,7 @@ except (SyntaxError, ImportError):
     from ._models import AutoscaleSettingsResource
     from ._models import AutoUpgradePolicyResource
     from ._models import AzureEntityResource
+    from ._models import BackupPolicy
     from ._models import Capability
     from ._models import CassandraKeyspaceCreateUpdateParameters
     from ._models import CassandraKeyspaceGetPropertiesOptions
@@ -166,6 +171,7 @@ except (SyntaxError, ImportError):
     from ._models import ConflictResolutionPolicy
     from ._models import ConsistencyPolicy
     from ._models import ContainerPartitionKey
+    from ._models import ContinuousModeBackupPolicy
     from ._models import CorsPolicy
     from ._models import CreateUpdateOptions
     from ._models import DatabaseAccountConnectionString
@@ -224,6 +230,8 @@ except (SyntaxError, ImportError):
     from ._models import PartitionUsage
     from ._models import PercentileMetric
     from ._models import PercentileMetricValue
+    from ._models import PeriodicModeBackupPolicy
+    from ._models import PeriodicModeProperties
     from ._models import PrivateEndpointConnection
     from ._models import PrivateEndpointProperty
     from ._models import PrivateLinkResource
@@ -311,6 +319,7 @@ from ._cosmos_db_management_client_enums import (
     KeyKind,
     UnitType,
     PrimaryAggregationType,
+    BackupPolicyType,
 )
 
 __all__ = [
@@ -321,6 +330,7 @@ __all__ = [
     'AutoscaleSettingsResource',
     'AutoUpgradePolicyResource',
     'AzureEntityResource',
+    'BackupPolicy',
     'Capability',
     'CassandraKeyspaceCreateUpdateParameters',
     'CassandraKeyspaceGetPropertiesOptions',
@@ -340,6 +350,7 @@ __all__ = [
     'ConflictResolutionPolicy',
     'ConsistencyPolicy',
     'ContainerPartitionKey',
+    'ContinuousModeBackupPolicy',
     'CorsPolicy',
     'CreateUpdateOptions',
     'DatabaseAccountConnectionString',
@@ -398,6 +409,8 @@ __all__ = [
     'PartitionUsage',
     'PercentileMetric',
     'PercentileMetricValue',
+    'PeriodicModeBackupPolicy',
+    'PeriodicModeProperties',
     'PrivateEndpointConnection',
     'PrivateEndpointProperty',
     'PrivateLinkResource',
@@ -484,4 +497,5 @@ __all__ = [
     'KeyKind',
     'UnitType',
     'PrimaryAggregationType',
+    'BackupPolicyType',
 ]

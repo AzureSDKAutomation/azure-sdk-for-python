@@ -142,3 +142,9 @@ class PrimaryAggregationType(str, Enum):
     minimum = "Minimum"
     maximum = "Maximum"
     last = "Last"
+
+
+class BackupPolicyType(str, Enum):
+
+    periodic = "Periodic"
+    continuous = "Continuous"
