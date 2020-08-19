@@ -97,7 +97,6 @@ try:
     from ._models_py3 import BastionActiveSessionListResult
     from ._models_py3 import BastionHost
     from ._models_py3 import BastionHostIPConfiguration
-    from ._models_py3 import BastionHostListResult
     from ._models_py3 import BastionSessionState
     from ._models_py3 import BastionShareableLink
     from ._models_py3 import BastionShareableLinkListRequest
@@ -508,7 +507,6 @@ except (SyntaxError, ImportError):
     from ._models import BastionActiveSessionListResult
     from ._models import BastionHost
     from ._models import BastionHostIPConfiguration
-    from ._models import BastionHostListResult
     from ._models import BastionSessionState
     from ._models import BastionShareableLink
     from ._models import BastionShareableLinkListRequest
@@ -1134,7 +1132,6 @@ __all__ = [
     'BastionActiveSessionListResult',
     'BastionHost',
     'BastionHostIPConfiguration',
-    'BastionHostListResult',
     'BastionSessionState',
     'BastionShareableLink',
     'BastionShareableLinkListRequest',
