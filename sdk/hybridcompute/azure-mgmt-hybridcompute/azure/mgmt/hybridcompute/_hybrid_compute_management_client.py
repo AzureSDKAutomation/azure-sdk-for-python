@@ -14,23 +14,32 @@ from msrest import Serializer, Deserializer
 
 from ._configuration import HybridComputeManagementClientConfiguration
 from .operations import MachinesOperations
-from .operations import MachineExtensionsOperations
 from .operations import Operations
+from .operations import PrivateLinkScopesOperations
+from .operations import PrivateLinkResourcesOperations
+from .operations import PrivateEndpointConnectionsOperations
+from .operations import PrivateLinkScopedResourcesOperations
 from . import models
 
 
 class HybridComputeManagementClient(SDKClient):
-    """The Hybrid Compute Management Client.
+    """HybridComputeManagementClient
 
     :ivar config: Configuration for client.
     :vartype config: HybridComputeManagementClientConfiguration
 
     :ivar machines: Machines operations
     :vartype machines: azure.mgmt.hybridcompute.operations.MachinesOperations
-    :ivar machine_extensions: MachineExtensions operations
-    :vartype machine_extensions: azure.mgmt.hybridcompute.operations.MachineExtensionsOperations
     :ivar operations: Operations operations
     :vartype operations: azure.mgmt.hybridcompute.operations.Operations
+    :ivar private_link_scopes: PrivateLinkScopes operations
+    :vartype private_link_scopes: azure.mgmt.hybridcompute.operations.PrivateLinkScopesOperations
+    :ivar private_link_resources: PrivateLinkResources operations
+    :vartype private_link_resources: azure.mgmt.hybridcompute.operations.PrivateLinkResourcesOperations
+    :ivar private_endpoint_connections: PrivateEndpointConnections operations
+    :vartype private_endpoint_connections: azure.mgmt.hybridcompute.operations.PrivateEndpointConnectionsOperations
+    :ivar private_link_scoped_resources: PrivateLinkScopedResources operations
+    :vartype private_link_scoped_resources: azure.mgmt.hybridcompute.operations.PrivateLinkScopedResourcesOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -47,13 +56,19 @@ class HybridComputeManagementClient(SDKClient):
         super(HybridComputeManagementClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
-        self.api_version = '2019-12-12'
+        self.api_version = '2020-08-15'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
         self.machines = MachinesOperations(
             self._client, self.config, self._serialize, self._deserialize)
-        self.machine_extensions = MachineExtensionsOperations(
-            self._client, self.config, self._serialize, self._deserialize)
         self.operations = Operations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.private_link_scopes = PrivateLinkScopesOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.private_link_resources = PrivateLinkResourcesOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.private_endpoint_connections = PrivateEndpointConnectionsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.private_link_scoped_resources = PrivateLinkScopedResourcesOperations(
             self._client, self.config, self._serialize, self._deserialize)
