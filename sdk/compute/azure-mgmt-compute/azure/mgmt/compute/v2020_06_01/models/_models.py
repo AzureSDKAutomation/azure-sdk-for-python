@@ -1391,6 +1391,38 @@ class DiskInstanceView(Model):
         self.statuses = kwargs.get('statuses', None)
 
 
+class ExtendedLocation(Model):
+    """ExtendedLocation complex type.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. The name of the extended location.
+    :type name: str
+    :ivar type: Required. The type of the extended location. Default value:
+     "EdgeZone" .
+    :vartype type: str
+    """
+
+    _validation = {
+        'name': {'required': True},
+        'type': {'required': True, 'constant': True},
+    }
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    type = "EdgeZone"
+
+    def __init__(self, **kwargs):
+        super(ExtendedLocation, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+
+
 class HardwareProfile(Model):
     """Specifies the hardware settings for the virtual machine.
 
@@ -1498,6 +1530,9 @@ class Image(Resource):
      VirtualMachine created from the image. Possible values include: 'V1', 'V2'
     :type hyper_vgeneration: str or
      ~azure.mgmt.compute.v2020_06_01.models.HyperVGenerationTypes
+    :param extended_location: The extended location of the Image.
+    :type extended_location:
+     ~azure.mgmt.compute.v2020_06_01.models.ExtendedLocation
     """
 
     _validation = {
@@ -1518,6 +1553,7 @@ class Image(Resource):
         'storage_profile': {'key': 'properties.storageProfile', 'type': 'ImageStorageProfile'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'hyper_vgeneration': {'key': 'properties.hyperVGeneration', 'type': 'str'},
+        'extended_location': {'key': 'extendedLocation', 'type': 'ExtendedLocation'},
     }
 
     def __init__(self, **kwargs):
@@ -1526,6 +1562,7 @@ class Image(Resource):
         self.storage_profile = kwargs.get('storage_profile', None)
         self.provisioning_state = None
         self.hyper_vgeneration = kwargs.get('hyper_vgeneration', None)
+        self.extended_location = kwargs.get('extended_location', None)
 
 
 class ImageDisk(Model):
@@ -4149,6 +4186,9 @@ class VirtualMachine(Resource):
      ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineIdentity
     :param zones: The virtual machine zones.
     :type zones: list[str]
+    :param extended_location: The extended location of the Virtual Machine.
+    :type extended_location:
+     ~azure.mgmt.compute.v2020_06_01.models.ExtendedLocation
     """
 
     _validation = {
@@ -4192,6 +4232,7 @@ class VirtualMachine(Resource):
         'resources': {'key': 'resources', 'type': '[VirtualMachineExtension]'},
         'identity': {'key': 'identity', 'type': 'VirtualMachineIdentity'},
         'zones': {'key': 'zones', 'type': '[str]'},
+        'extended_location': {'key': 'extendedLocation', 'type': 'ExtendedLocation'},
     }
 
     def __init__(self, **kwargs):
@@ -4220,6 +4261,7 @@ class VirtualMachine(Resource):
         self.resources = None
         self.identity = kwargs.get('identity', None)
         self.zones = kwargs.get('zones', None)
+        self.extended_location = kwargs.get('extended_location', None)
 
 
 class VirtualMachineAgentInstanceView(Model):
@@ -5121,6 +5163,10 @@ class VirtualMachineScaleSet(Resource):
     :param zones: The virtual machine scale set zones. NOTE: Availability
      zones can only be set when you create the scale set
     :type zones: list[str]
+    :param extended_location: The extended location of the Virtual Machine
+     Scale Set.
+    :type extended_location:
+     ~azure.mgmt.compute.v2020_06_01.models.ExtendedLocation
     """
 
     _validation = {
@@ -5156,6 +5202,7 @@ class VirtualMachineScaleSet(Resource):
         'scale_in_policy': {'key': 'properties.scaleInPolicy', 'type': 'ScaleInPolicy'},
         'identity': {'key': 'identity', 'type': 'VirtualMachineScaleSetIdentity'},
         'zones': {'key': 'zones', 'type': '[str]'},
+        'extended_location': {'key': 'extendedLocation', 'type': 'ExtendedLocation'},
     }
 
     def __init__(self, **kwargs):
@@ -5178,6 +5225,7 @@ class VirtualMachineScaleSet(Resource):
         self.scale_in_policy = kwargs.get('scale_in_policy', None)
         self.identity = kwargs.get('identity', None)
         self.zones = kwargs.get('zones', None)
+        self.extended_location = kwargs.get('extended_location', None)
 
 
 class VirtualMachineScaleSetDataDisk(Model):

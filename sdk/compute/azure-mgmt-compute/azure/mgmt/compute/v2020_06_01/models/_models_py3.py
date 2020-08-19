@@ -1391,6 +1391,38 @@ class DiskInstanceView(Model):
         self.statuses = statuses
 
 
+class ExtendedLocation(Model):
+    """ExtendedLocation complex type.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. The name of the extended location.
+    :type name: str
+    :ivar type: Required. The type of the extended location. Default value:
+     "EdgeZone" .
+    :vartype type: str
+    """
+
+    _validation = {
+        'name': {'required': True},
+        'type': {'required': True, 'constant': True},
+    }
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    type = "EdgeZone"
+
+    def __init__(self, *, name: str, **kwargs) -> None:
+        super(ExtendedLocation, self).__init__(**kwargs)
+        self.name = name
+
+
 class HardwareProfile(Model):
     """Specifies the hardware settings for the virtual machine.
 
@@ -1498,6 +1530,9 @@ class Image(Resource):
      VirtualMachine created from the image. Possible values include: 'V1', 'V2'
     :type hyper_vgeneration: str or
      ~azure.mgmt.compute.v2020_06_01.models.HyperVGenerationTypes
+    :param extended_location: The extended location of the Image.
+    :type extended_location:
+     ~azure.mgmt.compute.v2020_06_01.models.ExtendedLocation
     """
 
     _validation = {
@@ -1518,14 +1553,16 @@ class Image(Resource):
         'storage_profile': {'key': 'properties.storageProfile', 'type': 'ImageStorageProfile'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'hyper_vgeneration': {'key': 'properties.hyperVGeneration', 'type': 'str'},
+        'extended_location': {'key': 'extendedLocation', 'type': 'ExtendedLocation'},
     }
 
-    def __init__(self, *, location: str, tags=None, source_virtual_machine=None, storage_profile=None, hyper_vgeneration=None, **kwargs) -> None:
+    def __init__(self, *, location: str, tags=None, source_virtual_machine=None, storage_profile=None, hyper_vgeneration=None, extended_location=None, **kwargs) -> None:
         super(Image, self).__init__(location=location, tags=tags, **kwargs)
         self.source_virtual_machine = source_virtual_machine
         self.storage_profile = storage_profile
         self.provisioning_state = None
         self.hyper_vgeneration = hyper_vgeneration
+        self.extended_location = extended_location
 
 
 class ImageDisk(Model):
@@ -4149,6 +4186,9 @@ class VirtualMachine(Resource):
      ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineIdentity
     :param zones: The virtual machine zones.
     :type zones: list[str]
+    :param extended_location: The extended location of the Virtual Machine.
+    :type extended_location:
+     ~azure.mgmt.compute.v2020_06_01.models.ExtendedLocation
     """
 
     _validation = {
@@ -4192,9 +4232,10 @@ class VirtualMachine(Resource):
         'resources': {'key': 'resources', 'type': '[VirtualMachineExtension]'},
         'identity': {'key': 'identity', 'type': 'VirtualMachineIdentity'},
         'zones': {'key': 'zones', 'type': '[str]'},
+        'extended_location': {'key': 'extendedLocation', 'type': 'ExtendedLocation'},
     }
 
-    def __init__(self, *, location: str, tags=None, plan=None, hardware_profile=None, storage_profile=None, additional_capabilities=None, os_profile=None, network_profile=None, security_profile=None, diagnostics_profile=None, availability_set=None, virtual_machine_scale_set=None, proximity_placement_group=None, priority=None, eviction_policy=None, billing_profile=None, host=None, host_group=None, license_type: str=None, extensions_time_budget: str=None, identity=None, zones=None, **kwargs) -> None:
+    def __init__(self, *, location: str, tags=None, plan=None, hardware_profile=None, storage_profile=None, additional_capabilities=None, os_profile=None, network_profile=None, security_profile=None, diagnostics_profile=None, availability_set=None, virtual_machine_scale_set=None, proximity_placement_group=None, priority=None, eviction_policy=None, billing_profile=None, host=None, host_group=None, license_type: str=None, extensions_time_budget: str=None, identity=None, zones=None, extended_location=None, **kwargs) -> None:
         super(VirtualMachine, self).__init__(location=location, tags=tags, **kwargs)
         self.plan = plan
         self.hardware_profile = hardware_profile
@@ -4220,6 +4261,7 @@ class VirtualMachine(Resource):
         self.resources = None
         self.identity = identity
         self.zones = zones
+        self.extended_location = extended_location
 
 
 class VirtualMachineAgentInstanceView(Model):
@@ -5121,6 +5163,10 @@ class VirtualMachineScaleSet(Resource):
     :param zones: The virtual machine scale set zones. NOTE: Availability
      zones can only be set when you create the scale set
     :type zones: list[str]
+    :param extended_location: The extended location of the Virtual Machine
+     Scale Set.
+    :type extended_location:
+     ~azure.mgmt.compute.v2020_06_01.models.ExtendedLocation
     """
 
     _validation = {
@@ -5156,9 +5202,10 @@ class VirtualMachineScaleSet(Resource):
         'scale_in_policy': {'key': 'properties.scaleInPolicy', 'type': 'ScaleInPolicy'},
         'identity': {'key': 'identity', 'type': 'VirtualMachineScaleSetIdentity'},
         'zones': {'key': 'zones', 'type': '[str]'},
+        'extended_location': {'key': 'extendedLocation', 'type': 'ExtendedLocation'},
     }
 
-    def __init__(self, *, location: str, tags=None, sku=None, plan=None, upgrade_policy=None, automatic_repairs_policy=None, virtual_machine_profile=None, overprovision: bool=None, do_not_run_extensions_on_overprovisioned_vms: bool=None, single_placement_group: bool=None, zone_balance: bool=None, platform_fault_domain_count: int=None, proximity_placement_group=None, host_group=None, additional_capabilities=None, scale_in_policy=None, identity=None, zones=None, **kwargs) -> None:
+    def __init__(self, *, location: str, tags=None, sku=None, plan=None, upgrade_policy=None, automatic_repairs_policy=None, virtual_machine_profile=None, overprovision: bool=None, do_not_run_extensions_on_overprovisioned_vms: bool=None, single_placement_group: bool=None, zone_balance: bool=None, platform_fault_domain_count: int=None, proximity_placement_group=None, host_group=None, additional_capabilities=None, scale_in_policy=None, identity=None, zones=None, extended_location=None, **kwargs) -> None:
         super(VirtualMachineScaleSet, self).__init__(location=location, tags=tags, **kwargs)
         self.sku = sku
         self.plan = plan
@@ -5178,6 +5225,7 @@ class VirtualMachineScaleSet(Resource):
         self.scale_in_policy = scale_in_policy
         self.identity = identity
         self.zones = zones
+        self.extended_location = extended_location
 
 
 class VirtualMachineScaleSetDataDisk(Model):

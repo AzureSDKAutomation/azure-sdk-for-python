@@ -430,6 +430,11 @@ class RollingUpgradeActionType(str, Enum):
     cancel = "Cancel"
 
 
+class ExtendedLocationTypes(str, Enum):
+
+    edge_zone = "EdgeZone"
+
+
 class IntervalInMins(str, Enum):
 
     three_mins = "ThreeMins"

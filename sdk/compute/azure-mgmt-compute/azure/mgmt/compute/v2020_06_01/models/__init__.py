@@ -42,6 +42,7 @@ try:
     from ._models_py3 import DiskEncryptionSetParameters
     from ._models_py3 import DiskEncryptionSettings
     from ._models_py3 import DiskInstanceView
+    from ._models_py3 import ExtendedLocation
     from ._models_py3 import HardwareProfile
     from ._models_py3 import Image
     from ._models_py3 import ImageDataDisk
@@ -214,6 +215,7 @@ except (SyntaxError, ImportError):
     from ._models import DiskEncryptionSetParameters
     from ._models import DiskEncryptionSettings
     from ._models import DiskInstanceView
+    from ._models import ExtendedLocation
     from ._models import HardwareProfile
     from ._models import Image
     from ._models import ImageDataDisk
@@ -408,6 +410,7 @@ from ._compute_management_client_enums import (
     UpgradeOperationInvoker,
     RollingUpgradeStatusCode,
     RollingUpgradeActionType,
+    ExtendedLocationTypes,
     IntervalInMins,
     OrchestrationServiceStateAction,
     InstanceViewTypes,
@@ -446,6 +449,7 @@ __all__ = [
     'DiskEncryptionSetParameters',
     'DiskEncryptionSettings',
     'DiskInstanceView',
+    'ExtendedLocation',
     'HardwareProfile',
     'Image',
     'ImageDataDisk',
@@ -639,6 +643,7 @@ __all__ = [
     'UpgradeOperationInvoker',
     'RollingUpgradeStatusCode',
     'RollingUpgradeActionType',
+    'ExtendedLocationTypes',
     'IntervalInMins',
     'OrchestrationServiceStateAction',
     'InstanceViewTypes',
