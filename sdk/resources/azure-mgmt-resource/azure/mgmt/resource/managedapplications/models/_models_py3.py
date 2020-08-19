@@ -263,6 +263,9 @@ class ApplicationDefinition(GenericResource):
     :param package_file_uri: The managed application definition package file
      Uri. Use this element
     :type package_file_uri: str
+    :param storage_account_id: The storage account id for bring your own
+     storage scenario.
+    :type storage_account_id: str
     :param main_template: The inline main template json which has resources to
      be provisioned. It can be a JObject or well-formed JSON string.
     :type main_template: object
@@ -296,11 +299,12 @@ class ApplicationDefinition(GenericResource):
         'artifacts': {'key': 'properties.artifacts', 'type': '[ApplicationArtifact]'},
         'description': {'key': 'properties.description', 'type': 'str'},
         'package_file_uri': {'key': 'properties.packageFileUri', 'type': 'str'},
+        'storage_account_id': {'key': 'properties.storageAccountId', 'type': 'str'},
         'main_template': {'key': 'properties.mainTemplate', 'type': 'object'},
         'create_ui_definition': {'key': 'properties.createUiDefinition', 'type': 'object'},
     }
 
-    def __init__(self, *, lock_level, authorizations, location: str=None, tags=None, managed_by: str=None, sku=None, identity=None, display_name: str=None, is_enabled: str=None, artifacts=None, description: str=None, package_file_uri: str=None, main_template=None, create_ui_definition=None, **kwargs) -> None:
+    def __init__(self, *, lock_level, authorizations, location: str=None, tags=None, managed_by: str=None, sku=None, identity=None, display_name: str=None, is_enabled: str=None, artifacts=None, description: str=None, package_file_uri: str=None, storage_account_id: str=None, main_template=None, create_ui_definition=None, **kwargs) -> None:
         super(ApplicationDefinition, self).__init__(location=location, tags=tags, managed_by=managed_by, sku=sku, identity=identity, **kwargs)
         self.lock_level = lock_level
         self.display_name = display_name
@@ -309,6 +313,7 @@ class ApplicationDefinition(GenericResource):
         self.artifacts = artifacts
         self.description = description
         self.package_file_uri = package_file_uri
+        self.storage_account_id = storage_account_id
         self.main_template = main_template
         self.create_ui_definition = create_ui_definition
 

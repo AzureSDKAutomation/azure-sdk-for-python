@@ -263,6 +263,9 @@ class ApplicationDefinition(GenericResource):
     :param package_file_uri: The managed application definition package file
      Uri. Use this element
     :type package_file_uri: str
+    :param storage_account_id: The storage account id for bring your own
+     storage scenario.
+    :type storage_account_id: str
     :param main_template: The inline main template json which has resources to
      be provisioned. It can be a JObject or well-formed JSON string.
     :type main_template: object
@@ -296,6 +299,7 @@ class ApplicationDefinition(GenericResource):
         'artifacts': {'key': 'properties.artifacts', 'type': '[ApplicationArtifact]'},
         'description': {'key': 'properties.description', 'type': 'str'},
         'package_file_uri': {'key': 'properties.packageFileUri', 'type': 'str'},
+        'storage_account_id': {'key': 'properties.storageAccountId', 'type': 'str'},
         'main_template': {'key': 'properties.mainTemplate', 'type': 'object'},
         'create_ui_definition': {'key': 'properties.createUiDefinition', 'type': 'object'},
     }
@@ -309,6 +313,7 @@ class ApplicationDefinition(GenericResource):
         self.artifacts = kwargs.get('artifacts', None)
         self.description = kwargs.get('description', None)
         self.package_file_uri = kwargs.get('package_file_uri', None)
+        self.storage_account_id = kwargs.get('storage_account_id', None)
         self.main_template = kwargs.get('main_template', None)
         self.create_ui_definition = kwargs.get('create_ui_definition', None)
 
