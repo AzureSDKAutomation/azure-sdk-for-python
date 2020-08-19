@@ -45,6 +45,7 @@ try:
     from ._models_py3 import DiskEncryptionSetParameters
     from ._models_py3 import DiskEncryptionSettings
     from ._models_py3 import DiskInstanceView
+    from ._models_py3 import ExtendedLocation
     from ._models_py3 import HardwareProfile
     from ._models_py3 import Image
     from ._models_py3 import ImageDataDisk
@@ -234,6 +235,7 @@ except (SyntaxError, ImportError):
     from ._models import DiskEncryptionSetParameters  # type: ignore
     from ._models import DiskEncryptionSettings  # type: ignore
     from ._models import DiskInstanceView  # type: ignore
+    from ._models import ExtendedLocation  # type: ignore
     from ._models import HardwareProfile  # type: ignore
     from ._models import Image  # type: ignore
     from ._models import ImageDataDisk  # type: ignore
@@ -464,6 +466,7 @@ __all__ = [
     'DiskEncryptionSetParameters',
     'DiskEncryptionSettings',
     'DiskInstanceView',
+    'ExtendedLocation',
     'HardwareProfile',
     'Image',
     'ImageDataDisk',

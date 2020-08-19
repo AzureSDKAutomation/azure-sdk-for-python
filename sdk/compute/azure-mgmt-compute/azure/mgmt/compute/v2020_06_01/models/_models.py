@@ -1525,6 +1525,39 @@ class DiskInstanceView(msrest.serialization.Model):
         self.statuses = kwargs.get('statuses', None)
 
 
+class ExtendedLocation(msrest.serialization.Model):
+    """ExtendedLocation complex type.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. The name of the extended location.
+    :type name: str
+    :ivar type: Required. The type of the extended location. Default value: "EdgeZone".
+    :vartype type: str
+    """
+
+    _validation = {
+        'name': {'required': True},
+        'type': {'required': True, 'constant': True},
+    }
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    type = "EdgeZone"
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(ExtendedLocation, self).__init__(**kwargs)
+        self.name = kwargs['name']
+
+
 class HardwareProfile(msrest.serialization.Model):
     """Specifies the hardware settings for the virtual machine.
 
@@ -1606,6 +1639,8 @@ class Image(Resource):
     :type location: str
     :param tags: A set of tags. Resource tags.
     :type tags: dict[str, str]
+    :param extended_location: The extended location of the Image.
+    :type extended_location: ~azure.mgmt.compute.v2020_06_01.models.ExtendedLocation
     :param source_virtual_machine: The source virtual machine from which Image is created.
     :type source_virtual_machine: ~azure.mgmt.compute.v2020_06_01.models.SubResource
     :param storage_profile: Specifies the storage settings for the virtual machine disks.
@@ -1631,6 +1666,7 @@ class Image(Resource):
         'type': {'key': 'type', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'extended_location': {'key': 'extendedLocation', 'type': 'ExtendedLocation'},
         'source_virtual_machine': {'key': 'properties.sourceVirtualMachine', 'type': 'SubResource'},
         'storage_profile': {'key': 'properties.storageProfile', 'type': 'ImageStorageProfile'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
@@ -1642,6 +1678,7 @@ class Image(Resource):
         **kwargs
     ):
         super(Image, self).__init__(**kwargs)
+        self.extended_location = kwargs.get('extended_location', None)
         self.source_virtual_machine = kwargs.get('source_virtual_machine', None)
         self.storage_profile = kwargs.get('storage_profile', None)
         self.provisioning_state = None
@@ -4339,6 +4376,8 @@ class VirtualMachine(Resource):
     :type identity: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineIdentity
     :param zones: The virtual machine zones.
     :type zones: list[str]
+    :param extended_location: The extended location of the Virtual Machine.
+    :type extended_location: ~azure.mgmt.compute.v2020_06_01.models.ExtendedLocation
     :param hardware_profile: Specifies the hardware settings for the virtual machine.
     :type hardware_profile: ~azure.mgmt.compute.v2020_06_01.models.HardwareProfile
     :param storage_profile: Specifies the storage settings for the virtual machine disks.
@@ -4451,6 +4490,7 @@ class VirtualMachine(Resource):
         'resources': {'key': 'resources', 'type': '[VirtualMachineExtension]'},
         'identity': {'key': 'identity', 'type': 'VirtualMachineIdentity'},
         'zones': {'key': 'zones', 'type': '[str]'},
+        'extended_location': {'key': 'extendedLocation', 'type': 'ExtendedLocation'},
         'hardware_profile': {'key': 'properties.hardwareProfile', 'type': 'HardwareProfile'},
         'storage_profile': {'key': 'properties.storageProfile', 'type': 'StorageProfile'},
         'additional_capabilities': {'key': 'properties.additionalCapabilities', 'type': 'AdditionalCapabilities'},
@@ -4482,6 +4522,7 @@ class VirtualMachine(Resource):
         self.resources = None
         self.identity = kwargs.get('identity', None)
         self.zones = kwargs.get('zones', None)
+        self.extended_location = kwargs.get('extended_location', None)
         self.hardware_profile = kwargs.get('hardware_profile', None)
         self.storage_profile = kwargs.get('storage_profile', None)
         self.additional_capabilities = kwargs.get('additional_capabilities', None)
@@ -5343,6 +5384,8 @@ class VirtualMachineScaleSet(Resource):
     :param zones: The virtual machine scale set zones. NOTE: Availability zones can only be set
      when you create the scale set.
     :type zones: list[str]
+    :param extended_location: The extended location of the Virtual Machine Scale Set.
+    :type extended_location: ~azure.mgmt.compute.v2020_06_01.models.ExtendedLocation
     :param upgrade_policy: The upgrade policy.
     :type upgrade_policy: ~azure.mgmt.compute.v2020_06_01.models.UpgradePolicy
     :param automatic_repairs_policy: Policy for automatic repairs.
@@ -5406,6 +5449,7 @@ class VirtualMachineScaleSet(Resource):
         'plan': {'key': 'plan', 'type': 'Plan'},
         'identity': {'key': 'identity', 'type': 'VirtualMachineScaleSetIdentity'},
         'zones': {'key': 'zones', 'type': '[str]'},
+        'extended_location': {'key': 'extendedLocation', 'type': 'ExtendedLocation'},
         'upgrade_policy': {'key': 'properties.upgradePolicy', 'type': 'UpgradePolicy'},
         'automatic_repairs_policy': {'key': 'properties.automaticRepairsPolicy', 'type': 'AutomaticRepairsPolicy'},
         'virtual_machine_profile': {'key': 'properties.virtualMachineProfile', 'type': 'VirtualMachineScaleSetVMProfile'},
@@ -5431,6 +5475,7 @@ class VirtualMachineScaleSet(Resource):
         self.plan = kwargs.get('plan', None)
         self.identity = kwargs.get('identity', None)
         self.zones = kwargs.get('zones', None)
+        self.extended_location = kwargs.get('extended_location', None)
         self.upgrade_policy = kwargs.get('upgrade_policy', None)
         self.automatic_repairs_policy = kwargs.get('automatic_repairs_policy', None)
         self.virtual_machine_profile = kwargs.get('virtual_machine_profile', None)
