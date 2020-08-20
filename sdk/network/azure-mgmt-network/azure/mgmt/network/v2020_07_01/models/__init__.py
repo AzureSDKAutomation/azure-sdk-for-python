@@ -25,6 +25,7 @@ try:
     from ._models_py3 import ApplicationGatewayBackendHealthPool
     from ._models_py3 import ApplicationGatewayBackendHealthServer
     from ._models_py3 import ApplicationGatewayBackendHttpSettings
+    from ._models_py3 import ApplicationGatewayClientAuthConfiguration
     from ._models_py3 import ApplicationGatewayConnectionDraining
     from ._models_py3 import ApplicationGatewayCustomError
     from ._models_py3 import ApplicationGatewayFirewallDisabledRuleGroup
@@ -55,6 +56,8 @@ try:
     from ._models_py3 import ApplicationGatewaySslCertificate
     from ._models_py3 import ApplicationGatewaySslPolicy
     from ._models_py3 import ApplicationGatewaySslPredefinedPolicy
+    from ._models_py3 import ApplicationGatewaySslProfile
+    from ._models_py3 import ApplicationGatewayTrustedClientCertificate
     from ._models_py3 import ApplicationGatewayTrustedRootCertificate
     from ._models_py3 import ApplicationGatewayUrlConfiguration
     from ._models_py3 import ApplicationGatewayUrlPathMap
@@ -114,6 +117,8 @@ try:
     from ._models_py3 import ConnectionMonitorEndpoint
     from ._models_py3 import ConnectionMonitorEndpointFilter
     from ._models_py3 import ConnectionMonitorEndpointFilterItem
+    from ._models_py3 import ConnectionMonitorEndpointScope
+    from ._models_py3 import ConnectionMonitorEndpointScopeItem
     from ._models_py3 import ConnectionMonitorHttpConfiguration
     from ._models_py3 import ConnectionMonitorIcmpConfiguration
     from ._models_py3 import ConnectionMonitorOutput
@@ -140,6 +145,7 @@ try:
     from ._models_py3 import ContainerNetworkInterfaceConfiguration
     from ._models_py3 import ContainerNetworkInterfaceIpConfiguration
     from ._models_py3 import CustomDnsConfigPropertiesFormat
+    from ._models_py3 import CustomIpPrefix
     from ._models_py3 import DdosCustomPolicy
     from ._models_py3 import DdosProtectionPlan
     from ._models_py3 import DdosSettings
@@ -149,6 +155,7 @@ try:
     from ._models_py3 import Dimension
     from ._models_py3 import DnsNameAvailabilityResult
     from ._models_py3 import DnsSettings
+    from ._models_py3 import DscpConfiguration
     from ._models_py3 import EffectiveNetworkSecurityGroup
     from ._models_py3 import EffectiveNetworkSecurityGroupAssociation
     from ._models_py3 import EffectiveNetworkSecurityGroupListResult
@@ -212,6 +219,8 @@ try:
     from ._models_py3 import FrontendIPConfiguration
     from ._models_py3 import GatewayRoute
     from ._models_py3 import GatewayRouteListResult
+    from ._models_py3 import GenerateExpressRoutePortsLOARequest
+    from ._models_py3 import GenerateExpressRoutePortsLOAResult
     from ._models_py3 import GetVpnSitesConfigurationRequest
     from ._models_py3 import HopLink
     from ._models_py3 import HTTPConfiguration
@@ -240,9 +249,15 @@ try:
     from ._models_py3 import LoadBalancingRule
     from ._models_py3 import LocalNetworkGateway
     from ._models_py3 import LogSpecification
+    from ._models_py3 import ManagedRuleGroupOverride
+    from ._models_py3 import ManagedRuleOverride
+    from ._models_py3 import ManagedRulesDefinition
+    from ._models_py3 import ManagedRuleSet
     from ._models_py3 import ManagedServiceIdentity
     from ._models_py3 import ManagedServiceIdentityUserAssignedIdentitiesValue
+    from ._models_py3 import MatchCondition
     from ._models_py3 import MatchedRule
+    from ._models_py3 import MatchVariable
     from ._models_py3 import MetricSpecification
     from ._models_py3 import NatGateway
     from ._models_py3 import NatGatewaySku
@@ -270,11 +285,14 @@ try:
     from ._models_py3 import NetworkWatcher
     from ._models_py3 import NextHopParameters
     from ._models_py3 import NextHopResult
+    from ._models_py3 import O365BreakOutCategoryPolicies
+    from ._models_py3 import O365PolicyProperties
     from ._models_py3 import Office365PolicyProperties
     from ._models_py3 import Operation
     from ._models_py3 import OperationDisplay
     from ._models_py3 import OperationPropertiesFormatServiceSpecification
     from ._models_py3 import OutboundRule
+    from ._models_py3 import OwaspCrsExclusionEntry
     from ._models_py3 import P2SConnectionConfiguration
     from ._models_py3 import P2SVpnConnectionHealth
     from ._models_py3 import P2SVpnConnectionHealthRequest
@@ -290,6 +308,7 @@ try:
     from ._models_py3 import PatchRouteFilter
     from ._models_py3 import PatchRouteFilterRule
     from ._models_py3 import PeerExpressRouteCircuitConnection
+    from ._models_py3 import PolicySettings
     from ._models_py3 import PrepareNetworkPoliciesRequest
     from ._models_py3 import PrivateDnsZoneConfig
     from ._models_py3 import PrivateDnsZoneGroup
@@ -311,6 +330,8 @@ try:
     from ._models_py3 import PublicIPAddressSku
     from ._models_py3 import PublicIPPrefix
     from ._models_py3 import PublicIPPrefixSku
+    from ._models_py3 import QosIpRange
+    from ._models_py3 import QosPortRange
     from ._models_py3 import QueryTroubleshootingParameters
     from ._models_py3 import RadiusServer
     from ._models_py3 import RecordSet
@@ -367,7 +388,7 @@ try:
     from ._models_py3 import VirtualApplianceSkuProperties
     from ._models_py3 import VirtualHub
     from ._models_py3 import VirtualHubEffectiveRoute
-    from ._models_py3 import VirtualHubEffectiveRouteList
+    from ._models_py3 import VirtualHubEffectiveRouteEffectiveRouteList
     from ._models_py3 import VirtualHubId
     from ._models_py3 import VirtualHubRoute
     from ._models_py3 import VirtualHubRouteTable
@@ -402,8 +423,13 @@ try:
     from ._models_py3 import VpnClientRevokedCertificate
     from ._models_py3 import VpnClientRootCertificate
     from ._models_py3 import VpnConnection
+    from ._models_py3 import VpnConnectionPacketCaptureStartParameters
+    from ._models_py3 import VpnConnectionPacketCaptureStopParameters
     from ._models_py3 import VpnDeviceScriptParameters
     from ._models_py3 import VpnGateway
+    from ._models_py3 import VpnGatewayIpConfiguration
+    from ._models_py3 import VpnGatewayPacketCaptureStartParameters
+    from ._models_py3 import VpnGatewayPacketCaptureStopParameters
     from ._models_py3 import VpnLinkBgpSettings
     from ._models_py3 import VpnLinkProviderProperties
     from ._models_py3 import VpnPacketCaptureStartParameters
@@ -419,6 +445,8 @@ try:
     from ._models_py3 import VpnSiteId
     from ._models_py3 import VpnSiteLink
     from ._models_py3 import VpnSiteLinkConnection
+    from ._models_py3 import WebApplicationFirewallCustomRule
+    from ._models_py3 import WebApplicationFirewallPolicy
 except (SyntaxError, ImportError):
     from ._models import AadAuthenticationParameters
     from ._models import AddressSpace
@@ -435,6 +463,7 @@ except (SyntaxError, ImportError):
     from ._models import ApplicationGatewayBackendHealthPool
     from ._models import ApplicationGatewayBackendHealthServer
     from ._models import ApplicationGatewayBackendHttpSettings
+    from ._models import ApplicationGatewayClientAuthConfiguration
     from ._models import ApplicationGatewayConnectionDraining
     from ._models import ApplicationGatewayCustomError
     from ._models import ApplicationGatewayFirewallDisabledRuleGroup
@@ -465,6 +494,8 @@ except (SyntaxError, ImportError):
     from ._models import ApplicationGatewaySslCertificate
     from ._models import ApplicationGatewaySslPolicy
     from ._models import ApplicationGatewaySslPredefinedPolicy
+    from ._models import ApplicationGatewaySslProfile
+    from ._models import ApplicationGatewayTrustedClientCertificate
     from ._models import ApplicationGatewayTrustedRootCertificate
     from ._models import ApplicationGatewayUrlConfiguration
     from ._models import ApplicationGatewayUrlPathMap
@@ -524,6 +555,8 @@ except (SyntaxError, ImportError):
     from ._models import ConnectionMonitorEndpoint
     from ._models import ConnectionMonitorEndpointFilter
     from ._models import ConnectionMonitorEndpointFilterItem
+    from ._models import ConnectionMonitorEndpointScope
+    from ._models import ConnectionMonitorEndpointScopeItem
     from ._models import ConnectionMonitorHttpConfiguration
     from ._models import ConnectionMonitorIcmpConfiguration
     from ._models import ConnectionMonitorOutput
@@ -550,6 +583,7 @@ except (SyntaxError, ImportError):
     from ._models import ContainerNetworkInterfaceConfiguration
     from ._models import ContainerNetworkInterfaceIpConfiguration
     from ._models import CustomDnsConfigPropertiesFormat
+    from ._models import CustomIpPrefix
     from ._models import DdosCustomPolicy
     from ._models import DdosProtectionPlan
     from ._models import DdosSettings
@@ -559,6 +593,7 @@ except (SyntaxError, ImportError):
     from ._models import Dimension
     from ._models import DnsNameAvailabilityResult
     from ._models import DnsSettings
+    from ._models import DscpConfiguration
     from ._models import EffectiveNetworkSecurityGroup
     from ._models import EffectiveNetworkSecurityGroupAssociation
     from ._models import EffectiveNetworkSecurityGroupListResult
@@ -622,6 +657,8 @@ except (SyntaxError, ImportError):
     from ._models import FrontendIPConfiguration
     from ._models import GatewayRoute
     from ._models import GatewayRouteListResult
+    from ._models import GenerateExpressRoutePortsLOARequest
+    from ._models import GenerateExpressRoutePortsLOAResult
     from ._models import GetVpnSitesConfigurationRequest
     from ._models import HopLink
     from ._models import HTTPConfiguration
@@ -650,9 +687,15 @@ except (SyntaxError, ImportError):
     from ._models import LoadBalancingRule
     from ._models import LocalNetworkGateway
     from ._models import LogSpecification
+    from ._models import ManagedRuleGroupOverride
+    from ._models import ManagedRuleOverride
+    from ._models import ManagedRulesDefinition
+    from ._models import ManagedRuleSet
     from ._models import ManagedServiceIdentity
     from ._models import ManagedServiceIdentityUserAssignedIdentitiesValue
+    from ._models import MatchCondition
     from ._models import MatchedRule
+    from ._models import MatchVariable
     from ._models import MetricSpecification
     from ._models import NatGateway
     from ._models import NatGatewaySku
@@ -680,11 +723,14 @@ except (SyntaxError, ImportError):
     from ._models import NetworkWatcher
     from ._models import NextHopParameters
     from ._models import NextHopResult
+    from ._models import O365BreakOutCategoryPolicies
+    from ._models import O365PolicyProperties
     from ._models import Office365PolicyProperties
     from ._models import Operation
     from ._models import OperationDisplay
     from ._models import OperationPropertiesFormatServiceSpecification
     from ._models import OutboundRule
+    from ._models import OwaspCrsExclusionEntry
     from ._models import P2SConnectionConfiguration
     from ._models import P2SVpnConnectionHealth
     from ._models import P2SVpnConnectionHealthRequest
@@ -700,6 +746,7 @@ except (SyntaxError, ImportError):
     from ._models import PatchRouteFilter
     from ._models import PatchRouteFilterRule
     from ._models import PeerExpressRouteCircuitConnection
+    from ._models import PolicySettings
     from ._models import PrepareNetworkPoliciesRequest
     from ._models import PrivateDnsZoneConfig
     from ._models import PrivateDnsZoneGroup
@@ -721,6 +768,8 @@ except (SyntaxError, ImportError):
     from ._models import PublicIPAddressSku
     from ._models import PublicIPPrefix
     from ._models import PublicIPPrefixSku
+    from ._models import QosIpRange
+    from ._models import QosPortRange
     from ._models import QueryTroubleshootingParameters
     from ._models import RadiusServer
     from ._models import RecordSet
@@ -777,7 +826,7 @@ except (SyntaxError, ImportError):
     from ._models import VirtualApplianceSkuProperties
     from ._models import VirtualHub
     from ._models import VirtualHubEffectiveRoute
-    from ._models import VirtualHubEffectiveRouteList
+    from ._models import VirtualHubEffectiveRouteEffectiveRouteList
     from ._models import VirtualHubId
     from ._models import VirtualHubRoute
     from ._models import VirtualHubRouteTable
@@ -812,8 +861,13 @@ except (SyntaxError, ImportError):
     from ._models import VpnClientRevokedCertificate
     from ._models import VpnClientRootCertificate
     from ._models import VpnConnection
+    from ._models import VpnConnectionPacketCaptureStartParameters
+    from ._models import VpnConnectionPacketCaptureStopParameters
     from ._models import VpnDeviceScriptParameters
     from ._models import VpnGateway
+    from ._models import VpnGatewayIpConfiguration
+    from ._models import VpnGatewayPacketCaptureStartParameters
+    from ._models import VpnGatewayPacketCaptureStopParameters
     from ._models import VpnLinkBgpSettings
     from ._models import VpnLinkProviderProperties
     from ._models import VpnPacketCaptureStartParameters
@@ -829,6 +883,8 @@ except (SyntaxError, ImportError):
     from ._models import VpnSiteId
     from ._models import VpnSiteLink
     from ._models import VpnSiteLinkConnection
+    from ._models import WebApplicationFirewallCustomRule
+    from ._models import WebApplicationFirewallPolicy
 from ._paged_models import ApplicationGatewayPaged
 from ._paged_models import ApplicationGatewayPrivateEndpointConnectionPaged
 from ._paged_models import ApplicationGatewayPrivateLinkResourcePaged
@@ -847,7 +903,9 @@ from ._paged_models import BastionShareableLinkPaged
 from ._paged_models import BgpConnectionPaged
 from ._paged_models import BgpServiceCommunityPaged
 from ._paged_models import ConnectionMonitorResultPaged
+from ._paged_models import CustomIpPrefixPaged
 from ._paged_models import DdosProtectionPlanPaged
+from ._paged_models import DscpConfigurationPaged
 from ._paged_models import EndpointServiceResultPaged
 from ._paged_models import ExpressRouteCircuitAuthorizationPaged
 from ._paged_models import ExpressRouteCircuitConnectionPaged
@@ -922,6 +980,7 @@ from ._paged_models import VpnServerConfigurationPaged
 from ._paged_models import VpnSiteLinkConnectionPaged
 from ._paged_models import VpnSiteLinkPaged
 from ._paged_models import VpnSitePaged
+from ._paged_models import WebApplicationFirewallPolicyPaged
 from ._network_management_client_enums import (
     ApplicationGatewayProtocol,
     ProvisioningState,
@@ -933,6 +992,7 @@ from ._network_management_client_enums import (
     FlowLogFormatType,
     RouteNextHopType,
     PublicIPAddressSkuName,
+    PublicIPAddressSkuTier,
     DdosSettingsProtectionCoverage,
     TransportProtocol,
     ApplicationGatewayCookieBasedAffinity,
@@ -957,8 +1017,10 @@ from ._network_management_client_enums import (
     AzureFirewallSkuName,
     AzureFirewallSkuTier,
     BastionConnectProtocol,
+    CommissionedState,
     DdosCustomPolicyProtocol,
     DdosCustomPolicyTriggerSensitivityOverride,
+    ProtocolType,
     AuthorizationUseStatus,
     ExpressRouteCircuitPeeringAdvertisedPublicPrefixState,
     ExpressRouteCircuitPeeringState,
@@ -969,6 +1031,7 @@ from ._network_management_client_enums import (
     ExpressRouteCircuitSkuFamily,
     ServiceProviderProvisioningState,
     ExpressRouteLinkMacSecCipher,
+    ExpressRouteLinkMacSecSciState,
     ExpressRouteLinkConnectorType,
     ExpressRouteLinkAdminState,
     ExpressRoutePortsEncapsulation,
@@ -978,6 +1041,7 @@ from ._network_management_client_enums import (
     FirewallPolicyRuleNetworkProtocol,
     IpAllocationType,
     LoadBalancerSkuName,
+    LoadBalancerSkuTier,
     LoadDistribution,
     ProbeProtocol,
     LoadBalancerOutboundRuleProtocol,
@@ -1002,11 +1066,14 @@ from ._network_management_client_enums import (
     IssueType,
     ConnectionStatus,
     VerbosityLevel,
+    EndpointType,
     ConnectionMonitorEndpointFilterType,
     ConnectionMonitorEndpointFilterItemType,
+    CoverageLevel,
     ConnectionMonitorTestConfigurationProtocol,
     PreferredIPVersion,
     HTTPConfigurationMethod,
+    DestinationPortBehavior,
     OutputType,
     ConnectionState,
     EvaluationState,
@@ -1042,6 +1109,17 @@ from ._network_management_client_enums import (
     HubVirtualNetworkConnectionStatus,
     VpnGatewayTunnelingProtocol,
     VpnAuthenticationType,
+    WebApplicationFirewallEnabledState,
+    WebApplicationFirewallMode,
+    WebApplicationFirewallRuleType,
+    WebApplicationFirewallMatchVariable,
+    WebApplicationFirewallOperator,
+    WebApplicationFirewallTransform,
+    WebApplicationFirewallAction,
+    WebApplicationFirewallPolicyResourceState,
+    OwaspCrsExclusionEntryMatchVariable,
+    OwaspCrsExclusionEntrySelectorMatchOperator,
+    ManagedRuleEnabledState,
 )
 
 __all__ = [
@@ -1060,6 +1138,7 @@ __all__ = [
     'ApplicationGatewayBackendHealthPool',
     'ApplicationGatewayBackendHealthServer',
     'ApplicationGatewayBackendHttpSettings',
+    'ApplicationGatewayClientAuthConfiguration',
     'ApplicationGatewayConnectionDraining',
     'ApplicationGatewayCustomError',
     'ApplicationGatewayFirewallDisabledRuleGroup',
@@ -1090,6 +1169,8 @@ __all__ = [
     'ApplicationGatewaySslCertificate',
     'ApplicationGatewaySslPolicy',
     'ApplicationGatewaySslPredefinedPolicy',
+    'ApplicationGatewaySslProfile',
+    'ApplicationGatewayTrustedClientCertificate',
     'ApplicationGatewayTrustedRootCertificate',
     'ApplicationGatewayUrlConfiguration',
     'ApplicationGatewayUrlPathMap',
@@ -1149,6 +1230,8 @@ __all__ = [
     'ConnectionMonitorEndpoint',
     'ConnectionMonitorEndpointFilter',
     'ConnectionMonitorEndpointFilterItem',
+    'ConnectionMonitorEndpointScope',
+    'ConnectionMonitorEndpointScopeItem',
     'ConnectionMonitorHttpConfiguration',
     'ConnectionMonitorIcmpConfiguration',
     'ConnectionMonitorOutput',
@@ -1175,6 +1258,7 @@ __all__ = [
     'ContainerNetworkInterfaceConfiguration',
     'ContainerNetworkInterfaceIpConfiguration',
     'CustomDnsConfigPropertiesFormat',
+    'CustomIpPrefix',
     'DdosCustomPolicy',
     'DdosProtectionPlan',
     'DdosSettings',
@@ -1184,6 +1268,7 @@ __all__ = [
     'Dimension',
     'DnsNameAvailabilityResult',
     'DnsSettings',
+    'DscpConfiguration',
     'EffectiveNetworkSecurityGroup',
     'EffectiveNetworkSecurityGroupAssociation',
     'EffectiveNetworkSecurityGroupListResult',
@@ -1247,6 +1332,8 @@ __all__ = [
     'FrontendIPConfiguration',
     'GatewayRoute',
     'GatewayRouteListResult',
+    'GenerateExpressRoutePortsLOARequest',
+    'GenerateExpressRoutePortsLOAResult',
     'GetVpnSitesConfigurationRequest',
     'HopLink',
     'HTTPConfiguration',
@@ -1275,9 +1362,15 @@ __all__ = [
     'LoadBalancingRule',
     'LocalNetworkGateway',
     'LogSpecification',
+    'ManagedRuleGroupOverride',
+    'ManagedRuleOverride',
+    'ManagedRulesDefinition',
+    'ManagedRuleSet',
     'ManagedServiceIdentity',
     'ManagedServiceIdentityUserAssignedIdentitiesValue',
+    'MatchCondition',
     'MatchedRule',
+    'MatchVariable',
     'MetricSpecification',
     'NatGateway',
     'NatGatewaySku',
@@ -1305,11 +1398,14 @@ __all__ = [
     'NetworkWatcher',
     'NextHopParameters',
     'NextHopResult',
+    'O365BreakOutCategoryPolicies',
+    'O365PolicyProperties',
     'Office365PolicyProperties',
     'Operation',
     'OperationDisplay',
     'OperationPropertiesFormatServiceSpecification',
     'OutboundRule',
+    'OwaspCrsExclusionEntry',
     'P2SConnectionConfiguration',
     'P2SVpnConnectionHealth',
     'P2SVpnConnectionHealthRequest',
@@ -1325,6 +1421,7 @@ __all__ = [
     'PatchRouteFilter',
     'PatchRouteFilterRule',
     'PeerExpressRouteCircuitConnection',
+    'PolicySettings',
     'PrepareNetworkPoliciesRequest',
     'PrivateDnsZoneConfig',
     'PrivateDnsZoneGroup',
@@ -1346,6 +1443,8 @@ __all__ = [
     'PublicIPAddressSku',
     'PublicIPPrefix',
     'PublicIPPrefixSku',
+    'QosIpRange',
+    'QosPortRange',
     'QueryTroubleshootingParameters',
     'RadiusServer',
     'RecordSet',
@@ -1402,7 +1501,7 @@ __all__ = [
     'VirtualApplianceSkuProperties',
     'VirtualHub',
     'VirtualHubEffectiveRoute',
-    'VirtualHubEffectiveRouteList',
+    'VirtualHubEffectiveRouteEffectiveRouteList',
     'VirtualHubId',
     'VirtualHubRoute',
     'VirtualHubRouteTable',
@@ -1437,8 +1536,13 @@ __all__ = [
     'VpnClientRevokedCertificate',
     'VpnClientRootCertificate',
     'VpnConnection',
+    'VpnConnectionPacketCaptureStartParameters',
+    'VpnConnectionPacketCaptureStopParameters',
     'VpnDeviceScriptParameters',
     'VpnGateway',
+    'VpnGatewayIpConfiguration',
+    'VpnGatewayPacketCaptureStartParameters',
+    'VpnGatewayPacketCaptureStopParameters',
     'VpnLinkBgpSettings',
     'VpnLinkProviderProperties',
     'VpnPacketCaptureStartParameters',
@@ -1454,6 +1558,8 @@ __all__ = [
     'VpnSiteId',
     'VpnSiteLink',
     'VpnSiteLinkConnection',
+    'WebApplicationFirewallCustomRule',
+    'WebApplicationFirewallPolicy',
     'ApplicationGatewayPaged',
     'ApplicationGatewaySslPredefinedPolicyPaged',
     'ApplicationGatewayPrivateLinkResourcePaged',
@@ -1466,7 +1572,9 @@ __all__ = [
     'BastionHostPaged',
     'BastionShareableLinkPaged',
     'BastionSessionStatePaged',
+    'CustomIpPrefixPaged',
     'DdosProtectionPlanPaged',
+    'DscpConfigurationPaged',
     'EndpointServiceResultPaged',
     'ExpressRouteCircuitAuthorizationPaged',
     'ExpressRouteCircuitPeeringPaged',
@@ -1547,6 +1655,7 @@ __all__ = [
     'BgpConnectionPaged',
     'HubIpConfigurationPaged',
     'HubRouteTablePaged',
+    'WebApplicationFirewallPolicyPaged',
     'ApplicationGatewayProtocol',
     'ProvisioningState',
     'IPAllocationMethod',
@@ -1557,6 +1666,7 @@ __all__ = [
     'FlowLogFormatType',
     'RouteNextHopType',
     'PublicIPAddressSkuName',
+    'PublicIPAddressSkuTier',
     'DdosSettingsProtectionCoverage',
     'TransportProtocol',
     'ApplicationGatewayCookieBasedAffinity',
@@ -1581,8 +1691,10 @@ __all__ = [
     'AzureFirewallSkuName',
     'AzureFirewallSkuTier',
     'BastionConnectProtocol',
+    'CommissionedState',
     'DdosCustomPolicyProtocol',
     'DdosCustomPolicyTriggerSensitivityOverride',
+    'ProtocolType',
     'AuthorizationUseStatus',
     'ExpressRouteCircuitPeeringAdvertisedPublicPrefixState',
     'ExpressRouteCircuitPeeringState',
@@ -1593,6 +1705,7 @@ __all__ = [
     'ExpressRouteCircuitSkuFamily',
     'ServiceProviderProvisioningState',
     'ExpressRouteLinkMacSecCipher',
+    'ExpressRouteLinkMacSecSciState',
     'ExpressRouteLinkConnectorType',
     'ExpressRouteLinkAdminState',
     'ExpressRoutePortsEncapsulation',
@@ -1602,6 +1715,7 @@ __all__ = [
     'FirewallPolicyRuleNetworkProtocol',
     'IpAllocationType',
     'LoadBalancerSkuName',
+    'LoadBalancerSkuTier',
     'LoadDistribution',
     'ProbeProtocol',
     'LoadBalancerOutboundRuleProtocol',
@@ -1626,11 +1740,14 @@ __all__ = [
     'IssueType',
     'ConnectionStatus',
     'VerbosityLevel',
+    'EndpointType',
     'ConnectionMonitorEndpointFilterType',
     'ConnectionMonitorEndpointFilterItemType',
+    'CoverageLevel',
     'ConnectionMonitorTestConfigurationProtocol',
     'PreferredIPVersion',
     'HTTPConfigurationMethod',
+    'DestinationPortBehavior',
     'OutputType',
     'ConnectionState',
     'EvaluationState',
@@ -1666,4 +1783,15 @@ __all__ = [
     'HubVirtualNetworkConnectionStatus',
     'VpnGatewayTunnelingProtocol',
     'VpnAuthenticationType',
+    'WebApplicationFirewallEnabledState',
+    'WebApplicationFirewallMode',
+    'WebApplicationFirewallRuleType',
+    'WebApplicationFirewallMatchVariable',
+    'WebApplicationFirewallOperator',
+    'WebApplicationFirewallTransform',
+    'WebApplicationFirewallAction',
+    'WebApplicationFirewallPolicyResourceState',
+    'OwaspCrsExclusionEntryMatchVariable',
+    'OwaspCrsExclusionEntrySelectorMatchOperator',
+    'ManagedRuleEnabledState',
 ]
