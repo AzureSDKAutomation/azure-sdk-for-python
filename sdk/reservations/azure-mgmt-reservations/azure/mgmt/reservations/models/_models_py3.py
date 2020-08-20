@@ -260,6 +260,94 @@ class CalculatePriceResponsePropertiesPricingCurrencyTotal(Model):
         self.amount = amount
 
 
+class CalculateRequest(Model):
+    """CalculateRequest.
+
+    :param sku:
+    :type sku: ~azure.mgmt.reservations.models.SkuName
+    :param location: The Azure Region where the reserved resource lives.
+    :type location: str
+    :param reserved_resource_type: Possible values include: 'VirtualMachines',
+     'SqlDatabases', 'SuseLinux', 'CosmosDb', 'RedHat', 'SqlDataWarehouse',
+     'VMwareCloudSimple', 'RedHatOsa', 'Databricks', 'AppService',
+     'ManagedDisk', 'BlockBlob', 'RedisCache', 'AzureDataExplorer', 'MySql',
+     'MariaDb', 'PostgreSql', 'DedicatedHost', 'SapHana',
+     'SqlAzureHybridBenefit'
+    :type reserved_resource_type: str or
+     ~azure.mgmt.reservations.models.ReservedResourceType
+    :param billing_scope_id:
+    :type billing_scope_id: str
+    :param term: Possible values include: 'P1Y', 'P3Y'
+    :type term: str or ~azure.mgmt.reservations.models.ReservationTerm
+    :param billing_plan: Possible values include: 'Upfront', 'Monthly'
+    :type billing_plan: str or
+     ~azure.mgmt.reservations.models.ReservationBillingPlan
+    :param quantity:
+    :type quantity: int
+    :param display_name: Friendly name of the Reservation
+    :type display_name: str
+    :param applied_scope_type: Possible values include: 'Single', 'Shared'
+    :type applied_scope_type: str or
+     ~azure.mgmt.reservations.models.AppliedScopeType
+    :param applied_scopes:
+    :type applied_scopes: list[str]
+    :param renew:
+    :type renew: bool
+    :param reserved_resource_properties: Properties specific to each reserved
+     resource type. Not required if not applicable.
+    :type reserved_resource_properties:
+     ~azure.mgmt.reservations.models.CalculateRequestPropertiesReservedResourceProperties
+    """
+
+    _attribute_map = {
+        'sku': {'key': 'sku', 'type': 'SkuName'},
+        'location': {'key': 'location', 'type': 'str'},
+        'reserved_resource_type': {'key': 'properties.reservedResourceType', 'type': 'str'},
+        'billing_scope_id': {'key': 'properties.billingScopeId', 'type': 'str'},
+        'term': {'key': 'properties.term', 'type': 'str'},
+        'billing_plan': {'key': 'properties.billingPlan', 'type': 'str'},
+        'quantity': {'key': 'properties.quantity', 'type': 'int'},
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
+        'applied_scope_type': {'key': 'properties.appliedScopeType', 'type': 'str'},
+        'applied_scopes': {'key': 'properties.appliedScopes', 'type': '[str]'},
+        'renew': {'key': 'properties.renew', 'type': 'bool'},
+        'reserved_resource_properties': {'key': 'properties.reservedResourceProperties', 'type': 'CalculateRequestPropertiesReservedResourceProperties'},
+    }
+
+    def __init__(self, *, sku=None, location: str=None, reserved_resource_type=None, billing_scope_id: str=None, term=None, billing_plan=None, quantity: int=None, display_name: str=None, applied_scope_type=None, applied_scopes=None, renew: bool=None, reserved_resource_properties=None, **kwargs) -> None:
+        super(CalculateRequest, self).__init__(**kwargs)
+        self.sku = sku
+        self.location = location
+        self.reserved_resource_type = reserved_resource_type
+        self.billing_scope_id = billing_scope_id
+        self.term = term
+        self.billing_plan = billing_plan
+        self.quantity = quantity
+        self.display_name = display_name
+        self.applied_scope_type = applied_scope_type
+        self.applied_scopes = applied_scopes
+        self.renew = renew
+        self.reserved_resource_properties = reserved_resource_properties
+
+
+class CalculateRequestPropertiesReservedResourceProperties(Model):
+    """Properties specific to each reserved resource type. Not required if not
+    applicable.
+
+    :param instance_flexibility: Possible values include: 'On', 'Off'
+    :type instance_flexibility: str or
+     ~azure.mgmt.reservations.models.InstanceFlexibility
+    """
+
+    _attribute_map = {
+        'instance_flexibility': {'key': 'instanceFlexibility', 'type': 'str'},
+    }
+
+    def __init__(self, *, instance_flexibility=None, **kwargs) -> None:
+        super(CalculateRequestPropertiesReservedResourceProperties, self).__init__(**kwargs)
+        self.instance_flexibility = instance_flexibility
+
+
 class Catalog(Model):
     """Catalog.
 
@@ -795,7 +883,7 @@ class PurchaseRequest(Model):
     :type billing_plan: str or
      ~azure.mgmt.reservations.models.ReservationBillingPlan
     :param quantity:
-    :type quantity: int
+    :type quantity: str
     :param display_name: Friendly name of the Reservation
     :type display_name: str
     :param applied_scope_type: Possible values include: 'Single', 'Shared'
@@ -818,7 +906,7 @@ class PurchaseRequest(Model):
         'billing_scope_id': {'key': 'properties.billingScopeId', 'type': 'str'},
         'term': {'key': 'properties.term', 'type': 'str'},
         'billing_plan': {'key': 'properties.billingPlan', 'type': 'str'},
-        'quantity': {'key': 'properties.quantity', 'type': 'int'},
+        'quantity': {'key': 'properties.quantity', 'type': 'str'},
         'display_name': {'key': 'properties.displayName', 'type': 'str'},
         'applied_scope_type': {'key': 'properties.appliedScopeType', 'type': 'str'},
         'applied_scopes': {'key': 'properties.appliedScopes', 'type': '[str]'},
@@ -826,7 +914,7 @@ class PurchaseRequest(Model):
         'reserved_resource_properties': {'key': 'properties.reservedResourceProperties', 'type': 'PurchaseRequestPropertiesReservedResourceProperties'},
     }
 
-    def __init__(self, *, sku=None, location: str=None, reserved_resource_type=None, billing_scope_id: str=None, term=None, billing_plan=None, quantity: int=None, display_name: str=None, applied_scope_type=None, applied_scopes=None, renew: bool=None, reserved_resource_properties=None, **kwargs) -> None:
+    def __init__(self, *, sku=None, location: str=None, reserved_resource_type=None, billing_scope_id: str=None, term=None, billing_plan=None, quantity: str=None, display_name: str=None, applied_scope_type=None, applied_scopes=None, renew: bool=None, reserved_resource_properties=None, **kwargs) -> None:
         super(PurchaseRequest, self).__init__(**kwargs)
         self.sku = sku
         self.location = location
@@ -1165,7 +1253,8 @@ class RenewPropertiesResponse(Model):
     """RenewPropertiesResponse.
 
     :param purchase_properties:
-    :type purchase_properties: ~azure.mgmt.reservations.models.PurchaseRequest
+    :type purchase_properties:
+     ~azure.mgmt.reservations.models.CalculateRequest
     :param pricing_currency_total: Amount that Microsoft uses for record. Used
      during refund for calculating refund limit. Tax is not included. This is
      locked price 30 days before expiry.
@@ -1179,7 +1268,7 @@ class RenewPropertiesResponse(Model):
     """
 
     _attribute_map = {
-        'purchase_properties': {'key': 'purchaseProperties', 'type': 'PurchaseRequest'},
+        'purchase_properties': {'key': 'purchaseProperties', 'type': 'CalculateRequest'},
         'pricing_currency_total': {'key': 'pricingCurrencyTotal', 'type': 'RenewPropertiesResponsePricingCurrencyTotal'},
         'billing_currency_total': {'key': 'billingCurrencyTotal', 'type': 'RenewPropertiesResponseBillingCurrencyTotal'},
     }
@@ -1615,6 +1704,38 @@ class ScopeProperties(Model):
         super(ScopeProperties, self).__init__(**kwargs)
         self.scope = scope
         self.valid = valid
+
+
+class Scopes(Model):
+    """Scopes.
+
+    :param properties:
+    :type properties: ~azure.mgmt.reservations.models.ScopesProperties
+    """
+
+    _attribute_map = {
+        'properties': {'key': 'properties', 'type': 'ScopesProperties'},
+    }
+
+    def __init__(self, *, properties=None, **kwargs) -> None:
+        super(Scopes, self).__init__(**kwargs)
+        self.properties = properties
+
+
+class ScopesProperties(Model):
+    """ScopesProperties.
+
+    :param scopes:
+    :type scopes: list[str]
+    """
+
+    _attribute_map = {
+        'scopes': {'key': 'scopes', 'type': '[str]'},
+    }
+
+    def __init__(self, *, scopes=None, **kwargs) -> None:
+        super(ScopesProperties, self).__init__(**kwargs)
+        self.scopes = scopes
 
 
 class ServiceError(Model):

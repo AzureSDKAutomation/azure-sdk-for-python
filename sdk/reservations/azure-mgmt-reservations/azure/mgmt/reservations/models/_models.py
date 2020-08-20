@@ -260,6 +260,94 @@ class CalculatePriceResponsePropertiesPricingCurrencyTotal(Model):
         self.amount = kwargs.get('amount', None)
 
 
+class CalculateRequest(Model):
+    """CalculateRequest.
+
+    :param sku:
+    :type sku: ~azure.mgmt.reservations.models.SkuName
+    :param location: The Azure Region where the reserved resource lives.
+    :type location: str
+    :param reserved_resource_type: Possible values include: 'VirtualMachines',
+     'SqlDatabases', 'SuseLinux', 'CosmosDb', 'RedHat', 'SqlDataWarehouse',
+     'VMwareCloudSimple', 'RedHatOsa', 'Databricks', 'AppService',
+     'ManagedDisk', 'BlockBlob', 'RedisCache', 'AzureDataExplorer', 'MySql',
+     'MariaDb', 'PostgreSql', 'DedicatedHost', 'SapHana',
+     'SqlAzureHybridBenefit'
+    :type reserved_resource_type: str or
+     ~azure.mgmt.reservations.models.ReservedResourceType
+    :param billing_scope_id:
+    :type billing_scope_id: str
+    :param term: Possible values include: 'P1Y', 'P3Y'
+    :type term: str or ~azure.mgmt.reservations.models.ReservationTerm
+    :param billing_plan: Possible values include: 'Upfront', 'Monthly'
+    :type billing_plan: str or
+     ~azure.mgmt.reservations.models.ReservationBillingPlan
+    :param quantity:
+    :type quantity: int
+    :param display_name: Friendly name of the Reservation
+    :type display_name: str
+    :param applied_scope_type: Possible values include: 'Single', 'Shared'
+    :type applied_scope_type: str or
+     ~azure.mgmt.reservations.models.AppliedScopeType
+    :param applied_scopes:
+    :type applied_scopes: list[str]
+    :param renew:
+    :type renew: bool
+    :param reserved_resource_properties: Properties specific to each reserved
+     resource type. Not required if not applicable.
+    :type reserved_resource_properties:
+     ~azure.mgmt.reservations.models.CalculateRequestPropertiesReservedResourceProperties
+    """
+
+    _attribute_map = {
+        'sku': {'key': 'sku', 'type': 'SkuName'},
+        'location': {'key': 'location', 'type': 'str'},
+        'reserved_resource_type': {'key': 'properties.reservedResourceType', 'type': 'str'},
+        'billing_scope_id': {'key': 'properties.billingScopeId', 'type': 'str'},
+        'term': {'key': 'properties.term', 'type': 'str'},
+        'billing_plan': {'key': 'properties.billingPlan', 'type': 'str'},
+        'quantity': {'key': 'properties.quantity', 'type': 'int'},
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
+        'applied_scope_type': {'key': 'properties.appliedScopeType', 'type': 'str'},
+        'applied_scopes': {'key': 'properties.appliedScopes', 'type': '[str]'},
+        'renew': {'key': 'properties.renew', 'type': 'bool'},
+        'reserved_resource_properties': {'key': 'properties.reservedResourceProperties', 'type': 'CalculateRequestPropertiesReservedResourceProperties'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CalculateRequest, self).__init__(**kwargs)
+        self.sku = kwargs.get('sku', None)
+        self.location = kwargs.get('location', None)
+        self.reserved_resource_type = kwargs.get('reserved_resource_type', None)
+        self.billing_scope_id = kwargs.get('billing_scope_id', None)
+        self.term = kwargs.get('term', None)
+        self.billing_plan = kwargs.get('billing_plan', None)
+        self.quantity = kwargs.get('quantity', None)
+        self.display_name = kwargs.get('display_name', None)
+        self.applied_scope_type = kwargs.get('applied_scope_type', None)
+        self.applied_scopes = kwargs.get('applied_scopes', None)
+        self.renew = kwargs.get('renew', None)
+        self.reserved_resource_properties = kwargs.get('reserved_resource_properties', None)
+
+
+class CalculateRequestPropertiesReservedResourceProperties(Model):
+    """Properties specific to each reserved resource type. Not required if not
+    applicable.
+
+    :param instance_flexibility: Possible values include: 'On', 'Off'
+    :type instance_flexibility: str or
+     ~azure.mgmt.reservations.models.InstanceFlexibility
+    """
+
+    _attribute_map = {
+        'instance_flexibility': {'key': 'instanceFlexibility', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CalculateRequestPropertiesReservedResourceProperties, self).__init__(**kwargs)
+        self.instance_flexibility = kwargs.get('instance_flexibility', None)
+
+
 class Catalog(Model):
     """Catalog.
 
@@ -795,7 +883,7 @@ class PurchaseRequest(Model):
     :type billing_plan: str or
      ~azure.mgmt.reservations.models.ReservationBillingPlan
     :param quantity:
-    :type quantity: int
+    :type quantity: str
     :param display_name: Friendly name of the Reservation
     :type display_name: str
     :param applied_scope_type: Possible values include: 'Single', 'Shared'
@@ -818,7 +906,7 @@ class PurchaseRequest(Model):
         'billing_scope_id': {'key': 'properties.billingScopeId', 'type': 'str'},
         'term': {'key': 'properties.term', 'type': 'str'},
         'billing_plan': {'key': 'properties.billingPlan', 'type': 'str'},
-        'quantity': {'key': 'properties.quantity', 'type': 'int'},
+        'quantity': {'key': 'properties.quantity', 'type': 'str'},
         'display_name': {'key': 'properties.displayName', 'type': 'str'},
         'applied_scope_type': {'key': 'properties.appliedScopeType', 'type': 'str'},
         'applied_scopes': {'key': 'properties.appliedScopes', 'type': '[str]'},
@@ -1165,7 +1253,8 @@ class RenewPropertiesResponse(Model):
     """RenewPropertiesResponse.
 
     :param purchase_properties:
-    :type purchase_properties: ~azure.mgmt.reservations.models.PurchaseRequest
+    :type purchase_properties:
+     ~azure.mgmt.reservations.models.CalculateRequest
     :param pricing_currency_total: Amount that Microsoft uses for record. Used
      during refund for calculating refund limit. Tax is not included. This is
      locked price 30 days before expiry.
@@ -1179,7 +1268,7 @@ class RenewPropertiesResponse(Model):
     """
 
     _attribute_map = {
-        'purchase_properties': {'key': 'purchaseProperties', 'type': 'PurchaseRequest'},
+        'purchase_properties': {'key': 'purchaseProperties', 'type': 'CalculateRequest'},
         'pricing_currency_total': {'key': 'pricingCurrencyTotal', 'type': 'RenewPropertiesResponsePricingCurrencyTotal'},
         'billing_currency_total': {'key': 'billingCurrencyTotal', 'type': 'RenewPropertiesResponseBillingCurrencyTotal'},
     }
@@ -1615,6 +1704,38 @@ class ScopeProperties(Model):
         super(ScopeProperties, self).__init__(**kwargs)
         self.scope = kwargs.get('scope', None)
         self.valid = kwargs.get('valid', None)
+
+
+class Scopes(Model):
+    """Scopes.
+
+    :param properties:
+    :type properties: ~azure.mgmt.reservations.models.ScopesProperties
+    """
+
+    _attribute_map = {
+        'properties': {'key': 'properties', 'type': 'ScopesProperties'},
+    }
+
+    def __init__(self, **kwargs):
+        super(Scopes, self).__init__(**kwargs)
+        self.properties = kwargs.get('properties', None)
+
+
+class ScopesProperties(Model):
+    """ScopesProperties.
+
+    :param scopes:
+    :type scopes: list[str]
+    """
+
+    _attribute_map = {
+        'scopes': {'key': 'scopes', 'type': '[str]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ScopesProperties, self).__init__(**kwargs)
+        self.scopes = kwargs.get('scopes', None)
 
 
 class ServiceError(Model):

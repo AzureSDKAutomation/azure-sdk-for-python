@@ -42,7 +42,9 @@ class ReservationOperations(object):
 
 
     def _available_scopes_initial(
-            self, reservation_order_id, reservation_id, body, custom_headers=None, raw=False, **operation_config):
+            self, reservation_order_id, reservation_id, properties=None, custom_headers=None, raw=False, **operation_config):
+        body = models.Scopes(properties=properties)
+
         # Construct URL
         url = self.available_scopes.metadata['url']
         path_format_arguments = {
@@ -67,7 +69,7 @@ class ReservationOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct body
-        body_content = self._serialize.body(body, '[str]')
+        body_content = self._serialize.body(body, 'Scopes')
 
         # Construct and send request
         request = self._client.post(url, query_parameters, header_parameters, body_content)
@@ -88,7 +90,7 @@ class ReservationOperations(object):
         return deserialized
 
     def available_scopes(
-            self, reservation_order_id, reservation_id, body, custom_headers=None, raw=False, polling=True, **operation_config):
+            self, reservation_order_id, reservation_id, properties=None, custom_headers=None, raw=False, polling=True, **operation_config):
         """Get Available Scopes for `Reservation`.
 
         Get Available Scopes for `Reservation`.
@@ -98,8 +100,8 @@ class ReservationOperations(object):
         :type reservation_order_id: str
         :param reservation_id: Id of the Reservation Item
         :type reservation_id: str
-        :param body:
-        :type body: list[str]
+        :param properties:
+        :type properties: ~azure.mgmt.reservations.models.ScopesProperties
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response
@@ -117,7 +119,7 @@ class ReservationOperations(object):
         raw_result = self._available_scopes_initial(
             reservation_order_id=reservation_order_id,
             reservation_id=reservation_id,
-            body=body,
+            properties=properties,
             custom_headers=custom_headers,
             raw=True,
             **operation_config

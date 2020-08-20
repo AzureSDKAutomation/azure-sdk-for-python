@@ -19,6 +19,8 @@ try:
     from ._models_py3 import CalculatePriceResponseProperties
     from ._models_py3 import CalculatePriceResponsePropertiesBillingCurrencyTotal
     from ._models_py3 import CalculatePriceResponsePropertiesPricingCurrencyTotal
+    from ._models_py3 import CalculateRequest
+    from ._models_py3 import CalculateRequestPropertiesReservedResourceProperties
     from ._models_py3 import Catalog
     from ._models_py3 import CreateGenericQuotaRequestParameters
     from ._models_py3 import CurrentQuotaLimit
@@ -58,6 +60,8 @@ try:
     from ._models_py3 import ReservationSplitProperties
     from ._models_py3 import ResourceName
     from ._models_py3 import ScopeProperties
+    from ._models_py3 import Scopes
+    from ._models_py3 import ScopesProperties
     from ._models_py3 import ServiceError
     from ._models_py3 import ServiceErrorDetail
     from ._models_py3 import SkuName
@@ -77,6 +81,8 @@ except (SyntaxError, ImportError):
     from ._models import CalculatePriceResponseProperties
     from ._models import CalculatePriceResponsePropertiesBillingCurrencyTotal
     from ._models import CalculatePriceResponsePropertiesPricingCurrencyTotal
+    from ._models import CalculateRequest
+    from ._models import CalculateRequestPropertiesReservedResourceProperties
     from ._models import Catalog
     from ._models import CreateGenericQuotaRequestParameters
     from ._models import CurrentQuotaLimit
@@ -116,6 +122,8 @@ except (SyntaxError, ImportError):
     from ._models import ReservationSplitProperties
     from ._models import ResourceName
     from ._models import ScopeProperties
+    from ._models import Scopes
+    from ._models import ScopesProperties
     from ._models import ServiceError
     from ._models import ServiceErrorDetail
     from ._models import SkuName
@@ -151,6 +159,8 @@ __all__ = [
     'CalculatePriceResponseProperties',
     'CalculatePriceResponsePropertiesBillingCurrencyTotal',
     'CalculatePriceResponsePropertiesPricingCurrencyTotal',
+    'CalculateRequest',
+    'CalculateRequestPropertiesReservedResourceProperties',
     'Catalog',
     'CreateGenericQuotaRequestParameters',
     'CurrentQuotaLimit',
@@ -190,6 +200,8 @@ __all__ = [
     'ReservationSplitProperties',
     'ResourceName',
     'ScopeProperties',
+    'Scopes',
+    'ScopesProperties',
     'ServiceError',
     'ServiceErrorDetail',
     'SkuName',
