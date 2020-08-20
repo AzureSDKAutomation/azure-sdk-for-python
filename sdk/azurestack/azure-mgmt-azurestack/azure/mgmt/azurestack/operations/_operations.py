@@ -39,7 +39,7 @@ class Operations(object):
 
         self.config = config
 
-    def list(
+    def xxx(
             self, custom_headers=None, raw=False, **operation_config):
         """Returns the list of supported REST operations.
 
@@ -56,7 +56,7 @@ class Operations(object):
         def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
-                url = self.list.metadata['url']
+                url = self.xxx.metadata['url']
 
                 # Construct parameters
                 query_parameters = {}
@@ -99,4 +99,4 @@ class Operations(object):
         deserialized = models.OperationPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/providers/Microsoft.AzureStack/operations'}
+    xxx.metadata = {'url': '/providers/Microsoft.AzureStack/operations'}
