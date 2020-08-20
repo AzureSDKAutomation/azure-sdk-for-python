@@ -197,4 +197,4 @@ class AnomalyDetectorClientOperationsMixin(object):
             return client_raw_response
 
         return deserialized
-    change_point_detect.metadata = {'url': '/timeseries/changePoint/detect'}
+    change_point_detect.metadata = {'url': '/timeseries/changepoint/detect'}
