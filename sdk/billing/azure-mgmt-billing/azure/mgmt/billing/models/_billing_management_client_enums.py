@@ -128,6 +128,7 @@ class InvoiceStatus(str, Enum):
     due = "Due"
     over_due = "OverDue"
     paid = "Paid"
+    void = "Void"
 
 
 class InvoiceType(str, Enum):
@@ -157,6 +158,12 @@ class PaymentMethodFamily(str, Enum):
     check_wire = "CheckWire"
     credit_card = "CreditCard"
     none = "None"
+
+
+class InvoiceDocumentType(str, Enum):
+
+    invoice = "Invoice"
+    credit_note = "CreditNote"
 
 
 class AutoRenew(str, Enum):

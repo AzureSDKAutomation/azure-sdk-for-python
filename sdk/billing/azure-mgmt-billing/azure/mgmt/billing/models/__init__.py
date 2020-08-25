@@ -51,6 +51,7 @@ try:
     from ._models_py3 import PaymentProperties
     from ._models_py3 import Policy
     from ._models_py3 import Product
+    from ._models_py3 import RebillDetails
     from ._models_py3 import Reseller
     from ._models_py3 import Resource
     from ._models_py3 import Transaction
@@ -103,6 +104,7 @@ except (SyntaxError, ImportError):
     from ._models import PaymentProperties
     from ._models import Policy
     from ._models import Product
+    from ._models import RebillDetails
     from ._models import Reseller
     from ._models import Resource
     from ._models import Transaction
@@ -151,6 +153,7 @@ from ._billing_management_client_enums import (
     DocumentType,
     DocumentSource,
     PaymentMethodFamily,
+    InvoiceDocumentType,
     AutoRenew,
     ProductStatusType,
     BillingFrequency,
@@ -208,6 +211,7 @@ __all__ = [
     'PaymentProperties',
     'Policy',
     'Product',
+    'RebillDetails',
     'Reseller',
     'Resource',
     'Transaction',
@@ -255,6 +259,7 @@ __all__ = [
     'DocumentType',
     'DocumentSource',
     'PaymentMethodFamily',
+    'InvoiceDocumentType',
     'AutoRenew',
     'ProductStatusType',
     'BillingFrequency',

@@ -1672,7 +1672,7 @@ class Invoice(Resource):
     :ivar invoice_date: The date when the invoice was generated.
     :vartype invoice_date: datetime
     :ivar status: The current status of the invoice. Possible values include:
-     'Due', 'OverDue', 'Paid'
+     'Due', 'OverDue', 'Paid', 'Void'
     :vartype status: str or ~azure.mgmt.billing.models.InvoiceStatus
     :ivar amount_due: The amount due as of now.
     :vartype amount_due: ~azure.mgmt.billing.models.Amount
@@ -1728,6 +1728,21 @@ class Invoice(Resource):
     :vartype documents: list[~azure.mgmt.billing.models.Document]
     :ivar payments: List of payments.
     :vartype payments: list[~azure.mgmt.billing.models.PaymentProperties]
+    :ivar rebill_details: Rebill details for an invoice.
+    :vartype rebill_details: dict[str,
+     ~azure.mgmt.billing.models.RebillDetails]
+    :ivar document_type: The type of the document. Possible values include:
+     'Invoice', 'CreditNote'
+    :vartype document_type: str or
+     ~azure.mgmt.billing.models.InvoiceDocumentType
+    :ivar billed_document_id: The Id of the active invoice which is originally
+     billed after this invoice was voided. This field is applicable to the void
+     invoices only.
+    :vartype billed_document_id: str
+    :ivar credit_for_document_id: The Id of the invoice which got voided and
+     this credit note was issued as a result. This field is applicable to the
+     credit notes only.
+    :vartype credit_for_document_id: str
     :ivar subscription_id: The ID of the subscription for which the invoice is
      generated.
     :vartype subscription_id: str
@@ -1757,6 +1772,10 @@ class Invoice(Resource):
         'purchase_order_number': {'readonly': True},
         'documents': {'readonly': True},
         'payments': {'readonly': True},
+        'rebill_details': {'readonly': True},
+        'document_type': {'readonly': True},
+        'billed_document_id': {'readonly': True},
+        'credit_for_document_id': {'readonly': True},
         'subscription_id': {'readonly': True},
     }
 
@@ -1784,6 +1803,10 @@ class Invoice(Resource):
         'purchase_order_number': {'key': 'properties.purchaseOrderNumber', 'type': 'str'},
         'documents': {'key': 'properties.documents', 'type': '[Document]'},
         'payments': {'key': 'properties.payments', 'type': '[PaymentProperties]'},
+        'rebill_details': {'key': 'properties.rebillDetails', 'type': '{RebillDetails}'},
+        'document_type': {'key': 'properties.documentType', 'type': 'str'},
+        'billed_document_id': {'key': 'properties.billedDocumentId', 'type': 'str'},
+        'credit_for_document_id': {'key': 'properties.creditForDocumentId', 'type': 'str'},
         'subscription_id': {'key': 'properties.subscriptionId', 'type': 'str'},
     }
 
@@ -1809,6 +1832,10 @@ class Invoice(Resource):
         self.purchase_order_number = None
         self.documents = None
         self.payments = None
+        self.rebill_details = None
+        self.document_type = None
+        self.billed_document_id = None
+        self.credit_for_document_id = None
         self.subscription_id = None
 
 
@@ -2332,6 +2359,38 @@ class Product(Resource):
         self.customer_id = None
         self.customer_display_name = None
         self.reseller = None
+
+
+class RebillDetails(Model):
+    """The rebill details of an invoice.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar credit_note_document_id: The ID of credit note.
+    :vartype credit_note_document_id: str
+    :ivar invoice_document_id: The ID of invoice.
+    :vartype invoice_document_id: str
+    :param rebill_details: Rebill details for an invoice.
+    :type rebill_details: dict[str, ~azure.mgmt.billing.models.RebillDetails]
+    """
+
+    _validation = {
+        'credit_note_document_id': {'readonly': True},
+        'invoice_document_id': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'credit_note_document_id': {'key': 'creditNoteDocumentId', 'type': 'str'},
+        'invoice_document_id': {'key': 'invoiceDocumentId', 'type': 'str'},
+        'rebill_details': {'key': 'rebillDetails', 'type': '{RebillDetails}'},
+    }
+
+    def __init__(self, *, rebill_details=None, **kwargs) -> None:
+        super(RebillDetails, self).__init__(**kwargs)
+        self.credit_note_document_id = None
+        self.invoice_document_id = None
+        self.rebill_details = rebill_details
 
 
 class Reseller(Model):
