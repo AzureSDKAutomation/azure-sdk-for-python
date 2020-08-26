@@ -3460,11 +3460,11 @@ class PrivateLinkServiceConnectionStateProperty(Model):
 
     :param status: The private link service connection status.
     :type status: str
+    :param description: The private link service connection description.
+    :type description: str
     :ivar actions_required: Any action that is required beyond basic workflow
      (approve/ reject/ disconnect)
     :vartype actions_required: str
-    :param description: The private link service connection description.
-    :type description: str
     """
 
     _validation = {
@@ -3473,15 +3473,15 @@ class PrivateLinkServiceConnectionStateProperty(Model):
 
     _attribute_map = {
         'status': {'key': 'status', 'type': 'str'},
-        'actions_required': {'key': 'actionsRequired', 'type': 'str'},
         'description': {'key': 'description', 'type': 'str'},
+        'actions_required': {'key': 'actionsRequired', 'type': 'str'},
     }
 
     def __init__(self, *, status: str=None, description: str=None, **kwargs) -> None:
         super(PrivateLinkServiceConnectionStateProperty, self).__init__(**kwargs)
         self.status = status
-        self.actions_required = None
         self.description = description
+        self.actions_required = None
 
 
 class RegionForOnlineOffline(Model):
