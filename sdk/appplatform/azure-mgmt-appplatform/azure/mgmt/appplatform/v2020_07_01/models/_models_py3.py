@@ -183,6 +183,30 @@ class AppResourceProperties(Model):
         self.persistent_disk = persistent_disk
 
 
+class AvailableRuntimeVersions(Model):
+    """AvailableRuntimeVersions.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar value: A list of all supported runtime versions.
+    :vartype value:
+     list[~azure.mgmt.appplatform.v2020_07_01.models.SupportedRuntimeVersion1]
+    """
+
+    _validation = {
+        'value': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': '[SupportedRuntimeVersion1]'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(AvailableRuntimeVersions, self).__init__(**kwargs)
+        self.value = None
+
+
 class BindingResource(ProxyResource):
     """Binding resource payload.
 
@@ -885,10 +909,13 @@ class DeploymentSettings(Model):
     :type memory_in_gb: int
     :param jvm_options: JVM parameter
     :type jvm_options: str
+    :param net_core_main_entry_path: The path to the .NET executable relative
+     to zip root
+    :type net_core_main_entry_path: str
     :param environment_variables: Collection of environment variables
     :type environment_variables: dict[str, str]
     :param runtime_version: Runtime version. Possible values include:
-     'Java_8', 'Java_11'
+     'Java_8', 'Java_11', 'NetCore_31'
     :type runtime_version: str or
      ~azure.mgmt.appplatform.v2020_07_01.models.RuntimeVersion
     """
@@ -897,15 +924,17 @@ class DeploymentSettings(Model):
         'cpu': {'key': 'cpu', 'type': 'int'},
         'memory_in_gb': {'key': 'memoryInGB', 'type': 'int'},
         'jvm_options': {'key': 'jvmOptions', 'type': 'str'},
+        'net_core_main_entry_path': {'key': 'netCoreMainEntryPath', 'type': 'str'},
         'environment_variables': {'key': 'environmentVariables', 'type': '{str}'},
         'runtime_version': {'key': 'runtimeVersion', 'type': 'str'},
     }
 
-    def __init__(self, *, cpu: int=1, memory_in_gb: int=1, jvm_options: str=None, environment_variables=None, runtime_version=None, **kwargs) -> None:
+    def __init__(self, *, cpu: int=1, memory_in_gb: int=1, jvm_options: str=None, net_core_main_entry_path: str=None, environment_variables=None, runtime_version=None, **kwargs) -> None:
         super(DeploymentSettings, self).__init__(**kwargs)
         self.cpu = cpu
         self.memory_in_gb = memory_in_gb
         self.jvm_options = jvm_options
+        self.net_core_main_entry_path = net_core_main_entry_path
         self.environment_variables = environment_variables
         self.runtime_version = runtime_version
 
@@ -1794,6 +1823,34 @@ class SkuCapacity(Model):
         self.scale_type = scale_type
 
 
+class SupportedRuntimeVersion1(Model):
+    """Supported deployment runtime version descriptor.
+
+    :param value: The raw value which could be passed to deployment CRUD
+     operations. Possible values include: 'Java_8', 'Java_11', 'NetCore_31'
+    :type value: str or
+     ~azure.mgmt.appplatform.v2020_07_01.models.SupportedRuntimeVersion
+    :param platform: The platform of this runtime version (possible values:
+     "Java" or ".NET"). Possible values include: 'Java', '.NET Core'
+    :type platform: str or
+     ~azure.mgmt.appplatform.v2020_07_01.models.SupportedRuntimePlatform
+    :param version: The detailed version (major.minor) of the platform.
+    :type version: str
+    """
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': 'str'},
+        'platform': {'key': 'platform', 'type': 'str'},
+        'version': {'key': 'version', 'type': 'str'},
+    }
+
+    def __init__(self, *, value=None, platform=None, version: str=None, **kwargs) -> None:
+        super(SupportedRuntimeVersion1, self).__init__(**kwargs)
+        self.value = value
+        self.platform = platform
+        self.version = version
+
+
 class TemporaryDisk(Model):
     """Temporary disk payload.
 
@@ -1854,7 +1911,7 @@ class UserSourceInfo(Model):
     """Source information for a deployment.
 
     :param type: Type of the source uploaded. Possible values include: 'Jar',
-     'Source'
+     'NetCoreZip', 'Source'
     :type type: str or
      ~azure.mgmt.appplatform.v2020_07_01.models.UserSourceType
     :param relative_path: Relative path of the storage which stores the source
