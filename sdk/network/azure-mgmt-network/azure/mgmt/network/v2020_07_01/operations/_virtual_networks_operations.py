@@ -27,7 +27,7 @@ class VirtualNetworksOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client API version. Constant value: "2020-05-01".
+    :ivar api_version: Client API version. Constant value: "2020-07-01".
     """
 
     models = models
@@ -37,7 +37,7 @@ class VirtualNetworksOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-05-01"
+        self.api_version = "2020-07-01"
 
         self.config = config
 
@@ -136,7 +136,7 @@ class VirtualNetworksOperations(object):
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
         :return: VirtualNetwork or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.network.v2020_05_01.models.VirtualNetwork or
+        :rtype: ~azure.mgmt.network.v2020_07_01.models.VirtualNetwork or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -248,7 +248,7 @@ class VirtualNetworksOperations(object):
         :param parameters: Parameters supplied to the create or update virtual
          network operation.
         :type parameters:
-         ~azure.mgmt.network.v2020_05_01.models.VirtualNetwork
+         ~azure.mgmt.network.v2020_07_01.models.VirtualNetwork
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response
@@ -257,9 +257,9 @@ class VirtualNetworksOperations(object):
         :return: An instance of LROPoller that returns VirtualNetwork or
          ClientRawResponse<VirtualNetwork> if raw==True
         :rtype:
-         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.network.v2020_05_01.models.VirtualNetwork]
+         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.network.v2020_07_01.models.VirtualNetwork]
          or
-         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.network.v2020_05_01.models.VirtualNetwork]]
+         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.network.v2020_07_01.models.VirtualNetwork]]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._create_or_update_initial(
@@ -305,7 +305,7 @@ class VirtualNetworksOperations(object):
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
         :return: VirtualNetwork or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.network.v2020_05_01.models.VirtualNetwork or
+        :rtype: ~azure.mgmt.network.v2020_07_01.models.VirtualNetwork or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -369,7 +369,7 @@ class VirtualNetworksOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: An iterator like instance of VirtualNetwork
         :rtype:
-         ~azure.mgmt.network.v2020_05_01.models.VirtualNetworkPaged[~azure.mgmt.network.v2020_05_01.models.VirtualNetwork]
+         ~azure.mgmt.network.v2020_07_01.models.VirtualNetworkPaged[~azure.mgmt.network.v2020_07_01.models.VirtualNetwork]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         def prepare_request(next_link=None):
@@ -437,7 +437,7 @@ class VirtualNetworksOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: An iterator like instance of VirtualNetwork
         :rtype:
-         ~azure.mgmt.network.v2020_05_01.models.VirtualNetworkPaged[~azure.mgmt.network.v2020_05_01.models.VirtualNetwork]
+         ~azure.mgmt.network.v2020_07_01.models.VirtualNetworkPaged[~azure.mgmt.network.v2020_07_01.models.VirtualNetwork]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         def prepare_request(next_link=None):
@@ -510,7 +510,7 @@ class VirtualNetworksOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: IPAddressAvailabilityResult or ClientRawResponse if raw=true
         :rtype:
-         ~azure.mgmt.network.v2020_05_01.models.IPAddressAvailabilityResult or
+         ~azure.mgmt.network.v2020_07_01.models.IPAddressAvailabilityResult or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -573,7 +573,7 @@ class VirtualNetworksOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: An iterator like instance of VirtualNetworkUsage
         :rtype:
-         ~azure.mgmt.network.v2020_05_01.models.VirtualNetworkUsagePaged[~azure.mgmt.network.v2020_05_01.models.VirtualNetworkUsage]
+         ~azure.mgmt.network.v2020_07_01.models.VirtualNetworkUsagePaged[~azure.mgmt.network.v2020_07_01.models.VirtualNetworkUsage]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         def prepare_request(next_link=None):
