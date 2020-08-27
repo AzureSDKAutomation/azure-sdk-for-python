@@ -113,8 +113,8 @@ class DeploymentsOperations(object):
 
 
     def _create_or_update_initial(
-            self, resource_group_name, service_name, app_name, deployment_name, properties=None, custom_headers=None, raw=False, **operation_config):
-        deployment_resource = models.DeploymentResource(properties=properties)
+            self, resource_group_name, service_name, app_name, deployment_name, properties=None, sku=None, custom_headers=None, raw=False, **operation_config):
+        deployment_resource = models.DeploymentResource(properties=properties, sku=sku)
 
         # Construct URL
         url = self.create_or_update.metadata['url']
@@ -149,7 +149,7 @@ class DeploymentsOperations(object):
         request = self._client.put(url, query_parameters, header_parameters, body_content)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200, 201]:
+        if response.status_code not in [200, 201, 202]:
             exp = CloudError(response)
             exp.request_id = response.headers.get('x-ms-request-id')
             raise exp
@@ -160,6 +160,8 @@ class DeploymentsOperations(object):
             deserialized = self._deserialize('DeploymentResource', response)
         if response.status_code == 201:
             deserialized = self._deserialize('DeploymentResource', response)
+        if response.status_code == 202:
+            deserialized = self._deserialize('DeploymentResource', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
@@ -168,7 +170,7 @@ class DeploymentsOperations(object):
         return deserialized
 
     def create_or_update(
-            self, resource_group_name, service_name, app_name, deployment_name, properties=None, custom_headers=None, raw=False, polling=True, **operation_config):
+            self, resource_group_name, service_name, app_name, deployment_name, properties=None, sku=None, custom_headers=None, raw=False, polling=True, **operation_config):
         """Create a new Deployment or update an exiting Deployment.
 
         :param resource_group_name: The name of the resource group that
@@ -184,6 +186,8 @@ class DeploymentsOperations(object):
         :param properties: Properties of the Deployment resource
         :type properties:
          ~azure.mgmt.appplatform.v2019_05_01_preview.models.DeploymentResourceProperties
+        :param sku: Sku of the Deployment resource
+        :type sku: ~azure.mgmt.appplatform.v2019_05_01_preview.models.Sku
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response
@@ -203,6 +207,7 @@ class DeploymentsOperations(object):
             app_name=app_name,
             deployment_name=deployment_name,
             properties=properties,
+            sku=sku,
             custom_headers=custom_headers,
             raw=True,
             **operation_config
@@ -289,8 +294,8 @@ class DeploymentsOperations(object):
 
 
     def _update_initial(
-            self, resource_group_name, service_name, app_name, deployment_name, properties=None, custom_headers=None, raw=False, **operation_config):
-        deployment_resource = models.DeploymentResource(properties=properties)
+            self, resource_group_name, service_name, app_name, deployment_name, properties=None, sku=None, custom_headers=None, raw=False, **operation_config):
+        deployment_resource = models.DeploymentResource(properties=properties, sku=sku)
 
         # Construct URL
         url = self.update.metadata['url']
@@ -344,7 +349,7 @@ class DeploymentsOperations(object):
         return deserialized
 
     def update(
-            self, resource_group_name, service_name, app_name, deployment_name, properties=None, custom_headers=None, raw=False, polling=True, **operation_config):
+            self, resource_group_name, service_name, app_name, deployment_name, properties=None, sku=None, custom_headers=None, raw=False, polling=True, **operation_config):
         """Operation to update an exiting Deployment.
 
         :param resource_group_name: The name of the resource group that
@@ -360,6 +365,8 @@ class DeploymentsOperations(object):
         :param properties: Properties of the Deployment resource
         :type properties:
          ~azure.mgmt.appplatform.v2019_05_01_preview.models.DeploymentResourceProperties
+        :param sku: Sku of the Deployment resource
+        :type sku: ~azure.mgmt.appplatform.v2019_05_01_preview.models.Sku
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response
@@ -379,6 +386,7 @@ class DeploymentsOperations(object):
             app_name=app_name,
             deployment_name=deployment_name,
             properties=properties,
+            sku=sku,
             custom_headers=custom_headers,
             raw=True,
             **operation_config

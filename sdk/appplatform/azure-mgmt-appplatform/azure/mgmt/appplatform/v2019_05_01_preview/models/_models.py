@@ -133,7 +133,7 @@ class AppResourceProperties(Model):
     :ivar url: URL of the App
     :vartype url: str
     :ivar provisioning_state: Provisioning state of the App. Possible values
-     include: 'Succeeded', 'Failed', 'Creating', 'Updating'
+     include: 'Succeeded', 'Failed', 'Creating', 'Updating', 'Deleting'
     :vartype provisioning_state: str or
      ~azure.mgmt.appplatform.v2019_05_01_preview.models.AppResourceProvisioningState
     :param active_deployment_name: Name of the active deployment of the App
@@ -788,6 +788,8 @@ class DeploymentResource(ProxyResource):
     :param properties: Properties of the Deployment resource
     :type properties:
      ~azure.mgmt.appplatform.v2019_05_01_preview.models.DeploymentResourceProperties
+    :param sku: Sku of the Deployment resource
+    :type sku: ~azure.mgmt.appplatform.v2019_05_01_preview.models.Sku
     """
 
     _validation = {
@@ -801,11 +803,13 @@ class DeploymentResource(ProxyResource):
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
         'properties': {'key': 'properties', 'type': 'DeploymentResourceProperties'},
+        'sku': {'key': 'sku', 'type': 'Sku'},
     }
 
     def __init__(self, **kwargs):
         super(DeploymentResource, self).__init__(**kwargs)
         self.properties = kwargs.get('properties', None)
+        self.sku = kwargs.get('sku', None)
 
 
 class DeploymentResourceProperties(Model):
@@ -823,7 +827,7 @@ class DeploymentResourceProperties(Model):
     :type deployment_settings:
      ~azure.mgmt.appplatform.v2019_05_01_preview.models.DeploymentSettings
     :ivar provisioning_state: Provisioning state of the Deployment. Possible
-     values include: 'Creating', 'Updating', 'Succeeded', 'Failed'
+     values include: 'Creating', 'Updating', 'Succeeded', 'Failed', 'Deleting'
     :vartype provisioning_state: str or
      ~azure.mgmt.appplatform.v2019_05_01_preview.models.DeploymentResourceProvisioningState
     :ivar status: Status of the Deployment. Possible values include:
@@ -1080,17 +1084,22 @@ class MetricDimension(Model):
     :type name: str
     :param display_name: Localized friendly display name of the dimension
     :type display_name: str
+    :param to_be_exported_for_shoebox: Whether this dimension should be
+     included for the Shoebox export scenario
+    :type to_be_exported_for_shoebox: bool
     """
 
     _attribute_map = {
         'name': {'key': 'name', 'type': 'str'},
         'display_name': {'key': 'displayName', 'type': 'str'},
+        'to_be_exported_for_shoebox': {'key': 'toBeExportedForShoebox', 'type': 'bool'},
     }
 
     def __init__(self, **kwargs):
         super(MetricDimension, self).__init__(**kwargs)
         self.name = kwargs.get('name', None)
         self.display_name = kwargs.get('display_name', None)
+        self.to_be_exported_for_shoebox = kwargs.get('to_be_exported_for_shoebox', None)
 
 
 class MetricSpecification(Model):

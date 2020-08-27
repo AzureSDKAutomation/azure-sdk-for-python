@@ -62,6 +62,7 @@ class AppResourceProvisioningState(str, Enum):
     failed = "Failed"
     creating = "Creating"
     updating = "Updating"
+    deleting = "Deleting"
 
 
 class UserSourceType(str, Enum):
@@ -84,6 +85,7 @@ class DeploymentResourceProvisioningState(str, Enum):
     updating = "Updating"
     succeeded = "Succeeded"
     failed = "Failed"
+    deleting = "Deleting"
 
 
 class DeploymentResourceStatus(str, Enum):
