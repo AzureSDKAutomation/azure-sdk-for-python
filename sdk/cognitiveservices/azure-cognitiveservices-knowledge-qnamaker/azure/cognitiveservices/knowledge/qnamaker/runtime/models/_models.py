@@ -545,6 +545,11 @@ class QueryDTO(Model):
     :param strict_filters: Find only answers that contain these metadata.
     :type strict_filters:
      list[~azure.cognitiveservices.knowledge.qnamaker.runtime.models.MetadataDTO]
+    :param strict_filters_compound_operation_type: Optional field. Set to OR
+     for using OR as Operation for Strict Filters. Possible values include:
+     'AND', 'OR'
+    :type strict_filters_compound_operation_type: str or
+     ~azure.cognitiveservices.knowledge.qnamaker.runtime.models.StrictFiltersCompoundOperationType
     """
 
     _attribute_map = {
@@ -557,6 +562,7 @@ class QueryDTO(Model):
         'context': {'key': 'context', 'type': 'QueryDTOContext'},
         'ranker_type': {'key': 'rankerType', 'type': 'str'},
         'strict_filters': {'key': 'strictFilters', 'type': '[MetadataDTO]'},
+        'strict_filters_compound_operation_type': {'key': 'strictFiltersCompoundOperationType', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -570,6 +576,7 @@ class QueryDTO(Model):
         self.context = kwargs.get('context', None)
         self.ranker_type = kwargs.get('ranker_type', None)
         self.strict_filters = kwargs.get('strict_filters', None)
+        self.strict_filters_compound_operation_type = kwargs.get('strict_filters_compound_operation_type', None)
 
 
 class QueryDTOContext(QueryContextDTO):

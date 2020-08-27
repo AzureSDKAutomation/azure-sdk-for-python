@@ -405,7 +405,7 @@ class KnowledgebaseOperations(object):
     create.metadata = {'url': '/knowledgebases/create'}
 
     def download(
-            self, kb_id, environment, custom_headers=None, raw=False, **operation_config):
+            self, kb_id, environment, source=None, changed_since=None, custom_headers=None, raw=False, **operation_config):
         """Download the knowledgebase.
 
         :param kb_id: Knowledgebase id.
@@ -414,6 +414,11 @@ class KnowledgebaseOperations(object):
          Possible values include: 'Prod', 'Test'
         :type environment: str or
          ~azure.cognitiveservices.knowledge.qnamaker.authoring.models.EnvironmentType
+        :param source: The source property filter to apply.
+        :type source: str
+        :param changed_since: The last changed status property filter to
+         apply.
+        :type changed_since: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -437,6 +442,10 @@ class KnowledgebaseOperations(object):
 
         # Construct parameters
         query_parameters = {}
+        if source is not None:
+            query_parameters['source'] = self._serialize.query("source", source, 'str')
+        if changed_since is not None:
+            query_parameters['changedSince'] = self._serialize.query("changed_since", changed_since, 'str')
 
         # Construct headers
         header_parameters = {}

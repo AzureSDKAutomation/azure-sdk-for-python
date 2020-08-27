@@ -621,12 +621,15 @@ class QnADTO(Model):
     :param context: Context of a QnA
     :type context:
      ~azure.cognitiveservices.knowledge.qnamaker.authoring.models.QnADTOContext
+    :param changed_time_stamp: Timestamp when the operation was created.
+    :type changed_time_stamp: str
     """
 
     _validation = {
         'answer': {'required': True, 'max_length': 25000, 'min_length': 1},
         'source': {'max_length': 300},
         'questions': {'required': True},
+        'changed_time_stamp': {'max_length': 300},
     }
 
     _attribute_map = {
@@ -636,6 +639,7 @@ class QnADTO(Model):
         'questions': {'key': 'questions', 'type': '[str]'},
         'metadata': {'key': 'metadata', 'type': '[MetadataDTO]'},
         'context': {'key': 'context', 'type': 'QnADTOContext'},
+        'changed_time_stamp': {'key': 'changedTimeStamp', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -646,6 +650,7 @@ class QnADTO(Model):
         self.questions = kwargs.get('questions', None)
         self.metadata = kwargs.get('metadata', None)
         self.context = kwargs.get('context', None)
+        self.changed_time_stamp = kwargs.get('changed_time_stamp', None)
 
 
 class PromptDTOQna(QnADTO):
@@ -668,12 +673,15 @@ class PromptDTOQna(QnADTO):
     :param context: Context of a QnA
     :type context:
      ~azure.cognitiveservices.knowledge.qnamaker.authoring.models.QnADTOContext
+    :param changed_time_stamp: Timestamp when the operation was created.
+    :type changed_time_stamp: str
     """
 
     _validation = {
         'answer': {'required': True, 'max_length': 25000, 'min_length': 1},
         'source': {'max_length': 300},
         'questions': {'required': True},
+        'changed_time_stamp': {'max_length': 300},
     }
 
     _attribute_map = {
@@ -683,6 +691,7 @@ class PromptDTOQna(QnADTO):
         'questions': {'key': 'questions', 'type': '[str]'},
         'metadata': {'key': 'metadata', 'type': '[MetadataDTO]'},
         'context': {'key': 'context', 'type': 'QnADTOContext'},
+        'changed_time_stamp': {'key': 'changedTimeStamp', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):

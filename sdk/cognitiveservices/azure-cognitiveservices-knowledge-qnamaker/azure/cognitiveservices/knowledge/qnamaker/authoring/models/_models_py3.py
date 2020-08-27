@@ -621,12 +621,15 @@ class QnADTO(Model):
     :param context: Context of a QnA
     :type context:
      ~azure.cognitiveservices.knowledge.qnamaker.authoring.models.QnADTOContext
+    :param changed_time_stamp: Timestamp when the operation was created.
+    :type changed_time_stamp: str
     """
 
     _validation = {
         'answer': {'required': True, 'max_length': 25000, 'min_length': 1},
         'source': {'max_length': 300},
         'questions': {'required': True},
+        'changed_time_stamp': {'max_length': 300},
     }
 
     _attribute_map = {
@@ -636,9 +639,10 @@ class QnADTO(Model):
         'questions': {'key': 'questions', 'type': '[str]'},
         'metadata': {'key': 'metadata', 'type': '[MetadataDTO]'},
         'context': {'key': 'context', 'type': 'QnADTOContext'},
+        'changed_time_stamp': {'key': 'changedTimeStamp', 'type': 'str'},
     }
 
-    def __init__(self, *, answer: str, questions, id: int=None, source: str=None, metadata=None, context=None, **kwargs) -> None:
+    def __init__(self, *, answer: str, questions, id: int=None, source: str=None, metadata=None, context=None, changed_time_stamp: str=None, **kwargs) -> None:
         super(QnADTO, self).__init__(**kwargs)
         self.id = id
         self.answer = answer
@@ -646,6 +650,7 @@ class QnADTO(Model):
         self.questions = questions
         self.metadata = metadata
         self.context = context
+        self.changed_time_stamp = changed_time_stamp
 
 
 class PromptDTOQna(QnADTO):
@@ -668,12 +673,15 @@ class PromptDTOQna(QnADTO):
     :param context: Context of a QnA
     :type context:
      ~azure.cognitiveservices.knowledge.qnamaker.authoring.models.QnADTOContext
+    :param changed_time_stamp: Timestamp when the operation was created.
+    :type changed_time_stamp: str
     """
 
     _validation = {
         'answer': {'required': True, 'max_length': 25000, 'min_length': 1},
         'source': {'max_length': 300},
         'questions': {'required': True},
+        'changed_time_stamp': {'max_length': 300},
     }
 
     _attribute_map = {
@@ -683,10 +691,11 @@ class PromptDTOQna(QnADTO):
         'questions': {'key': 'questions', 'type': '[str]'},
         'metadata': {'key': 'metadata', 'type': '[MetadataDTO]'},
         'context': {'key': 'context', 'type': 'QnADTOContext'},
+        'changed_time_stamp': {'key': 'changedTimeStamp', 'type': 'str'},
     }
 
-    def __init__(self, *, answer: str, questions, id: int=None, source: str=None, metadata=None, context=None, **kwargs) -> None:
-        super(PromptDTOQna, self).__init__(id=id, answer=answer, source=source, questions=questions, metadata=metadata, context=context, **kwargs)
+    def __init__(self, *, answer: str, questions, id: int=None, source: str=None, metadata=None, context=None, changed_time_stamp: str=None, **kwargs) -> None:
+        super(PromptDTOQna, self).__init__(id=id, answer=answer, source=source, questions=questions, metadata=metadata, context=context, changed_time_stamp=changed_time_stamp, **kwargs)
 
 
 class QnADocumentsDTO(Model):
