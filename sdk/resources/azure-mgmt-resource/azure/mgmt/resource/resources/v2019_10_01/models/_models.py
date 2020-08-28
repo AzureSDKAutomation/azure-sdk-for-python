@@ -100,6 +100,26 @@ class AliasPattern(Model):
         self.type = kwargs.get('type', None)
 
 
+class ApiProfiles(Model):
+    """The API profile.
+
+    :param profile_version: The profile version.
+    :type profile_version: str
+    :param api_version: The API version.
+    :type api_version: str
+    """
+
+    _attribute_map = {
+        'profile_version': {'key': 'profileVersion', 'type': 'str'},
+        'api_version': {'key': 'apiVersion', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ApiProfiles, self).__init__(**kwargs)
+        self.profile_version = kwargs.get('profile_version', None)
+        self.api_version = kwargs.get('api_version', None)
+
+
 class BasicDependency(Model):
     """Deployment dependency information.
 
@@ -1300,41 +1320,29 @@ class Provider(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: The provider ID.
-    :vartype id: str
     :param namespace: The namespace of the resource provider.
     :type namespace: str
-    :ivar registration_state: The registration state of the resource provider.
-    :vartype registration_state: str
-    :ivar registration_policy: The registration policy of the resource
-     provider.
-    :vartype registration_policy: str
+    :param metadata: The metadata.
+    :type metadata: object
     :ivar resource_types: The collection of provider resource types.
     :vartype resource_types:
      list[~azure.mgmt.resource.resources.v2019_10_01.models.ProviderResourceType]
     """
 
     _validation = {
-        'id': {'readonly': True},
-        'registration_state': {'readonly': True},
-        'registration_policy': {'readonly': True},
         'resource_types': {'readonly': True},
     }
 
     _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
         'namespace': {'key': 'namespace', 'type': 'str'},
-        'registration_state': {'key': 'registrationState', 'type': 'str'},
-        'registration_policy': {'key': 'registrationPolicy', 'type': 'str'},
+        'metadata': {'key': 'metadata', 'type': 'object'},
         'resource_types': {'key': 'resourceTypes', 'type': '[ProviderResourceType]'},
     }
 
     def __init__(self, **kwargs):
         super(Provider, self).__init__(**kwargs)
-        self.id = None
         self.namespace = kwargs.get('namespace', None)
-        self.registration_state = None
-        self.registration_policy = None
+        self.metadata = kwargs.get('metadata', None)
         self.resource_types = None
 
 
@@ -1351,11 +1359,17 @@ class ProviderResourceType(Model):
      list[~azure.mgmt.resource.resources.v2019_10_01.models.Alias]
     :param api_versions: The API version.
     :type api_versions: list[str]
+    :param api_profiles: API profiles of the resource type.
+    :type api_profiles:
+     list[~azure.mgmt.resource.resources.v2019_10_01.models.ApiProfiles]
     :param capabilities: The additional capabilities offered by this resource
-     type.
-    :type capabilities: str
-    :param properties: The properties.
-    :type properties: dict[str, str]
+     type. Possible values include: 'None', 'CrossResourceGroupMove',
+     'CrossSubscriptionResourceMove', 'SystemAssignedResourceIdentity',
+     'SupportTags', 'SupportsLocation', 'SupportsExtension'
+    :type capabilities: str or
+     ~azure.mgmt.resource.resources.v2019_10_01.models.enum
+    :param metadata: Resource type metadata.
+    :type metadata: object
     """
 
     _attribute_map = {
@@ -1363,8 +1377,9 @@ class ProviderResourceType(Model):
         'locations': {'key': 'locations', 'type': '[str]'},
         'aliases': {'key': 'aliases', 'type': '[Alias]'},
         'api_versions': {'key': 'apiVersions', 'type': '[str]'},
+        'api_profiles': {'key': 'apiProfiles', 'type': '[ApiProfiles]'},
         'capabilities': {'key': 'capabilities', 'type': 'str'},
-        'properties': {'key': 'properties', 'type': '{str}'},
+        'metadata': {'key': 'metadata', 'type': 'object'},
     }
 
     def __init__(self, **kwargs):
@@ -1373,8 +1388,9 @@ class ProviderResourceType(Model):
         self.locations = kwargs.get('locations', None)
         self.aliases = kwargs.get('aliases', None)
         self.api_versions = kwargs.get('api_versions', None)
+        self.api_profiles = kwargs.get('api_profiles', None)
         self.capabilities = kwargs.get('capabilities', None)
-        self.properties = kwargs.get('properties', None)
+        self.metadata = kwargs.get('metadata', None)
 
 
 class ResourceGroup(Model):

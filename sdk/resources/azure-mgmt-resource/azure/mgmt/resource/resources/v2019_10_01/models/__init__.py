@@ -13,6 +13,7 @@ try:
     from ._models_py3 import Alias
     from ._models_py3 import AliasPath
     from ._models_py3 import AliasPattern
+    from ._models_py3 import ApiProfiles
     from ._models_py3 import BasicDependency
     from ._models_py3 import DebugSetting
     from ._models_py3 import Dependency
@@ -74,6 +75,7 @@ except (SyntaxError, ImportError):
     from ._models import Alias
     from ._models import AliasPath
     from ._models import AliasPattern
+    from ._models import ApiProfiles
     from ._models import BasicDependency
     from ._models import DebugSetting
     from ._models import Dependency
@@ -155,6 +157,7 @@ __all__ = [
     'Alias',
     'AliasPath',
     'AliasPattern',
+    'ApiProfiles',
     'BasicDependency',
     'DebugSetting',
     'Dependency',
