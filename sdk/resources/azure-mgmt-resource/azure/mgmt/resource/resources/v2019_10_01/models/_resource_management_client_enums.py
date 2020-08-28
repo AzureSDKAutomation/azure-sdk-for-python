@@ -62,6 +62,18 @@ class PropertyChangeType(str, Enum):
     modify = "Modify"  #: The property exists in both current and desired state and is different. The value of the property will change when the deployment is executed.
     array = "Array"  #: The property is an array and contains nested changes.
 
+class ProviderResourceTypeCapabilities(str, Enum):
+    """The additional capabilities offered by this resource type.
+    """
+
+    none = "None"
+    cross_resource_group_move = "CrossResourceGroupMove"
+    cross_subscription_resource_move = "CrossSubscriptionResourceMove"
+    system_assigned_resource_identity = "SystemAssignedResourceIdentity"
+    support_tags = "SupportTags"
+    supports_location = "SupportsLocation"
+    supports_extension = "SupportsExtension"
+
 class ProvisioningOperation(str, Enum):
     """The name of the current provisioning operation.
     """

@@ -117,6 +117,32 @@ class AliasPattern(msrest.serialization.Model):
         self.type = type
 
 
+class ApiProfiles(msrest.serialization.Model):
+    """The API profile.
+
+    :param profile_version: The profile version.
+    :type profile_version: str
+    :param api_version: The API version.
+    :type api_version: str
+    """
+
+    _attribute_map = {
+        'profile_version': {'key': 'profileVersion', 'type': 'str'},
+        'api_version': {'key': 'apiVersion', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        *,
+        profile_version: Optional[str] = None,
+        api_version: Optional[str] = None,
+        **kwargs
+    ):
+        super(ApiProfiles, self).__init__(**kwargs)
+        self.profile_version = profile_version
+        self.api_version = api_version
+
+
 class BasicDependency(msrest.serialization.Model):
     """Deployment dependency information.
 
@@ -1514,31 +1540,22 @@ class Provider(msrest.serialization.Model):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: The provider ID.
-    :vartype id: str
     :param namespace: The namespace of the resource provider.
     :type namespace: str
-    :ivar registration_state: The registration state of the resource provider.
-    :vartype registration_state: str
-    :ivar registration_policy: The registration policy of the resource provider.
-    :vartype registration_policy: str
+    :param metadata: The metadata.
+    :type metadata: object
     :ivar resource_types: The collection of provider resource types.
     :vartype resource_types:
      list[~azure.mgmt.resource.resources.v2019_10_01.models.ProviderResourceType]
     """
 
     _validation = {
-        'id': {'readonly': True},
-        'registration_state': {'readonly': True},
-        'registration_policy': {'readonly': True},
         'resource_types': {'readonly': True},
     }
 
     _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
         'namespace': {'key': 'namespace', 'type': 'str'},
-        'registration_state': {'key': 'registrationState', 'type': 'str'},
-        'registration_policy': {'key': 'registrationPolicy', 'type': 'str'},
+        'metadata': {'key': 'metadata', 'type': 'object'},
         'resource_types': {'key': 'resourceTypes', 'type': '[ProviderResourceType]'},
     }
 
@@ -1546,13 +1563,12 @@ class Provider(msrest.serialization.Model):
         self,
         *,
         namespace: Optional[str] = None,
+        metadata: Optional[object] = None,
         **kwargs
     ):
         super(Provider, self).__init__(**kwargs)
-        self.id = None
         self.namespace = namespace
-        self.registration_state = None
-        self.registration_policy = None
+        self.metadata = metadata
         self.resource_types = None
 
 
@@ -1598,10 +1614,15 @@ class ProviderResourceType(msrest.serialization.Model):
     :type aliases: list[~azure.mgmt.resource.resources.v2019_10_01.models.Alias]
     :param api_versions: The API version.
     :type api_versions: list[str]
-    :param capabilities: The additional capabilities offered by this resource type.
-    :type capabilities: str
-    :param properties: The properties.
-    :type properties: dict[str, str]
+    :param api_profiles: API profiles of the resource type.
+    :type api_profiles: list[~azure.mgmt.resource.resources.v2019_10_01.models.ApiProfiles]
+    :param capabilities: The additional capabilities offered by this resource type. Possible values
+     include: "None", "CrossResourceGroupMove", "CrossSubscriptionResourceMove",
+     "SystemAssignedResourceIdentity", "SupportTags", "SupportsLocation", "SupportsExtension".
+    :type capabilities: str or
+     ~azure.mgmt.resource.resources.v2019_10_01.models.ProviderResourceTypeCapabilities
+    :param metadata: Resource type metadata.
+    :type metadata: object
     """
 
     _attribute_map = {
@@ -1609,8 +1630,9 @@ class ProviderResourceType(msrest.serialization.Model):
         'locations': {'key': 'locations', 'type': '[str]'},
         'aliases': {'key': 'aliases', 'type': '[Alias]'},
         'api_versions': {'key': 'apiVersions', 'type': '[str]'},
+        'api_profiles': {'key': 'apiProfiles', 'type': '[ApiProfiles]'},
         'capabilities': {'key': 'capabilities', 'type': 'str'},
-        'properties': {'key': 'properties', 'type': '{str}'},
+        'metadata': {'key': 'metadata', 'type': 'object'},
     }
 
     def __init__(
@@ -1620,8 +1642,9 @@ class ProviderResourceType(msrest.serialization.Model):
         locations: Optional[List[str]] = None,
         aliases: Optional[List["Alias"]] = None,
         api_versions: Optional[List[str]] = None,
-        capabilities: Optional[str] = None,
-        properties: Optional[Dict[str, str]] = None,
+        api_profiles: Optional[List["ApiProfiles"]] = None,
+        capabilities: Optional[Union[str, "ProviderResourceTypeCapabilities"]] = None,
+        metadata: Optional[object] = None,
         **kwargs
     ):
         super(ProviderResourceType, self).__init__(**kwargs)
@@ -1629,8 +1652,9 @@ class ProviderResourceType(msrest.serialization.Model):
         self.locations = locations
         self.aliases = aliases
         self.api_versions = api_versions
+        self.api_profiles = api_profiles
         self.capabilities = capabilities
-        self.properties = properties
+        self.metadata = metadata
 
 
 class ResourceGroup(msrest.serialization.Model):

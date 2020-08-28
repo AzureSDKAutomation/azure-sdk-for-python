@@ -10,6 +10,7 @@ try:
     from ._models_py3 import Alias
     from ._models_py3 import AliasPath
     from ._models_py3 import AliasPattern
+    from ._models_py3 import ApiProfiles
     from ._models_py3 import BasicDependency
     from ._models_py3 import DebugSetting
     from ._models_py3 import Dependency
@@ -78,6 +79,7 @@ except (SyntaxError, ImportError):
     from ._models import Alias  # type: ignore
     from ._models import AliasPath  # type: ignore
     from ._models import AliasPattern  # type: ignore
+    from ._models import ApiProfiles  # type: ignore
     from ._models import BasicDependency  # type: ignore
     from ._models import DebugSetting  # type: ignore
     from ._models import Dependency  # type: ignore
@@ -150,6 +152,7 @@ from ._resource_management_client_enums import (
     DeploymentMode,
     OnErrorDeploymentType,
     PropertyChangeType,
+    ProviderResourceTypeCapabilities,
     ProvisioningOperation,
     ResourceIdentityType,
     TagsPatchOperation,
@@ -160,6 +163,7 @@ __all__ = [
     'Alias',
     'AliasPath',
     'AliasPattern',
+    'ApiProfiles',
     'BasicDependency',
     'DebugSetting',
     'Dependency',
@@ -230,6 +234,7 @@ __all__ = [
     'DeploymentMode',
     'OnErrorDeploymentType',
     'PropertyChangeType',
+    'ProviderResourceTypeCapabilities',
     'ProvisioningOperation',
     'ResourceIdentityType',
     'TagsPatchOperation',
