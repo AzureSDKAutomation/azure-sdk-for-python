@@ -34,8 +34,7 @@ from .operations import BackendOperations
 from .operations import CacheOperations
 from .operations import CertificateOperations
 from .operations import ContentTypeOperations
-from .operations import ContentTypesOperations
-from .operations import ContentItemOperations
+from .operations import ContentTypeContentItemOperations
 from .operations import ApiManagementOperations
 from .operations import ApiManagementServiceSkusOperations
 from .operations import ApiManagementServiceOperations
@@ -131,10 +130,8 @@ class ApiManagementClient(SDKClient):
     :vartype certificate: azure.mgmt.apimanagement.operations.CertificateOperations
     :ivar content_type: ContentType operations
     :vartype content_type: azure.mgmt.apimanagement.operations.ContentTypeOperations
-    :ivar content_types: ContentTypes operations
-    :vartype content_types: azure.mgmt.apimanagement.operations.ContentTypesOperations
-    :ivar content_item: ContentItem operations
-    :vartype content_item: azure.mgmt.apimanagement.operations.ContentItemOperations
+    :ivar content_type_content_item: ContentTypeContentItem operations
+    :vartype content_type_content_item: azure.mgmt.apimanagement.operations.ContentTypeContentItemOperations
     :ivar api_management_operations: ApiManagementOperations operations
     :vartype api_management_operations: azure.mgmt.apimanagement.operations.ApiManagementOperations
     :ivar api_management_service_skus: ApiManagementServiceSkus operations
@@ -241,7 +238,7 @@ class ApiManagementClient(SDKClient):
         super(ApiManagementClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
-        self.api_version = '2019-12-01'
+        self.api_version = '2020-06-01-preview'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
@@ -287,9 +284,7 @@ class ApiManagementClient(SDKClient):
             self._client, self.config, self._serialize, self._deserialize)
         self.content_type = ContentTypeOperations(
             self._client, self.config, self._serialize, self._deserialize)
-        self.content_types = ContentTypesOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.content_item = ContentItemOperations(
+        self.content_type_content_item = ContentTypeContentItemOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.api_management_operations = ApiManagementOperations(
             self._client, self.config, self._serialize, self._deserialize)

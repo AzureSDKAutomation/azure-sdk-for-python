@@ -45,6 +45,7 @@ try:
     from ._models_py3 import AuthenticationSettingsContract
     from ._models_py3 import AuthorizationServerContract
     from ._models_py3 import AuthorizationServerContractBaseProperties
+    from ._models_py3 import AuthorizationServerSecretsContract
     from ._models_py3 import AuthorizationServerUpdateContract
     from ._models_py3 import BackendAuthorizationHeaderCredentials
     from ._models_py3 import BackendBaseParameters
@@ -102,6 +103,7 @@ try:
     from ._models_py3 import NamedValueContract
     from ._models_py3 import NamedValueCreateContract
     from ._models_py3 import NamedValueEntityBaseParameters
+    from ._models_py3 import NamedValueSecretContract
     from ._models_py3 import NamedValueUpdateParameters
     from ._models_py3 import NetworkStatusContract
     from ._models_py3 import NetworkStatusContractByLocation
@@ -132,7 +134,6 @@ try:
     from ._models_py3 import ProductEntityBaseParameters
     from ._models_py3 import ProductTagResourceContractProperties
     from ._models_py3 import ProductUpdateParameters
-    from ._models_py3 import PropertyValueContract
     from ._models_py3 import QuotaCounterCollection
     from ._models_py3 import QuotaCounterContract
     from ._models_py3 import QuotaCounterValueContract
@@ -219,6 +220,7 @@ except (SyntaxError, ImportError):
     from ._models import AuthenticationSettingsContract
     from ._models import AuthorizationServerContract
     from ._models import AuthorizationServerContractBaseProperties
+    from ._models import AuthorizationServerSecretsContract
     from ._models import AuthorizationServerUpdateContract
     from ._models import BackendAuthorizationHeaderCredentials
     from ._models import BackendBaseParameters
@@ -276,6 +278,7 @@ except (SyntaxError, ImportError):
     from ._models import NamedValueContract
     from ._models import NamedValueCreateContract
     from ._models import NamedValueEntityBaseParameters
+    from ._models import NamedValueSecretContract
     from ._models import NamedValueUpdateParameters
     from ._models import NetworkStatusContract
     from ._models import NetworkStatusContractByLocation
@@ -306,7 +309,6 @@ except (SyntaxError, ImportError):
     from ._models import ProductEntityBaseParameters
     from ._models import ProductTagResourceContractProperties
     from ._models import ProductUpdateParameters
-    from ._models import PropertyValueContract
     from ._models import QuotaCounterCollection
     from ._models import QuotaCounterContract
     from ._models import QuotaCounterValueContract
@@ -475,6 +477,7 @@ __all__ = [
     'AuthenticationSettingsContract',
     'AuthorizationServerContract',
     'AuthorizationServerContractBaseProperties',
+    'AuthorizationServerSecretsContract',
     'AuthorizationServerUpdateContract',
     'BackendAuthorizationHeaderCredentials',
     'BackendBaseParameters',
@@ -532,6 +535,7 @@ __all__ = [
     'NamedValueContract',
     'NamedValueCreateContract',
     'NamedValueEntityBaseParameters',
+    'NamedValueSecretContract',
     'NamedValueUpdateParameters',
     'NetworkStatusContract',
     'NetworkStatusContractByLocation',
@@ -562,7 +566,6 @@ __all__ = [
     'ProductEntityBaseParameters',
     'ProductTagResourceContractProperties',
     'ProductUpdateParameters',
-    'PropertyValueContract',
     'QuotaCounterCollection',
     'QuotaCounterContract',
     'QuotaCounterValueContract',

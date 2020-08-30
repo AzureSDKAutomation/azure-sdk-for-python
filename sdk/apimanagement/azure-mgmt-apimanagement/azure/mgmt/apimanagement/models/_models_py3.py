@@ -74,6 +74,9 @@ class AdditionalLocation(Model):
     :param sku: Required. SKU properties of the API Management service.
     :type sku:
      ~azure.mgmt.apimanagement.models.ApiManagementServiceSkuProperties
+    :param zones: A list of availability zones denoting where the resource
+     needs to come from.
+    :type zones: list[str]
     :ivar public_ip_addresses: Public Static Load Balanced IP addresses of the
      API Management service in the additional location. Available only for
      Basic, Standard and Premium SKU.
@@ -107,6 +110,7 @@ class AdditionalLocation(Model):
     _attribute_map = {
         'location': {'key': 'location', 'type': 'str'},
         'sku': {'key': 'sku', 'type': 'ApiManagementServiceSkuProperties'},
+        'zones': {'key': 'zones', 'type': '[str]'},
         'public_ip_addresses': {'key': 'publicIPAddresses', 'type': '[str]'},
         'private_ip_addresses': {'key': 'privateIPAddresses', 'type': '[str]'},
         'virtual_network_configuration': {'key': 'virtualNetworkConfiguration', 'type': 'VirtualNetworkConfiguration'},
@@ -114,10 +118,11 @@ class AdditionalLocation(Model):
         'disable_gateway': {'key': 'disableGateway', 'type': 'bool'},
     }
 
-    def __init__(self, *, location: str, sku, virtual_network_configuration=None, disable_gateway: bool=False, **kwargs) -> None:
+    def __init__(self, *, location: str, sku, zones=None, virtual_network_configuration=None, disable_gateway: bool=False, **kwargs) -> None:
         super(AdditionalLocation, self).__init__(**kwargs)
         self.location = location
         self.sku = sku
+        self.zones = zones
         self.public_ip_addresses = None
         self.private_ip_addresses = None
         self.virtual_network_configuration = virtual_network_configuration
@@ -1230,6 +1235,9 @@ class ApiManagementServiceResource(ApimResource):
     :type location: str
     :ivar etag: ETag of the resource.
     :vartype etag: str
+    :param zones: A list of availability zones denoting where the resource
+     needs to come from.
+    :type zones: list[str]
     """
 
     _validation = {
@@ -1287,9 +1295,10 @@ class ApiManagementServiceResource(ApimResource):
         'identity': {'key': 'identity', 'type': 'ApiManagementServiceIdentity'},
         'location': {'key': 'location', 'type': 'str'},
         'etag': {'key': 'etag', 'type': 'str'},
+        'zones': {'key': 'zones', 'type': '[str]'},
     }
 
-    def __init__(self, *, publisher_email: str, publisher_name: str, sku, location: str, tags=None, notification_sender_email: str=None, hostname_configurations=None, virtual_network_configuration=None, additional_locations=None, custom_properties=None, certificates=None, enable_client_certificate: bool=False, disable_gateway: bool=False, virtual_network_type="None", api_version_constraint=None, identity=None, **kwargs) -> None:
+    def __init__(self, *, publisher_email: str, publisher_name: str, sku, location: str, tags=None, notification_sender_email: str=None, hostname_configurations=None, virtual_network_configuration=None, additional_locations=None, custom_properties=None, certificates=None, enable_client_certificate: bool=False, disable_gateway: bool=False, virtual_network_type="None", api_version_constraint=None, identity=None, zones=None, **kwargs) -> None:
         super(ApiManagementServiceResource, self).__init__(tags=tags, **kwargs)
         self.notification_sender_email = notification_sender_email
         self.provisioning_state = None
@@ -1318,6 +1327,7 @@ class ApiManagementServiceResource(ApimResource):
         self.identity = identity
         self.location = location
         self.etag = None
+        self.zones = zones
 
 
 class ApiManagementServiceSkuProperties(Model):
@@ -2383,6 +2393,34 @@ class AuthorizationServerContractBaseProperties(Model):
         self.resource_owner_password = resource_owner_password
 
 
+class AuthorizationServerSecretsContract(Model):
+    """OAuth Server Secrets Contract.
+
+    :param client_secret: oAuth Authorization Server Secrets.
+    :type client_secret: str
+    :param resource_owner_username: Can be optionally specified when resource
+     owner password grant type is supported by this authorization server.
+     Default resource owner username.
+    :type resource_owner_username: str
+    :param resource_owner_password: Can be optionally specified when resource
+     owner password grant type is supported by this authorization server.
+     Default resource owner password.
+    :type resource_owner_password: str
+    """
+
+    _attribute_map = {
+        'client_secret': {'key': 'clientSecret', 'type': 'str'},
+        'resource_owner_username': {'key': 'resourceOwnerUsername', 'type': 'str'},
+        'resource_owner_password': {'key': 'resourceOwnerPassword', 'type': 'str'},
+    }
+
+    def __init__(self, *, client_secret: str=None, resource_owner_username: str=None, resource_owner_password: str=None, **kwargs) -> None:
+        super(AuthorizationServerSecretsContract, self).__init__(**kwargs)
+        self.client_secret = client_secret
+        self.resource_owner_username = resource_owner_username
+        self.resource_owner_password = resource_owner_password
+
+
 class AuthorizationServerUpdateContract(Resource):
     """External OAuth authorization server settings.
 
@@ -3098,13 +3136,12 @@ class CertificateCreateOrUpdateParameters(Model):
     :param data: Required. Base 64 encoded certificate using the
      application/x-pkcs12 representation.
     :type data: str
-    :param password: Required. Password for the Certificate
+    :param password: Password for the Certificate
     :type password: str
     """
 
     _validation = {
         'data': {'required': True},
-        'password': {'required': True},
     }
 
     _attribute_map = {
@@ -3112,7 +3149,7 @@ class CertificateCreateOrUpdateParameters(Model):
         'password': {'key': 'properties.password', 'type': 'str'},
     }
 
-    def __init__(self, *, data: str, password: str, **kwargs) -> None:
+    def __init__(self, *, data: str, password: str=None, **kwargs) -> None:
         super(CertificateCreateOrUpdateParameters, self).__init__(**kwargs)
         self.data = data
         self.password = password
@@ -3695,6 +3732,12 @@ class GatewayHostnameConfigurationContract(Resource):
     :param negotiate_client_certificate: Determines whether gateway requests
      client certificate
     :type negotiate_client_certificate: bool
+    :param tls10_enabled: Specifies if TLS 1.0 is supported
+    :type tls10_enabled: bool
+    :param tls11_enabled: Specifies if TLS 1.1 is supported
+    :type tls11_enabled: bool
+    :param http2_enabled: Specifies if HTTP/2.0 is supported
+    :type http2_enabled: bool
     """
 
     _validation = {
@@ -3710,13 +3753,19 @@ class GatewayHostnameConfigurationContract(Resource):
         'hostname': {'key': 'properties.hostname', 'type': 'str'},
         'certificate_id': {'key': 'properties.certificateId', 'type': 'str'},
         'negotiate_client_certificate': {'key': 'properties.negotiateClientCertificate', 'type': 'bool'},
+        'tls10_enabled': {'key': 'properties.tls10Enabled', 'type': 'bool'},
+        'tls11_enabled': {'key': 'properties.tls11Enabled', 'type': 'bool'},
+        'http2_enabled': {'key': 'properties.http2Enabled', 'type': 'bool'},
     }
 
-    def __init__(self, *, hostname: str=None, certificate_id: str=None, negotiate_client_certificate: bool=None, **kwargs) -> None:
+    def __init__(self, *, hostname: str=None, certificate_id: str=None, negotiate_client_certificate: bool=None, tls10_enabled: bool=None, tls11_enabled: bool=None, http2_enabled: bool=None, **kwargs) -> None:
         super(GatewayHostnameConfigurationContract, self).__init__(**kwargs)
         self.hostname = hostname
         self.certificate_id = certificate_id
         self.negotiate_client_certificate = negotiate_client_certificate
+        self.tls10_enabled = tls10_enabled
+        self.tls11_enabled = tls11_enabled
+        self.http2_enabled = http2_enabled
 
 
 class GatewayKeyRegenerationRequestContract(Model):
@@ -4654,12 +4703,12 @@ class LoggerContract(Resource):
     :ivar type: Resource type for API Management resource.
     :vartype type: str
     :param logger_type: Required. Logger type. Possible values include:
-     'azureEventHub', 'applicationInsights'
+     'azureEventHub', 'applicationInsights', 'azureMonitor'
     :type logger_type: str or ~azure.mgmt.apimanagement.models.LoggerType
     :param description: Logger description.
     :type description: str
-    :param credentials: Required. The name and SendRule connection string of
-     the event hub for azureEventHub logger.
+    :param credentials: The name and SendRule connection string of the event
+     hub for azureEventHub logger.
      Instrumentation key for applicationInsights logger.
     :type credentials: dict[str, str]
     :param is_buffered: Whether records are buffered in the logger before
@@ -4676,7 +4725,6 @@ class LoggerContract(Resource):
         'type': {'readonly': True},
         'logger_type': {'required': True},
         'description': {'max_length': 256},
-        'credentials': {'required': True},
     }
 
     _attribute_map = {
@@ -4690,7 +4738,7 @@ class LoggerContract(Resource):
         'resource_id': {'key': 'properties.resourceId', 'type': 'str'},
     }
 
-    def __init__(self, *, logger_type, credentials, description: str=None, is_buffered: bool=None, resource_id: str=None, **kwargs) -> None:
+    def __init__(self, *, logger_type, description: str=None, credentials=None, is_buffered: bool=None, resource_id: str=None, **kwargs) -> None:
         super(LoggerContract, self).__init__(**kwargs)
         self.logger_type = logger_type
         self.description = description
@@ -4703,7 +4751,7 @@ class LoggerUpdateContract(Model):
     """Logger update contract.
 
     :param logger_type: Logger type. Possible values include: 'azureEventHub',
-     'applicationInsights'
+     'applicationInsights', 'azureMonitor'
     :type logger_type: str or ~azure.mgmt.apimanagement.models.LoggerType
     :param description: Logger description.
     :type description: str
@@ -4867,6 +4915,22 @@ class NamedValueEntityBaseParameters(Model):
         super(NamedValueEntityBaseParameters, self).__init__(**kwargs)
         self.tags = tags
         self.secret = secret
+
+
+class NamedValueSecretContract(Model):
+    """Client or app secret used in IdentityProviders, Aad, OpenID or OAuth.
+
+    :param value: This is secret value of the NamedValue entity.
+    :type value: str
+    """
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': 'str'},
+    }
+
+    def __init__(self, *, value: str=None, **kwargs) -> None:
+        super(NamedValueSecretContract, self).__init__(**kwargs)
+        self.value = value
 
 
 class NamedValueUpdateParameters(Model):
@@ -5864,12 +5928,12 @@ class ProductContract(Resource):
      developers to call the product’s APIs immediately after subscribing. If
      true, administrators must manually approve the subscription before the
      developer can any of the product’s APIs. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type approval_required: bool
     :param subscriptions_limit: Whether the number of subscriptions a user can
      have to this product at the same time. Set to null or omit to allow
      unlimited per user subscriptions. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type subscriptions_limit: int
     :param state: whether product is published or not. Published products are
      discoverable by users of developer portal. Non published products are
@@ -5934,12 +5998,12 @@ class ProductEntityBaseParameters(Model):
      developers to call the product’s APIs immediately after subscribing. If
      true, administrators must manually approve the subscription before the
      developer can any of the product’s APIs. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type approval_required: bool
     :param subscriptions_limit: Whether the number of subscriptions a user can
      have to this product at the same time. Set to null or omit to allow
      unlimited per user subscriptions. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type subscriptions_limit: int
     :param state: whether product is published or not. Published products are
      discoverable by users of developer portal. Non published products are
@@ -5995,12 +6059,12 @@ class ProductTagResourceContractProperties(ProductEntityBaseParameters):
      developers to call the product’s APIs immediately after subscribing. If
      true, administrators must manually approve the subscription before the
      developer can any of the product’s APIs. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type approval_required: bool
     :param subscriptions_limit: Whether the number of subscriptions a user can
      have to this product at the same time. Set to null or omit to allow
      unlimited per user subscriptions. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type subscriptions_limit: int
     :param state: whether product is published or not. Published products are
      discoverable by users of developer portal. Non published products are
@@ -6057,12 +6121,12 @@ class ProductUpdateParameters(Model):
      developers to call the product’s APIs immediately after subscribing. If
      true, administrators must manually approve the subscription before the
      developer can any of the product’s APIs. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type approval_required: bool
     :param subscriptions_limit: Whether the number of subscriptions a user can
      have to this product at the same time. Set to null or omit to allow
      unlimited per user subscriptions. Can be present only if
-     subscriptionRequired property is present and has a value of true.
+     subscriptionRequired property is present and has a value of false.
     :type subscriptions_limit: int
     :param state: whether product is published or not. Published products are
      discoverable by users of developer portal. Non published products are
@@ -6097,22 +6161,6 @@ class ProductUpdateParameters(Model):
         self.subscriptions_limit = subscriptions_limit
         self.state = state
         self.display_name = display_name
-
-
-class PropertyValueContract(Model):
-    """Client or app secret used in IdentityProviders, Aad, OpenID or OAuth.
-
-    :param value: This is secret value of the NamedValue entity.
-    :type value: str
-    """
-
-    _attribute_map = {
-        'value': {'key': 'value', 'type': 'str'},
-    }
-
-    def __init__(self, *, value: str=None, **kwargs) -> None:
-        super(PropertyValueContract, self).__init__(**kwargs)
-        self.value = value
 
 
 class QuotaCounterCollection(Model):

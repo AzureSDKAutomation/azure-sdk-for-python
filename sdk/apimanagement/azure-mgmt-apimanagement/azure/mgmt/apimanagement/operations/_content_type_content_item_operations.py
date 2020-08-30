@@ -15,8 +15,8 @@ from msrest.pipeline import ClientRawResponse
 from .. import models
 
 
-class ContentItemOperations(object):
-    """ContentItemOperations operations.
+class ContentTypeContentItemOperations(object):
+    """ContentTypeContentItemOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -24,7 +24,7 @@ class ContentItemOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Version of the API to be used with the client request. Constant value: "2019-12-01".
+    :ivar api_version: Version of the API to be used with the client request. Constant value: "2020-06-01-preview".
     """
 
     models = models
@@ -34,7 +34,7 @@ class ContentItemOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2019-12-01"
+        self.api_version = "2020-06-01-preview"
 
         self.config = config
 
@@ -245,7 +245,7 @@ class ContentItemOperations(object):
     get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/contentTypes/{contentTypeId}/contentItems/{contentItemId}'}
 
     def create_or_update(
-            self, resource_group_name, service_name, content_type_id, content_item_id, custom_headers=None, raw=False, **operation_config):
+            self, resource_group_name, service_name, content_type_id, content_item_id, if_match=None, custom_headers=None, raw=False, **operation_config):
         """Creates new content item.
 
         :param resource_group_name: The name of the resource group.
@@ -256,6 +256,9 @@ class ContentItemOperations(object):
         :type content_type_id: str
         :param content_item_id: Content item identifier.
         :type content_item_id: str
+        :param if_match: ETag of the Entity. Not required when creating an
+         entity, but required when updating an entity.
+        :type if_match: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -289,6 +292,8 @@ class ContentItemOperations(object):
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
         if custom_headers:
             header_parameters.update(custom_headers)
+        if if_match is not None:
+            header_parameters['If-Match'] = self._serialize.header("if_match", if_match, 'str')
         if self.config.accept_language is not None:
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
@@ -321,7 +326,7 @@ class ContentItemOperations(object):
     create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/contentTypes/{contentTypeId}/contentItems/{contentItemId}'}
 
     def delete(
-            self, resource_group_name, service_name, content_type_id, content_item_id, custom_headers=None, raw=False, **operation_config):
+            self, resource_group_name, service_name, content_type_id, content_item_id, if_match, custom_headers=None, raw=False, **operation_config):
         """Removes specified content item.
 
         :param resource_group_name: The name of the resource group.
@@ -332,6 +337,10 @@ class ContentItemOperations(object):
         :type content_type_id: str
         :param content_item_id: Content item identifier.
         :type content_item_id: str
+        :param if_match: ETag of the Entity. ETag should match the current
+         entity state from the header response of the GET request or it should
+         be * for unconditional update.
+        :type if_match: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -363,6 +372,7 @@ class ContentItemOperations(object):
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
         if custom_headers:
             header_parameters.update(custom_headers)
+        header_parameters['If-Match'] = self._serialize.header("if_match", if_match, 'str')
         if self.config.accept_language is not None:
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
@@ -370,7 +380,7 @@ class ContentItemOperations(object):
         request = self._client.delete(url, query_parameters, header_parameters)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200]:
+        if response.status_code not in [200, 204]:
             raise models.ErrorResponseException(self._deserialize, response)
 
         if raw:

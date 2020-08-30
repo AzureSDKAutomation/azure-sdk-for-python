@@ -249,6 +249,7 @@ class LoggerType(str, Enum):
 
     azure_event_hub = "azureEventHub"  #: Azure Event Hub as log destination.
     application_insights = "applicationInsights"  #: Azure Application Insights as log destination.
+    azure_monitor = "azureMonitor"  #: Azure Monitor
 
 
 class ConnectivityStatusType(str, Enum):

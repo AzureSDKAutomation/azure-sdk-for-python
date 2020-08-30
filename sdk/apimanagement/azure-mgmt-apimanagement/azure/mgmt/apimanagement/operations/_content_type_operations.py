@@ -24,7 +24,7 @@ class ContentTypeOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Version of the API to be used with the client request. Constant value: "2019-12-01".
+    :ivar api_version: Version of the API to be used with the client request. Constant value: "2020-06-01-preview".
     """
 
     models = models
@@ -34,7 +34,7 @@ class ContentTypeOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2019-12-01"
+        self.api_version = "2020-06-01-preview"
 
         self.config = config
 
@@ -109,9 +109,9 @@ class ContentTypeOperations(object):
         return deserialized
     list_by_service.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/contentTypes'}
 
-    def get_entity_tag(
+    def get(
             self, resource_group_name, service_name, content_type_id, custom_headers=None, raw=False, **operation_config):
-        """Returns content type metadata.
+        """Gets API Management content type details.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
@@ -124,13 +124,14 @@ class ContentTypeOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: None or ClientRawResponse if raw=true
-        :rtype: None or ~msrest.pipeline.ClientRawResponse
+        :return: ContentTypeContract or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.apimanagement.models.ContentTypeContract or
+         ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`ErrorResponseException<azure.mgmt.apimanagement.models.ErrorResponseException>`
         """
         # Construct URL
-        url = self.get_entity_tag.metadata['url']
+        url = self.get.metadata['url']
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
@@ -145,6 +146,7 @@ class ContentTypeOperations(object):
 
         # Construct headers
         header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
         if self.config.generate_client_request_id:
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
         if custom_headers:
@@ -153,23 +155,31 @@ class ContentTypeOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct and send request
-        request = self._client.head(url, query_parameters, header_parameters)
+        request = self._client.get(url, query_parameters, header_parameters)
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
             raise models.ErrorResponseException(self._deserialize, response)
 
-        if raw:
-            client_raw_response = ClientRawResponse(None, response)
-            client_raw_response.add_headers({
+        header_dict = {}
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('ContentTypeContract', response)
+            header_dict = {
                 'ETag': 'str',
-            })
+            }
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            client_raw_response.add_headers(header_dict)
             return client_raw_response
-    get_entity_tag.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/contentTypes/{contentTypeId}'}
+
+        return deserialized
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/contentTypes/{contentTypeId}'}
 
     def create_or_update(
-            self, resource_group_name, service_name, content_type_id, custom_headers=None, raw=False, **operation_config):
-        """Creates new content type.
+            self, resource_group_name, service_name, content_type_id, if_match=None, custom_headers=None, raw=False, **operation_config):
+        """Creates or updates an Content Type.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
@@ -177,6 +187,9 @@ class ContentTypeOperations(object):
         :type service_name: str
         :param content_type_id: Content type identifier.
         :type content_type_id: str
+        :param if_match: ETag of the Entity. Not required when creating an
+         entity, but required when updating an entity.
+        :type if_match: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -209,6 +222,8 @@ class ContentTypeOperations(object):
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
         if custom_headers:
             header_parameters.update(custom_headers)
+        if if_match is not None:
+            header_parameters['If-Match'] = self._serialize.header("if_match", if_match, 'str')
         if self.config.accept_language is not None:
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
@@ -241,7 +256,7 @@ class ContentTypeOperations(object):
     create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/contentTypes/{contentTypeId}'}
 
     def delete(
-            self, resource_group_name, service_name, content_type_id, custom_headers=None, raw=False, **operation_config):
+            self, resource_group_name, service_name, content_type_id, if_match, custom_headers=None, raw=False, **operation_config):
         """Removes specified content type.
 
         :param resource_group_name: The name of the resource group.
@@ -250,6 +265,10 @@ class ContentTypeOperations(object):
         :type service_name: str
         :param content_type_id: Content type identifier.
         :type content_type_id: str
+        :param if_match: ETag of the Entity. ETag should match the current
+         entity state from the header response of the GET request or it should
+         be * for unconditional update.
+        :type if_match: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -280,6 +299,7 @@ class ContentTypeOperations(object):
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
         if custom_headers:
             header_parameters.update(custom_headers)
+        header_parameters['If-Match'] = self._serialize.header("if_match", if_match, 'str')
         if self.config.accept_language is not None:
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
@@ -287,7 +307,7 @@ class ContentTypeOperations(object):
         request = self._client.delete(url, query_parameters, header_parameters)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200]:
+        if response.status_code not in [200, 204]:
             raise models.ErrorResponseException(self._deserialize, response)
 
         if raw:
