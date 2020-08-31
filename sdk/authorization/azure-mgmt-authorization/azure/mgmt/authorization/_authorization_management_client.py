@@ -51,9 +51,18 @@ class AuthorizationManagementClient(MultiApiClientMixin, SDKClient):
     LATEST_PROFILE = ProfileDefinition({
         _PROFILE_TAG: {
             None: DEFAULT_API_VERSION,
+            'access_review_default_settings': '2018-05-01-preview',
+            'access_review_instance': '2018-05-01-preview',
+            'access_review_instance_decisions': '2018-05-01-preview',
+            'access_review_instance_my_decisions': '2018-05-01-preview',
+            'access_review_instances': '2018-05-01-preview',
+            'access_review_instances_assigned_for_my_approval': '2018-05-01-preview',
+            'access_review_schedule_definitions': '2018-05-01-preview',
+            'access_review_schedule_definitions_assigned_for_my_approval': '2018-05-01-preview',
             'classic_administrators': '2015-07-01',
             'deny_assignments': '2018-07-01-preview',
             'global_administrator': '2015-07-01',
+            'operations': '2018-05-01-preview',
             'permissions': '2018-01-01-preview',
             'provider_operations_metadata': '2018-01-01-preview',
             'role_definitions': '2018-01-01-preview',
@@ -81,6 +90,7 @@ class AuthorizationManagementClient(MultiApiClientMixin, SDKClient):
            * 2015-06-01: :mod:`v2015_06_01.models<azure.mgmt.authorization.v2015_06_01.models>`
            * 2015-07-01: :mod:`v2015_07_01.models<azure.mgmt.authorization.v2015_07_01.models>`
            * 2018-01-01-preview: :mod:`v2018_01_01_preview.models<azure.mgmt.authorization.v2018_01_01_preview.models>`
+           * 2018-05-01-preview: :mod:`v2018_05_01_preview.models<azure.mgmt.authorization.v2018_05_01_preview.models>`
            * 2018-07-01-preview: :mod:`v2018_07_01_preview.models<azure.mgmt.authorization.v2018_07_01_preview.models>`
            * 2018-09-01-preview: :mod:`v2018_09_01_preview.models<azure.mgmt.authorization.v2018_09_01_preview.models>`
            * 2020-04-01-preview: :mod:`v2020_04_01_preview.models<azure.mgmt.authorization.v2020_04_01_preview.models>`
@@ -94,6 +104,9 @@ class AuthorizationManagementClient(MultiApiClientMixin, SDKClient):
         elif api_version == '2018-01-01-preview':
             from .v2018_01_01_preview import models
             return models
+        elif api_version == '2018-05-01-preview':
+            from .v2018_05_01_preview import models
+            return models
         elif api_version == '2018-07-01-preview':
             from .v2018_07_01_preview import models
             return models
@@ -104,6 +117,110 @@ class AuthorizationManagementClient(MultiApiClientMixin, SDKClient):
             from .v2020_04_01_preview import models
             return models
         raise NotImplementedError("APIVersion {} is not available".format(api_version))
+
+    @property
+    def access_review_default_settings(self):
+        """Instance depends on the API version:
+
+           * 2018-05-01-preview: :class:`AccessReviewDefaultSettingsOperations<azure.mgmt.authorization.v2018_05_01_preview.operations.AccessReviewDefaultSettingsOperations>`
+        """
+        api_version = self._get_api_version('access_review_default_settings')
+        if api_version == '2018-05-01-preview':
+            from .v2018_05_01_preview.operations import AccessReviewDefaultSettingsOperations as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
+    def access_review_instance(self):
+        """Instance depends on the API version:
+
+           * 2018-05-01-preview: :class:`AccessReviewInstanceOperations<azure.mgmt.authorization.v2018_05_01_preview.operations.AccessReviewInstanceOperations>`
+        """
+        api_version = self._get_api_version('access_review_instance')
+        if api_version == '2018-05-01-preview':
+            from .v2018_05_01_preview.operations import AccessReviewInstanceOperations as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
+    def access_review_instance_decisions(self):
+        """Instance depends on the API version:
+
+           * 2018-05-01-preview: :class:`AccessReviewInstanceDecisionsOperations<azure.mgmt.authorization.v2018_05_01_preview.operations.AccessReviewInstanceDecisionsOperations>`
+        """
+        api_version = self._get_api_version('access_review_instance_decisions')
+        if api_version == '2018-05-01-preview':
+            from .v2018_05_01_preview.operations import AccessReviewInstanceDecisionsOperations as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
+    def access_review_instance_my_decisions(self):
+        """Instance depends on the API version:
+
+           * 2018-05-01-preview: :class:`AccessReviewInstanceMyDecisionsOperations<azure.mgmt.authorization.v2018_05_01_preview.operations.AccessReviewInstanceMyDecisionsOperations>`
+        """
+        api_version = self._get_api_version('access_review_instance_my_decisions')
+        if api_version == '2018-05-01-preview':
+            from .v2018_05_01_preview.operations import AccessReviewInstanceMyDecisionsOperations as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
+    def access_review_instances(self):
+        """Instance depends on the API version:
+
+           * 2018-05-01-preview: :class:`AccessReviewInstancesOperations<azure.mgmt.authorization.v2018_05_01_preview.operations.AccessReviewInstancesOperations>`
+        """
+        api_version = self._get_api_version('access_review_instances')
+        if api_version == '2018-05-01-preview':
+            from .v2018_05_01_preview.operations import AccessReviewInstancesOperations as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
+    def access_review_instances_assigned_for_my_approval(self):
+        """Instance depends on the API version:
+
+           * 2018-05-01-preview: :class:`AccessReviewInstancesAssignedForMyApprovalOperations<azure.mgmt.authorization.v2018_05_01_preview.operations.AccessReviewInstancesAssignedForMyApprovalOperations>`
+        """
+        api_version = self._get_api_version('access_review_instances_assigned_for_my_approval')
+        if api_version == '2018-05-01-preview':
+            from .v2018_05_01_preview.operations import AccessReviewInstancesAssignedForMyApprovalOperations as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
+    def access_review_schedule_definitions(self):
+        """Instance depends on the API version:
+
+           * 2018-05-01-preview: :class:`AccessReviewScheduleDefinitionsOperations<azure.mgmt.authorization.v2018_05_01_preview.operations.AccessReviewScheduleDefinitionsOperations>`
+        """
+        api_version = self._get_api_version('access_review_schedule_definitions')
+        if api_version == '2018-05-01-preview':
+            from .v2018_05_01_preview.operations import AccessReviewScheduleDefinitionsOperations as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
+    def access_review_schedule_definitions_assigned_for_my_approval(self):
+        """Instance depends on the API version:
+
+           * 2018-05-01-preview: :class:`AccessReviewScheduleDefinitionsAssignedForMyApprovalOperations<azure.mgmt.authorization.v2018_05_01_preview.operations.AccessReviewScheduleDefinitionsAssignedForMyApprovalOperations>`
+        """
+        api_version = self._get_api_version('access_review_schedule_definitions_assigned_for_my_approval')
+        if api_version == '2018-05-01-preview':
+            from .v2018_05_01_preview.operations import AccessReviewScheduleDefinitionsAssignedForMyApprovalOperations as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
     def classic_administrators(self):
@@ -143,6 +260,19 @@ class AuthorizationManagementClient(MultiApiClientMixin, SDKClient):
         api_version = self._get_api_version('global_administrator')
         if api_version == '2015-07-01':
             from .v2015_07_01.operations import GlobalAdministratorOperations as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
+    def operations(self):
+        """Instance depends on the API version:
+
+           * 2018-05-01-preview: :class:`Operations<azure.mgmt.authorization.v2018_05_01_preview.operations.Operations>`
+        """
+        api_version = self._get_api_version('operations')
+        if api_version == '2018-05-01-preview':
+            from .v2018_05_01_preview.operations import Operations as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
