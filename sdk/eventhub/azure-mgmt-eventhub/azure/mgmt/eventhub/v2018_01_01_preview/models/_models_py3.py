@@ -1349,6 +1349,9 @@ class NetworkRuleSet(Resource):
     :vartype name: str
     :ivar type: Resource type.
     :vartype type: str
+    :param trusted_service_access_enabled: Value that indicates whether Trusted Service Access is
+     Enabled or not.
+    :type trusted_service_access_enabled: bool
     :param default_action: Default Action for Network Rule Set. Possible values include: "Allow",
      "Deny".
     :type default_action: str or ~azure.mgmt.eventhub.v2018_01_01_preview.models.DefaultAction
@@ -1369,6 +1372,7 @@ class NetworkRuleSet(Resource):
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
+        'trusted_service_access_enabled': {'key': 'properties.trustedServiceAccessEnabled', 'type': 'bool'},
         'default_action': {'key': 'properties.defaultAction', 'type': 'str'},
         'virtual_network_rules': {'key': 'properties.virtualNetworkRules', 'type': '[NWRuleSetVirtualNetworkRules]'},
         'ip_rules': {'key': 'properties.ipRules', 'type': '[NWRuleSetIpRules]'},
@@ -1377,12 +1381,14 @@ class NetworkRuleSet(Resource):
     def __init__(
         self,
         *,
+        trusted_service_access_enabled: Optional[bool] = None,
         default_action: Optional[Union[str, "DefaultAction"]] = None,
         virtual_network_rules: Optional[List["NWRuleSetVirtualNetworkRules"]] = None,
         ip_rules: Optional[List["NWRuleSetIpRules"]] = None,
         **kwargs
     ):
         super(NetworkRuleSet, self).__init__(**kwargs)
+        self.trusted_service_access_enabled = trusted_service_access_enabled
         self.default_action = default_action
         self.virtual_network_rules = virtual_network_rules
         self.ip_rules = ip_rules
@@ -1583,12 +1589,15 @@ class Sku(msrest.serialization.Model):
 
     All required parameters must be populated in order to send to Azure.
 
-    :param name: Required. Name of this SKU. Possible values include: "Basic", "Standard".
+    :param name: Required. Name of this SKU. Possible values include: "Basic", "Standard",
+     "Premium".
     :type name: str or ~azure.mgmt.eventhub.v2018_01_01_preview.models.SkuName
     :param tier: The billing tier of this particular SKU. Possible values include: "Basic",
-     "Standard".
+     "Standard", "Premium".
     :type tier: str or ~azure.mgmt.eventhub.v2018_01_01_preview.models.SkuTier
-    :param capacity: The Event Hubs throughput units, value should be 0 to 20 throughput units.
+    :param capacity: The Event Hubs throughput units for Basic or Standard tiers, where value
+     should be 0 to 20 throughput units. The Event Hubs premium units for Premium tier, where value
+     should be 0 to 10 premium units.
     :type capacity: int
     """
 

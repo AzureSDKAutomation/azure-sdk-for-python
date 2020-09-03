@@ -81,6 +81,7 @@ class SkuName(str, Enum):
 
     basic = "Basic"
     standard = "Standard"
+    premium = "Premium"
 
 class SkuTier(str, Enum):
     """The billing tier of this particular SKU.
@@ -88,6 +89,7 @@ class SkuTier(str, Enum):
 
     basic = "Basic"
     standard = "Standard"
+    premium = "Premium"
 
 class UnavailableReason(str, Enum):
     """Specifies the reason for the unavailability of the service.
