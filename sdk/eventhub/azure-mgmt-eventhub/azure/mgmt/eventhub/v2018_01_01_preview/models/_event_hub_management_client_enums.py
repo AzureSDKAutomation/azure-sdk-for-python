@@ -22,12 +22,14 @@ class SkuName(str, Enum):
 
     basic = "Basic"
     standard = "Standard"
+    premium = "Premium"
 
 
 class SkuTier(str, Enum):
 
     basic = "Basic"
     standard = "Standard"
+    premium = "Premium"
 
 
 class IdentityType(str, Enum):
