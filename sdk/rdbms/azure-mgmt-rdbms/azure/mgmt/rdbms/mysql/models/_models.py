@@ -13,157 +13,15 @@ from msrest.serialization import Model
 from msrest.exceptions import HttpOperationError
 
 
-class Resource(Model):
-    """Resource.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-    :vartype id: str
-    :ivar name: The name of the resource
-    :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
-    :vartype type: str
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(Resource, self).__init__(**kwargs)
-        self.id = None
-        self.name = None
-        self.type = None
-
-
-class ProxyResource(Resource):
-    """The resource model definition for a ARM proxy resource. It will have
-    everything other than required location and tags.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-    :vartype id: str
-    :ivar name: The name of the resource
-    :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
-    :vartype type: str
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ProxyResource, self).__init__(**kwargs)
-
-
-class Advisor(ProxyResource):
-    """Represents a recommendation action advisor.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-    :vartype id: str
-    :ivar name: The name of the resource
-    :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
-    :vartype type: str
-    :param properties: The properties of a recommendation action advisor.
-    :type properties: object
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'properties': {'key': 'properties', 'type': 'object'},
-    }
-
-    def __init__(self, **kwargs):
-        super(Advisor, self).__init__(**kwargs)
-        self.properties = kwargs.get('properties', None)
-
-
-class AzureEntityResource(Resource):
-    """The resource model definition for a Azure Resource Manager resource with an
-    etag.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-    :vartype id: str
-    :ivar name: The name of the resource
-    :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
-    :vartype type: str
-    :ivar etag: Resource Etag.
-    :vartype etag: str
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'etag': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'etag': {'key': 'etag', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(AzureEntityResource, self).__init__(**kwargs)
-        self.etag = None
-
-
 class CloudError(Model):
     """An error response from the Batch service.
 
     :param error:
-    :type error: ~azure.mgmt.rdbms.mysql.models.ErrorResponse
+    :type error: ~azure.mgmt.rdbms.mysql.models.CloudErrorBody
     """
 
     _attribute_map = {
-        'error': {'key': 'error', 'type': 'ErrorResponse'},
+        'error': {'key': 'error', 'type': 'CloudErrorBody'},
     }
 
     def __init__(self, **kwargs):
@@ -183,19 +41,81 @@ class CloudErrorException(HttpOperationError):
         super(CloudErrorException, self).__init__(deserialize, response, 'CloudError', *args)
 
 
+class CloudErrorBody(Model):
+    """An error response from the Batch service.
+
+    :param code: An identifier for the error. Codes are invariant and are
+     intended to be consumed programmatically.
+    :type code: str
+    :param message: A message describing the error, intended to be suitable
+     for display in a user interface.
+    :type message: str
+    :param target: The target of the particular error. For example, the name
+     of the property in error.
+    :type target: str
+    :param details: A list of additional details about the error.
+    :type details: list[~azure.mgmt.rdbms.mysql.models.CloudErrorBody]
+    """
+
+    _attribute_map = {
+        'code': {'key': 'code', 'type': 'str'},
+        'message': {'key': 'message', 'type': 'str'},
+        'target': {'key': 'target', 'type': 'str'},
+        'details': {'key': 'details', 'type': '[CloudErrorBody]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CloudErrorBody, self).__init__(**kwargs)
+        self.code = kwargs.get('code', None)
+        self.message = kwargs.get('message', None)
+        self.target = kwargs.get('target', None)
+        self.details = kwargs.get('details', None)
+
+
+class ProxyResource(Model):
+    """Resource properties.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource ID
+    :vartype id: str
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ProxyResource, self).__init__(**kwargs)
+        self.id = None
+        self.name = None
+        self.type = None
+
+
 class Configuration(ProxyResource):
     """Represents a Configuration.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
     :param value: Value of the configuration.
     :type value: str
@@ -249,13 +169,11 @@ class Database(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
     :param charset: The charset of the database.
     :type charset: str
@@ -283,78 +201,6 @@ class Database(ProxyResource):
         self.collation = kwargs.get('collation', None)
 
 
-class ErrorAdditionalInfo(Model):
-    """The resource management error additional info.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar type: The additional info type.
-    :vartype type: str
-    :ivar info: The additional info.
-    :vartype info: object
-    """
-
-    _validation = {
-        'type': {'readonly': True},
-        'info': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'type': {'key': 'type', 'type': 'str'},
-        'info': {'key': 'info', 'type': 'object'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ErrorAdditionalInfo, self).__init__(**kwargs)
-        self.type = None
-        self.info = None
-
-
-class ErrorResponse(Model):
-    """The resource management error response.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar code: The error code.
-    :vartype code: str
-    :ivar message: The error message.
-    :vartype message: str
-    :ivar target: The error target.
-    :vartype target: str
-    :ivar details: The error details.
-    :vartype details: list[~azure.mgmt.rdbms.mysql.models.ErrorResponse]
-    :ivar additional_info: The error additional info.
-    :vartype additional_info:
-     list[~azure.mgmt.rdbms.mysql.models.ErrorAdditionalInfo]
-    """
-
-    _validation = {
-        'code': {'readonly': True},
-        'message': {'readonly': True},
-        'target': {'readonly': True},
-        'details': {'readonly': True},
-        'additional_info': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'code': {'key': 'code', 'type': 'str'},
-        'message': {'key': 'message', 'type': 'str'},
-        'target': {'key': 'target', 'type': 'str'},
-        'details': {'key': 'details', 'type': '[ErrorResponse]'},
-        'additional_info': {'key': 'additionalInfo', 'type': '[ErrorAdditionalInfo]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ErrorResponse, self).__init__(**kwargs)
-        self.code = None
-        self.message = None
-        self.target = None
-        self.details = None
-        self.additional_info = None
-
-
 class FirewallRule(ProxyResource):
     """Represents a server firewall rule.
 
@@ -363,13 +209,11 @@ class FirewallRule(ProxyResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
     :param start_ip_address: Required. The start IP address of the server
      firewall rule. Must be IPv4 format.
@@ -407,13 +251,11 @@ class LogFile(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
     :param size_in_kb: Size of the log file.
     :type size_in_kb: long
@@ -669,20 +511,12 @@ class PerformanceTierServiceLevelObjectives(Model):
         self.min_storage_mb = kwargs.get('min_storage_mb', None)
 
 
-class PrivateEndpointConnection(ProxyResource):
-    """A private endpoint connection.
+class PrivateEndpointConnectionProperties(Model):
+    """Properties of a private endpoint connection.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-    :vartype id: str
-    :ivar name: The name of the resource
-    :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
-    :vartype type: str
     :param private_endpoint: Private endpoint which the connection belongs to.
     :type private_endpoint:
      ~azure.mgmt.rdbms.mysql.models.PrivateEndpointProperty
@@ -691,27 +525,24 @@ class PrivateEndpointConnection(ProxyResource):
     :type private_link_service_connection_state:
      ~azure.mgmt.rdbms.mysql.models.PrivateLinkServiceConnectionStateProperty
     :ivar provisioning_state: State of the private endpoint connection.
-    :vartype provisioning_state: str
+     Possible values include: 'Approving', 'Ready', 'Dropping', 'Failed',
+     'Rejecting'
+    :vartype provisioning_state: str or
+     ~azure.mgmt.rdbms.mysql.models.PrivateEndpointProvisioningState
     """
 
     _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
         'provisioning_state': {'readonly': True},
     }
 
     _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'private_endpoint': {'key': 'properties.privateEndpoint', 'type': 'PrivateEndpointProperty'},
-        'private_link_service_connection_state': {'key': 'properties.privateLinkServiceConnectionState', 'type': 'PrivateLinkServiceConnectionStateProperty'},
-        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'private_endpoint': {'key': 'privateEndpoint', 'type': 'PrivateEndpointProperty'},
+        'private_link_service_connection_state': {'key': 'privateLinkServiceConnectionState', 'type': 'PrivateLinkServiceConnectionStateProperty'},
+        'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
-        super(PrivateEndpointConnection, self).__init__(**kwargs)
+        super(PrivateEndpointConnectionProperties, self).__init__(**kwargs)
         self.private_endpoint = kwargs.get('private_endpoint', None)
         self.private_link_service_connection_state = kwargs.get('private_link_service_connection_state', None)
         self.provisioning_state = None
@@ -733,72 +564,6 @@ class PrivateEndpointProperty(Model):
         self.id = kwargs.get('id', None)
 
 
-class PrivateLinkResource(ProxyResource):
-    """A private link resource.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-    :vartype id: str
-    :ivar name: The name of the resource
-    :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
-    :vartype type: str
-    :ivar properties: The private link resource group id.
-    :vartype properties:
-     ~azure.mgmt.rdbms.mysql.models.PrivateLinkResourceProperties
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'properties': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'properties': {'key': 'properties', 'type': 'PrivateLinkResourceProperties'},
-    }
-
-    def __init__(self, **kwargs):
-        super(PrivateLinkResource, self).__init__(**kwargs)
-        self.properties = None
-
-
-class PrivateLinkResourceProperties(Model):
-    """Properties of a private link resource.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar group_id: The private link resource group id.
-    :vartype group_id: str
-    :ivar required_members: The private link resource required member names.
-    :vartype required_members: list[str]
-    """
-
-    _validation = {
-        'group_id': {'readonly': True},
-        'required_members': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'group_id': {'key': 'groupId', 'type': 'str'},
-        'required_members': {'key': 'requiredMembers', 'type': '[str]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(PrivateLinkResourceProperties, self).__init__(**kwargs)
-        self.group_id = None
-        self.required_members = None
-
-
 class PrivateLinkServiceConnectionStateProperty(Model):
     """PrivateLinkServiceConnectionStateProperty.
 
@@ -808,13 +573,16 @@ class PrivateLinkServiceConnectionStateProperty(Model):
     All required parameters must be populated in order to send to Azure.
 
     :param status: Required. The private link service connection status.
-    :type status: str
+     Possible values include: 'Approved', 'Pending', 'Rejected', 'Disconnected'
+    :type status: str or
+     ~azure.mgmt.rdbms.mysql.models.PrivateLinkServiceConnectionStateStatus
     :param description: Required. The private link service connection
      description.
     :type description: str
     :ivar actions_required: The actions required for private link service
-     connection.
-    :vartype actions_required: str
+     connection. Possible values include: 'None'
+    :vartype actions_required: str or
+     ~azure.mgmt.rdbms.mysql.models.PrivateLinkServiceConnectionStateActionsRequire
     """
 
     _validation = {
@@ -834,235 +602,6 @@ class PrivateLinkServiceConnectionStateProperty(Model):
         self.status = kwargs.get('status', None)
         self.description = kwargs.get('description', None)
         self.actions_required = None
-
-
-class QueryStatistic(ProxyResource):
-    """Represents a Query Statistic.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-    :vartype id: str
-    :ivar name: The name of the resource
-    :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
-    :vartype type: str
-    :param query_id: Database query identifier.
-    :type query_id: str
-    :param start_time: Observation start time.
-    :type start_time: datetime
-    :param end_time: Observation end time.
-    :type end_time: datetime
-    :param aggregation_function: Aggregation function name.
-    :type aggregation_function: str
-    :param database_names: The list of database names.
-    :type database_names: list[str]
-    :param query_execution_count: Number of query executions in this time
-     interval.
-    :type query_execution_count: long
-    :param metric_name: Metric name.
-    :type metric_name: str
-    :param metric_display_name: Metric display name.
-    :type metric_display_name: str
-    :param metric_value: Metric value.
-    :type metric_value: float
-    :param metric_value_unit: Metric value unit.
-    :type metric_value_unit: str
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'query_id': {'key': 'properties.queryId', 'type': 'str'},
-        'start_time': {'key': 'properties.startTime', 'type': 'iso-8601'},
-        'end_time': {'key': 'properties.endTime', 'type': 'iso-8601'},
-        'aggregation_function': {'key': 'properties.aggregationFunction', 'type': 'str'},
-        'database_names': {'key': 'properties.databaseNames', 'type': '[str]'},
-        'query_execution_count': {'key': 'properties.queryExecutionCount', 'type': 'long'},
-        'metric_name': {'key': 'properties.metricName', 'type': 'str'},
-        'metric_display_name': {'key': 'properties.metricDisplayName', 'type': 'str'},
-        'metric_value': {'key': 'properties.metricValue', 'type': 'float'},
-        'metric_value_unit': {'key': 'properties.metricValueUnit', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(QueryStatistic, self).__init__(**kwargs)
-        self.query_id = kwargs.get('query_id', None)
-        self.start_time = kwargs.get('start_time', None)
-        self.end_time = kwargs.get('end_time', None)
-        self.aggregation_function = kwargs.get('aggregation_function', None)
-        self.database_names = kwargs.get('database_names', None)
-        self.query_execution_count = kwargs.get('query_execution_count', None)
-        self.metric_name = kwargs.get('metric_name', None)
-        self.metric_display_name = kwargs.get('metric_display_name', None)
-        self.metric_value = kwargs.get('metric_value', None)
-        self.metric_value_unit = kwargs.get('metric_value_unit', None)
-
-
-class QueryText(ProxyResource):
-    """Represents a Query Text.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-    :vartype id: str
-    :ivar name: The name of the resource
-    :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
-    :vartype type: str
-    :param query_id: Query identifier unique to the server.
-    :type query_id: str
-    :param query_text: Query text.
-    :type query_text: str
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'query_id': {'key': 'properties.queryId', 'type': 'str'},
-        'query_text': {'key': 'properties.queryText', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(QueryText, self).__init__(**kwargs)
-        self.query_id = kwargs.get('query_id', None)
-        self.query_text = kwargs.get('query_text', None)
-
-
-class RecommendationAction(ProxyResource):
-    """Represents a Recommendation Action.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-    :vartype id: str
-    :ivar name: The name of the resource
-    :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
-    :vartype type: str
-    :param advisor_name: Advisor name.
-    :type advisor_name: str
-    :param session_id: Recommendation action session identifier.
-    :type session_id: str
-    :param action_id: Recommendation action identifier.
-    :type action_id: int
-    :param created_time: Recommendation action creation time.
-    :type created_time: datetime
-    :param expiration_time: Recommendation action expiration time.
-    :type expiration_time: datetime
-    :param reason: Recommendation action reason.
-    :type reason: str
-    :param recommendation_type: Recommendation action type.
-    :type recommendation_type: str
-    :param details: Recommendation action details.
-    :type details: dict[str, str]
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'advisor_name': {'key': 'properties.advisorName', 'type': 'str'},
-        'session_id': {'key': 'properties.sessionId', 'type': 'str'},
-        'action_id': {'key': 'properties.actionId', 'type': 'int'},
-        'created_time': {'key': 'properties.createdTime', 'type': 'iso-8601'},
-        'expiration_time': {'key': 'properties.expirationTime', 'type': 'iso-8601'},
-        'reason': {'key': 'properties.reason', 'type': 'str'},
-        'recommendation_type': {'key': 'properties.recommendationType', 'type': 'str'},
-        'details': {'key': 'properties.details', 'type': '{str}'},
-    }
-
-    def __init__(self, **kwargs):
-        super(RecommendationAction, self).__init__(**kwargs)
-        self.advisor_name = kwargs.get('advisor_name', None)
-        self.session_id = kwargs.get('session_id', None)
-        self.action_id = kwargs.get('action_id', None)
-        self.created_time = kwargs.get('created_time', None)
-        self.expiration_time = kwargs.get('expiration_time', None)
-        self.reason = kwargs.get('reason', None)
-        self.recommendation_type = kwargs.get('recommendation_type', None)
-        self.details = kwargs.get('details', None)
-
-
-class RecommendationActionsResultList(Model):
-    """A list of recommendation actions.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar value: The list of recommendation action advisors.
-    :vartype value: list[~azure.mgmt.rdbms.mysql.models.RecommendationAction]
-    :ivar next_link: Link to retrieve next page of results.
-    :vartype next_link: str
-    """
-
-    _validation = {
-        'value': {'readonly': True},
-        'next_link': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'value': {'key': 'value', 'type': '[RecommendationAction]'},
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(RecommendationActionsResultList, self).__init__(**kwargs)
-        self.value = None
-        self.next_link = None
-
-
-class RecommendedActionSessionsOperationStatus(Model):
-    """Recommendation action session operation status.
-
-    :param name: Operation identifier.
-    :type name: str
-    :param start_time: Operation start time.
-    :type start_time: datetime
-    :param status: Operation status.
-    :type status: str
-    """
-
-    _attribute_map = {
-        'name': {'key': 'name', 'type': 'str'},
-        'start_time': {'key': 'startTime', 'type': 'iso-8601'},
-        'status': {'key': 'status', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(RecommendedActionSessionsOperationStatus, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
-        self.start_time = kwargs.get('start_time', None)
-        self.status = kwargs.get('status', None)
 
 
 class ResourceIdentity(Model):
@@ -1099,26 +638,24 @@ class ResourceIdentity(Model):
         self.tenant_id = None
 
 
-class TrackedResource(Resource):
-    """The resource model definition for a ARM tracked top level resource.
+class TrackedResource(ProxyResource):
+    """Resource properties including location and tags for track resources.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
-    :param tags: Resource tags.
-    :type tags: dict[str, str]
-    :param location: Required. The geo-location where the resource lives
+    :param location: Required. The location the resource resides in.
     :type location: str
+    :param tags: Application-specific metadata in the form of key-value pairs.
+    :type tags: dict[str, str]
     """
 
     _validation = {
@@ -1132,14 +669,14 @@ class TrackedResource(Resource):
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
-        'tags': {'key': 'tags', 'type': '{str}'},
         'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
     }
 
     def __init__(self, **kwargs):
         super(TrackedResource, self).__init__(**kwargs)
-        self.tags = kwargs.get('tags', None)
         self.location = kwargs.get('location', None)
+        self.tags = kwargs.get('tags', None)
 
 
 class Server(TrackedResource):
@@ -1150,18 +687,16 @@ class Server(TrackedResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
-    :param tags: Resource tags.
-    :type tags: dict[str, str]
-    :param location: Required. The geo-location where the resource lives
+    :param location: Required. The location the resource resides in.
     :type location: str
+    :param tags: Application-specific metadata in the form of key-value pairs.
+    :type tags: dict[str, str]
     :param identity: The Azure Active Directory identity of the server.
     :type identity: ~azure.mgmt.rdbms.mysql.models.ResourceIdentity
     :param sku: The SKU (pricing tier) of the server.
@@ -1209,8 +744,8 @@ class Server(TrackedResource):
     :param replica_capacity: The maximum number of replicas that a master
      server can have.
     :type replica_capacity: int
-    :param public_network_access: Whether or not public network access is
-     allowed for this server. Value is optional but if passed in, must be
+    :param public_network_access: Whether or not public endpoint access is
+     allowed for this server.  Value is optional but if passed in, must be
      'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
     :type public_network_access: str or
      ~azure.mgmt.rdbms.mysql.models.PublicNetworkAccessEnum
@@ -1234,8 +769,8 @@ class Server(TrackedResource):
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
-        'tags': {'key': 'tags', 'type': '{str}'},
         'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
         'identity': {'key': 'identity', 'type': 'ResourceIdentity'},
         'sku': {'key': 'sku', 'type': 'Sku'},
         'administrator_login': {'key': 'properties.administratorLogin', 'type': 'str'},
@@ -1284,13 +819,11 @@ class ServerAdministratorResource(ProxyResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
     :ivar administrator_type: Required. The type of administrator. Default
      value: "ActiveDirectory" .
@@ -1338,8 +871,6 @@ class ServerForCreate(Model):
 
     All required parameters must be populated in order to send to Azure.
 
-    :param identity: The Azure Active Directory identity of the server.
-    :type identity: ~azure.mgmt.rdbms.mysql.models.ResourceIdentity
     :param sku: The SKU (pricing tier) of the server.
     :type sku: ~azure.mgmt.rdbms.mysql.models.Sku
     :param properties: Required. Properties of the server.
@@ -1356,7 +887,6 @@ class ServerForCreate(Model):
     }
 
     _attribute_map = {
-        'identity': {'key': 'identity', 'type': 'ResourceIdentity'},
         'sku': {'key': 'sku', 'type': 'Sku'},
         'properties': {'key': 'properties', 'type': 'ServerPropertiesForCreate'},
         'location': {'key': 'location', 'type': 'str'},
@@ -1365,66 +895,10 @@ class ServerForCreate(Model):
 
     def __init__(self, **kwargs):
         super(ServerForCreate, self).__init__(**kwargs)
-        self.identity = kwargs.get('identity', None)
         self.sku = kwargs.get('sku', None)
         self.properties = kwargs.get('properties', None)
         self.location = kwargs.get('location', None)
         self.tags = kwargs.get('tags', None)
-
-
-class ServerKey(ProxyResource):
-    """A MySQL Server key.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-    :vartype id: str
-    :ivar name: The name of the resource
-    :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
-    :vartype type: str
-    :ivar kind: Kind of encryption protector used to protect the key.
-    :vartype kind: str
-    :ivar server_key_type: Required. The key type like 'AzureKeyVault'.
-     Default value: "AzureKeyVault" .
-    :vartype server_key_type: str
-    :param uri: The URI of the key.
-    :type uri: str
-    :ivar creation_date: The key creation date.
-    :vartype creation_date: datetime
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'kind': {'readonly': True},
-        'server_key_type': {'required': True, 'constant': True},
-        'creation_date': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'kind': {'key': 'kind', 'type': 'str'},
-        'server_key_type': {'key': 'properties.serverKeyType', 'type': 'str'},
-        'uri': {'key': 'properties.uri', 'type': 'str'},
-        'creation_date': {'key': 'properties.creationDate', 'type': 'iso-8601'},
-    }
-
-    server_key_type = "AzureKeyVault"
-
-    def __init__(self, **kwargs):
-        super(ServerKey, self).__init__(**kwargs)
-        self.kind = None
-        self.uri = kwargs.get('uri', None)
-        self.creation_date = None
 
 
 class ServerPrivateEndpointConnection(Model):
@@ -1437,7 +911,7 @@ class ServerPrivateEndpointConnection(Model):
     :vartype id: str
     :ivar properties: Private endpoint connection properties
     :vartype properties:
-     ~azure.mgmt.rdbms.mysql.models.ServerPrivateEndpointConnectionProperties
+     ~azure.mgmt.rdbms.mysql.models.PrivateEndpointConnectionProperties
     """
 
     _validation = {
@@ -1447,90 +921,13 @@ class ServerPrivateEndpointConnection(Model):
 
     _attribute_map = {
         'id': {'key': 'id', 'type': 'str'},
-        'properties': {'key': 'properties', 'type': 'ServerPrivateEndpointConnectionProperties'},
+        'properties': {'key': 'properties', 'type': 'PrivateEndpointConnectionProperties'},
     }
 
     def __init__(self, **kwargs):
         super(ServerPrivateEndpointConnection, self).__init__(**kwargs)
         self.id = None
         self.properties = None
-
-
-class ServerPrivateEndpointConnectionProperties(Model):
-    """Properties of a private endpoint connection.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :param private_endpoint: Private endpoint which the connection belongs to.
-    :type private_endpoint:
-     ~azure.mgmt.rdbms.mysql.models.PrivateEndpointProperty
-    :param private_link_service_connection_state: Connection state of the
-     private endpoint connection.
-    :type private_link_service_connection_state:
-     ~azure.mgmt.rdbms.mysql.models.ServerPrivateLinkServiceConnectionStateProperty
-    :ivar provisioning_state: State of the private endpoint connection.
-     Possible values include: 'Approving', 'Ready', 'Dropping', 'Failed',
-     'Rejecting'
-    :vartype provisioning_state: str or
-     ~azure.mgmt.rdbms.mysql.models.PrivateEndpointProvisioningState
-    """
-
-    _validation = {
-        'provisioning_state': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'private_endpoint': {'key': 'privateEndpoint', 'type': 'PrivateEndpointProperty'},
-        'private_link_service_connection_state': {'key': 'privateLinkServiceConnectionState', 'type': 'ServerPrivateLinkServiceConnectionStateProperty'},
-        'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ServerPrivateEndpointConnectionProperties, self).__init__(**kwargs)
-        self.private_endpoint = kwargs.get('private_endpoint', None)
-        self.private_link_service_connection_state = kwargs.get('private_link_service_connection_state', None)
-        self.provisioning_state = None
-
-
-class ServerPrivateLinkServiceConnectionStateProperty(Model):
-    """ServerPrivateLinkServiceConnectionStateProperty.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :param status: Required. The private link service connection status.
-     Possible values include: 'Approved', 'Pending', 'Rejected', 'Disconnected'
-    :type status: str or
-     ~azure.mgmt.rdbms.mysql.models.PrivateLinkServiceConnectionStateStatus
-    :param description: Required. The private link service connection
-     description.
-    :type description: str
-    :ivar actions_required: The actions required for private link service
-     connection. Possible values include: 'None'
-    :vartype actions_required: str or
-     ~azure.mgmt.rdbms.mysql.models.PrivateLinkServiceConnectionStateActionsRequire
-    """
-
-    _validation = {
-        'status': {'required': True},
-        'description': {'required': True},
-        'actions_required': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'status': {'key': 'status', 'type': 'str'},
-        'description': {'key': 'description', 'type': 'str'},
-        'actions_required': {'key': 'actionsRequired', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ServerPrivateLinkServiceConnectionStateProperty, self).__init__(**kwargs)
-        self.status = kwargs.get('status', None)
-        self.description = kwargs.get('description', None)
-        self.actions_required = None
 
 
 class ServerPropertiesForCreate(Model):
@@ -1555,16 +952,6 @@ class ServerPropertiesForCreate(Model):
      'TLSEnforcementDisabled'
     :type minimal_tls_version: str or
      ~azure.mgmt.rdbms.mysql.models.MinimalTlsVersionEnum
-    :param infrastructure_encryption: Status showing whether the server
-     enabled infrastructure encryption. Possible values include: 'Enabled',
-     'Disabled'
-    :type infrastructure_encryption: str or
-     ~azure.mgmt.rdbms.mysql.models.InfrastructureEncryption
-    :param public_network_access: Whether or not public network access is
-     allowed for this server. Value is optional but if passed in, must be
-     'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
-    :type public_network_access: str or
-     ~azure.mgmt.rdbms.mysql.models.PublicNetworkAccessEnum
     :param storage_profile: Storage profile of a server.
     :type storage_profile: ~azure.mgmt.rdbms.mysql.models.StorageProfile
     :param create_mode: Required. Constant filled by server.
@@ -1579,8 +966,6 @@ class ServerPropertiesForCreate(Model):
         'version': {'key': 'version', 'type': 'str'},
         'ssl_enforcement': {'key': 'sslEnforcement', 'type': 'SslEnforcementEnum'},
         'minimal_tls_version': {'key': 'minimalTlsVersion', 'type': 'str'},
-        'infrastructure_encryption': {'key': 'infrastructureEncryption', 'type': 'str'},
-        'public_network_access': {'key': 'publicNetworkAccess', 'type': 'str'},
         'storage_profile': {'key': 'storageProfile', 'type': 'StorageProfile'},
         'create_mode': {'key': 'createMode', 'type': 'str'},
     }
@@ -1594,8 +979,6 @@ class ServerPropertiesForCreate(Model):
         self.version = kwargs.get('version', None)
         self.ssl_enforcement = kwargs.get('ssl_enforcement', None)
         self.minimal_tls_version = kwargs.get('minimal_tls_version', None)
-        self.infrastructure_encryption = kwargs.get('infrastructure_encryption', None)
-        self.public_network_access = kwargs.get('public_network_access', None)
         self.storage_profile = kwargs.get('storage_profile', None)
         self.create_mode = None
 
@@ -1617,16 +1000,6 @@ class ServerPropertiesForDefaultCreate(ServerPropertiesForCreate):
      'TLSEnforcementDisabled'
     :type minimal_tls_version: str or
      ~azure.mgmt.rdbms.mysql.models.MinimalTlsVersionEnum
-    :param infrastructure_encryption: Status showing whether the server
-     enabled infrastructure encryption. Possible values include: 'Enabled',
-     'Disabled'
-    :type infrastructure_encryption: str or
-     ~azure.mgmt.rdbms.mysql.models.InfrastructureEncryption
-    :param public_network_access: Whether or not public network access is
-     allowed for this server. Value is optional but if passed in, must be
-     'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
-    :type public_network_access: str or
-     ~azure.mgmt.rdbms.mysql.models.PublicNetworkAccessEnum
     :param storage_profile: Storage profile of a server.
     :type storage_profile: ~azure.mgmt.rdbms.mysql.models.StorageProfile
     :param create_mode: Required. Constant filled by server.
@@ -1650,8 +1023,6 @@ class ServerPropertiesForDefaultCreate(ServerPropertiesForCreate):
         'version': {'key': 'version', 'type': 'str'},
         'ssl_enforcement': {'key': 'sslEnforcement', 'type': 'SslEnforcementEnum'},
         'minimal_tls_version': {'key': 'minimalTlsVersion', 'type': 'str'},
-        'infrastructure_encryption': {'key': 'infrastructureEncryption', 'type': 'str'},
-        'public_network_access': {'key': 'publicNetworkAccess', 'type': 'str'},
         'storage_profile': {'key': 'storageProfile', 'type': 'StorageProfile'},
         'create_mode': {'key': 'createMode', 'type': 'str'},
         'administrator_login': {'key': 'administratorLogin', 'type': 'str'},
@@ -1683,16 +1054,6 @@ class ServerPropertiesForGeoRestore(ServerPropertiesForCreate):
      'TLSEnforcementDisabled'
     :type minimal_tls_version: str or
      ~azure.mgmt.rdbms.mysql.models.MinimalTlsVersionEnum
-    :param infrastructure_encryption: Status showing whether the server
-     enabled infrastructure encryption. Possible values include: 'Enabled',
-     'Disabled'
-    :type infrastructure_encryption: str or
-     ~azure.mgmt.rdbms.mysql.models.InfrastructureEncryption
-    :param public_network_access: Whether or not public network access is
-     allowed for this server. Value is optional but if passed in, must be
-     'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
-    :type public_network_access: str or
-     ~azure.mgmt.rdbms.mysql.models.PublicNetworkAccessEnum
     :param storage_profile: Storage profile of a server.
     :type storage_profile: ~azure.mgmt.rdbms.mysql.models.StorageProfile
     :param create_mode: Required. Constant filled by server.
@@ -1710,8 +1071,6 @@ class ServerPropertiesForGeoRestore(ServerPropertiesForCreate):
         'version': {'key': 'version', 'type': 'str'},
         'ssl_enforcement': {'key': 'sslEnforcement', 'type': 'SslEnforcementEnum'},
         'minimal_tls_version': {'key': 'minimalTlsVersion', 'type': 'str'},
-        'infrastructure_encryption': {'key': 'infrastructureEncryption', 'type': 'str'},
-        'public_network_access': {'key': 'publicNetworkAccess', 'type': 'str'},
         'storage_profile': {'key': 'storageProfile', 'type': 'StorageProfile'},
         'create_mode': {'key': 'createMode', 'type': 'str'},
         'source_server_id': {'key': 'sourceServerId', 'type': 'str'},
@@ -1740,16 +1099,6 @@ class ServerPropertiesForReplica(ServerPropertiesForCreate):
      'TLSEnforcementDisabled'
     :type minimal_tls_version: str or
      ~azure.mgmt.rdbms.mysql.models.MinimalTlsVersionEnum
-    :param infrastructure_encryption: Status showing whether the server
-     enabled infrastructure encryption. Possible values include: 'Enabled',
-     'Disabled'
-    :type infrastructure_encryption: str or
-     ~azure.mgmt.rdbms.mysql.models.InfrastructureEncryption
-    :param public_network_access: Whether or not public network access is
-     allowed for this server. Value is optional but if passed in, must be
-     'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
-    :type public_network_access: str or
-     ~azure.mgmt.rdbms.mysql.models.PublicNetworkAccessEnum
     :param storage_profile: Storage profile of a server.
     :type storage_profile: ~azure.mgmt.rdbms.mysql.models.StorageProfile
     :param create_mode: Required. Constant filled by server.
@@ -1768,8 +1117,6 @@ class ServerPropertiesForReplica(ServerPropertiesForCreate):
         'version': {'key': 'version', 'type': 'str'},
         'ssl_enforcement': {'key': 'sslEnforcement', 'type': 'SslEnforcementEnum'},
         'minimal_tls_version': {'key': 'minimalTlsVersion', 'type': 'str'},
-        'infrastructure_encryption': {'key': 'infrastructureEncryption', 'type': 'str'},
-        'public_network_access': {'key': 'publicNetworkAccess', 'type': 'str'},
         'storage_profile': {'key': 'storageProfile', 'type': 'StorageProfile'},
         'create_mode': {'key': 'createMode', 'type': 'str'},
         'source_server_id': {'key': 'sourceServerId', 'type': 'str'},
@@ -1798,16 +1145,6 @@ class ServerPropertiesForRestore(ServerPropertiesForCreate):
      'TLSEnforcementDisabled'
     :type minimal_tls_version: str or
      ~azure.mgmt.rdbms.mysql.models.MinimalTlsVersionEnum
-    :param infrastructure_encryption: Status showing whether the server
-     enabled infrastructure encryption. Possible values include: 'Enabled',
-     'Disabled'
-    :type infrastructure_encryption: str or
-     ~azure.mgmt.rdbms.mysql.models.InfrastructureEncryption
-    :param public_network_access: Whether or not public network access is
-     allowed for this server. Value is optional but if passed in, must be
-     'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
-    :type public_network_access: str or
-     ~azure.mgmt.rdbms.mysql.models.PublicNetworkAccessEnum
     :param storage_profile: Storage profile of a server.
     :type storage_profile: ~azure.mgmt.rdbms.mysql.models.StorageProfile
     :param create_mode: Required. Constant filled by server.
@@ -1829,8 +1166,6 @@ class ServerPropertiesForRestore(ServerPropertiesForCreate):
         'version': {'key': 'version', 'type': 'str'},
         'ssl_enforcement': {'key': 'sslEnforcement', 'type': 'SslEnforcementEnum'},
         'minimal_tls_version': {'key': 'minimalTlsVersion', 'type': 'str'},
-        'infrastructure_encryption': {'key': 'infrastructureEncryption', 'type': 'str'},
-        'public_network_access': {'key': 'publicNetworkAccess', 'type': 'str'},
         'storage_profile': {'key': 'storageProfile', 'type': 'StorageProfile'},
         'create_mode': {'key': 'createMode', 'type': 'str'},
         'source_server_id': {'key': 'sourceServerId', 'type': 'str'},
@@ -1852,13 +1187,11 @@ class ServerSecurityAlertPolicy(ProxyResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
     :param state: Required. Specifies the state of the policy, whether it is
      enabled or disabled. Possible values include: 'Enabled', 'Disabled'
@@ -1920,8 +1253,6 @@ class ServerSecurityAlertPolicy(ProxyResource):
 class ServerUpdateParameters(Model):
     """Parameters allowed to update for a server.
 
-    :param identity: The Azure Active Directory identity of the server.
-    :type identity: ~azure.mgmt.rdbms.mysql.models.ResourceIdentity
     :param sku: The SKU (pricing tier) of the server.
     :type sku: ~azure.mgmt.rdbms.mysql.models.Sku
     :param storage_profile: Storage profile of a server.
@@ -1941,11 +1272,6 @@ class ServerUpdateParameters(Model):
      'TLSEnforcementDisabled'
     :type minimal_tls_version: str or
      ~azure.mgmt.rdbms.mysql.models.MinimalTlsVersionEnum
-    :param public_network_access: Whether or not public network access is
-     allowed for this server. Value is optional but if passed in, must be
-     'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
-    :type public_network_access: str or
-     ~azure.mgmt.rdbms.mysql.models.PublicNetworkAccessEnum
     :param replication_role: The replication role of the server.
     :type replication_role: str
     :param tags: Application-specific metadata in the form of key-value pairs.
@@ -1953,28 +1279,24 @@ class ServerUpdateParameters(Model):
     """
 
     _attribute_map = {
-        'identity': {'key': 'identity', 'type': 'ResourceIdentity'},
         'sku': {'key': 'sku', 'type': 'Sku'},
         'storage_profile': {'key': 'properties.storageProfile', 'type': 'StorageProfile'},
         'administrator_login_password': {'key': 'properties.administratorLoginPassword', 'type': 'str'},
         'version': {'key': 'properties.version', 'type': 'str'},
         'ssl_enforcement': {'key': 'properties.sslEnforcement', 'type': 'SslEnforcementEnum'},
         'minimal_tls_version': {'key': 'properties.minimalTlsVersion', 'type': 'str'},
-        'public_network_access': {'key': 'properties.publicNetworkAccess', 'type': 'str'},
         'replication_role': {'key': 'properties.replicationRole', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
     }
 
     def __init__(self, **kwargs):
         super(ServerUpdateParameters, self).__init__(**kwargs)
-        self.identity = kwargs.get('identity', None)
         self.sku = kwargs.get('sku', None)
         self.storage_profile = kwargs.get('storage_profile', None)
         self.administrator_login_password = kwargs.get('administrator_login_password', None)
         self.version = kwargs.get('version', None)
         self.ssl_enforcement = kwargs.get('ssl_enforcement', None)
         self.minimal_tls_version = kwargs.get('minimal_tls_version', None)
-        self.public_network_access = kwargs.get('public_network_access', None)
         self.replication_role = kwargs.get('replication_role', None)
         self.tags = kwargs.get('tags', None)
 
@@ -2050,71 +1372,6 @@ class StorageProfile(Model):
         self.storage_autogrow = kwargs.get('storage_autogrow', None)
 
 
-class TagsObject(Model):
-    """Tags object for patch operations.
-
-    :param tags: Resource tags.
-    :type tags: dict[str, str]
-    """
-
-    _attribute_map = {
-        'tags': {'key': 'tags', 'type': '{str}'},
-    }
-
-    def __init__(self, **kwargs):
-        super(TagsObject, self).__init__(**kwargs)
-        self.tags = kwargs.get('tags', None)
-
-
-class TopQueryStatisticsInput(Model):
-    """Input to get top query statistics.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :param number_of_top_queries: Required. Max number of top queries to
-     return.
-    :type number_of_top_queries: int
-    :param aggregation_function: Required. Aggregation function name.
-    :type aggregation_function: str
-    :param observed_metric: Required. Observed metric name.
-    :type observed_metric: str
-    :param observation_start_time: Required. Observation start time.
-    :type observation_start_time: datetime
-    :param observation_end_time: Required. Observation end time.
-    :type observation_end_time: datetime
-    :param aggregation_window: Required. Aggregation interval type in ISO 8601
-     format.
-    :type aggregation_window: str
-    """
-
-    _validation = {
-        'number_of_top_queries': {'required': True},
-        'aggregation_function': {'required': True},
-        'observed_metric': {'required': True},
-        'observation_start_time': {'required': True},
-        'observation_end_time': {'required': True},
-        'aggregation_window': {'required': True},
-    }
-
-    _attribute_map = {
-        'number_of_top_queries': {'key': 'properties.numberOfTopQueries', 'type': 'int'},
-        'aggregation_function': {'key': 'properties.aggregationFunction', 'type': 'str'},
-        'observed_metric': {'key': 'properties.observedMetric', 'type': 'str'},
-        'observation_start_time': {'key': 'properties.observationStartTime', 'type': 'iso-8601'},
-        'observation_end_time': {'key': 'properties.observationEndTime', 'type': 'iso-8601'},
-        'aggregation_window': {'key': 'properties.aggregationWindow', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(TopQueryStatisticsInput, self).__init__(**kwargs)
-        self.number_of_top_queries = kwargs.get('number_of_top_queries', None)
-        self.aggregation_function = kwargs.get('aggregation_function', None)
-        self.observed_metric = kwargs.get('observed_metric', None)
-        self.observation_start_time = kwargs.get('observation_start_time', None)
-        self.observation_end_time = kwargs.get('observation_end_time', None)
-        self.aggregation_window = kwargs.get('aggregation_window', None)
-
-
 class VirtualNetworkRule(ProxyResource):
     """A virtual network rule.
 
@@ -2123,13 +1380,11 @@ class VirtualNetworkRule(ProxyResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
     :param virtual_network_subnet_id: Required. The ARM resource id of the
      virtual network subnet.
@@ -2165,105 +1420,3 @@ class VirtualNetworkRule(ProxyResource):
         self.virtual_network_subnet_id = kwargs.get('virtual_network_subnet_id', None)
         self.ignore_missing_vnet_service_endpoint = kwargs.get('ignore_missing_vnet_service_endpoint', None)
         self.state = None
-
-
-class WaitStatistic(ProxyResource):
-    """Represents a Wait Statistic.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-    :vartype id: str
-    :ivar name: The name of the resource
-    :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
-    :vartype type: str
-    :param start_time: Observation start time.
-    :type start_time: datetime
-    :param end_time: Observation end time.
-    :type end_time: datetime
-    :param event_name: Wait event name.
-    :type event_name: str
-    :param event_type_name: Wait event type name.
-    :type event_type_name: str
-    :param query_id: Database query identifier.
-    :type query_id: long
-    :param database_name: Database Name.
-    :type database_name: str
-    :param user_id: Database user identifier.
-    :type user_id: long
-    :param count: Wait event count observed in this time interval.
-    :type count: long
-    :param total_time_in_ms: Total time of wait in milliseconds in this time
-     interval.
-    :type total_time_in_ms: float
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'start_time': {'key': 'properties.startTime', 'type': 'iso-8601'},
-        'end_time': {'key': 'properties.endTime', 'type': 'iso-8601'},
-        'event_name': {'key': 'properties.eventName', 'type': 'str'},
-        'event_type_name': {'key': 'properties.eventTypeName', 'type': 'str'},
-        'query_id': {'key': 'properties.queryId', 'type': 'long'},
-        'database_name': {'key': 'properties.databaseName', 'type': 'str'},
-        'user_id': {'key': 'properties.userId', 'type': 'long'},
-        'count': {'key': 'properties.count', 'type': 'long'},
-        'total_time_in_ms': {'key': 'properties.totalTimeInMs', 'type': 'float'},
-    }
-
-    def __init__(self, **kwargs):
-        super(WaitStatistic, self).__init__(**kwargs)
-        self.start_time = kwargs.get('start_time', None)
-        self.end_time = kwargs.get('end_time', None)
-        self.event_name = kwargs.get('event_name', None)
-        self.event_type_name = kwargs.get('event_type_name', None)
-        self.query_id = kwargs.get('query_id', None)
-        self.database_name = kwargs.get('database_name', None)
-        self.user_id = kwargs.get('user_id', None)
-        self.count = kwargs.get('count', None)
-        self.total_time_in_ms = kwargs.get('total_time_in_ms', None)
-
-
-class WaitStatisticsInput(Model):
-    """Input to get wait statistics.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :param observation_start_time: Required. Observation start time.
-    :type observation_start_time: datetime
-    :param observation_end_time: Required. Observation end time.
-    :type observation_end_time: datetime
-    :param aggregation_window: Required. Aggregation interval type in ISO 8601
-     format.
-    :type aggregation_window: str
-    """
-
-    _validation = {
-        'observation_start_time': {'required': True},
-        'observation_end_time': {'required': True},
-        'aggregation_window': {'required': True},
-    }
-
-    _attribute_map = {
-        'observation_start_time': {'key': 'properties.observationStartTime', 'type': 'iso-8601'},
-        'observation_end_time': {'key': 'properties.observationEndTime', 'type': 'iso-8601'},
-        'aggregation_window': {'key': 'properties.aggregationWindow', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(WaitStatisticsInput, self).__init__(**kwargs)
-        self.observation_start_time = kwargs.get('observation_start_time', None)
-        self.observation_end_time = kwargs.get('observation_end_time', None)
-        self.aggregation_window = kwargs.get('aggregation_window', None)

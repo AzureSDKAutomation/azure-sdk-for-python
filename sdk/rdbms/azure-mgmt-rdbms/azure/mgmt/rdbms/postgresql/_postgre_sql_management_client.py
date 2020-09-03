@@ -25,9 +25,6 @@ from .operations import LocationBasedPerformanceTierOperations
 from .operations import CheckNameAvailabilityOperations
 from .operations import ServerSecurityAlertPoliciesOperations
 from .operations import Operations
-from .operations import PrivateEndpointConnectionsOperations
-from .operations import PrivateLinkResourcesOperations
-from .operations import ServerKeysOperations
 from . import models
 
 
@@ -61,17 +58,12 @@ class PostgreSQLManagementClient(SDKClient):
     :vartype server_security_alert_policies: azure.mgmt.rdbms.postgresql.operations.ServerSecurityAlertPoliciesOperations
     :ivar operations: Operations operations
     :vartype operations: azure.mgmt.rdbms.postgresql.operations.Operations
-    :ivar private_endpoint_connections: PrivateEndpointConnections operations
-    :vartype private_endpoint_connections: azure.mgmt.rdbms.postgresql.operations.PrivateEndpointConnectionsOperations
-    :ivar private_link_resources: PrivateLinkResources operations
-    :vartype private_link_resources: azure.mgmt.rdbms.postgresql.operations.PrivateLinkResourcesOperations
-    :ivar server_keys: ServerKeys operations
-    :vartype server_keys: azure.mgmt.rdbms.postgresql.operations.ServerKeysOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
      object<msrestazure.azure_active_directory>`
-    :param subscription_id: The ID of the target subscription.
+    :param subscription_id: The subscription ID that identifies an Azure
+     subscription.
     :type subscription_id: str
     :param str base_url: Service URL
     """
@@ -83,6 +75,7 @@ class PostgreSQLManagementClient(SDKClient):
         super(PostgreSQLManagementClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
+        self.api_version = '2017-12-01-preview'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
@@ -109,10 +102,4 @@ class PostgreSQLManagementClient(SDKClient):
         self.server_security_alert_policies = ServerSecurityAlertPoliciesOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.operations = Operations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.private_endpoint_connections = PrivateEndpointConnectionsOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.private_link_resources = PrivateLinkResourcesOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.server_keys = ServerKeysOperations(
             self._client, self.config, self._serialize, self._deserialize)

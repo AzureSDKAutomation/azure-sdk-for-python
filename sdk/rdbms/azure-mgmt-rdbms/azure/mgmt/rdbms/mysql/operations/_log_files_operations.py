@@ -25,7 +25,7 @@ class LogFilesOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The API version to use for this operation. Constant value: "2017-12-01".
+    :ivar api_version: The API version to use for the request. Constant value: "2017-12-01-preview".
     """
 
     models = models
@@ -35,7 +35,7 @@ class LogFilesOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2017-12-01"
+        self.api_version = "2017-12-01-preview"
 
         self.config = config
 
@@ -43,8 +43,9 @@ class LogFilesOperations(object):
             self, resource_group_name, server_name, custom_headers=None, raw=False, **operation_config):
         """List all the log files in a given server.
 
-        :param resource_group_name: The name of the resource group. The name
-         is case insensitive.
+        :param resource_group_name: The name of the resource group that
+         contains the resource. You can obtain this value from the Azure
+         Resource Manager API or the portal.
         :type resource_group_name: str
         :param server_name: The name of the server.
         :type server_name: str
@@ -63,15 +64,15 @@ class LogFilesOperations(object):
                 # Construct URL
                 url = self.list_by_server.metadata['url']
                 path_format_arguments = {
-                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', min_length=1),
-                    'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str', max_length=90, min_length=1, pattern=r'^[-\w\._\(\)]+$'),
+                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
+                    'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
                     'serverName': self._serialize.url("server_name", server_name, 'str')
                 }
                 url = self._client.format_url(url, **path_format_arguments)
 
                 # Construct parameters
                 query_parameters = {}
-                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str', min_length=1)
+                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
 
             else:
                 url = next_link

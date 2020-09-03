@@ -36,18 +36,6 @@ class MinimalTlsVersionEnum(str, Enum):
     tls_enforcement_disabled = "TLSEnforcementDisabled"
 
 
-class InfrastructureEncryption(str, Enum):
-
-    enabled = "Enabled"
-    disabled = "Disabled"
-
-
-class PublicNetworkAccessEnum(str, Enum):
-
-    enabled = "Enabled"
-    disabled = "Disabled"
-
-
 class PrivateLinkServiceConnectionStateStatus(str, Enum):
 
     approved = "Approved"
@@ -70,6 +58,12 @@ class PrivateEndpointProvisioningState(str, Enum):
     rejecting = "Rejecting"
 
 
+class InfrastructureEncryption(str, Enum):
+
+    enabled = "Enabled"
+    disabled = "Disabled"
+
+
 class ServerState(str, Enum):
 
     ready = "Ready"
@@ -85,6 +79,12 @@ class GeoRedundantBackup(str, Enum):
 
 
 class StorageAutogrow(str, Enum):
+
+    enabled = "Enabled"
+    disabled = "Disabled"
+
+
+class PublicNetworkAccessEnum(str, Enum):
 
     enabled = "Enabled"
     disabled = "Disabled"

@@ -21,7 +21,8 @@ class PostgreSQLManagementClientConfiguration(AzureConfiguration):
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
      object<msrestazure.azure_active_directory>`
-    :param subscription_id: The ID of the target subscription.
+    :param subscription_id: The subscription ID that identifies an Azure
+     subscription.
     :type subscription_id: str
     :param str base_url: Service URL
     """
