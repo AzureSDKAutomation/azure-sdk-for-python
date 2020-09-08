@@ -7998,7 +7998,8 @@ class CompressionReadSettings(Model):
     """Compression read settings.
 
     You probably want to use the sub-classes and not this class directly. Known
-    sub-classes are: ZipDeflateReadSettings
+    sub-classes are: TarGZipReadSettings, TarReadSettings,
+    ZipDeflateReadSettings
 
     All required parameters must be populated in order to send to Azure.
 
@@ -8019,7 +8020,7 @@ class CompressionReadSettings(Model):
     }
 
     _subtype_map = {
-        'type': {'ZipDeflateReadSettings': 'ZipDeflateReadSettings'}
+        'type': {'TarGZipReadSettings': 'TarGZipReadSettings', 'TarReadSettings': 'TarReadSettings', 'ZipDeflateReadSettings': 'ZipDeflateReadSettings'}
     }
 
     def __init__(self, **kwargs):
@@ -10220,7 +10221,8 @@ class DatasetCompression(Model):
     """The compression method used on a dataset.
 
     You probably want to use the sub-classes and not this class directly. Known
-    sub-classes are: DatasetZipDeflateCompression, DatasetDeflateCompression,
+    sub-classes are: DatasetTarGZipCompression, DatasetTarCompression,
+    DatasetZipDeflateCompression, DatasetDeflateCompression,
     DatasetGZipCompression, DatasetBZip2Compression
 
     All required parameters must be populated in order to send to Azure.
@@ -10242,7 +10244,7 @@ class DatasetCompression(Model):
     }
 
     _subtype_map = {
-        'type': {'ZipDeflate': 'DatasetZipDeflateCompression', 'Deflate': 'DatasetDeflateCompression', 'GZip': 'DatasetGZipCompression', 'BZip2': 'DatasetBZip2Compression'}
+        'type': {'TarGZip': 'DatasetTarGZipCompression', 'Tar': 'DatasetTarCompression', 'ZipDeflate': 'DatasetZipDeflateCompression', 'Deflate': 'DatasetDeflateCompression', 'GZip': 'DatasetGZipCompression', 'BZip2': 'DatasetBZip2Compression'}
     }
 
     def __init__(self, **kwargs):
@@ -10454,6 +10456,62 @@ class DatasetResource(SubResource):
     def __init__(self, **kwargs):
         super(DatasetResource, self).__init__(**kwargs)
         self.properties = kwargs.get('properties', None)
+
+
+class DatasetTarCompression(DatasetCompression):
+    """The Tar archive method used on a dataset.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(DatasetTarCompression, self).__init__(**kwargs)
+        self.type = 'Tar'
+
+
+class DatasetTarGZipCompression(DatasetCompression):
+    """The TarGZip compression method used on a dataset.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param level: The TarGZip compression level.
+    :type level: object
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'level': {'key': 'level', 'type': 'object'},
+    }
+
+    def __init__(self, **kwargs):
+        super(DatasetTarGZipCompression, self).__init__(**kwargs)
+        self.level = kwargs.get('level', None)
+        self.type = 'TarGZip'
 
 
 class DatasetZipDeflateCompression(DatasetCompression):
@@ -19376,12 +19434,6 @@ class LogStorageSettings(Model):
     :param path: The path to storage for storing detailed logs of activity
      execution. Type: string (or Expression with resultType string).
     :type path: object
-    :param log_level: Gets or sets the log level, support: Info, Warning.
-     Type: string (or Expression with resultType string).
-    :type log_level: object
-    :param enable_reliable_logging: Specifies whether to enable reliable
-     logging. Type: boolean (or Expression with resultType boolean).
-    :type enable_reliable_logging: object
     """
 
     _validation = {
@@ -19392,8 +19444,6 @@ class LogStorageSettings(Model):
         'additional_properties': {'key': '', 'type': '{object}'},
         'linked_service_name': {'key': 'linkedServiceName', 'type': 'LinkedServiceReference'},
         'path': {'key': 'path', 'type': 'object'},
-        'log_level': {'key': 'logLevel', 'type': 'object'},
-        'enable_reliable_logging': {'key': 'enableReliableLogging', 'type': 'object'},
     }
 
     def __init__(self, **kwargs):
@@ -19401,8 +19451,6 @@ class LogStorageSettings(Model):
         self.additional_properties = kwargs.get('additional_properties', None)
         self.linked_service_name = kwargs.get('linked_service_name', None)
         self.path = kwargs.get('path', None)
-        self.log_level = kwargs.get('log_level', None)
-        self.enable_reliable_logging = kwargs.get('enable_reliable_logging', None)
 
 
 class LookupActivity(ExecutionActivity):
@@ -32039,6 +32087,70 @@ class SybaseTableDataset(Dataset):
         super(SybaseTableDataset, self).__init__(**kwargs)
         self.table_name = kwargs.get('table_name', None)
         self.type = 'SybaseTable'
+
+
+class TarGZipReadSettings(CompressionReadSettings):
+    """The TarGZip compression read settings.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param preserve_compression_file_name_as_folder: Preserve the compression
+     file name as folder path. Type: boolean (or Expression with resultType
+     boolean).
+    :type preserve_compression_file_name_as_folder: object
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'preserve_compression_file_name_as_folder': {'key': 'preserveCompressionFileNameAsFolder', 'type': 'object'},
+    }
+
+    def __init__(self, **kwargs):
+        super(TarGZipReadSettings, self).__init__(**kwargs)
+        self.preserve_compression_file_name_as_folder = kwargs.get('preserve_compression_file_name_as_folder', None)
+        self.type = 'TarGZipReadSettings'
+
+
+class TarReadSettings(CompressionReadSettings):
+    """The Tar compression read settings.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param preserve_compression_file_name_as_folder: Preserve the compression
+     file name as folder path. Type: boolean (or Expression with resultType
+     boolean).
+    :type preserve_compression_file_name_as_folder: object
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'preserve_compression_file_name_as_folder': {'key': 'preserveCompressionFileNameAsFolder', 'type': 'object'},
+    }
+
+    def __init__(self, **kwargs):
+        super(TarReadSettings, self).__init__(**kwargs)
+        self.preserve_compression_file_name_as_folder = kwargs.get('preserve_compression_file_name_as_folder', None)
+        self.type = 'TarReadSettings'
 
 
 class TeradataLinkedService(LinkedService):

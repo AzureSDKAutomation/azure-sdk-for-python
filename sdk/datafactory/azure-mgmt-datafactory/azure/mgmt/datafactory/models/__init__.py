@@ -181,6 +181,8 @@ try:
     from ._models_py3 import DatasetReference
     from ._models_py3 import DatasetResource
     from ._models_py3 import DatasetStorageFormat
+    from ._models_py3 import DatasetTarCompression
+    from ._models_py3 import DatasetTarGZipCompression
     from ._models_py3 import DatasetZipDeflateCompression
     from ._models_py3 import Db2LinkedService
     from ._models_py3 import Db2Source
@@ -567,6 +569,8 @@ try:
     from ._models_py3 import SybaseSource
     from ._models_py3 import SybaseTableDataset
     from ._models_py3 import TabularSource
+    from ._models_py3 import TarGZipReadSettings
+    from ._models_py3 import TarReadSettings
     from ._models_py3 import TeradataLinkedService
     from ._models_py3 import TeradataPartitionSettings
     from ._models_py3 import TeradataSource
@@ -788,6 +792,8 @@ except (SyntaxError, ImportError):
     from ._models import DatasetReference
     from ._models import DatasetResource
     from ._models import DatasetStorageFormat
+    from ._models import DatasetTarCompression
+    from ._models import DatasetTarGZipCompression
     from ._models import DatasetZipDeflateCompression
     from ._models import Db2LinkedService
     from ._models import Db2Source
@@ -1174,6 +1180,8 @@ except (SyntaxError, ImportError):
     from ._models import SybaseSource
     from ._models import SybaseTableDataset
     from ._models import TabularSource
+    from ._models import TarGZipReadSettings
+    from ._models import TarReadSettings
     from ._models import TeradataLinkedService
     from ._models import TeradataPartitionSettings
     from ._models import TeradataSource
@@ -1487,6 +1495,8 @@ __all__ = [
     'DatasetReference',
     'DatasetResource',
     'DatasetStorageFormat',
+    'DatasetTarCompression',
+    'DatasetTarGZipCompression',
     'DatasetZipDeflateCompression',
     'Db2LinkedService',
     'Db2Source',
@@ -1873,6 +1883,8 @@ __all__ = [
     'SybaseSource',
     'SybaseTableDataset',
     'TabularSource',
+    'TarGZipReadSettings',
+    'TarReadSettings',
     'TeradataLinkedService',
     'TeradataPartitionSettings',
     'TeradataSource',
