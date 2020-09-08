@@ -27,7 +27,7 @@ class ServerKeysOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The API version to use for this operation. Constant value: "2020-01-01".
+    :ivar api_version: The API version to use for the request. Constant value: "2020-01-01-privatepreview".
     """
 
     models = models
@@ -37,16 +37,17 @@ class ServerKeysOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-01-01"
+        self.api_version = "2020-01-01-privatepreview"
 
         self.config = config
 
-    def list(
+    def list_by_instance(
             self, resource_group_name, server_name, custom_headers=None, raw=False, **operation_config):
         """Gets a list of  Server keys.
 
-        :param resource_group_name: The name of the resource group. The name
-         is case insensitive.
+        :param resource_group_name: The name of the resource group that
+         contains the resource. You can obtain this value from the Azure
+         Resource Manager API or the portal.
         :type resource_group_name: str
         :param server_name: The name of the server.
         :type server_name: str
@@ -63,17 +64,17 @@ class ServerKeysOperations(object):
         def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
-                url = self.list.metadata['url']
+                url = self.list_by_instance.metadata['url']
                 path_format_arguments = {
-                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', min_length=1),
-                    'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str', max_length=90, min_length=1, pattern=r'^[-\w\._\(\)]+$'),
-                    'serverName': self._serialize.url("server_name", server_name, 'str')
+                    'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
+                    'serverName': self._serialize.url("server_name", server_name, 'str'),
+                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
                 }
                 url = self._client.format_url(url, **path_format_arguments)
 
                 # Construct parameters
                 query_parameters = {}
-                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str', min_length=1)
+                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
 
             else:
                 url = next_link
@@ -112,14 +113,15 @@ class ServerKeysOperations(object):
         deserialized = models.ServerKeyPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/servers/{serverName}/keys'}
+    list_by_instance.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/servers/{serverName}/keys'}
 
     def get(
             self, resource_group_name, server_name, key_name, custom_headers=None, raw=False, **operation_config):
         """Gets a PostgreSQL Server key.
 
-        :param resource_group_name: The name of the resource group. The name
-         is case insensitive.
+        :param resource_group_name: The name of the resource group that
+         contains the resource. You can obtain this value from the Azure
+         Resource Manager API or the portal.
         :type resource_group_name: str
         :param server_name: The name of the server.
         :type server_name: str
@@ -139,16 +141,16 @@ class ServerKeysOperations(object):
         # Construct URL
         url = self.get.metadata['url']
         path_format_arguments = {
-            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str', max_length=90, min_length=1, pattern=r'^[-\w\._\(\)]+$'),
+            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serverName': self._serialize.url("server_name", server_name, 'str'),
             'keyName': self._serialize.url("key_name", key_name, 'str'),
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', min_length=1)
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str', min_length=1)
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -182,22 +184,22 @@ class ServerKeysOperations(object):
 
 
     def _create_or_update_initial(
-            self, server_name, key_name, resource_group_name, uri=None, custom_headers=None, raw=False, **operation_config):
+            self, resource_group_name, server_name, key_name, uri=None, custom_headers=None, raw=False, **operation_config):
         parameters = models.ServerKey(uri=uri)
 
         # Construct URL
         url = self.create_or_update.metadata['url']
         path_format_arguments = {
+            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serverName': self._serialize.url("server_name", server_name, 'str'),
             'keyName': self._serialize.url("key_name", key_name, 'str'),
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', min_length=1),
-            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str', max_length=90, min_length=1, pattern=r'^[-\w\._\(\)]+$')
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str', min_length=1)
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -226,8 +228,6 @@ class ServerKeysOperations(object):
 
         if response.status_code == 200:
             deserialized = self._deserialize('ServerKey', response)
-        if response.status_code == 202:
-            deserialized = self._deserialize('ServerKey', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
@@ -236,17 +236,18 @@ class ServerKeysOperations(object):
         return deserialized
 
     def create_or_update(
-            self, server_name, key_name, resource_group_name, uri=None, custom_headers=None, raw=False, polling=True, **operation_config):
+            self, resource_group_name, server_name, key_name, uri=None, custom_headers=None, raw=False, polling=True, **operation_config):
         """Creates or updates a PostgreSQL Server key.
 
+        :param resource_group_name: The name of the resource group that
+         contains the resource. You can obtain this value from the Azure
+         Resource Manager API or the portal.
+        :type resource_group_name: str
         :param server_name: The name of the server.
         :type server_name: str
         :param key_name: The name of the PostgreSQL Server key to be operated
          on (updated or created).
         :type key_name: str
-        :param resource_group_name: The name of the resource group. The name
-         is case insensitive.
-        :type resource_group_name: str
         :param uri: The URI of the key.
         :type uri: str
         :param dict custom_headers: headers that will be added to the request
@@ -263,9 +264,9 @@ class ServerKeysOperations(object):
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._create_or_update_initial(
+            resource_group_name=resource_group_name,
             server_name=server_name,
             key_name=key_name,
-            resource_group_name=resource_group_name,
             uri=uri,
             custom_headers=custom_headers,
             raw=True,
@@ -292,20 +293,20 @@ class ServerKeysOperations(object):
 
 
     def _delete_initial(
-            self, server_name, key_name, resource_group_name, custom_headers=None, raw=False, **operation_config):
+            self, resource_group_name, server_name, key_name, custom_headers=None, raw=False, **operation_config):
         # Construct URL
         url = self.delete.metadata['url']
         path_format_arguments = {
+            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serverName': self._serialize.url("server_name", server_name, 'str'),
             'keyName': self._serialize.url("key_name", key_name, 'str'),
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', min_length=1),
-            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str', max_length=90, min_length=1, pattern=r'^[-\w\._\(\)]+$')
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str', min_length=1)
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -330,16 +331,17 @@ class ServerKeysOperations(object):
             return client_raw_response
 
     def delete(
-            self, server_name, key_name, resource_group_name, custom_headers=None, raw=False, polling=True, **operation_config):
+            self, resource_group_name, server_name, key_name, custom_headers=None, raw=False, polling=True, **operation_config):
         """Deletes the PostgreSQL Server key with the given name.
 
+        :param resource_group_name: The name of the resource group that
+         contains the resource. You can obtain this value from the Azure
+         Resource Manager API or the portal.
+        :type resource_group_name: str
         :param server_name: The name of the server.
         :type server_name: str
         :param key_name: The name of the PostgreSQL Server key to be deleted.
         :type key_name: str
-        :param resource_group_name: The name of the resource group. The name
-         is case insensitive.
-        :type resource_group_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response
@@ -352,9 +354,9 @@ class ServerKeysOperations(object):
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._delete_initial(
+            resource_group_name=resource_group_name,
             server_name=server_name,
             key_name=key_name,
-            resource_group_name=resource_group_name,
             custom_headers=custom_headers,
             raw=True,
             **operation_config

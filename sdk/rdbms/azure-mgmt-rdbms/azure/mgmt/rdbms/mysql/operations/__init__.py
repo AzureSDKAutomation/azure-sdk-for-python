@@ -21,17 +21,6 @@ from ._location_based_performance_tier_operations import LocationBasedPerformanc
 from ._check_name_availability_operations import CheckNameAvailabilityOperations
 from ._server_security_alert_policies_operations import ServerSecurityAlertPoliciesOperations
 from ._operations import Operations
-from ._query_texts_operations import QueryTextsOperations
-from ._top_query_statistics_operations import TopQueryStatisticsOperations
-from ._wait_statistics_operations import WaitStatisticsOperations
-from ._advisors_operations import AdvisorsOperations
-from ._recommended_actions_operations import RecommendedActionsOperations
-from ._location_based_recommended_action_sessions_operation_status_operations import LocationBasedRecommendedActionSessionsOperationStatusOperations
-from ._location_based_recommended_action_sessions_result_operations import LocationBasedRecommendedActionSessionsResultOperations
-from ._private_endpoint_connections_operations import PrivateEndpointConnectionsOperations
-from ._private_link_resources_operations import PrivateLinkResourcesOperations
-from ._server_keys_operations import ServerKeysOperations
-from ._my_sql_management_client_operations import MySQLManagementClientOperationsMixin
 
 __all__ = [
     'ServersOperations',
@@ -46,15 +35,4 @@ __all__ = [
     'CheckNameAvailabilityOperations',
     'ServerSecurityAlertPoliciesOperations',
     'Operations',
-    'QueryTextsOperations',
-    'TopQueryStatisticsOperations',
-    'WaitStatisticsOperations',
-    'AdvisorsOperations',
-    'RecommendedActionsOperations',
-    'LocationBasedRecommendedActionSessionsOperationStatusOperations',
-    'LocationBasedRecommendedActionSessionsResultOperations',
-    'PrivateEndpointConnectionsOperations',
-    'PrivateLinkResourcesOperations',
-    'ServerKeysOperations',
-    'MySQLManagementClientOperationsMixin',
 ]

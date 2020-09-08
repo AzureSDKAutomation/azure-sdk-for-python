@@ -13,88 +13,15 @@ from msrest.serialization import Model
 from msrest.exceptions import HttpOperationError
 
 
-class Resource(Model):
-    """Resource.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-    :vartype id: str
-    :ivar name: The name of the resource
-    :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
-    :vartype type: str
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(Resource, self).__init__(**kwargs)
-        self.id = None
-        self.name = None
-        self.type = None
-
-
-class AzureEntityResource(Resource):
-    """The resource model definition for a Azure Resource Manager resource with an
-    etag.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-    :vartype id: str
-    :ivar name: The name of the resource
-    :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
-    :vartype type: str
-    :ivar etag: Resource Etag.
-    :vartype etag: str
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'etag': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'etag': {'key': 'etag', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(AzureEntityResource, self).__init__(**kwargs)
-        self.etag = None
-
-
 class CloudError(Model):
     """An error response from the Batch service.
 
     :param error:
-    :type error: ~azure.mgmt.rdbms.postgresql.models.ErrorResponse
+    :type error: ~azure.mgmt.rdbms.postgresql.models.CloudErrorBody
     """
 
     _attribute_map = {
-        'error': {'key': 'error', 'type': 'ErrorResponse'},
+        'error': {'key': 'error', 'type': 'CloudErrorBody'},
     }
 
     def __init__(self, **kwargs):
@@ -114,20 +41,48 @@ class CloudErrorException(HttpOperationError):
         super(CloudErrorException, self).__init__(deserialize, response, 'CloudError', *args)
 
 
-class ProxyResource(Resource):
-    """The resource model definition for a ARM proxy resource. It will have
-    everything other than required location and tags.
+class CloudErrorBody(Model):
+    """An error response from the Batch service.
+
+    :param code: An identifier for the error. Codes are invariant and are
+     intended to be consumed programmatically.
+    :type code: str
+    :param message: A message describing the error, intended to be suitable
+     for display in a user interface.
+    :type message: str
+    :param target: The target of the particular error. For example, the name
+     of the property in error.
+    :type target: str
+    :param details: A list of additional details about the error.
+    :type details: list[~azure.mgmt.rdbms.postgresql.models.CloudErrorBody]
+    """
+
+    _attribute_map = {
+        'code': {'key': 'code', 'type': 'str'},
+        'message': {'key': 'message', 'type': 'str'},
+        'target': {'key': 'target', 'type': 'str'},
+        'details': {'key': 'details', 'type': '[CloudErrorBody]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CloudErrorBody, self).__init__(**kwargs)
+        self.code = kwargs.get('code', None)
+        self.message = kwargs.get('message', None)
+        self.target = kwargs.get('target', None)
+        self.details = kwargs.get('details', None)
+
+
+class ProxyResource(Model):
+    """Resource properties.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
     """
 
@@ -145,6 +100,9 @@ class ProxyResource(Resource):
 
     def __init__(self, **kwargs):
         super(ProxyResource, self).__init__(**kwargs)
+        self.id = None
+        self.name = None
+        self.type = None
 
 
 class Configuration(ProxyResource):
@@ -153,13 +111,11 @@ class Configuration(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
     :param value: Value of the configuration.
     :type value: str
@@ -213,13 +169,11 @@ class Database(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
     :param charset: The charset of the database.
     :type charset: str
@@ -247,78 +201,6 @@ class Database(ProxyResource):
         self.collation = kwargs.get('collation', None)
 
 
-class ErrorAdditionalInfo(Model):
-    """The resource management error additional info.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar type: The additional info type.
-    :vartype type: str
-    :ivar info: The additional info.
-    :vartype info: object
-    """
-
-    _validation = {
-        'type': {'readonly': True},
-        'info': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'type': {'key': 'type', 'type': 'str'},
-        'info': {'key': 'info', 'type': 'object'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ErrorAdditionalInfo, self).__init__(**kwargs)
-        self.type = None
-        self.info = None
-
-
-class ErrorResponse(Model):
-    """The resource management error response.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar code: The error code.
-    :vartype code: str
-    :ivar message: The error message.
-    :vartype message: str
-    :ivar target: The error target.
-    :vartype target: str
-    :ivar details: The error details.
-    :vartype details: list[~azure.mgmt.rdbms.postgresql.models.ErrorResponse]
-    :ivar additional_info: The error additional info.
-    :vartype additional_info:
-     list[~azure.mgmt.rdbms.postgresql.models.ErrorAdditionalInfo]
-    """
-
-    _validation = {
-        'code': {'readonly': True},
-        'message': {'readonly': True},
-        'target': {'readonly': True},
-        'details': {'readonly': True},
-        'additional_info': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'code': {'key': 'code', 'type': 'str'},
-        'message': {'key': 'message', 'type': 'str'},
-        'target': {'key': 'target', 'type': 'str'},
-        'details': {'key': 'details', 'type': '[ErrorResponse]'},
-        'additional_info': {'key': 'additionalInfo', 'type': '[ErrorAdditionalInfo]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ErrorResponse, self).__init__(**kwargs)
-        self.code = None
-        self.message = None
-        self.target = None
-        self.details = None
-        self.additional_info = None
-
-
 class FirewallRule(ProxyResource):
     """Represents a server firewall rule.
 
@@ -327,13 +209,11 @@ class FirewallRule(ProxyResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
     :param start_ip_address: Required. The start IP address of the server
      firewall rule. Must be IPv4 format.
@@ -371,13 +251,11 @@ class LogFile(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
     :param size_in_kb: Size of the log file.
     :type size_in_kb: long
@@ -634,20 +512,12 @@ class PerformanceTierServiceLevelObjectives(Model):
         self.min_storage_mb = kwargs.get('min_storage_mb', None)
 
 
-class PrivateEndpointConnection(ProxyResource):
-    """A private endpoint connection.
+class PrivateEndpointConnectionProperties(Model):
+    """Properties of a private endpoint connection.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-    :vartype id: str
-    :ivar name: The name of the resource
-    :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
-    :vartype type: str
     :param private_endpoint: Private endpoint which the connection belongs to.
     :type private_endpoint:
      ~azure.mgmt.rdbms.postgresql.models.PrivateEndpointProperty
@@ -656,27 +526,24 @@ class PrivateEndpointConnection(ProxyResource):
     :type private_link_service_connection_state:
      ~azure.mgmt.rdbms.postgresql.models.PrivateLinkServiceConnectionStateProperty
     :ivar provisioning_state: State of the private endpoint connection.
-    :vartype provisioning_state: str
+     Possible values include: 'Approving', 'Ready', 'Dropping', 'Failed',
+     'Rejecting'
+    :vartype provisioning_state: str or
+     ~azure.mgmt.rdbms.postgresql.models.PrivateEndpointProvisioningState
     """
 
     _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
         'provisioning_state': {'readonly': True},
     }
 
     _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'private_endpoint': {'key': 'properties.privateEndpoint', 'type': 'PrivateEndpointProperty'},
-        'private_link_service_connection_state': {'key': 'properties.privateLinkServiceConnectionState', 'type': 'PrivateLinkServiceConnectionStateProperty'},
-        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'private_endpoint': {'key': 'privateEndpoint', 'type': 'PrivateEndpointProperty'},
+        'private_link_service_connection_state': {'key': 'privateLinkServiceConnectionState', 'type': 'PrivateLinkServiceConnectionStateProperty'},
+        'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
-        super(PrivateEndpointConnection, self).__init__(**kwargs)
+        super(PrivateEndpointConnectionProperties, self).__init__(**kwargs)
         self.private_endpoint = kwargs.get('private_endpoint', None)
         self.private_link_service_connection_state = kwargs.get('private_link_service_connection_state', None)
         self.provisioning_state = None
@@ -698,72 +565,6 @@ class PrivateEndpointProperty(Model):
         self.id = kwargs.get('id', None)
 
 
-class PrivateLinkResource(ProxyResource):
-    """A private link resource.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-    :vartype id: str
-    :ivar name: The name of the resource
-    :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
-    :vartype type: str
-    :ivar properties: The private link resource group id.
-    :vartype properties:
-     ~azure.mgmt.rdbms.postgresql.models.PrivateLinkResourceProperties
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'properties': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'properties': {'key': 'properties', 'type': 'PrivateLinkResourceProperties'},
-    }
-
-    def __init__(self, **kwargs):
-        super(PrivateLinkResource, self).__init__(**kwargs)
-        self.properties = None
-
-
-class PrivateLinkResourceProperties(Model):
-    """Properties of a private link resource.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar group_id: The private link resource group id.
-    :vartype group_id: str
-    :ivar required_members: The private link resource required member names.
-    :vartype required_members: list[str]
-    """
-
-    _validation = {
-        'group_id': {'readonly': True},
-        'required_members': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'group_id': {'key': 'groupId', 'type': 'str'},
-        'required_members': {'key': 'requiredMembers', 'type': '[str]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(PrivateLinkResourceProperties, self).__init__(**kwargs)
-        self.group_id = None
-        self.required_members = None
-
-
 class PrivateLinkServiceConnectionStateProperty(Model):
     """PrivateLinkServiceConnectionStateProperty.
 
@@ -773,13 +574,16 @@ class PrivateLinkServiceConnectionStateProperty(Model):
     All required parameters must be populated in order to send to Azure.
 
     :param status: Required. The private link service connection status.
-    :type status: str
+     Possible values include: 'Approved', 'Pending', 'Rejected', 'Disconnected'
+    :type status: str or
+     ~azure.mgmt.rdbms.postgresql.models.PrivateLinkServiceConnectionStateStatus
     :param description: Required. The private link service connection
      description.
     :type description: str
     :ivar actions_required: The actions required for private link service
-     connection.
-    :vartype actions_required: str
+     connection. Possible values include: 'None'
+    :vartype actions_required: str or
+     ~azure.mgmt.rdbms.postgresql.models.PrivateLinkServiceConnectionStateActionsRequire
     """
 
     _validation = {
@@ -835,26 +639,24 @@ class ResourceIdentity(Model):
         self.tenant_id = None
 
 
-class TrackedResource(Resource):
-    """The resource model definition for a ARM tracked top level resource.
+class TrackedResource(ProxyResource):
+    """Resource properties including location and tags for track resources.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
-    :param tags: Resource tags.
-    :type tags: dict[str, str]
-    :param location: Required. The geo-location where the resource lives
+    :param location: Required. The location the resource resides in.
     :type location: str
+    :param tags: Application-specific metadata in the form of key-value pairs.
+    :type tags: dict[str, str]
     """
 
     _validation = {
@@ -868,14 +670,14 @@ class TrackedResource(Resource):
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
-        'tags': {'key': 'tags', 'type': '{str}'},
         'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
     }
 
     def __init__(self, **kwargs):
         super(TrackedResource, self).__init__(**kwargs)
-        self.tags = kwargs.get('tags', None)
         self.location = kwargs.get('location', None)
+        self.tags = kwargs.get('tags', None)
 
 
 class Server(TrackedResource):
@@ -886,18 +688,16 @@ class Server(TrackedResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
-    :param tags: Resource tags.
-    :type tags: dict[str, str]
-    :param location: Required. The geo-location where the resource lives
+    :param location: Required. The location the resource resides in.
     :type location: str
+    :param tags: Application-specific metadata in the form of key-value pairs.
+    :type tags: dict[str, str]
     :param identity: The Azure Active Directory identity of the server.
     :type identity: ~azure.mgmt.rdbms.postgresql.models.ResourceIdentity
     :param sku: The SKU (pricing tier) of the server.
@@ -945,8 +745,8 @@ class Server(TrackedResource):
     :param replica_capacity: The maximum number of replicas that a master
      server can have.
     :type replica_capacity: int
-    :param public_network_access: Whether or not public network access is
-     allowed for this server. Value is optional but if passed in, must be
+    :param public_network_access: Whether or not public endpoint access is
+     allowed for this server.  Value is optional but if passed in, must be
      'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
     :type public_network_access: str or
      ~azure.mgmt.rdbms.postgresql.models.PublicNetworkAccessEnum
@@ -970,8 +770,8 @@ class Server(TrackedResource):
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
-        'tags': {'key': 'tags', 'type': '{str}'},
         'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
         'identity': {'key': 'identity', 'type': 'ResourceIdentity'},
         'sku': {'key': 'sku', 'type': 'Sku'},
         'administrator_login': {'key': 'properties.administratorLogin', 'type': 'str'},
@@ -1020,13 +820,11 @@ class ServerAdministratorResource(ProxyResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
     :ivar administrator_type: Required. The type of administrator. Default
      value: "ActiveDirectory" .
@@ -1074,8 +872,6 @@ class ServerForCreate(Model):
 
     All required parameters must be populated in order to send to Azure.
 
-    :param identity: The Azure Active Directory identity of the server.
-    :type identity: ~azure.mgmt.rdbms.postgresql.models.ResourceIdentity
     :param sku: The SKU (pricing tier) of the server.
     :type sku: ~azure.mgmt.rdbms.postgresql.models.Sku
     :param properties: Required. Properties of the server.
@@ -1093,7 +889,6 @@ class ServerForCreate(Model):
     }
 
     _attribute_map = {
-        'identity': {'key': 'identity', 'type': 'ResourceIdentity'},
         'sku': {'key': 'sku', 'type': 'Sku'},
         'properties': {'key': 'properties', 'type': 'ServerPropertiesForCreate'},
         'location': {'key': 'location', 'type': 'str'},
@@ -1102,66 +897,10 @@ class ServerForCreate(Model):
 
     def __init__(self, **kwargs):
         super(ServerForCreate, self).__init__(**kwargs)
-        self.identity = kwargs.get('identity', None)
         self.sku = kwargs.get('sku', None)
         self.properties = kwargs.get('properties', None)
         self.location = kwargs.get('location', None)
         self.tags = kwargs.get('tags', None)
-
-
-class ServerKey(ProxyResource):
-    """A PostgreSQL Server key.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-    :vartype id: str
-    :ivar name: The name of the resource
-    :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
-    :vartype type: str
-    :ivar kind: Kind of encryption protector used to protect the key.
-    :vartype kind: str
-    :ivar server_key_type: Required. The key type like 'AzureKeyVault'.
-     Default value: "AzureKeyVault" .
-    :vartype server_key_type: str
-    :param uri: The URI of the key.
-    :type uri: str
-    :ivar creation_date: The key creation date.
-    :vartype creation_date: datetime
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'kind': {'readonly': True},
-        'server_key_type': {'required': True, 'constant': True},
-        'creation_date': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'kind': {'key': 'kind', 'type': 'str'},
-        'server_key_type': {'key': 'properties.serverKeyType', 'type': 'str'},
-        'uri': {'key': 'properties.uri', 'type': 'str'},
-        'creation_date': {'key': 'properties.creationDate', 'type': 'iso-8601'},
-    }
-
-    server_key_type = "AzureKeyVault"
-
-    def __init__(self, **kwargs):
-        super(ServerKey, self).__init__(**kwargs)
-        self.kind = None
-        self.uri = kwargs.get('uri', None)
-        self.creation_date = None
 
 
 class ServerPrivateEndpointConnection(Model):
@@ -1170,11 +909,11 @@ class ServerPrivateEndpointConnection(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Resource ID of the Private Endpoint Connection.
+    :ivar id: Resource Id of the private endpoint connection.
     :vartype id: str
     :ivar properties: Private endpoint connection properties
     :vartype properties:
-     ~azure.mgmt.rdbms.postgresql.models.ServerPrivateEndpointConnectionProperties
+     ~azure.mgmt.rdbms.postgresql.models.PrivateEndpointConnectionProperties
     """
 
     _validation = {
@@ -1184,90 +923,13 @@ class ServerPrivateEndpointConnection(Model):
 
     _attribute_map = {
         'id': {'key': 'id', 'type': 'str'},
-        'properties': {'key': 'properties', 'type': 'ServerPrivateEndpointConnectionProperties'},
+        'properties': {'key': 'properties', 'type': 'PrivateEndpointConnectionProperties'},
     }
 
     def __init__(self, **kwargs):
         super(ServerPrivateEndpointConnection, self).__init__(**kwargs)
         self.id = None
         self.properties = None
-
-
-class ServerPrivateEndpointConnectionProperties(Model):
-    """Properties of a private endpoint connection.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :param private_endpoint: Private endpoint which the connection belongs to.
-    :type private_endpoint:
-     ~azure.mgmt.rdbms.postgresql.models.PrivateEndpointProperty
-    :param private_link_service_connection_state: Connection state of the
-     private endpoint connection.
-    :type private_link_service_connection_state:
-     ~azure.mgmt.rdbms.postgresql.models.ServerPrivateLinkServiceConnectionStateProperty
-    :ivar provisioning_state: State of the private endpoint connection.
-     Possible values include: 'Approving', 'Ready', 'Dropping', 'Failed',
-     'Rejecting'
-    :vartype provisioning_state: str or
-     ~azure.mgmt.rdbms.postgresql.models.PrivateEndpointProvisioningState
-    """
-
-    _validation = {
-        'provisioning_state': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'private_endpoint': {'key': 'privateEndpoint', 'type': 'PrivateEndpointProperty'},
-        'private_link_service_connection_state': {'key': 'privateLinkServiceConnectionState', 'type': 'ServerPrivateLinkServiceConnectionStateProperty'},
-        'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ServerPrivateEndpointConnectionProperties, self).__init__(**kwargs)
-        self.private_endpoint = kwargs.get('private_endpoint', None)
-        self.private_link_service_connection_state = kwargs.get('private_link_service_connection_state', None)
-        self.provisioning_state = None
-
-
-class ServerPrivateLinkServiceConnectionStateProperty(Model):
-    """ServerPrivateLinkServiceConnectionStateProperty.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :param status: Required. The private link service connection status.
-     Possible values include: 'Approved', 'Pending', 'Rejected', 'Disconnected'
-    :type status: str or
-     ~azure.mgmt.rdbms.postgresql.models.PrivateLinkServiceConnectionStateStatus
-    :param description: Required. The private link service connection
-     description.
-    :type description: str
-    :ivar actions_required: The actions required for private link service
-     connection. Possible values include: 'None'
-    :vartype actions_required: str or
-     ~azure.mgmt.rdbms.postgresql.models.PrivateLinkServiceConnectionStateActionsRequire
-    """
-
-    _validation = {
-        'status': {'required': True},
-        'description': {'required': True},
-        'actions_required': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'status': {'key': 'status', 'type': 'str'},
-        'description': {'key': 'description', 'type': 'str'},
-        'actions_required': {'key': 'actionsRequired', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ServerPrivateLinkServiceConnectionStateProperty, self).__init__(**kwargs)
-        self.status = kwargs.get('status', None)
-        self.description = kwargs.get('description', None)
-        self.actions_required = None
 
 
 class ServerPropertiesForCreate(Model):
@@ -1292,16 +954,6 @@ class ServerPropertiesForCreate(Model):
      'TLSEnforcementDisabled'
     :type minimal_tls_version: str or
      ~azure.mgmt.rdbms.postgresql.models.MinimalTlsVersionEnum
-    :param infrastructure_encryption: Status showing whether the server
-     enabled infrastructure encryption. Possible values include: 'Enabled',
-     'Disabled'
-    :type infrastructure_encryption: str or
-     ~azure.mgmt.rdbms.postgresql.models.InfrastructureEncryption
-    :param public_network_access: Whether or not public network access is
-     allowed for this server. Value is optional but if passed in, must be
-     'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
-    :type public_network_access: str or
-     ~azure.mgmt.rdbms.postgresql.models.PublicNetworkAccessEnum
     :param storage_profile: Storage profile of a server.
     :type storage_profile: ~azure.mgmt.rdbms.postgresql.models.StorageProfile
     :param create_mode: Required. Constant filled by server.
@@ -1316,8 +968,6 @@ class ServerPropertiesForCreate(Model):
         'version': {'key': 'version', 'type': 'str'},
         'ssl_enforcement': {'key': 'sslEnforcement', 'type': 'SslEnforcementEnum'},
         'minimal_tls_version': {'key': 'minimalTlsVersion', 'type': 'str'},
-        'infrastructure_encryption': {'key': 'infrastructureEncryption', 'type': 'str'},
-        'public_network_access': {'key': 'publicNetworkAccess', 'type': 'str'},
         'storage_profile': {'key': 'storageProfile', 'type': 'StorageProfile'},
         'create_mode': {'key': 'createMode', 'type': 'str'},
     }
@@ -1331,8 +981,6 @@ class ServerPropertiesForCreate(Model):
         self.version = kwargs.get('version', None)
         self.ssl_enforcement = kwargs.get('ssl_enforcement', None)
         self.minimal_tls_version = kwargs.get('minimal_tls_version', None)
-        self.infrastructure_encryption = kwargs.get('infrastructure_encryption', None)
-        self.public_network_access = kwargs.get('public_network_access', None)
         self.storage_profile = kwargs.get('storage_profile', None)
         self.create_mode = None
 
@@ -1354,16 +1002,6 @@ class ServerPropertiesForDefaultCreate(ServerPropertiesForCreate):
      'TLSEnforcementDisabled'
     :type minimal_tls_version: str or
      ~azure.mgmt.rdbms.postgresql.models.MinimalTlsVersionEnum
-    :param infrastructure_encryption: Status showing whether the server
-     enabled infrastructure encryption. Possible values include: 'Enabled',
-     'Disabled'
-    :type infrastructure_encryption: str or
-     ~azure.mgmt.rdbms.postgresql.models.InfrastructureEncryption
-    :param public_network_access: Whether or not public network access is
-     allowed for this server. Value is optional but if passed in, must be
-     'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
-    :type public_network_access: str or
-     ~azure.mgmt.rdbms.postgresql.models.PublicNetworkAccessEnum
     :param storage_profile: Storage profile of a server.
     :type storage_profile: ~azure.mgmt.rdbms.postgresql.models.StorageProfile
     :param create_mode: Required. Constant filled by server.
@@ -1387,8 +1025,6 @@ class ServerPropertiesForDefaultCreate(ServerPropertiesForCreate):
         'version': {'key': 'version', 'type': 'str'},
         'ssl_enforcement': {'key': 'sslEnforcement', 'type': 'SslEnforcementEnum'},
         'minimal_tls_version': {'key': 'minimalTlsVersion', 'type': 'str'},
-        'infrastructure_encryption': {'key': 'infrastructureEncryption', 'type': 'str'},
-        'public_network_access': {'key': 'publicNetworkAccess', 'type': 'str'},
         'storage_profile': {'key': 'storageProfile', 'type': 'StorageProfile'},
         'create_mode': {'key': 'createMode', 'type': 'str'},
         'administrator_login': {'key': 'administratorLogin', 'type': 'str'},
@@ -1420,16 +1056,6 @@ class ServerPropertiesForGeoRestore(ServerPropertiesForCreate):
      'TLSEnforcementDisabled'
     :type minimal_tls_version: str or
      ~azure.mgmt.rdbms.postgresql.models.MinimalTlsVersionEnum
-    :param infrastructure_encryption: Status showing whether the server
-     enabled infrastructure encryption. Possible values include: 'Enabled',
-     'Disabled'
-    :type infrastructure_encryption: str or
-     ~azure.mgmt.rdbms.postgresql.models.InfrastructureEncryption
-    :param public_network_access: Whether or not public network access is
-     allowed for this server. Value is optional but if passed in, must be
-     'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
-    :type public_network_access: str or
-     ~azure.mgmt.rdbms.postgresql.models.PublicNetworkAccessEnum
     :param storage_profile: Storage profile of a server.
     :type storage_profile: ~azure.mgmt.rdbms.postgresql.models.StorageProfile
     :param create_mode: Required. Constant filled by server.
@@ -1447,8 +1073,6 @@ class ServerPropertiesForGeoRestore(ServerPropertiesForCreate):
         'version': {'key': 'version', 'type': 'str'},
         'ssl_enforcement': {'key': 'sslEnforcement', 'type': 'SslEnforcementEnum'},
         'minimal_tls_version': {'key': 'minimalTlsVersion', 'type': 'str'},
-        'infrastructure_encryption': {'key': 'infrastructureEncryption', 'type': 'str'},
-        'public_network_access': {'key': 'publicNetworkAccess', 'type': 'str'},
         'storage_profile': {'key': 'storageProfile', 'type': 'StorageProfile'},
         'create_mode': {'key': 'createMode', 'type': 'str'},
         'source_server_id': {'key': 'sourceServerId', 'type': 'str'},
@@ -1477,16 +1101,6 @@ class ServerPropertiesForReplica(ServerPropertiesForCreate):
      'TLSEnforcementDisabled'
     :type minimal_tls_version: str or
      ~azure.mgmt.rdbms.postgresql.models.MinimalTlsVersionEnum
-    :param infrastructure_encryption: Status showing whether the server
-     enabled infrastructure encryption. Possible values include: 'Enabled',
-     'Disabled'
-    :type infrastructure_encryption: str or
-     ~azure.mgmt.rdbms.postgresql.models.InfrastructureEncryption
-    :param public_network_access: Whether or not public network access is
-     allowed for this server. Value is optional but if passed in, must be
-     'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
-    :type public_network_access: str or
-     ~azure.mgmt.rdbms.postgresql.models.PublicNetworkAccessEnum
     :param storage_profile: Storage profile of a server.
     :type storage_profile: ~azure.mgmt.rdbms.postgresql.models.StorageProfile
     :param create_mode: Required. Constant filled by server.
@@ -1505,8 +1119,6 @@ class ServerPropertiesForReplica(ServerPropertiesForCreate):
         'version': {'key': 'version', 'type': 'str'},
         'ssl_enforcement': {'key': 'sslEnforcement', 'type': 'SslEnforcementEnum'},
         'minimal_tls_version': {'key': 'minimalTlsVersion', 'type': 'str'},
-        'infrastructure_encryption': {'key': 'infrastructureEncryption', 'type': 'str'},
-        'public_network_access': {'key': 'publicNetworkAccess', 'type': 'str'},
         'storage_profile': {'key': 'storageProfile', 'type': 'StorageProfile'},
         'create_mode': {'key': 'createMode', 'type': 'str'},
         'source_server_id': {'key': 'sourceServerId', 'type': 'str'},
@@ -1535,16 +1147,6 @@ class ServerPropertiesForRestore(ServerPropertiesForCreate):
      'TLSEnforcementDisabled'
     :type minimal_tls_version: str or
      ~azure.mgmt.rdbms.postgresql.models.MinimalTlsVersionEnum
-    :param infrastructure_encryption: Status showing whether the server
-     enabled infrastructure encryption. Possible values include: 'Enabled',
-     'Disabled'
-    :type infrastructure_encryption: str or
-     ~azure.mgmt.rdbms.postgresql.models.InfrastructureEncryption
-    :param public_network_access: Whether or not public network access is
-     allowed for this server. Value is optional but if passed in, must be
-     'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
-    :type public_network_access: str or
-     ~azure.mgmt.rdbms.postgresql.models.PublicNetworkAccessEnum
     :param storage_profile: Storage profile of a server.
     :type storage_profile: ~azure.mgmt.rdbms.postgresql.models.StorageProfile
     :param create_mode: Required. Constant filled by server.
@@ -1566,8 +1168,6 @@ class ServerPropertiesForRestore(ServerPropertiesForCreate):
         'version': {'key': 'version', 'type': 'str'},
         'ssl_enforcement': {'key': 'sslEnforcement', 'type': 'SslEnforcementEnum'},
         'minimal_tls_version': {'key': 'minimalTlsVersion', 'type': 'str'},
-        'infrastructure_encryption': {'key': 'infrastructureEncryption', 'type': 'str'},
-        'public_network_access': {'key': 'publicNetworkAccess', 'type': 'str'},
         'storage_profile': {'key': 'storageProfile', 'type': 'StorageProfile'},
         'create_mode': {'key': 'createMode', 'type': 'str'},
         'source_server_id': {'key': 'sourceServerId', 'type': 'str'},
@@ -1589,13 +1189,11 @@ class ServerSecurityAlertPolicy(ProxyResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
     :param state: Required. Specifies the state of the policy, whether it is
      enabled or disabled. Possible values include: 'Enabled', 'Disabled'
@@ -1657,8 +1255,6 @@ class ServerSecurityAlertPolicy(ProxyResource):
 class ServerUpdateParameters(Model):
     """Parameters allowed to update for a server.
 
-    :param identity: The Azure Active Directory identity of the server.
-    :type identity: ~azure.mgmt.rdbms.postgresql.models.ResourceIdentity
     :param sku: The SKU (pricing tier) of the server.
     :type sku: ~azure.mgmt.rdbms.postgresql.models.Sku
     :param storage_profile: Storage profile of a server.
@@ -1678,11 +1274,6 @@ class ServerUpdateParameters(Model):
      'TLSEnforcementDisabled'
     :type minimal_tls_version: str or
      ~azure.mgmt.rdbms.postgresql.models.MinimalTlsVersionEnum
-    :param public_network_access: Whether or not public network access is
-     allowed for this server. Value is optional but if passed in, must be
-     'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
-    :type public_network_access: str or
-     ~azure.mgmt.rdbms.postgresql.models.PublicNetworkAccessEnum
     :param replication_role: The replication role of the server.
     :type replication_role: str
     :param tags: Application-specific metadata in the form of key-value pairs.
@@ -1690,28 +1281,24 @@ class ServerUpdateParameters(Model):
     """
 
     _attribute_map = {
-        'identity': {'key': 'identity', 'type': 'ResourceIdentity'},
         'sku': {'key': 'sku', 'type': 'Sku'},
         'storage_profile': {'key': 'properties.storageProfile', 'type': 'StorageProfile'},
         'administrator_login_password': {'key': 'properties.administratorLoginPassword', 'type': 'str'},
         'version': {'key': 'properties.version', 'type': 'str'},
         'ssl_enforcement': {'key': 'properties.sslEnforcement', 'type': 'SslEnforcementEnum'},
         'minimal_tls_version': {'key': 'properties.minimalTlsVersion', 'type': 'str'},
-        'public_network_access': {'key': 'properties.publicNetworkAccess', 'type': 'str'},
         'replication_role': {'key': 'properties.replicationRole', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
     }
 
     def __init__(self, **kwargs):
         super(ServerUpdateParameters, self).__init__(**kwargs)
-        self.identity = kwargs.get('identity', None)
         self.sku = kwargs.get('sku', None)
         self.storage_profile = kwargs.get('storage_profile', None)
         self.administrator_login_password = kwargs.get('administrator_login_password', None)
         self.version = kwargs.get('version', None)
         self.ssl_enforcement = kwargs.get('ssl_enforcement', None)
         self.minimal_tls_version = kwargs.get('minimal_tls_version', None)
-        self.public_network_access = kwargs.get('public_network_access', None)
         self.replication_role = kwargs.get('replication_role', None)
         self.tags = kwargs.get('tags', None)
 
@@ -1787,22 +1374,6 @@ class StorageProfile(Model):
         self.storage_autogrow = kwargs.get('storage_autogrow', None)
 
 
-class TagsObject(Model):
-    """Tags object for patch operations.
-
-    :param tags: Resource tags.
-    :type tags: dict[str, str]
-    """
-
-    _attribute_map = {
-        'tags': {'key': 'tags', 'type': '{str}'},
-    }
-
-    def __init__(self, **kwargs):
-        super(TagsObject, self).__init__(**kwargs)
-        self.tags = kwargs.get('tags', None)
-
-
 class VirtualNetworkRule(ProxyResource):
     """A virtual network rule.
 
@@ -1811,13 +1382,11 @@ class VirtualNetworkRule(ProxyResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
-     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :ivar id: Resource ID
     :vartype id: str
-    :ivar name: The name of the resource
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: Resource type.
     :vartype type: str
     :param virtual_network_subnet_id: Required. The ARM resource id of the
      virtual network subnet.
