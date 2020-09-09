@@ -843,7 +843,7 @@ class DedicatedHost(Resource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'location': {'required': True},
-        'platform_fault_domain': {'maximum': 2, 'minimum': 0},
+        'platform_fault_domain': {'maximum': 4, 'minimum': 0},
         'host_id': {'readonly': True},
         'virtual_machines': {'readonly': True},
         'provisioning_time': {'readonly': True},
@@ -946,7 +946,8 @@ class DedicatedHostGroup(Resource):
     :param tags: Resource tags
     :type tags: dict[str, str]
     :param platform_fault_domain_count: Required. Number of fault domains that
-     the host group can span.
+     the host group can span.<br><br>4 and 5 are allowed only for host groups
+     in an availability zone.
     :type platform_fault_domain_count: int
     :ivar hosts: A list of references to all dedicated hosts in the dedicated
      host group.
@@ -976,7 +977,7 @@ class DedicatedHostGroup(Resource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'location': {'required': True},
-        'platform_fault_domain_count': {'required': True, 'maximum': 3, 'minimum': 1},
+        'platform_fault_domain_count': {'required': True, 'maximum': 5, 'minimum': 1},
         'hosts': {'readonly': True},
         'instance_view': {'readonly': True},
     }
@@ -1033,7 +1034,8 @@ class DedicatedHostGroupUpdate(UpdateResource):
     :param tags: Resource tags
     :type tags: dict[str, str]
     :param platform_fault_domain_count: Required. Number of fault domains that
-     the host group can span.
+     the host group can span.<br><br>4 and 5 are allowed only for host groups
+     in an availability zone.
     :type platform_fault_domain_count: int
     :ivar hosts: A list of references to all dedicated hosts in the dedicated
      host group.
@@ -1059,7 +1061,7 @@ class DedicatedHostGroupUpdate(UpdateResource):
     """
 
     _validation = {
-        'platform_fault_domain_count': {'required': True, 'maximum': 3, 'minimum': 1},
+        'platform_fault_domain_count': {'required': True, 'maximum': 5, 'minimum': 1},
         'hosts': {'readonly': True},
         'instance_view': {'readonly': True},
     }
@@ -1196,7 +1198,7 @@ class DedicatedHostUpdate(UpdateResource):
     """
 
     _validation = {
-        'platform_fault_domain': {'maximum': 2, 'minimum': 0},
+        'platform_fault_domain': {'maximum': 4, 'minimum': 0},
         'host_id': {'readonly': True},
         'virtual_machines': {'readonly': True},
         'provisioning_time': {'readonly': True},
