@@ -332,6 +332,10 @@ class MultiMetricCriteria(Model):
     :param dimensions: List of dimension conditions.
     :type dimensions:
      list[~azure.mgmt.monitor.v2018_03_01.models.MetricDimension]
+    :param skip_metric_validation: Allows creating an alert rule on a custom
+     metric that isn't yet emitted, by causing the metric validation to be
+     skipped.
+    :type skip_metric_validation: bool
     :param criterion_type: Required. Constant filled by server.
     :type criterion_type: str
     """
@@ -350,6 +354,7 @@ class MultiMetricCriteria(Model):
         'metric_namespace': {'key': 'metricNamespace', 'type': 'str'},
         'time_aggregation': {'key': 'timeAggregation', 'type': 'object'},
         'dimensions': {'key': 'dimensions', 'type': '[MetricDimension]'},
+        'skip_metric_validation': {'key': 'skipMetricValidation', 'type': 'bool'},
         'criterion_type': {'key': 'criterionType', 'type': 'str'},
     }
 
@@ -357,7 +362,7 @@ class MultiMetricCriteria(Model):
         'criterion_type': {'StaticThresholdCriterion': 'MetricCriteria', 'DynamicThresholdCriterion': 'DynamicMetricCriteria'}
     }
 
-    def __init__(self, *, name: str, metric_name: str, time_aggregation, additional_properties=None, metric_namespace: str=None, dimensions=None, **kwargs) -> None:
+    def __init__(self, *, name: str, metric_name: str, time_aggregation, additional_properties=None, metric_namespace: str=None, dimensions=None, skip_metric_validation: bool=None, **kwargs) -> None:
         super(MultiMetricCriteria, self).__init__(**kwargs)
         self.additional_properties = additional_properties
         self.name = name
@@ -365,6 +370,7 @@ class MultiMetricCriteria(Model):
         self.metric_namespace = metric_namespace
         self.time_aggregation = time_aggregation
         self.dimensions = dimensions
+        self.skip_metric_validation = skip_metric_validation
         self.criterion_type = None
 
 
@@ -387,6 +393,10 @@ class DynamicMetricCriteria(MultiMetricCriteria):
     :param dimensions: List of dimension conditions.
     :type dimensions:
      list[~azure.mgmt.monitor.v2018_03_01.models.MetricDimension]
+    :param skip_metric_validation: Allows creating an alert rule on a custom
+     metric that isn't yet emitted, by causing the metric validation to be
+     skipped.
+    :type skip_metric_validation: bool
     :param criterion_type: Required. Constant filled by server.
     :type criterion_type: str
     :param operator: Required. The operator used to compare the metric value
@@ -427,6 +437,7 @@ class DynamicMetricCriteria(MultiMetricCriteria):
         'metric_namespace': {'key': 'metricNamespace', 'type': 'str'},
         'time_aggregation': {'key': 'timeAggregation', 'type': 'object'},
         'dimensions': {'key': 'dimensions', 'type': '[MetricDimension]'},
+        'skip_metric_validation': {'key': 'skipMetricValidation', 'type': 'bool'},
         'criterion_type': {'key': 'criterionType', 'type': 'str'},
         'operator': {'key': 'operator', 'type': 'str'},
         'alert_sensitivity': {'key': 'alertSensitivity', 'type': 'str'},
@@ -434,8 +445,8 @@ class DynamicMetricCriteria(MultiMetricCriteria):
         'ignore_data_before': {'key': 'ignoreDataBefore', 'type': 'iso-8601'},
     }
 
-    def __init__(self, *, name: str, metric_name: str, time_aggregation, operator, alert_sensitivity, failing_periods, additional_properties=None, metric_namespace: str=None, dimensions=None, ignore_data_before=None, **kwargs) -> None:
-        super(DynamicMetricCriteria, self).__init__(additional_properties=additional_properties, name=name, metric_name=metric_name, metric_namespace=metric_namespace, time_aggregation=time_aggregation, dimensions=dimensions, **kwargs)
+    def __init__(self, *, name: str, metric_name: str, time_aggregation, operator, alert_sensitivity, failing_periods, additional_properties=None, metric_namespace: str=None, dimensions=None, skip_metric_validation: bool=None, ignore_data_before=None, **kwargs) -> None:
+        super(DynamicMetricCriteria, self).__init__(additional_properties=additional_properties, name=name, metric_name=metric_name, metric_namespace=metric_namespace, time_aggregation=time_aggregation, dimensions=dimensions, skip_metric_validation=skip_metric_validation, **kwargs)
         self.operator = operator
         self.alert_sensitivity = alert_sensitivity
         self.failing_periods = failing_periods
@@ -851,26 +862,24 @@ class MetricAlertResourcePatch(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    All required parameters must be populated in order to send to Azure.
-
     :param tags: Resource tags
     :type tags: dict[str, str]
-    :param description: Required. the description of the metric alert that
-     will be included in the alert email.
+    :param description: the description of the metric alert that will be
+     included in the alert email.
     :type description: str
-    :param severity: Required. Alert severity {0, 1, 2, 3, 4}
+    :param severity: Alert severity {0, 1, 2, 3, 4}
     :type severity: int
-    :param enabled: Required. the flag that indicates whether the metric alert
-     is enabled.
+    :param enabled: the flag that indicates whether the metric alert is
+     enabled.
     :type enabled: bool
     :param scopes: the list of resource id's that this metric alert is scoped
      to.
     :type scopes: list[str]
-    :param evaluation_frequency: Required. how often the metric alert is
-     evaluated represented in ISO 8601 duration format.
+    :param evaluation_frequency: how often the metric alert is evaluated
+     represented in ISO 8601 duration format.
     :type evaluation_frequency: timedelta
-    :param window_size: Required. the period of time (in ISO 8601 duration
-     format) that is used to monitor alert activity based on the threshold.
+    :param window_size: the period of time (in ISO 8601 duration format) that
+     is used to monitor alert activity based on the threshold.
     :type window_size: timedelta
     :param target_resource_type: the resource type of the target resource(s)
      on which the alert is created/updated. Mandatory for
@@ -880,8 +889,7 @@ class MetricAlertResourcePatch(Model):
      which the alert is created/updated. Mandatory for
      MultipleResourceMultipleMetricCriteria.
     :type target_resource_region: str
-    :param criteria: Required. defines the specific alert criteria
-     information.
+    :param criteria: defines the specific alert criteria information.
     :type criteria: ~azure.mgmt.monitor.v2018_03_01.models.MetricAlertCriteria
     :param auto_mitigate: the flag that indicates whether the alert should be
      auto resolved or not. The default is true.
@@ -895,12 +903,6 @@ class MetricAlertResourcePatch(Model):
     """
 
     _validation = {
-        'description': {'required': True},
-        'severity': {'required': True},
-        'enabled': {'required': True},
-        'evaluation_frequency': {'required': True},
-        'window_size': {'required': True},
-        'criteria': {'required': True},
         'last_updated_time': {'readonly': True},
     }
 
@@ -920,7 +922,7 @@ class MetricAlertResourcePatch(Model):
         'last_updated_time': {'key': 'properties.lastUpdatedTime', 'type': 'iso-8601'},
     }
 
-    def __init__(self, *, description: str, severity: int, enabled: bool, evaluation_frequency, window_size, criteria, tags=None, scopes=None, target_resource_type: str=None, target_resource_region: str=None, auto_mitigate: bool=None, actions=None, **kwargs) -> None:
+    def __init__(self, *, tags=None, description: str=None, severity: int=None, enabled: bool=None, scopes=None, evaluation_frequency=None, window_size=None, target_resource_type: str=None, target_resource_region: str=None, criteria=None, auto_mitigate: bool=None, actions=None, **kwargs) -> None:
         super(MetricAlertResourcePatch, self).__init__(**kwargs)
         self.tags = tags
         self.description = description
@@ -1057,6 +1059,10 @@ class MetricCriteria(MultiMetricCriteria):
     :param dimensions: List of dimension conditions.
     :type dimensions:
      list[~azure.mgmt.monitor.v2018_03_01.models.MetricDimension]
+    :param skip_metric_validation: Allows creating an alert rule on a custom
+     metric that isn't yet emitted, by causing the metric validation to be
+     skipped.
+    :type skip_metric_validation: bool
     :param criterion_type: Required. Constant filled by server.
     :type criterion_type: str
     :param operator: Required. the criteria operator. Possible values include:
@@ -1084,13 +1090,14 @@ class MetricCriteria(MultiMetricCriteria):
         'metric_namespace': {'key': 'metricNamespace', 'type': 'str'},
         'time_aggregation': {'key': 'timeAggregation', 'type': 'object'},
         'dimensions': {'key': 'dimensions', 'type': '[MetricDimension]'},
+        'skip_metric_validation': {'key': 'skipMetricValidation', 'type': 'bool'},
         'criterion_type': {'key': 'criterionType', 'type': 'str'},
         'operator': {'key': 'operator', 'type': 'str'},
         'threshold': {'key': 'threshold', 'type': 'float'},
     }
 
-    def __init__(self, *, name: str, metric_name: str, time_aggregation, operator, threshold: float, additional_properties=None, metric_namespace: str=None, dimensions=None, **kwargs) -> None:
-        super(MetricCriteria, self).__init__(additional_properties=additional_properties, name=name, metric_name=metric_name, metric_namespace=metric_namespace, time_aggregation=time_aggregation, dimensions=dimensions, **kwargs)
+    def __init__(self, *, name: str, metric_name: str, time_aggregation, operator, threshold: float, additional_properties=None, metric_namespace: str=None, dimensions=None, skip_metric_validation: bool=None, **kwargs) -> None:
+        super(MetricCriteria, self).__init__(additional_properties=additional_properties, name=name, metric_name=metric_name, metric_namespace=metric_namespace, time_aggregation=time_aggregation, dimensions=dimensions, skip_metric_validation=skip_metric_validation, **kwargs)
         self.operator = operator
         self.threshold = threshold
         self.criterion_type = 'StaticThresholdCriterion'
