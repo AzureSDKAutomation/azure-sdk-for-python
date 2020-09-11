@@ -210,6 +210,7 @@ class KeyType(str, Enum):
 
 class AppType(str, Enum):
 
+    portal = "portal"  #: User create request was sent by legacy developer portal.
     developer_portal = "developerPortal"  #: User create request was sent by new developer portal.
 
 
@@ -248,6 +249,7 @@ class LoggerType(str, Enum):
 
     azure_event_hub = "azureEventHub"  #: Azure Event Hub as log destination.
     application_insights = "applicationInsights"  #: Azure Application Insights as log destination.
+    azure_monitor = "azureMonitor"  #: Azure Monitor
 
 
 class ConnectivityStatusType(str, Enum):
