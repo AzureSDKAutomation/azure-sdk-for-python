@@ -18,6 +18,8 @@ class NodeSize(str, Enum):
     small = "Small"
     medium = "Medium"
     large = "Large"
+    xlarge = "XLarge"
+    xx_large = "XXLarge"
 
 
 class NodeSizeFamily(str, Enum):
@@ -41,6 +43,12 @@ class OperationStatus(str, Enum):
     succeeded = "Succeeded"
     failed = "Failed"
     canceled = "Canceled"
+
+
+class StorageAccountType(str, Enum):
+
+    grs = "GRS"
+    lrs = "LRS"
 
 
 class GeoBackupPolicyState(str, Enum):
