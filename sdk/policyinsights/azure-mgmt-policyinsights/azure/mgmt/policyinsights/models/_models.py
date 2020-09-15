@@ -13,6 +13,121 @@ from msrest.serialization import Model
 from msrest.exceptions import HttpOperationError
 
 
+class CheckRestrictionsRequest(Model):
+    """The check policy restrictions parameters describing the resource that is
+    being evaluated.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param resource_details: Required. The information about the resource that
+     will be evaluated.
+    :type resource_details:
+     ~azure.mgmt.policyinsights.models.CheckRestrictionsResourceDetails
+    :param pending_fields: The list of fields and values that should be
+     evaluated for potential restrictions.
+    :type pending_fields: list[~azure.mgmt.policyinsights.models.PendingField]
+    """
+
+    _validation = {
+        'resource_details': {'required': True},
+    }
+
+    _attribute_map = {
+        'resource_details': {'key': 'resourceDetails', 'type': 'CheckRestrictionsResourceDetails'},
+        'pending_fields': {'key': 'pendingFields', 'type': '[PendingField]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CheckRestrictionsRequest, self).__init__(**kwargs)
+        self.resource_details = kwargs.get('resource_details', None)
+        self.pending_fields = kwargs.get('pending_fields', None)
+
+
+class CheckRestrictionsResourceDetails(Model):
+    """The information about the resource that will be evaluated.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param resource_content: Required. The resource content. This should
+     include whatever properties are already known and can be a partial set of
+     all resource properties.
+    :type resource_content: object
+    :param api_version: The api-version of the resource content.
+    :type api_version: str
+    :param scope: The scope where the resource is being created. For example,
+     if the resource is a child resource this would be the parent resource's
+     resource ID.
+    :type scope: str
+    """
+
+    _validation = {
+        'resource_content': {'required': True},
+    }
+
+    _attribute_map = {
+        'resource_content': {'key': 'resourceContent', 'type': 'object'},
+        'api_version': {'key': 'apiVersion', 'type': 'str'},
+        'scope': {'key': 'scope', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CheckRestrictionsResourceDetails, self).__init__(**kwargs)
+        self.resource_content = kwargs.get('resource_content', None)
+        self.api_version = kwargs.get('api_version', None)
+        self.scope = kwargs.get('scope', None)
+
+
+class CheckRestrictionsResult(Model):
+    """The result of a check policy restrictions evaluation on a resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar field_restrictions: The restrictions that will be placed on various
+     fields in the resource by policy.
+    :vartype field_restrictions:
+     list[~azure.mgmt.policyinsights.models.FieldRestrictions]
+    :ivar content_evaluation_result: Evaluation results for the provided
+     partial resource content.
+    :vartype content_evaluation_result:
+     ~azure.mgmt.policyinsights.models.CheckRestrictionsResultContentEvaluationResult
+    """
+
+    _validation = {
+        'field_restrictions': {'readonly': True},
+        'content_evaluation_result': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'field_restrictions': {'key': 'fieldRestrictions', 'type': '[FieldRestrictions]'},
+        'content_evaluation_result': {'key': 'contentEvaluationResult', 'type': 'CheckRestrictionsResultContentEvaluationResult'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CheckRestrictionsResult, self).__init__(**kwargs)
+        self.field_restrictions = None
+        self.content_evaluation_result = None
+
+
+class CheckRestrictionsResultContentEvaluationResult(Model):
+    """Evaluation results for the provided partial resource content.
+
+    :param policy_evaluations: Policy evaluation results against the given
+     resource content. This will indicate if the partial content that was
+     provided will be denied as-is.
+    :type policy_evaluations:
+     list[~azure.mgmt.policyinsights.models.PolicyEvaluationResult]
+    """
+
+    _attribute_map = {
+        'policy_evaluations': {'key': 'policyEvaluations', 'type': '[PolicyEvaluationResult]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CheckRestrictionsResultContentEvaluationResult, self).__init__(**kwargs)
+        self.policy_evaluations = kwargs.get('policy_evaluations', None)
+
+
 class CloudError(Model):
     """CloudError.
     """
@@ -39,6 +154,89 @@ class ComplianceDetail(Model):
         super(ComplianceDetail, self).__init__(**kwargs)
         self.compliance_state = kwargs.get('compliance_state', None)
         self.count = kwargs.get('count', None)
+
+
+class ComponentEventDetails(Model):
+    """Component event details.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param id: Component Id.
+    :type id: str
+    :param type: Component type.
+    :type type: str
+    :param name: Component name.
+    :type name: str
+    :param timestamp: Timestamp for component policy event record.
+    :type timestamp: datetime
+    :param tenant_id: Tenant ID for the policy event record.
+    :type tenant_id: str
+    :param principal_oid: Principal object ID for the user who initiated the
+     resource component operation that triggered the policy event.
+    :type principal_oid: str
+    :param policy_definition_action: Policy definition action, i.e. effect.
+    :type policy_definition_action: str
+    """
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'id': {'key': 'id', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'timestamp': {'key': 'timestamp', 'type': 'iso-8601'},
+        'tenant_id': {'key': 'tenantId', 'type': 'str'},
+        'principal_oid': {'key': 'principalOid', 'type': 'str'},
+        'policy_definition_action': {'key': 'policyDefinitionAction', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ComponentEventDetails, self).__init__(**kwargs)
+        self.additional_properties = kwargs.get('additional_properties', None)
+        self.id = kwargs.get('id', None)
+        self.type = kwargs.get('type', None)
+        self.name = kwargs.get('name', None)
+        self.timestamp = kwargs.get('timestamp', None)
+        self.tenant_id = kwargs.get('tenant_id', None)
+        self.principal_oid = kwargs.get('principal_oid', None)
+        self.policy_definition_action = kwargs.get('policy_definition_action', None)
+
+
+class ComponentStateDetails(Model):
+    """Component state details.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param id: Component Id.
+    :type id: str
+    :param type: Component type.
+    :type type: str
+    :param name: Component name.
+    :type name: str
+    :param timestamp: Component compliance evaluation timestamp.
+    :type timestamp: datetime
+    :param compliance_state: Component compliance state.
+    :type compliance_state: str
+    """
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'id': {'key': 'id', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'timestamp': {'key': 'timestamp', 'type': 'iso-8601'},
+        'compliance_state': {'key': 'complianceState', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ComponentStateDetails, self).__init__(**kwargs)
+        self.additional_properties = kwargs.get('additional_properties', None)
+        self.id = kwargs.get('id', None)
+        self.type = kwargs.get('type', None)
+        self.name = kwargs.get('name', None)
+        self.timestamp = kwargs.get('timestamp', None)
+        self.compliance_state = kwargs.get('compliance_state', None)
 
 
 class ErrorDefinition(Model):
@@ -117,10 +315,15 @@ class ErrorResponseException(HttpOperationError):
 class ExpressionEvaluationDetails(Model):
     """Evaluation details of policy language expressions.
 
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
     :param result: Evaluation result.
     :type result: str
     :param expression: Expression evaluated.
     :type expression: str
+    :ivar expression_kind: The kind of expression that was evaluated.
+    :vartype expression_kind: str
     :param path: Property path if the expression is a field or an alias.
     :type path: str
     :param expression_value: Value of the expression.
@@ -133,9 +336,14 @@ class ExpressionEvaluationDetails(Model):
     :type operator: str
     """
 
+    _validation = {
+        'expression_kind': {'readonly': True},
+    }
+
     _attribute_map = {
         'result': {'key': 'result', 'type': 'str'},
         'expression': {'key': 'expression', 'type': 'str'},
+        'expression_kind': {'key': 'expressionKind', 'type': 'str'},
         'path': {'key': 'path', 'type': 'str'},
         'expression_value': {'key': 'expressionValue', 'type': 'object'},
         'target_value': {'key': 'targetValue', 'type': 'object'},
@@ -146,10 +354,83 @@ class ExpressionEvaluationDetails(Model):
         super(ExpressionEvaluationDetails, self).__init__(**kwargs)
         self.result = kwargs.get('result', None)
         self.expression = kwargs.get('expression', None)
+        self.expression_kind = None
         self.path = kwargs.get('path', None)
         self.expression_value = kwargs.get('expression_value', None)
         self.target_value = kwargs.get('target_value', None)
         self.operator = kwargs.get('operator', None)
+
+
+class FieldRestriction(Model):
+    """The restrictions on a field imposed by a specific policy.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar result: The type of restriction that is imposed on the field.
+     Possible values include: 'Required', 'Removed', 'Deny'
+    :vartype result: str or
+     ~azure.mgmt.policyinsights.models.FieldRestrictionResult
+    :ivar default_value: The value that policy will set for the field if the
+     user does not provide a value.
+    :vartype default_value: str
+    :ivar values: The values that policy either requires or denies for the
+     field.
+    :vartype values: list[str]
+    :ivar policy: The details of the policy that is causing the field
+     restriction.
+    :vartype policy: ~azure.mgmt.policyinsights.models.PolicyReference
+    """
+
+    _validation = {
+        'result': {'readonly': True},
+        'default_value': {'readonly': True},
+        'values': {'readonly': True},
+        'policy': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'result': {'key': 'result', 'type': 'str'},
+        'default_value': {'key': 'defaultValue', 'type': 'str'},
+        'values': {'key': 'values', 'type': '[str]'},
+        'policy': {'key': 'policy', 'type': 'PolicyReference'},
+    }
+
+    def __init__(self, **kwargs):
+        super(FieldRestriction, self).__init__(**kwargs)
+        self.result = None
+        self.default_value = None
+        self.values = None
+        self.policy = None
+
+
+class FieldRestrictions(Model):
+    """The restrictions that will be placed on a field in the resource by policy.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar field: The name of the field. This can be a top-level property like
+     'name' or 'type' or an Azure Policy field alias.
+    :vartype field: str
+    :param restrictions: The restrictions placed on that field by policy.
+    :type restrictions:
+     list[~azure.mgmt.policyinsights.models.FieldRestriction]
+    """
+
+    _validation = {
+        'field': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'field': {'key': 'field', 'type': 'str'},
+        'restrictions': {'key': 'restrictions', 'type': '[FieldRestriction]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(FieldRestrictions, self).__init__(**kwargs)
+        self.field = None
+        self.restrictions = kwargs.get('restrictions', None)
 
 
 class IfNotExistsEvaluationDetails(Model):
@@ -245,6 +526,35 @@ class OperationsListResults(Model):
         super(OperationsListResults, self).__init__(**kwargs)
         self.odatacount = kwargs.get('odatacount', None)
         self.value = kwargs.get('value', None)
+
+
+class PendingField(Model):
+    """A field that should be evaluated against Azure Policy to determine
+    restrictions.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param field: Required. The name of the field. This can be a top-level
+     property like 'name' or 'type' or an Azure Policy field alias.
+    :type field: str
+    :param values: The list of potential values for the field that should be
+     evaluated against Azure Policy.
+    :type values: list[str]
+    """
+
+    _validation = {
+        'field': {'required': True},
+    }
+
+    _attribute_map = {
+        'field': {'key': 'field', 'type': 'str'},
+        'values': {'key': 'values', 'type': '[str]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(PendingField, self).__init__(**kwargs)
+        self.field = kwargs.get('field', None)
+        self.values = kwargs.get('values', None)
 
 
 class PolicyAssignmentSummary(Model):
@@ -386,6 +696,44 @@ class PolicyEvaluationDetails(Model):
         self.if_not_exists_details = kwargs.get('if_not_exists_details', None)
 
 
+class PolicyEvaluationResult(Model):
+    """The result of a non-compliant policy evaluation against the given resource
+    content.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar policy_info: The details of the policy that was evaluated.
+    :vartype policy_info: ~azure.mgmt.policyinsights.models.PolicyReference
+    :ivar evaluation_result: The result of the policy evaluation against the
+     resource. This will typically be 'NonCompliant' but may contain other
+     values if errors were encountered.
+    :vartype evaluation_result: str
+    :ivar evaluation_details: The detailed results of the policy expressions
+     and values that were evaluated.
+    :vartype evaluation_details:
+     ~azure.mgmt.policyinsights.models.PolicyEvaluationDetails
+    """
+
+    _validation = {
+        'policy_info': {'readonly': True},
+        'evaluation_result': {'readonly': True},
+        'evaluation_details': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'policy_info': {'key': 'policyInfo', 'type': 'PolicyReference'},
+        'evaluation_result': {'key': 'evaluationResult', 'type': 'str'},
+        'evaluation_details': {'key': 'evaluationDetails', 'type': 'PolicyEvaluationDetails'},
+    }
+
+    def __init__(self, **kwargs):
+        super(PolicyEvaluationResult, self).__init__(**kwargs)
+        self.policy_info = None
+        self.evaluation_result = None
+        self.evaluation_details = None
+
+
 class PolicyEvent(Model):
     """Policy event record.
 
@@ -459,11 +807,17 @@ class PolicyEvent(Model):
      definition inside the policy set, if the policy assignment is for a policy
      set.
     :type policy_definition_reference_id: str
+    :param compliance_state: Compliance state of the resource.
+    :type compliance_state: str
     :param tenant_id: Tenant ID for the policy event record.
     :type tenant_id: str
     :param principal_oid: Principal object ID for the user who initiated the
      resource operation that triggered the policy event.
     :type principal_oid: str
+    :param components: Components events records populated only when URL
+     contains $expand=components clause.
+    :type components:
+     list[~azure.mgmt.policyinsights.models.ComponentEventDetails]
     """
 
     _attribute_map = {
@@ -495,8 +849,10 @@ class PolicyEvent(Model):
         'policy_set_definition_parameters': {'key': 'policySetDefinitionParameters', 'type': 'str'},
         'management_group_ids': {'key': 'managementGroupIds', 'type': 'str'},
         'policy_definition_reference_id': {'key': 'policyDefinitionReferenceId', 'type': 'str'},
+        'compliance_state': {'key': 'complianceState', 'type': 'str'},
         'tenant_id': {'key': 'tenantId', 'type': 'str'},
         'principal_oid': {'key': 'principalOid', 'type': 'str'},
+        'components': {'key': 'components', 'type': '[ComponentEventDetails]'},
     }
 
     def __init__(self, **kwargs):
@@ -529,38 +885,10 @@ class PolicyEvent(Model):
         self.policy_set_definition_parameters = kwargs.get('policy_set_definition_parameters', None)
         self.management_group_ids = kwargs.get('management_group_ids', None)
         self.policy_definition_reference_id = kwargs.get('policy_definition_reference_id', None)
+        self.compliance_state = kwargs.get('compliance_state', None)
         self.tenant_id = kwargs.get('tenant_id', None)
         self.principal_oid = kwargs.get('principal_oid', None)
-
-
-class PolicyEventsQueryResults(Model):
-    """Query results.
-
-    :param odatacontext: OData context string; used by OData clients to
-     resolve type information based on metadata.
-    :type odatacontext: str
-    :param odatacount: OData entity count; represents the number of policy
-     event records returned.
-    :type odatacount: int
-    :param value: Query results.
-    :type value: list[~azure.mgmt.policyinsights.models.PolicyEvent]
-    """
-
-    _validation = {
-        'odatacount': {'minimum': 0},
-    }
-
-    _attribute_map = {
-        'odatacontext': {'key': '@odata\\.context', 'type': 'str'},
-        'odatacount': {'key': '@odata\\.count', 'type': 'int'},
-        'value': {'key': 'value', 'type': '[PolicyEvent]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(PolicyEventsQueryResults, self).__init__(**kwargs)
-        self.odatacontext = kwargs.get('odatacontext', None)
-        self.odatacount = kwargs.get('odatacount', None)
-        self.value = kwargs.get('value', None)
+        self.components = kwargs.get('components', None)
 
 
 class PolicyGroupSummary(Model):
@@ -657,6 +985,48 @@ class PolicyMetadata(Model):
         self.name = None
 
 
+class PolicyReference(Model):
+    """Resource identifiers for a policy.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar policy_definition_id: The resource identifier of the policy
+     definition.
+    :vartype policy_definition_id: str
+    :ivar policy_set_definition_id: The resource identifier of the policy set
+     definition.
+    :vartype policy_set_definition_id: str
+    :ivar policy_definition_reference_id: The reference identifier of a
+     specific policy definition within a policy set definition.
+    :vartype policy_definition_reference_id: str
+    :ivar policy_assignment_id: The resource identifier of the policy
+     assignment.
+    :vartype policy_assignment_id: str
+    """
+
+    _validation = {
+        'policy_definition_id': {'readonly': True},
+        'policy_set_definition_id': {'readonly': True},
+        'policy_definition_reference_id': {'readonly': True},
+        'policy_assignment_id': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'policy_definition_id': {'key': 'policyDefinitionId', 'type': 'str'},
+        'policy_set_definition_id': {'key': 'policySetDefinitionId', 'type': 'str'},
+        'policy_definition_reference_id': {'key': 'policyDefinitionReferenceId', 'type': 'str'},
+        'policy_assignment_id': {'key': 'policyAssignmentId', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(PolicyReference, self).__init__(**kwargs)
+        self.policy_definition_id = None
+        self.policy_set_definition_id = None
+        self.policy_definition_reference_id = None
+        self.policy_assignment_id = None
+
+
 class PolicyState(Model):
     """Policy state record.
 
@@ -741,6 +1111,10 @@ class PolicyState(Model):
      ~azure.mgmt.policyinsights.models.PolicyEvaluationDetails
     :param policy_definition_group_names: Policy definition group names.
     :type policy_definition_group_names: list[str]
+    :param components: Components state compliance records populated only when
+     URL contains $expand=components clause.
+    :type components:
+     list[~azure.mgmt.policyinsights.models.ComponentStateDetails]
     :ivar policy_definition_version: Evaluated policy definition version.
     :vartype policy_definition_version: str
     :ivar policy_set_definition_version: Evaluated policy set definition
@@ -788,6 +1162,7 @@ class PolicyState(Model):
         'compliance_state': {'key': 'complianceState', 'type': 'str'},
         'policy_evaluation_details': {'key': 'policyEvaluationDetails', 'type': 'PolicyEvaluationDetails'},
         'policy_definition_group_names': {'key': 'policyDefinitionGroupNames', 'type': '[str]'},
+        'components': {'key': 'components', 'type': '[ComponentStateDetails]'},
         'policy_definition_version': {'key': 'policyDefinitionVersion', 'type': 'str'},
         'policy_set_definition_version': {'key': 'policySetDefinitionVersion', 'type': 'str'},
         'policy_assignment_version': {'key': 'policyAssignmentVersion', 'type': 'str'},
@@ -826,39 +1201,10 @@ class PolicyState(Model):
         self.compliance_state = kwargs.get('compliance_state', None)
         self.policy_evaluation_details = kwargs.get('policy_evaluation_details', None)
         self.policy_definition_group_names = kwargs.get('policy_definition_group_names', None)
+        self.components = kwargs.get('components', None)
         self.policy_definition_version = None
         self.policy_set_definition_version = None
         self.policy_assignment_version = None
-
-
-class PolicyStatesQueryResults(Model):
-    """Query results.
-
-    :param odatacontext: OData context string; used by OData clients to
-     resolve type information based on metadata.
-    :type odatacontext: str
-    :param odatacount: OData entity count; represents the number of policy
-     state records returned.
-    :type odatacount: int
-    :param value: Query results.
-    :type value: list[~azure.mgmt.policyinsights.models.PolicyState]
-    """
-
-    _validation = {
-        'odatacount': {'minimum': 0},
-    }
-
-    _attribute_map = {
-        'odatacontext': {'key': '@odata\\.context', 'type': 'str'},
-        'odatacount': {'key': '@odata\\.count', 'type': 'int'},
-        'value': {'key': 'value', 'type': '[PolicyState]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(PolicyStatesQueryResults, self).__init__(**kwargs)
-        self.odatacontext = kwargs.get('odatacontext', None)
-        self.odatacount = kwargs.get('odatacount', None)
-        self.value = kwargs.get('value', None)
 
 
 class PolicyTrackedResource(Model):
@@ -991,8 +1337,11 @@ class QueryOptions(Model):
     :type to: datetime
     :param apply: OData apply expression for aggregations.
     :type apply: str
+    :param skip_token: Skiptoken is only provided if a previous response
+     returned a partial result as a part of nextLink element.
+    :type skip_token: str
     :param expand: The $expand query parameter. For example, to expand
-     policyEvaluationDetails, use $expand=policyEvaluationDetails
+     components use $expand=components
     :type expand: str
     """
 
@@ -1004,6 +1353,7 @@ class QueryOptions(Model):
         'from_property': {'key': '', 'type': 'iso-8601'},
         'to': {'key': '', 'type': 'iso-8601'},
         'apply': {'key': '', 'type': 'str'},
+        'skip_token': {'key': '', 'type': 'str'},
         'expand': {'key': '', 'type': 'str'},
     }
 
@@ -1016,6 +1366,7 @@ class QueryOptions(Model):
         self.from_property = kwargs.get('from_property', None)
         self.to = kwargs.get('to', None)
         self.apply = kwargs.get('apply', None)
+        self.skip_token = kwargs.get('skip_token', None)
         self.expand = kwargs.get('expand', None)
 
 
