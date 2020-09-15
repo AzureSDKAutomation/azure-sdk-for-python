@@ -153,7 +153,7 @@ class DetectedFace(Model):
     :param face_id:
     :type face_id: str
     :param recognition_model: Possible values include: 'recognition_01',
-     'recognition_02'. Default value: "recognition_01" .
+     'recognition_02', 'recognition_03'. Default value: "recognition_01" .
     :type recognition_model: str or
      ~azure.cognitiveservices.vision.face.models.RecognitionModel
     :param face_rectangle: Required.
@@ -527,7 +527,7 @@ class MetaDataContract(NameAndUserDataContract):
     :param user_data: User specified data. Length should not exceed 16KB.
     :type user_data: str
     :param recognition_model: Possible values include: 'recognition_01',
-     'recognition_02'. Default value: "recognition_01" .
+     'recognition_02', 'recognition_03'. Default value: "recognition_01" .
     :type recognition_model: str or
      ~azure.cognitiveservices.vision.face.models.RecognitionModel
     """
@@ -558,7 +558,7 @@ class FaceList(MetaDataContract):
     :param user_data: User specified data. Length should not exceed 16KB.
     :type user_data: str
     :param recognition_model: Possible values include: 'recognition_01',
-     'recognition_02'. Default value: "recognition_01" .
+     'recognition_02', 'recognition_03'. Default value: "recognition_01" .
     :type recognition_model: str or
      ~azure.cognitiveservices.vision.face.models.RecognitionModel
     :param face_list_id: Required. FaceListId of the target face list.
@@ -983,7 +983,7 @@ class LargeFaceList(MetaDataContract):
     :param user_data: User specified data. Length should not exceed 16KB.
     :type user_data: str
     :param recognition_model: Possible values include: 'recognition_01',
-     'recognition_02'. Default value: "recognition_01" .
+     'recognition_02', 'recognition_03'. Default value: "recognition_01" .
     :type recognition_model: str or
      ~azure.cognitiveservices.vision.face.models.RecognitionModel
     :param large_face_list_id: Required. LargeFaceListId of the target large
@@ -1019,7 +1019,7 @@ class LargePersonGroup(MetaDataContract):
     :param user_data: User specified data. Length should not exceed 16KB.
     :type user_data: str
     :param recognition_model: Possible values include: 'recognition_01',
-     'recognition_02'. Default value: "recognition_01" .
+     'recognition_02', 'recognition_03'. Default value: "recognition_01" .
     :type recognition_model: str or
      ~azure.cognitiveservices.vision.face.models.RecognitionModel
     :param large_person_group_id: Required. LargePersonGroupId of the target
@@ -1147,11 +1147,11 @@ class OperationStatus(Model):
      actively migrating data. The lastActionTime will keep increasing until the
      operation finishes. E.g. 2018-12-25T11:51:27.8705696Z.
     :type last_action_time: datetime
-    :param resource_location: When the operation succeeds successfully, for
-     snapshot taking operation the snapshot id will be included in this field,
-     and for snapshot applying operation, the path to get the target object
-     will be returned in this field.
-    :type resource_location: str
+    :param location: When the operation succeeds successfully, for snapshot
+     taking operation the snapshot id will be included in this field, and for
+     snapshot applying operation, the path to get the target object will be
+     returned in this field.
+    :type location: str
     :param message: Show failure message when operation fails (omitted when
      operation succeeds).
     :type message: str
@@ -1166,7 +1166,7 @@ class OperationStatus(Model):
         'status': {'key': 'status', 'type': 'OperationStatusType'},
         'created_time': {'key': 'createdTime', 'type': 'iso-8601'},
         'last_action_time': {'key': 'lastActionTime', 'type': 'iso-8601'},
-        'resource_location': {'key': 'resourceLocation', 'type': 'str'},
+        'location': {'key': 'location', 'type': 'str'},
         'message': {'key': 'message', 'type': 'str'},
     }
 
@@ -1175,7 +1175,7 @@ class OperationStatus(Model):
         self.status = kwargs.get('status', None)
         self.created_time = kwargs.get('created_time', None)
         self.last_action_time = kwargs.get('last_action_time', None)
-        self.resource_location = kwargs.get('resource_location', None)
+        self.location = kwargs.get('location', None)
         self.message = kwargs.get('message', None)
 
 
@@ -1256,7 +1256,7 @@ class PersonGroup(MetaDataContract):
     :param user_data: User specified data. Length should not exceed 16KB.
     :type user_data: str
     :param recognition_model: Possible values include: 'recognition_01',
-     'recognition_02'. Default value: "recognition_01" .
+     'recognition_02', 'recognition_03'. Default value: "recognition_01" .
     :type recognition_model: str or
      ~azure.cognitiveservices.vision.face.models.RecognitionModel
     :param person_group_id: Required. PersonGroupId of the target person
