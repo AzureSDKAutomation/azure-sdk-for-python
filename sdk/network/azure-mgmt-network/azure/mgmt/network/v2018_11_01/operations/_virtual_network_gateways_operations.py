@@ -8,7 +8,7 @@
 from typing import TYPE_CHECKING
 import warnings
 
-from azure.core.exceptions import ClientAuthenticationError, HttpResponseError, ResourceExistsError, ResourceNotFoundError, map_error
+from azure.core.exceptions import HttpResponseError, ResourceExistsError, ResourceNotFoundError, map_error
 from azure.core.paging import ItemPaged
 from azure.core.pipeline import PipelineResponse
 from azure.core.pipeline.transport import HttpRequest, HttpResponse
@@ -56,13 +56,10 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> "models.VirtualNetworkGateway"
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualNetworkGateway"]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2018-11-01"
         content_type = kwargs.pop("content_type", "application/json")
-        accept = "application/json"
 
         # Construct URL
         url = self._create_or_update_initial.metadata['url']  # type: ignore
@@ -80,12 +77,13 @@ class VirtualNetworkGatewaysOperations(object):
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
         header_parameters['Content-Type'] = self._serialize.header("content_type", content_type, 'str')
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         body_content_kwargs = {}  # type: Dict[str, Any]
         body_content = self._serialize.body(parameters, 'VirtualNetworkGateway')
         body_content_kwargs['content'] = body_content
         request = self._client.put(url, query_parameters, header_parameters, **body_content_kwargs)
+
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
         response = pipeline_response.http_response
 
@@ -190,12 +188,9 @@ class VirtualNetworkGatewaysOperations(object):
         :raises: ~azure.core.exceptions.HttpResponseError
         """
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualNetworkGateway"]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2018-11-01"
-        accept = "application/json"
 
         # Construct URL
         url = self.get.metadata['url']  # type: ignore
@@ -212,7 +207,7 @@ class VirtualNetworkGatewaysOperations(object):
 
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         request = self._client.get(url, query_parameters, header_parameters)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
@@ -238,9 +233,7 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> None
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2018-11-01"
 
@@ -341,13 +334,10 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> "models.VirtualNetworkGateway"
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualNetworkGateway"]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2018-11-01"
         content_type = kwargs.pop("content_type", "application/json")
-        accept = "application/json"
 
         # Construct URL
         url = self._update_tags_initial.metadata['url']  # type: ignore
@@ -365,12 +355,13 @@ class VirtualNetworkGatewaysOperations(object):
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
         header_parameters['Content-Type'] = self._serialize.header("content_type", content_type, 'str')
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         body_content_kwargs = {}  # type: Dict[str, Any]
         body_content = self._serialize.body(parameters, 'TagsObject')
         body_content_kwargs['content'] = body_content
         request = self._client.patch(url, query_parameters, header_parameters, **body_content_kwargs)
+
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
         response = pipeline_response.http_response
 
@@ -468,17 +459,14 @@ class VirtualNetworkGatewaysOperations(object):
         :raises: ~azure.core.exceptions.HttpResponseError
         """
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualNetworkGatewayListResult"]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2018-11-01"
-        accept = "application/json"
 
         def prepare_request(next_link=None):
             # Construct headers
             header_parameters = {}  # type: Dict[str, Any]
-            header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+            header_parameters['Accept'] = 'application/json'
 
             if not next_link:
                 # Construct URL
@@ -542,17 +530,14 @@ class VirtualNetworkGatewaysOperations(object):
         :raises: ~azure.core.exceptions.HttpResponseError
         """
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualNetworkGatewayListConnectionsResult"]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2018-11-01"
-        accept = "application/json"
 
         def prepare_request(next_link=None):
             # Construct headers
             header_parameters = {}  # type: Dict[str, Any]
-            header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+            header_parameters['Accept'] = 'application/json'
 
             if not next_link:
                 # Construct URL
@@ -607,12 +592,9 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> Optional["models.VirtualNetworkGateway"]
         cls = kwargs.pop('cls', None)  # type: ClsType[Optional["models.VirtualNetworkGateway"]]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2018-11-01"
-        accept = "application/json"
 
         # Construct URL
         url = self._reset_initial.metadata['url']  # type: ignore
@@ -631,7 +613,7 @@ class VirtualNetworkGatewaysOperations(object):
 
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         request = self._client.post(url, query_parameters, header_parameters)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
@@ -666,7 +648,7 @@ class VirtualNetworkGatewaysOperations(object):
         :param virtual_network_gateway_name: The name of the virtual network gateway.
         :type virtual_network_gateway_name: str
         :param gateway_vip: Virtual network gateway vip address supplied to the begin reset of the
-         active-active feature enabled gateway.
+     active-active feature enabled gateway.
         :type gateway_vip: str
         :keyword callable cls: A custom type or function that will be passed the direct response
         :keyword str continuation_token: A continuation token to restart a poller from a saved state.
@@ -726,9 +708,7 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> None
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2018-11-01"
 
@@ -769,7 +749,7 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> LROPoller[None]
         """Resets the VPN client shared key of the virtual network gateway in the specified resource
-        group.
+    group.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
@@ -830,13 +810,10 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> Optional[str]
         cls = kwargs.pop('cls', None)  # type: ClsType[Optional[str]]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2018-11-01"
         content_type = kwargs.pop("content_type", "application/json")
-        accept = "application/json"
 
         # Construct URL
         url = self._generatevpnclientpackage_initial.metadata['url']  # type: ignore
@@ -854,12 +831,13 @@ class VirtualNetworkGatewaysOperations(object):
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
         header_parameters['Content-Type'] = self._serialize.header("content_type", content_type, 'str')
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         body_content_kwargs = {}  # type: Dict[str, Any]
         body_content = self._serialize.body(parameters, 'VpnClientParameters')
         body_content_kwargs['content'] = body_content
         request = self._client.post(url, query_parameters, header_parameters, **body_content_kwargs)
+
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
         response = pipeline_response.http_response
 
@@ -886,14 +864,14 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> LROPoller[str]
         """Generates VPN client package for P2S client of the virtual network gateway in the specified
-        resource group.
+    resource group.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param virtual_network_gateway_name: The name of the virtual network gateway.
         :type virtual_network_gateway_name: str
         :param parameters: Parameters supplied to the generate virtual network gateway VPN client
-         package operation.
+     package operation.
         :type parameters: ~azure.mgmt.network.v2018_11_01.models.VpnClientParameters
         :keyword callable cls: A custom type or function that will be passed the direct response
         :keyword str continuation_token: A continuation token to restart a poller from a saved state.
@@ -954,13 +932,10 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> Optional[str]
         cls = kwargs.pop('cls', None)  # type: ClsType[Optional[str]]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2018-11-01"
         content_type = kwargs.pop("content_type", "application/json")
-        accept = "application/json"
 
         # Construct URL
         url = self._generate_vpn_profile_initial.metadata['url']  # type: ignore
@@ -978,12 +953,13 @@ class VirtualNetworkGatewaysOperations(object):
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
         header_parameters['Content-Type'] = self._serialize.header("content_type", content_type, 'str')
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         body_content_kwargs = {}  # type: Dict[str, Any]
         body_content = self._serialize.body(parameters, 'VpnClientParameters')
         body_content_kwargs['content'] = body_content
         request = self._client.post(url, query_parameters, header_parameters, **body_content_kwargs)
+
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
         response = pipeline_response.http_response
 
@@ -1010,14 +986,14 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> LROPoller[str]
         """Generates VPN profile for P2S client of the virtual network gateway in the specified resource
-        group. Used for IKEV2 and radius based authentication.
+    group. Used for IKEV2 and radius based authentication.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param virtual_network_gateway_name: The name of the virtual network gateway.
         :type virtual_network_gateway_name: str
         :param parameters: Parameters supplied to the generate virtual network gateway VPN client
-         package operation.
+     package operation.
         :type parameters: ~azure.mgmt.network.v2018_11_01.models.VpnClientParameters
         :keyword callable cls: A custom type or function that will be passed the direct response
         :keyword str continuation_token: A continuation token to restart a poller from a saved state.
@@ -1077,12 +1053,9 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> Optional[str]
         cls = kwargs.pop('cls', None)  # type: ClsType[Optional[str]]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2018-11-01"
-        accept = "application/json"
 
         # Construct URL
         url = self._get_vpn_profile_package_url_initial.metadata['url']  # type: ignore
@@ -1099,7 +1072,7 @@ class VirtualNetworkGatewaysOperations(object):
 
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         request = self._client.post(url, query_parameters, header_parameters)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
@@ -1127,7 +1100,7 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> LROPoller[str]
         """Gets pre-generated VPN profile for P2S client of the virtual network gateway in the specified
-        resource group. The profile needs to be generated first using generateVpnProfile.
+    resource group. The profile needs to be generated first using generateVpnProfile.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
@@ -1191,12 +1164,9 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> Optional["models.BgpPeerStatusListResult"]
         cls = kwargs.pop('cls', None)  # type: ClsType[Optional["models.BgpPeerStatusListResult"]]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2018-11-01"
-        accept = "application/json"
 
         # Construct URL
         url = self._get_bgp_peer_status_initial.metadata['url']  # type: ignore
@@ -1215,7 +1185,7 @@ class VirtualNetworkGatewaysOperations(object):
 
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         request = self._client.post(url, query_parameters, header_parameters)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
@@ -1320,12 +1290,9 @@ class VirtualNetworkGatewaysOperations(object):
         :raises: ~azure.core.exceptions.HttpResponseError
         """
         cls = kwargs.pop('cls', None)  # type: ClsType[str]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2018-11-01"
-        accept = "application/json"
 
         # Construct URL
         url = self.supported_vpn_devices.metadata['url']  # type: ignore
@@ -1342,7 +1309,7 @@ class VirtualNetworkGatewaysOperations(object):
 
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         request = self._client.post(url, query_parameters, header_parameters)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
@@ -1368,12 +1335,9 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> Optional["models.GatewayRouteListResult"]
         cls = kwargs.pop('cls', None)  # type: ClsType[Optional["models.GatewayRouteListResult"]]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2018-11-01"
-        accept = "application/json"
 
         # Construct URL
         url = self._get_learned_routes_initial.metadata['url']  # type: ignore
@@ -1390,7 +1354,7 @@ class VirtualNetworkGatewaysOperations(object):
 
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         request = self._client.post(url, query_parameters, header_parameters)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
@@ -1418,7 +1382,7 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> LROPoller["models.GatewayRouteListResult"]
         """This operation retrieves a list of routes the virtual network gateway has learned, including
-        routes learned from BGP peers.
+    routes learned from BGP peers.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
@@ -1482,12 +1446,9 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> Optional["models.GatewayRouteListResult"]
         cls = kwargs.pop('cls', None)  # type: ClsType[Optional["models.GatewayRouteListResult"]]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2018-11-01"
-        accept = "application/json"
 
         # Construct URL
         url = self._get_advertised_routes_initial.metadata['url']  # type: ignore
@@ -1505,7 +1466,7 @@ class VirtualNetworkGatewaysOperations(object):
 
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         request = self._client.post(url, query_parameters, header_parameters)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
@@ -1534,7 +1495,7 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> LROPoller["models.GatewayRouteListResult"]
         """This operation retrieves a list of routes the virtual network gateway is advertising to the
-        specified peer.
+    specified peer.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
@@ -1601,13 +1562,10 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> Optional["models.VpnClientIPsecParameters"]
         cls = kwargs.pop('cls', None)  # type: ClsType[Optional["models.VpnClientIPsecParameters"]]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2018-11-01"
         content_type = kwargs.pop("content_type", "application/json")
-        accept = "application/json"
 
         # Construct URL
         url = self._set_vpnclient_ipsec_parameters_initial.metadata['url']  # type: ignore
@@ -1625,12 +1583,13 @@ class VirtualNetworkGatewaysOperations(object):
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
         header_parameters['Content-Type'] = self._serialize.header("content_type", content_type, 'str')
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         body_content_kwargs = {}  # type: Dict[str, Any]
         body_content = self._serialize.body(vpnclient_ipsec_params, 'VpnClientIPsecParameters')
         body_content_kwargs['content'] = body_content
         request = self._client.post(url, query_parameters, header_parameters, **body_content_kwargs)
+
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
         response = pipeline_response.http_response
 
@@ -1657,14 +1616,14 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> LROPoller["models.VpnClientIPsecParameters"]
         """The Set VpnclientIpsecParameters operation sets the vpnclient ipsec policy for P2S client of
-        virtual network gateway in the specified resource group through Network resource provider.
+    virtual network gateway in the specified resource group through Network resource provider.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param virtual_network_gateway_name: The name of the virtual network gateway.
         :type virtual_network_gateway_name: str
         :param vpnclient_ipsec_params: Parameters supplied to the Begin Set vpnclient ipsec parameters
-         of Virtual Network Gateway P2S client operation through Network resource provider.
+     of Virtual Network Gateway P2S client operation through Network resource provider.
         :type vpnclient_ipsec_params: ~azure.mgmt.network.v2018_11_01.models.VpnClientIPsecParameters
         :keyword callable cls: A custom type or function that will be passed the direct response
         :keyword str continuation_token: A continuation token to restart a poller from a saved state.
@@ -1724,12 +1683,9 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> "models.VpnClientIPsecParameters"
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VpnClientIPsecParameters"]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2018-11-01"
-        accept = "application/json"
 
         # Construct URL
         url = self._get_vpnclient_ipsec_parameters_initial.metadata['url']  # type: ignore
@@ -1746,7 +1702,7 @@ class VirtualNetworkGatewaysOperations(object):
 
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         request = self._client.post(url, query_parameters, header_parameters)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
@@ -1772,8 +1728,8 @@ class VirtualNetworkGatewaysOperations(object):
     ):
         # type: (...) -> LROPoller["models.VpnClientIPsecParameters"]
         """The Get VpnclientIpsecParameters operation retrieves information about the vpnclient ipsec
-        policy for P2S client of virtual network gateway in the specified resource group through
-        Network resource provider.
+    policy for P2S client of virtual network gateway in the specified resource group through
+    Network resource provider.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
@@ -1851,13 +1807,10 @@ class VirtualNetworkGatewaysOperations(object):
         :raises: ~azure.core.exceptions.HttpResponseError
         """
         cls = kwargs.pop('cls', None)  # type: ClsType[str]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2018-11-01"
         content_type = kwargs.pop("content_type", "application/json")
-        accept = "application/json"
 
         # Construct URL
         url = self.vpn_device_configuration_script.metadata['url']  # type: ignore
@@ -1875,12 +1828,13 @@ class VirtualNetworkGatewaysOperations(object):
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
         header_parameters['Content-Type'] = self._serialize.header("content_type", content_type, 'str')
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         body_content_kwargs = {}  # type: Dict[str, Any]
         body_content = self._serialize.body(parameters, 'VpnDeviceScriptParameters')
         body_content_kwargs['content'] = body_content
         request = self._client.post(url, query_parameters, header_parameters, **body_content_kwargs)
+
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
         response = pipeline_response.http_response
 
