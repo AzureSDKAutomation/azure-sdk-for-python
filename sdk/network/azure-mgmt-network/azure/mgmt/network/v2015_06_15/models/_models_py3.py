@@ -805,15 +805,21 @@ class ApplicationGatewayRequestRoutingRule(SubResource):
 class ApplicationGatewaySku(msrest.serialization.Model):
     """SKU of application gateway.
 
+    Variables are only populated by the server, and will be ignored when sending a request.
+
     :param name: Name of an application gateway SKU. Possible values are: 'Standard_Small',
      'Standard_Medium', 'Standard_Large', 'WAF_Medium', and 'WAF_Large'. Possible values include:
      "Standard_Small", "Standard_Medium", "Standard_Large".
     :type name: str or ~azure.mgmt.network.v2015_06_15.models.ApplicationGatewaySkuName
-    :param tier: Tier of an application gateway. Possible values include: "Standard".
-    :type tier: str or ~azure.mgmt.network.v2015_06_15.models.ApplicationGatewayTier
+    :ivar tier: Tier of an application gateway. Default value: "Standard".
+    :vartype tier: str
     :param capacity: Capacity (instance count) of an application gateway.
     :type capacity: int
     """
+
+    _validation = {
+        'tier': {'constant': True},
+    }
 
     _attribute_map = {
         'name': {'key': 'name', 'type': 'str'},
@@ -821,17 +827,17 @@ class ApplicationGatewaySku(msrest.serialization.Model):
         'capacity': {'key': 'capacity', 'type': 'int'},
     }
 
+    tier = "Standard"
+
     def __init__(
         self,
         *,
         name: Optional[Union[str, "ApplicationGatewaySkuName"]] = None,
-        tier: Optional[Union[str, "ApplicationGatewayTier"]] = None,
         capacity: Optional[int] = None,
         **kwargs
     ):
         super(ApplicationGatewaySku, self).__init__(**kwargs)
         self.name = name
-        self.tier = tier
         self.capacity = capacity
 
 
@@ -3551,11 +3557,12 @@ class SubnetListResult(msrest.serialization.Model):
 class Usage(msrest.serialization.Model):
     """Describes network resource usage.
 
+    Variables are only populated by the server, and will be ignored when sending a request.
+
     All required parameters must be populated in order to send to Azure.
 
-    :param unit: Required. An enum describing the unit of measurement. Possible values include:
-     "Count".
-    :type unit: str or ~azure.mgmt.network.v2015_06_15.models.UsageUnit
+    :ivar unit: Required. An enum describing the unit of measurement. Default value: "Count".
+    :vartype unit: str
     :param current_value: Required. The current value of the usage.
     :type current_value: long
     :param limit: Required. The limit of usage.
@@ -3565,7 +3572,7 @@ class Usage(msrest.serialization.Model):
     """
 
     _validation = {
-        'unit': {'required': True},
+        'unit': {'required': True, 'constant': True},
         'current_value': {'required': True},
         'limit': {'required': True},
         'name': {'required': True},
@@ -3578,17 +3585,17 @@ class Usage(msrest.serialization.Model):
         'name': {'key': 'name', 'type': 'UsageName'},
     }
 
+    unit = "Count"
+
     def __init__(
         self,
         *,
-        unit: Union[str, "UsageUnit"],
         current_value: int,
         limit: int,
         name: "UsageName",
         **kwargs
     ):
         super(Usage, self).__init__(**kwargs)
-        self.unit = unit
         self.current_value = current_value
         self.limit = limit
         self.name = name

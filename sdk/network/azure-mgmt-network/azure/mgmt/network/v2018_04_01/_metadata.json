@@ -4,11 +4,7 @@
     "client": {
         "name": "NetworkManagementClient",
         "filename": "_network_management_client",
-        "description": "Network Client.",
-        "base_url": "\u0027https://management.azure.com\u0027",
-        "custom_base_url": null,
-        "azure_arm": true,
-        "has_lro_operations": true
+        "description": "Network Client."
     },
     "global_parameters": {
         "sync_method": {
@@ -45,10 +41,7 @@
     },
     "config": {
         "credential": true,
-        "credential_scopes": ["https://management.azure.com/.default"],
-        "credential_default_policy_type": "BearerTokenCredentialPolicy",
-        "credential_default_policy_type_has_async_version": true,
-        "credential_key_header_name": null
+        "credential_scopes": ["https://management.azure.com/.default"]
     },
     "operation_groups": {
         "azure_firewalls": "AzureFirewallsOperations",
@@ -104,17 +97,16 @@
     "operation_mixins": {
         "check_dns_name_availability" : {
             "sync": {
-                "signature": "def check_dns_name_availability(\n    self,\n    location,  # type: str\n    domain_name_label,  # type: str\n    **kwargs  # type: Any\n):\n",
-                "doc": "\"\"\"Checks whether a domain name in the cloudapp.azure.com zone is available for use.\n\n:param location: The location of the domain name.\n:type location: str\n:param domain_name_label: The domain name to be verified. It must conform to the following\n regular expression: ^[a-z][a-z0-9-]{1,61}[a-z0-9]$.\n:type domain_name_label: str\n:keyword callable cls: A custom type or function that will be passed the direct response\n:return: DnsNameAvailabilityResult, or the result of cls(response)\n:rtype: ~azure.mgmt.network.v2018_04_01.models.DnsNameAvailabilityResult\n:raises: ~azure.core.exceptions.HttpResponseError\n\"\"\""
+                "signature": "def check_dns_name_availability(\n    self,\n    location,  # type: str\n    domain_name_label,  # type: str\n    **kwargs  # type: Any\n):\n"
             },
             "async": {
-                "coroutine": true,
                 "signature": "async def check_dns_name_availability(\n    self,\n    location: str,\n    domain_name_label: str,\n    **kwargs\n) -\u003e \"models.DnsNameAvailabilityResult\":\n",
-                "doc": "\"\"\"Checks whether a domain name in the cloudapp.azure.com zone is available for use.\n\n:param location: The location of the domain name.\n:type location: str\n:param domain_name_label: The domain name to be verified. It must conform to the following\n regular expression: ^[a-z][a-z0-9-]{1,61}[a-z0-9]$.\n:type domain_name_label: str\n:keyword callable cls: A custom type or function that will be passed the direct response\n:return: DnsNameAvailabilityResult, or the result of cls(response)\n:rtype: ~azure.mgmt.network.v2018_04_01.models.DnsNameAvailabilityResult\n:raises: ~azure.core.exceptions.HttpResponseError\n\"\"\""
+                "coroutine": true
             },
+            "doc": "    \"\"\"Checks whether a domain name in the cloudapp.azure.com zone is available for use.\n\n:param location: The location of the domain name.\n:type location: str\n:param domain_name_label: The domain name to be verified. It must conform to the following\n regular expression: ^[a-z][a-z0-9-]{1,61}[a-z0-9]$.\n:type domain_name_label: str\n:keyword callable cls: A custom type or function that will be passed the direct response\n:return: DnsNameAvailabilityResult, or the result of cls(response)\n:rtype: ~azure.mgmt.network.v2018_04_01.models.DnsNameAvailabilityResult\n:raises: ~azure.core.exceptions.HttpResponseError\n\"\"\"",
             "call": "location, domain_name_label"
         }
     },
-    "sync_imports": "{\"regular\": {\"azurecore\": {\"azure.core.exceptions\": [\"ClientAuthenticationError\", \"HttpResponseError\", \"ResourceExistsError\", \"ResourceNotFoundError\", \"map_error\"], \"azure.mgmt.core.exceptions\": [\"ARMErrorFormat\"], \"azure.core.pipeline\": [\"PipelineResponse\"], \"azure.core.pipeline.transport\": [\"HttpRequest\", \"HttpResponse\"]}, \"stdlib\": {\"warnings\": [null]}}, \"conditional\": {\"stdlib\": {\"typing\": [\"Any\", \"Callable\", \"Dict\", \"Generic\", \"Optional\", \"TypeVar\"]}}}",
-    "async_imports": "{\"regular\": {\"azurecore\": {\"azure.core.exceptions\": [\"ClientAuthenticationError\", \"HttpResponseError\", \"ResourceExistsError\", \"ResourceNotFoundError\", \"map_error\"], \"azure.mgmt.core.exceptions\": [\"ARMErrorFormat\"], \"azure.core.pipeline\": [\"PipelineResponse\"], \"azure.core.pipeline.transport\": [\"AsyncHttpResponse\", \"HttpRequest\"]}, \"stdlib\": {\"warnings\": [null]}}, \"conditional\": {\"stdlib\": {\"typing\": [\"Any\", \"Callable\", \"Dict\", \"Generic\", \"Optional\", \"TypeVar\"]}}}"
+    "sync_imports": "{\"regular\": {\"azurecore\": {\"azure.core.exceptions\": [\"HttpResponseError\", \"ResourceExistsError\", \"ResourceNotFoundError\", \"map_error\"], \"azure.mgmt.core.exceptions\": [\"ARMErrorFormat\"], \"azure.core.pipeline\": [\"PipelineResponse\"], \"azure.core.pipeline.transport\": [\"HttpRequest\", \"HttpResponse\"]}, \"stdlib\": {\"warnings\": [null]}}, \"conditional\": {\"stdlib\": {\"typing\": [\"Any\", \"Callable\", \"Dict\", \"Generic\", \"Optional\", \"TypeVar\"]}}}",
+    "async_imports": "{\"regular\": {\"azurecore\": {\"azure.core.exceptions\": [\"HttpResponseError\", \"ResourceExistsError\", \"ResourceNotFoundError\", \"map_error\"], \"azure.mgmt.core.exceptions\": [\"ARMErrorFormat\"], \"azure.core.pipeline\": [\"PipelineResponse\"], \"azure.core.pipeline.transport\": [\"AsyncHttpResponse\", \"HttpRequest\"]}, \"stdlib\": {\"warnings\": [null]}}, \"conditional\": {\"stdlib\": {\"typing\": [\"Any\", \"Callable\", \"Dict\", \"Generic\", \"Optional\", \"TypeVar\"]}}}"
 }
