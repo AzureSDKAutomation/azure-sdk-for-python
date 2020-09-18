@@ -616,7 +616,7 @@ class ConfigurationStoresOperations(object):
         deserialized = models.ApiKeyPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list_keys.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/ListKeys'}
+    list_keys.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/listKeys'}
 
     def regenerate_key(
             self, resource_group_name, config_store_name, id=None, custom_headers=None, raw=False, **operation_config):
@@ -685,7 +685,7 @@ class ConfigurationStoresOperations(object):
             return client_raw_response
 
         return deserialized
-    regenerate_key.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/RegenerateKey'}
+    regenerate_key.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/regenerateKey'}
 
     def list_key_value(
             self, resource_group_name, config_store_name, key, label=None, custom_headers=None, raw=False, **operation_config):
