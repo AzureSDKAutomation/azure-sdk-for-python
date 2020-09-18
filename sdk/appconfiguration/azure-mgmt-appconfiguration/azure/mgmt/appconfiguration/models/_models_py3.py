@@ -94,18 +94,20 @@ class ApiKeyListResult(msrest.serialization.Model):
 class CheckNameAvailabilityParameters(msrest.serialization.Model):
     """Parameters used for checking whether a resource name is available.
 
+    Variables are only populated by the server, and will be ignored when sending a request.
+
     All required parameters must be populated in order to send to Azure.
 
     :param name: Required. The name to check for availability.
     :type name: str
-    :param type: Required. The resource type to check for name availability. Possible values
-     include: "Microsoft.AppConfiguration/configurationStores".
-    :type type: str or ~app_configuration_management_client.models.ConfigurationResourceType
+    :ivar type: Required. The resource type to check for name availability. Default value:
+     "Microsoft.AppConfiguration/configurationStores".
+    :vartype type: str
     """
 
     _validation = {
         'name': {'required': True},
-        'type': {'required': True},
+        'type': {'required': True, 'constant': True},
     }
 
     _attribute_map = {
@@ -113,16 +115,16 @@ class CheckNameAvailabilityParameters(msrest.serialization.Model):
         'type': {'key': 'type', 'type': 'str'},
     }
 
+    type = "Microsoft.AppConfiguration/configurationStores"
+
     def __init__(
         self,
         *,
         name: str,
-        type: Union[str, "ConfigurationResourceType"],
         **kwargs
     ):
         super(CheckNameAvailabilityParameters, self).__init__(**kwargs)
         self.name = name
-        self.type = type
 
 
 class Resource(msrest.serialization.Model):
