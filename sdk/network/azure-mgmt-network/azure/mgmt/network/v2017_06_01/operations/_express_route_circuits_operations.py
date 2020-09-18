@@ -8,7 +8,7 @@
 from typing import TYPE_CHECKING
 import warnings
 
-from azure.core.exceptions import ClientAuthenticationError, HttpResponseError, ResourceExistsError, ResourceNotFoundError, map_error
+from azure.core.exceptions import HttpResponseError, ResourceExistsError, ResourceNotFoundError, map_error
 from azure.core.paging import ItemPaged
 from azure.core.pipeline import PipelineResponse
 from azure.core.pipeline.transport import HttpRequest, HttpResponse
@@ -55,9 +55,7 @@ class ExpressRouteCircuitsOperations(object):
     ):
         # type: (...) -> None
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2017-06-01"
 
@@ -168,12 +166,9 @@ class ExpressRouteCircuitsOperations(object):
         :raises: ~azure.core.exceptions.HttpResponseError
         """
         cls = kwargs.pop('cls', None)  # type: ClsType["models.ExpressRouteCircuit"]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2017-06-01"
-        accept = "application/json, text/json"
 
         # Construct URL
         url = self.get.metadata['url']  # type: ignore
@@ -190,7 +185,7 @@ class ExpressRouteCircuitsOperations(object):
 
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         request = self._client.get(url, query_parameters, header_parameters)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
@@ -217,13 +212,10 @@ class ExpressRouteCircuitsOperations(object):
     ):
         # type: (...) -> "models.ExpressRouteCircuit"
         cls = kwargs.pop('cls', None)  # type: ClsType["models.ExpressRouteCircuit"]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2017-06-01"
         content_type = kwargs.pop("content_type", "application/json")
-        accept = "application/json, text/json"
 
         # Construct URL
         url = self._create_or_update_initial.metadata['url']  # type: ignore
@@ -241,12 +233,13 @@ class ExpressRouteCircuitsOperations(object):
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
         header_parameters['Content-Type'] = self._serialize.header("content_type", content_type, 'str')
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         body_content_kwargs = {}  # type: Dict[str, Any]
         body_content = self._serialize.body(parameters, 'ExpressRouteCircuit')
         body_content_kwargs['content'] = body_content
         request = self._client.put(url, query_parameters, header_parameters, **body_content_kwargs)
+
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
         response = pipeline_response.http_response
 
@@ -342,12 +335,9 @@ class ExpressRouteCircuitsOperations(object):
     ):
         # type: (...) -> Optional["models.ExpressRouteCircuitsArpTableListResult"]
         cls = kwargs.pop('cls', None)  # type: ClsType[Optional["models.ExpressRouteCircuitsArpTableListResult"]]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2017-06-01"
-        accept = "application/json, text/json"
 
         # Construct URL
         url = self._list_arp_table_initial.metadata['url']  # type: ignore
@@ -366,7 +356,7 @@ class ExpressRouteCircuitsOperations(object):
 
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         request = self._client.post(url, query_parameters, header_parameters)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
@@ -396,7 +386,7 @@ class ExpressRouteCircuitsOperations(object):
     ):
         # type: (...) -> LROPoller["models.ExpressRouteCircuitsArpTableListResult"]
         """Gets the currently advertised ARP table associated with the express route circuit in a resource
-        group.
+    group.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
@@ -467,12 +457,9 @@ class ExpressRouteCircuitsOperations(object):
     ):
         # type: (...) -> Optional["models.ExpressRouteCircuitsRoutesTableListResult"]
         cls = kwargs.pop('cls', None)  # type: ClsType[Optional["models.ExpressRouteCircuitsRoutesTableListResult"]]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2017-06-01"
-        accept = "application/json, text/json"
 
         # Construct URL
         url = self._list_routes_table_initial.metadata['url']  # type: ignore
@@ -491,7 +478,7 @@ class ExpressRouteCircuitsOperations(object):
 
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         request = self._client.post(url, query_parameters, header_parameters)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
@@ -521,7 +508,7 @@ class ExpressRouteCircuitsOperations(object):
     ):
         # type: (...) -> LROPoller["models.ExpressRouteCircuitsRoutesTableListResult"]
         """Gets the currently advertised routes table associated with the express route circuit in a
-        resource group.
+    resource group.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
@@ -592,12 +579,9 @@ class ExpressRouteCircuitsOperations(object):
     ):
         # type: (...) -> Optional["models.ExpressRouteCircuitsRoutesTableSummaryListResult"]
         cls = kwargs.pop('cls', None)  # type: ClsType[Optional["models.ExpressRouteCircuitsRoutesTableSummaryListResult"]]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2017-06-01"
-        accept = "application/json, text/json"
 
         # Construct URL
         url = self._list_routes_table_summary_initial.metadata['url']  # type: ignore
@@ -616,7 +600,7 @@ class ExpressRouteCircuitsOperations(object):
 
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         request = self._client.post(url, query_parameters, header_parameters)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
@@ -646,7 +630,7 @@ class ExpressRouteCircuitsOperations(object):
     ):
         # type: (...) -> LROPoller["models.ExpressRouteCircuitsRoutesTableSummaryListResult"]
         """Gets the currently advertised routes table summary associated with the express route circuit in
-        a resource group.
+    a resource group.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
@@ -726,12 +710,9 @@ class ExpressRouteCircuitsOperations(object):
         :raises: ~azure.core.exceptions.HttpResponseError
         """
         cls = kwargs.pop('cls', None)  # type: ClsType["models.ExpressRouteCircuitStats"]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2017-06-01"
-        accept = "application/json, text/json"
 
         # Construct URL
         url = self.get_stats.metadata['url']  # type: ignore
@@ -748,7 +729,7 @@ class ExpressRouteCircuitsOperations(object):
 
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         request = self._client.get(url, query_parameters, header_parameters)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
@@ -788,12 +769,9 @@ class ExpressRouteCircuitsOperations(object):
         :raises: ~azure.core.exceptions.HttpResponseError
         """
         cls = kwargs.pop('cls', None)  # type: ClsType["models.ExpressRouteCircuitStats"]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2017-06-01"
-        accept = "application/json, text/json"
 
         # Construct URL
         url = self.get_peering_stats.metadata['url']  # type: ignore
@@ -811,7 +789,7 @@ class ExpressRouteCircuitsOperations(object):
 
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         request = self._client.get(url, query_parameters, header_parameters)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
@@ -845,17 +823,14 @@ class ExpressRouteCircuitsOperations(object):
         :raises: ~azure.core.exceptions.HttpResponseError
         """
         cls = kwargs.pop('cls', None)  # type: ClsType["models.ExpressRouteCircuitListResult"]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2017-06-01"
-        accept = "application/json, text/json"
 
         def prepare_request(next_link=None):
             # Construct headers
             header_parameters = {}  # type: Dict[str, Any]
-            header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+            header_parameters['Accept'] = 'application/json'
 
             if not next_link:
                 # Construct URL
@@ -913,17 +888,14 @@ class ExpressRouteCircuitsOperations(object):
         :raises: ~azure.core.exceptions.HttpResponseError
         """
         cls = kwargs.pop('cls', None)  # type: ClsType["models.ExpressRouteCircuitListResult"]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2017-06-01"
-        accept = "application/json, text/json"
 
         def prepare_request(next_link=None):
             # Construct headers
             header_parameters = {}  # type: Dict[str, Any]
-            header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+            header_parameters['Accept'] = 'application/json'
 
             if not next_link:
                 # Construct URL

@@ -8,7 +8,7 @@
 from typing import TYPE_CHECKING
 import warnings
 
-from azure.core.exceptions import ClientAuthenticationError, HttpResponseError, ResourceExistsError, ResourceNotFoundError, map_error
+from azure.core.exceptions import HttpResponseError, ResourceExistsError, ResourceNotFoundError, map_error
 from azure.core.paging import ItemPaged
 from azure.core.pipeline import PipelineResponse
 from azure.core.pipeline.transport import HttpRequest, HttpResponse
@@ -56,13 +56,10 @@ class VirtualNetworkGatewayConnectionsOperations(object):
     ):
         # type: (...) -> "models.VirtualNetworkGatewayConnection"
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualNetworkGatewayConnection"]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2015-06-15"
         content_type = kwargs.pop("content_type", "application/json")
-        accept = "application/json, text/json"
 
         # Construct URL
         url = self._create_or_update_initial.metadata['url']  # type: ignore
@@ -80,12 +77,13 @@ class VirtualNetworkGatewayConnectionsOperations(object):
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
         header_parameters['Content-Type'] = self._serialize.header("content_type", content_type, 'str')
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         body_content_kwargs = {}  # type: Dict[str, Any]
         body_content = self._serialize.body(parameters, 'VirtualNetworkGatewayConnection')
         body_content_kwargs['content'] = body_content
         request = self._client.put(url, query_parameters, header_parameters, **body_content_kwargs)
+
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
         response = pipeline_response.http_response
 
@@ -118,10 +116,10 @@ class VirtualNetworkGatewayConnectionsOperations(object):
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param virtual_network_gateway_connection_name: The name of the virtual network gateway
-         connection.
+     connection.
         :type virtual_network_gateway_connection_name: str
         :param parameters: Parameters supplied to the create or update virtual network gateway
-         connection operation.
+     connection operation.
         :type parameters: ~azure.mgmt.network.v2015_06_15.models.VirtualNetworkGatewayConnection
         :keyword callable cls: A custom type or function that will be passed the direct response
         :keyword str continuation_token: A continuation token to restart a poller from a saved state.
@@ -193,12 +191,9 @@ class VirtualNetworkGatewayConnectionsOperations(object):
         :raises: ~azure.core.exceptions.HttpResponseError
         """
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualNetworkGatewayConnection"]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2015-06-15"
-        accept = "application/json, text/json"
 
         # Construct URL
         url = self.get.metadata['url']  # type: ignore
@@ -215,7 +210,7 @@ class VirtualNetworkGatewayConnectionsOperations(object):
 
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         request = self._client.get(url, query_parameters, header_parameters)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
@@ -241,9 +236,7 @@ class VirtualNetworkGatewayConnectionsOperations(object):
     ):
         # type: (...) -> None
         cls = kwargs.pop('cls', None)  # type: ClsType[None]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2015-06-15"
 
@@ -288,7 +281,7 @@ class VirtualNetworkGatewayConnectionsOperations(object):
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param virtual_network_gateway_connection_name: The name of the virtual network gateway
-         connection.
+     connection.
         :type virtual_network_gateway_connection_name: str
         :keyword callable cls: A custom type or function that will be passed the direct response
         :keyword str continuation_token: A continuation token to restart a poller from a saved state.
@@ -343,7 +336,7 @@ class VirtualNetworkGatewayConnectionsOperations(object):
     ):
         # type: (...) -> Iterable["models.VirtualNetworkGatewayConnectionListResult"]
         """The List VirtualNetworkGatewayConnections operation retrieves all the virtual network gateways
-        connections created.
+    connections created.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
@@ -353,17 +346,14 @@ class VirtualNetworkGatewayConnectionsOperations(object):
         :raises: ~azure.core.exceptions.HttpResponseError
         """
         cls = kwargs.pop('cls', None)  # type: ClsType["models.VirtualNetworkGatewayConnectionListResult"]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2015-06-15"
-        accept = "application/json, text/json"
 
         def prepare_request(next_link=None):
             # Construct headers
             header_parameters = {}  # type: Dict[str, Any]
-            header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+            header_parameters['Accept'] = 'application/json'
 
             if not next_link:
                 # Construct URL
@@ -417,13 +407,10 @@ class VirtualNetworkGatewayConnectionsOperations(object):
     ):
         # type: (...) -> Optional["models.ConnectionResetSharedKey"]
         cls = kwargs.pop('cls', None)  # type: ClsType[Optional["models.ConnectionResetSharedKey"]]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2015-06-15"
         content_type = kwargs.pop("content_type", "application/json")
-        accept = "application/json, text/json"
 
         # Construct URL
         url = self._reset_shared_key_initial.metadata['url']  # type: ignore
@@ -441,12 +428,13 @@ class VirtualNetworkGatewayConnectionsOperations(object):
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
         header_parameters['Content-Type'] = self._serialize.header("content_type", content_type, 'str')
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         body_content_kwargs = {}  # type: Dict[str, Any]
         body_content = self._serialize.body(parameters, 'ConnectionResetSharedKey')
         body_content_kwargs['content'] = body_content
         request = self._client.post(url, query_parameters, header_parameters, **body_content_kwargs)
+
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
         response = pipeline_response.http_response
 
@@ -473,16 +461,16 @@ class VirtualNetworkGatewayConnectionsOperations(object):
     ):
         # type: (...) -> LROPoller["models.ConnectionResetSharedKey"]
         """The VirtualNetworkGatewayConnectionResetSharedKey operation resets the virtual network gateway
-        connection shared key for passed virtual network gateway connection in the specified resource
-        group through Network resource provider.
+    connection shared key for passed virtual network gateway connection in the specified resource
+    group through Network resource provider.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param virtual_network_gateway_connection_name: The virtual network gateway connection reset
-         shared key Name.
+     shared key Name.
         :type virtual_network_gateway_connection_name: str
         :param parameters: Parameters supplied to the begin reset virtual network gateway connection
-         shared key operation through network resource provider.
+     shared key operation through network resource provider.
         :type parameters: ~azure.mgmt.network.v2015_06_15.models.ConnectionResetSharedKey
         :keyword callable cls: A custom type or function that will be passed the direct response
         :keyword str continuation_token: A continuation token to restart a poller from a saved state.
@@ -543,13 +531,10 @@ class VirtualNetworkGatewayConnectionsOperations(object):
     ):
         # type: (...) -> "models.ConnectionSharedKey"
         cls = kwargs.pop('cls', None)  # type: ClsType["models.ConnectionSharedKey"]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2015-06-15"
         content_type = kwargs.pop("content_type", "application/json")
-        accept = "application/json, text/json"
 
         # Construct URL
         url = self._set_shared_key_initial.metadata['url']  # type: ignore
@@ -567,12 +552,13 @@ class VirtualNetworkGatewayConnectionsOperations(object):
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
         header_parameters['Content-Type'] = self._serialize.header("content_type", content_type, 'str')
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         body_content_kwargs = {}  # type: Dict[str, Any]
         body_content = self._serialize.body(parameters, 'ConnectionSharedKey')
         body_content_kwargs['content'] = body_content
         request = self._client.put(url, query_parameters, header_parameters, **body_content_kwargs)
+
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
         response = pipeline_response.http_response
 
@@ -601,15 +587,15 @@ class VirtualNetworkGatewayConnectionsOperations(object):
     ):
         # type: (...) -> LROPoller["models.ConnectionSharedKey"]
         """The Put VirtualNetworkGatewayConnectionSharedKey operation sets the virtual network gateway
-        connection shared key for passed virtual network gateway connection in the specified resource
-        group through Network resource provider.
+    connection shared key for passed virtual network gateway connection in the specified resource
+    group through Network resource provider.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param virtual_network_gateway_connection_name: The virtual network gateway connection name.
         :type virtual_network_gateway_connection_name: str
         :param parameters: Parameters supplied to the Begin Set Virtual Network Gateway connection
-         Shared key operation throughNetwork resource provider.
+     Shared key operation throughNetwork resource provider.
         :type parameters: ~azure.mgmt.network.v2015_06_15.models.ConnectionSharedKey
         :keyword callable cls: A custom type or function that will be passed the direct response
         :keyword str continuation_token: A continuation token to restart a poller from a saved state.
@@ -682,12 +668,9 @@ class VirtualNetworkGatewayConnectionsOperations(object):
         :raises: ~azure.core.exceptions.HttpResponseError
         """
         cls = kwargs.pop('cls', None)  # type: ClsType["models.ConnectionSharedKeyResult"]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2015-06-15"
-        accept = "application/json, text/json"
 
         # Construct URL
         url = self.get_shared_key.metadata['url']  # type: ignore
@@ -704,7 +687,7 @@ class VirtualNetworkGatewayConnectionsOperations(object):
 
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         request = self._client.get(url, query_parameters, header_parameters)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)

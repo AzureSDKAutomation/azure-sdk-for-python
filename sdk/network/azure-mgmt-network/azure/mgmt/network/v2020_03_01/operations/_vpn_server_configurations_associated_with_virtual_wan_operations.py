@@ -8,7 +8,7 @@
 from typing import TYPE_CHECKING
 import warnings
 
-from azure.core.exceptions import ClientAuthenticationError, HttpResponseError, ResourceExistsError, ResourceNotFoundError, map_error
+from azure.core.exceptions import HttpResponseError, ResourceExistsError, ResourceNotFoundError, map_error
 from azure.core.pipeline import PipelineResponse
 from azure.core.pipeline.transport import HttpRequest, HttpResponse
 from azure.core.polling import LROPoller, NoPolling, PollingMethod
@@ -54,12 +54,9 @@ class VpnServerConfigurationsAssociatedWithVirtualWanOperations(object):
     ):
         # type: (...) -> Optional["models.VpnServerConfigurationsResponse"]
         cls = kwargs.pop('cls', None)  # type: ClsType[Optional["models.VpnServerConfigurationsResponse"]]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
+        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2020-03-01"
-        accept = "application/json"
 
         # Construct URL
         url = self._list_initial.metadata['url']  # type: ignore
@@ -76,7 +73,7 @@ class VpnServerConfigurationsAssociatedWithVirtualWanOperations(object):
 
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
+        header_parameters['Accept'] = 'application/json'
 
         request = self._client.post(url, query_parameters, header_parameters)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
@@ -108,7 +105,7 @@ class VpnServerConfigurationsAssociatedWithVirtualWanOperations(object):
         :param resource_group_name: The resource group name.
         :type resource_group_name: str
         :param virtual_wan_name: The name of the VirtualWAN whose associated VpnServerConfigurations is
-         needed.
+     needed.
         :type virtual_wan_name: str
         :keyword callable cls: A custom type or function that will be passed the direct response
         :keyword str continuation_token: A continuation token to restart a poller from a saved state.
