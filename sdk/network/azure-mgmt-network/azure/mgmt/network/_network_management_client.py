@@ -72,6 +72,8 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         self._config = NetworkManagementClientConfiguration(credential, subscription_id, **kwargs)
         self._client = ARMPipelineClient(base_url=base_url, config=self._config, **kwargs)
         super(NetworkManagementClient, self).__init__(
+            credential,
+            self._config,
             api_version=api_version,
             profile=profile
         )
@@ -205,7 +207,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01 import models
             return models
-        raise ValueError("API version {} is not available".format(api_version))
+        raise NotImplementedError("APIVersion {} is not available".format(api_version))
 
     @property
     def application_gateway_private_endpoint_connections(self):
@@ -220,7 +222,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ApplicationGatewayPrivateEndpointConnectionsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'application_gateway_private_endpoint_connections'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -236,7 +238,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ApplicationGatewayPrivateLinkResourcesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'application_gateway_private_link_resources'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -336,7 +338,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ApplicationGatewaysOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'application_gateways'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -418,7 +420,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ApplicationSecurityGroupsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'application_security_groups'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -476,7 +478,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import AvailableDelegationsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'available_delegations'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -564,7 +566,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import AvailableEndpointServicesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'available_endpoint_services'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -607,7 +609,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import AvailablePrivateEndpointTypesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'available_private_endpoint_types'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -665,7 +667,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import AvailableResourceGroupDelegationsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'available_resource_group_delegations'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -699,7 +701,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import AvailableServiceAliasesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'available_service_aliases'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -757,7 +759,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import AzureFirewallFqdnTagsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'azure_firewall_fqdn_tags'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -824,7 +826,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import AzureFirewallsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'azure_firewalls'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -867,7 +869,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import BastionHostsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'bastion_hosts'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -961,7 +963,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import BgpServiceCommunitiesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'bgp_service_communities'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -1040,7 +1042,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ConnectionMonitorsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'connection_monitors'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -1053,7 +1055,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         if api_version == '2020-06-01':
             from .v2020_06_01.operations import CustomIPPrefixesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'custom_ip_prefixes'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -1105,7 +1107,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import DdosCustomPoliciesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'ddos_custom_policies'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -1175,7 +1177,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import DdosProtectionPlansOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'ddos_protection_plans'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -1263,7 +1265,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import DefaultSecurityRulesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'default_security_rules'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -1276,7 +1278,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         if api_version == '2020-06-01':
             from .v2020_06_01.operations import DscpConfigurationOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'dscp_configuration'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -1376,7 +1378,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ExpressRouteCircuitAuthorizationsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'express_route_circuit_authorizations'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -1446,7 +1448,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ExpressRouteCircuitConnectionsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'express_route_circuit_connections'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -1546,7 +1548,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ExpressRouteCircuitPeeringsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'express_route_circuit_peerings'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -1646,7 +1648,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ExpressRouteCircuitsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'express_route_circuits'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -1704,7 +1706,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ExpressRouteConnectionsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'express_route_connections'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -1774,7 +1776,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ExpressRouteCrossConnectionPeeringsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'express_route_cross_connection_peerings'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -1844,7 +1846,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ExpressRouteCrossConnectionsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'express_route_cross_connections'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -1902,7 +1904,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ExpressRouteGatewaysOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'express_route_gateways'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -1960,7 +1962,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ExpressRouteLinksOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'express_route_links'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2018,7 +2020,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ExpressRoutePortsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'express_route_ports'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2076,7 +2078,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ExpressRoutePortsLocationsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'express_route_ports_locations'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2176,7 +2178,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ExpressRouteServiceProvidersOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'express_route_service_providers'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2216,7 +2218,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import FirewallPoliciesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'firewall_policies'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2232,7 +2234,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import FirewallPolicyRuleCollectionGroupsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'firewall_policy_rule_collection_groups'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2266,7 +2268,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-04-01':
             from .v2020_04_01.operations import FirewallPolicyRuleGroupsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'firewall_policy_rule_groups'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2294,7 +2296,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import FlowLogsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'flow_logs'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2313,7 +2315,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import HubRouteTablesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'hub_route_tables'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2380,7 +2382,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import HubVirtualNetworkConnectionsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'hub_virtual_network_connections'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2468,7 +2470,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import InboundNatRulesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'inbound_nat_rules'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2481,7 +2483,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         if api_version == '2020-06-01':
             from .v2020_06_01.operations import InboundSecurityRuleOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'inbound_security_rule'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2506,7 +2508,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2019-02-01':
             from .v2019_02_01.operations import InterfaceEndpointsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'interface_endpoints'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2528,7 +2530,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import IpAllocationsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'ip_allocations'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2559,7 +2561,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import IpGroupsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'ip_groups'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2647,7 +2649,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import LoadBalancerBackendAddressPoolsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'load_balancer_backend_address_pools'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2735,7 +2737,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import LoadBalancerFrontendIPConfigurationsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'load_balancer_frontend_ip_configurations'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2823,7 +2825,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import LoadBalancerLoadBalancingRulesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'load_balancer_load_balancing_rules'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2911,7 +2913,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import LoadBalancerNetworkInterfacesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'load_balancer_network_interfaces'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -2969,7 +2971,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import LoadBalancerOutboundRulesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'load_balancer_outbound_rules'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -3057,7 +3059,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import LoadBalancerProbesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'load_balancer_probes'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -3157,7 +3159,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import LoadBalancersOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'load_balancers'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -3257,7 +3259,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import LocalNetworkGatewaysOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'local_network_gateways'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -3303,7 +3305,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import NatGatewaysOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'nat_gateways'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -3391,7 +3393,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import NetworkInterfaceIPConfigurationsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'network_interface_ip_configurations'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -3479,7 +3481,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import NetworkInterfaceLoadBalancersOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'network_interface_load_balancers'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -3537,7 +3539,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import NetworkInterfaceTapConfigurationsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'network_interface_tap_configurations'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -3637,7 +3639,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import NetworkInterfacesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'network_interfaces'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -3695,7 +3697,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import NetworkProfilesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'network_profiles'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -3795,7 +3797,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import NetworkSecurityGroupsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'network_security_groups'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -3820,7 +3822,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import NetworkVirtualAppliancesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'network_virtual_appliances'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -3917,7 +3919,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import NetworkWatchersOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'network_watchers'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -3999,7 +4001,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import Operations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'operations'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -4057,7 +4059,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import P2SVpnGatewaysOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'p2_svpn_gateways'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -4091,7 +4093,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2019-07-01':
             from .v2019_07_01.operations import P2SVpnServerConfigurationsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'p2_svpn_server_configurations'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -4188,7 +4190,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import PacketCapturesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'packet_captures'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -4237,7 +4239,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import PeerExpressRouteCircuitConnectionsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'peer_express_route_circuit_connections'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -4259,7 +4261,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import PrivateDnsZoneGroupsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'private_dns_zone_groups'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -4302,7 +4304,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import PrivateEndpointsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'private_endpoints'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -4345,7 +4347,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import PrivateLinkServicesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'private_link_services'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -4445,7 +4447,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import PublicIPAddressesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'public_ip_addresses'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -4506,7 +4508,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import PublicIPPrefixesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'public_ip_prefixes'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -4552,7 +4554,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ResourceNavigationLinksOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'resource_navigation_links'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -4646,7 +4648,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import RouteFilterRulesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'route_filter_rules'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -4740,7 +4742,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import RouteFiltersOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'route_filters'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -4840,7 +4842,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import RouteTablesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'route_tables'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -4940,7 +4942,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import RoutesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'routes'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -4962,7 +4964,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import SecurityPartnerProvidersOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'security_partner_providers'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -5062,7 +5064,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import SecurityRulesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'security_rules'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -5108,7 +5110,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ServiceAssociationLinksOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'service_association_links'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -5169,7 +5171,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ServiceEndpointPoliciesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'service_endpoint_policies'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -5230,7 +5232,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ServiceEndpointPolicyDefinitionsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'service_endpoint_policy_definitions'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -5273,7 +5275,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import ServiceTagsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'service_tags'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -5373,7 +5375,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import SubnetsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'subnets'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -5473,7 +5475,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import UsagesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'usages'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -5489,7 +5491,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VirtualApplianceSitesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'virtual_appliance_sites'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -5505,7 +5507,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VirtualApplianceSkusOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'virtual_appliance_skus'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -5521,7 +5523,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VirtualHubBgpConnectionOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'virtual_hub_bgp_connection'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -5537,7 +5539,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VirtualHubBgpConnectionsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'virtual_hub_bgp_connections'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -5553,7 +5555,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VirtualHubIpConfigurationOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'virtual_hub_ip_configuration'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -5584,7 +5586,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VirtualHubRouteTableV2SOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'virtual_hub_route_table_v2_s'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -5651,7 +5653,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VirtualHubsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'virtual_hubs'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -5751,7 +5753,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VirtualNetworkGatewayConnectionsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'virtual_network_gateway_connections'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -5851,7 +5853,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VirtualNetworkGatewaysOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'virtual_network_gateways'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -5948,7 +5950,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VirtualNetworkPeeringsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'virtual_network_peerings'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -6006,7 +6008,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VirtualNetworkTapsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'virtual_network_taps'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -6106,7 +6108,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VirtualNetworksOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'virtual_networks'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -6143,7 +6145,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VirtualRouterPeeringsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'virtual_router_peerings'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -6180,7 +6182,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VirtualRoutersOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'virtual_routers'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -6247,7 +6249,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VirtualWansOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'virtual_wans'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -6314,7 +6316,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VpnConnectionsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'vpn_connections'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -6381,7 +6383,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VpnGatewaysOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'vpn_gateways'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -6421,7 +6423,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VpnLinkConnectionsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'vpn_link_connections'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -6455,7 +6457,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VpnServerConfigurationsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'vpn_server_configurations'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -6489,7 +6491,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VpnServerConfigurationsAssociatedWithVirtualWanOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'vpn_server_configurations_associated_with_virtual_wan'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -6529,7 +6531,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VpnSiteLinkConnectionsOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'vpn_site_link_connections'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -6569,7 +6571,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VpnSiteLinksOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'vpn_site_links'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -6636,7 +6638,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VpnSitesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'vpn_sites'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -6703,7 +6705,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import VpnSitesConfigurationOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'vpn_sites_configuration'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
@@ -6752,7 +6754,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import WebApplicationFirewallPoliciesOperations as OperationClass
         else:
-            raise ValueError("API version {} does not have operation group 'web_application_firewall_policies'".format(api_version))
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     def close(self):

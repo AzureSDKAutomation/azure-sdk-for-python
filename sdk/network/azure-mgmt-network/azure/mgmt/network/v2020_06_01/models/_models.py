@@ -2709,7 +2709,7 @@ class FirewallPolicyRule(msrest.serialization.Model):
         super(FirewallPolicyRule, self).__init__(**kwargs)
         self.name = kwargs.get('name', None)
         self.description = kwargs.get('description', None)
-        self.rule_type = None  # type: Optional[str]
+        self.rule_type = None
 
 
 class ApplicationRule(FirewallPolicyRule):
@@ -2760,7 +2760,7 @@ class ApplicationRule(FirewallPolicyRule):
         **kwargs
     ):
         super(ApplicationRule, self).__init__(**kwargs)
-        self.rule_type = 'ApplicationRule'  # type: str
+        self.rule_type = 'ApplicationRule'
         self.source_addresses = kwargs.get('source_addresses', None)
         self.destination_addresses = kwargs.get('destination_addresses', None)
         self.protocols = kwargs.get('protocols', None)
@@ -5054,6 +5054,10 @@ class ConnectionMonitor(msrest.serialization.Model):
     :type notes: str
     """
 
+    _validation = {
+        'monitoring_interval_in_seconds': {'maximum': 1800, 'minimum': 30},
+    }
+
     _attribute_map = {
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
@@ -5096,6 +5100,10 @@ class ConnectionMonitorDestination(msrest.serialization.Model):
     :param port: The destination port used by connection monitor.
     :type port: int
     """
+
+    _validation = {
+        'port': {'maximum': 65535, 'minimum': 0},
+    }
 
     _attribute_map = {
         'resource_id': {'key': 'resourceId', 'type': 'str'},
@@ -5167,49 +5175,62 @@ class ConnectionMonitorEndpoint(msrest.serialization.Model):
 class ConnectionMonitorEndpointFilter(msrest.serialization.Model):
     """Describes the connection monitor endpoint filter.
 
-    :param type: The behavior of the endpoint filter. Currently only 'Include' is supported.
-     Possible values include: "Include".
-    :type type: str or ~azure.mgmt.network.v2020_06_01.models.ConnectionMonitorEndpointFilterType
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar type: The behavior of the endpoint filter. Currently only 'Include' is supported. Default
+     value: "Include".
+    :vartype type: str
     :param items: List of items in the filter.
     :type items: list[~azure.mgmt.network.v2020_06_01.models.ConnectionMonitorEndpointFilterItem]
     """
+
+    _validation = {
+        'type': {'constant': True},
+    }
 
     _attribute_map = {
         'type': {'key': 'type', 'type': 'str'},
         'items': {'key': 'items', 'type': '[ConnectionMonitorEndpointFilterItem]'},
     }
 
+    type = "Include"
+
     def __init__(
         self,
         **kwargs
     ):
         super(ConnectionMonitorEndpointFilter, self).__init__(**kwargs)
-        self.type = kwargs.get('type', None)
         self.items = kwargs.get('items', None)
 
 
 class ConnectionMonitorEndpointFilterItem(msrest.serialization.Model):
     """Describes the connection monitor endpoint filter item.
 
-    :param type: The type of item included in the filter. Currently only 'AgentAddress' is
-     supported. Possible values include: "AgentAddress".
-    :type type: str or
-     ~azure.mgmt.network.v2020_06_01.models.ConnectionMonitorEndpointFilterItemType
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar type: The type of item included in the filter. Currently only 'AgentAddress' is
+     supported. Default value: "AgentAddress".
+    :vartype type: str
     :param address: The address of the filter item.
     :type address: str
     """
+
+    _validation = {
+        'type': {'constant': True},
+    }
 
     _attribute_map = {
         'type': {'key': 'type', 'type': 'str'},
         'address': {'key': 'address', 'type': 'str'},
     }
 
+    type = "AgentAddress"
+
     def __init__(
         self,
         **kwargs
     ):
         super(ConnectionMonitorEndpointFilterItem, self).__init__(**kwargs)
-        self.type = kwargs.get('type', None)
         self.address = kwargs.get('address', None)
 
 
@@ -5275,6 +5296,10 @@ class ConnectionMonitorHttpConfiguration(msrest.serialization.Model):
     :type prefer_https: bool
     """
 
+    _validation = {
+        'port': {'maximum': 65535, 'minimum': 0},
+    }
+
     _attribute_map = {
         'port': {'key': 'port', 'type': 'int'},
         'method': {'key': 'method', 'type': 'str'},
@@ -5339,26 +5364,33 @@ class ConnectionMonitorListResult(msrest.serialization.Model):
 class ConnectionMonitorOutput(msrest.serialization.Model):
     """Describes a connection monitor output destination.
 
-    :param type: Connection monitor output destination type. Currently, only "Workspace" is
-     supported. Possible values include: "Workspace".
-    :type type: str or ~azure.mgmt.network.v2020_06_01.models.OutputType
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar type: Connection monitor output destination type. Currently, only "Workspace" is
+     supported. Default value: "Workspace".
+    :vartype type: str
     :param workspace_settings: Describes the settings for producing output into a log analytics
      workspace.
     :type workspace_settings:
      ~azure.mgmt.network.v2020_06_01.models.ConnectionMonitorWorkspaceSettings
     """
 
+    _validation = {
+        'type': {'constant': True},
+    }
+
     _attribute_map = {
         'type': {'key': 'type', 'type': 'str'},
         'workspace_settings': {'key': 'workspaceSettings', 'type': 'ConnectionMonitorWorkspaceSettings'},
     }
+
+    type = "Workspace"
 
     def __init__(
         self,
         **kwargs
     ):
         super(ConnectionMonitorOutput, self).__init__(**kwargs)
-        self.type = kwargs.get('type', None)
         self.workspace_settings = kwargs.get('workspace_settings', None)
 
 
@@ -5385,6 +5417,10 @@ class ConnectionMonitorParameters(msrest.serialization.Model):
     :param notes: Optional notes to be associated with the connection monitor.
     :type notes: str
     """
+
+    _validation = {
+        'monitoring_interval_in_seconds': {'maximum': 1800, 'minimum': 30},
+    }
 
     _attribute_map = {
         'source': {'key': 'source', 'type': 'ConnectionMonitorSource'},
@@ -5493,6 +5529,7 @@ class ConnectionMonitorResult(msrest.serialization.Model):
         'id': {'readonly': True},
         'etag': {'readonly': True},
         'type': {'readonly': True},
+        'monitoring_interval_in_seconds': {'maximum': 1800, 'minimum': 30},
         'provisioning_state': {'readonly': True},
         'start_time': {'readonly': True},
         'monitoring_status': {'readonly': True},
@@ -5585,6 +5622,7 @@ class ConnectionMonitorResultProperties(ConnectionMonitorParameters):
     """
 
     _validation = {
+        'monitoring_interval_in_seconds': {'maximum': 1800, 'minimum': 30},
         'provisioning_state': {'readonly': True},
         'start_time': {'readonly': True},
         'monitoring_status': {'readonly': True},
@@ -5631,6 +5669,7 @@ class ConnectionMonitorSource(msrest.serialization.Model):
 
     _validation = {
         'resource_id': {'required': True},
+        'port': {'maximum': 65535, 'minimum': 0},
     }
 
     _attribute_map = {
@@ -5685,6 +5724,10 @@ class ConnectionMonitorTcpConfiguration(msrest.serialization.Model):
     :type destination_port_behavior: str or
      ~azure.mgmt.network.v2020_06_01.models.DestinationPortBehavior
     """
+
+    _validation = {
+        'port': {'maximum': 65535, 'minimum': 0},
+    }
 
     _attribute_map = {
         'port': {'key': 'port', 'type': 'int'},
@@ -5897,20 +5940,25 @@ class ConnectionStateSnapshot(msrest.serialization.Model):
      "NotStarted", "InProgress", "Completed".
     :type evaluation_state: str or ~azure.mgmt.network.v2020_06_01.models.EvaluationState
     :param avg_latency_in_ms: Average latency in ms.
-    :type avg_latency_in_ms: int
+    :type avg_latency_in_ms: long
     :param min_latency_in_ms: Minimum latency in ms.
-    :type min_latency_in_ms: int
+    :type min_latency_in_ms: long
     :param max_latency_in_ms: Maximum latency in ms.
-    :type max_latency_in_ms: int
+    :type max_latency_in_ms: long
     :param probes_sent: The number of sent probes.
-    :type probes_sent: int
+    :type probes_sent: long
     :param probes_failed: The number of failed probes.
-    :type probes_failed: int
+    :type probes_failed: long
     :ivar hops: List of hops between the source and the destination.
     :vartype hops: list[~azure.mgmt.network.v2020_06_01.models.ConnectivityHop]
     """
 
     _validation = {
+        'avg_latency_in_ms': {'maximum': 4294967295, 'minimum': 0},
+        'min_latency_in_ms': {'maximum': 4294967295, 'minimum': 0},
+        'max_latency_in_ms': {'maximum': 4294967295, 'minimum': 0},
+        'probes_sent': {'maximum': 4294967295, 'minimum': 0},
+        'probes_failed': {'maximum': 4294967295, 'minimum': 0},
         'hops': {'readonly': True},
     }
 
@@ -5919,11 +5967,11 @@ class ConnectionStateSnapshot(msrest.serialization.Model):
         'start_time': {'key': 'startTime', 'type': 'iso-8601'},
         'end_time': {'key': 'endTime', 'type': 'iso-8601'},
         'evaluation_state': {'key': 'evaluationState', 'type': 'str'},
-        'avg_latency_in_ms': {'key': 'avgLatencyInMs', 'type': 'int'},
-        'min_latency_in_ms': {'key': 'minLatencyInMs', 'type': 'int'},
-        'max_latency_in_ms': {'key': 'maxLatencyInMs', 'type': 'int'},
-        'probes_sent': {'key': 'probesSent', 'type': 'int'},
-        'probes_failed': {'key': 'probesFailed', 'type': 'int'},
+        'avg_latency_in_ms': {'key': 'avgLatencyInMs', 'type': 'long'},
+        'min_latency_in_ms': {'key': 'minLatencyInMs', 'type': 'long'},
+        'max_latency_in_ms': {'key': 'maxLatencyInMs', 'type': 'long'},
+        'probes_sent': {'key': 'probesSent', 'type': 'long'},
+        'probes_failed': {'key': 'probesFailed', 'type': 'long'},
         'hops': {'key': 'hops', 'type': '[ConnectivityHop]'},
     }
 
@@ -5954,6 +6002,10 @@ class ConnectivityDestination(msrest.serialization.Model):
     :param port: Port on which check connectivity will be performed.
     :type port: int
     """
+
+    _validation = {
+        'port': {'maximum': 65535, 'minimum': 0},
+    }
 
     _attribute_map = {
         'resource_id': {'key': 'resourceId', 'type': 'str'},
@@ -6191,6 +6243,7 @@ class ConnectivitySource(msrest.serialization.Model):
 
     _validation = {
         'resource_id': {'required': True},
+        'port': {'maximum': 65535, 'minimum': 0},
     }
 
     _attribute_map = {
@@ -9334,7 +9387,7 @@ class FirewallPolicyRuleCollection(msrest.serialization.Model):
         **kwargs
     ):
         super(FirewallPolicyRuleCollection, self).__init__(**kwargs)
-        self.rule_collection_type = None  # type: Optional[str]
+        self.rule_collection_type = None
         self.name = kwargs.get('name', None)
         self.priority = kwargs.get('priority', None)
 
@@ -9377,7 +9430,7 @@ class FirewallPolicyFilterRuleCollection(FirewallPolicyRuleCollection):
         **kwargs
     ):
         super(FirewallPolicyFilterRuleCollection, self).__init__(**kwargs)
-        self.rule_collection_type = 'FirewallPolicyFilterRuleCollection'  # type: str
+        self.rule_collection_type = 'FirewallPolicyFilterRuleCollection'
         self.action = kwargs.get('action', None)
         self.rules = kwargs.get('rules', None)
 
@@ -9463,7 +9516,7 @@ class FirewallPolicyNatRuleCollection(FirewallPolicyRuleCollection):
         **kwargs
     ):
         super(FirewallPolicyNatRuleCollection, self).__init__(**kwargs)
-        self.rule_collection_type = 'FirewallPolicyNatRuleCollection'  # type: str
+        self.rule_collection_type = 'FirewallPolicyNatRuleCollection'
         self.action = kwargs.get('action', None)
         self.rules = kwargs.get('rules', None)
 
@@ -9471,21 +9524,27 @@ class FirewallPolicyNatRuleCollection(FirewallPolicyRuleCollection):
 class FirewallPolicyNatRuleCollectionAction(msrest.serialization.Model):
     """Properties of the FirewallPolicyNatRuleCollectionAction.
 
-    :param type: The type of action. Possible values include: "DNAT".
-    :type type: str or
-     ~azure.mgmt.network.v2020_06_01.models.FirewallPolicyNatRuleCollectionActionType
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar type: The type of action. Default value: "DNAT".
+    :vartype type: str
     """
+
+    _validation = {
+        'type': {'constant': True},
+    }
 
     _attribute_map = {
         'type': {'key': 'type', 'type': 'str'},
     }
+
+    type = "DNAT"
 
     def __init__(
         self,
         **kwargs
     ):
         super(FirewallPolicyNatRuleCollectionAction, self).__init__(**kwargs)
-        self.type = kwargs.get('type', None)
 
 
 class FirewallPolicyRuleApplicationProtocol(msrest.serialization.Model):
@@ -9698,23 +9757,30 @@ class FlowLog(Resource):
 class FlowLogFormatParameters(msrest.serialization.Model):
     """Parameters that define the flow log format.
 
-    :param type: The file type of flow log. Possible values include: "JSON".
-    :type type: str or ~azure.mgmt.network.v2020_06_01.models.FlowLogFormatType
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar type: The file type of flow log. Default value: "JSON".
+    :vartype type: str
     :param version: The version (revision) of the flow log.
     :type version: int
     """
+
+    _validation = {
+        'type': {'constant': True},
+    }
 
     _attribute_map = {
         'type': {'key': 'type', 'type': 'str'},
         'version': {'key': 'version', 'type': 'int'},
     }
 
+    type = "JSON"
+
     def __init__(
         self,
         **kwargs
     ):
         super(FlowLogFormatParameters, self).__init__(**kwargs)
-        self.type = kwargs.get('type', None)
         self.version = kwargs.get('version', 0)
 
 
@@ -10083,11 +10149,11 @@ class HopLink(msrest.serialization.Model):
     :ivar resource_id: Resource ID.
     :vartype resource_id: str
     :ivar round_trip_time_min: Minimum roundtrip time in milliseconds.
-    :vartype round_trip_time_min: int
+    :vartype round_trip_time_min: long
     :ivar round_trip_time_avg: Average roundtrip time in milliseconds.
-    :vartype round_trip_time_avg: int
+    :vartype round_trip_time_avg: long
     :ivar round_trip_time_max: Maximum roundtrip time in milliseconds.
-    :vartype round_trip_time_max: int
+    :vartype round_trip_time_max: long
     """
 
     _validation = {
@@ -10096,9 +10162,9 @@ class HopLink(msrest.serialization.Model):
         'issues': {'readonly': True},
         'context': {'readonly': True},
         'resource_id': {'readonly': True},
-        'round_trip_time_min': {'readonly': True},
-        'round_trip_time_avg': {'readonly': True},
-        'round_trip_time_max': {'readonly': True},
+        'round_trip_time_min': {'readonly': True, 'maximum': 4294967295, 'minimum': 0},
+        'round_trip_time_avg': {'readonly': True, 'maximum': 4294967295, 'minimum': 0},
+        'round_trip_time_max': {'readonly': True, 'maximum': 4294967295, 'minimum': 0},
     }
 
     _attribute_map = {
@@ -10107,9 +10173,9 @@ class HopLink(msrest.serialization.Model):
         'issues': {'key': 'issues', 'type': '[ConnectivityIssue]'},
         'context': {'key': 'context', 'type': '{str}'},
         'resource_id': {'key': 'resourceId', 'type': 'str'},
-        'round_trip_time_min': {'key': 'properties.roundTripTimeMin', 'type': 'int'},
-        'round_trip_time_avg': {'key': 'properties.roundTripTimeAvg', 'type': 'int'},
-        'round_trip_time_max': {'key': 'properties.roundTripTimeMax', 'type': 'int'},
+        'round_trip_time_min': {'key': 'properties.roundTripTimeMin', 'type': 'long'},
+        'round_trip_time_avg': {'key': 'properties.roundTripTimeAvg', 'type': 'long'},
+        'round_trip_time_max': {'key': 'properties.roundTripTimeMax', 'type': 'long'},
     }
 
     def __init__(
@@ -10130,13 +10196,19 @@ class HopLink(msrest.serialization.Model):
 class HTTPConfiguration(msrest.serialization.Model):
     """HTTP configuration of the connectivity check.
 
-    :param method: HTTP method. Possible values include: "Get".
-    :type method: str or ~azure.mgmt.network.v2020_06_01.models.HTTPMethod
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar method: HTTP method. Default value: "Get".
+    :vartype method: str
     :param headers: List of HTTP headers.
     :type headers: list[~azure.mgmt.network.v2020_06_01.models.HTTPHeader]
     :param valid_status_codes: Valid status codes.
     :type valid_status_codes: list[int]
     """
+
+    _validation = {
+        'method': {'constant': True},
+    }
 
     _attribute_map = {
         'method': {'key': 'method', 'type': 'str'},
@@ -10144,12 +10216,13 @@ class HTTPConfiguration(msrest.serialization.Model):
         'valid_status_codes': {'key': 'validStatusCodes', 'type': '[int]'},
     }
 
+    method = "Get"
+
     def __init__(
         self,
         **kwargs
     ):
         super(HTTPConfiguration, self).__init__(**kwargs)
-        self.method = kwargs.get('method', None)
         self.headers = kwargs.get('headers', None)
         self.valid_status_codes = kwargs.get('valid_status_codes', None)
 
@@ -12163,17 +12236,20 @@ class ManagedRuleGroupOverride(msrest.serialization.Model):
 class ManagedRuleOverride(msrest.serialization.Model):
     """Defines a managed rule group override setting.
 
+    Variables are only populated by the server, and will be ignored when sending a request.
+
     All required parameters must be populated in order to send to Azure.
 
     :param rule_id: Required. Identifier for the managed rule.
     :type rule_id: str
-    :param state: The state of the managed rule. Defaults to Disabled if not specified. Possible
-     values include: "Disabled".
-    :type state: str or ~azure.mgmt.network.v2020_06_01.models.ManagedRuleEnabledState
+    :ivar state: The state of the managed rule. Defaults to Disabled if not specified. Default
+     value: "Disabled".
+    :vartype state: str
     """
 
     _validation = {
         'rule_id': {'required': True},
+        'state': {'constant': True},
     }
 
     _attribute_map = {
@@ -12181,13 +12257,14 @@ class ManagedRuleOverride(msrest.serialization.Model):
         'state': {'key': 'state', 'type': 'str'},
     }
 
+    state = "Disabled"
+
     def __init__(
         self,
         **kwargs
     ):
         super(ManagedRuleOverride, self).__init__(**kwargs)
         self.rule_id = kwargs['rule_id']
-        self.state = kwargs.get('state', None)
 
 
 class ManagedRulesDefinition(msrest.serialization.Model):
@@ -12580,20 +12657,27 @@ class NatGatewayListResult(msrest.serialization.Model):
 class NatGatewaySku(msrest.serialization.Model):
     """SKU of nat gateway.
 
-    :param name: Name of Nat Gateway SKU. Possible values include: "Standard".
-    :type name: str or ~azure.mgmt.network.v2020_06_01.models.NatGatewaySkuName
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar name: Name of Nat Gateway SKU. Default value: "Standard".
+    :vartype name: str
     """
+
+    _validation = {
+        'name': {'constant': True},
+    }
 
     _attribute_map = {
         'name': {'key': 'name', 'type': 'str'},
     }
+
+    name = "Standard"
 
     def __init__(
         self,
         **kwargs
     ):
         super(NatGatewaySku, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
 
 
 class NatRule(FirewallPolicyRule):
@@ -12647,7 +12731,7 @@ class NatRule(FirewallPolicyRule):
         **kwargs
     ):
         super(NatRule, self).__init__(**kwargs)
-        self.rule_type = 'NatRule'  # type: str
+        self.rule_type = 'NatRule'
         self.ip_protocols = kwargs.get('ip_protocols', None)
         self.source_addresses = kwargs.get('source_addresses', None)
         self.destination_addresses = kwargs.get('destination_addresses', None)
@@ -13490,7 +13574,7 @@ class NetworkRule(FirewallPolicyRule):
         **kwargs
     ):
         super(NetworkRule, self).__init__(**kwargs)
-        self.rule_type = 'NetworkRule'  # type: str
+        self.rule_type = 'NetworkRule'
         self.ip_protocols = kwargs.get('ip_protocols', None)
         self.source_addresses = kwargs.get('source_addresses', None)
         self.destination_addresses = kwargs.get('destination_addresses', None)
@@ -14572,9 +14656,9 @@ class PacketCapture(msrest.serialization.Model):
     :type target: str
     :param bytes_to_capture_per_packet: Number of bytes captured per packet, the remaining bytes
      are truncated.
-    :type bytes_to_capture_per_packet: int
+    :type bytes_to_capture_per_packet: long
     :param total_bytes_per_session: Maximum size of the capture output.
-    :type total_bytes_per_session: int
+    :type total_bytes_per_session: long
     :param time_limit_in_seconds: Maximum duration of the capture session in seconds.
     :type time_limit_in_seconds: int
     :param storage_location: Required. The storage location for a packet capture session.
@@ -14585,13 +14669,16 @@ class PacketCapture(msrest.serialization.Model):
 
     _validation = {
         'target': {'required': True},
+        'bytes_to_capture_per_packet': {'maximum': 4294967295, 'minimum': 0},
+        'total_bytes_per_session': {'maximum': 4294967295, 'minimum': 0},
+        'time_limit_in_seconds': {'maximum': 18000, 'minimum': 0},
         'storage_location': {'required': True},
     }
 
     _attribute_map = {
         'target': {'key': 'properties.target', 'type': 'str'},
-        'bytes_to_capture_per_packet': {'key': 'properties.bytesToCapturePerPacket', 'type': 'int'},
-        'total_bytes_per_session': {'key': 'properties.totalBytesPerSession', 'type': 'int'},
+        'bytes_to_capture_per_packet': {'key': 'properties.bytesToCapturePerPacket', 'type': 'long'},
+        'total_bytes_per_session': {'key': 'properties.totalBytesPerSession', 'type': 'long'},
         'time_limit_in_seconds': {'key': 'properties.timeLimitInSeconds', 'type': 'int'},
         'storage_location': {'key': 'properties.storageLocation', 'type': 'PacketCaptureStorageLocation'},
         'filters': {'key': 'properties.filters', 'type': '[PacketCaptureFilter]'},
@@ -14684,9 +14771,9 @@ class PacketCaptureParameters(msrest.serialization.Model):
     :type target: str
     :param bytes_to_capture_per_packet: Number of bytes captured per packet, the remaining bytes
      are truncated.
-    :type bytes_to_capture_per_packet: int
+    :type bytes_to_capture_per_packet: long
     :param total_bytes_per_session: Maximum size of the capture output.
-    :type total_bytes_per_session: int
+    :type total_bytes_per_session: long
     :param time_limit_in_seconds: Maximum duration of the capture session in seconds.
     :type time_limit_in_seconds: int
     :param storage_location: Required. The storage location for a packet capture session.
@@ -14697,13 +14784,16 @@ class PacketCaptureParameters(msrest.serialization.Model):
 
     _validation = {
         'target': {'required': True},
+        'bytes_to_capture_per_packet': {'maximum': 4294967295, 'minimum': 0},
+        'total_bytes_per_session': {'maximum': 4294967295, 'minimum': 0},
+        'time_limit_in_seconds': {'maximum': 18000, 'minimum': 0},
         'storage_location': {'required': True},
     }
 
     _attribute_map = {
         'target': {'key': 'target', 'type': 'str'},
-        'bytes_to_capture_per_packet': {'key': 'bytesToCapturePerPacket', 'type': 'int'},
-        'total_bytes_per_session': {'key': 'totalBytesPerSession', 'type': 'int'},
+        'bytes_to_capture_per_packet': {'key': 'bytesToCapturePerPacket', 'type': 'long'},
+        'total_bytes_per_session': {'key': 'totalBytesPerSession', 'type': 'long'},
         'time_limit_in_seconds': {'key': 'timeLimitInSeconds', 'type': 'int'},
         'storage_location': {'key': 'storageLocation', 'type': 'PacketCaptureStorageLocation'},
         'filters': {'key': 'filters', 'type': '[PacketCaptureFilter]'},
@@ -14777,9 +14867,9 @@ class PacketCaptureResult(msrest.serialization.Model):
     :type target: str
     :param bytes_to_capture_per_packet: Number of bytes captured per packet, the remaining bytes
      are truncated.
-    :type bytes_to_capture_per_packet: int
+    :type bytes_to_capture_per_packet: long
     :param total_bytes_per_session: Maximum size of the capture output.
-    :type total_bytes_per_session: int
+    :type total_bytes_per_session: long
     :param time_limit_in_seconds: Maximum duration of the capture session in seconds.
     :type time_limit_in_seconds: int
     :param storage_location: The storage location for a packet capture session.
@@ -14795,6 +14885,9 @@ class PacketCaptureResult(msrest.serialization.Model):
         'name': {'readonly': True},
         'id': {'readonly': True},
         'etag': {'readonly': True},
+        'bytes_to_capture_per_packet': {'maximum': 4294967295, 'minimum': 0},
+        'total_bytes_per_session': {'maximum': 4294967295, 'minimum': 0},
+        'time_limit_in_seconds': {'maximum': 18000, 'minimum': 0},
         'provisioning_state': {'readonly': True},
     }
 
@@ -14803,8 +14896,8 @@ class PacketCaptureResult(msrest.serialization.Model):
         'id': {'key': 'id', 'type': 'str'},
         'etag': {'key': 'etag', 'type': 'str'},
         'target': {'key': 'properties.target', 'type': 'str'},
-        'bytes_to_capture_per_packet': {'key': 'properties.bytesToCapturePerPacket', 'type': 'int'},
-        'total_bytes_per_session': {'key': 'properties.totalBytesPerSession', 'type': 'int'},
+        'bytes_to_capture_per_packet': {'key': 'properties.bytesToCapturePerPacket', 'type': 'long'},
+        'total_bytes_per_session': {'key': 'properties.totalBytesPerSession', 'type': 'long'},
         'time_limit_in_seconds': {'key': 'properties.timeLimitInSeconds', 'type': 'int'},
         'storage_location': {'key': 'properties.storageLocation', 'type': 'PacketCaptureStorageLocation'},
         'filters': {'key': 'properties.filters', 'type': '[PacketCaptureFilter]'},
@@ -14839,9 +14932,9 @@ class PacketCaptureResultProperties(PacketCaptureParameters):
     :type target: str
     :param bytes_to_capture_per_packet: Number of bytes captured per packet, the remaining bytes
      are truncated.
-    :type bytes_to_capture_per_packet: int
+    :type bytes_to_capture_per_packet: long
     :param total_bytes_per_session: Maximum size of the capture output.
-    :type total_bytes_per_session: int
+    :type total_bytes_per_session: long
     :param time_limit_in_seconds: Maximum duration of the capture session in seconds.
     :type time_limit_in_seconds: int
     :param storage_location: Required. The storage location for a packet capture session.
@@ -14855,14 +14948,17 @@ class PacketCaptureResultProperties(PacketCaptureParameters):
 
     _validation = {
         'target': {'required': True},
+        'bytes_to_capture_per_packet': {'maximum': 4294967295, 'minimum': 0},
+        'total_bytes_per_session': {'maximum': 4294967295, 'minimum': 0},
+        'time_limit_in_seconds': {'maximum': 18000, 'minimum': 0},
         'storage_location': {'required': True},
         'provisioning_state': {'readonly': True},
     }
 
     _attribute_map = {
         'target': {'key': 'target', 'type': 'str'},
-        'bytes_to_capture_per_packet': {'key': 'bytesToCapturePerPacket', 'type': 'int'},
-        'total_bytes_per_session': {'key': 'totalBytesPerSession', 'type': 'int'},
+        'bytes_to_capture_per_packet': {'key': 'bytesToCapturePerPacket', 'type': 'long'},
+        'total_bytes_per_session': {'key': 'totalBytesPerSession', 'type': 'long'},
         'time_limit_in_seconds': {'key': 'timeLimitInSeconds', 'type': 'int'},
         'storage_location': {'key': 'storageLocation', 'type': 'PacketCaptureStorageLocation'},
         'filters': {'key': 'filters', 'type': '[PacketCaptureFilter]'},
@@ -14985,8 +15081,8 @@ class PatchRouteFilterRule(SubResource):
     :vartype etag: str
     :param access: The access type of the rule. Possible values include: "Allow", "Deny".
     :type access: str or ~azure.mgmt.network.v2020_06_01.models.Access
-    :param route_filter_rule_type: The rule type of the rule. Possible values include: "Community".
-    :type route_filter_rule_type: str or ~azure.mgmt.network.v2020_06_01.models.RouteFilterRuleType
+    :ivar route_filter_rule_type: The rule type of the rule. Default value: "Community".
+    :vartype route_filter_rule_type: str
     :param communities: The collection for bgp community values to filter on. e.g.
      ['12076:5010','12076:5020'].
     :type communities: list[str]
@@ -14998,6 +15094,7 @@ class PatchRouteFilterRule(SubResource):
     _validation = {
         'name': {'readonly': True},
         'etag': {'readonly': True},
+        'route_filter_rule_type': {'constant': True},
         'provisioning_state': {'readonly': True},
     }
 
@@ -15011,6 +15108,8 @@ class PatchRouteFilterRule(SubResource):
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
     }
 
+    route_filter_rule_type = "Community"
+
     def __init__(
         self,
         **kwargs
@@ -15019,7 +15118,6 @@ class PatchRouteFilterRule(SubResource):
         self.name = None
         self.etag = None
         self.access = kwargs.get('access', None)
-        self.route_filter_rule_type = kwargs.get('route_filter_rule_type', None)
         self.communities = kwargs.get('communities', None)
         self.provisioning_state = None
 
@@ -16377,20 +16475,27 @@ class PublicIPPrefixListResult(msrest.serialization.Model):
 class PublicIPPrefixSku(msrest.serialization.Model):
     """SKU of a public IP prefix.
 
-    :param name: Name of a public IP prefix SKU. Possible values include: "Standard".
-    :type name: str or ~azure.mgmt.network.v2020_06_01.models.PublicIPPrefixSkuName
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar name: Name of a public IP prefix SKU. Default value: "Standard".
+    :vartype name: str
     """
+
+    _validation = {
+        'name': {'constant': True},
+    }
 
     _attribute_map = {
         'name': {'key': 'name', 'type': 'str'},
     }
+
+    name = "Standard"
 
     def __init__(
         self,
         **kwargs
     ):
         super(PublicIPPrefixSku, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
 
 
 class QosIpRange(msrest.serialization.Model):
@@ -16821,8 +16926,8 @@ class RouteFilterRule(SubResource):
     :vartype etag: str
     :param access: The access type of the rule. Possible values include: "Allow", "Deny".
     :type access: str or ~azure.mgmt.network.v2020_06_01.models.Access
-    :param route_filter_rule_type: The rule type of the rule. Possible values include: "Community".
-    :type route_filter_rule_type: str or ~azure.mgmt.network.v2020_06_01.models.RouteFilterRuleType
+    :ivar route_filter_rule_type: The rule type of the rule. Default value: "Community".
+    :vartype route_filter_rule_type: str
     :param communities: The collection for bgp community values to filter on. e.g.
      ['12076:5010','12076:5020'].
     :type communities: list[str]
@@ -16833,6 +16938,7 @@ class RouteFilterRule(SubResource):
 
     _validation = {
         'etag': {'readonly': True},
+        'route_filter_rule_type': {'constant': True},
         'provisioning_state': {'readonly': True},
     }
 
@@ -16847,6 +16953,8 @@ class RouteFilterRule(SubResource):
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
     }
 
+    route_filter_rule_type = "Community"
+
     def __init__(
         self,
         **kwargs
@@ -16856,7 +16964,6 @@ class RouteFilterRule(SubResource):
         self.location = kwargs.get('location', None)
         self.etag = None
         self.access = kwargs.get('access', None)
-        self.route_filter_rule_type = kwargs.get('route_filter_rule_type', None)
         self.communities = kwargs.get('communities', None)
         self.provisioning_state = None
 
@@ -18431,9 +18538,8 @@ class Usage(msrest.serialization.Model):
 
     :ivar id: Resource identifier.
     :vartype id: str
-    :param unit: Required. An enum describing the unit of measurement. Possible values include:
-     "Count".
-    :type unit: str or ~azure.mgmt.network.v2020_06_01.models.UsageUnit
+    :ivar unit: Required. An enum describing the unit of measurement. Default value: "Count".
+    :vartype unit: str
     :param current_value: Required. The current value of the usage.
     :type current_value: long
     :param limit: Required. The limit of usage.
@@ -18444,7 +18550,7 @@ class Usage(msrest.serialization.Model):
 
     _validation = {
         'id': {'readonly': True},
-        'unit': {'required': True},
+        'unit': {'required': True, 'constant': True},
         'current_value': {'required': True},
         'limit': {'required': True},
         'name': {'required': True},
@@ -18458,13 +18564,14 @@ class Usage(msrest.serialization.Model):
         'name': {'key': 'name', 'type': 'UsageName'},
     }
 
+    unit = "Count"
+
     def __init__(
         self,
         **kwargs
     ):
         super(Usage, self).__init__(**kwargs)
         self.id = None
-        self.unit = kwargs['unit']
         self.current_value = kwargs['current_value']
         self.limit = kwargs['limit']
         self.name = kwargs['name']

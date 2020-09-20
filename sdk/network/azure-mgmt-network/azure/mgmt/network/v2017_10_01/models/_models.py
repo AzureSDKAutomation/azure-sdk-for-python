@@ -6256,9 +6256,9 @@ class PatchRouteFilterRule(SubResource):
     :param access: The access type of the rule. Valid values are: 'Allow', 'Deny'. Possible values
      include: "Allow", "Deny".
     :type access: str or ~azure.mgmt.network.v2017_10_01.models.Access
-    :param route_filter_rule_type: The rule type of the rule. Valid value is: 'Community'. Possible
-     values include: "Community".
-    :type route_filter_rule_type: str or ~azure.mgmt.network.v2017_10_01.models.RouteFilterRuleType
+    :ivar route_filter_rule_type: The rule type of the rule. Valid value is: 'Community'. Default
+     value: "Community".
+    :vartype route_filter_rule_type: str
     :param communities: The collection for bgp community values to filter on. e.g.
      ['12076:5010','12076:5020'].
     :type communities: list[str]
@@ -6270,6 +6270,7 @@ class PatchRouteFilterRule(SubResource):
     _validation = {
         'name': {'readonly': True},
         'etag': {'readonly': True},
+        'route_filter_rule_type': {'constant': True},
         'provisioning_state': {'readonly': True},
     }
 
@@ -6284,6 +6285,8 @@ class PatchRouteFilterRule(SubResource):
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
     }
 
+    route_filter_rule_type = "Community"
+
     def __init__(
         self,
         **kwargs
@@ -6293,7 +6296,6 @@ class PatchRouteFilterRule(SubResource):
         self.etag = None
         self.tags = kwargs.get('tags', None)
         self.access = kwargs.get('access', None)
-        self.route_filter_rule_type = kwargs.get('route_filter_rule_type', None)
         self.communities = kwargs.get('communities', None)
         self.provisioning_state = None
 
@@ -6772,9 +6774,9 @@ class RouteFilterRule(SubResource):
     :param access: The access type of the rule. Valid values are: 'Allow', 'Deny'. Possible values
      include: "Allow", "Deny".
     :type access: str or ~azure.mgmt.network.v2017_10_01.models.Access
-    :param route_filter_rule_type: The rule type of the rule. Valid value is: 'Community'. Possible
-     values include: "Community".
-    :type route_filter_rule_type: str or ~azure.mgmt.network.v2017_10_01.models.RouteFilterRuleType
+    :ivar route_filter_rule_type: The rule type of the rule. Valid value is: 'Community'. Default
+     value: "Community".
+    :vartype route_filter_rule_type: str
     :param communities: The collection for bgp community values to filter on. e.g.
      ['12076:5010','12076:5020'].
     :type communities: list[str]
@@ -6785,6 +6787,7 @@ class RouteFilterRule(SubResource):
 
     _validation = {
         'etag': {'readonly': True},
+        'route_filter_rule_type': {'constant': True},
         'provisioning_state': {'readonly': True},
     }
 
@@ -6800,6 +6803,8 @@ class RouteFilterRule(SubResource):
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
     }
 
+    route_filter_rule_type = "Community"
+
     def __init__(
         self,
         **kwargs
@@ -6810,7 +6815,6 @@ class RouteFilterRule(SubResource):
         self.etag = None
         self.tags = kwargs.get('tags', None)
         self.access = kwargs.get('access', None)
-        self.route_filter_rule_type = kwargs.get('route_filter_rule_type', None)
         self.communities = kwargs.get('communities', None)
         self.provisioning_state = None
 
@@ -7661,9 +7665,8 @@ class Usage(msrest.serialization.Model):
 
     :ivar id: Resource identifier.
     :vartype id: str
-    :param unit: Required. An enum describing the unit of measurement. Possible values include:
-     "Count".
-    :type unit: str or ~azure.mgmt.network.v2017_10_01.models.UsageUnit
+    :ivar unit: Required. An enum describing the unit of measurement. Default value: "Count".
+    :vartype unit: str
     :param current_value: Required. The current value of the usage.
     :type current_value: long
     :param limit: Required. The limit of usage.
@@ -7674,7 +7677,7 @@ class Usage(msrest.serialization.Model):
 
     _validation = {
         'id': {'readonly': True},
-        'unit': {'required': True},
+        'unit': {'required': True, 'constant': True},
         'current_value': {'required': True},
         'limit': {'required': True},
         'name': {'required': True},
@@ -7688,13 +7691,14 @@ class Usage(msrest.serialization.Model):
         'name': {'key': 'name', 'type': 'UsageName'},
     }
 
+    unit = "Count"
+
     def __init__(
         self,
         **kwargs
     ):
         super(Usage, self).__init__(**kwargs)
         self.id = None
-        self.unit = kwargs['unit']
         self.current_value = kwargs['current_value']
         self.limit = kwargs['limit']
         self.name = kwargs['name']
