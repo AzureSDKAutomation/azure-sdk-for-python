@@ -4714,6 +4714,10 @@ class ConnectionMonitor(Model):
     :type notes: str
     """
 
+    _validation = {
+        'monitoring_interval_in_seconds': {'maximum': 1800, 'minimum': 30},
+    }
+
     _attribute_map = {
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
@@ -4755,6 +4759,10 @@ class ConnectionMonitorDestination(Model):
     :param port: The destination port used by connection monitor.
     :type port: int
     """
+
+    _validation = {
+        'port': {'maximum': 65535, 'minimum': 0},
+    }
 
     _attribute_map = {
         'resource_id': {'key': 'resourceId', 'type': 'str'},
@@ -4931,6 +4939,10 @@ class ConnectionMonitorHttpConfiguration(Model):
     :type prefer_https: bool
     """
 
+    _validation = {
+        'port': {'maximum': 65535, 'minimum': 0},
+    }
+
     _attribute_map = {
         'port': {'key': 'port', 'type': 'int'},
         'method': {'key': 'method', 'type': 'str'},
@@ -5021,6 +5033,10 @@ class ConnectionMonitorParameters(Model):
     :param notes: Optional notes to be associated with the connection monitor.
     :type notes: str
     """
+
+    _validation = {
+        'monitoring_interval_in_seconds': {'maximum': 1800, 'minimum': 30},
+    }
 
     _attribute_map = {
         'source': {'key': 'source', 'type': 'ConnectionMonitorSource'},
@@ -5137,6 +5153,7 @@ class ConnectionMonitorResult(Model):
         'id': {'readonly': True},
         'etag': {'readonly': True},
         'type': {'readonly': True},
+        'monitoring_interval_in_seconds': {'maximum': 1800, 'minimum': 30},
         'provisioning_state': {'readonly': True},
         'start_time': {'readonly': True},
         'monitoring_status': {'readonly': True},
@@ -5202,6 +5219,7 @@ class ConnectionMonitorSource(Model):
 
     _validation = {
         'resource_id': {'required': True},
+        'port': {'maximum': 65535, 'minimum': 0},
     }
 
     _attribute_map = {
@@ -5250,6 +5268,10 @@ class ConnectionMonitorTcpConfiguration(Model):
     :type destination_port_behavior: str or
      ~azure.mgmt.network.v2020_06_01.models.DestinationPortBehavior
     """
+
+    _validation = {
+        'port': {'maximum': 65535, 'minimum': 0},
+    }
 
     _attribute_map = {
         'port': {'key': 'port', 'type': 'int'},
@@ -5452,21 +5474,26 @@ class ConnectionStateSnapshot(Model):
     :type evaluation_state: str or
      ~azure.mgmt.network.v2020_06_01.models.EvaluationState
     :param avg_latency_in_ms: Average latency in ms.
-    :type avg_latency_in_ms: int
+    :type avg_latency_in_ms: long
     :param min_latency_in_ms: Minimum latency in ms.
-    :type min_latency_in_ms: int
+    :type min_latency_in_ms: long
     :param max_latency_in_ms: Maximum latency in ms.
-    :type max_latency_in_ms: int
+    :type max_latency_in_ms: long
     :param probes_sent: The number of sent probes.
-    :type probes_sent: int
+    :type probes_sent: long
     :param probes_failed: The number of failed probes.
-    :type probes_failed: int
+    :type probes_failed: long
     :ivar hops: List of hops between the source and the destination.
     :vartype hops:
      list[~azure.mgmt.network.v2020_06_01.models.ConnectivityHop]
     """
 
     _validation = {
+        'avg_latency_in_ms': {'maximum': 4294967295, 'minimum': 0},
+        'min_latency_in_ms': {'maximum': 4294967295, 'minimum': 0},
+        'max_latency_in_ms': {'maximum': 4294967295, 'minimum': 0},
+        'probes_sent': {'maximum': 4294967295, 'minimum': 0},
+        'probes_failed': {'maximum': 4294967295, 'minimum': 0},
         'hops': {'readonly': True},
     }
 
@@ -5475,11 +5502,11 @@ class ConnectionStateSnapshot(Model):
         'start_time': {'key': 'startTime', 'type': 'iso-8601'},
         'end_time': {'key': 'endTime', 'type': 'iso-8601'},
         'evaluation_state': {'key': 'evaluationState', 'type': 'str'},
-        'avg_latency_in_ms': {'key': 'avgLatencyInMs', 'type': 'int'},
-        'min_latency_in_ms': {'key': 'minLatencyInMs', 'type': 'int'},
-        'max_latency_in_ms': {'key': 'maxLatencyInMs', 'type': 'int'},
-        'probes_sent': {'key': 'probesSent', 'type': 'int'},
-        'probes_failed': {'key': 'probesFailed', 'type': 'int'},
+        'avg_latency_in_ms': {'key': 'avgLatencyInMs', 'type': 'long'},
+        'min_latency_in_ms': {'key': 'minLatencyInMs', 'type': 'long'},
+        'max_latency_in_ms': {'key': 'maxLatencyInMs', 'type': 'long'},
+        'probes_sent': {'key': 'probesSent', 'type': 'long'},
+        'probes_failed': {'key': 'probesFailed', 'type': 'long'},
         'hops': {'key': 'hops', 'type': '[ConnectivityHop]'},
     }
 
@@ -5509,6 +5536,10 @@ class ConnectivityDestination(Model):
     :param port: Port on which check connectivity will be performed.
     :type port: int
     """
+
+    _validation = {
+        'port': {'maximum': 65535, 'minimum': 0},
+    }
 
     _attribute_map = {
         'resource_id': {'key': 'resourceId', 'type': 'str'},
@@ -5746,6 +5777,7 @@ class ConnectivitySource(Model):
 
     _validation = {
         'resource_id': {'required': True},
+        'port': {'maximum': 65535, 'minimum': 0},
     }
 
     _attribute_map = {
@@ -9264,11 +9296,11 @@ class HopLink(Model):
     :ivar link_type: Link type.
     :vartype link_type: str
     :ivar round_trip_time_min: Minimum roundtrip time in milliseconds.
-    :vartype round_trip_time_min: int
+    :vartype round_trip_time_min: long
     :ivar round_trip_time_avg: Average roundtrip time in milliseconds.
-    :vartype round_trip_time_avg: int
+    :vartype round_trip_time_avg: long
     :ivar round_trip_time_max: Maximum roundtrip time in milliseconds.
-    :vartype round_trip_time_max: int
+    :vartype round_trip_time_max: long
     :ivar issues: List of issues.
     :vartype issues:
      list[~azure.mgmt.network.v2020_06_01.models.ConnectivityIssue]
@@ -9281,9 +9313,9 @@ class HopLink(Model):
     _validation = {
         'next_hop_id': {'readonly': True},
         'link_type': {'readonly': True},
-        'round_trip_time_min': {'readonly': True},
-        'round_trip_time_avg': {'readonly': True},
-        'round_trip_time_max': {'readonly': True},
+        'round_trip_time_min': {'readonly': True, 'maximum': 4294967295, 'minimum': 0},
+        'round_trip_time_avg': {'readonly': True, 'maximum': 4294967295, 'minimum': 0},
+        'round_trip_time_max': {'readonly': True, 'maximum': 4294967295, 'minimum': 0},
         'issues': {'readonly': True},
         'context': {'readonly': True},
         'resource_id': {'readonly': True},
@@ -9292,9 +9324,9 @@ class HopLink(Model):
     _attribute_map = {
         'next_hop_id': {'key': 'nextHopId', 'type': 'str'},
         'link_type': {'key': 'linkType', 'type': 'str'},
-        'round_trip_time_min': {'key': 'properties.roundTripTimeMin', 'type': 'int'},
-        'round_trip_time_avg': {'key': 'properties.roundTripTimeAvg', 'type': 'int'},
-        'round_trip_time_max': {'key': 'properties.roundTripTimeMax', 'type': 'int'},
+        'round_trip_time_min': {'key': 'properties.roundTripTimeMin', 'type': 'long'},
+        'round_trip_time_avg': {'key': 'properties.roundTripTimeAvg', 'type': 'long'},
+        'round_trip_time_max': {'key': 'properties.roundTripTimeMax', 'type': 'long'},
         'issues': {'key': 'issues', 'type': '[ConnectivityIssue]'},
         'context': {'key': 'context', 'type': '{str}'},
         'resource_id': {'key': 'resourceId', 'type': 'str'},
@@ -12960,10 +12992,10 @@ class PacketCapture(Model):
     :type target: str
     :param bytes_to_capture_per_packet: Number of bytes captured per packet,
      the remaining bytes are truncated. Default value: 0 .
-    :type bytes_to_capture_per_packet: int
+    :type bytes_to_capture_per_packet: long
     :param total_bytes_per_session: Maximum size of the capture output.
      Default value: 1073741824 .
-    :type total_bytes_per_session: int
+    :type total_bytes_per_session: long
     :param time_limit_in_seconds: Maximum duration of the capture session in
      seconds. Default value: 18000 .
     :type time_limit_in_seconds: int
@@ -12978,13 +13010,16 @@ class PacketCapture(Model):
 
     _validation = {
         'target': {'required': True},
+        'bytes_to_capture_per_packet': {'maximum': 4294967295, 'minimum': 0},
+        'total_bytes_per_session': {'maximum': 4294967295, 'minimum': 0},
+        'time_limit_in_seconds': {'maximum': 18000, 'minimum': 0},
         'storage_location': {'required': True},
     }
 
     _attribute_map = {
         'target': {'key': 'properties.target', 'type': 'str'},
-        'bytes_to_capture_per_packet': {'key': 'properties.bytesToCapturePerPacket', 'type': 'int'},
-        'total_bytes_per_session': {'key': 'properties.totalBytesPerSession', 'type': 'int'},
+        'bytes_to_capture_per_packet': {'key': 'properties.bytesToCapturePerPacket', 'type': 'long'},
+        'total_bytes_per_session': {'key': 'properties.totalBytesPerSession', 'type': 'long'},
         'time_limit_in_seconds': {'key': 'properties.timeLimitInSeconds', 'type': 'int'},
         'storage_location': {'key': 'properties.storageLocation', 'type': 'PacketCaptureStorageLocation'},
         'filters': {'key': 'properties.filters', 'type': '[PacketCaptureFilter]'},
@@ -13058,10 +13093,10 @@ class PacketCaptureParameters(Model):
     :type target: str
     :param bytes_to_capture_per_packet: Number of bytes captured per packet,
      the remaining bytes are truncated. Default value: 0 .
-    :type bytes_to_capture_per_packet: int
+    :type bytes_to_capture_per_packet: long
     :param total_bytes_per_session: Maximum size of the capture output.
      Default value: 1073741824 .
-    :type total_bytes_per_session: int
+    :type total_bytes_per_session: long
     :param time_limit_in_seconds: Maximum duration of the capture session in
      seconds. Default value: 18000 .
     :type time_limit_in_seconds: int
@@ -13076,13 +13111,16 @@ class PacketCaptureParameters(Model):
 
     _validation = {
         'target': {'required': True},
+        'bytes_to_capture_per_packet': {'maximum': 4294967295, 'minimum': 0},
+        'total_bytes_per_session': {'maximum': 4294967295, 'minimum': 0},
+        'time_limit_in_seconds': {'maximum': 18000, 'minimum': 0},
         'storage_location': {'required': True},
     }
 
     _attribute_map = {
         'target': {'key': 'target', 'type': 'str'},
-        'bytes_to_capture_per_packet': {'key': 'bytesToCapturePerPacket', 'type': 'int'},
-        'total_bytes_per_session': {'key': 'totalBytesPerSession', 'type': 'int'},
+        'bytes_to_capture_per_packet': {'key': 'bytesToCapturePerPacket', 'type': 'long'},
+        'total_bytes_per_session': {'key': 'totalBytesPerSession', 'type': 'long'},
         'time_limit_in_seconds': {'key': 'timeLimitInSeconds', 'type': 'int'},
         'storage_location': {'key': 'storageLocation', 'type': 'PacketCaptureStorageLocation'},
         'filters': {'key': 'filters', 'type': '[PacketCaptureFilter]'},
@@ -13159,10 +13197,10 @@ class PacketCaptureResult(Model):
     :type target: str
     :param bytes_to_capture_per_packet: Number of bytes captured per packet,
      the remaining bytes are truncated. Default value: 0 .
-    :type bytes_to_capture_per_packet: int
+    :type bytes_to_capture_per_packet: long
     :param total_bytes_per_session: Maximum size of the capture output.
      Default value: 1073741824 .
-    :type total_bytes_per_session: int
+    :type total_bytes_per_session: long
     :param time_limit_in_seconds: Maximum duration of the capture session in
      seconds. Default value: 18000 .
     :type time_limit_in_seconds: int
@@ -13185,6 +13223,9 @@ class PacketCaptureResult(Model):
         'id': {'readonly': True},
         'etag': {'readonly': True},
         'target': {'required': True},
+        'bytes_to_capture_per_packet': {'maximum': 4294967295, 'minimum': 0},
+        'total_bytes_per_session': {'maximum': 4294967295, 'minimum': 0},
+        'time_limit_in_seconds': {'maximum': 18000, 'minimum': 0},
         'storage_location': {'required': True},
         'provisioning_state': {'readonly': True},
     }
@@ -13194,8 +13235,8 @@ class PacketCaptureResult(Model):
         'id': {'key': 'id', 'type': 'str'},
         'etag': {'key': 'etag', 'type': 'str'},
         'target': {'key': 'properties.target', 'type': 'str'},
-        'bytes_to_capture_per_packet': {'key': 'properties.bytesToCapturePerPacket', 'type': 'int'},
-        'total_bytes_per_session': {'key': 'properties.totalBytesPerSession', 'type': 'int'},
+        'bytes_to_capture_per_packet': {'key': 'properties.bytesToCapturePerPacket', 'type': 'long'},
+        'total_bytes_per_session': {'key': 'properties.totalBytesPerSession', 'type': 'long'},
         'time_limit_in_seconds': {'key': 'properties.timeLimitInSeconds', 'type': 'int'},
         'storage_location': {'key': 'properties.storageLocation', 'type': 'PacketCaptureStorageLocation'},
         'filters': {'key': 'properties.filters', 'type': '[PacketCaptureFilter]'},
