@@ -376,10 +376,13 @@ class CassandraKeyspaceGetPropertiesResource(Model):
     :vartype _rid: str
     :ivar _ts: A system generated property that denotes the last updated
      timestamp of the resource.
-    :vartype _ts: object
+    :vartype _ts: float
     :ivar _etag: A system generated property representing the resource etag
      required for optimistic concurrency control.
     :vartype _etag: str
+    :ivar _self: A system generated property. It is the unique addressable URI
+     for the resource.
+    :vartype _self: str
     """
 
     _validation = {
@@ -387,13 +390,15 @@ class CassandraKeyspaceGetPropertiesResource(Model):
         '_rid': {'readonly': True},
         '_ts': {'readonly': True},
         '_etag': {'readonly': True},
+        '_self': {'readonly': True},
     }
 
     _attribute_map = {
         'id': {'key': 'id', 'type': 'str'},
         '_rid': {'key': '_rid', 'type': 'str'},
-        '_ts': {'key': '_ts', 'type': 'object'},
+        '_ts': {'key': '_ts', 'type': 'float'},
         '_etag': {'key': '_etag', 'type': 'str'},
+        '_self': {'key': '_self', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -402,6 +407,7 @@ class CassandraKeyspaceGetPropertiesResource(Model):
         self._rid = None
         self._ts = None
         self._etag = None
+        self._self = None
 
 
 class CassandraKeyspaceGetResults(ARMResourceProperties):
@@ -604,10 +610,13 @@ class CassandraTableGetPropertiesResource(Model):
     :vartype _rid: str
     :ivar _ts: A system generated property that denotes the last updated
      timestamp of the resource.
-    :vartype _ts: object
+    :vartype _ts: float
     :ivar _etag: A system generated property representing the resource etag
      required for optimistic concurrency control.
     :vartype _etag: str
+    :ivar _self: A system generated property. It is the unique addressable URI
+     for the resource.
+    :vartype _self: str
     """
 
     _validation = {
@@ -615,6 +624,7 @@ class CassandraTableGetPropertiesResource(Model):
         '_rid': {'readonly': True},
         '_ts': {'readonly': True},
         '_etag': {'readonly': True},
+        '_self': {'readonly': True},
     }
 
     _attribute_map = {
@@ -623,8 +633,9 @@ class CassandraTableGetPropertiesResource(Model):
         'schema': {'key': 'schema', 'type': 'CassandraSchema'},
         'analytical_storage_ttl': {'key': 'analyticalStorageTtl', 'type': 'int'},
         '_rid': {'key': '_rid', 'type': 'str'},
-        '_ts': {'key': '_ts', 'type': 'object'},
+        '_ts': {'key': '_ts', 'type': 'float'},
         '_etag': {'key': '_etag', 'type': 'str'},
+        '_self': {'key': '_self', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -636,6 +647,7 @@ class CassandraTableGetPropertiesResource(Model):
         self._rid = None
         self._ts = None
         self._etag = None
+        self._self = None
 
 
 class CassandraTableGetResults(ARMResourceProperties):
@@ -1570,22 +1582,27 @@ class ExtendedResourceProperties(Model):
     :vartype _rid: str
     :ivar _ts: A system generated property that denotes the last updated
      timestamp of the resource.
-    :vartype _ts: object
+    :vartype _ts: float
     :ivar _etag: A system generated property representing the resource etag
      required for optimistic concurrency control.
     :vartype _etag: str
+    :ivar _self: A system generated property. It is the unique addressable URI
+     for the resource.
+    :vartype _self: str
     """
 
     _validation = {
         '_rid': {'readonly': True},
         '_ts': {'readonly': True},
         '_etag': {'readonly': True},
+        '_self': {'readonly': True},
     }
 
     _attribute_map = {
         '_rid': {'key': '_rid', 'type': 'str'},
-        '_ts': {'key': '_ts', 'type': 'object'},
+        '_ts': {'key': '_ts', 'type': 'float'},
         '_etag': {'key': '_etag', 'type': 'str'},
+        '_self': {'key': '_self', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -1593,6 +1610,7 @@ class ExtendedResourceProperties(Model):
         self._rid = None
         self._ts = None
         self._etag = None
+        self._self = None
 
 
 class FailoverPolicies(Model):
@@ -1738,10 +1756,13 @@ class GremlinDatabaseGetPropertiesResource(Model):
     :vartype _rid: str
     :ivar _ts: A system generated property that denotes the last updated
      timestamp of the resource.
-    :vartype _ts: object
+    :vartype _ts: float
     :ivar _etag: A system generated property representing the resource etag
      required for optimistic concurrency control.
     :vartype _etag: str
+    :ivar _self: A system generated property. It is the unique addressable URI
+     for the resource.
+    :vartype _self: str
     """
 
     _validation = {
@@ -1749,13 +1770,15 @@ class GremlinDatabaseGetPropertiesResource(Model):
         '_rid': {'readonly': True},
         '_ts': {'readonly': True},
         '_etag': {'readonly': True},
+        '_self': {'readonly': True},
     }
 
     _attribute_map = {
         'id': {'key': 'id', 'type': 'str'},
         '_rid': {'key': '_rid', 'type': 'str'},
-        '_ts': {'key': '_ts', 'type': 'object'},
+        '_ts': {'key': '_ts', 'type': 'float'},
         '_etag': {'key': '_etag', 'type': 'str'},
+        '_self': {'key': '_self', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -1764,6 +1787,7 @@ class GremlinDatabaseGetPropertiesResource(Model):
         self._rid = None
         self._ts = None
         self._etag = None
+        self._self = None
 
 
 class GremlinDatabaseGetResults(ARMResourceProperties):
@@ -1935,10 +1959,13 @@ class GremlinGraphGetPropertiesResource(Model):
     :vartype _rid: str
     :ivar _ts: A system generated property that denotes the last updated
      timestamp of the resource.
-    :vartype _ts: object
+    :vartype _ts: float
     :ivar _etag: A system generated property representing the resource etag
      required for optimistic concurrency control.
     :vartype _etag: str
+    :ivar _self: A system generated property. It is the unique addressable URI
+     for the resource.
+    :vartype _self: str
     """
 
     _validation = {
@@ -1946,6 +1973,7 @@ class GremlinGraphGetPropertiesResource(Model):
         '_rid': {'readonly': True},
         '_ts': {'readonly': True},
         '_etag': {'readonly': True},
+        '_self': {'readonly': True},
     }
 
     _attribute_map = {
@@ -1956,8 +1984,9 @@ class GremlinGraphGetPropertiesResource(Model):
         'unique_key_policy': {'key': 'uniqueKeyPolicy', 'type': 'UniqueKeyPolicy'},
         'conflict_resolution_policy': {'key': 'conflictResolutionPolicy', 'type': 'ConflictResolutionPolicy'},
         '_rid': {'key': '_rid', 'type': 'str'},
-        '_ts': {'key': '_ts', 'type': 'object'},
+        '_ts': {'key': '_ts', 'type': 'float'},
         '_etag': {'key': '_etag', 'type': 'str'},
+        '_self': {'key': '_self', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -1971,6 +2000,7 @@ class GremlinGraphGetPropertiesResource(Model):
         self._rid = None
         self._ts = None
         self._etag = None
+        self._self = None
 
 
 class GremlinGraphGetResults(ARMResourceProperties):
@@ -2524,10 +2554,13 @@ class MongoDBCollectionGetPropertiesResource(Model):
     :vartype _rid: str
     :ivar _ts: A system generated property that denotes the last updated
      timestamp of the resource.
-    :vartype _ts: object
+    :vartype _ts: float
     :ivar _etag: A system generated property representing the resource etag
      required for optimistic concurrency control.
     :vartype _etag: str
+    :ivar _self: A system generated property. It is the unique addressable URI
+     for the resource.
+    :vartype _self: str
     """
 
     _validation = {
@@ -2535,6 +2568,7 @@ class MongoDBCollectionGetPropertiesResource(Model):
         '_rid': {'readonly': True},
         '_ts': {'readonly': True},
         '_etag': {'readonly': True},
+        '_self': {'readonly': True},
     }
 
     _attribute_map = {
@@ -2543,8 +2577,9 @@ class MongoDBCollectionGetPropertiesResource(Model):
         'indexes': {'key': 'indexes', 'type': '[MongoIndex]'},
         'analytical_storage_ttl': {'key': 'analyticalStorageTtl', 'type': 'int'},
         '_rid': {'key': '_rid', 'type': 'str'},
-        '_ts': {'key': '_ts', 'type': 'object'},
+        '_ts': {'key': '_ts', 'type': 'float'},
         '_etag': {'key': '_etag', 'type': 'str'},
+        '_self': {'key': '_self', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -2556,6 +2591,7 @@ class MongoDBCollectionGetPropertiesResource(Model):
         self._rid = None
         self._ts = None
         self._etag = None
+        self._self = None
 
 
 class MongoDBCollectionGetResults(ARMResourceProperties):
@@ -2724,10 +2760,13 @@ class MongoDBDatabaseGetPropertiesResource(Model):
     :vartype _rid: str
     :ivar _ts: A system generated property that denotes the last updated
      timestamp of the resource.
-    :vartype _ts: object
+    :vartype _ts: float
     :ivar _etag: A system generated property representing the resource etag
      required for optimistic concurrency control.
     :vartype _etag: str
+    :ivar _self: A system generated property. It is the unique addressable URI
+     for the resource.
+    :vartype _self: str
     """
 
     _validation = {
@@ -2735,13 +2774,15 @@ class MongoDBDatabaseGetPropertiesResource(Model):
         '_rid': {'readonly': True},
         '_ts': {'readonly': True},
         '_etag': {'readonly': True},
+        '_self': {'readonly': True},
     }
 
     _attribute_map = {
         'id': {'key': 'id', 'type': 'str'},
         '_rid': {'key': '_rid', 'type': 'str'},
-        '_ts': {'key': '_ts', 'type': 'object'},
+        '_ts': {'key': '_ts', 'type': 'float'},
         '_etag': {'key': '_etag', 'type': 'str'},
+        '_self': {'key': '_self', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -2750,6 +2791,7 @@ class MongoDBDatabaseGetPropertiesResource(Model):
         self._rid = None
         self._ts = None
         self._etag = None
+        self._self = None
 
 
 class MongoDBDatabaseGetResults(ARMResourceProperties):
@@ -3631,10 +3673,13 @@ class SqlContainerGetPropertiesResource(Model):
     :vartype _rid: str
     :ivar _ts: A system generated property that denotes the last updated
      timestamp of the resource.
-    :vartype _ts: object
+    :vartype _ts: float
     :ivar _etag: A system generated property representing the resource etag
      required for optimistic concurrency control.
     :vartype _etag: str
+    :ivar _self: A system generated property. It is the unique addressable URI
+     for the resource.
+    :vartype _self: str
     """
 
     _validation = {
@@ -3642,6 +3687,7 @@ class SqlContainerGetPropertiesResource(Model):
         '_rid': {'readonly': True},
         '_ts': {'readonly': True},
         '_etag': {'readonly': True},
+        '_self': {'readonly': True},
     }
 
     _attribute_map = {
@@ -3653,8 +3699,9 @@ class SqlContainerGetPropertiesResource(Model):
         'conflict_resolution_policy': {'key': 'conflictResolutionPolicy', 'type': 'ConflictResolutionPolicy'},
         'analytical_storage_ttl': {'key': 'analyticalStorageTtl', 'type': 'long'},
         '_rid': {'key': '_rid', 'type': 'str'},
-        '_ts': {'key': '_ts', 'type': 'object'},
+        '_ts': {'key': '_ts', 'type': 'float'},
         '_etag': {'key': '_etag', 'type': 'str'},
+        '_self': {'key': '_self', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -3669,6 +3716,7 @@ class SqlContainerGetPropertiesResource(Model):
         self._rid = None
         self._ts = None
         self._etag = None
+        self._self = None
 
 
 class SqlContainerGetResults(ARMResourceProperties):
@@ -3855,10 +3903,13 @@ class SqlDatabaseGetPropertiesResource(Model):
     :vartype _rid: str
     :ivar _ts: A system generated property that denotes the last updated
      timestamp of the resource.
-    :vartype _ts: object
+    :vartype _ts: float
     :ivar _etag: A system generated property representing the resource etag
      required for optimistic concurrency control.
     :vartype _etag: str
+    :ivar _self: A system generated property. It is the unique addressable URI
+     for the resource.
+    :vartype _self: str
     :param _colls: A system generated property that specified the addressable
      path of the collections resource.
     :type _colls: str
@@ -3872,13 +3923,15 @@ class SqlDatabaseGetPropertiesResource(Model):
         '_rid': {'readonly': True},
         '_ts': {'readonly': True},
         '_etag': {'readonly': True},
+        '_self': {'readonly': True},
     }
 
     _attribute_map = {
         'id': {'key': 'id', 'type': 'str'},
         '_rid': {'key': '_rid', 'type': 'str'},
-        '_ts': {'key': '_ts', 'type': 'object'},
+        '_ts': {'key': '_ts', 'type': 'float'},
         '_etag': {'key': '_etag', 'type': 'str'},
+        '_self': {'key': '_self', 'type': 'str'},
         '_colls': {'key': '_colls', 'type': 'str'},
         '_users': {'key': '_users', 'type': 'str'},
     }
@@ -3889,6 +3942,7 @@ class SqlDatabaseGetPropertiesResource(Model):
         self._rid = None
         self._ts = None
         self._etag = None
+        self._self = None
         self._colls = kwargs.get('_colls', None)
         self._users = kwargs.get('_users', None)
 
@@ -4027,10 +4081,13 @@ class SqlStoredProcedureGetPropertiesResource(Model):
     :vartype _rid: str
     :ivar _ts: A system generated property that denotes the last updated
      timestamp of the resource.
-    :vartype _ts: object
+    :vartype _ts: float
     :ivar _etag: A system generated property representing the resource etag
      required for optimistic concurrency control.
     :vartype _etag: str
+    :ivar _self: A system generated property. It is the unique addressable URI
+     for the resource.
+    :vartype _self: str
     """
 
     _validation = {
@@ -4038,14 +4095,16 @@ class SqlStoredProcedureGetPropertiesResource(Model):
         '_rid': {'readonly': True},
         '_ts': {'readonly': True},
         '_etag': {'readonly': True},
+        '_self': {'readonly': True},
     }
 
     _attribute_map = {
         'id': {'key': 'id', 'type': 'str'},
         'body': {'key': 'body', 'type': 'str'},
         '_rid': {'key': '_rid', 'type': 'str'},
-        '_ts': {'key': '_ts', 'type': 'object'},
+        '_ts': {'key': '_ts', 'type': 'float'},
         '_etag': {'key': '_etag', 'type': 'str'},
+        '_self': {'key': '_self', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -4055,6 +4114,7 @@ class SqlStoredProcedureGetPropertiesResource(Model):
         self._rid = None
         self._ts = None
         self._etag = None
+        self._self = None
 
 
 class SqlStoredProcedureGetResults(ARMResourceProperties):
@@ -4198,10 +4258,13 @@ class SqlTriggerGetPropertiesResource(Model):
     :vartype _rid: str
     :ivar _ts: A system generated property that denotes the last updated
      timestamp of the resource.
-    :vartype _ts: object
+    :vartype _ts: float
     :ivar _etag: A system generated property representing the resource etag
      required for optimistic concurrency control.
     :vartype _etag: str
+    :ivar _self: A system generated property. It is the unique addressable URI
+     for the resource.
+    :vartype _self: str
     """
 
     _validation = {
@@ -4209,6 +4272,7 @@ class SqlTriggerGetPropertiesResource(Model):
         '_rid': {'readonly': True},
         '_ts': {'readonly': True},
         '_etag': {'readonly': True},
+        '_self': {'readonly': True},
     }
 
     _attribute_map = {
@@ -4217,8 +4281,9 @@ class SqlTriggerGetPropertiesResource(Model):
         'trigger_type': {'key': 'triggerType', 'type': 'str'},
         'trigger_operation': {'key': 'triggerOperation', 'type': 'str'},
         '_rid': {'key': '_rid', 'type': 'str'},
-        '_ts': {'key': '_ts', 'type': 'object'},
+        '_ts': {'key': '_ts', 'type': 'float'},
         '_etag': {'key': '_etag', 'type': 'str'},
+        '_self': {'key': '_self', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -4230,6 +4295,7 @@ class SqlTriggerGetPropertiesResource(Model):
         self._rid = None
         self._ts = None
         self._etag = None
+        self._self = None
 
 
 class SqlTriggerGetResults(ARMResourceProperties):
@@ -4378,10 +4444,13 @@ class SqlUserDefinedFunctionGetPropertiesResource(Model):
     :vartype _rid: str
     :ivar _ts: A system generated property that denotes the last updated
      timestamp of the resource.
-    :vartype _ts: object
+    :vartype _ts: float
     :ivar _etag: A system generated property representing the resource etag
      required for optimistic concurrency control.
     :vartype _etag: str
+    :ivar _self: A system generated property. It is the unique addressable URI
+     for the resource.
+    :vartype _self: str
     """
 
     _validation = {
@@ -4389,14 +4458,16 @@ class SqlUserDefinedFunctionGetPropertiesResource(Model):
         '_rid': {'readonly': True},
         '_ts': {'readonly': True},
         '_etag': {'readonly': True},
+        '_self': {'readonly': True},
     }
 
     _attribute_map = {
         'id': {'key': 'id', 'type': 'str'},
         'body': {'key': 'body', 'type': 'str'},
         '_rid': {'key': '_rid', 'type': 'str'},
-        '_ts': {'key': '_ts', 'type': 'object'},
+        '_ts': {'key': '_ts', 'type': 'float'},
         '_etag': {'key': '_etag', 'type': 'str'},
+        '_self': {'key': '_self', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -4406,6 +4477,7 @@ class SqlUserDefinedFunctionGetPropertiesResource(Model):
         self._rid = None
         self._ts = None
         self._etag = None
+        self._self = None
 
 
 class SqlUserDefinedFunctionGetResults(ARMResourceProperties):
@@ -4560,10 +4632,13 @@ class TableGetPropertiesResource(Model):
     :vartype _rid: str
     :ivar _ts: A system generated property that denotes the last updated
      timestamp of the resource.
-    :vartype _ts: object
+    :vartype _ts: float
     :ivar _etag: A system generated property representing the resource etag
      required for optimistic concurrency control.
     :vartype _etag: str
+    :ivar _self: A system generated property. It is the unique addressable URI
+     for the resource.
+    :vartype _self: str
     """
 
     _validation = {
@@ -4571,13 +4646,15 @@ class TableGetPropertiesResource(Model):
         '_rid': {'readonly': True},
         '_ts': {'readonly': True},
         '_etag': {'readonly': True},
+        '_self': {'readonly': True},
     }
 
     _attribute_map = {
         'id': {'key': 'id', 'type': 'str'},
         '_rid': {'key': '_rid', 'type': 'str'},
-        '_ts': {'key': '_ts', 'type': 'object'},
+        '_ts': {'key': '_ts', 'type': 'float'},
         '_etag': {'key': '_etag', 'type': 'str'},
+        '_self': {'key': '_self', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -4586,6 +4663,7 @@ class TableGetPropertiesResource(Model):
         self._rid = None
         self._ts = None
         self._etag = None
+        self._self = None
 
 
 class TableGetResults(ARMResourceProperties):
@@ -4699,10 +4777,13 @@ class ThroughputSettingsGetPropertiesResource(Model):
     :vartype _rid: str
     :ivar _ts: A system generated property that denotes the last updated
      timestamp of the resource.
-    :vartype _ts: object
+    :vartype _ts: float
     :ivar _etag: A system generated property representing the resource etag
      required for optimistic concurrency control.
     :vartype _etag: str
+    :ivar _self: A system generated property. It is the unique addressable URI
+     for the resource.
+    :vartype _self: str
     """
 
     _validation = {
@@ -4711,6 +4792,7 @@ class ThroughputSettingsGetPropertiesResource(Model):
         '_rid': {'readonly': True},
         '_ts': {'readonly': True},
         '_etag': {'readonly': True},
+        '_self': {'readonly': True},
     }
 
     _attribute_map = {
@@ -4719,8 +4801,9 @@ class ThroughputSettingsGetPropertiesResource(Model):
         'minimum_throughput': {'key': 'minimumThroughput', 'type': 'str'},
         'offer_replace_pending': {'key': 'offerReplacePending', 'type': 'str'},
         '_rid': {'key': '_rid', 'type': 'str'},
-        '_ts': {'key': '_ts', 'type': 'object'},
+        '_ts': {'key': '_ts', 'type': 'float'},
         '_etag': {'key': '_etag', 'type': 'str'},
+        '_self': {'key': '_self', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -4732,6 +4815,7 @@ class ThroughputSettingsGetPropertiesResource(Model):
         self._rid = None
         self._ts = None
         self._etag = None
+        self._self = None
 
 
 class ThroughputSettingsGetResults(ARMResourceProperties):
