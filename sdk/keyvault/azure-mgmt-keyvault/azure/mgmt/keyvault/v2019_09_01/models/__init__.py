@@ -8,6 +8,7 @@
 
 try:
     from ._models_py3 import AccessPolicyEntry
+    from ._models_py3 import Attributes
     from ._models_py3 import CheckNameAvailabilityResult
     from ._models_py3 import CloudErrorBody
     from ._models_py3 import DeletedVault
@@ -28,6 +29,13 @@ try:
     from ._models_py3 import PrivateLinkServiceConnectionState
     from ._models_py3 import Resource
     from ._models_py3 import ResourceListResult
+    from ._models_py3 import Secret
+    from ._models_py3 import SecretAttributes
+    from ._models_py3 import SecretCreateOrUpdateParameters
+    from ._models_py3 import SecretListResult
+    from ._models_py3 import SecretPatchParameters
+    from ._models_py3 import SecretPatchProperties
+    from ._models_py3 import SecretProperties
     from ._models_py3 import ServiceSpecification
     from ._models_py3 import Sku
     from ._models_py3 import Vault
@@ -42,6 +50,7 @@ try:
     from ._models_py3 import VirtualNetworkRule
 except (SyntaxError, ImportError):
     from ._models import AccessPolicyEntry  # type: ignore
+    from ._models import Attributes  # type: ignore
     from ._models import CheckNameAvailabilityResult  # type: ignore
     from ._models import CloudErrorBody  # type: ignore
     from ._models import DeletedVault  # type: ignore
@@ -62,6 +71,13 @@ except (SyntaxError, ImportError):
     from ._models import PrivateLinkServiceConnectionState  # type: ignore
     from ._models import Resource  # type: ignore
     from ._models import ResourceListResult  # type: ignore
+    from ._models import Secret  # type: ignore
+    from ._models import SecretAttributes  # type: ignore
+    from ._models import SecretCreateOrUpdateParameters  # type: ignore
+    from ._models import SecretListResult  # type: ignore
+    from ._models import SecretPatchParameters  # type: ignore
+    from ._models import SecretPatchProperties  # type: ignore
+    from ._models import SecretProperties  # type: ignore
     from ._models import ServiceSpecification  # type: ignore
     from ._models import Sku  # type: ignore
     from ._models import Vault  # type: ignore
@@ -93,6 +109,7 @@ from ._key_vault_management_client_enums import (
 
 __all__ = [
     'AccessPolicyEntry',
+    'Attributes',
     'CheckNameAvailabilityResult',
     'CloudErrorBody',
     'DeletedVault',
@@ -113,6 +130,13 @@ __all__ = [
     'PrivateLinkServiceConnectionState',
     'Resource',
     'ResourceListResult',
+    'Secret',
+    'SecretAttributes',
+    'SecretCreateOrUpdateParameters',
+    'SecretListResult',
+    'SecretPatchParameters',
+    'SecretPatchProperties',
+    'SecretProperties',
     'ServiceSpecification',
     'Sku',
     'Vault',

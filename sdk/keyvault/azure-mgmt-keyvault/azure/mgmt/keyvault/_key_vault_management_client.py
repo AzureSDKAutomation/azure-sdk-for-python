@@ -174,6 +174,19 @@ class KeyVaultManagementClient(MultiApiClientMixin, _SDKClient):
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
+    def secrets(self):
+        """Instance depends on the API version:
+
+           * 2019-09-01: :class:`SecretsOperations<azure.mgmt.keyvault.v2019_09_01.operations.SecretsOperations>`
+        """
+        api_version = self._get_api_version('secrets')
+        if api_version == '2019-09-01':
+            from .v2019_09_01.operations import SecretsOperations as OperationClass
+        else:
+            raise ValueError("API version {} does not have operation group 'secrets'".format(api_version))
+        return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
     def vaults(self):
         """Instance depends on the API version:
 

@@ -51,6 +51,48 @@ class AccessPolicyEntry(msrest.serialization.Model):
         self.permissions = kwargs['permissions']
 
 
+class Attributes(msrest.serialization.Model):
+    """The object attributes managed by the KeyVault service.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :param enabled: Determines whether the object is enabled.
+    :type enabled: bool
+    :param not_before: Not before date in seconds since 1970-01-01T00:00:00Z.
+    :type not_before: ~datetime.datetime
+    :param expires: Expiry date in seconds since 1970-01-01T00:00:00Z.
+    :type expires: ~datetime.datetime
+    :ivar created: Creation time in seconds since 1970-01-01T00:00:00Z.
+    :vartype created: ~datetime.datetime
+    :ivar updated: Last updated time in seconds since 1970-01-01T00:00:00Z.
+    :vartype updated: ~datetime.datetime
+    """
+
+    _validation = {
+        'created': {'readonly': True},
+        'updated': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'enabled': {'key': 'enabled', 'type': 'bool'},
+        'not_before': {'key': 'nbf', 'type': 'unix-time'},
+        'expires': {'key': 'exp', 'type': 'unix-time'},
+        'created': {'key': 'created', 'type': 'unix-time'},
+        'updated': {'key': 'updated', 'type': 'unix-time'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(Attributes, self).__init__(**kwargs)
+        self.enabled = kwargs.get('enabled', None)
+        self.not_before = kwargs.get('not_before', None)
+        self.expires = kwargs.get('expires', None)
+        self.created = None
+        self.updated = None
+
+
 class CheckNameAvailabilityResult(msrest.serialization.Model):
     """The CheckNameAvailability operation response.
 
@@ -711,6 +753,236 @@ class ResourceListResult(msrest.serialization.Model):
         super(ResourceListResult, self).__init__(**kwargs)
         self.value = kwargs.get('value', None)
         self.next_link = kwargs.get('next_link', None)
+
+
+class Secret(Resource):
+    """Resource information with extended details.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Fully qualified identifier of the key vault resource.
+    :vartype id: str
+    :ivar name: Name of the key vault resource.
+    :vartype name: str
+    :ivar type: Resource type of the key vault resource.
+    :vartype type: str
+    :ivar location: Azure location of the key vault resource.
+    :vartype location: str
+    :ivar tags: A set of tags. Tags assigned to the key vault resource.
+    :vartype tags: dict[str, str]
+    :param properties: Required. Properties of the secret.
+    :type properties: ~azure.mgmt.keyvault.v2019_09_01.models.SecretProperties
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'location': {'readonly': True},
+        'tags': {'readonly': True},
+        'properties': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'properties': {'key': 'properties', 'type': 'SecretProperties'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(Secret, self).__init__(**kwargs)
+        self.properties = kwargs['properties']
+
+
+class SecretAttributes(Attributes):
+    """The secret management attributes.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :param enabled: Determines whether the object is enabled.
+    :type enabled: bool
+    :param not_before: Not before date in seconds since 1970-01-01T00:00:00Z.
+    :type not_before: ~datetime.datetime
+    :param expires: Expiry date in seconds since 1970-01-01T00:00:00Z.
+    :type expires: ~datetime.datetime
+    :ivar created: Creation time in seconds since 1970-01-01T00:00:00Z.
+    :vartype created: ~datetime.datetime
+    :ivar updated: Last updated time in seconds since 1970-01-01T00:00:00Z.
+    :vartype updated: ~datetime.datetime
+    """
+
+    _validation = {
+        'created': {'readonly': True},
+        'updated': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'enabled': {'key': 'enabled', 'type': 'bool'},
+        'not_before': {'key': 'nbf', 'type': 'unix-time'},
+        'expires': {'key': 'exp', 'type': 'unix-time'},
+        'created': {'key': 'created', 'type': 'unix-time'},
+        'updated': {'key': 'updated', 'type': 'unix-time'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(SecretAttributes, self).__init__(**kwargs)
+
+
+class SecretCreateOrUpdateParameters(msrest.serialization.Model):
+    """Parameters for creating or updating a secret.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param tags: A set of tags. The tags that will be assigned to the secret.
+    :type tags: dict[str, str]
+    :param properties: Required. Properties of the secret.
+    :type properties: ~azure.mgmt.keyvault.v2019_09_01.models.SecretProperties
+    """
+
+    _validation = {
+        'properties': {'required': True},
+    }
+
+    _attribute_map = {
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'properties': {'key': 'properties', 'type': 'SecretProperties'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(SecretCreateOrUpdateParameters, self).__init__(**kwargs)
+        self.tags = kwargs.get('tags', None)
+        self.properties = kwargs['properties']
+
+
+class SecretListResult(msrest.serialization.Model):
+    """List of secrets.
+
+    :param value: The list of secrets.
+    :type value: list[~azure.mgmt.keyvault.v2019_09_01.models.Secret]
+    :param next_link: The URL to get the next set of secrets.
+    :type next_link: str
+    """
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': '[Secret]'},
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(SecretListResult, self).__init__(**kwargs)
+        self.value = kwargs.get('value', None)
+        self.next_link = kwargs.get('next_link', None)
+
+
+class SecretPatchParameters(msrest.serialization.Model):
+    """Parameters for patching a secret.
+
+    :param tags: A set of tags. The tags that will be assigned to the secret.
+    :type tags: dict[str, str]
+    :param properties: Properties of the secret.
+    :type properties: ~azure.mgmt.keyvault.v2019_09_01.models.SecretPatchProperties
+    """
+
+    _attribute_map = {
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'properties': {'key': 'properties', 'type': 'SecretPatchProperties'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(SecretPatchParameters, self).__init__(**kwargs)
+        self.tags = kwargs.get('tags', None)
+        self.properties = kwargs.get('properties', None)
+
+
+class SecretPatchProperties(msrest.serialization.Model):
+    """Properties of the secret.
+
+    :param value: The value of the secret.
+    :type value: str
+    :param content_type: The content type of the secret.
+    :type content_type: str
+    :param attributes: The attributes of the secret.
+    :type attributes: ~azure.mgmt.keyvault.v2019_09_01.models.Attributes
+    """
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': 'str'},
+        'content_type': {'key': 'contentType', 'type': 'str'},
+        'attributes': {'key': 'attributes', 'type': 'Attributes'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(SecretPatchProperties, self).__init__(**kwargs)
+        self.value = kwargs.get('value', None)
+        self.content_type = kwargs.get('content_type', None)
+        self.attributes = kwargs.get('attributes', None)
+
+
+class SecretProperties(msrest.serialization.Model):
+    """Properties of the secret.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :param value: The value of the secret. NOTE: 'value' will never be returned from the service,
+     as APIs using this model are is intended for internal use in ARM deployments. Users should use
+     the data-plane REST service for interaction with vault secrets.
+    :type value: str
+    :param content_type: The content type of the secret.
+    :type content_type: str
+    :param attributes: The attributes of the secret.
+    :type attributes: ~azure.mgmt.keyvault.v2019_09_01.models.Attributes
+    :ivar secret_uri: The URI to retrieve the current version of the secret.
+    :vartype secret_uri: str
+    :ivar secret_uri_with_version: The URI to retrieve the specific version of the secret.
+    :vartype secret_uri_with_version: str
+    """
+
+    _validation = {
+        'secret_uri': {'readonly': True},
+        'secret_uri_with_version': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': 'str'},
+        'content_type': {'key': 'contentType', 'type': 'str'},
+        'attributes': {'key': 'attributes', 'type': 'Attributes'},
+        'secret_uri': {'key': 'secretUri', 'type': 'str'},
+        'secret_uri_with_version': {'key': 'secretUriWithVersion', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(SecretProperties, self).__init__(**kwargs)
+        self.value = kwargs.get('value', None)
+        self.content_type = kwargs.get('content_type', None)
+        self.attributes = kwargs.get('attributes', None)
+        self.secret_uri = None
+        self.secret_uri_with_version = None
 
 
 class ServiceSpecification(msrest.serialization.Model):
