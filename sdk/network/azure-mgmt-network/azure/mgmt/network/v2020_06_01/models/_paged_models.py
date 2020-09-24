@@ -129,6 +129,19 @@ class AzureFirewallFqdnTagPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(AzureFirewallFqdnTagPaged, self).__init__(*args, **kwargs)
+class AzureWebCategoryPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`AzureWebCategory <azure.mgmt.network.v2020_06_01.models.AzureWebCategory>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[AzureWebCategory]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(AzureWebCategoryPaged, self).__init__(*args, **kwargs)
 class BastionHostPaged(Paged):
     """
     A paging container for iterating over a list of :class:`BastionHost <azure.mgmt.network.v2020_06_01.models.BastionHost>` object

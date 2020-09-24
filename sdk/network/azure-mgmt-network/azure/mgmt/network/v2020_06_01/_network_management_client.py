@@ -23,6 +23,7 @@ from .operations import AvailableResourceGroupDelegationsOperations
 from .operations import AvailableServiceAliasesOperations
 from .operations import AzureFirewallsOperations
 from .operations import AzureFirewallFqdnTagsOperations
+from .operations import AzureWebCategoriesOperations
 from .operations import BastionHostsOperations
 from .operations import CustomIPPrefixesOperations
 from .operations import DdosCustomPoliciesOperations
@@ -145,6 +146,8 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, SDKClient)
     :vartype azure_firewalls: azure.mgmt.network.v2020_06_01.operations.AzureFirewallsOperations
     :ivar azure_firewall_fqdn_tags: AzureFirewallFqdnTags operations
     :vartype azure_firewall_fqdn_tags: azure.mgmt.network.v2020_06_01.operations.AzureFirewallFqdnTagsOperations
+    :ivar azure_web_categories: AzureWebCategories operations
+    :vartype azure_web_categories: azure.mgmt.network.v2020_06_01.operations.AzureWebCategoriesOperations
     :ivar bastion_hosts: BastionHosts operations
     :vartype bastion_hosts: azure.mgmt.network.v2020_06_01.operations.BastionHostsOperations
     :ivar custom_ip_prefixes: CustomIPPrefixes operations
@@ -373,6 +376,8 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, SDKClient)
         self.azure_firewalls = AzureFirewallsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.azure_firewall_fqdn_tags = AzureFirewallFqdnTagsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.azure_web_categories = AzureWebCategoriesOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.bastion_hosts = BastionHostsOperations(
             self._client, self.config, self._serialize, self._deserialize)

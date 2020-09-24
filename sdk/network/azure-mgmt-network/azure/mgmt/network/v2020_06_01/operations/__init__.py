@@ -18,6 +18,7 @@ from ._available_resource_group_delegations_operations import AvailableResourceG
 from ._available_service_aliases_operations import AvailableServiceAliasesOperations
 from ._azure_firewalls_operations import AzureFirewallsOperations
 from ._azure_firewall_fqdn_tags_operations import AzureFirewallFqdnTagsOperations
+from ._azure_web_categories_operations import AzureWebCategoriesOperations
 from ._bastion_hosts_operations import BastionHostsOperations
 from ._custom_ip_prefixes_operations import CustomIPPrefixesOperations
 from ._ddos_custom_policies_operations import DdosCustomPoliciesOperations
@@ -125,6 +126,7 @@ __all__ = [
     'AvailableServiceAliasesOperations',
     'AzureFirewallsOperations',
     'AzureFirewallFqdnTagsOperations',
+    'AzureWebCategoriesOperations',
     'BastionHostsOperations',
     'CustomIPPrefixesOperations',
     'DdosCustomPoliciesOperations',

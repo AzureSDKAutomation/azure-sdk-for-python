@@ -95,6 +95,7 @@ try:
     from ._models_py3 import AzureReachabilityReportLatencyInfo
     from ._models_py3 import AzureReachabilityReportLocation
     from ._models_py3 import AzureReachabilityReportParameters
+    from ._models_py3 import AzureWebCategory
     from ._models_py3 import BackendAddressPool
     from ._models_py3 import BastionActiveSession
     from ._models_py3 import BastionActiveSessionListResult
@@ -537,6 +538,7 @@ except (SyntaxError, ImportError):
     from ._models import AzureReachabilityReportLatencyInfo
     from ._models import AzureReachabilityReportLocation
     from ._models import AzureReachabilityReportParameters
+    from ._models import AzureWebCategory
     from ._models import BackendAddressPool
     from ._models import BastionActiveSession
     from ._models import BastionActiveSessionListResult
@@ -904,6 +906,7 @@ from ._paged_models import AvailablePrivateEndpointTypePaged
 from ._paged_models import AvailableServiceAliasPaged
 from ._paged_models import AzureFirewallFqdnTagPaged
 from ._paged_models import AzureFirewallPaged
+from ._paged_models import AzureWebCategoryPaged
 from ._paged_models import BackendAddressPoolPaged
 from ._paged_models import BastionHostPaged
 from ._paged_models import BastionSessionStatePaged
@@ -1215,6 +1218,7 @@ __all__ = [
     'AzureReachabilityReportLatencyInfo',
     'AzureReachabilityReportLocation',
     'AzureReachabilityReportParameters',
+    'AzureWebCategory',
     'BackendAddressPool',
     'BastionActiveSession',
     'BastionActiveSessionListResult',
@@ -1580,6 +1584,7 @@ __all__ = [
     'AvailableServiceAliasPaged',
     'AzureFirewallPaged',
     'AzureFirewallFqdnTagPaged',
+    'AzureWebCategoryPaged',
     'BastionHostPaged',
     'BastionShareableLinkPaged',
     'BastionSessionStatePaged',

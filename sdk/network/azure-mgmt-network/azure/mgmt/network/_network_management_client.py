@@ -820,6 +820,19 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
+    def azure_web_categories(self):
+        """Instance depends on the API version:
+
+           * 2020-06-01: :class:`AzureWebCategoriesOperations<azure.mgmt.network.v2020_06_01.operations.AzureWebCategoriesOperations>`
+        """
+        api_version = self._get_api_version('azure_web_categories')
+        if api_version == '2020-06-01':
+            from .v2020_06_01.operations import AzureWebCategoriesOperations as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        return OperationClass(self._client, self.config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
     def bastion_hosts(self):
         """Instance depends on the API version:
 
@@ -6723,6 +6736,7 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
            * 2019-12-01: :class:`WebApplicationFirewallPoliciesOperations<azure.mgmt.network.v2019_12_01.operations.WebApplicationFirewallPoliciesOperations>`
            * 2020-03-01: :class:`WebApplicationFirewallPoliciesOperations<azure.mgmt.network.v2020_03_01.operations.WebApplicationFirewallPoliciesOperations>`
            * 2020-04-01: :class:`WebApplicationFirewallPoliciesOperations<azure.mgmt.network.v2020_04_01.operations.WebApplicationFirewallPoliciesOperations>`
+           * 2020-05-01: :class:`WebApplicationFirewallPoliciesOperations<azure.mgmt.network.v2020_05_01.operations.WebApplicationFirewallPoliciesOperations>`
            * 2020-06-01: :class:`WebApplicationFirewallPoliciesOperations<azure.mgmt.network.v2020_06_01.operations.WebApplicationFirewallPoliciesOperations>`
         """
         api_version = self._get_api_version('web_application_firewall_policies')
@@ -6748,6 +6762,8 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
             from .v2020_03_01.operations import WebApplicationFirewallPoliciesOperations as OperationClass
         elif api_version == '2020-04-01':
             from .v2020_04_01.operations import WebApplicationFirewallPoliciesOperations as OperationClass
+        elif api_version == '2020-05-01':
+            from .v2020_05_01.operations import WebApplicationFirewallPoliciesOperations as OperationClass
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import WebApplicationFirewallPoliciesOperations as OperationClass
         else:
