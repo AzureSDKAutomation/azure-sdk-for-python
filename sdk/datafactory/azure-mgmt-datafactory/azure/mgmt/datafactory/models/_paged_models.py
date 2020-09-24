@@ -155,3 +155,16 @@ class ManagedPrivateEndpointResourcePaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(ManagedPrivateEndpointResourcePaged, self).__init__(*args, **kwargs)
+class CredentialResourcePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`CredentialResource <azure.mgmt.datafactory.models.CredentialResource>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[CredentialResource]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(CredentialResourcePaged, self).__init__(*args, **kwargs)

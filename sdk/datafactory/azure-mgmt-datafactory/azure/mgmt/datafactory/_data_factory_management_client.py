@@ -30,6 +30,7 @@ from .operations import DataFlowsOperations
 from .operations import DataFlowDebugSessionOperations
 from .operations import ManagedVirtualNetworksOperations
 from .operations import ManagedPrivateEndpointsOperations
+from .operations import CredentialOperations
 from . import models
 
 
@@ -73,6 +74,8 @@ class DataFactoryManagementClient(SDKClient):
     :vartype managed_virtual_networks: azure.mgmt.datafactory.operations.ManagedVirtualNetworksOperations
     :ivar managed_private_endpoints: ManagedPrivateEndpoints operations
     :vartype managed_private_endpoints: azure.mgmt.datafactory.operations.ManagedPrivateEndpointsOperations
+    :ivar credential_operations: CredentialOperations operations
+    :vartype credential_operations: azure.mgmt.datafactory.operations.CredentialOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -126,4 +129,6 @@ class DataFactoryManagementClient(SDKClient):
         self.managed_virtual_networks = ManagedVirtualNetworksOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.managed_private_endpoints = ManagedPrivateEndpointsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.credential_operations = CredentialOperations(
             self._client, self.config, self._serialize, self._deserialize)
