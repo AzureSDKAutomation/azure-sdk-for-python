@@ -11,12 +11,17 @@
 
 try:
     from ._models_py3 import AccessPolicyEntry
-    from ._models_py3 import Attributes
     from ._models_py3 import CheckNameAvailabilityResult
     from ._models_py3 import DeletedVault
     from ._models_py3 import DeletedVaultProperties
+    from ._models_py3 import Error
     from ._models_py3 import IPRule
     from ._models_py3 import LogSpecification
+    from ._models_py3 import ManagedHsm
+    from ._models_py3 import ManagedHsmError, ManagedHsmErrorException
+    from ._models_py3 import ManagedHsmProperties
+    from ._models_py3 import ManagedHsmResource
+    from ._models_py3 import ManagedHsmSku
     from ._models_py3 import NetworkRuleSet
     from ._models_py3 import Operation
     from ._models_py3 import OperationDisplay
@@ -28,12 +33,6 @@ try:
     from ._models_py3 import PrivateLinkResourceListResult
     from ._models_py3 import PrivateLinkServiceConnectionState
     from ._models_py3 import Resource
-    from ._models_py3 import Secret
-    from ._models_py3 import SecretAttributes
-    from ._models_py3 import SecretCreateOrUpdateParameters
-    from ._models_py3 import SecretPatchParameters
-    from ._models_py3 import SecretPatchProperties
-    from ._models_py3 import SecretProperties
     from ._models_py3 import ServiceSpecification
     from ._models_py3 import Sku
     from ._models_py3 import Vault
@@ -47,12 +46,17 @@ try:
     from ._models_py3 import VirtualNetworkRule
 except (SyntaxError, ImportError):
     from ._models import AccessPolicyEntry
-    from ._models import Attributes
     from ._models import CheckNameAvailabilityResult
     from ._models import DeletedVault
     from ._models import DeletedVaultProperties
+    from ._models import Error
     from ._models import IPRule
     from ._models import LogSpecification
+    from ._models import ManagedHsm
+    from ._models import ManagedHsmError, ManagedHsmErrorException
+    from ._models import ManagedHsmProperties
+    from ._models import ManagedHsmResource
+    from ._models import ManagedHsmSku
     from ._models import NetworkRuleSet
     from ._models import Operation
     from ._models import OperationDisplay
@@ -64,12 +68,6 @@ except (SyntaxError, ImportError):
     from ._models import PrivateLinkResourceListResult
     from ._models import PrivateLinkServiceConnectionState
     from ._models import Resource
-    from ._models import Secret
-    from ._models import SecretAttributes
-    from ._models import SecretCreateOrUpdateParameters
-    from ._models import SecretPatchParameters
-    from ._models import SecretPatchProperties
-    from ._models import SecretProperties
     from ._models import ServiceSpecification
     from ._models import Sku
     from ._models import Vault
@@ -82,9 +80,9 @@ except (SyntaxError, ImportError):
     from ._models import VaultProperties
     from ._models import VirtualNetworkRule
 from ._paged_models import DeletedVaultPaged
+from ._paged_models import ManagedHsmPaged
 from ._paged_models import OperationPaged
 from ._paged_models import ResourcePaged
-from ._paged_models import SecretPaged
 from ._paged_models import VaultPaged
 from ._key_vault_management_client_enums import (
     SkuName,
@@ -98,17 +96,24 @@ from ._key_vault_management_client_enums import (
     PrivateEndpointServiceConnectionStatus,
     PrivateEndpointConnectionProvisioningState,
     Reason,
+    ManagedHsmSkuName,
+    ProvisioningState,
     AccessPolicyUpdateKind,
 )
 
 __all__ = [
     'AccessPolicyEntry',
-    'Attributes',
     'CheckNameAvailabilityResult',
     'DeletedVault',
     'DeletedVaultProperties',
+    'Error',
     'IPRule',
     'LogSpecification',
+    'ManagedHsm',
+    'ManagedHsmError', 'ManagedHsmErrorException',
+    'ManagedHsmProperties',
+    'ManagedHsmResource',
+    'ManagedHsmSku',
     'NetworkRuleSet',
     'Operation',
     'OperationDisplay',
@@ -120,12 +125,6 @@ __all__ = [
     'PrivateLinkResourceListResult',
     'PrivateLinkServiceConnectionState',
     'Resource',
-    'Secret',
-    'SecretAttributes',
-    'SecretCreateOrUpdateParameters',
-    'SecretPatchParameters',
-    'SecretPatchProperties',
-    'SecretProperties',
     'ServiceSpecification',
     'Sku',
     'Vault',
@@ -141,7 +140,7 @@ __all__ = [
     'DeletedVaultPaged',
     'ResourcePaged',
     'OperationPaged',
-    'SecretPaged',
+    'ManagedHsmPaged',
     'SkuName',
     'KeyPermissions',
     'SecretPermissions',
@@ -153,5 +152,7 @@ __all__ = [
     'PrivateEndpointServiceConnectionStatus',
     'PrivateEndpointConnectionProvisioningState',
     'Reason',
+    'ManagedHsmSkuName',
+    'ProvisioningState',
     'AccessPolicyUpdateKind',
 ]
