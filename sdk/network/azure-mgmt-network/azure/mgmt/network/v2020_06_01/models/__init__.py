@@ -104,6 +104,8 @@ try:
     from ._models_py3 import AzureReachabilityReportLatencyInfo
     from ._models_py3 import AzureReachabilityReportLocation
     from ._models_py3 import AzureReachabilityReportParameters
+    from ._models_py3 import AzureWebCategory
+    from ._models_py3 import AzureWebCategoryListResult
     from ._models_py3 import BGPCommunity
     from ._models_py3 import BackendAddressPool
     from ._models_py3 import BastionActiveSession
@@ -645,6 +647,8 @@ except (SyntaxError, ImportError):
     from ._models import AzureReachabilityReportLatencyInfo  # type: ignore
     from ._models import AzureReachabilityReportLocation  # type: ignore
     from ._models import AzureReachabilityReportParameters  # type: ignore
+    from ._models import AzureWebCategory  # type: ignore
+    from ._models import AzureWebCategoryListResult  # type: ignore
     from ._models import BGPCommunity  # type: ignore
     from ._models import BackendAddressPool  # type: ignore
     from ._models import BastionActiveSession  # type: ignore
@@ -1331,6 +1335,8 @@ __all__ = [
     'AzureReachabilityReportLatencyInfo',
     'AzureReachabilityReportLocation',
     'AzureReachabilityReportParameters',
+    'AzureWebCategory',
+    'AzureWebCategoryListResult',
     'BGPCommunity',
     'BackendAddressPool',
     'BastionActiveSession',

@@ -60,6 +60,7 @@
         "available_service_aliases": "AvailableServiceAliasesOperations",
         "azure_firewalls": "AzureFirewallsOperations",
         "azure_firewall_fqdn_tags": "AzureFirewallFqdnTagsOperations",
+        "azure_web_categories": "AzureWebCategoriesOperations",
         "bastion_hosts": "BastionHostsOperations",
         "custom_ip_prefixes": "CustomIPPrefixesOperations",
         "ddos_custom_policies": "DdosCustomPoliciesOperations",

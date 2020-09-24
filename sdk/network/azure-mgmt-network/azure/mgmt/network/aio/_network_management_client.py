@@ -828,6 +828,19 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
         return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
 
     @property
+    def azure_web_categories(self):
+        """Instance depends on the API version:
+
+           * 2020-06-01: :class:`AzureWebCategoriesOperations<azure.mgmt.network.v2020_06_01.aio.operations.AzureWebCategoriesOperations>`
+        """
+        api_version = self._get_api_version('azure_web_categories')
+        if api_version == '2020-06-01':
+            from ..v2020_06_01.aio.operations import AzureWebCategoriesOperations as OperationClass
+        else:
+            raise ValueError("API version {} does not have operation group 'azure_web_categories'".format(api_version))
+        return OperationClass(self._client, self._config, Serializer(self._models_dict(api_version)), Deserializer(self._models_dict(api_version)))
+
+    @property
     def bastion_hosts(self):
         """Instance depends on the API version:
 

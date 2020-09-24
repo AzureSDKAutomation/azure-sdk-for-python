@@ -4179,6 +4179,73 @@ class AzureReachabilityReportParameters(msrest.serialization.Model):
         self.end_time = kwargs['end_time']
 
 
+class AzureWebCategory(msrest.serialization.Model):
+    """Azure Web Category Resource.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :param id: Resource ID.
+    :type id: str
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :ivar etag: A unique read-only string that changes whenever the resource is updated.
+    :vartype etag: str
+    :ivar group: The name of the group that the category belongs to.
+    :vartype group: str
+    """
+
+    _validation = {
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'etag': {'readonly': True},
+        'group': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
+        'group': {'key': 'properties.group', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(AzureWebCategory, self).__init__(**kwargs)
+        self.id = kwargs.get('id', None)
+        self.name = None
+        self.type = None
+        self.etag = None
+        self.group = None
+
+
+class AzureWebCategoryListResult(msrest.serialization.Model):
+    """Response for ListAzureWebCategories API service call.
+
+    :param value: List of Azure Web Categorys for a given Subscription.
+    :type value: list[~azure.mgmt.network.v2020_06_01.models.AzureWebCategory]
+    :param next_link: URL to get the next set of results.
+    :type next_link: str
+    """
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': '[AzureWebCategory]'},
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(AzureWebCategoryListResult, self).__init__(**kwargs)
+        self.value = kwargs.get('value', None)
+        self.next_link = kwargs.get('next_link', None)
+
+
 class BackendAddressPool(SubResource):
     """Pool of backend IP addresses.
 

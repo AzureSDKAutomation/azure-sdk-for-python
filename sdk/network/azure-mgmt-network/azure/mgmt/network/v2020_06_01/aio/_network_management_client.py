@@ -25,6 +25,7 @@ from .operations import AvailableResourceGroupDelegationsOperations
 from .operations import AvailableServiceAliasesOperations
 from .operations import AzureFirewallsOperations
 from .operations import AzureFirewallFqdnTagsOperations
+from .operations import AzureWebCategoriesOperations
 from .operations import BastionHostsOperations
 from .operations import NetworkManagementClientOperationsMixin
 from .operations import CustomIPPrefixesOperations
@@ -145,6 +146,8 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin):
     :vartype azure_firewalls: azure.mgmt.network.v2020_06_01.aio.operations.AzureFirewallsOperations
     :ivar azure_firewall_fqdn_tags: AzureFirewallFqdnTagsOperations operations
     :vartype azure_firewall_fqdn_tags: azure.mgmt.network.v2020_06_01.aio.operations.AzureFirewallFqdnTagsOperations
+    :ivar azure_web_categories: AzureWebCategoriesOperations operations
+    :vartype azure_web_categories: azure.mgmt.network.v2020_06_01.aio.operations.AzureWebCategoriesOperations
     :ivar bastion_hosts: BastionHostsOperations operations
     :vartype bastion_hosts: azure.mgmt.network.v2020_06_01.aio.operations.BastionHostsOperations
     :ivar custom_ip_prefixes: CustomIPPrefixesOperations operations
@@ -357,7 +360,6 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin):
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
         self._serialize = Serializer(client_models)
-        self._serialize.client_side_validation = False
         self._deserialize = Deserializer(client_models)
 
         self.application_gateways = ApplicationGatewaysOperations(
@@ -377,6 +379,8 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin):
         self.azure_firewalls = AzureFirewallsOperations(
             self._client, self._config, self._serialize, self._deserialize)
         self.azure_firewall_fqdn_tags = AzureFirewallFqdnTagsOperations(
+            self._client, self._config, self._serialize, self._deserialize)
+        self.azure_web_categories = AzureWebCategoriesOperations(
             self._client, self._config, self._serialize, self._deserialize)
         self.bastion_hosts = BastionHostsOperations(
             self._client, self._config, self._serialize, self._deserialize)
