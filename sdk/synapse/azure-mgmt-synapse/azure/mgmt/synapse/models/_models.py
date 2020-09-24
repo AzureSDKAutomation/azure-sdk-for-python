@@ -290,6 +290,9 @@ class BigDataPoolResourceInfo(TrackedResource):
     :type creation_date: datetime
     :param auto_pause: Auto-pausing properties
     :type auto_pause: ~azure.mgmt.synapse.models.AutoPauseProperties
+    :param is_compute_isolation_enabled: Whether compute isolation is required
+     or not.
+    :type is_compute_isolation_enabled: bool
     :param spark_events_folder: The Spark events folder
     :type spark_events_folder: str
     :param node_count: The number of nodes in the Big Data pool.
@@ -302,7 +305,8 @@ class BigDataPoolResourceInfo(TrackedResource):
      be written.
     :type default_spark_log_folder: str
     :param node_size: The level of compute power that each node in the Big
-     Data pool has. Possible values include: 'None', 'Small', 'Medium', 'Large'
+     Data pool has. Possible values include: 'None', 'Small', 'Medium',
+     'Large', 'XLarge', 'XXLarge'
     :type node_size: str or ~azure.mgmt.synapse.models.NodeSize
     :param node_size_family: The kind of nodes that the Big Data pool
      provides. Possible values include: 'None', 'MemoryOptimized'
@@ -326,6 +330,7 @@ class BigDataPoolResourceInfo(TrackedResource):
         'auto_scale': {'key': 'properties.autoScale', 'type': 'AutoScaleProperties'},
         'creation_date': {'key': 'properties.creationDate', 'type': 'iso-8601'},
         'auto_pause': {'key': 'properties.autoPause', 'type': 'AutoPauseProperties'},
+        'is_compute_isolation_enabled': {'key': 'properties.isComputeIsolationEnabled', 'type': 'bool'},
         'spark_events_folder': {'key': 'properties.sparkEventsFolder', 'type': 'str'},
         'node_count': {'key': 'properties.nodeCount', 'type': 'int'},
         'library_requirements': {'key': 'properties.libraryRequirements', 'type': 'LibraryRequirements'},
@@ -341,6 +346,7 @@ class BigDataPoolResourceInfo(TrackedResource):
         self.auto_scale = kwargs.get('auto_scale', None)
         self.creation_date = kwargs.get('creation_date', None)
         self.auto_pause = kwargs.get('auto_pause', None)
+        self.is_compute_isolation_enabled = kwargs.get('is_compute_isolation_enabled', None)
         self.spark_events_folder = kwargs.get('spark_events_folder', None)
         self.node_count = kwargs.get('node_count', None)
         self.library_requirements = kwargs.get('library_requirements', None)
@@ -1293,19 +1299,21 @@ class IntegrationRuntimeRegenerateKeyParameters(Model):
         self.key_name = kwargs.get('key_name', None)
 
 
-class SubResource(Model):
-    """Azure Synapse nested resource, which belongs to a factory.
+class SubResource(AzureEntityResource):
+    """Azure Synapse nested resource, which belongs to a workspace.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: The resource identifier.
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
-    :ivar name: The resource name.
+    :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The resource type.
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
     :vartype type: str
-    :ivar etag: Etag identifies change in the resource.
+    :ivar etag: Resource Etag.
     :vartype etag: str
     """
 
@@ -1325,10 +1333,6 @@ class SubResource(Model):
 
     def __init__(self, **kwargs):
         super(SubResource, self).__init__(**kwargs)
-        self.id = None
-        self.name = None
-        self.type = None
-        self.etag = None
 
 
 class IntegrationRuntimeResource(SubResource):
@@ -1339,13 +1343,15 @@ class IntegrationRuntimeResource(SubResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: The resource identifier.
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
-    :ivar name: The resource name.
+    :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The resource type.
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
     :vartype type: str
-    :ivar etag: Etag identifies change in the resource.
+    :ivar etag: Resource Etag.
     :vartype etag: str
     :param properties: Required. Integration runtime properties.
     :type properties: ~azure.mgmt.synapse.models.IntegrationRuntime
@@ -3365,17 +3371,23 @@ class Sku(Model):
     :type tier: str
     :param name: The SKU name
     :type name: str
+    :param capacity: If the SKU supports scale out/in then the capacity
+     integer should be included. If scale out/in is not possible for the
+     resource this may be omitted.
+    :type capacity: int
     """
 
     _attribute_map = {
         'tier': {'key': 'tier', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
+        'capacity': {'key': 'capacity', 'type': 'int'},
     }
 
     def __init__(self, **kwargs):
         super(Sku, self).__init__(**kwargs)
         self.tier = kwargs.get('tier', None)
         self.name = kwargs.get('name', None)
+        self.capacity = kwargs.get('capacity', None)
 
 
 class SqlPool(TrackedResource):
@@ -4963,6 +4975,133 @@ class VulnerabilityAssessmentScanRecord(ProxyResource):
         self.number_of_failed_security_checks = None
 
 
+class WorkloadClassifier(ProxyResource):
+    """Workload classifier operations for a data warehouse.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :vartype type: str
+    :param member_name: Required. The workload classifier member name.
+    :type member_name: str
+    :param label: The workload classifier label.
+    :type label: str
+    :param context: The workload classifier context.
+    :type context: str
+    :param start_time: The workload classifier start time for classification.
+    :type start_time: datetime
+    :param end_time: The workload classifier end time for classification.
+    :type end_time: datetime
+    :param importance: The workload classifier importance. There are five
+     levels of importance: low, below_normal, normal, above_normal, and high.
+    :type importance: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'member_name': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'member_name': {'key': 'properties.memberName', 'type': 'str'},
+        'label': {'key': 'properties.label', 'type': 'str'},
+        'context': {'key': 'properties.context', 'type': 'str'},
+        'start_time': {'key': 'properties.startTime', 'type': 'iso-8601'},
+        'end_time': {'key': 'properties.endTime', 'type': 'iso-8601'},
+        'importance': {'key': 'properties.importance', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(WorkloadClassifier, self).__init__(**kwargs)
+        self.member_name = kwargs.get('member_name', None)
+        self.label = kwargs.get('label', None)
+        self.context = kwargs.get('context', None)
+        self.start_time = kwargs.get('start_time', None)
+        self.end_time = kwargs.get('end_time', None)
+        self.importance = kwargs.get('importance', None)
+
+
+class WorkloadGroup(ProxyResource):
+    """Workload group operations for a SQL pool.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :vartype type: str
+    :param min_resource_percent: Required. The workload group minimum
+     percentage resource.
+    :type min_resource_percent: int
+    :param max_resource_percent: Required. The workload group cap percentage
+     resource.
+    :type max_resource_percent: int
+    :param min_resource_percent_per_request: Required. The workload group
+     request minimum grant percentage.
+    :type min_resource_percent_per_request: float
+    :param max_resource_percent_per_request: The workload group request
+     maximum grant percentage.
+    :type max_resource_percent_per_request: float
+    :param importance: The workload group importance level. There are five
+     levels of importance: low, below_normal, normal, above_normal, and high.
+    :type importance: str
+    :param query_execution_timeout: The workload group query execution timeout
+     in seconds.
+    :type query_execution_timeout: int
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'min_resource_percent': {'required': True},
+        'max_resource_percent': {'required': True},
+        'min_resource_percent_per_request': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'min_resource_percent': {'key': 'properties.minResourcePercent', 'type': 'int'},
+        'max_resource_percent': {'key': 'properties.maxResourcePercent', 'type': 'int'},
+        'min_resource_percent_per_request': {'key': 'properties.minResourcePercentPerRequest', 'type': 'float'},
+        'max_resource_percent_per_request': {'key': 'properties.maxResourcePercentPerRequest', 'type': 'float'},
+        'importance': {'key': 'properties.importance', 'type': 'str'},
+        'query_execution_timeout': {'key': 'properties.queryExecutionTimeout', 'type': 'int'},
+    }
+
+    def __init__(self, **kwargs):
+        super(WorkloadGroup, self).__init__(**kwargs)
+        self.min_resource_percent = kwargs.get('min_resource_percent', None)
+        self.max_resource_percent = kwargs.get('max_resource_percent', None)
+        self.min_resource_percent_per_request = kwargs.get('min_resource_percent_per_request', None)
+        self.max_resource_percent_per_request = kwargs.get('max_resource_percent_per_request', None)
+        self.importance = kwargs.get('importance', None)
+        self.query_execution_timeout = kwargs.get('query_execution_timeout', None)
+
+
 class Workspace(TrackedResource):
     """A workspace.
 
@@ -4989,8 +5128,13 @@ class Workspace(TrackedResource):
      ~azure.mgmt.synapse.models.DataLakeStorageAccountDetails
     :param sql_administrator_login_password: SQL administrator login password
     :type sql_administrator_login_password: str
-    :ivar managed_resource_group_name: Workspace managed resource group
-    :vartype managed_resource_group_name: str
+    :param managed_resource_group_name: Workspace managed resource group. The
+     resource group name uniquely identifies the resource group within the user
+     subscriptionId. The resource group name must be no longer than 90
+     characters long, and must be alphanumeric characters
+     (Char.IsLetterOrDigit()) and '-', '_', '(', ')' and'.'. Note that the name
+     cannot end with '.'
+    :type managed_resource_group_name: str
     :ivar provisioning_state: Resource provisioning state
     :vartype provisioning_state: str
     :param sql_administrator_login: Login for workspace SQL active directory
@@ -5009,6 +5153,8 @@ class Workspace(TrackedResource):
      workspace
     :type private_endpoint_connections:
      list[~azure.mgmt.synapse.models.PrivateEndpointConnection]
+    :ivar extra_properties: Workspace level configs and feature flags
+    :vartype extra_properties: dict[str, object]
     :param identity: Identity of the workspace
     :type identity: ~azure.mgmt.synapse.models.ManagedIdentity
     """
@@ -5018,8 +5164,8 @@ class Workspace(TrackedResource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'location': {'required': True},
-        'managed_resource_group_name': {'readonly': True},
         'provisioning_state': {'readonly': True},
+        'extra_properties': {'readonly': True},
     }
 
     _attribute_map = {
@@ -5037,6 +5183,7 @@ class Workspace(TrackedResource):
         'connectivity_endpoints': {'key': 'properties.connectivityEndpoints', 'type': '{str}'},
         'managed_virtual_network': {'key': 'properties.managedVirtualNetwork', 'type': 'str'},
         'private_endpoint_connections': {'key': 'properties.privateEndpointConnections', 'type': '[PrivateEndpointConnection]'},
+        'extra_properties': {'key': 'properties.extraProperties', 'type': '{object}'},
         'identity': {'key': 'identity', 'type': 'ManagedIdentity'},
     }
 
@@ -5044,13 +5191,14 @@ class Workspace(TrackedResource):
         super(Workspace, self).__init__(**kwargs)
         self.default_data_lake_storage = kwargs.get('default_data_lake_storage', None)
         self.sql_administrator_login_password = kwargs.get('sql_administrator_login_password', None)
-        self.managed_resource_group_name = None
+        self.managed_resource_group_name = kwargs.get('managed_resource_group_name', None)
         self.provisioning_state = None
         self.sql_administrator_login = kwargs.get('sql_administrator_login', None)
         self.virtual_network_profile = kwargs.get('virtual_network_profile', None)
         self.connectivity_endpoints = kwargs.get('connectivity_endpoints', None)
         self.managed_virtual_network = kwargs.get('managed_virtual_network', None)
         self.private_endpoint_connections = kwargs.get('private_endpoint_connections', None)
+        self.extra_properties = None
         self.identity = kwargs.get('identity', None)
 
 

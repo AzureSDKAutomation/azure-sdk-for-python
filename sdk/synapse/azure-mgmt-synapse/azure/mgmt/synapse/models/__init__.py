@@ -130,6 +130,8 @@ try:
     from ._models_py3 import VulnerabilityAssessmentRecurringScansProperties
     from ._models_py3 import VulnerabilityAssessmentScanError
     from ._models_py3 import VulnerabilityAssessmentScanRecord
+    from ._models_py3 import WorkloadClassifier
+    from ._models_py3 import WorkloadGroup
     from ._models_py3 import Workspace
     from ._models_py3 import WorkspaceAadAdminInfo
     from ._models_py3 import WorkspacePatchInfo
@@ -254,6 +256,8 @@ except (SyntaxError, ImportError):
     from ._models import VulnerabilityAssessmentRecurringScansProperties
     from ._models import VulnerabilityAssessmentScanError
     from ._models import VulnerabilityAssessmentScanRecord
+    from ._models import WorkloadClassifier
+    from ._models import WorkloadGroup
     from ._models import Workspace
     from ._models import WorkspaceAadAdminInfo
     from ._models import WorkspacePatchInfo
@@ -274,6 +278,8 @@ from ._paged_models import SqlPoolTablePaged
 from ._paged_models import SqlPoolUsagePaged
 from ._paged_models import SqlPoolVulnerabilityAssessmentPaged
 from ._paged_models import VulnerabilityAssessmentScanRecordPaged
+from ._paged_models import WorkloadClassifierPaged
+from ._paged_models import WorkloadGroupPaged
 from ._paged_models import WorkspacePaged
 from ._synapse_management_client_enums import (
     NodeSize,
@@ -434,6 +440,8 @@ __all__ = [
     'VulnerabilityAssessmentRecurringScansProperties',
     'VulnerabilityAssessmentScanError',
     'VulnerabilityAssessmentScanRecord',
+    'WorkloadClassifier',
+    'WorkloadGroup',
     'Workspace',
     'WorkspaceAadAdminInfo',
     'WorkspacePatchInfo',
@@ -450,6 +458,8 @@ __all__ = [
     'SqlPoolColumnPaged',
     'SqlPoolVulnerabilityAssessmentPaged',
     'VulnerabilityAssessmentScanRecordPaged',
+    'WorkloadGroupPaged',
+    'WorkloadClassifierPaged',
     'WorkspacePaged',
     'IntegrationRuntimeResourcePaged',
     'PrivateLinkResourcePaged',

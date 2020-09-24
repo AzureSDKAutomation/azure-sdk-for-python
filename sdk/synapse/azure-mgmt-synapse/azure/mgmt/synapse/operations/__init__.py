@@ -32,6 +32,9 @@ from ._sql_pool_vulnerability_assessments_operations import SqlPoolVulnerability
 from ._sql_pool_vulnerability_assessment_scans_operations import SqlPoolVulnerabilityAssessmentScansOperations
 from ._sql_pool_security_alert_policies_operations import SqlPoolSecurityAlertPoliciesOperations
 from ._sql_pool_vulnerability_assessment_rule_baselines_operations import SqlPoolVulnerabilityAssessmentRuleBaselinesOperations
+from ._sql_pool_workload_groups_operations import SqlPoolWorkloadGroupsOperations
+from ._workload_groups_operations import WorkloadGroupsOperations
+from ._sql_pool_workload_classifiers_operations import SqlPoolWorkloadClassifiersOperations
 from ._workspaces_operations import WorkspacesOperations
 from ._workspace_aad_admins_operations import WorkspaceAadAdminsOperations
 from ._workspace_managed_identity_sql_control_settings_operations import WorkspaceManagedIdentitySqlControlSettingsOperations
@@ -72,6 +75,9 @@ __all__ = [
     'SqlPoolVulnerabilityAssessmentScansOperations',
     'SqlPoolSecurityAlertPoliciesOperations',
     'SqlPoolVulnerabilityAssessmentRuleBaselinesOperations',
+    'SqlPoolWorkloadGroupsOperations',
+    'WorkloadGroupsOperations',
+    'SqlPoolWorkloadClassifiersOperations',
     'WorkspacesOperations',
     'WorkspaceAadAdminsOperations',
     'WorkspaceManagedIdentitySqlControlSettingsOperations',

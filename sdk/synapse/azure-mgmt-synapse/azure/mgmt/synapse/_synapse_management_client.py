@@ -36,6 +36,9 @@ from .operations import SqlPoolVulnerabilityAssessmentsOperations
 from .operations import SqlPoolVulnerabilityAssessmentScansOperations
 from .operations import SqlPoolSecurityAlertPoliciesOperations
 from .operations import SqlPoolVulnerabilityAssessmentRuleBaselinesOperations
+from .operations import SqlPoolWorkloadGroupsOperations
+from .operations import WorkloadGroupsOperations
+from .operations import SqlPoolWorkloadClassifiersOperations
 from .operations import WorkspacesOperations
 from .operations import WorkspaceAadAdminsOperations
 from .operations import WorkspaceManagedIdentitySqlControlSettingsOperations
@@ -106,6 +109,12 @@ class SynapseManagementClient(SDKClient):
     :vartype sql_pool_security_alert_policies: azure.mgmt.synapse.operations.SqlPoolSecurityAlertPoliciesOperations
     :ivar sql_pool_vulnerability_assessment_rule_baselines: SqlPoolVulnerabilityAssessmentRuleBaselines operations
     :vartype sql_pool_vulnerability_assessment_rule_baselines: azure.mgmt.synapse.operations.SqlPoolVulnerabilityAssessmentRuleBaselinesOperations
+    :ivar sql_pool_workload_groups: SqlPoolWorkloadGroups operations
+    :vartype sql_pool_workload_groups: azure.mgmt.synapse.operations.SqlPoolWorkloadGroupsOperations
+    :ivar workload_groups: WorkloadGroups operations
+    :vartype workload_groups: azure.mgmt.synapse.operations.WorkloadGroupsOperations
+    :ivar sql_pool_workload_classifiers: SqlPoolWorkloadClassifiers operations
+    :vartype sql_pool_workload_classifiers: azure.mgmt.synapse.operations.SqlPoolWorkloadClassifiersOperations
     :ivar workspaces: Workspaces operations
     :vartype workspaces: azure.mgmt.synapse.operations.WorkspacesOperations
     :ivar workspace_aad_admins: WorkspaceAadAdmins operations
@@ -201,6 +210,12 @@ class SynapseManagementClient(SDKClient):
         self.sql_pool_security_alert_policies = SqlPoolSecurityAlertPoliciesOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.sql_pool_vulnerability_assessment_rule_baselines = SqlPoolVulnerabilityAssessmentRuleBaselinesOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.sql_pool_workload_groups = SqlPoolWorkloadGroupsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.workload_groups = WorkloadGroupsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.sql_pool_workload_classifiers = SqlPoolWorkloadClassifiersOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.workspaces = WorkspacesOperations(
             self._client, self.config, self._serialize, self._deserialize)
