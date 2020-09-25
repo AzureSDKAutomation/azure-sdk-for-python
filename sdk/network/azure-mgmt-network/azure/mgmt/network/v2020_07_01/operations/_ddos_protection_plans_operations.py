@@ -18,8 +18,8 @@ from msrestazure.polling.arm_polling import ARMPolling
 from .. import models
 
 
-class VirtualNetworksOperations(object):
-    """VirtualNetworksOperations operations.
+class DdosProtectionPlansOperations(object):
+    """DdosProtectionPlansOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -27,7 +27,7 @@ class VirtualNetworksOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client API version. Constant value: "2020-05-01".
+    :ivar api_version: Client API version. Constant value: "2020-07-01".
     """
 
     models = models
@@ -37,18 +37,18 @@ class VirtualNetworksOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-05-01"
+        self.api_version = "2020-07-01"
 
         self.config = config
 
 
     def _delete_initial(
-            self, resource_group_name, virtual_network_name, custom_headers=None, raw=False, **operation_config):
+            self, resource_group_name, ddos_protection_plan_name, custom_headers=None, raw=False, **operation_config):
         # Construct URL
         url = self.delete.metadata['url']
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-            'virtualNetworkName': self._serialize.url("virtual_network_name", virtual_network_name, 'str'),
+            'ddosProtectionPlanName': self._serialize.url("ddos_protection_plan_name", ddos_protection_plan_name, 'str'),
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -80,13 +80,14 @@ class VirtualNetworksOperations(object):
             return client_raw_response
 
     def delete(
-            self, resource_group_name, virtual_network_name, custom_headers=None, raw=False, polling=True, **operation_config):
-        """Deletes the specified virtual network.
+            self, resource_group_name, ddos_protection_plan_name, custom_headers=None, raw=False, polling=True, **operation_config):
+        """Deletes the specified DDoS protection plan.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
-        :param virtual_network_name: The name of the virtual network.
-        :type virtual_network_name: str
+        :param ddos_protection_plan_name: The name of the DDoS protection
+         plan.
+        :type ddos_protection_plan_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response
@@ -100,7 +101,7 @@ class VirtualNetworksOperations(object):
         """
         raw_result = self._delete_initial(
             resource_group_name=resource_group_name,
-            virtual_network_name=virtual_network_name,
+            ddos_protection_plan_name=ddos_protection_plan_name,
             custom_headers=custom_headers,
             raw=True,
             **operation_config
@@ -118,25 +119,24 @@ class VirtualNetworksOperations(object):
         elif polling is False: polling_method = NoPolling()
         else: polling_method = polling
         return LROPoller(self._client, raw_result, get_long_running_output, polling_method)
-    delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{virtualNetworkName}'}
+    delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/ddosProtectionPlans/{ddosProtectionPlanName}'}
 
     def get(
-            self, resource_group_name, virtual_network_name, expand=None, custom_headers=None, raw=False, **operation_config):
-        """Gets the specified virtual network by resource group.
+            self, resource_group_name, ddos_protection_plan_name, custom_headers=None, raw=False, **operation_config):
+        """Gets information about the specified DDoS protection plan.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
-        :param virtual_network_name: The name of the virtual network.
-        :type virtual_network_name: str
-        :param expand: Expands referenced resources.
-        :type expand: str
+        :param ddos_protection_plan_name: The name of the DDoS protection
+         plan.
+        :type ddos_protection_plan_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: VirtualNetwork or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.network.v2020_05_01.models.VirtualNetwork or
+        :return: DdosProtectionPlan or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.network.v2020_07_01.models.DdosProtectionPlan or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -144,7 +144,7 @@ class VirtualNetworksOperations(object):
         url = self.get.metadata['url']
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-            'virtualNetworkName': self._serialize.url("virtual_network_name", virtual_network_name, 'str'),
+            'ddosProtectionPlanName': self._serialize.url("ddos_protection_plan_name", ddos_protection_plan_name, 'str'),
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -152,8 +152,6 @@ class VirtualNetworksOperations(object):
         # Construct parameters
         query_parameters = {}
         query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
-        if expand is not None:
-            query_parameters['$expand'] = self._serialize.query("expand", expand, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -176,23 +174,25 @@ class VirtualNetworksOperations(object):
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('VirtualNetwork', response)
+            deserialized = self._deserialize('DdosProtectionPlan', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{virtualNetworkName}'}
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/ddosProtectionPlans/{ddosProtectionPlanName}'}
 
 
     def _create_or_update_initial(
-            self, resource_group_name, virtual_network_name, parameters, custom_headers=None, raw=False, **operation_config):
+            self, resource_group_name, ddos_protection_plan_name, location=None, tags=None, custom_headers=None, raw=False, **operation_config):
+        parameters = models.DdosProtectionPlan(location=location, tags=tags)
+
         # Construct URL
         url = self.create_or_update.metadata['url']
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-            'virtualNetworkName': self._serialize.url("virtual_network_name", virtual_network_name, 'str'),
+            'ddosProtectionPlanName': self._serialize.url("ddos_protection_plan_name", ddos_protection_plan_name, 'str'),
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -213,7 +213,7 @@ class VirtualNetworksOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct body
-        body_content = self._serialize.body(parameters, 'VirtualNetwork')
+        body_content = self._serialize.body(parameters, 'DdosProtectionPlan')
 
         # Construct and send request
         request = self._client.put(url, query_parameters, header_parameters, body_content)
@@ -227,9 +227,9 @@ class VirtualNetworksOperations(object):
         deserialized = None
 
         if response.status_code == 200:
-            deserialized = self._deserialize('VirtualNetwork', response)
+            deserialized = self._deserialize('DdosProtectionPlan', response)
         if response.status_code == 201:
-            deserialized = self._deserialize('VirtualNetwork', response)
+            deserialized = self._deserialize('DdosProtectionPlan', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
@@ -238,41 +238,43 @@ class VirtualNetworksOperations(object):
         return deserialized
 
     def create_or_update(
-            self, resource_group_name, virtual_network_name, parameters, custom_headers=None, raw=False, polling=True, **operation_config):
-        """Creates or updates a virtual network in the specified resource group.
+            self, resource_group_name, ddos_protection_plan_name, location=None, tags=None, custom_headers=None, raw=False, polling=True, **operation_config):
+        """Creates or updates a DDoS protection plan.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
-        :param virtual_network_name: The name of the virtual network.
-        :type virtual_network_name: str
-        :param parameters: Parameters supplied to the create or update virtual
-         network operation.
-        :type parameters:
-         ~azure.mgmt.network.v2020_05_01.models.VirtualNetwork
+        :param ddos_protection_plan_name: The name of the DDoS protection
+         plan.
+        :type ddos_protection_plan_name: str
+        :param location: Resource location.
+        :type location: str
+        :param tags: Resource tags.
+        :type tags: dict[str, str]
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response
         :param polling: True for ARMPolling, False for no polling, or a
          polling object for personal polling strategy
-        :return: An instance of LROPoller that returns VirtualNetwork or
-         ClientRawResponse<VirtualNetwork> if raw==True
+        :return: An instance of LROPoller that returns DdosProtectionPlan or
+         ClientRawResponse<DdosProtectionPlan> if raw==True
         :rtype:
-         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.network.v2020_05_01.models.VirtualNetwork]
+         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.network.v2020_07_01.models.DdosProtectionPlan]
          or
-         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.network.v2020_05_01.models.VirtualNetwork]]
+         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.network.v2020_07_01.models.DdosProtectionPlan]]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._create_or_update_initial(
             resource_group_name=resource_group_name,
-            virtual_network_name=virtual_network_name,
-            parameters=parameters,
+            ddos_protection_plan_name=ddos_protection_plan_name,
+            location=location,
+            tags=tags,
             custom_headers=custom_headers,
             raw=True,
             **operation_config
         )
 
         def get_long_running_output(response):
-            deserialized = self._deserialize('VirtualNetwork', response)
+            deserialized = self._deserialize('DdosProtectionPlan', response)
 
             if raw:
                 client_raw_response = ClientRawResponse(deserialized, response)
@@ -287,16 +289,17 @@ class VirtualNetworksOperations(object):
         elif polling is False: polling_method = NoPolling()
         else: polling_method = polling
         return LROPoller(self._client, raw_result, get_long_running_output, polling_method)
-    create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{virtualNetworkName}'}
+    create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/ddosProtectionPlans/{ddosProtectionPlanName}'}
 
     def update_tags(
-            self, resource_group_name, virtual_network_name, tags=None, custom_headers=None, raw=False, **operation_config):
-        """Updates a virtual network tags.
+            self, resource_group_name, ddos_protection_plan_name, tags=None, custom_headers=None, raw=False, **operation_config):
+        """Update a DDoS protection plan tags.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
-        :param virtual_network_name: The name of the virtual network.
-        :type virtual_network_name: str
+        :param ddos_protection_plan_name: The name of the DDoS protection
+         plan.
+        :type ddos_protection_plan_name: str
         :param tags: Resource tags.
         :type tags: dict[str, str]
         :param dict custom_headers: headers that will be added to the request
@@ -304,8 +307,8 @@ class VirtualNetworksOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: VirtualNetwork or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.network.v2020_05_01.models.VirtualNetwork or
+        :return: DdosProtectionPlan or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.network.v2020_07_01.models.DdosProtectionPlan or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -315,7 +318,7 @@ class VirtualNetworksOperations(object):
         url = self.update_tags.metadata['url']
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-            'virtualNetworkName': self._serialize.url("virtual_network_name", virtual_network_name, 'str'),
+            'ddosProtectionPlanName': self._serialize.url("ddos_protection_plan_name", ddos_protection_plan_name, 'str'),
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -349,95 +352,27 @@ class VirtualNetworksOperations(object):
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('VirtualNetwork', response)
+            deserialized = self._deserialize('DdosProtectionPlan', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    update_tags.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{virtualNetworkName}'}
-
-    def list_all(
-            self, custom_headers=None, raw=False, **operation_config):
-        """Gets all virtual networks in a subscription.
-
-        :param dict custom_headers: headers that will be added to the request
-        :param bool raw: returns the direct response alongside the
-         deserialized response
-        :param operation_config: :ref:`Operation configuration
-         overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of VirtualNetwork
-        :rtype:
-         ~azure.mgmt.network.v2020_05_01.models.VirtualNetworkPaged[~azure.mgmt.network.v2020_05_01.models.VirtualNetwork]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
-        """
-        def prepare_request(next_link=None):
-            if not next_link:
-                # Construct URL
-                url = self.list_all.metadata['url']
-                path_format_arguments = {
-                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
-                }
-                url = self._client.format_url(url, **path_format_arguments)
-
-                # Construct parameters
-                query_parameters = {}
-                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
-
-            else:
-                url = next_link
-                query_parameters = {}
-
-            # Construct headers
-            header_parameters = {}
-            header_parameters['Accept'] = 'application/json'
-            if self.config.generate_client_request_id:
-                header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
-            if custom_headers:
-                header_parameters.update(custom_headers)
-            if self.config.accept_language is not None:
-                header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
-
-            # Construct and send request
-            request = self._client.get(url, query_parameters, header_parameters)
-            return request
-
-        def internal_paging(next_link=None):
-            request = prepare_request(next_link)
-
-            response = self._client.send(request, stream=False, **operation_config)
-
-            if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
-
-            return response
-
-        # Deserialize response
-        header_dict = None
-        if raw:
-            header_dict = {}
-        deserialized = models.VirtualNetworkPaged(internal_paging, self._deserialize.dependencies, header_dict)
-
-        return deserialized
-    list_all.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Network/virtualNetworks'}
+    update_tags.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/ddosProtectionPlans/{ddosProtectionPlanName}'}
 
     def list(
-            self, resource_group_name, custom_headers=None, raw=False, **operation_config):
-        """Gets all virtual networks in a resource group.
+            self, custom_headers=None, raw=False, **operation_config):
+        """Gets all DDoS protection plans in a subscription.
 
-        :param resource_group_name: The name of the resource group.
-        :type resource_group_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of VirtualNetwork
+        :return: An iterator like instance of DdosProtectionPlan
         :rtype:
-         ~azure.mgmt.network.v2020_05_01.models.VirtualNetworkPaged[~azure.mgmt.network.v2020_05_01.models.VirtualNetwork]
+         ~azure.mgmt.network.v2020_07_01.models.DdosProtectionPlanPaged[~azure.mgmt.network.v2020_07_01.models.DdosProtectionPlan]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         def prepare_request(next_link=None):
@@ -445,7 +380,6 @@ class VirtualNetworksOperations(object):
                 # Construct URL
                 url = self.list.metadata['url']
                 path_format_arguments = {
-                    'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
                     'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
                 }
                 url = self._client.format_url(url, **path_format_arguments)
@@ -488,101 +422,33 @@ class VirtualNetworksOperations(object):
         header_dict = None
         if raw:
             header_dict = {}
-        deserialized = models.VirtualNetworkPaged(internal_paging, self._deserialize.dependencies, header_dict)
+        deserialized = models.DdosProtectionPlanPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks'}
+    list.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Network/ddosProtectionPlans'}
 
-    def check_ip_address_availability(
-            self, resource_group_name, virtual_network_name, ip_address, custom_headers=None, raw=False, **operation_config):
-        """Checks whether a private IP address is available for use.
+    def list_by_resource_group(
+            self, resource_group_name, custom_headers=None, raw=False, **operation_config):
+        """Gets all the DDoS protection plans in a resource group.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
-        :param virtual_network_name: The name of the virtual network.
-        :type virtual_network_name: str
-        :param ip_address: The private IP address to be verified.
-        :type ip_address: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: IPAddressAvailabilityResult or ClientRawResponse if raw=true
+        :return: An iterator like instance of DdosProtectionPlan
         :rtype:
-         ~azure.mgmt.network.v2020_05_01.models.IPAddressAvailabilityResult or
-         ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
-        """
-        # Construct URL
-        url = self.check_ip_address_availability.metadata['url']
-        path_format_arguments = {
-            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-            'virtualNetworkName': self._serialize.url("virtual_network_name", virtual_network_name, 'str'),
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
-        }
-        url = self._client.format_url(url, **path_format_arguments)
-
-        # Construct parameters
-        query_parameters = {}
-        query_parameters['ipAddress'] = self._serialize.query("ip_address", ip_address, 'str')
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
-
-        # Construct headers
-        header_parameters = {}
-        header_parameters['Accept'] = 'application/json'
-        if self.config.generate_client_request_id:
-            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
-        if custom_headers:
-            header_parameters.update(custom_headers)
-        if self.config.accept_language is not None:
-            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
-
-        # Construct and send request
-        request = self._client.get(url, query_parameters, header_parameters)
-        response = self._client.send(request, stream=False, **operation_config)
-
-        if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
-
-        deserialized = None
-        if response.status_code == 200:
-            deserialized = self._deserialize('IPAddressAvailabilityResult', response)
-
-        if raw:
-            client_raw_response = ClientRawResponse(deserialized, response)
-            return client_raw_response
-
-        return deserialized
-    check_ip_address_availability.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{virtualNetworkName}/CheckIPAddressAvailability'}
-
-    def list_usage(
-            self, resource_group_name, virtual_network_name, custom_headers=None, raw=False, **operation_config):
-        """Lists usage stats.
-
-        :param resource_group_name: The name of the resource group.
-        :type resource_group_name: str
-        :param virtual_network_name: The name of the virtual network.
-        :type virtual_network_name: str
-        :param dict custom_headers: headers that will be added to the request
-        :param bool raw: returns the direct response alongside the
-         deserialized response
-        :param operation_config: :ref:`Operation configuration
-         overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of VirtualNetworkUsage
-        :rtype:
-         ~azure.mgmt.network.v2020_05_01.models.VirtualNetworkUsagePaged[~azure.mgmt.network.v2020_05_01.models.VirtualNetworkUsage]
+         ~azure.mgmt.network.v2020_07_01.models.DdosProtectionPlanPaged[~azure.mgmt.network.v2020_07_01.models.DdosProtectionPlan]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
-                url = self.list_usage.metadata['url']
+                url = self.list_by_resource_group.metadata['url']
                 path_format_arguments = {
                     'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-                    'virtualNetworkName': self._serialize.url("virtual_network_name", virtual_network_name, 'str'),
                     'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
                 }
                 url = self._client.format_url(url, **path_format_arguments)
@@ -625,7 +491,7 @@ class VirtualNetworksOperations(object):
         header_dict = None
         if raw:
             header_dict = {}
-        deserialized = models.VirtualNetworkUsagePaged(internal_paging, self._deserialize.dependencies, header_dict)
+        deserialized = models.DdosProtectionPlanPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list_usage.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{virtualNetworkName}/usages'}
+    list_by_resource_group.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/ddosProtectionPlans'}
