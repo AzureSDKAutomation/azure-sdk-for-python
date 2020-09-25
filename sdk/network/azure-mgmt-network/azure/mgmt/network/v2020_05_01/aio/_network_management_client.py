@@ -117,7 +117,6 @@ from .operations import VirtualHubBgpConnectionOperations
 from .operations import VirtualHubBgpConnectionsOperations
 from .operations import VirtualHubIpConfigurationOperations
 from .operations import HubRouteTablesOperations
-from .operations import WebApplicationFirewallPoliciesOperations
 from .. import models
 
 
@@ -324,8 +323,6 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin):
     :vartype virtual_hub_ip_configuration: azure.mgmt.network.v2020_05_01.aio.operations.VirtualHubIpConfigurationOperations
     :ivar hub_route_tables: HubRouteTablesOperations operations
     :vartype hub_route_tables: azure.mgmt.network.v2020_05_01.aio.operations.HubRouteTablesOperations
-    :ivar web_application_firewall_policies: WebApplicationFirewallPoliciesOperations operations
-    :vartype web_application_firewall_policies: azure.mgmt.network.v2020_05_01.aio.operations.WebApplicationFirewallPoliciesOperations
     :param credential: Credential needed for the client to connect to Azure.
     :type credential: ~azure.core.credentials_async.AsyncTokenCredential
     :param subscription_id: The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
@@ -348,7 +345,6 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin):
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
         self._serialize = Serializer(client_models)
-        self._serialize.client_side_validation = False
         self._deserialize = Deserializer(client_models)
 
         self.application_gateways = ApplicationGatewaysOperations(
@@ -550,8 +546,6 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin):
         self.virtual_hub_ip_configuration = VirtualHubIpConfigurationOperations(
             self._client, self._config, self._serialize, self._deserialize)
         self.hub_route_tables = HubRouteTablesOperations(
-            self._client, self._config, self._serialize, self._deserialize)
-        self.web_application_firewall_policies = WebApplicationFirewallPoliciesOperations(
             self._client, self._config, self._serialize, self._deserialize)
 
     async def close(self) -> None:

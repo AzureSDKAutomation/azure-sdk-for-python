@@ -150,8 +150,7 @@
         "virtual_hub_bgp_connection": "VirtualHubBgpConnectionOperations",
         "virtual_hub_bgp_connections": "VirtualHubBgpConnectionsOperations",
         "virtual_hub_ip_configuration": "VirtualHubIpConfigurationOperations",
-        "hub_route_tables": "HubRouteTablesOperations",
-        "web_application_firewall_policies": "WebApplicationFirewallPoliciesOperations"
+        "hub_route_tables": "HubRouteTablesOperations"
     },
     "operation_mixins": {
         "_put_bastion_shareable_link_initial" : {
