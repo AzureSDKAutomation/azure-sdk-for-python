@@ -9,10 +9,12 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from .marketplace_agreements_operations import MarketplaceAgreementsOperations
-from .operations import Operations
+from ._agreement_operations import AgreementOperations
+from ._offer_agreement_operations import OfferAgreementOperations
+from ._operations import Operations
 
 __all__ = [
-    'MarketplaceAgreementsOperations',
+    'AgreementOperations',
+    'OfferAgreementOperations',
     'Operations',
 ]

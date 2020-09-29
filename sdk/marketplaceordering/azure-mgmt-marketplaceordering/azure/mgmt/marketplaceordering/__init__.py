@@ -9,10 +9,11 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from .marketplace_ordering_agreements import MarketplaceOrderingAgreements
-from .version import VERSION
+from ._configuration import MicrosoftMarketplaceOrderingAgreementsConfiguration
+from ._microsoft_marketplace_ordering_agreements import MicrosoftMarketplaceOrderingAgreements
+__all__ = ['MicrosoftMarketplaceOrderingAgreements', 'MicrosoftMarketplaceOrderingAgreementsConfiguration']
 
-__all__ = ['MarketplaceOrderingAgreements']
+from .version import VERSION
 
 __version__ = VERSION
 

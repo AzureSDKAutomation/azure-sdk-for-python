@@ -10,27 +10,19 @@
 # --------------------------------------------------------------------------
 
 try:
-    from .agreement_terms_py3 import AgreementTerms
-    from .error_response_error_py3 import ErrorResponseError
-    from .error_response_py3 import ErrorResponse, ErrorResponseException
-    from .operation_display_py3 import OperationDisplay
-    from .operation_py3 import Operation
-    from .resource_py3 import Resource
+    from ._models_py3 import AgreementDefinition
+    from ._models_py3 import AgreementProperties
+    from ._models_py3 import ErrorResponse, ErrorResponseException
+    from ._models_py3 import ErrorResponseError
 except (SyntaxError, ImportError):
-    from .agreement_terms import AgreementTerms
-    from .error_response_error import ErrorResponseError
-    from .error_response import ErrorResponse, ErrorResponseException
-    from .operation_display import OperationDisplay
-    from .operation import Operation
-    from .resource import Resource
-from .operation_paged import OperationPaged
+    from ._models import AgreementDefinition
+    from ._models import AgreementProperties
+    from ._models import ErrorResponse, ErrorResponseException
+    from ._models import ErrorResponseError
 
 __all__ = [
-    'AgreementTerms',
-    'ErrorResponseError',
+    'AgreementDefinition',
+    'AgreementProperties',
     'ErrorResponse', 'ErrorResponseException',
-    'OperationDisplay',
-    'Operation',
-    'Resource',
-    'OperationPaged',
+    'ErrorResponseError',
 ]

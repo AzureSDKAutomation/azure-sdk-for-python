@@ -18,11 +18,12 @@ from .. import models
 class Operations(object):
     """Operations operations.
 
+    You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
+
     :param client: Client for service requests.
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The API version to use for the request. Constant value: "2015-06-01".
     """
 
     models = models
@@ -32,35 +33,34 @@ class Operations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2015-06-01"
 
         self.config = config
 
-    def list(
-            self, custom_headers=None, raw=False, **operation_config):
+    def get_operations(
+            self, api_version="2015-06-01", custom_headers=None, raw=False, **operation_config):
         """Lists all of the available Microsoft.MarketplaceOrdering REST API
         operations.
 
+        :param api_version:
+        :type api_version: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of Operation
-        :rtype:
-         ~azure.mgmt.marketplaceordering.models.OperationPaged[~azure.mgmt.marketplaceordering.models.Operation]
+        :return: An iterator like instance of None
+        :rtype: object[None]
         :raises:
          :class:`ErrorResponseException<azure.mgmt.marketplaceordering.models.ErrorResponseException>`
         """
-        def internal_paging(next_link=None, raw=False):
-
+        def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
-                url = self.list.metadata['url']
+                url = self.get_operations.metadata['url']
 
                 # Construct parameters
                 query_parameters = {}
-                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+                query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
             else:
                 url = next_link
@@ -78,6 +78,11 @@ class Operations(object):
 
             # Construct and send request
             request = self._client.get(url, query_parameters, header_parameters)
+            return request
+
+        def internal_paging(next_link=None):
+            request = prepare_request(next_link)
+
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
@@ -86,12 +91,10 @@ class Operations(object):
             return response
 
         # Deserialize response
-        deserialized = models.OperationPaged(internal_paging, self._deserialize.dependencies)
-
+        header_dict = None
         if raw:
             header_dict = {}
-            client_raw_response = models.OperationPaged(internal_paging, self._deserialize.dependencies, header_dict)
-            return client_raw_response
+        deserialized = models.object(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/providers/Microsoft.MarketplaceOrdering/operations'}
+    get_operations.metadata = {'url': '/providers/Microsoft.MarketplaceOrdering/operations'}
