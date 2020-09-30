@@ -2471,6 +2471,8 @@ class WhatIfOperationResult(msrest.serialization.Model):
     :type status: str
     :param error: Error when What-If operation fails.
     :type error: ~azure.mgmt.resource.resources.v2019_10_01.models.ErrorResponse
+    :param correlation_id: The correlation ID of the What-If operation.
+    :type correlation_id: str
     :param changes: List of resource changes predicted by What-If operation.
     :type changes: list[~azure.mgmt.resource.resources.v2019_10_01.models.WhatIfChange]
     """
@@ -2478,6 +2480,7 @@ class WhatIfOperationResult(msrest.serialization.Model):
     _attribute_map = {
         'status': {'key': 'status', 'type': 'str'},
         'error': {'key': 'error', 'type': 'ErrorResponse'},
+        'correlation_id': {'key': 'properties.correlationId', 'type': 'str'},
         'changes': {'key': 'properties.changes', 'type': '[WhatIfChange]'},
     }
 
@@ -2486,12 +2489,14 @@ class WhatIfOperationResult(msrest.serialization.Model):
         *,
         status: Optional[str] = None,
         error: Optional["ErrorResponse"] = None,
+        correlation_id: Optional[str] = None,
         changes: Optional[List["WhatIfChange"]] = None,
         **kwargs
     ):
         super(WhatIfOperationResult, self).__init__(**kwargs)
         self.status = status
         self.error = error
+        self.correlation_id = correlation_id
         self.changes = changes
 
 
