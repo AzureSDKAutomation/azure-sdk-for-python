@@ -2143,6 +2143,8 @@ class WhatIfOperationResult(Model):
 
     :param status: Status of the What-If operation.
     :type status: str
+    :param correlation_id: The correlation ID of the What-If operation.
+    :type correlation_id: str
     :param changes: List of resource changes predicted by What-If operation.
     :type changes:
      list[~azure.mgmt.resource.resources.v2020_06_01.models.WhatIfChange]
@@ -2153,13 +2155,15 @@ class WhatIfOperationResult(Model):
 
     _attribute_map = {
         'status': {'key': 'status', 'type': 'str'},
+        'correlation_id': {'key': 'properties.correlationId', 'type': 'str'},
         'changes': {'key': 'properties.changes', 'type': '[WhatIfChange]'},
         'error': {'key': 'error', 'type': 'ErrorResponse'},
     }
 
-    def __init__(self, *, status: str=None, changes=None, error=None, **kwargs) -> None:
+    def __init__(self, *, status: str=None, correlation_id: str=None, changes=None, error=None, **kwargs) -> None:
         super(WhatIfOperationResult, self).__init__(**kwargs)
         self.status = status
+        self.correlation_id = correlation_id
         self.changes = changes
         self.error = error
 
