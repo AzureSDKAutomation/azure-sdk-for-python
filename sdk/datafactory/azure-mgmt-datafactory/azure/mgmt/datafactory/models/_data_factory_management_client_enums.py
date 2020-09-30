@@ -12,6 +12,13 @@
 from enum import Enum
 
 
+class FactoryIdentityType(str, Enum):
+
+    system_assigned = "SystemAssigned"
+    user_assigned = "UserAssigned"
+    system_assigned_user_assigned = "SystemAssigned,UserAssigned"
+
+
 class GlobalParameterType(str, Enum):
 
     object_enum = "Object"
@@ -20,6 +27,12 @@ class GlobalParameterType(str, Enum):
     float_enum = "Float"
     bool_enum = "Bool"
     array = "Array"
+
+
+class PublicNetworkAccess(str, Enum):
+
+    enabled = "Enabled"
+    disabled = "Disabled"
 
 
 class IntegrationRuntimeState(str, Enum):
@@ -320,6 +333,7 @@ class OrcCompressionCodec(str, Enum):
     none = "none"
     zlib = "zlib"
     snappy = "snappy"
+    lzo = "lzo"
 
 
 class AvroCompressionCodec(str, Enum):
@@ -499,6 +513,11 @@ class SalesforceSinkWriteBehavior(str, Enum):
     upsert = "Upsert"
 
 
+class DynamicsSinkWriteBehavior(str, Enum):
+
+    upsert = "Upsert"
+
+
 class AzureSearchIndexWriteBehaviorType(str, Enum):
 
     merge = "Merge"
@@ -605,3 +624,10 @@ class IntegrationRuntimeAuthKeyName(str, Enum):
 
     auth_key1 = "authKey1"
     auth_key2 = "authKey2"
+
+
+class CopyBehaviorType(str, Enum):
+
+    preserve_hierarchy = "PreserveHierarchy"
+    flatten_hierarchy = "FlattenHierarchy"
+    merge_files = "MergeFiles"
