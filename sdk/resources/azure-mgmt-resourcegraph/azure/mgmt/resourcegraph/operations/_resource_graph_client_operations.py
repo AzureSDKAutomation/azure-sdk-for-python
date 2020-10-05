@@ -17,6 +17,129 @@ import uuid
 
 class ResourceGraphClientOperationsMixin(object):
 
+    def resource_changes(
+            self, parameters, custom_headers=None, raw=False, **operation_config):
+        """List changes to a resource for a given time interval.
+
+        :param parameters: the parameters for this request for changes.
+        :type parameters:
+         ~azure.mgmt.resourcegraph.models.ResourceChangesRequestParameters
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: ResourceChangeList or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.resourcegraph.models.ResourceChangeList or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resourcegraph.models.ErrorResponseException>`
+        """
+        api_version = "2020-09-01-preview"
+
+        # Construct URL
+        url = self.resource_changes.metadata['url']
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct body
+        body_content = self._serialize.body(parameters, 'ResourceChangesRequestParameters')
+
+        # Construct and send request
+        request = self._client.post(url, query_parameters, header_parameters, body_content)
+        response = self._client.send(request, stream=False, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.ErrorResponseException(self._deserialize, response)
+
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('ResourceChangeList', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+    resource_changes.metadata = {'url': '/providers/Microsoft.ResourceGraph/resourceChanges'}
+
+    def resource_change_details(
+            self, resource_ids, change_ids, custom_headers=None, raw=False, **operation_config):
+        """Get resource change details.
+
+        :param resource_ids: Specifies the list of resources for a change
+         details request.
+        :type resource_ids: list[str]
+        :param change_ids: Specifies the list of change IDs for a change
+         details request.
+        :type change_ids: list[str]
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: ResourceChangeData or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.resourcegraph.models.ResourceChangeData or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resourcegraph.models.ErrorResponseException>`
+        """
+        parameters = models.ResourceChangeDetailsRequestParameters(resource_ids=resource_ids, change_ids=change_ids)
+
+        api_version = "2020-09-01-preview"
+
+        # Construct URL
+        url = self.resource_change_details.metadata['url']
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct body
+        body_content = self._serialize.body(parameters, 'ResourceChangeDetailsRequestParameters')
+
+        # Construct and send request
+        request = self._client.post(url, query_parameters, header_parameters, body_content)
+        response = self._client.send(request, stream=False, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.ErrorResponseException(self._deserialize, response)
+
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('ResourceChangeData', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+    resource_change_details.metadata = {'url': '/providers/Microsoft.ResourceGraph/resourceChangeDetails'}
+
     def resources(
             self, query, custom_headers=None, raw=False, **operation_config):
         """Queries the resources managed by Azure Resource Manager for all
@@ -35,12 +158,14 @@ class ResourceGraphClientOperationsMixin(object):
         :raises:
          :class:`ErrorResponseException<azure.mgmt.resourcegraph.models.ErrorResponseException>`
         """
+        api_version = "2020-04-01-preview"
+
         # Construct URL
         url = self.resources.metadata['url']
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
         # Construct headers
         header_parameters = {}

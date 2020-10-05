@@ -12,6 +12,26 @@
 from enum import Enum
 
 
+class ChangeType(str, Enum):
+
+    create = "Create"
+    update = "Update"
+    delete = "Delete"
+
+
+class ChangeCategory(str, Enum):
+
+    user = "User"
+    system = "System"
+
+
+class PropertyChangeType(str, Enum):
+
+    insert = "Insert"
+    update = "Update"
+    remove = "Remove"
+
+
 class ResultFormat(str, Enum):
 
     table = "table"
@@ -37,3 +57,16 @@ class ColumnDataType(str, Enum):
     number = "number"
     boolean = "boolean"
     object_enum = "object"
+
+
+class ResultKind(str, Enum):
+
+    basic = "basic"
+
+
+class CreatedByType(str, Enum):
+
+    user = "User"
+    application = "Application"
+    managed_identity = "ManagedIdentity"
+    key = "Key"
