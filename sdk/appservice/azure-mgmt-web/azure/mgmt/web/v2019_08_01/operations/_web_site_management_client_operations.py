@@ -19,6 +19,69 @@ import uuid
 
 class WebSiteManagementClientOperationsMixin(object):
 
+    def generate_github_access_token_for_appservice_cli_async(
+            self, code, state, custom_headers=None, raw=False, **operation_config):
+        """Exchange code for GitHub access token for AppService CLI.
+
+        Description for Exchange code for GitHub access token for AppService
+        CLI.
+
+        :param code: Code string to exchange for Github Access token
+        :type code: str
+        :param state: State string used for verification.
+        :type state: str
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: AppserviceGithubToken or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.web.v2019_08_01.models.AppserviceGithubToken or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`DefaultErrorResponseException<azure.mgmt.web.v2019_08_01.models.DefaultErrorResponseException>`
+        """
+        request = models.AppserviceGithubTokenRequest(code=code, state=state)
+
+        # Construct URL
+        url = self.generate_github_access_token_for_appservice_cli_async.metadata['url']
+
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
+        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+        # Construct body
+        body_content = self._serialize.body(request, 'AppserviceGithubTokenRequest')
+
+        # Construct and send request
+        request = self._client.post(url, query_parameters, header_parameters, body_content)
+        response = self._client.send(request, stream=False, **operation_config)
+
+        if response.status_code not in [200]:
+            raise models.DefaultErrorResponseException(self._deserialize, response)
+
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('AppserviceGithubToken', response)
+
+        if raw:
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
+
+        return deserialized
+    generate_github_access_token_for_appservice_cli_async.metadata = {'url': '/providers/Microsoft.Web/generateGithubAccessTokenForAppserviceCLI'}
+
     def get_publishing_user(
             self, custom_headers=None, raw=False, **operation_config):
         """Gets publishing user.

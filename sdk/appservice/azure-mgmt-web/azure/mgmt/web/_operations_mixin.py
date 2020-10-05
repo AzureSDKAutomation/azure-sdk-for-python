@@ -58,6 +58,41 @@ class WebSiteManagementClientOperationsMixin(object):
         mixin_instance.api_version = api_version
         return mixin_instance.check_name_availability(name, type, is_fqdn, custom_headers, raw, **operation_config)
 
+    def generate_github_access_token_for_appservice_cli_async(self, code, state, custom_headers=None, raw=False, **operation_config):
+        """Exchange code for GitHub access token for AppService CLI.
+
+        Description for Exchange code for GitHub access token for AppService
+        CLI.
+
+        :param code: Code string to exchange for Github Access token
+        :type code: str
+        :param state: State string used for verification.
+        :type state: str
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: AppserviceGithubToken or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.web.v2019_08_01.models.AppserviceGithubToken or
+         ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`DefaultErrorResponseException<azure.mgmt.web.v2019_08_01.models.DefaultErrorResponseException>`
+        
+        """
+        api_version = self._get_api_version('generate_github_access_token_for_appservice_cli_async')
+        if api_version == '2019-08-01':
+            from .v2019_08_01.operations import WebSiteManagementClientOperationsMixin as OperationClass
+        else:
+            raise NotImplementedError("APIVersion {} is not available".format(api_version))
+        mixin_instance = OperationClass()
+        mixin_instance._client = self._client
+        mixin_instance.config = self.config
+        mixin_instance._serialize = Serializer(self._models_dict(api_version))
+        mixin_instance._deserialize = Deserializer(self._models_dict(api_version))
+        mixin_instance.api_version = api_version
+        return mixin_instance.generate_github_access_token_for_appservice_cli_async(code, state, custom_headers, raw, **operation_config)
+
     def get_publishing_user(self, custom_headers=None, raw=False, **operation_config):
         """Gets publishing user.
 

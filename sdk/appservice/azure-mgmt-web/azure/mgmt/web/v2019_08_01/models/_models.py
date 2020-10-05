@@ -1698,6 +1698,66 @@ class AppServiceEnvironmentResource(Resource):
         self.ssl_cert_key_vault_secret_name = kwargs.get('ssl_cert_key_vault_secret_name', None)
 
 
+class AppserviceGithubToken(Model):
+    """Github access token for Appservice CLI github integration.
+
+    :param access_token: Github access token for Appservice CLI github
+     integration
+    :type access_token: str
+    :param scope: Scope of the github access token
+    :type scope: str
+    :param token_type: token type
+    :type token_type: str
+    :param got_token: True if valid github token received, False otherwise
+    :type got_token: bool
+    :param error_message: Error message if unable to get token
+    :type error_message: str
+    """
+
+    _attribute_map = {
+        'access_token': {'key': 'accessToken', 'type': 'str'},
+        'scope': {'key': 'scope', 'type': 'str'},
+        'token_type': {'key': 'tokenType', 'type': 'str'},
+        'got_token': {'key': 'gotToken', 'type': 'bool'},
+        'error_message': {'key': 'errorMessage', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AppserviceGithubToken, self).__init__(**kwargs)
+        self.access_token = kwargs.get('access_token', None)
+        self.scope = kwargs.get('scope', None)
+        self.token_type = kwargs.get('token_type', None)
+        self.got_token = kwargs.get('got_token', None)
+        self.error_message = kwargs.get('error_message', None)
+
+
+class AppserviceGithubTokenRequest(Model):
+    """Appservice Github token request content.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param code: Required. Code string to exchange for Github Access token
+    :type code: str
+    :param state: Required. State string used for verification.
+    :type state: str
+    """
+
+    _validation = {
+        'code': {'required': True},
+        'state': {'required': True},
+    }
+
+    _attribute_map = {
+        'code': {'key': 'code', 'type': 'str'},
+        'state': {'key': 'state', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AppserviceGithubTokenRequest, self).__init__(**kwargs)
+        self.code = kwargs.get('code', None)
+        self.state = kwargs.get('state', None)
+
+
 class AppServicePlan(Resource):
     """App Service plan.
 
@@ -10818,6 +10878,9 @@ class SiteSourceControl(ProxyOnlyResource):
      integration; <code>false</code> to enable continuous integration (which
      configures webhooks into online repos like GitHub).
     :type is_manual_integration: bool
+    :param is_git_hub_action: <code>true</code> if this is deployed via GitHub
+     action.
+    :type is_git_hub_action: bool
     :param deployment_rollback_enabled: <code>true</code> to enable deployment
      rollback; otherwise, <code>false</code>.
     :type deployment_rollback_enabled: bool
@@ -10840,6 +10903,7 @@ class SiteSourceControl(ProxyOnlyResource):
         'repo_url': {'key': 'properties.repoUrl', 'type': 'str'},
         'branch': {'key': 'properties.branch', 'type': 'str'},
         'is_manual_integration': {'key': 'properties.isManualIntegration', 'type': 'bool'},
+        'is_git_hub_action': {'key': 'properties.isGitHubAction', 'type': 'bool'},
         'deployment_rollback_enabled': {'key': 'properties.deploymentRollbackEnabled', 'type': 'bool'},
         'is_mercurial': {'key': 'properties.isMercurial', 'type': 'bool'},
     }
@@ -10849,6 +10913,7 @@ class SiteSourceControl(ProxyOnlyResource):
         self.repo_url = kwargs.get('repo_url', None)
         self.branch = kwargs.get('branch', None)
         self.is_manual_integration = kwargs.get('is_manual_integration', None)
+        self.is_git_hub_action = kwargs.get('is_git_hub_action', None)
         self.deployment_rollback_enabled = kwargs.get('deployment_rollback_enabled', None)
         self.is_mercurial = kwargs.get('is_mercurial', None)
 

@@ -1698,6 +1698,66 @@ class AppServiceEnvironmentResource(Resource):
         self.ssl_cert_key_vault_secret_name = ssl_cert_key_vault_secret_name
 
 
+class AppserviceGithubToken(Model):
+    """Github access token for Appservice CLI github integration.
+
+    :param access_token: Github access token for Appservice CLI github
+     integration
+    :type access_token: str
+    :param scope: Scope of the github access token
+    :type scope: str
+    :param token_type: token type
+    :type token_type: str
+    :param got_token: True if valid github token received, False otherwise
+    :type got_token: bool
+    :param error_message: Error message if unable to get token
+    :type error_message: str
+    """
+
+    _attribute_map = {
+        'access_token': {'key': 'accessToken', 'type': 'str'},
+        'scope': {'key': 'scope', 'type': 'str'},
+        'token_type': {'key': 'tokenType', 'type': 'str'},
+        'got_token': {'key': 'gotToken', 'type': 'bool'},
+        'error_message': {'key': 'errorMessage', 'type': 'str'},
+    }
+
+    def __init__(self, *, access_token: str=None, scope: str=None, token_type: str=None, got_token: bool=None, error_message: str=None, **kwargs) -> None:
+        super(AppserviceGithubToken, self).__init__(**kwargs)
+        self.access_token = access_token
+        self.scope = scope
+        self.token_type = token_type
+        self.got_token = got_token
+        self.error_message = error_message
+
+
+class AppserviceGithubTokenRequest(Model):
+    """Appservice Github token request content.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param code: Required. Code string to exchange for Github Access token
+    :type code: str
+    :param state: Required. State string used for verification.
+    :type state: str
+    """
+
+    _validation = {
+        'code': {'required': True},
+        'state': {'required': True},
+    }
+
+    _attribute_map = {
+        'code': {'key': 'code', 'type': 'str'},
+        'state': {'key': 'state', 'type': 'str'},
+    }
+
+    def __init__(self, *, code: str, state: str, **kwargs) -> None:
+        super(AppserviceGithubTokenRequest, self).__init__(**kwargs)
+        self.code = code
+        self.state = state
+
+
 class AppServicePlan(Resource):
     """App Service plan.
 
@@ -10818,6 +10878,9 @@ class SiteSourceControl(ProxyOnlyResource):
      integration; <code>false</code> to enable continuous integration (which
      configures webhooks into online repos like GitHub).
     :type is_manual_integration: bool
+    :param is_git_hub_action: <code>true</code> if this is deployed via GitHub
+     action.
+    :type is_git_hub_action: bool
     :param deployment_rollback_enabled: <code>true</code> to enable deployment
      rollback; otherwise, <code>false</code>.
     :type deployment_rollback_enabled: bool
@@ -10840,15 +10903,17 @@ class SiteSourceControl(ProxyOnlyResource):
         'repo_url': {'key': 'properties.repoUrl', 'type': 'str'},
         'branch': {'key': 'properties.branch', 'type': 'str'},
         'is_manual_integration': {'key': 'properties.isManualIntegration', 'type': 'bool'},
+        'is_git_hub_action': {'key': 'properties.isGitHubAction', 'type': 'bool'},
         'deployment_rollback_enabled': {'key': 'properties.deploymentRollbackEnabled', 'type': 'bool'},
         'is_mercurial': {'key': 'properties.isMercurial', 'type': 'bool'},
     }
 
-    def __init__(self, *, kind: str=None, repo_url: str=None, branch: str=None, is_manual_integration: bool=None, deployment_rollback_enabled: bool=None, is_mercurial: bool=None, **kwargs) -> None:
+    def __init__(self, *, kind: str=None, repo_url: str=None, branch: str=None, is_manual_integration: bool=None, is_git_hub_action: bool=None, deployment_rollback_enabled: bool=None, is_mercurial: bool=None, **kwargs) -> None:
         super(SiteSourceControl, self).__init__(kind=kind, **kwargs)
         self.repo_url = repo_url
         self.branch = branch
         self.is_manual_integration = is_manual_integration
+        self.is_git_hub_action = is_git_hub_action
         self.deployment_rollback_enabled = deployment_rollback_enabled
         self.is_mercurial = is_mercurial
 

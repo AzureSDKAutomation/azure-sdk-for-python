@@ -29,6 +29,8 @@ try:
     from ._models_py3 import AppServiceEnvironment
     from ._models_py3 import AppServiceEnvironmentPatchResource
     from ._models_py3 import AppServiceEnvironmentResource
+    from ._models_py3 import AppserviceGithubToken
+    from ._models_py3 import AppserviceGithubTokenRequest
     from ._models_py3 import AppServicePlan
     from ._models_py3 import AppServicePlanPatchResource
     from ._models_py3 import ArmIdWrapper
@@ -284,6 +286,8 @@ except (SyntaxError, ImportError):
     from ._models import AppServiceEnvironment
     from ._models import AppServiceEnvironmentPatchResource
     from ._models import AppServiceEnvironmentResource
+    from ._models import AppserviceGithubToken
+    from ._models import AppserviceGithubTokenRequest
     from ._models import AppServicePlan
     from ._models import AppServicePlanPatchResource
     from ._models import ArmIdWrapper
@@ -671,6 +675,8 @@ __all__ = [
     'AppServiceEnvironment',
     'AppServiceEnvironmentPatchResource',
     'AppServiceEnvironmentResource',
+    'AppserviceGithubToken',
+    'AppserviceGithubTokenRequest',
     'AppServicePlan',
     'AppServicePlanPatchResource',
     'ArmIdWrapper',
