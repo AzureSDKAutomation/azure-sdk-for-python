@@ -2737,6 +2737,8 @@ class ApplicationRule(FirewallPolicyRule):
     :type fqdn_tags: list[str]
     :param source_ip_groups: List of source IpGroups for this rule.
     :type source_ip_groups: list[str]
+    :param web_categories: List of destination azure web categories.
+    :type web_categories: list[str]
     """
 
     _validation = {
@@ -2753,6 +2755,7 @@ class ApplicationRule(FirewallPolicyRule):
         'target_fqdns': {'key': 'targetFqdns', 'type': '[str]'},
         'fqdn_tags': {'key': 'fqdnTags', 'type': '[str]'},
         'source_ip_groups': {'key': 'sourceIpGroups', 'type': '[str]'},
+        'web_categories': {'key': 'webCategories', 'type': '[str]'},
     }
 
     def __init__(
@@ -2767,6 +2770,7 @@ class ApplicationRule(FirewallPolicyRule):
         self.target_fqdns = kwargs.get('target_fqdns', None)
         self.fqdn_tags = kwargs.get('fqdn_tags', None)
         self.source_ip_groups = kwargs.get('source_ip_groups', None)
+        self.web_categories = kwargs.get('web_categories', None)
 
 
 class ApplicationSecurityGroup(Resource):
