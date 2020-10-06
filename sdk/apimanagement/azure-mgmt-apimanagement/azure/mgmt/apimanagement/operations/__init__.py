@@ -29,6 +29,9 @@ from ._authorization_server_operations import AuthorizationServerOperations
 from ._backend_operations import BackendOperations
 from ._cache_operations import CacheOperations
 from ._certificate_operations import CertificateOperations
+from ._content_type_operations import ContentTypeOperations
+from ._content_type_content_item_operations import ContentTypeContentItemOperations
+from ._deleted_services_operations import DeletedServicesOperations
 from ._api_management_operations import ApiManagementOperations
 from ._api_management_service_skus_operations import ApiManagementServiceSkusOperations
 from ._api_management_service_operations import ApiManagementServiceOperations
@@ -62,6 +65,7 @@ from ._quota_by_counter_keys_operations import QuotaByCounterKeysOperations
 from ._quota_by_period_keys_operations import QuotaByPeriodKeysOperations
 from ._region_operations import RegionOperations
 from ._reports_operations import ReportsOperations
+from ._tenant_settings_operations import TenantSettingsOperations
 from ._subscription_operations import SubscriptionOperations
 from ._tag_resource_operations import TagResourceOperations
 from ._tenant_access_operations import TenantAccessOperations
@@ -95,6 +99,9 @@ __all__ = [
     'BackendOperations',
     'CacheOperations',
     'CertificateOperations',
+    'ContentTypeOperations',
+    'ContentTypeContentItemOperations',
+    'DeletedServicesOperations',
     'ApiManagementOperations',
     'ApiManagementServiceSkusOperations',
     'ApiManagementServiceOperations',
@@ -128,6 +135,7 @@ __all__ = [
     'QuotaByPeriodKeysOperations',
     'RegionOperations',
     'ReportsOperations',
+    'TenantSettingsOperations',
     'SubscriptionOperations',
     'TagResourceOperations',
     'TenantAccessOperations',

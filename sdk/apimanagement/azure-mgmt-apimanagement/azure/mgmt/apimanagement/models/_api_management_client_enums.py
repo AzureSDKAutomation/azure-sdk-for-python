@@ -97,6 +97,12 @@ class Verbosity(str, Enum):
     error = "error"  #: Only traces with 'severity' set to 'error' will be sent to the logger attached to this diagnostic instance.
 
 
+class OperationNameFormat(str, Enum):
+
+    name = "Name"  #: API_NAME;rev=API_REVISION - OPERATION_NAME
+    url = "Url"  #: HTTP_VERB URL
+
+
 class PolicyContentFormat(str, Enum):
 
     xml = "xml"  #: The contents are inline and Content type is an XML document.
@@ -210,6 +216,7 @@ class KeyType(str, Enum):
 
 class AppType(str, Enum):
 
+    portal = "portal"  #: User create request was sent by legacy developer portal.
     developer_portal = "developerPortal"  #: User create request was sent by new developer portal.
 
 
@@ -248,6 +255,7 @@ class LoggerType(str, Enum):
 
     azure_event_hub = "azureEventHub"  #: Azure Event Hub as log destination.
     application_insights = "applicationInsights"  #: Azure Application Insights as log destination.
+    azure_monitor = "azureMonitor"  #: Azure Monitor
 
 
 class ConnectivityStatusType(str, Enum):
@@ -273,6 +281,12 @@ class AsyncOperationStatus(str, Enum):
     in_progress = "InProgress"
     succeeded = "Succeeded"
     failed = "Failed"
+
+
+class AccessIdName(str, Enum):
+
+    access = "access"
+    get_access = "getAccess"
 
 
 class NotificationName(str, Enum):

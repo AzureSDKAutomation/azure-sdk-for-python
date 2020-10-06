@@ -33,6 +33,9 @@ from .operations import AuthorizationServerOperations
 from .operations import BackendOperations
 from .operations import CacheOperations
 from .operations import CertificateOperations
+from .operations import ContentTypeOperations
+from .operations import ContentTypeContentItemOperations
+from .operations import DeletedServicesOperations
 from .operations import ApiManagementOperations
 from .operations import ApiManagementServiceSkusOperations
 from .operations import ApiManagementServiceOperations
@@ -66,6 +69,7 @@ from .operations import QuotaByCounterKeysOperations
 from .operations import QuotaByPeriodKeysOperations
 from .operations import RegionOperations
 from .operations import ReportsOperations
+from .operations import TenantSettingsOperations
 from .operations import SubscriptionOperations
 from .operations import TagResourceOperations
 from .operations import TenantAccessOperations
@@ -126,6 +130,12 @@ class ApiManagementClient(SDKClient):
     :vartype cache: azure.mgmt.apimanagement.operations.CacheOperations
     :ivar certificate: Certificate operations
     :vartype certificate: azure.mgmt.apimanagement.operations.CertificateOperations
+    :ivar content_type: ContentType operations
+    :vartype content_type: azure.mgmt.apimanagement.operations.ContentTypeOperations
+    :ivar content_type_content_item: ContentTypeContentItem operations
+    :vartype content_type_content_item: azure.mgmt.apimanagement.operations.ContentTypeContentItemOperations
+    :ivar deleted_services: DeletedServices operations
+    :vartype deleted_services: azure.mgmt.apimanagement.operations.DeletedServicesOperations
     :ivar api_management_operations: ApiManagementOperations operations
     :vartype api_management_operations: azure.mgmt.apimanagement.operations.ApiManagementOperations
     :ivar api_management_service_skus: ApiManagementServiceSkus operations
@@ -192,6 +202,8 @@ class ApiManagementClient(SDKClient):
     :vartype region: azure.mgmt.apimanagement.operations.RegionOperations
     :ivar reports: Reports operations
     :vartype reports: azure.mgmt.apimanagement.operations.ReportsOperations
+    :ivar tenant_settings: TenantSettings operations
+    :vartype tenant_settings: azure.mgmt.apimanagement.operations.TenantSettingsOperations
     :ivar subscription: Subscription operations
     :vartype subscription: azure.mgmt.apimanagement.operations.SubscriptionOperations
     :ivar tag_resource: TagResource operations
@@ -232,7 +244,7 @@ class ApiManagementClient(SDKClient):
         super(ApiManagementClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
-        self.api_version = '2019-12-01'
+        self.api_version = '2020-06-01-preview'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
@@ -275,6 +287,12 @@ class ApiManagementClient(SDKClient):
         self.cache = CacheOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.certificate = CertificateOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.content_type = ContentTypeOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.content_type_content_item = ContentTypeContentItemOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.deleted_services = DeletedServicesOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.api_management_operations = ApiManagementOperations(
             self._client, self.config, self._serialize, self._deserialize)
@@ -341,6 +359,8 @@ class ApiManagementClient(SDKClient):
         self.region = RegionOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.reports = ReportsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.tenant_settings = TenantSettingsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.subscription = SubscriptionOperations(
             self._client, self.config, self._serialize, self._deserialize)

@@ -15,8 +15,8 @@ from msrest.pipeline import ClientRawResponse
 from .. import models
 
 
-class IssueOperations(object):
-    """IssueOperations operations.
+class TenantSettingsOperations(object):
+    """TenantSettingsOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -25,6 +25,7 @@ class IssueOperations(object):
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
     :ivar api_version: Version of the API to be used with the client request. Constant value: "2020-06-01-preview".
+    :ivar settings_type: The identifier of the settings. Constant value: "public".
     """
 
     models = models
@@ -35,41 +36,28 @@ class IssueOperations(object):
         self._serialize = serializer
         self._deserialize = deserializer
         self.api_version = "2020-06-01-preview"
+        self.settings_type = "public"
 
         self.config = config
 
     def list_by_service(
-            self, resource_group_name, service_name, filter=None, top=None, skip=None, custom_headers=None, raw=False, **operation_config):
-        """Lists a collection of issues in the specified service instance.
+            self, resource_group_name, service_name, filter=None, custom_headers=None, raw=False, **operation_config):
+        """Returns empty list.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param service_name: The name of the API Management service.
         :type service_name: str
-        :param filter: |     Field     |     Usage     |     Supported
-         operators     |     Supported functions
-         |</br>|-------------|-------------|-------------|-------------|</br>|
-         name | filter | ge, le, eq, ne, gt, lt | substringof, contains,
-         startswith, endswith |</br>| apiId | filter | ge, le, eq, ne, gt, lt |
-         substringof, contains, startswith, endswith |</br>| title | filter |
-         ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith
-         |</br>| description | filter | ge, le, eq, ne, gt, lt | substringof,
-         contains, startswith, endswith |</br>| authorName | filter | ge, le,
-         eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>|
-         state | filter | eq |     |</br>
+        :param filter: Not used
         :type filter: str
-        :param top: Number of records to return.
-        :type top: int
-        :param skip: Number of records to skip.
-        :type skip: int
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of IssueContract
+        :return: An iterator like instance of TenantSettingsContract
         :rtype:
-         ~azure.mgmt.apimanagement.models.IssueContractPaged[~azure.mgmt.apimanagement.models.IssueContract]
+         ~azure.mgmt.apimanagement.models.TenantSettingsContractPaged[~azure.mgmt.apimanagement.models.TenantSettingsContract]
         :raises:
          :class:`ErrorResponseException<azure.mgmt.apimanagement.models.ErrorResponseException>`
         """
@@ -88,10 +76,6 @@ class IssueOperations(object):
                 query_parameters = {}
                 if filter is not None:
                     query_parameters['$filter'] = self._serialize.query("filter", filter, 'str')
-                if top is not None:
-                    query_parameters['$top'] = self._serialize.query("top", top, 'int', minimum=1)
-                if skip is not None:
-                    query_parameters['$skip'] = self._serialize.query("skip", skip, 'int', minimum=0)
                 query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
 
             else:
@@ -126,29 +110,26 @@ class IssueOperations(object):
         header_dict = None
         if raw:
             header_dict = {}
-        deserialized = models.IssueContractPaged(internal_paging, self._deserialize.dependencies, header_dict)
+        deserialized = models.TenantSettingsContractPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list_by_service.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/issues'}
+    list_by_service.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/settings'}
 
     def get(
-            self, resource_group_name, service_name, issue_id, custom_headers=None, raw=False, **operation_config):
-        """Gets API Management issue details.
+            self, resource_group_name, service_name, custom_headers=None, raw=False, **operation_config):
+        """Get tenant settings.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param service_name: The name of the API Management service.
         :type service_name: str
-        :param issue_id: Issue identifier. Must be unique in the current API
-         Management service instance.
-        :type issue_id: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: IssueContract or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.apimanagement.models.IssueContract or
+        :return: TenantSettingsContract or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.apimanagement.models.TenantSettingsContract or
          ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`ErrorResponseException<azure.mgmt.apimanagement.models.ErrorResponseException>`
@@ -158,8 +139,8 @@ class IssueOperations(object):
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
-            'issueId': self._serialize.url("issue_id", issue_id, 'str', max_length=256, min_length=1, pattern=r'^[^*#&+:<>?]+$'),
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
+            'settingsType': self._serialize.url("self.settings_type", self.settings_type, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -187,7 +168,7 @@ class IssueOperations(object):
         header_dict = {}
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('IssueContract', response)
+            deserialized = self._deserialize('TenantSettingsContract', response)
             header_dict = {
                 'ETag': 'str',
             }
@@ -198,4 +179,4 @@ class IssueOperations(object):
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/issues/{issueId}'}
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/settings/{settingsType}'}
