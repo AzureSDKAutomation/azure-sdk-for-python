@@ -274,7 +274,7 @@ class Result(Model):
 
 
 class SourceControlConfiguration(ProxyResource):
-    """The SourceControl Configuration object.
+    """The SourceControl Configuration object returned in Get & Put response.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
@@ -310,6 +310,9 @@ class SourceControlConfiguration(ProxyResource):
      configuration (either generated within the cluster or provided by the
      user).
     :vartype repository_public_key: str
+    :param ssh_known_hosts_contents: Base64-encoded known_hosts contents
+     containing public SSH keys required to access private Git instances
+    :type ssh_known_hosts_contents: str
     :param enable_helm_operator: Option to enable Helm Operator for this git
      configuration. Possible values include: 'true', 'false'
     :type enable_helm_operator: str or
@@ -347,6 +350,7 @@ class SourceControlConfiguration(ProxyResource):
         'operator_params': {'key': 'properties.operatorParams', 'type': 'str'},
         'operator_scope': {'key': 'properties.operatorScope', 'type': 'str'},
         'repository_public_key': {'key': 'properties.repositoryPublicKey', 'type': 'str'},
+        'ssh_known_hosts_contents': {'key': 'properties.sshKnownHostsContents', 'type': 'str'},
         'enable_helm_operator': {'key': 'properties.enableHelmOperator', 'type': 'str'},
         'helm_operator_properties': {'key': 'properties.helmOperatorProperties', 'type': 'HelmOperatorProperties'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
@@ -362,7 +366,99 @@ class SourceControlConfiguration(ProxyResource):
         self.operator_params = kwargs.get('operator_params', None)
         self.operator_scope = kwargs.get('operator_scope', "cluster")
         self.repository_public_key = None
+        self.ssh_known_hosts_contents = kwargs.get('ssh_known_hosts_contents', None)
         self.enable_helm_operator = kwargs.get('enable_helm_operator', None)
         self.helm_operator_properties = kwargs.get('helm_operator_properties', None)
         self.provisioning_state = None
         self.compliance_status = None
+
+
+class SourceControlConfigurationForCreate(ProxyResource):
+    """The SourceControl Configuration object to create a new configuration.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id
+    :vartype id: str
+    :ivar name: Resource name
+    :vartype name: str
+    :ivar type: Resource type
+    :vartype type: str
+    :param repository_url: Url of the SourceControl Repository.
+    :type repository_url: str
+    :param operator_namespace: The namespace to which this operator is
+     installed to. Maximum of 253 lower case alphanumeric characters, hyphen
+     and period only. Default value: "default" .
+    :type operator_namespace: str
+    :param operator_instance_name: Instance name of the operator - identifying
+     the specific configuration.
+    :type operator_instance_name: str
+    :param operator_type: Type of the operator. Possible values include:
+     'Flux'
+    :type operator_type: str or
+     ~azure.mgmt.kubernetesconfiguration.models.OperatorType
+    :param operator_params: Any Parameters for the Operator instance in string
+     format.
+    :type operator_params: str
+    :param configuration_protected_settings: Name-value pairs of protected
+     configuration settings for the configuration
+    :type configuration_protected_settings: dict[str, str]
+    :param operator_scope: Scope at which the operator will be installed.
+     Possible values include: 'cluster', 'namespace'. Default value: "cluster"
+     .
+    :type operator_scope: str or
+     ~azure.mgmt.kubernetesconfiguration.models.OperatorScope
+    :ivar repository_public_key: Public Key associated with this SourceControl
+     configuration (either generated within the cluster or provided by the
+     user).
+    :vartype repository_public_key: str
+    :param ssh_known_hosts_contents: Base64-encoded known_hosts contents
+     containing public SSH keys required to access private Git instances
+    :type ssh_known_hosts_contents: str
+    :param enable_helm_operator: Option to enable Helm Operator for this git
+     configuration. Possible values include: 'true', 'false'
+    :type enable_helm_operator: str or
+     ~azure.mgmt.kubernetesconfiguration.models.EnableHelmOperator
+    :param helm_operator_properties: Properties for Helm operator.
+    :type helm_operator_properties:
+     ~azure.mgmt.kubernetesconfiguration.models.HelmOperatorProperties
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'repository_public_key': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'repository_url': {'key': 'properties.repositoryUrl', 'type': 'str'},
+        'operator_namespace': {'key': 'properties.operatorNamespace', 'type': 'str'},
+        'operator_instance_name': {'key': 'properties.operatorInstanceName', 'type': 'str'},
+        'operator_type': {'key': 'properties.operatorType', 'type': 'str'},
+        'operator_params': {'key': 'properties.operatorParams', 'type': 'str'},
+        'configuration_protected_settings': {'key': 'properties.configurationProtectedSettings', 'type': '{str}'},
+        'operator_scope': {'key': 'properties.operatorScope', 'type': 'str'},
+        'repository_public_key': {'key': 'properties.repositoryPublicKey', 'type': 'str'},
+        'ssh_known_hosts_contents': {'key': 'properties.sshKnownHostsContents', 'type': 'str'},
+        'enable_helm_operator': {'key': 'properties.enableHelmOperator', 'type': 'str'},
+        'helm_operator_properties': {'key': 'properties.helmOperatorProperties', 'type': 'HelmOperatorProperties'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SourceControlConfigurationForCreate, self).__init__(**kwargs)
+        self.repository_url = kwargs.get('repository_url', None)
+        self.operator_namespace = kwargs.get('operator_namespace', "default")
+        self.operator_instance_name = kwargs.get('operator_instance_name', None)
+        self.operator_type = kwargs.get('operator_type', None)
+        self.operator_params = kwargs.get('operator_params', None)
+        self.configuration_protected_settings = kwargs.get('configuration_protected_settings', None)
+        self.operator_scope = kwargs.get('operator_scope', "cluster")
+        self.repository_public_key = None
+        self.ssh_known_hosts_contents = kwargs.get('ssh_known_hosts_contents', None)
+        self.enable_helm_operator = kwargs.get('enable_helm_operator', None)
+        self.helm_operator_properties = kwargs.get('helm_operator_properties', None)
