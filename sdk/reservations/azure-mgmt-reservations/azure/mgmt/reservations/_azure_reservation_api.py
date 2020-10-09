@@ -20,6 +20,7 @@ from .operations import AutoQuotaIncreaseOperations
 from .operations import ReservationOperations
 from .operations import ReservationOrderOperations
 from .operations import OperationOperations
+from .operations import OperationResultsOperations
 from . import models
 
 
@@ -41,6 +42,8 @@ class AzureReservationAPI(AzureReservationAPIOperationsMixin, SDKClient):
     :vartype reservation_order: azure.mgmt.reservations.operations.ReservationOrderOperations
     :ivar operation: Operation operations
     :vartype operation: azure.mgmt.reservations.operations.OperationOperations
+    :ivar operation_results: OperationResults operations
+    :vartype operation_results: azure.mgmt.reservations.operations.OperationResultsOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -69,4 +72,6 @@ class AzureReservationAPI(AzureReservationAPIOperationsMixin, SDKClient):
         self.reservation_order = ReservationOrderOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.operation = OperationOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.operation_results = OperationResultsOperations(
             self._client, self.config, self._serialize, self._deserialize)
