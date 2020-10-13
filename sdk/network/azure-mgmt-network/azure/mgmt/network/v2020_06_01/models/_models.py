@@ -6712,7 +6712,7 @@ class EffectiveRoutesParameters(Model):
 
     :param resource_id: The resource whose effective routes are being
      requested.
-    :type resource_id: ~azure.mgmt.network.v2020_06_01.models.Resource
+    :type resource_id: str
     :param virtual_wan_resource_type: The type of the specified resource like
      RouteTable, ExpressRouteConnection, HubVirtualNetworkConnection,
      VpnConnection and P2SConnection.
@@ -6720,7 +6720,7 @@ class EffectiveRoutesParameters(Model):
     """
 
     _attribute_map = {
-        'resource_id': {'key': 'resourceId', 'type': 'Resource'},
+        'resource_id': {'key': 'resourceId', 'type': 'str'},
         'virtual_wan_resource_type': {'key': 'virtualWanResourceType', 'type': 'str'},
     }
 
@@ -9522,12 +9522,10 @@ class HubRouteTable(SubResource):
     :type labels: list[str]
     :ivar associated_connections: List of all connections associated with this
      route table.
-    :vartype associated_connections:
-     list[~azure.mgmt.network.v2020_06_01.models.SubResource]
+    :vartype associated_connections: list[str]
     :ivar propagating_connections: List of all connections that advertise to
      this route table.
-    :vartype propagating_connections:
-     list[~azure.mgmt.network.v2020_06_01.models.SubResource]
+    :vartype propagating_connections: list[str]
     :ivar provisioning_state: The provisioning state of the RouteTable
      resource. Possible values include: 'Succeeded', 'Updating', 'Deleting',
      'Failed'
@@ -9555,8 +9553,8 @@ class HubRouteTable(SubResource):
         'id': {'key': 'id', 'type': 'str'},
         'routes': {'key': 'properties.routes', 'type': '[HubRoute]'},
         'labels': {'key': 'properties.labels', 'type': '[str]'},
-        'associated_connections': {'key': 'properties.associatedConnections', 'type': '[SubResource]'},
-        'propagating_connections': {'key': 'properties.propagatingConnections', 'type': '[SubResource]'},
+        'associated_connections': {'key': 'properties.associatedConnections', 'type': '[str]'},
+        'propagating_connections': {'key': 'properties.propagatingConnections', 'type': '[str]'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'etag': {'key': 'etag', 'type': 'str'},
@@ -16715,9 +16713,9 @@ class VirtualHub(Resource):
     :type virtual_router_asn: long
     :param virtual_router_ips: VirtualRouter IPs.
     :type virtual_router_ips: list[str]
-    :param enable_virtual_router_route_propogation: Flag to control route
-     propogation for VirtualRouter hub.
-    :type enable_virtual_router_route_propogation: bool
+    :param allow_branch_to_branch_traffic: Flag to control transit for
+     VirtualRouter hub.
+    :type allow_branch_to_branch_traffic: bool
     :ivar etag: A unique read-only string that changes whenever the resource
      is updated.
     :vartype etag: str
@@ -16756,7 +16754,7 @@ class VirtualHub(Resource):
         'ip_configurations': {'key': 'properties.ipConfigurations', 'type': '[SubResource]'},
         'virtual_router_asn': {'key': 'properties.virtualRouterAsn', 'type': 'long'},
         'virtual_router_ips': {'key': 'properties.virtualRouterIps', 'type': '[str]'},
-        'enable_virtual_router_route_propogation': {'key': 'properties.enableVirtualRouterRoutePropogation', 'type': 'bool'},
+        'allow_branch_to_branch_traffic': {'key': 'properties.allowBranchToBranchTraffic', 'type': 'bool'},
         'etag': {'key': 'etag', 'type': 'str'},
     }
 
@@ -16779,7 +16777,7 @@ class VirtualHub(Resource):
         self.ip_configurations = None
         self.virtual_router_asn = kwargs.get('virtual_router_asn', None)
         self.virtual_router_ips = kwargs.get('virtual_router_ips', None)
-        self.enable_virtual_router_route_propogation = kwargs.get('enable_virtual_router_route_propogation', None)
+        self.allow_branch_to_branch_traffic = kwargs.get('allow_branch_to_branch_traffic', None)
         self.etag = None
 
 
@@ -16815,7 +16813,7 @@ class VirtualHubEffectiveRoute(Model):
         self.route_origin = kwargs.get('route_origin', None)
 
 
-class VirtualHubEffectiveRouteEffectiveRouteList(Model):
+class VirtualHubEffectiveRouteList(Model):
     """EffectiveRoutes List.
 
     :param value: The list of effective routes configured on the virtual hub
@@ -16829,7 +16827,7 @@ class VirtualHubEffectiveRouteEffectiveRouteList(Model):
     }
 
     def __init__(self, **kwargs):
-        super(VirtualHubEffectiveRouteEffectiveRouteList, self).__init__(**kwargs)
+        super(VirtualHubEffectiveRouteList, self).__init__(**kwargs)
         self.value = kwargs.get('value', None)
 
 

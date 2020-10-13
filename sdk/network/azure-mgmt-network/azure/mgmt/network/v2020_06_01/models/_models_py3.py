@@ -6712,7 +6712,7 @@ class EffectiveRoutesParameters(Model):
 
     :param resource_id: The resource whose effective routes are being
      requested.
-    :type resource_id: ~azure.mgmt.network.v2020_06_01.models.Resource
+    :type resource_id: str
     :param virtual_wan_resource_type: The type of the specified resource like
      RouteTable, ExpressRouteConnection, HubVirtualNetworkConnection,
      VpnConnection and P2SConnection.
@@ -6720,11 +6720,11 @@ class EffectiveRoutesParameters(Model):
     """
 
     _attribute_map = {
-        'resource_id': {'key': 'resourceId', 'type': 'Resource'},
+        'resource_id': {'key': 'resourceId', 'type': 'str'},
         'virtual_wan_resource_type': {'key': 'virtualWanResourceType', 'type': 'str'},
     }
 
-    def __init__(self, *, resource_id=None, virtual_wan_resource_type: str=None, **kwargs) -> None:
+    def __init__(self, *, resource_id: str=None, virtual_wan_resource_type: str=None, **kwargs) -> None:
         super(EffectiveRoutesParameters, self).__init__(**kwargs)
         self.resource_id = resource_id
         self.virtual_wan_resource_type = virtual_wan_resource_type
@@ -9522,12 +9522,10 @@ class HubRouteTable(SubResource):
     :type labels: list[str]
     :ivar associated_connections: List of all connections associated with this
      route table.
-    :vartype associated_connections:
-     list[~azure.mgmt.network.v2020_06_01.models.SubResource]
+    :vartype associated_connections: list[str]
     :ivar propagating_connections: List of all connections that advertise to
      this route table.
-    :vartype propagating_connections:
-     list[~azure.mgmt.network.v2020_06_01.models.SubResource]
+    :vartype propagating_connections: list[str]
     :ivar provisioning_state: The provisioning state of the RouteTable
      resource. Possible values include: 'Succeeded', 'Updating', 'Deleting',
      'Failed'
@@ -9555,8 +9553,8 @@ class HubRouteTable(SubResource):
         'id': {'key': 'id', 'type': 'str'},
         'routes': {'key': 'properties.routes', 'type': '[HubRoute]'},
         'labels': {'key': 'properties.labels', 'type': '[str]'},
-        'associated_connections': {'key': 'properties.associatedConnections', 'type': '[SubResource]'},
-        'propagating_connections': {'key': 'properties.propagatingConnections', 'type': '[SubResource]'},
+        'associated_connections': {'key': 'properties.associatedConnections', 'type': '[str]'},
+        'propagating_connections': {'key': 'properties.propagatingConnections', 'type': '[str]'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'etag': {'key': 'etag', 'type': 'str'},
@@ -16715,9 +16713,9 @@ class VirtualHub(Resource):
     :type virtual_router_asn: long
     :param virtual_router_ips: VirtualRouter IPs.
     :type virtual_router_ips: list[str]
-    :param enable_virtual_router_route_propogation: Flag to control route
-     propogation for VirtualRouter hub.
-    :type enable_virtual_router_route_propogation: bool
+    :param allow_branch_to_branch_traffic: Flag to control transit for
+     VirtualRouter hub.
+    :type allow_branch_to_branch_traffic: bool
     :ivar etag: A unique read-only string that changes whenever the resource
      is updated.
     :vartype etag: str
@@ -16756,11 +16754,11 @@ class VirtualHub(Resource):
         'ip_configurations': {'key': 'properties.ipConfigurations', 'type': '[SubResource]'},
         'virtual_router_asn': {'key': 'properties.virtualRouterAsn', 'type': 'long'},
         'virtual_router_ips': {'key': 'properties.virtualRouterIps', 'type': '[str]'},
-        'enable_virtual_router_route_propogation': {'key': 'properties.enableVirtualRouterRoutePropogation', 'type': 'bool'},
+        'allow_branch_to_branch_traffic': {'key': 'properties.allowBranchToBranchTraffic', 'type': 'bool'},
         'etag': {'key': 'etag', 'type': 'str'},
     }
 
-    def __init__(self, *, id: str=None, location: str=None, tags=None, virtual_wan=None, vpn_gateway=None, p2_svpn_gateway=None, express_route_gateway=None, azure_firewall=None, security_partner_provider=None, address_prefix: str=None, route_table=None, security_provider_name: str=None, virtual_hub_route_table_v2s=None, sku: str=None, routing_state=None, virtual_router_asn: int=None, virtual_router_ips=None, enable_virtual_router_route_propogation: bool=None, **kwargs) -> None:
+    def __init__(self, *, id: str=None, location: str=None, tags=None, virtual_wan=None, vpn_gateway=None, p2_svpn_gateway=None, express_route_gateway=None, azure_firewall=None, security_partner_provider=None, address_prefix: str=None, route_table=None, security_provider_name: str=None, virtual_hub_route_table_v2s=None, sku: str=None, routing_state=None, virtual_router_asn: int=None, virtual_router_ips=None, allow_branch_to_branch_traffic: bool=None, **kwargs) -> None:
         super(VirtualHub, self).__init__(id=id, location=location, tags=tags, **kwargs)
         self.virtual_wan = virtual_wan
         self.vpn_gateway = vpn_gateway
@@ -16779,7 +16777,7 @@ class VirtualHub(Resource):
         self.ip_configurations = None
         self.virtual_router_asn = virtual_router_asn
         self.virtual_router_ips = virtual_router_ips
-        self.enable_virtual_router_route_propogation = enable_virtual_router_route_propogation
+        self.allow_branch_to_branch_traffic = allow_branch_to_branch_traffic
         self.etag = None
 
 
@@ -16815,7 +16813,7 @@ class VirtualHubEffectiveRoute(Model):
         self.route_origin = route_origin
 
 
-class VirtualHubEffectiveRouteEffectiveRouteList(Model):
+class VirtualHubEffectiveRouteList(Model):
     """EffectiveRoutes List.
 
     :param value: The list of effective routes configured on the virtual hub
@@ -16829,7 +16827,7 @@ class VirtualHubEffectiveRouteEffectiveRouteList(Model):
     }
 
     def __init__(self, *, value=None, **kwargs) -> None:
-        super(VirtualHubEffectiveRouteEffectiveRouteList, self).__init__(**kwargs)
+        super(VirtualHubEffectiveRouteList, self).__init__(**kwargs)
         self.value = value
 
 
