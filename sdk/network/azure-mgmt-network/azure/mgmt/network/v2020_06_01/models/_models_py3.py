@@ -8055,21 +8055,21 @@ class EffectiveRoutesParameters(msrest.serialization.Model):
     """The parameters specifying the resource whose effective routes are being requested.
 
     :param resource_id: The resource whose effective routes are being requested.
-    :type resource_id: ~azure.mgmt.network.v2020_06_01.models.Resource
+    :type resource_id: str
     :param virtual_wan_resource_type: The type of the specified resource like RouteTable,
      ExpressRouteConnection, HubVirtualNetworkConnection, VpnConnection and P2SConnection.
     :type virtual_wan_resource_type: str
     """
 
     _attribute_map = {
-        'resource_id': {'key': 'resourceId', 'type': 'Resource'},
+        'resource_id': {'key': 'resourceId', 'type': 'str'},
         'virtual_wan_resource_type': {'key': 'virtualWanResourceType', 'type': 'str'},
     }
 
     def __init__(
         self,
         *,
-        resource_id: Optional["Resource"] = None,
+        resource_id: Optional[str] = None,
         virtual_wan_resource_type: Optional[str] = None,
         **kwargs
     ):
@@ -11524,9 +11524,9 @@ class HubRouteTable(SubResource):
     :param labels: List of labels associated with this route table.
     :type labels: list[str]
     :ivar associated_connections: List of all connections associated with this route table.
-    :vartype associated_connections: list[~azure.mgmt.network.v2020_06_01.models.SubResource]
+    :vartype associated_connections: list[str]
     :ivar propagating_connections: List of all connections that advertise to this route table.
-    :vartype propagating_connections: list[~azure.mgmt.network.v2020_06_01.models.SubResource]
+    :vartype propagating_connections: list[str]
     :ivar provisioning_state: The provisioning state of the RouteTable resource. Possible values
      include: "Succeeded", "Updating", "Deleting", "Failed".
     :vartype provisioning_state: str or ~azure.mgmt.network.v2020_06_01.models.ProvisioningState
@@ -11547,8 +11547,8 @@ class HubRouteTable(SubResource):
         'type': {'key': 'type', 'type': 'str'},
         'routes': {'key': 'properties.routes', 'type': '[HubRoute]'},
         'labels': {'key': 'properties.labels', 'type': '[str]'},
-        'associated_connections': {'key': 'properties.associatedConnections', 'type': '[SubResource]'},
-        'propagating_connections': {'key': 'properties.propagatingConnections', 'type': '[SubResource]'},
+        'associated_connections': {'key': 'properties.associatedConnections', 'type': '[str]'},
+        'propagating_connections': {'key': 'properties.propagatingConnections', 'type': '[str]'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
     }
 
@@ -20858,9 +20858,8 @@ class VirtualHub(Resource):
     :type virtual_router_asn: long
     :param virtual_router_ips: VirtualRouter IPs.
     :type virtual_router_ips: list[str]
-    :param enable_virtual_router_route_propogation: Flag to control route propogation for
-     VirtualRouter hub.
-    :type enable_virtual_router_route_propogation: bool
+    :param allow_branch_to_branch_traffic: Flag to control transit for VirtualRouter hub.
+    :type allow_branch_to_branch_traffic: bool
     """
 
     _validation = {
@@ -20898,7 +20897,7 @@ class VirtualHub(Resource):
         'ip_configurations': {'key': 'properties.ipConfigurations', 'type': '[SubResource]'},
         'virtual_router_asn': {'key': 'properties.virtualRouterAsn', 'type': 'long'},
         'virtual_router_ips': {'key': 'properties.virtualRouterIps', 'type': '[str]'},
-        'enable_virtual_router_route_propogation': {'key': 'properties.enableVirtualRouterRoutePropogation', 'type': 'bool'},
+        'allow_branch_to_branch_traffic': {'key': 'properties.allowBranchToBranchTraffic', 'type': 'bool'},
     }
 
     def __init__(
@@ -20920,7 +20919,7 @@ class VirtualHub(Resource):
         sku: Optional[str] = None,
         virtual_router_asn: Optional[int] = None,
         virtual_router_ips: Optional[List[str]] = None,
-        enable_virtual_router_route_propogation: Optional[bool] = None,
+        allow_branch_to_branch_traffic: Optional[bool] = None,
         **kwargs
     ):
         super(VirtualHub, self).__init__(id=id, location=location, tags=tags, **kwargs)
@@ -20942,7 +20941,7 @@ class VirtualHub(Resource):
         self.ip_configurations = None
         self.virtual_router_asn = virtual_router_asn
         self.virtual_router_ips = virtual_router_ips
-        self.enable_virtual_router_route_propogation = enable_virtual_router_route_propogation
+        self.allow_branch_to_branch_traffic = allow_branch_to_branch_traffic
 
 
 class VirtualHubEffectiveRoute(msrest.serialization.Model):
