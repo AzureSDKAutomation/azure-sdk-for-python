@@ -14,12 +14,11 @@ from msrest import Serializer, Deserializer
 
 from ._configuration import AzureReservationAPIConfiguration
 from .operations import AzureReservationAPIOperationsMixin
+from .operations import ReservationOrderOperations
+from .operations import ReservationOperations
+from .operations import OperationOperations
 from .operations import QuotaOperations
 from .operations import QuotaRequestStatusOperations
-from .operations import AutoQuotaIncreaseOperations
-from .operations import ReservationOperations
-from .operations import ReservationOrderOperations
-from .operations import OperationOperations
 from . import models
 
 
@@ -29,18 +28,16 @@ class AzureReservationAPI(AzureReservationAPIOperationsMixin, SDKClient):
     :ivar config: Configuration for client.
     :vartype config: AzureReservationAPIConfiguration
 
+    :ivar reservation_order: ReservationOrder operations
+    :vartype reservation_order: azure.mgmt.reservations.operations.ReservationOrderOperations
+    :ivar reservation: Reservation operations
+    :vartype reservation: azure.mgmt.reservations.operations.ReservationOperations
+    :ivar operation: Operation operations
+    :vartype operation: azure.mgmt.reservations.operations.OperationOperations
     :ivar quota: Quota operations
     :vartype quota: azure.mgmt.reservations.operations.QuotaOperations
     :ivar quota_request_status: QuotaRequestStatus operations
     :vartype quota_request_status: azure.mgmt.reservations.operations.QuotaRequestStatusOperations
-    :ivar auto_quota_increase: AutoQuotaIncrease operations
-    :vartype auto_quota_increase: azure.mgmt.reservations.operations.AutoQuotaIncreaseOperations
-    :ivar reservation: Reservation operations
-    :vartype reservation: azure.mgmt.reservations.operations.ReservationOperations
-    :ivar reservation_order: ReservationOrder operations
-    :vartype reservation_order: azure.mgmt.reservations.operations.ReservationOrderOperations
-    :ivar operation: Operation operations
-    :vartype operation: azure.mgmt.reservations.operations.OperationOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -58,15 +55,13 @@ class AzureReservationAPI(AzureReservationAPIOperationsMixin, SDKClient):
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
-        self.quota = QuotaOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.quota_request_status = QuotaRequestStatusOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.auto_quota_increase = AutoQuotaIncreaseOperations(
+        self.reservation_order = ReservationOrderOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.reservation = ReservationOperations(
             self._client, self.config, self._serialize, self._deserialize)
-        self.reservation_order = ReservationOrderOperations(
-            self._client, self.config, self._serialize, self._deserialize)
         self.operation = OperationOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.quota = QuotaOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.quota_request_status = QuotaRequestStatusOperations(
             self._client, self.config, self._serialize, self._deserialize)

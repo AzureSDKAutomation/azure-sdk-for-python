@@ -19,18 +19,12 @@ import uuid
 class AzureReservationAPIOperationsMixin(object):
 
     def get_catalog(
-            self, subscription_id, reserved_resource_type, location=None, custom_headers=None, raw=False, **operation_config):
+            self, subscription_id, custom_headers=None, raw=False, **operation_config):
         """Get the regions and skus that are available for RI purchase for the
         specified Azure subscription.
 
         :param subscription_id: Id of the subscription
         :type subscription_id: str
-        :param reserved_resource_type: The type of the resource for which the
-         skus should be provided.
-        :type reserved_resource_type: str
-        :param location: Filters the skus based on the location specified in
-         this parameter. This can be an azure region or global
-        :type location: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -42,7 +36,7 @@ class AzureReservationAPIOperationsMixin(object):
         :raises:
          :class:`ErrorException<azure.mgmt.reservations.models.ErrorException>`
         """
-        api_version = "2019-04-01"
+        api_version = "2017-11-01"
 
         # Construct URL
         url = self.get_catalog.metadata['url']
@@ -54,9 +48,6 @@ class AzureReservationAPIOperationsMixin(object):
         # Construct parameters
         query_parameters = {}
         query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
-        query_parameters['reservedResourceType'] = self._serialize.query("reserved_resource_type", reserved_resource_type, 'str')
-        if location is not None:
-            query_parameters['location'] = self._serialize.query("location", location, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -90,8 +81,7 @@ class AzureReservationAPIOperationsMixin(object):
             self, subscription_id, custom_headers=None, raw=False, **operation_config):
         """Get list of applicable `Reservation`s.
 
-        Get applicable `Reservation`s that are applied to this subscription or
-        a resource group under this subscription.
+        Get applicable `Reservation`s that are applied to this subscription.
 
         :param subscription_id: Id of the subscription
         :type subscription_id: str
@@ -106,7 +96,7 @@ class AzureReservationAPIOperationsMixin(object):
         :raises:
          :class:`ErrorException<azure.mgmt.reservations.models.ErrorException>`
         """
-        api_version = "2019-04-01"
+        api_version = "2017-11-01"
 
         # Construct URL
         url = self.get_applied_reservation_list.metadata['url']
