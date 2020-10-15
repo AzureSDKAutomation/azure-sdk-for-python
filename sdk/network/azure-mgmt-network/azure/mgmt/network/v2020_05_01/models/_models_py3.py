@@ -4066,26 +4066,6 @@ class BastionHostIPConfiguration(SubResource):
         self.type = None
 
 
-class BastionHostListResult(Model):
-    """Response for ListBastionHosts API service call.
-
-    :param value: List of Bastion Hosts in a resource group.
-    :type value: list[~azure.mgmt.network.v2020_05_01.models.BastionHost]
-    :param next_link: URL to get the next set of results.
-    :type next_link: str
-    """
-
-    _attribute_map = {
-        'value': {'key': 'value', 'type': '[BastionHost]'},
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-    }
-
-    def __init__(self, *, value=None, next_link: str=None, **kwargs) -> None:
-        super(BastionHostListResult, self).__init__(**kwargs)
-        self.value = value
-        self.next_link = next_link
-
-
 class BastionSessionState(Model):
     """The session state detail for a target.
 
