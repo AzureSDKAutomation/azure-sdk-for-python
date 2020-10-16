@@ -9,9 +9,9 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from ._configuration import AzureMachineLearningWorkspacesConfiguration
-from ._azure_machine_learning_workspaces import AzureMachineLearningWorkspaces
-__all__ = ['AzureMachineLearningWorkspaces', 'AzureMachineLearningWorkspacesConfiguration']
+from ._configuration import AzureMachineLearningWorkspacesDummyChangeConfiguration
+from ._azure_machine_learning_workspaces_dummy_change import AzureMachineLearningWorkspacesDummyChange
+__all__ = ['AzureMachineLearningWorkspacesDummyChange', 'AzureMachineLearningWorkspacesDummyChangeConfiguration']
 
 from .version import VERSION
 

@@ -13,8 +13,8 @@ from msrestazure import AzureConfiguration
 from .version import VERSION
 
 
-class AzureMachineLearningWorkspacesConfiguration(AzureConfiguration):
-    """Configuration for AzureMachineLearningWorkspaces
+class AzureMachineLearningWorkspacesDummyChangeConfiguration(AzureConfiguration):
+    """Configuration for AzureMachineLearningWorkspacesDummyChange
     Note that all parameters used to create this instance are saved as instance
     attributes.
 
@@ -36,7 +36,7 @@ class AzureMachineLearningWorkspacesConfiguration(AzureConfiguration):
         if not base_url:
             base_url = 'https://management.azure.com'
 
-        super(AzureMachineLearningWorkspacesConfiguration, self).__init__(base_url)
+        super(AzureMachineLearningWorkspacesDummyChangeConfiguration, self).__init__(base_url)
 
         # Starting Autorest.Python 4.0.64, make connection pool activated by default
         self.keep_alive = True
