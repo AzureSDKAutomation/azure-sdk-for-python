@@ -42,6 +42,7 @@ try:
     from ._models_py3 import DiskEncryptionSetParameters
     from ._models_py3 import DiskEncryptionSettings
     from ._models_py3 import DiskInstanceView
+    from ._models_py3 import ExtendedLocation
     from ._models_py3 import HardwareProfile
     from ._models_py3 import Image
     from ._models_py3 import ImageDataDisk
@@ -132,6 +133,10 @@ try:
     from ._models_py3 import VirtualMachineInstanceView
     from ._models_py3 import VirtualMachinePatchStatus
     from ._models_py3 import VirtualMachineReimageParameters
+    from ._models_py3 import VirtualMachineRunCommand
+    from ._models_py3 import VirtualMachineRunCommandInstanceView
+    from ._models_py3 import VirtualMachineRunCommandScriptSource
+    from ._models_py3 import VirtualMachineRunCommandUpdate
     from ._models_py3 import VirtualMachineScaleSet
     from ._models_py3 import VirtualMachineScaleSetDataDisk
     from ._models_py3 import VirtualMachineScaleSetExtension
@@ -214,6 +219,7 @@ except (SyntaxError, ImportError):
     from ._models import DiskEncryptionSetParameters
     from ._models import DiskEncryptionSettings
     from ._models import DiskInstanceView
+    from ._models import ExtendedLocation
     from ._models import HardwareProfile
     from ._models import Image
     from ._models import ImageDataDisk
@@ -304,6 +310,10 @@ except (SyntaxError, ImportError):
     from ._models import VirtualMachineInstanceView
     from ._models import VirtualMachinePatchStatus
     from ._models import VirtualMachineReimageParameters
+    from ._models import VirtualMachineRunCommand
+    from ._models import VirtualMachineRunCommandInstanceView
+    from ._models import VirtualMachineRunCommandScriptSource
+    from ._models import VirtualMachineRunCommandUpdate
     from ._models import VirtualMachineScaleSet
     from ._models import VirtualMachineScaleSetDataDisk
     from ._models import VirtualMachineScaleSetExtension
@@ -364,6 +374,7 @@ from ._paged_models import SshPublicKeyResourcePaged
 from ._paged_models import UpgradeOperationHistoricalStatusInfoPaged
 from ._paged_models import UsagePaged
 from ._paged_models import VirtualMachinePaged
+from ._paged_models import VirtualMachineRunCommandPaged
 from ._paged_models import VirtualMachineScaleSetExtensionPaged
 from ._paged_models import VirtualMachineScaleSetPaged
 from ._paged_models import VirtualMachineScaleSetSkuPaged
@@ -408,8 +419,10 @@ from ._compute_management_client_enums import (
     UpgradeOperationInvoker,
     RollingUpgradeStatusCode,
     RollingUpgradeActionType,
+    ExtendedLocationTypes,
     IntervalInMins,
     OrchestrationServiceStateAction,
+    ExecutionState,
     InstanceViewTypes,
 )
 
@@ -446,6 +459,7 @@ __all__ = [
     'DiskEncryptionSetParameters',
     'DiskEncryptionSettings',
     'DiskInstanceView',
+    'ExtendedLocation',
     'HardwareProfile',
     'Image',
     'ImageDataDisk',
@@ -536,6 +550,10 @@ __all__ = [
     'VirtualMachineInstanceView',
     'VirtualMachinePatchStatus',
     'VirtualMachineReimageParameters',
+    'VirtualMachineRunCommand',
+    'VirtualMachineRunCommandInstanceView',
+    'VirtualMachineRunCommandScriptSource',
+    'VirtualMachineRunCommandUpdate',
     'VirtualMachineScaleSet',
     'VirtualMachineScaleSetDataDisk',
     'VirtualMachineScaleSetExtension',
@@ -601,6 +619,7 @@ __all__ = [
     'VirtualMachineScaleSetExtensionPaged',
     'VirtualMachineScaleSetVMPaged',
     'RunCommandDocumentBasePaged',
+    'VirtualMachineRunCommandPaged',
     'VmDiskTypes',
     'HyperVGenerationTypes',
     'StatusLevelTypes',
@@ -639,7 +658,9 @@ __all__ = [
     'UpgradeOperationInvoker',
     'RollingUpgradeStatusCode',
     'RollingUpgradeActionType',
+    'ExtendedLocationTypes',
     'IntervalInMins',
     'OrchestrationServiceStateAction',
+    'ExecutionState',
     'InstanceViewTypes',
 ]

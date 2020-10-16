@@ -430,6 +430,11 @@ class RollingUpgradeActionType(str, Enum):
     cancel = "Cancel"
 
 
+class ExtendedLocationTypes(str, Enum):
+
+    edge_zone = "EdgeZone"
+
+
 class IntervalInMins(str, Enum):
 
     three_mins = "ThreeMins"
@@ -442,6 +447,17 @@ class OrchestrationServiceStateAction(str, Enum):
 
     resume = "Resume"
     suspend = "Suspend"
+
+
+class ExecutionState(str, Enum):
+
+    unknown = "Unknown"
+    pending = "Pending"
+    running = "Running"
+    failed = "Failed"
+    succeeded = "Succeeded"
+    timed_out = "TimedOut"
+    canceled = "Canceled"
 
 
 class InstanceViewTypes(str, Enum):
