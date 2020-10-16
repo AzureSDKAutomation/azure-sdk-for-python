@@ -927,7 +927,7 @@ class DedicatedHost(Resource):
         'type': {'readonly': True},
         'location': {'required': True},
         'sku': {'required': True},
-        'platform_fault_domain': {'maximum': 2, 'minimum': 0},
+        'platform_fault_domain': {'minimum': 0},
         'host_id': {'readonly': True},
         'virtual_machines': {'readonly': True},
         'provisioning_time': {'readonly': True},
@@ -1053,7 +1053,7 @@ class DedicatedHostGroup(Resource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'location': {'required': True},
-        'platform_fault_domain_count': {'maximum': 3, 'minimum': 1},
+        'platform_fault_domain_count': {'minimum': 1},
         'hosts': {'readonly': True},
         'instance_view': {'readonly': True},
     }
@@ -1159,7 +1159,7 @@ class DedicatedHostGroupUpdate(UpdateResource):
     """
 
     _validation = {
-        'platform_fault_domain_count': {'maximum': 3, 'minimum': 1},
+        'platform_fault_domain_count': {'minimum': 1},
         'hosts': {'readonly': True},
         'instance_view': {'readonly': True},
     }
@@ -1317,7 +1317,7 @@ class DedicatedHostUpdate(UpdateResource):
     """
 
     _validation = {
-        'platform_fault_domain': {'maximum': 2, 'minimum': 0},
+        'platform_fault_domain': {'minimum': 0},
         'host_id': {'readonly': True},
         'virtual_machines': {'readonly': True},
         'provisioning_time': {'readonly': True},
@@ -1518,6 +1518,36 @@ class DiskInstanceView(msrest.serialization.Model):
         self.statuses = kwargs.get('statuses', None)
 
 
+class ExtendedLocation(msrest.serialization.Model):
+    """ExtendedLocation complex type.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. The name of the extended location.
+    :type name: str
+    :param type: Required. The type of the extended location. Possible values include: "EdgeZone".
+    :type type: str or ~azure.mgmt.compute.v2020_06_01.models.ExtendedLocationTypes
+    """
+
+    _validation = {
+        'name': {'required': True},
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(ExtendedLocation, self).__init__(**kwargs)
+        self.name = kwargs['name']
+        self.type = kwargs['type']
+
+
 class HardwareProfile(msrest.serialization.Model):
     """Specifies the hardware settings for the virtual machine.
 
@@ -1599,6 +1629,8 @@ class Image(Resource):
     :type location: str
     :param tags: A set of tags. Resource tags.
     :type tags: dict[str, str]
+    :param extended_location: The extended location of the Image.
+    :type extended_location: ~azure.mgmt.compute.v2020_06_01.models.ExtendedLocation
     :param source_virtual_machine: The source virtual machine from which Image is created.
     :type source_virtual_machine: ~azure.mgmt.compute.v2020_06_01.models.SubResource
     :param storage_profile: Specifies the storage settings for the virtual machine disks.
@@ -1624,6 +1656,7 @@ class Image(Resource):
         'type': {'key': 'type', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'extended_location': {'key': 'extendedLocation', 'type': 'ExtendedLocation'},
         'source_virtual_machine': {'key': 'properties.sourceVirtualMachine', 'type': 'SubResource'},
         'storage_profile': {'key': 'properties.storageProfile', 'type': 'ImageStorageProfile'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
@@ -1635,6 +1668,7 @@ class Image(Resource):
         **kwargs
     ):
         super(Image, self).__init__(**kwargs)
+        self.extended_location = kwargs.get('extended_location', None)
         self.source_virtual_machine = kwargs.get('source_virtual_machine', None)
         self.storage_profile = kwargs.get('storage_profile', None)
         self.provisioning_state = None
@@ -4332,6 +4366,8 @@ class VirtualMachine(Resource):
     :type identity: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineIdentity
     :param zones: The virtual machine zones.
     :type zones: list[str]
+    :param extended_location: The extended location of the Virtual Machine.
+    :type extended_location: ~azure.mgmt.compute.v2020_06_01.models.ExtendedLocation
     :param hardware_profile: Specifies the hardware settings for the virtual machine.
     :type hardware_profile: ~azure.mgmt.compute.v2020_06_01.models.HardwareProfile
     :param storage_profile: Specifies the storage settings for the virtual machine disks.
@@ -4444,6 +4480,7 @@ class VirtualMachine(Resource):
         'resources': {'key': 'resources', 'type': '[VirtualMachineExtension]'},
         'identity': {'key': 'identity', 'type': 'VirtualMachineIdentity'},
         'zones': {'key': 'zones', 'type': '[str]'},
+        'extended_location': {'key': 'extendedLocation', 'type': 'ExtendedLocation'},
         'hardware_profile': {'key': 'properties.hardwareProfile', 'type': 'HardwareProfile'},
         'storage_profile': {'key': 'properties.storageProfile', 'type': 'StorageProfile'},
         'additional_capabilities': {'key': 'properties.additionalCapabilities', 'type': 'AdditionalCapabilities'},
@@ -4475,6 +4512,7 @@ class VirtualMachine(Resource):
         self.resources = None
         self.identity = kwargs.get('identity', None)
         self.zones = kwargs.get('zones', None)
+        self.extended_location = kwargs.get('extended_location', None)
         self.hardware_profile = kwargs.get('hardware_profile', None)
         self.storage_profile = kwargs.get('storage_profile', None)
         self.additional_capabilities = kwargs.get('additional_capabilities', None)
@@ -5306,6 +5344,278 @@ class VirtualMachineReimageParameters(msrest.serialization.Model):
         self.temp_disk = kwargs.get('temp_disk', None)
 
 
+class VirtualMachineRunCommand(Resource):
+    """Describes a Virtual Machine run command.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Resource Id.
+    :vartype id: str
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param location: Required. Resource location.
+    :type location: str
+    :param tags: A set of tags. Resource tags.
+    :type tags: dict[str, str]
+    :param source: The source of the run command script.
+    :type source: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineRunCommandScriptSource
+    :param parameters: The parameters used by the script.
+    :type parameters: list[~azure.mgmt.compute.v2020_06_01.models.RunCommandInputParameter]
+    :param protected_parameters: The parameters used by the script.
+    :type protected_parameters:
+     list[~azure.mgmt.compute.v2020_06_01.models.RunCommandInputParameter]
+    :param async_execution: Optional. If set to true, provisioning will complete as soon as the
+     script starts and will not wait for script to complete.
+    :type async_execution: bool
+    :param run_as_user: Specifies the user account on the VM when executing the run command.
+    :type run_as_user: str
+    :param run_as_password: Specifies the user account password on the VM when executing the run
+     command.
+    :type run_as_password: str
+    :param timeout_in_seconds: The timeout in seconds to execute the run command.
+    :type timeout_in_seconds: int
+    :param output_blob_uri: Specifies the Azure storage blob where script output stream will be
+     uploaded.
+    :type output_blob_uri: str
+    :param error_blob_uri: Specifies the Azure storage blob where script error stream will be
+     uploaded.
+    :type error_blob_uri: str
+    :ivar provisioning_state: The provisioning state, which only appears in the response.
+    :vartype provisioning_state: str
+    :ivar instance_view: The virtual machine run command instance view.
+    :vartype instance_view:
+     ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineRunCommandInstanceView
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'location': {'required': True},
+        'provisioning_state': {'readonly': True},
+        'instance_view': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'source': {'key': 'properties.source', 'type': 'VirtualMachineRunCommandScriptSource'},
+        'parameters': {'key': 'properties.parameters', 'type': '[RunCommandInputParameter]'},
+        'protected_parameters': {'key': 'properties.protectedParameters', 'type': '[RunCommandInputParameter]'},
+        'async_execution': {'key': 'properties.asyncExecution', 'type': 'bool'},
+        'run_as_user': {'key': 'properties.runAsUser', 'type': 'str'},
+        'run_as_password': {'key': 'properties.runAsPassword', 'type': 'str'},
+        'timeout_in_seconds': {'key': 'properties.timeoutInSeconds', 'type': 'int'},
+        'output_blob_uri': {'key': 'properties.outputBlobUri', 'type': 'str'},
+        'error_blob_uri': {'key': 'properties.errorBlobUri', 'type': 'str'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'instance_view': {'key': 'properties.instanceView', 'type': 'VirtualMachineRunCommandInstanceView'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(VirtualMachineRunCommand, self).__init__(**kwargs)
+        self.source = kwargs.get('source', None)
+        self.parameters = kwargs.get('parameters', None)
+        self.protected_parameters = kwargs.get('protected_parameters', None)
+        self.async_execution = kwargs.get('async_execution', False)
+        self.run_as_user = kwargs.get('run_as_user', None)
+        self.run_as_password = kwargs.get('run_as_password', None)
+        self.timeout_in_seconds = kwargs.get('timeout_in_seconds', None)
+        self.output_blob_uri = kwargs.get('output_blob_uri', None)
+        self.error_blob_uri = kwargs.get('error_blob_uri', None)
+        self.provisioning_state = None
+        self.instance_view = None
+
+
+class VirtualMachineRunCommandInstanceView(msrest.serialization.Model):
+    """The instance view of a virtual machine run command.
+
+    :param execution_state: Script execution status. Possible values include: "Unknown", "Pending",
+     "Running", "Failed", "Succeeded", "TimedOut", "Canceled".
+    :type execution_state: str or ~azure.mgmt.compute.v2020_06_01.models.ExecutionState
+    :param execution_message: Communicate script configuration errors or execution messages.
+    :type execution_message: str
+    :param exit_code: Exit code returned from script execution.
+    :type exit_code: int
+    :param output: Script output stream.
+    :type output: str
+    :param error: Script error stream.
+    :type error: str
+    :param start_time: Script start time.
+    :type start_time: ~datetime.datetime
+    :param end_time: Script end time.
+    :type end_time: ~datetime.datetime
+    :param statuses: The resource status information.
+    :type statuses: list[~azure.mgmt.compute.v2020_06_01.models.InstanceViewStatus]
+    """
+
+    _attribute_map = {
+        'execution_state': {'key': 'executionState', 'type': 'str'},
+        'execution_message': {'key': 'executionMessage', 'type': 'str'},
+        'exit_code': {'key': 'exitCode', 'type': 'int'},
+        'output': {'key': 'output', 'type': 'str'},
+        'error': {'key': 'error', 'type': 'str'},
+        'start_time': {'key': 'startTime', 'type': 'iso-8601'},
+        'end_time': {'key': 'endTime', 'type': 'iso-8601'},
+        'statuses': {'key': 'statuses', 'type': '[InstanceViewStatus]'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(VirtualMachineRunCommandInstanceView, self).__init__(**kwargs)
+        self.execution_state = kwargs.get('execution_state', None)
+        self.execution_message = kwargs.get('execution_message', None)
+        self.exit_code = kwargs.get('exit_code', None)
+        self.output = kwargs.get('output', None)
+        self.error = kwargs.get('error', None)
+        self.start_time = kwargs.get('start_time', None)
+        self.end_time = kwargs.get('end_time', None)
+        self.statuses = kwargs.get('statuses', None)
+
+
+class VirtualMachineRunCommandScriptSource(msrest.serialization.Model):
+    """Describes the script sources for run command.
+
+    :param script: Specifies the script content to be executed on the VM.
+    :type script: str
+    :param script_uri: Specifies the script download location.
+    :type script_uri: str
+    :param command_id: Specifies a commandId of predefined built-in script.
+    :type command_id: str
+    """
+
+    _attribute_map = {
+        'script': {'key': 'script', 'type': 'str'},
+        'script_uri': {'key': 'scriptUri', 'type': 'str'},
+        'command_id': {'key': 'commandId', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(VirtualMachineRunCommandScriptSource, self).__init__(**kwargs)
+        self.script = kwargs.get('script', None)
+        self.script_uri = kwargs.get('script_uri', None)
+        self.command_id = kwargs.get('command_id', None)
+
+
+class VirtualMachineRunCommandsListResult(msrest.serialization.Model):
+    """The List run command operation response.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param value: Required. The list of run commands.
+    :type value: list[~azure.mgmt.compute.v2020_06_01.models.VirtualMachineRunCommand]
+    :param next_link: The uri to fetch the next page of run commands.
+    :type next_link: str
+    """
+
+    _validation = {
+        'value': {'required': True},
+    }
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': '[VirtualMachineRunCommand]'},
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(VirtualMachineRunCommandsListResult, self).__init__(**kwargs)
+        self.value = kwargs['value']
+        self.next_link = kwargs.get('next_link', None)
+
+
+class VirtualMachineRunCommandUpdate(UpdateResource):
+    """Describes a Virtual Machine run command.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :param tags: A set of tags. Resource tags.
+    :type tags: dict[str, str]
+    :param source: The source of the run command script.
+    :type source: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineRunCommandScriptSource
+    :param parameters: The parameters used by the script.
+    :type parameters: list[~azure.mgmt.compute.v2020_06_01.models.RunCommandInputParameter]
+    :param protected_parameters: The parameters used by the script.
+    :type protected_parameters:
+     list[~azure.mgmt.compute.v2020_06_01.models.RunCommandInputParameter]
+    :param async_execution: Optional. If set to true, provisioning will complete as soon as the
+     script starts and will not wait for script to complete.
+    :type async_execution: bool
+    :param run_as_user: Specifies the user account on the VM when executing the run command.
+    :type run_as_user: str
+    :param run_as_password: Specifies the user account password on the VM when executing the run
+     command.
+    :type run_as_password: str
+    :param timeout_in_seconds: The timeout in seconds to execute the run command.
+    :type timeout_in_seconds: int
+    :param output_blob_uri: Specifies the Azure storage blob where script output stream will be
+     uploaded.
+    :type output_blob_uri: str
+    :param error_blob_uri: Specifies the Azure storage blob where script error stream will be
+     uploaded.
+    :type error_blob_uri: str
+    :ivar provisioning_state: The provisioning state, which only appears in the response.
+    :vartype provisioning_state: str
+    :ivar instance_view: The virtual machine run command instance view.
+    :vartype instance_view:
+     ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineRunCommandInstanceView
+    """
+
+    _validation = {
+        'provisioning_state': {'readonly': True},
+        'instance_view': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'source': {'key': 'properties.source', 'type': 'VirtualMachineRunCommandScriptSource'},
+        'parameters': {'key': 'properties.parameters', 'type': '[RunCommandInputParameter]'},
+        'protected_parameters': {'key': 'properties.protectedParameters', 'type': '[RunCommandInputParameter]'},
+        'async_execution': {'key': 'properties.asyncExecution', 'type': 'bool'},
+        'run_as_user': {'key': 'properties.runAsUser', 'type': 'str'},
+        'run_as_password': {'key': 'properties.runAsPassword', 'type': 'str'},
+        'timeout_in_seconds': {'key': 'properties.timeoutInSeconds', 'type': 'int'},
+        'output_blob_uri': {'key': 'properties.outputBlobUri', 'type': 'str'},
+        'error_blob_uri': {'key': 'properties.errorBlobUri', 'type': 'str'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'instance_view': {'key': 'properties.instanceView', 'type': 'VirtualMachineRunCommandInstanceView'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(VirtualMachineRunCommandUpdate, self).__init__(**kwargs)
+        self.source = kwargs.get('source', None)
+        self.parameters = kwargs.get('parameters', None)
+        self.protected_parameters = kwargs.get('protected_parameters', None)
+        self.async_execution = kwargs.get('async_execution', False)
+        self.run_as_user = kwargs.get('run_as_user', None)
+        self.run_as_password = kwargs.get('run_as_password', None)
+        self.timeout_in_seconds = kwargs.get('timeout_in_seconds', None)
+        self.output_blob_uri = kwargs.get('output_blob_uri', None)
+        self.error_blob_uri = kwargs.get('error_blob_uri', None)
+        self.provisioning_state = None
+        self.instance_view = None
+
+
 class VirtualMachineScaleSet(Resource):
     """Describes a Virtual Machine Scale Set.
 
@@ -5336,6 +5646,8 @@ class VirtualMachineScaleSet(Resource):
     :param zones: The virtual machine scale set zones. NOTE: Availability zones can only be set
      when you create the scale set.
     :type zones: list[str]
+    :param extended_location: The extended location of the Virtual Machine Scale Set.
+    :type extended_location: ~azure.mgmt.compute.v2020_06_01.models.ExtendedLocation
     :param upgrade_policy: The upgrade policy.
     :type upgrade_policy: ~azure.mgmt.compute.v2020_06_01.models.UpgradePolicy
     :param automatic_repairs_policy: Policy for automatic repairs.
@@ -5399,6 +5711,7 @@ class VirtualMachineScaleSet(Resource):
         'plan': {'key': 'plan', 'type': 'Plan'},
         'identity': {'key': 'identity', 'type': 'VirtualMachineScaleSetIdentity'},
         'zones': {'key': 'zones', 'type': '[str]'},
+        'extended_location': {'key': 'extendedLocation', 'type': 'ExtendedLocation'},
         'upgrade_policy': {'key': 'properties.upgradePolicy', 'type': 'UpgradePolicy'},
         'automatic_repairs_policy': {'key': 'properties.automaticRepairsPolicy', 'type': 'AutomaticRepairsPolicy'},
         'virtual_machine_profile': {'key': 'properties.virtualMachineProfile', 'type': 'VirtualMachineScaleSetVMProfile'},
@@ -5424,6 +5737,7 @@ class VirtualMachineScaleSet(Resource):
         self.plan = kwargs.get('plan', None)
         self.identity = kwargs.get('identity', None)
         self.zones = kwargs.get('zones', None)
+        self.extended_location = kwargs.get('extended_location', None)
         self.upgrade_policy = kwargs.get('upgrade_policy', None)
         self.automatic_repairs_policy = kwargs.get('automatic_repairs_policy', None)
         self.virtual_machine_profile = kwargs.get('virtual_machine_profile', None)

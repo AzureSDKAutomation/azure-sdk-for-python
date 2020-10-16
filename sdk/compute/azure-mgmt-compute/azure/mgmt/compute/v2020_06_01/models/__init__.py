@@ -45,6 +45,7 @@ try:
     from ._models_py3 import DiskEncryptionSetParameters
     from ._models_py3 import DiskEncryptionSettings
     from ._models_py3 import DiskInstanceView
+    from ._models_py3 import ExtendedLocation
     from ._models_py3 import HardwareProfile
     from ._models_py3 import Image
     from ._models_py3 import ImageDataDisk
@@ -141,6 +142,11 @@ try:
     from ._models_py3 import VirtualMachineListResult
     from ._models_py3 import VirtualMachinePatchStatus
     from ._models_py3 import VirtualMachineReimageParameters
+    from ._models_py3 import VirtualMachineRunCommand
+    from ._models_py3 import VirtualMachineRunCommandInstanceView
+    from ._models_py3 import VirtualMachineRunCommandScriptSource
+    from ._models_py3 import VirtualMachineRunCommandUpdate
+    from ._models_py3 import VirtualMachineRunCommandsListResult
     from ._models_py3 import VirtualMachineScaleSet
     from ._models_py3 import VirtualMachineScaleSetDataDisk
     from ._models_py3 import VirtualMachineScaleSetExtension
@@ -234,6 +240,7 @@ except (SyntaxError, ImportError):
     from ._models import DiskEncryptionSetParameters  # type: ignore
     from ._models import DiskEncryptionSettings  # type: ignore
     from ._models import DiskInstanceView  # type: ignore
+    from ._models import ExtendedLocation  # type: ignore
     from ._models import HardwareProfile  # type: ignore
     from ._models import Image  # type: ignore
     from ._models import ImageDataDisk  # type: ignore
@@ -330,6 +337,11 @@ except (SyntaxError, ImportError):
     from ._models import VirtualMachineListResult  # type: ignore
     from ._models import VirtualMachinePatchStatus  # type: ignore
     from ._models import VirtualMachineReimageParameters  # type: ignore
+    from ._models import VirtualMachineRunCommand  # type: ignore
+    from ._models import VirtualMachineRunCommandInstanceView  # type: ignore
+    from ._models import VirtualMachineRunCommandScriptSource  # type: ignore
+    from ._models import VirtualMachineRunCommandUpdate  # type: ignore
+    from ._models import VirtualMachineRunCommandsListResult  # type: ignore
     from ._models import VirtualMachineScaleSet  # type: ignore
     from ._models import VirtualMachineScaleSetDataDisk  # type: ignore
     from ._models import VirtualMachineScaleSetExtension  # type: ignore
@@ -392,6 +404,8 @@ from ._compute_management_client_enums import (
     DiffDiskOptions,
     DiffDiskPlacement,
     DiskCreateOptionTypes,
+    ExecutionState,
+    ExtendedLocationTypes,
     HyperVGenerationType,
     HyperVGenerationTypes,
     IPVersion,
@@ -465,6 +479,7 @@ __all__ = [
     'DiskEncryptionSetParameters',
     'DiskEncryptionSettings',
     'DiskInstanceView',
+    'ExtendedLocation',
     'HardwareProfile',
     'Image',
     'ImageDataDisk',
@@ -561,6 +576,11 @@ __all__ = [
     'VirtualMachineListResult',
     'VirtualMachinePatchStatus',
     'VirtualMachineReimageParameters',
+    'VirtualMachineRunCommand',
+    'VirtualMachineRunCommandInstanceView',
+    'VirtualMachineRunCommandScriptSource',
+    'VirtualMachineRunCommandUpdate',
+    'VirtualMachineRunCommandsListResult',
     'VirtualMachineScaleSet',
     'VirtualMachineScaleSetDataDisk',
     'VirtualMachineScaleSetExtension',
@@ -621,6 +641,8 @@ __all__ = [
     'DiffDiskOptions',
     'DiffDiskPlacement',
     'DiskCreateOptionTypes',
+    'ExecutionState',
+    'ExtendedLocationTypes',
     'HyperVGenerationType',
     'HyperVGenerationTypes',
     'IPVersion',
