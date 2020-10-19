@@ -673,12 +673,6 @@ class LoadDistribution(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
     SOURCE_IP = "SourceIP"
     SOURCE_IP_PROTOCOL = "SourceIPProtocol"
 
-class ManagedRuleEnabledState(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
-    """The state of the managed rule. Defaults to Disabled if not specified.
-    """
-
-    DISABLED = "Disabled"
-
 class NatGatewaySkuName(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
     """Name of Nat Gateway SKU.
     """
@@ -726,25 +720,6 @@ class OutputType(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
     """
 
     WORKSPACE = "Workspace"
-
-class OwaspCrsExclusionEntryMatchVariable(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
-    """The variable to be excluded.
-    """
-
-    REQUEST_HEADER_NAMES = "RequestHeaderNames"
-    REQUEST_COOKIE_NAMES = "RequestCookieNames"
-    REQUEST_ARG_NAMES = "RequestArgNames"
-
-class OwaspCrsExclusionEntrySelectorMatchOperator(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
-    """When matchVariable is a collection, operate on the selector to specify which elements in the
-    collection this exclusion applies to.
-    """
-
-    EQUALS = "Equals"
-    CONTAINS = "Contains"
-    STARTS_WITH = "StartsWith"
-    ENDS_WITH = "EndsWith"
-    EQUALS_ANY = "EqualsAny"
 
 class PcError(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
 
@@ -1105,83 +1080,3 @@ class VpnType(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
 
     POLICY_BASED = "PolicyBased"
     ROUTE_BASED = "RouteBased"
-
-class WebApplicationFirewallAction(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
-    """Type of Actions.
-    """
-
-    ALLOW = "Allow"
-    BLOCK = "Block"
-    LOG = "Log"
-
-class WebApplicationFirewallEnabledState(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
-    """The state of the policy.
-    """
-
-    DISABLED = "Disabled"
-    ENABLED = "Enabled"
-
-class WebApplicationFirewallMatchVariable(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
-    """Match Variable.
-    """
-
-    REMOTE_ADDR = "RemoteAddr"
-    REQUEST_METHOD = "RequestMethod"
-    QUERY_STRING = "QueryString"
-    POST_ARGS = "PostArgs"
-    REQUEST_URI = "RequestUri"
-    REQUEST_HEADERS = "RequestHeaders"
-    REQUEST_BODY = "RequestBody"
-    REQUEST_COOKIES = "RequestCookies"
-
-class WebApplicationFirewallMode(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
-    """The mode of the policy.
-    """
-
-    PREVENTION = "Prevention"
-    DETECTION = "Detection"
-
-class WebApplicationFirewallOperator(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
-    """The operator to be matched.
-    """
-
-    IP_MATCH = "IPMatch"
-    EQUAL = "Equal"
-    CONTAINS = "Contains"
-    LESS_THAN = "LessThan"
-    GREATER_THAN = "GreaterThan"
-    LESS_THAN_OR_EQUAL = "LessThanOrEqual"
-    GREATER_THAN_OR_EQUAL = "GreaterThanOrEqual"
-    BEGINS_WITH = "BeginsWith"
-    ENDS_WITH = "EndsWith"
-    REGEX = "Regex"
-    GEO_MATCH = "GeoMatch"
-
-class WebApplicationFirewallPolicyResourceState(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
-    """Resource status of the policy.
-    """
-
-    CREATING = "Creating"
-    ENABLING = "Enabling"
-    ENABLED = "Enabled"
-    DISABLING = "Disabling"
-    DISABLED = "Disabled"
-    DELETING = "Deleting"
-
-class WebApplicationFirewallRuleType(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
-    """The rule type.
-    """
-
-    MATCH_RULE = "MatchRule"
-    INVALID = "Invalid"
-
-class WebApplicationFirewallTransform(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
-    """Transforms applied before matching.
-    """
-
-    LOWERCASE = "Lowercase"
-    TRIM = "Trim"
-    URL_DECODE = "UrlDecode"
-    URL_ENCODE = "UrlEncode"
-    REMOVE_NULLS = "RemoveNulls"
-    HTML_ENTITY_DECODE = "HtmlEntityDecode"
