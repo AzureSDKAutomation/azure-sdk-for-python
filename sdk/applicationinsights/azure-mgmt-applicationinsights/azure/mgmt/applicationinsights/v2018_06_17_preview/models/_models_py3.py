@@ -53,6 +53,9 @@ class Resource(Model):
 
     All required parameters must be populated in order to send to Azure.
 
+    :param identity: Identity used for BYOS
+    :type identity:
+     ~azure.mgmt.applicationinsights.v2018_06_17_preview.models.WorkbookIdentity
     :ivar id: Azure resource Id
     :vartype id: str
     :ivar name: Azure resource name. This is GUID value. The display name
@@ -78,6 +81,7 @@ class Resource(Model):
     }
 
     _attribute_map = {
+        'identity': {'key': 'identity', 'type': 'WorkbookIdentity'},
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
@@ -86,8 +90,9 @@ class Resource(Model):
         'tags': {'key': 'tags', 'type': '{str}'},
     }
 
-    def __init__(self, *, location: str, kind=None, tags=None, **kwargs) -> None:
+    def __init__(self, *, location: str, identity=None, kind=None, tags=None, **kwargs) -> None:
         super(Resource, self).__init__(**kwargs)
+        self.identity = identity
         self.id = None
         self.name = None
         self.type = None
@@ -104,6 +109,9 @@ class Workbook(Resource):
 
     All required parameters must be populated in order to send to Azure.
 
+    :param identity: Identity used for BYOS
+    :type identity:
+     ~azure.mgmt.applicationinsights.v2018_06_17_preview.models.WorkbookIdentity
     :ivar id: Azure resource Id
     :vartype id: str
     :ivar name: Azure resource name. This is GUID value. The display name
@@ -136,9 +144,13 @@ class Workbook(Resource):
     :param workbook_tags: A list of 0 or more tags that are associated with
      this workbook definition
     :type workbook_tags: list[str]
-    :param user_id: Required. Unique user id of the specific user that owns
-     this workbook.
-    :type user_id: str
+    :ivar user_id: Unique user id of the specific user that owns this
+     workbook.
+    :vartype user_id: str
+    :param source_id: ResourceId for a source resource.
+    :type source_id: str
+    :param storage_uri: BYOS Storage Account URI
+    :type storage_uri: str
     """
 
     _validation = {
@@ -150,10 +162,11 @@ class Workbook(Resource):
         'serialized_data': {'required': True},
         'time_modified': {'readonly': True},
         'category': {'required': True},
-        'user_id': {'required': True},
+        'user_id': {'readonly': True},
     }
 
     _attribute_map = {
+        'identity': {'key': 'identity', 'type': 'WorkbookIdentity'},
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
@@ -167,17 +180,21 @@ class Workbook(Resource):
         'version': {'key': 'properties.version', 'type': 'str'},
         'workbook_tags': {'key': 'properties.tags', 'type': '[str]'},
         'user_id': {'key': 'properties.userId', 'type': 'str'},
+        'source_id': {'key': 'properties.sourceId', 'type': 'str'},
+        'storage_uri': {'key': 'properties.storageUri', 'type': 'str'},
     }
 
-    def __init__(self, *, location: str, display_name: str, serialized_data: str, category: str, user_id: str, kind=None, tags=None, version: str=None, workbook_tags=None, **kwargs) -> None:
-        super(Workbook, self).__init__(kind=kind, location=location, tags=tags, **kwargs)
+    def __init__(self, *, location: str, display_name: str, serialized_data: str, category: str, identity=None, kind=None, tags=None, version: str=None, workbook_tags=None, source_id: str=None, storage_uri: str=None, **kwargs) -> None:
+        super(Workbook, self).__init__(identity=identity, kind=kind, location=location, tags=tags, **kwargs)
         self.display_name = display_name
         self.serialized_data = serialized_data
         self.time_modified = None
         self.category = category
         self.version = version
         self.workbook_tags = workbook_tags
-        self.user_id = user_id
+        self.user_id = None
+        self.source_id = source_id
+        self.storage_uri = storage_uri
 
 
 class WorkbookError(Model):
@@ -217,6 +234,30 @@ class WorkbookErrorException(HttpOperationError):
     def __init__(self, deserialize, response, *args):
 
         super(WorkbookErrorException, self).__init__(deserialize, response, 'WorkbookError', *args)
+
+
+class WorkbookIdentity(Model):
+    """WorkbookIdentity.
+
+    :param type: identity type
+    :type type: str
+    :param principal_id: principalId
+    :type principal_id: str
+    :param tenant_id: tenantId
+    :type tenant_id: str
+    """
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'principal_id': {'key': 'principalId', 'type': 'str'},
+        'tenant_id': {'key': 'tenantId', 'type': 'str'},
+    }
+
+    def __init__(self, *, type: str=None, principal_id: str=None, tenant_id: str=None, **kwargs) -> None:
+        super(WorkbookIdentity, self).__init__(**kwargs)
+        self.type = type
+        self.principal_id = principal_id
+        self.tenant_id = tenant_id
 
 
 class WorkbookUpdateParameters(Model):

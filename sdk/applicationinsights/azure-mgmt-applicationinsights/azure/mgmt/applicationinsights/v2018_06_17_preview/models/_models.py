@@ -53,6 +53,9 @@ class Resource(Model):
 
     All required parameters must be populated in order to send to Azure.
 
+    :param identity: Identity used for BYOS
+    :type identity:
+     ~azure.mgmt.applicationinsights.v2018_06_17_preview.models.WorkbookIdentity
     :ivar id: Azure resource Id
     :vartype id: str
     :ivar name: Azure resource name. This is GUID value. The display name
@@ -78,6 +81,7 @@ class Resource(Model):
     }
 
     _attribute_map = {
+        'identity': {'key': 'identity', 'type': 'WorkbookIdentity'},
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
@@ -88,6 +92,7 @@ class Resource(Model):
 
     def __init__(self, **kwargs):
         super(Resource, self).__init__(**kwargs)
+        self.identity = kwargs.get('identity', None)
         self.id = None
         self.name = None
         self.type = None
@@ -104,6 +109,9 @@ class Workbook(Resource):
 
     All required parameters must be populated in order to send to Azure.
 
+    :param identity: Identity used for BYOS
+    :type identity:
+     ~azure.mgmt.applicationinsights.v2018_06_17_preview.models.WorkbookIdentity
     :ivar id: Azure resource Id
     :vartype id: str
     :ivar name: Azure resource name. This is GUID value. The display name
@@ -136,9 +144,13 @@ class Workbook(Resource):
     :param workbook_tags: A list of 0 or more tags that are associated with
      this workbook definition
     :type workbook_tags: list[str]
-    :param user_id: Required. Unique user id of the specific user that owns
-     this workbook.
-    :type user_id: str
+    :ivar user_id: Unique user id of the specific user that owns this
+     workbook.
+    :vartype user_id: str
+    :param source_id: ResourceId for a source resource.
+    :type source_id: str
+    :param storage_uri: BYOS Storage Account URI
+    :type storage_uri: str
     """
 
     _validation = {
@@ -150,10 +162,11 @@ class Workbook(Resource):
         'serialized_data': {'required': True},
         'time_modified': {'readonly': True},
         'category': {'required': True},
-        'user_id': {'required': True},
+        'user_id': {'readonly': True},
     }
 
     _attribute_map = {
+        'identity': {'key': 'identity', 'type': 'WorkbookIdentity'},
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
@@ -167,6 +180,8 @@ class Workbook(Resource):
         'version': {'key': 'properties.version', 'type': 'str'},
         'workbook_tags': {'key': 'properties.tags', 'type': '[str]'},
         'user_id': {'key': 'properties.userId', 'type': 'str'},
+        'source_id': {'key': 'properties.sourceId', 'type': 'str'},
+        'storage_uri': {'key': 'properties.storageUri', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -177,7 +192,9 @@ class Workbook(Resource):
         self.category = kwargs.get('category', None)
         self.version = kwargs.get('version', None)
         self.workbook_tags = kwargs.get('workbook_tags', None)
-        self.user_id = kwargs.get('user_id', None)
+        self.user_id = None
+        self.source_id = kwargs.get('source_id', None)
+        self.storage_uri = kwargs.get('storage_uri', None)
 
 
 class WorkbookError(Model):
@@ -217,6 +234,30 @@ class WorkbookErrorException(HttpOperationError):
     def __init__(self, deserialize, response, *args):
 
         super(WorkbookErrorException, self).__init__(deserialize, response, 'WorkbookError', *args)
+
+
+class WorkbookIdentity(Model):
+    """WorkbookIdentity.
+
+    :param type: identity type
+    :type type: str
+    :param principal_id: principalId
+    :type principal_id: str
+    :param tenant_id: tenantId
+    :type tenant_id: str
+    """
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'principal_id': {'key': 'principalId', 'type': 'str'},
+        'tenant_id': {'key': 'tenantId', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(WorkbookIdentity, self).__init__(**kwargs)
+        self.type = kwargs.get('type', None)
+        self.principal_id = kwargs.get('principal_id', None)
+        self.tenant_id = kwargs.get('tenant_id', None)
 
 
 class WorkbookUpdateParameters(Model):

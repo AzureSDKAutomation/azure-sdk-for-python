@@ -14,12 +14,14 @@ try:
     from ._models_py3 import Resource
     from ._models_py3 import Workbook
     from ._models_py3 import WorkbookError, WorkbookErrorException
+    from ._models_py3 import WorkbookIdentity
     from ._models_py3 import WorkbookUpdateParameters
 except (SyntaxError, ImportError):
     from ._models import ErrorFieldContract
     from ._models import Resource
     from ._models import Workbook
     from ._models import WorkbookError, WorkbookErrorException
+    from ._models import WorkbookIdentity
     from ._models import WorkbookUpdateParameters
 from ._paged_models import WorkbookPaged
 from ._application_insights_management_client_enums import (
@@ -32,6 +34,7 @@ __all__ = [
     'Resource',
     'Workbook',
     'WorkbookError', 'WorkbookErrorException',
+    'WorkbookIdentity',
     'WorkbookUpdateParameters',
     'WorkbookPaged',
     'SharedTypeKind',
