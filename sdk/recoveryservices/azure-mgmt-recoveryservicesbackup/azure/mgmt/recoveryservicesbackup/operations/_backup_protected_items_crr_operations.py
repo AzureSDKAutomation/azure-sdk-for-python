@@ -11,13 +11,12 @@
 
 import uuid
 from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
 
 from .. import models
 
 
-class BackupProtectableItemsOperations(object):
-    """BackupProtectableItemsOperations operations.
+class BackupProtectedItemsCrrOperations(object):
+    """BackupProtectedItemsCrrOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -25,7 +24,7 @@ class BackupProtectableItemsOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client Api Version. Constant value: "2020-07-01".
+    :ivar api_version: Client Api Version. Constant value: "2018-12-20".
     """
 
     models = models
@@ -35,15 +34,14 @@ class BackupProtectableItemsOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-07-01"
+        self.api_version = "2018-12-20"
 
         self.config = config
 
     def list(
             self, vault_name, resource_group_name, filter=None, skip_token=None, custom_headers=None, raw=False, **operation_config):
-        """Provides a pageable list of protectable objects within your
-        subscription according to the query filter and the
-        pagination parameters.
+        """Provides a pageable list of all items that are backed up within a
+        vault.
 
         :param vault_name: The name of the recovery services vault.
         :type vault_name: str
@@ -59,10 +57,11 @@ class BackupProtectableItemsOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of WorkloadProtectableItemResource
+        :return: An iterator like instance of ProtectedItemResource
         :rtype:
-         ~azure.mgmt.recoveryservicesbackup.models.WorkloadProtectableItemResourcePaged[~azure.mgmt.recoveryservicesbackup.models.WorkloadProtectableItemResource]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+         ~azure.mgmt.recoveryservicesbackup.models.ProtectedItemResourcePaged[~azure.mgmt.recoveryservicesbackup.models.ProtectedItemResource]
+        :raises:
+         :class:`NewErrorResponseException<azure.mgmt.recoveryservicesbackup.models.NewErrorResponseException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
@@ -107,9 +106,7 @@ class BackupProtectableItemsOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
+                raise models.NewErrorResponseException(self._deserialize, response)
 
             return response
 
@@ -117,7 +114,7 @@ class BackupProtectableItemsOperations(object):
         header_dict = None
         if raw:
             header_dict = {}
-        deserialized = models.WorkloadProtectableItemResourcePaged(internal_paging, self._deserialize.dependencies, header_dict)
+        deserialized = models.ProtectedItemResourcePaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/Subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupProtectableItems'}
+    list.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupProtectedItems/'}

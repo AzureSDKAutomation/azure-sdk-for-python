@@ -11,13 +11,12 @@
 
 import uuid
 from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
 
 from .. import models
 
 
-class BackupProtectableItemsOperations(object):
-    """BackupProtectableItemsOperations operations.
+class RecoveryPointsCrrOperations(object):
+    """RecoveryPointsCrrOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -25,7 +24,7 @@ class BackupProtectableItemsOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client Api Version. Constant value: "2020-07-01".
+    :ivar api_version: Client Api Version. Constant value: "2018-12-20".
     """
 
     models = models
@@ -35,34 +34,39 @@ class BackupProtectableItemsOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-07-01"
+        self.api_version = "2018-12-20"
 
         self.config = config
 
     def list(
-            self, vault_name, resource_group_name, filter=None, skip_token=None, custom_headers=None, raw=False, **operation_config):
-        """Provides a pageable list of protectable objects within your
-        subscription according to the query filter and the
-        pagination parameters.
+            self, vault_name, resource_group_name, fabric_name, container_name, protected_item_name, filter=None, custom_headers=None, raw=False, **operation_config):
+        """Lists the backup copies for the backed up item.
 
         :param vault_name: The name of the recovery services vault.
         :type vault_name: str
         :param resource_group_name: The name of the resource group where the
          recovery services vault is present.
         :type resource_group_name: str
+        :param fabric_name: Fabric name associated with the backed up item.
+        :type fabric_name: str
+        :param container_name: Container name associated with the backed up
+         item.
+        :type container_name: str
+        :param protected_item_name: Backed up item whose backup copies are to
+         be fetched.
+        :type protected_item_name: str
         :param filter: OData filter options.
         :type filter: str
-        :param skip_token: skipToken Filter.
-        :type skip_token: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of WorkloadProtectableItemResource
+        :return: An iterator like instance of RecoveryPointResource
         :rtype:
-         ~azure.mgmt.recoveryservicesbackup.models.WorkloadProtectableItemResourcePaged[~azure.mgmt.recoveryservicesbackup.models.WorkloadProtectableItemResource]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+         ~azure.mgmt.recoveryservicesbackup.models.RecoveryPointResourcePaged[~azure.mgmt.recoveryservicesbackup.models.RecoveryPointResource]
+        :raises:
+         :class:`NewErrorResponseException<azure.mgmt.recoveryservicesbackup.models.NewErrorResponseException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
@@ -71,7 +75,10 @@ class BackupProtectableItemsOperations(object):
                 path_format_arguments = {
                     'vaultName': self._serialize.url("vault_name", vault_name, 'str'),
                     'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
+                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
+                    'fabricName': self._serialize.url("fabric_name", fabric_name, 'str'),
+                    'containerName': self._serialize.url("container_name", container_name, 'str'),
+                    'protectedItemName': self._serialize.url("protected_item_name", protected_item_name, 'str')
                 }
                 url = self._client.format_url(url, **path_format_arguments)
 
@@ -80,8 +87,6 @@ class BackupProtectableItemsOperations(object):
                 query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
                 if filter is not None:
                     query_parameters['$filter'] = self._serialize.query("filter", filter, 'str')
-                if skip_token is not None:
-                    query_parameters['$skipToken'] = self._serialize.query("skip_token", skip_token, 'str')
 
             else:
                 url = next_link
@@ -107,9 +112,7 @@ class BackupProtectableItemsOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
+                raise models.NewErrorResponseException(self._deserialize, response)
 
             return response
 
@@ -117,7 +120,7 @@ class BackupProtectableItemsOperations(object):
         header_dict = None
         if raw:
             header_dict = {}
-        deserialized = models.WorkloadProtectableItemResourcePaged(internal_paging, self._deserialize.dependencies, header_dict)
+        deserialized = models.RecoveryPointResourcePaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/Subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupProtectableItems'}
+    list.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}/protectedItems/{protectedItemName}/recoveryPoints/'}
