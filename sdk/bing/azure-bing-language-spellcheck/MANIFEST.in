@@ -1,0 +1,6 @@
+recursive-include tests *.py *.yaml
+include *.md
+include azure/__init__.py
+include azure/bing/__init__.py
+include azure/bing/language/__init__.py
+
