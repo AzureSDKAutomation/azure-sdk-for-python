@@ -25,3 +25,29 @@ class JobCollectionDefinitionPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(JobCollectionDefinitionPaged, self).__init__(*args, **kwargs)
+class JobDefinitionPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`JobDefinition <azure.mgmt.scheduler.models.JobDefinition>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[JobDefinition]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(JobDefinitionPaged, self).__init__(*args, **kwargs)
+class JobHistoryDefinitionPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`JobHistoryDefinition <azure.mgmt.scheduler.models.JobHistoryDefinition>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[JobHistoryDefinition]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(JobHistoryDefinitionPaged, self).__init__(*args, **kwargs)
