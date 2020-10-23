@@ -10,6 +10,7 @@
 # --------------------------------------------------------------------------
 
 from msrest.serialization import Model
+from msrest.exceptions import HttpOperationError
 
 
 class CheckNameAvailabilityParameters(Model):
@@ -47,6 +48,106 @@ class CloudError(Model):
 
     _attribute_map = {
     }
+
+
+class ErrorAdditionalInfo(Model):
+    """The resource management error additional info.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar type: The additional info type.
+    :vartype type: str
+    :ivar info: The additional info.
+    :vartype info: object
+    """
+
+    _validation = {
+        'type': {'readonly': True},
+        'info': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'info': {'key': 'info', 'type': 'object'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ErrorAdditionalInfo, self).__init__(**kwargs)
+        self.type = None
+        self.info = None
+
+
+class ErrorResponse(Model):
+    """The resource management error response.
+
+    :param error: The error object.
+    :type error: ~azure.mgmt.redis.models.ErrorResponseError
+    """
+
+    _attribute_map = {
+        'error': {'key': 'error', 'type': 'ErrorResponseError'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ErrorResponse, self).__init__(**kwargs)
+        self.error = kwargs.get('error', None)
+
+
+class ErrorResponseException(HttpOperationError):
+    """Server responsed with exception of type: 'ErrorResponse'.
+
+    :param deserialize: A deserializer
+    :param response: Server response to be deserialized.
+    """
+
+    def __init__(self, deserialize, response, *args):
+
+        super(ErrorResponseException, self).__init__(deserialize, response, 'ErrorResponse', *args)
+
+
+class ErrorResponseError(Model):
+    """The error object.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar code: The error code.
+    :vartype code: str
+    :ivar message: The error message.
+    :vartype message: str
+    :ivar target: The error target.
+    :vartype target: str
+    :ivar details: The error details.
+    :vartype details: list[~azure.mgmt.redis.models.ErrorResponse]
+    :ivar additional_info: The error additional info.
+    :vartype additional_info:
+     list[~azure.mgmt.redis.models.ErrorAdditionalInfo]
+    """
+
+    _validation = {
+        'code': {'readonly': True},
+        'message': {'readonly': True},
+        'target': {'readonly': True},
+        'details': {'readonly': True},
+        'additional_info': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'code': {'key': 'code', 'type': 'str'},
+        'message': {'key': 'message', 'type': 'str'},
+        'target': {'key': 'target', 'type': 'str'},
+        'details': {'key': 'details', 'type': '[ErrorResponse]'},
+        'additional_info': {'key': 'additionalInfo', 'type': '[ErrorAdditionalInfo]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ErrorResponseError, self).__init__(**kwargs)
+        self.code = None
+        self.message = None
+        self.target = None
+        self.details = None
+        self.additional_info = None
 
 
 class ExportRDBParameters(Model):
@@ -134,52 +235,129 @@ class NotificationListResponse(Model):
 
 
 class Operation(Model):
-    """REST API operation.
+    """REST API Operation.
 
-    :param name: Operation name: {provider}/{resource}/{operation}
-    :type name: str
-    :param display: The object that describes the operation.
+    Details of a REST API operation, returned from the Resource Provider
+    Operations API.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar name: The name of the operation being performed on this particular
+     object. It should match the action name that appears in RBAC / the event
+     service. Examples: "Microsoft.Compute/virtualMachines/write",
+     "Microsoft.Compute/virtualMachines/capture/action"
+    :vartype name: str
+    :ivar is_data_action: Whether the operation applies to data-plane. This is
+     "true" for data-plane operations and "false" for ARM/control-plane
+     operations.
+    :vartype is_data_action: bool
+    :param display: Contains the localized display information for this
+     particular operation / action.
     :type display: ~azure.mgmt.redis.models.OperationDisplay
+    :ivar origin: The intended executor of the operation; governs the display
+     of the operation in the RBAC UX and the audit logs UX. Default value is
+     "user,system". Possible values include: 'user', 'system', 'user,system'
+    :vartype origin: str or ~azure.mgmt.redis.models.Origin
+    :ivar action_type: Enum. Indicates the action type. "Internal" refers to
+     actions that are for internal only APIs. Possible values include:
+     'Internal'
+    :vartype action_type: str or ~azure.mgmt.redis.models.ActionType
     """
+
+    _validation = {
+        'name': {'readonly': True},
+        'is_data_action': {'readonly': True},
+        'origin': {'readonly': True},
+        'action_type': {'readonly': True},
+    }
 
     _attribute_map = {
         'name': {'key': 'name', 'type': 'str'},
+        'is_data_action': {'key': 'isDataAction', 'type': 'bool'},
         'display': {'key': 'display', 'type': 'OperationDisplay'},
+        'origin': {'key': 'origin', 'type': 'str'},
+        'action_type': {'key': 'actionType', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
         super(Operation, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
+        self.name = None
+        self.is_data_action = None
         self.display = kwargs.get('display', None)
+        self.origin = None
+        self.action_type = None
 
 
 class OperationDisplay(Model):
-    """The object that describes the operation.
+    """Contains the localized display information for this particular operation /
+    action.
 
-    :param provider: Friendly name of the resource provider
-    :type provider: str
-    :param operation: Operation type: read, write, delete, listKeys/action,
-     etc.
-    :type operation: str
-    :param resource: Resource type on which the operation is performed.
-    :type resource: str
-    :param description: Friendly name of the operation
-    :type description: str
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar provider: The localized friendly form of the resource provider name,
+     e.g. Microsoft Monitoring Insights" or "Microsoft Compute"
+    :vartype provider: str
+    :ivar resource: The localized friendly form of the resource type related
+     to this action/operation � it should match the public documentation for
+     the resource provider, e.g. "Virtual Machines" or "Job Schedule
+     Collections"
+    :vartype resource: str
+    :ivar operation: Required.The localized friendly name for the operation,
+     as it should be shown to the user. It should be concise (to fit in drop
+     downs) but clear (i.e. self-documenting), e.g. "Create or Update Virtual
+     Machine", "Restart Virtual Machine"
+    :vartype operation: str
+    :ivar description: Required.The localized friendly description for the
+     operation, as it should be shown to the user. It should be thorough, yet
+     concise � it will be used in tool tips and detailed views.
+    :vartype description: str
     """
+
+    _validation = {
+        'provider': {'readonly': True},
+        'resource': {'readonly': True},
+        'operation': {'readonly': True},
+        'description': {'readonly': True},
+    }
 
     _attribute_map = {
         'provider': {'key': 'provider', 'type': 'str'},
-        'operation': {'key': 'operation', 'type': 'str'},
         'resource': {'key': 'resource', 'type': 'str'},
+        'operation': {'key': 'operation', 'type': 'str'},
         'description': {'key': 'description', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
         super(OperationDisplay, self).__init__(**kwargs)
-        self.provider = kwargs.get('provider', None)
-        self.operation = kwargs.get('operation', None)
-        self.resource = kwargs.get('resource', None)
-        self.description = kwargs.get('description', None)
+        self.provider = None
+        self.resource = None
+        self.operation = None
+        self.description = None
+
+
+class PrivateEndpoint(Model):
+    """The Private Endpoint resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: The ARM identifier for Private Endpoint
+    :vartype id: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(PrivateEndpoint, self).__init__(**kwargs)
+        self.id = None
 
 
 class Resource(Model):
@@ -213,6 +391,131 @@ class Resource(Model):
         self.id = None
         self.name = None
         self.type = None
+
+
+class PrivateEndpointConnection(Resource):
+    """The Private Endpoint Connection resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Resource ID.
+    :vartype id: str
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param private_endpoint: The resource of private end point.
+    :type private_endpoint: ~azure.mgmt.redis.models.PrivateEndpoint
+    :param private_link_service_connection_state: Required. A collection of
+     information about the state of the connection between service consumer and
+     provider.
+    :type private_link_service_connection_state:
+     ~azure.mgmt.redis.models.PrivateLinkServiceConnectionState
+    :param provisioning_state: The provisioning state of the private endpoint
+     connection resource. Possible values include: 'Succeeded', 'Creating',
+     'Deleting', 'Failed'
+    :type provisioning_state: str or
+     ~azure.mgmt.redis.models.PrivateEndpointConnectionProvisioningState
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'private_link_service_connection_state': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'private_endpoint': {'key': 'properties.privateEndpoint', 'type': 'PrivateEndpoint'},
+        'private_link_service_connection_state': {'key': 'properties.privateLinkServiceConnectionState', 'type': 'PrivateLinkServiceConnectionState'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(PrivateEndpointConnection, self).__init__(**kwargs)
+        self.private_endpoint = kwargs.get('private_endpoint', None)
+        self.private_link_service_connection_state = kwargs.get('private_link_service_connection_state', None)
+        self.provisioning_state = kwargs.get('provisioning_state', None)
+
+
+class PrivateLinkResource(Resource):
+    """A private link resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource ID.
+    :vartype id: str
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :ivar group_id: The private link resource group id.
+    :vartype group_id: str
+    :ivar required_members: The private link resource required member names.
+    :vartype required_members: list[str]
+    :param required_zone_names: The private link resource Private link DNS
+     zone name.
+    :type required_zone_names: list[str]
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'group_id': {'readonly': True},
+        'required_members': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'group_id': {'key': 'properties.groupId', 'type': 'str'},
+        'required_members': {'key': 'properties.requiredMembers', 'type': '[str]'},
+        'required_zone_names': {'key': 'properties.requiredZoneNames', 'type': '[str]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(PrivateLinkResource, self).__init__(**kwargs)
+        self.group_id = None
+        self.required_members = None
+        self.required_zone_names = kwargs.get('required_zone_names', None)
+
+
+class PrivateLinkServiceConnectionState(Model):
+    """A collection of information about the state of the connection between
+    service consumer and provider.
+
+    :param status: Indicates whether the connection has been
+     Approved/Rejected/Removed by the owner of the service. Possible values
+     include: 'Pending', 'Approved', 'Rejected'
+    :type status: str or
+     ~azure.mgmt.redis.models.PrivateEndpointServiceConnectionStatus
+    :param description: The reason for approval/rejection of the connection.
+    :type description: str
+    :param actions_required: A message indicating if changes on the service
+     provider require any updates on the consumer.
+    :type actions_required: str
+    """
+
+    _attribute_map = {
+        'status': {'key': 'status', 'type': 'str'},
+        'description': {'key': 'description', 'type': 'str'},
+        'actions_required': {'key': 'actionsRequired', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(PrivateLinkServiceConnectionState, self).__init__(**kwargs)
+        self.status = kwargs.get('status', None)
+        self.description = kwargs.get('description', None)
+        self.actions_required = kwargs.get('actions_required', None)
 
 
 class ProxyResource(Resource):
@@ -298,6 +601,13 @@ class RedisCommonProperties(Model):
      TLS version (or higher) to connect (e,g, '1.0', '1.1', '1.2'). Possible
      values include: '1.0', '1.1', '1.2'
     :type minimum_tls_version: str or ~azure.mgmt.redis.models.TlsVersion
+    :param public_network_access: Whether or not public endpoint access is
+     allowed for this cache.  Value is optional but if passed in, must be
+     'Enabled' or 'Disabled'. If 'Disabled', private endpoints are the
+     exclusive access method. Default value is 'Enabled'. Possible values
+     include: 'Enabled', 'Disabled'
+    :type public_network_access: str or
+     ~azure.mgmt.redis.models.PublicNetworkAccess
     """
 
     _attribute_map = {
@@ -307,6 +617,7 @@ class RedisCommonProperties(Model):
         'tenant_settings': {'key': 'tenantSettings', 'type': '{str}'},
         'shard_count': {'key': 'shardCount', 'type': 'int'},
         'minimum_tls_version': {'key': 'minimumTlsVersion', 'type': 'str'},
+        'public_network_access': {'key': 'publicNetworkAccess', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -317,6 +628,7 @@ class RedisCommonProperties(Model):
         self.tenant_settings = kwargs.get('tenant_settings', None)
         self.shard_count = kwargs.get('shard_count', None)
         self.minimum_tls_version = kwargs.get('minimum_tls_version', None)
+        self.public_network_access = kwargs.get('public_network_access', None)
 
 
 class RedisCreateParameters(Model):
@@ -343,6 +655,13 @@ class RedisCreateParameters(Model):
      TLS version (or higher) to connect (e,g, '1.0', '1.1', '1.2'). Possible
      values include: '1.0', '1.1', '1.2'
     :type minimum_tls_version: str or ~azure.mgmt.redis.models.TlsVersion
+    :param public_network_access: Whether or not public endpoint access is
+     allowed for this cache.  Value is optional but if passed in, must be
+     'Enabled' or 'Disabled'. If 'Disabled', private endpoints are the
+     exclusive access method. Default value is 'Enabled'. Possible values
+     include: 'Enabled', 'Disabled'
+    :type public_network_access: str or
+     ~azure.mgmt.redis.models.PublicNetworkAccess
     :param sku: Required. The SKU of the Redis cache to deploy.
     :type sku: ~azure.mgmt.redis.models.Sku
     :param subnet_id: The full resource ID of a subnet in a virtual network to
@@ -375,6 +694,7 @@ class RedisCreateParameters(Model):
         'tenant_settings': {'key': 'properties.tenantSettings', 'type': '{str}'},
         'shard_count': {'key': 'properties.shardCount', 'type': 'int'},
         'minimum_tls_version': {'key': 'properties.minimumTlsVersion', 'type': 'str'},
+        'public_network_access': {'key': 'properties.publicNetworkAccess', 'type': 'str'},
         'sku': {'key': 'properties.sku', 'type': 'Sku'},
         'subnet_id': {'key': 'properties.subnetId', 'type': 'str'},
         'static_ip': {'key': 'properties.staticIP', 'type': 'str'},
@@ -391,6 +711,7 @@ class RedisCreateParameters(Model):
         self.tenant_settings = kwargs.get('tenant_settings', None)
         self.shard_count = kwargs.get('shard_count', None)
         self.minimum_tls_version = kwargs.get('minimum_tls_version', None)
+        self.public_network_access = kwargs.get('public_network_access', None)
         self.sku = kwargs.get('sku', None)
         self.subnet_id = kwargs.get('subnet_id', None)
         self.static_ip = kwargs.get('static_ip', None)
@@ -423,6 +744,13 @@ class RedisCreateProperties(RedisCommonProperties):
      TLS version (or higher) to connect (e,g, '1.0', '1.1', '1.2'). Possible
      values include: '1.0', '1.1', '1.2'
     :type minimum_tls_version: str or ~azure.mgmt.redis.models.TlsVersion
+    :param public_network_access: Whether or not public endpoint access is
+     allowed for this cache.  Value is optional but if passed in, must be
+     'Enabled' or 'Disabled'. If 'Disabled', private endpoints are the
+     exclusive access method. Default value is 'Enabled'. Possible values
+     include: 'Enabled', 'Disabled'
+    :type public_network_access: str or
+     ~azure.mgmt.redis.models.PublicNetworkAccess
     :param sku: Required. The SKU of the Redis cache to deploy.
     :type sku: ~azure.mgmt.redis.models.Sku
     :param subnet_id: The full resource ID of a subnet in a virtual network to
@@ -447,6 +775,7 @@ class RedisCreateProperties(RedisCommonProperties):
         'tenant_settings': {'key': 'tenantSettings', 'type': '{str}'},
         'shard_count': {'key': 'shardCount', 'type': 'int'},
         'minimum_tls_version': {'key': 'minimumTlsVersion', 'type': 'str'},
+        'public_network_access': {'key': 'publicNetworkAccess', 'type': 'str'},
         'sku': {'key': 'sku', 'type': 'Sku'},
         'subnet_id': {'key': 'subnetId', 'type': 'str'},
         'static_ip': {'key': 'staticIP', 'type': 'str'},
@@ -878,6 +1207,13 @@ class RedisResource(TrackedResource):
      TLS version (or higher) to connect (e,g, '1.0', '1.1', '1.2'). Possible
      values include: '1.0', '1.1', '1.2'
     :type minimum_tls_version: str or ~azure.mgmt.redis.models.TlsVersion
+    :param public_network_access: Whether or not public endpoint access is
+     allowed for this cache.  Value is optional but if passed in, must be
+     'Enabled' or 'Disabled'. If 'Disabled', private endpoints are the
+     exclusive access method. Default value is 'Enabled'. Possible values
+     include: 'Enabled', 'Disabled'
+    :type public_network_access: str or
+     ~azure.mgmt.redis.models.PublicNetworkAccess
     :param sku: Required. The SKU of the Redis cache to deploy.
     :type sku: ~azure.mgmt.redis.models.Sku
     :param subnet_id: The full resource ID of a subnet in a virtual network to
@@ -908,6 +1244,10 @@ class RedisResource(TrackedResource):
     :vartype linked_servers: list[~azure.mgmt.redis.models.RedisLinkedServer]
     :ivar instances: List of the Redis instances associated with the cache
     :vartype instances: list[~azure.mgmt.redis.models.RedisInstanceDetails]
+    :ivar private_endpoint_connections: List of private endpoint connection
+     associated with the specified redis cache
+    :vartype private_endpoint_connections:
+     list[~azure.mgmt.redis.models.PrivateEndpointConnection]
     :param zones: A list of availability zones denoting where the resource
      needs to come from.
     :type zones: list[str]
@@ -929,6 +1269,7 @@ class RedisResource(TrackedResource):
         'access_keys': {'readonly': True},
         'linked_servers': {'readonly': True},
         'instances': {'readonly': True},
+        'private_endpoint_connections': {'readonly': True},
     }
 
     _attribute_map = {
@@ -943,6 +1284,7 @@ class RedisResource(TrackedResource):
         'tenant_settings': {'key': 'properties.tenantSettings', 'type': '{str}'},
         'shard_count': {'key': 'properties.shardCount', 'type': 'int'},
         'minimum_tls_version': {'key': 'properties.minimumTlsVersion', 'type': 'str'},
+        'public_network_access': {'key': 'properties.publicNetworkAccess', 'type': 'str'},
         'sku': {'key': 'properties.sku', 'type': 'Sku'},
         'subnet_id': {'key': 'properties.subnetId', 'type': 'str'},
         'static_ip': {'key': 'properties.staticIP', 'type': 'str'},
@@ -954,6 +1296,7 @@ class RedisResource(TrackedResource):
         'access_keys': {'key': 'properties.accessKeys', 'type': 'RedisAccessKeys'},
         'linked_servers': {'key': 'properties.linkedServers', 'type': '[RedisLinkedServer]'},
         'instances': {'key': 'properties.instances', 'type': '[RedisInstanceDetails]'},
+        'private_endpoint_connections': {'key': 'properties.privateEndpointConnections', 'type': '[PrivateEndpointConnection]'},
         'zones': {'key': 'zones', 'type': '[str]'},
     }
 
@@ -965,6 +1308,7 @@ class RedisResource(TrackedResource):
         self.tenant_settings = kwargs.get('tenant_settings', None)
         self.shard_count = kwargs.get('shard_count', None)
         self.minimum_tls_version = kwargs.get('minimum_tls_version', None)
+        self.public_network_access = kwargs.get('public_network_access', None)
         self.sku = kwargs.get('sku', None)
         self.subnet_id = kwargs.get('subnet_id', None)
         self.static_ip = kwargs.get('static_ip', None)
@@ -976,6 +1320,7 @@ class RedisResource(TrackedResource):
         self.access_keys = None
         self.linked_servers = None
         self.instances = None
+        self.private_endpoint_connections = None
         self.zones = kwargs.get('zones', None)
 
 
@@ -1001,6 +1346,13 @@ class RedisUpdateParameters(Model):
      TLS version (or higher) to connect (e,g, '1.0', '1.1', '1.2'). Possible
      values include: '1.0', '1.1', '1.2'
     :type minimum_tls_version: str or ~azure.mgmt.redis.models.TlsVersion
+    :param public_network_access: Whether or not public endpoint access is
+     allowed for this cache.  Value is optional but if passed in, must be
+     'Enabled' or 'Disabled'. If 'Disabled', private endpoints are the
+     exclusive access method. Default value is 'Enabled'. Possible values
+     include: 'Enabled', 'Disabled'
+    :type public_network_access: str or
+     ~azure.mgmt.redis.models.PublicNetworkAccess
     :param sku: The SKU of the Redis cache to deploy.
     :type sku: ~azure.mgmt.redis.models.Sku
     :param tags: Resource tags.
@@ -1014,6 +1366,7 @@ class RedisUpdateParameters(Model):
         'tenant_settings': {'key': 'properties.tenantSettings', 'type': '{str}'},
         'shard_count': {'key': 'properties.shardCount', 'type': 'int'},
         'minimum_tls_version': {'key': 'properties.minimumTlsVersion', 'type': 'str'},
+        'public_network_access': {'key': 'properties.publicNetworkAccess', 'type': 'str'},
         'sku': {'key': 'properties.sku', 'type': 'Sku'},
         'tags': {'key': 'tags', 'type': '{str}'},
     }
@@ -1026,6 +1379,7 @@ class RedisUpdateParameters(Model):
         self.tenant_settings = kwargs.get('tenant_settings', None)
         self.shard_count = kwargs.get('shard_count', None)
         self.minimum_tls_version = kwargs.get('minimum_tls_version', None)
+        self.public_network_access = kwargs.get('public_network_access', None)
         self.sku = kwargs.get('sku', None)
         self.tags = kwargs.get('tags', None)
 
@@ -1079,7 +1433,7 @@ class Sku(Model):
     :type family: str or ~azure.mgmt.redis.models.SkuFamily
     :param capacity: Required. The size of the Redis cache to deploy. Valid
      values: for C (Basic/Standard) family (0, 1, 2, 3, 4, 5, 6), for P
-     (Premium) family (1, 2, 3, 4, 5).
+     (Premium) family (1, 2, 3, 4).
     :type capacity: int
     """
 
