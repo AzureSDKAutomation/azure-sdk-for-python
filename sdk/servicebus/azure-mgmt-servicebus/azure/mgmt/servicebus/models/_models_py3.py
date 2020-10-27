@@ -816,6 +816,9 @@ class NetworkRuleSet(Resource):
     :vartype name: str
     :ivar type: Resource type
     :vartype type: str
+    :param trusted_service_access_enabled: Value that indicates whether
+     Trusted Service Access is Enabled or not.
+    :type trusted_service_access_enabled: bool
     :param default_action: Default Action for Network Rule Set. Possible
      values include: 'Allow', 'Deny'
     :type default_action: str or ~azure.mgmt.servicebus.models.DefaultAction
@@ -836,13 +839,15 @@ class NetworkRuleSet(Resource):
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
+        'trusted_service_access_enabled': {'key': 'properties.trustedServiceAccessEnabled', 'type': 'bool'},
         'default_action': {'key': 'properties.defaultAction', 'type': 'str'},
         'virtual_network_rules': {'key': 'properties.virtualNetworkRules', 'type': '[NWRuleSetVirtualNetworkRules]'},
         'ip_rules': {'key': 'properties.ipRules', 'type': '[NWRuleSetIpRules]'},
     }
 
-    def __init__(self, *, default_action=None, virtual_network_rules=None, ip_rules=None, **kwargs) -> None:
+    def __init__(self, *, trusted_service_access_enabled: bool=None, default_action=None, virtual_network_rules=None, ip_rules=None, **kwargs) -> None:
         super(NetworkRuleSet, self).__init__(**kwargs)
+        self.trusted_service_access_enabled = trusted_service_access_enabled
         self.default_action = default_action
         self.virtual_network_rules = virtual_network_rules
         self.ip_rules = ip_rules
@@ -1352,6 +1357,8 @@ class SBNamespace(TrackedResource):
     :type tags: dict[str, str]
     :param sku: Properties of SKU
     :type sku: ~azure.mgmt.servicebus.models.SBSku
+    :param identity: Properties of BYOK Identity description
+    :type identity: ~azure.mgmt.servicebus.models.Identity
     :ivar provisioning_state: Provisioning state of the namespace.
     :vartype provisioning_state: str
     :ivar created_at: The time the namespace was created
@@ -1389,6 +1396,7 @@ class SBNamespace(TrackedResource):
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
         'sku': {'key': 'sku', 'type': 'SBSku'},
+        'identity': {'key': 'identity', 'type': 'Identity'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'created_at': {'key': 'properties.createdAt', 'type': 'iso-8601'},
         'updated_at': {'key': 'properties.updatedAt', 'type': 'iso-8601'},
@@ -1398,9 +1406,10 @@ class SBNamespace(TrackedResource):
         'encryption': {'key': 'properties.encryption', 'type': 'Encryption'},
     }
 
-    def __init__(self, *, location: str, tags=None, sku=None, zone_redundant: bool=None, encryption=None, **kwargs) -> None:
+    def __init__(self, *, location: str, tags=None, sku=None, identity=None, zone_redundant: bool=None, encryption=None, **kwargs) -> None:
         super(SBNamespace, self).__init__(location=location, tags=tags, **kwargs)
         self.sku = sku
+        self.identity = identity
         self.provisioning_state = None
         self.created_at = None
         self.updated_at = None
