@@ -16,8 +16,8 @@ from msrestazure.azure_exceptions import CloudError
 from .. import models
 
 
-class AdaptiveApplicationControlsOperations(object):
-    """AdaptiveApplicationControlsOperations operations.
+class IotSitesOperations(object):
+    """IotSitesOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -25,7 +25,7 @@ class AdaptiveApplicationControlsOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: API version for the operation. Constant value: "2020-01-01".
+    :ivar api_version: API version for the operation. Constant value: "2020-08-06-preview".
     """
 
     models = models
@@ -35,43 +35,37 @@ class AdaptiveApplicationControlsOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-01-01"
+        self.api_version = "2020-08-06-preview"
 
         self.config = config
 
     def list(
-            self, include_path_recommendations=None, summary=None, custom_headers=None, raw=False, **operation_config):
-        """Gets a list of application control machine groups for the subscription.
+            self, scope, custom_headers=None, raw=False, **operation_config):
+        """List IoT sites.
 
-        :param include_path_recommendations: Include the policy rules
-        :type include_path_recommendations: bool
-        :param summary: Return output in a summarized form
-        :type summary: bool
+        :param scope: Scope of the query (IoT Hub,
+         /providers/Microsoft.Devices/iotHubs/myHub)
+        :type scope: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: AdaptiveApplicationControlGroups or ClientRawResponse if
-         raw=true
-        :rtype: ~azure.mgmt.security.models.AdaptiveApplicationControlGroups
-         or ~msrest.pipeline.ClientRawResponse
+        :return: IotSitesList or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.security.models.IotSitesList or
+         ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         # Construct URL
         url = self.list.metadata['url']
         path_format_arguments = {
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', pattern=r'^[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}$')
+            'scope': self._serialize.url("scope", scope, 'str', skip_quote=True)
         }
         url = self._client.format_url(url, **path_format_arguments)
 
         # Construct parameters
         query_parameters = {}
         query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
-        if include_path_recommendations is not None:
-            query_parameters['includePathRecommendations'] = self._serialize.query("include_path_recommendations", include_path_recommendations, 'bool')
-        if summary is not None:
-            query_parameters['summary'] = self._serialize.query("summary", summary, 'bool')
 
         # Construct headers
         header_parameters = {}
@@ -94,38 +88,36 @@ class AdaptiveApplicationControlsOperations(object):
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('AdaptiveApplicationControlGroups', response)
+            deserialized = self._deserialize('IotSitesList', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    list.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Security/applicationWhitelistings'}
+    list.metadata = {'url': '/{scope}/providers/Microsoft.Security/iotSites'}
 
     def get(
-            self, group_name, custom_headers=None, raw=False, **operation_config):
-        """Gets an application control VM/server group.
+            self, scope, custom_headers=None, raw=False, **operation_config):
+        """Get IoT site.
 
-        :param group_name: Name of an application control machine group
-        :type group_name: str
+        :param scope: Scope of the query (IoT Hub,
+         /providers/Microsoft.Devices/iotHubs/myHub)
+        :type scope: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: AdaptiveApplicationControlGroup or ClientRawResponse if
-         raw=true
-        :rtype: ~azure.mgmt.security.models.AdaptiveApplicationControlGroup or
+        :return: IotSitesModel or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.security.models.IotSitesModel or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         # Construct URL
         url = self.get.metadata['url']
         path_format_arguments = {
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', pattern=r'^[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}$'),
-            'ascLocation': self._serialize.url("self.config.asc_location", self.config.asc_location, 'str'),
-            'groupName': self._serialize.url("group_name", group_name, 'str')
+            'scope': self._serialize.url("scope", scope, 'str', skip_quote=True)
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -154,41 +146,42 @@ class AdaptiveApplicationControlsOperations(object):
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('AdaptiveApplicationControlGroup', response)
+            deserialized = self._deserialize('IotSitesModel', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Security/locations/{ascLocation}/applicationWhitelistings/{groupName}'}
+    get.metadata = {'url': '/{scope}/providers/Microsoft.Security/iotSites/default'}
 
-    def put(
-            self, group_name, body, custom_headers=None, raw=False, **operation_config):
-        """Update an application control machine group.
+    def create_or_update(
+            self, scope, display_name, tags, custom_headers=None, raw=False, **operation_config):
+        """Create or update IoT site.
 
-        :param group_name: Name of an application control machine group
-        :type group_name: str
-        :param body:
-        :type body:
-         ~azure.mgmt.security.models.AdaptiveApplicationControlGroup
+        :param scope: Scope of the query (IoT Hub,
+         /providers/Microsoft.Devices/iotHubs/myHub)
+        :type scope: str
+        :param display_name: Display name of the IoT site
+        :type display_name: str
+        :param tags: Tags of the IoT site
+        :type tags: dict[str, str]
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: AdaptiveApplicationControlGroup or ClientRawResponse if
-         raw=true
-        :rtype: ~azure.mgmt.security.models.AdaptiveApplicationControlGroup or
+        :return: IotSitesModel or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.security.models.IotSitesModel or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
+        iot_sites_model = models.IotSitesModel(display_name=display_name, tags=tags)
+
         # Construct URL
-        url = self.put.metadata['url']
+        url = self.create_or_update.metadata['url']
         path_format_arguments = {
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', pattern=r'^[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}$'),
-            'ascLocation': self._serialize.url("self.config.asc_location", self.config.asc_location, 'str'),
-            'groupName': self._serialize.url("group_name", group_name, 'str')
+            'scope': self._serialize.url("scope", scope, 'str', skip_quote=True)
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -208,34 +201,37 @@ class AdaptiveApplicationControlsOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct body
-        body_content = self._serialize.body(body, 'AdaptiveApplicationControlGroup')
+        body_content = self._serialize.body(iot_sites_model, 'IotSitesModel')
 
         # Construct and send request
         request = self._client.put(url, query_parameters, header_parameters, body_content)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200]:
+        if response.status_code not in [200, 201]:
             exp = CloudError(response)
             exp.request_id = response.headers.get('x-ms-request-id')
             raise exp
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('AdaptiveApplicationControlGroup', response)
+            deserialized = self._deserialize('IotSitesModel', response)
+        if response.status_code == 201:
+            deserialized = self._deserialize('IotSitesModel', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    put.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Security/locations/{ascLocation}/applicationWhitelistings/{groupName}'}
+    create_or_update.metadata = {'url': '/{scope}/providers/Microsoft.Security/iotSites/default'}
 
     def delete(
-            self, group_name, custom_headers=None, raw=False, **operation_config):
-        """Delete an application control machine group.
+            self, scope, custom_headers=None, raw=False, **operation_config):
+        """Delete IoT site.
 
-        :param group_name: Name of an application control machine group
-        :type group_name: str
+        :param scope: Scope of the query (IoT Hub,
+         /providers/Microsoft.Devices/iotHubs/myHub)
+        :type scope: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -248,9 +244,7 @@ class AdaptiveApplicationControlsOperations(object):
         # Construct URL
         url = self.delete.metadata['url']
         path_format_arguments = {
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', pattern=r'^[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}$'),
-            'ascLocation': self._serialize.url("self.config.asc_location", self.config.asc_location, 'str'),
-            'groupName': self._serialize.url("group_name", group_name, 'str')
+            'scope': self._serialize.url("scope", scope, 'str', skip_quote=True)
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -271,7 +265,7 @@ class AdaptiveApplicationControlsOperations(object):
         request = self._client.delete(url, query_parameters, header_parameters)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200, 202, 204]:
+        if response.status_code not in [200, 204]:
             exp = CloudError(response)
             exp.request_id = response.headers.get('x-ms-request-id')
             raise exp
@@ -279,4 +273,4 @@ class AdaptiveApplicationControlsOperations(object):
         if raw:
             client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-    delete.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Security/locations/{ascLocation}/applicationWhitelistings/{groupName}'}
+    delete.metadata = {'url': '/{scope}/providers/Microsoft.Security/iotSites/default'}
