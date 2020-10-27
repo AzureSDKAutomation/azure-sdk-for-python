@@ -10,8 +10,11 @@
 # --------------------------------------------------------------------------
 
 try:
+    from ._models_py3 import AzureEntityResource
     from ._models_py3 import Display
+    from ._models_py3 import ErrorAdditionalInfo
     from ._models_py3 import ErrorResponse, ErrorResponseException
+    from ._models_py3 import ErrorResponseError
     from ._models_py3 import Operation
     from ._models_py3 import ProviderInstance
     from ._models_py3 import ProxyResource
@@ -20,8 +23,11 @@ try:
     from ._models_py3 import Tags
     from ._models_py3 import TrackedResource
 except (SyntaxError, ImportError):
+    from ._models import AzureEntityResource
     from ._models import Display
+    from ._models import ErrorAdditionalInfo
     from ._models import ErrorResponse, ErrorResponseException
+    from ._models import ErrorResponseError
     from ._models import Operation
     from ._models import ProviderInstance
     from ._models import ProxyResource
@@ -37,8 +43,11 @@ from ._hana_management_client_enums import (
 )
 
 __all__ = [
+    'AzureEntityResource',
     'Display',
+    'ErrorAdditionalInfo',
     'ErrorResponse', 'ErrorResponseException',
+    'ErrorResponseError',
     'Operation',
     'ProviderInstance',
     'ProxyResource',
