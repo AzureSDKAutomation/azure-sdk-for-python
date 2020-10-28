@@ -9,9 +9,8 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-import uuid
 from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
+from msrest.exceptions import HttpOperationError
 
 from .. import models
 
@@ -25,7 +24,7 @@ class Operations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The API version to be used with the HTTP request. Constant value: "2019-11-01-preview".
+    :ivar api_version: The API version to be used with the HTTP request. Constant value: "2020-10-01-preview".
     """
 
     models = models
@@ -35,9 +34,9 @@ class Operations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2019-11-01-preview"
 
         self.config = config
+        self.api_version = "2020-10-01-preview"
 
     def list(
             self, custom_headers=None, raw=False, **operation_config):
@@ -49,55 +48,41 @@ class Operations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of ResourceProviderOperation
+        :return: ResourceProviderOperationList or ClientRawResponse if
+         raw=true
         :rtype:
-         ~azure.mgmt.kubernetesconfiguration.models.ResourceProviderOperationPaged[~azure.mgmt.kubernetesconfiguration.models.ResourceProviderOperation]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+         ~azure.mgmt.kubernetesconfiguration.models.ResourceProviderOperationList
+         or ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`HttpOperationError<msrest.exceptions.HttpOperationError>`
         """
-        def prepare_request(next_link=None):
-            if not next_link:
-                # Construct URL
-                url = self.list.metadata['url']
+        # Construct URL
+        url = self.list.metadata['url']
 
-                # Construct parameters
-                query_parameters = {}
-                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
 
-            else:
-                url = next_link
-                query_parameters = {}
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
+        if custom_headers:
+            header_parameters.update(custom_headers)
 
-            # Construct headers
-            header_parameters = {}
-            header_parameters['Accept'] = 'application/json'
-            if self.config.generate_client_request_id:
-                header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
-            if custom_headers:
-                header_parameters.update(custom_headers)
-            if self.config.accept_language is not None:
-                header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+        # Construct and send request
+        request = self._client.get(url, query_parameters, header_parameters)
+        response = self._client.send(request, stream=False, **operation_config)
 
-            # Construct and send request
-            request = self._client.get(url, query_parameters, header_parameters)
-            return request
+        if response.status_code not in [200]:
+            raise HttpOperationError(self._deserialize, response)
 
-        def internal_paging(next_link=None):
-            request = prepare_request(next_link)
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('ResourceProviderOperationList', response)
 
-            response = self._client.send(request, stream=False, **operation_config)
-
-            if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
-
-            return response
-
-        # Deserialize response
-        header_dict = None
         if raw:
-            header_dict = {}
-        deserialized = models.ResourceProviderOperationPaged(internal_paging, self._deserialize.dependencies, header_dict)
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
 
         return deserialized
     list.metadata = {'url': '/providers/Microsoft.KubernetesConfiguration/operations'}

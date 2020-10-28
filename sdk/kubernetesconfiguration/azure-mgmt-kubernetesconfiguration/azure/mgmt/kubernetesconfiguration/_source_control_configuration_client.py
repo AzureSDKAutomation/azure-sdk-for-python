@@ -13,6 +13,7 @@ from msrest.service_client import SDKClient
 from msrest import Serializer, Deserializer
 
 from ._configuration import SourceControlConfigurationClientConfiguration
+from msrest.exceptions import HttpOperationError
 from .operations import SourceControlConfigurationsOperations
 from .operations import Operations
 from . import models
@@ -29,9 +30,6 @@ class SourceControlConfigurationClient(SDKClient):
     :ivar operations: Operations operations
     :vartype operations: azure.mgmt.kubernetesconfiguration.operations.Operations
 
-    :param credentials: Credentials needed for the client to connect to Azure.
-    :type credentials: :mod:`A msrestazure Credentials
-     object<msrestazure.azure_active_directory>`
     :param subscription_id: The Azure subscription ID. This is a
      GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
     :type subscription_id: str
@@ -39,13 +37,13 @@ class SourceControlConfigurationClient(SDKClient):
     """
 
     def __init__(
-            self, credentials, subscription_id, base_url=None):
+            self, subscription_id, base_url=None):
 
-        self.config = SourceControlConfigurationClientConfiguration(credentials, subscription_id, base_url)
-        super(SourceControlConfigurationClient, self).__init__(self.config.credentials, self.config)
+        self.config = SourceControlConfigurationClientConfiguration(subscription_id, base_url)
+        super(SourceControlConfigurationClient, self).__init__(None, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
-        self.api_version = '2019-11-01-preview'
+        self.api_version = '2020-10-01-preview'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
