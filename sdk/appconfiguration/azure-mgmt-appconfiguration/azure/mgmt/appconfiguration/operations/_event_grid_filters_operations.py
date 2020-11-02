@@ -23,8 +23,8 @@ if TYPE_CHECKING:
     T = TypeVar('T')
     ClsType = Optional[Callable[[PipelineResponse[HttpRequest, HttpResponse], T, Dict[str, Any]], Any]]
 
-class PrivateLinkResourcesOperations(object):
-    """PrivateLinkResourcesOperations operations.
+class EventGridFiltersOperations(object):
+    """EventGridFiltersOperations operations.
 
     You should not instantiate this class directly. Instead, you should create a Client instance that
     instantiates it for you and attaches it as an attribute.
@@ -49,22 +49,28 @@ class PrivateLinkResourcesOperations(object):
         self,
         resource_group_name,  # type: str
         config_store_name,  # type: str
+        skip_token=None,  # type: Optional[str]
         **kwargs  # type: Any
     ):
-        # type: (...) -> Iterable["models.PrivateLinkResourceListResult"]
-        """Gets the private link resources that need to be created for a configuration store.
+        # type: (...) -> Iterable["models.EventGridFilterListResult"]
+        """Lists the event grid filters for a given configuration store.
 
         :param resource_group_name: The name of the resource group to which the container registry
          belongs.
         :type resource_group_name: str
         :param config_store_name: The name of the configuration store.
         :type config_store_name: str
+        :param skip_token: A skip token is used to continue retrieving items after an operation returns
+         a partial result. If a previous response contains a nextLink element, the value of the nextLink
+         element will include a skipToken parameter that specifies a starting point to use for
+         subsequent calls.
+        :type skip_token: str
         :keyword callable cls: A custom type or function that will be passed the direct response
-        :return: An iterator like instance of either PrivateLinkResourceListResult or the result of cls(response)
-        :rtype: ~azure.core.paging.ItemPaged[~app_configuration_management_client.models.PrivateLinkResourceListResult]
+        :return: An iterator like instance of either EventGridFilterListResult or the result of cls(response)
+        :rtype: ~azure.core.paging.ItemPaged[~app_configuration_management_client.models.EventGridFilterListResult]
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.PrivateLinkResourceListResult"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["models.EventGridFilterListResult"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -89,6 +95,8 @@ class PrivateLinkResourcesOperations(object):
                 # Construct parameters
                 query_parameters = {}  # type: Dict[str, Any]
                 query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+                if skip_token is not None:
+                    query_parameters['$skipToken'] = self._serialize.query("skip_token", skip_token, 'str')
 
                 request = self._client.get(url, query_parameters, header_parameters)
             else:
@@ -98,7 +106,7 @@ class PrivateLinkResourcesOperations(object):
             return request
 
         def extract_data(pipeline_response):
-            deserialized = self._deserialize('PrivateLinkResourceListResult', pipeline_response)
+            deserialized = self._deserialize('EventGridFilterListResult', pipeline_response)
             list_of_elem = deserialized.value
             if cls:
                 list_of_elem = cls(list_of_elem)
@@ -120,31 +128,31 @@ class PrivateLinkResourcesOperations(object):
         return ItemPaged(
             get_next, extract_data
         )
-    list_by_configuration_store.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/privateLinkResources'}  # type: ignore
+    list_by_configuration_store.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/eventGridFilters'}  # type: ignore
 
     def get(
         self,
         resource_group_name,  # type: str
         config_store_name,  # type: str
-        group_name,  # type: str
+        event_grid_filter_name,  # type: str
         **kwargs  # type: Any
     ):
-        # type: (...) -> "models.PrivateLinkResource"
-        """Gets a private link resource that need to be created for a configuration store.
+        # type: (...) -> "models.EventGridFilter"
+        """Gets the properties of the specified event grid filter.
 
         :param resource_group_name: The name of the resource group to which the container registry
          belongs.
         :type resource_group_name: str
         :param config_store_name: The name of the configuration store.
         :type config_store_name: str
-        :param group_name: The name of the private link resource group.
-        :type group_name: str
+        :param event_grid_filter_name: The name of the event grid filter to retrieve.
+        :type event_grid_filter_name: str
         :keyword callable cls: A custom type or function that will be passed the direct response
-        :return: PrivateLinkResource, or the result of cls(response)
-        :rtype: ~app_configuration_management_client.models.PrivateLinkResource
+        :return: EventGridFilter, or the result of cls(response)
+        :rtype: ~app_configuration_management_client.models.EventGridFilter
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.PrivateLinkResource"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["models.EventGridFilter"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -158,7 +166,7 @@ class PrivateLinkResourcesOperations(object):
             'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'configStoreName': self._serialize.url("config_store_name", config_store_name, 'str', max_length=50, min_length=5, pattern=r'^[a-zA-Z0-9_-]*$'),
-            'groupName': self._serialize.url("group_name", group_name, 'str'),
+            'eventGridFilterName': self._serialize.url("event_grid_filter_name", event_grid_filter_name, 'str'),
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -179,10 +187,10 @@ class PrivateLinkResourcesOperations(object):
             error = self._deserialize(models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
-        deserialized = self._deserialize('PrivateLinkResource', pipeline_response)
+        deserialized = self._deserialize('EventGridFilter', pipeline_response)
 
         if cls:
             return cls(pipeline_response, deserialized, {})
 
         return deserialized
-    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/privateLinkResources/{groupName}'}  # type: ignore
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/eventGridFilters/{eventGridFilterName}'}  # type: ignore
