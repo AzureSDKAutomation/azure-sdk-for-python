@@ -77,3 +77,29 @@ class PrivateLinkResourcePaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(PrivateLinkResourcePaged, self).__init__(*args, **kwargs)
+class KeyValuePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`KeyValue <azure.mgmt.appconfiguration.models.KeyValue>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[KeyValue]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(KeyValuePaged, self).__init__(*args, **kwargs)
+class EventGridFilterPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`EventGridFilter <azure.mgmt.appconfiguration.models.EventGridFilter>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[EventGridFilter]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(EventGridFilterPaged, self).__init__(*args, **kwargs)

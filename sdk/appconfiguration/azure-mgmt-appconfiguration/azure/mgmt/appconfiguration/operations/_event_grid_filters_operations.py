@@ -15,8 +15,8 @@ from msrest.pipeline import ClientRawResponse
 from .. import models
 
 
-class PrivateLinkResourcesOperations(object):
-    """PrivateLinkResourcesOperations operations.
+class EventGridFiltersOperations(object):
+    """EventGridFiltersOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -39,23 +39,28 @@ class PrivateLinkResourcesOperations(object):
         self.config = config
 
     def list_by_configuration_store(
-            self, resource_group_name, config_store_name, custom_headers=None, raw=False, **operation_config):
-        """Gets the private link resources that need to be created for a
-        configuration store.
+            self, resource_group_name, config_store_name, skip_token=None, custom_headers=None, raw=False, **operation_config):
+        """Lists the event grid filters for a given configuration store.
 
         :param resource_group_name: The name of the resource group to which
          the container registry belongs.
         :type resource_group_name: str
         :param config_store_name: The name of the configuration store.
         :type config_store_name: str
+        :param skip_token: A skip token is used to continue retrieving items
+         after an operation returns a partial result. If a previous response
+         contains a nextLink element, the value of the nextLink element will
+         include a skipToken parameter that specifies a starting point to use
+         for subsequent calls.
+        :type skip_token: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of PrivateLinkResource
+        :return: An iterator like instance of EventGridFilter
         :rtype:
-         ~azure.mgmt.appconfiguration.models.PrivateLinkResourcePaged[~azure.mgmt.appconfiguration.models.PrivateLinkResource]
+         ~azure.mgmt.appconfiguration.models.EventGridFilterPaged[~azure.mgmt.appconfiguration.models.EventGridFilter]
         :raises:
          :class:`ErrorResponseException<azure.mgmt.appconfiguration.models.ErrorResponseException>`
         """
@@ -73,6 +78,8 @@ class PrivateLinkResourcesOperations(object):
                 # Construct parameters
                 query_parameters = {}
                 query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+                if skip_token is not None:
+                    query_parameters['$skipToken'] = self._serialize.query("skip_token", skip_token, 'str')
 
             else:
                 url = next_link
@@ -106,30 +113,30 @@ class PrivateLinkResourcesOperations(object):
         header_dict = None
         if raw:
             header_dict = {}
-        deserialized = models.PrivateLinkResourcePaged(internal_paging, self._deserialize.dependencies, header_dict)
+        deserialized = models.EventGridFilterPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list_by_configuration_store.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/privateLinkResources'}
+    list_by_configuration_store.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/eventGridFilters'}
 
     def get(
-            self, resource_group_name, config_store_name, group_name, custom_headers=None, raw=False, **operation_config):
-        """Gets a private link resource that need to be created for a
-        configuration store.
+            self, resource_group_name, config_store_name, event_grid_filter_name, custom_headers=None, raw=False, **operation_config):
+        """Gets the properties of the specified event grid filter.
 
         :param resource_group_name: The name of the resource group to which
          the container registry belongs.
         :type resource_group_name: str
         :param config_store_name: The name of the configuration store.
         :type config_store_name: str
-        :param group_name: The name of the private link resource group.
-        :type group_name: str
+        :param event_grid_filter_name: The name of the event grid filter to
+         retrieve.
+        :type event_grid_filter_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: PrivateLinkResource or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.appconfiguration.models.PrivateLinkResource or
+        :return: EventGridFilter or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.appconfiguration.models.EventGridFilter or
          ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`ErrorResponseException<azure.mgmt.appconfiguration.models.ErrorResponseException>`
@@ -140,7 +147,7 @@ class PrivateLinkResourcesOperations(object):
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'configStoreName': self._serialize.url("config_store_name", config_store_name, 'str', max_length=50, min_length=5, pattern=r'^[a-zA-Z0-9_-]*$'),
-            'groupName': self._serialize.url("group_name", group_name, 'str')
+            'eventGridFilterName': self._serialize.url("event_grid_filter_name", event_grid_filter_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -167,11 +174,11 @@ class PrivateLinkResourcesOperations(object):
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('PrivateLinkResource', response)
+            deserialized = self._deserialize('EventGridFilter', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/privateLinkResources/{groupName}'}
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/eventGridFilters/{eventGridFilterName}'}

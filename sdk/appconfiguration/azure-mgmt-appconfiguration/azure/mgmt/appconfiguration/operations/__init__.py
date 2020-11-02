@@ -13,10 +13,14 @@ from ._configuration_stores_operations import ConfigurationStoresOperations
 from ._operations import Operations
 from ._private_endpoint_connections_operations import PrivateEndpointConnectionsOperations
 from ._private_link_resources_operations import PrivateLinkResourcesOperations
+from ._key_values_operations import KeyValuesOperations
+from ._event_grid_filters_operations import EventGridFiltersOperations
 
 __all__ = [
     'ConfigurationStoresOperations',
     'Operations',
     'PrivateEndpointConnectionsOperations',
     'PrivateLinkResourcesOperations',
+    'KeyValuesOperations',
+    'EventGridFiltersOperations',
 ]
