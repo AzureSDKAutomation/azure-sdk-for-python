@@ -163,6 +163,10 @@ class ImageTemplate(Resource):
      output needs to go to.
     :type distribute:
      list[~azure.mgmt.imagebuilder.models.ImageTemplateDistributor]
+    :param keyvault_properties: Customer Managed Key to be used for second
+     level of encryption. Leave empty to disable second level of encryption.
+    :type keyvault_properties:
+     ~azure.mgmt.imagebuilder.models.ImageTemplateKeyvaultProperties
     :ivar provisioning_state: Provisioning state of the resource. Possible
      values include: 'Creating', 'Updating', 'Succeeded', 'Failed', 'Deleting'
     :vartype provisioning_state: str or
@@ -207,6 +211,7 @@ class ImageTemplate(Resource):
         'source': {'key': 'properties.source', 'type': 'ImageTemplateSource'},
         'customize': {'key': 'properties.customize', 'type': '[ImageTemplateCustomizer]'},
         'distribute': {'key': 'properties.distribute', 'type': '[ImageTemplateDistributor]'},
+        'keyvault_properties': {'key': 'properties.keyvaultProperties', 'type': 'ImageTemplateKeyvaultProperties'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'ProvisioningState'},
         'provisioning_error': {'key': 'properties.provisioningError', 'type': 'ProvisioningError'},
         'last_run_status': {'key': 'properties.lastRunStatus', 'type': 'ImageTemplateLastRunStatus'},
@@ -215,11 +220,12 @@ class ImageTemplate(Resource):
         'identity': {'key': 'identity', 'type': 'ImageTemplateIdentity'},
     }
 
-    def __init__(self, *, location: str, source, distribute, identity, tags=None, customize=None, build_timeout_in_minutes: int=None, vm_profile=None, **kwargs) -> None:
+    def __init__(self, *, location: str, source, distribute, identity, tags=None, customize=None, keyvault_properties=None, build_timeout_in_minutes: int=None, vm_profile=None, **kwargs) -> None:
         super(ImageTemplate, self).__init__(location=location, tags=tags, **kwargs)
         self.source = source
         self.customize = customize
         self.distribute = distribute
+        self.keyvault_properties = keyvault_properties
         self.provisioning_state = None
         self.provisioning_error = None
         self.last_run_status = None
@@ -351,8 +357,9 @@ class ImageTemplateFileCustomizer(ImageTemplateCustomizer):
 class ImageTemplateIdentity(Model):
     """Identity for the image template.
 
-    :param type: The type of identity used for the image template. Possible
-     values include: 'UserAssigned'
+    :param type: The type of identity used for the image template. The type
+     'None' will remove any identities from the image template. Possible values
+     include: 'UserAssigned', 'None'
     :type type: str or ~azure.mgmt.imagebuilder.models.ResourceIdentityType
     :param user_assigned_identities: The list of user identities associated
      with the image template. The user identity dictionary key references will
@@ -399,6 +406,31 @@ class ImageTemplateIdentityUserAssignedIdentitiesValue(Model):
         super(ImageTemplateIdentityUserAssignedIdentitiesValue, self).__init__(**kwargs)
         self.principal_id = None
         self.client_id = None
+
+
+class ImageTemplateKeyvaultProperties(Model):
+    """Specifies a key or version of a key in a Keyvault.
+
+    :param keyvault_uri: URI of Keyvault.
+    :type keyvault_uri: str
+    :param key_name: Name of Keyvault key.
+    :type key_name: str
+    :param key_version: Version of Keyvault key. Leave empty to always use the
+     latest version of the key.
+    :type key_version: str
+    """
+
+    _attribute_map = {
+        'keyvault_uri': {'key': 'keyvaultUri', 'type': 'str'},
+        'key_name': {'key': 'keyName', 'type': 'str'},
+        'key_version': {'key': 'keyVersion', 'type': 'str'},
+    }
+
+    def __init__(self, *, keyvault_uri: str=None, key_name: str=None, key_version: str=None, **kwargs) -> None:
+        super(ImageTemplateKeyvaultProperties, self).__init__(**kwargs)
+        self.keyvault_uri = keyvault_uri
+        self.key_name = key_name
+        self.key_version = key_version
 
 
 class ImageTemplateLastRunStatus(Model):
@@ -608,6 +640,10 @@ class ImageTemplatePowerShellCustomizer(ImageTemplateCustomizer):
     :param run_elevated: If specified, the PowerShell script will be run with
      elevated privileges
     :type run_elevated: bool
+    :param run_as_system: If specified, the PowerShell script will be run with
+     elevated privileges using the Local System user. Can only be true when the
+     runElevated field above is set to true.
+    :type run_as_system: bool
     :param valid_exit_codes: Valid exit codes for the PowerShell script.
      [Default: 0]
     :type valid_exit_codes: list[int]
@@ -624,15 +660,17 @@ class ImageTemplatePowerShellCustomizer(ImageTemplateCustomizer):
         'sha256_checksum': {'key': 'sha256Checksum', 'type': 'str'},
         'inline': {'key': 'inline', 'type': '[str]'},
         'run_elevated': {'key': 'runElevated', 'type': 'bool'},
+        'run_as_system': {'key': 'runAsSystem', 'type': 'bool'},
         'valid_exit_codes': {'key': 'validExitCodes', 'type': '[int]'},
     }
 
-    def __init__(self, *, name: str=None, script_uri: str=None, sha256_checksum: str=None, inline=None, run_elevated: bool=None, valid_exit_codes=None, **kwargs) -> None:
+    def __init__(self, *, name: str=None, script_uri: str=None, sha256_checksum: str=None, inline=None, run_elevated: bool=None, run_as_system: bool=None, valid_exit_codes=None, **kwargs) -> None:
         super(ImageTemplatePowerShellCustomizer, self).__init__(name=name, **kwargs)
         self.script_uri = script_uri
         self.sha256_checksum = sha256_checksum
         self.inline = inline
         self.run_elevated = run_elevated
+        self.run_as_system = run_as_system
         self.valid_exit_codes = valid_exit_codes
         self.type = 'PowerShell'
 

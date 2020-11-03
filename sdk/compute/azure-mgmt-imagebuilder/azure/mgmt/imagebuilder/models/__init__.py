@@ -18,6 +18,7 @@ try:
     from ._models_py3 import ImageTemplateFileCustomizer
     from ._models_py3 import ImageTemplateIdentity
     from ._models_py3 import ImageTemplateIdentityUserAssignedIdentitiesValue
+    from ._models_py3 import ImageTemplateKeyvaultProperties
     from ._models_py3 import ImageTemplateLastRunStatus
     from ._models_py3 import ImageTemplateManagedImageDistributor
     from ._models_py3 import ImageTemplateManagedImageSource
@@ -50,6 +51,7 @@ except (SyntaxError, ImportError):
     from ._models import ImageTemplateFileCustomizer
     from ._models import ImageTemplateIdentity
     from ._models import ImageTemplateIdentityUserAssignedIdentitiesValue
+    from ._models import ImageTemplateKeyvaultProperties
     from ._models import ImageTemplateLastRunStatus
     from ._models import ImageTemplateManagedImageDistributor
     from ._models import ImageTemplateManagedImageSource
@@ -94,6 +96,7 @@ __all__ = [
     'ImageTemplateFileCustomizer',
     'ImageTemplateIdentity',
     'ImageTemplateIdentityUserAssignedIdentitiesValue',
+    'ImageTemplateKeyvaultProperties',
     'ImageTemplateLastRunStatus',
     'ImageTemplateManagedImageDistributor',
     'ImageTemplateManagedImageSource',
