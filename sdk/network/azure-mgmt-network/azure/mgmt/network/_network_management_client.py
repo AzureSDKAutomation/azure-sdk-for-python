@@ -7036,7 +7036,6 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
            * 2019-12-01: :class:`WebApplicationFirewallPoliciesOperations<azure.mgmt.network.v2019_12_01.operations.WebApplicationFirewallPoliciesOperations>`
            * 2020-03-01: :class:`WebApplicationFirewallPoliciesOperations<azure.mgmt.network.v2020_03_01.operations.WebApplicationFirewallPoliciesOperations>`
            * 2020-04-01: :class:`WebApplicationFirewallPoliciesOperations<azure.mgmt.network.v2020_04_01.operations.WebApplicationFirewallPoliciesOperations>`
-           * 2020-05-01: :class:`WebApplicationFirewallPoliciesOperations<azure.mgmt.network.v2020_05_01.operations.WebApplicationFirewallPoliciesOperations>`
            * 2020-06-01: :class:`WebApplicationFirewallPoliciesOperations<azure.mgmt.network.v2020_06_01.operations.WebApplicationFirewallPoliciesOperations>`
            * 2020-07-01: :class:`WebApplicationFirewallPoliciesOperations<azure.mgmt.network.v2020_07_01.operations.WebApplicationFirewallPoliciesOperations>`
         """
@@ -7063,8 +7062,6 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin, MultiApiCl
             from .v2020_03_01.operations import WebApplicationFirewallPoliciesOperations as OperationClass
         elif api_version == '2020-04-01':
             from .v2020_04_01.operations import WebApplicationFirewallPoliciesOperations as OperationClass
-        elif api_version == '2020-05-01':
-            from .v2020_05_01.operations import WebApplicationFirewallPoliciesOperations as OperationClass
         elif api_version == '2020-06-01':
             from .v2020_06_01.operations import WebApplicationFirewallPoliciesOperations as OperationClass
         elif api_version == '2020-07-01':
