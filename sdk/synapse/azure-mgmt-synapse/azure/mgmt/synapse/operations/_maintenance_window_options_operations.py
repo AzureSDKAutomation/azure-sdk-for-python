@@ -11,12 +11,13 @@
 
 import uuid
 from msrest.pipeline import ClientRawResponse
+from msrestazure.azure_exceptions import CloudError
 
 from .. import models
 
 
-class SqlPoolOperationResultsOperations(object):
-    """SqlPoolOperationResultsOperations operations.
+class MaintenanceWindowOptionsOperations(object):
+    """MaintenanceWindowOptionsOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -38,11 +39,9 @@ class SqlPoolOperationResultsOperations(object):
 
         self.config = config
 
-    def get_location_header_result(
-            self, resource_group_name, workspace_name, sql_pool_name, operation_id, custom_headers=None, raw=False, **operation_config):
-        """Get SQL pool operation status.
-
-        Get the status of a SQL pool operation.
+    def get(
+            self, resource_group_name, workspace_name, sql_pool_name, maintenance_window_options_name, custom_headers=None, raw=False, **operation_config):
+        """Gets the maintenance window options for the given maintenance window.
 
         :param resource_group_name: The name of the resource group. The name
          is case insensitive.
@@ -51,32 +50,33 @@ class SqlPoolOperationResultsOperations(object):
         :type workspace_name: str
         :param sql_pool_name: SQL pool name
         :type sql_pool_name: str
-        :param operation_id: Operation ID
-        :type operation_id: str
+        :param maintenance_window_options_name: Maintenance window options
+         name.
+        :type maintenance_window_options_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: object or ClientRawResponse if raw=true
-        :rtype: object or ~msrest.pipeline.ClientRawResponse
-        :raises:
-         :class:`ErrorContractException<azure.mgmt.synapse.models.ErrorContractException>`
+        :return: MaintenanceWindowOptions or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.synapse.models.MaintenanceWindowOptions or
+         ~msrest.pipeline.ClientRawResponse
+        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         # Construct URL
-        url = self.get_location_header_result.metadata['url']
+        url = self.get.metadata['url']
         path_format_arguments = {
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', min_length=1),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str', max_length=90, min_length=1, pattern=r'^[-\w\._\(\)]+$'),
             'workspaceName': self._serialize.url("workspace_name", workspace_name, 'str'),
-            'sqlPoolName': self._serialize.url("sql_pool_name", sql_pool_name, 'str'),
-            'operationId': self._serialize.url("operation_id", operation_id, 'str')
+            'sqlPoolName': self._serialize.url("sql_pool_name", sql_pool_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
         # Construct parameters
         query_parameters = {}
         query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str', min_length=1)
+        query_parameters['maintenanceWindowOptionsName'] = self._serialize.query("maintenance_window_options_name", maintenance_window_options_name, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -92,18 +92,18 @@ class SqlPoolOperationResultsOperations(object):
         request = self._client.get(url, query_parameters, header_parameters)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200, 202]:
-            raise models.ErrorContractException(self._deserialize, response)
+        if response.status_code not in [200]:
+            exp = CloudError(response)
+            exp.request_id = response.headers.get('x-ms-request-id')
+            raise exp
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('object', response)
-        if response.status_code == 202:
-            deserialized = self._deserialize('object', response)
+            deserialized = self._deserialize('MaintenanceWindowOptions', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    get_location_header_result.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Synapse/workspaces/{workspaceName}/sqlPools/{sqlPoolName}/operationResults/{operationId}'}
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Synapse/workspaces/{workspaceName}/sqlPools/{sqlPoolName}/maintenanceWindowOptions/current'}
