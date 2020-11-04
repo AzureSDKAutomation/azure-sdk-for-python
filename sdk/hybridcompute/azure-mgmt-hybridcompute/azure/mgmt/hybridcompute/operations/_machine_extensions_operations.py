@@ -183,7 +183,7 @@ class MachineExtensionsOperations(object):
         request = self._client.patch(url, query_parameters, header_parameters, body_content)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200, 202]:
+        if response.status_code not in [200, 202, 404]:
             exp = CloudError(response)
             exp.request_id = response.headers.get('x-ms-request-id')
             raise exp
@@ -201,7 +201,7 @@ class MachineExtensionsOperations(object):
 
     def update(
             self, resource_group_name, name, extension_name, extension_parameters, custom_headers=None, raw=False, polling=True, **operation_config):
-        """The operation to create or update the extension.
+        """The operation to update the extension.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
@@ -285,7 +285,7 @@ class MachineExtensionsOperations(object):
         request = self._client.delete(url, query_parameters, header_parameters)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200, 202, 204]:
+        if response.status_code not in [200, 202, 204, 404]:
             exp = CloudError(response)
             exp.request_id = response.headers.get('x-ms-request-id')
             raise exp
@@ -387,7 +387,7 @@ class MachineExtensionsOperations(object):
         request = self._client.get(url, query_parameters, header_parameters)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200]:
+        if response.status_code not in [200, 404]:
             exp = CloudError(response)
             exp.request_id = response.headers.get('x-ms-request-id')
             raise exp
@@ -463,7 +463,7 @@ class MachineExtensionsOperations(object):
 
             response = self._client.send(request, stream=False, **operation_config)
 
-            if response.status_code not in [200]:
+            if response.status_code not in [200, 404]:
                 exp = CloudError(response)
                 exp.request_id = response.headers.get('x-ms-request-id')
                 raise exp

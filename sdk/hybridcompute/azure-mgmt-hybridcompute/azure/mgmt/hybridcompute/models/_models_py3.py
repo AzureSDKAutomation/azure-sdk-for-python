@@ -16,16 +16,19 @@ from msrest.exceptions import HttpOperationError
 class Resource(Model):
     """Resource.
 
+    Common fields that are returned in the response for all Azure Resource
+    Manager resources.
+
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     """
 
@@ -49,19 +52,21 @@ class Resource(Model):
 
 
 class AzureEntityResource(Resource):
-    """The resource model definition for a Azure Resource Manager resource with an
-    etag.
+    """Entity Resource.
+
+    The resource model definition for an Azure Resource Manager resource with
+    an etag.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -135,21 +140,15 @@ class ErrorResponse(Model):
 
     Contains details when the response code indicates an error.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param error: Required. The error details.
+    :param error: The error details.
     :type error: ~azure.mgmt.hybridcompute.models.ErrorDetail
     """
-
-    _validation = {
-        'error': {'required': True},
-    }
 
     _attribute_map = {
         'error': {'key': 'error', 'type': 'ErrorDetail'},
     }
 
-    def __init__(self, *, error, **kwargs) -> None:
+    def __init__(self, *, error=None, **kwargs) -> None:
         super(ErrorResponse, self).__init__(**kwargs)
         self.error = error
 
@@ -236,20 +235,23 @@ class LocationData(Model):
 
 
 class TrackedResource(Resource):
-    """The resource model definition for a ARM tracked top level resource.
+    """Tracked Resource.
+
+    The resource model definition for an Azure Resource Manager tracked top
+    level resource which has 'tags' and a 'location'.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -286,13 +288,13 @@ class Machine(TrackedResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -311,7 +313,7 @@ class Machine(TrackedResource):
      include: 'Connected', 'Disconnected', 'Error'
     :vartype status: str or ~azure.mgmt.hybridcompute.models.StatusTypes
     :ivar last_status_change: The time of the last status change.
-    :vartype last_status_change: datetime
+    :vartype last_status_change: str
     :ivar error_details: Details about the error state.
     :vartype error_details: list[~azure.mgmt.hybridcompute.models.ErrorDetail]
     :ivar agent_version: The hybrid machine agent full version.
@@ -379,7 +381,7 @@ class Machine(TrackedResource):
         'os_profile': {'key': 'properties.osProfile', 'type': 'MachinePropertiesOsProfile'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'status': {'key': 'properties.status', 'type': 'str'},
-        'last_status_change': {'key': 'properties.lastStatusChange', 'type': 'iso-8601'},
+        'last_status_change': {'key': 'properties.lastStatusChange', 'type': 'str'},
         'error_details': {'key': 'properties.errorDetails', 'type': '[ErrorDetail]'},
         'agent_version': {'key': 'properties.agentVersion', 'type': 'str'},
         'vm_id': {'key': 'properties.vmId', 'type': 'str'},
@@ -429,13 +431,13 @@ class MachineExtension(TrackedResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -852,7 +854,7 @@ class MachineProperties(Model):
      include: 'Connected', 'Disconnected', 'Error'
     :vartype status: str or ~azure.mgmt.hybridcompute.models.StatusTypes
     :ivar last_status_change: The time of the last status change.
-    :vartype last_status_change: datetime
+    :vartype last_status_change: str
     :ivar error_details: Details about the error state.
     :vartype error_details: list[~azure.mgmt.hybridcompute.models.ErrorDetail]
     :ivar agent_version: The hybrid machine agent full version.
@@ -909,7 +911,7 @@ class MachineProperties(Model):
         'os_profile': {'key': 'osProfile', 'type': 'MachinePropertiesOsProfile'},
         'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
         'status': {'key': 'status', 'type': 'str'},
-        'last_status_change': {'key': 'lastStatusChange', 'type': 'iso-8601'},
+        'last_status_change': {'key': 'lastStatusChange', 'type': 'str'},
         'error_details': {'key': 'errorDetails', 'type': '[ErrorDetail]'},
         'agent_version': {'key': 'agentVersion', 'type': 'str'},
         'vm_id': {'key': 'vmId', 'type': 'str'},
@@ -1067,6 +1069,9 @@ class OperationValue(Model):
     :vartype description: str
     :ivar provider: The resource provider for the operation.
     :vartype provider: str
+    :ivar is_data_action: Indicates whether the operation applies to
+     data-plane
+    :vartype is_data_action: str
     """
 
     _validation = {
@@ -1076,6 +1081,7 @@ class OperationValue(Model):
         'resource': {'readonly': True},
         'description': {'readonly': True},
         'provider': {'readonly': True},
+        'is_data_action': {'readonly': True},
     }
 
     _attribute_map = {
@@ -1085,6 +1091,7 @@ class OperationValue(Model):
         'resource': {'key': 'display.resource', 'type': 'str'},
         'description': {'key': 'display.description', 'type': 'str'},
         'provider': {'key': 'display.provider', 'type': 'str'},
+        'is_data_action': {'key': 'isDataAction', 'type': 'str'},
     }
 
     def __init__(self, **kwargs) -> None:
@@ -1095,6 +1102,7 @@ class OperationValue(Model):
         self.resource = None
         self.description = None
         self.provider = None
+        self.is_data_action = None
 
 
 class OperationValueDisplayModel(Model):
@@ -1136,19 +1144,21 @@ class OperationValueDisplayModel(Model):
 
 
 class ProxyResource(Resource):
-    """The resource model definition for a ARM proxy resource. It will have
-    everything other than required location and tags.
+    """Proxy Resource.
+
+    The resource model definition for a Azure Resource Manager proxy resource.
+    It will not have tags and a location.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     """
 
