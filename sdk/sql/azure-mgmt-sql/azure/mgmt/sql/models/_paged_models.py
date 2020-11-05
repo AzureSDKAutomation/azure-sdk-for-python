@@ -103,32 +103,6 @@ class MetricDefinitionPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(MetricDefinitionPaged, self).__init__(*args, **kwargs)
-class DatabasePaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`Database <azure.mgmt.sql.models.Database>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[Database]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(DatabasePaged, self).__init__(*args, **kwargs)
-class ElasticPoolPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`ElasticPool <azure.mgmt.sql.models.ElasticPool>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[ElasticPool]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(ElasticPoolPaged, self).__init__(*args, **kwargs)
 class RecommendedElasticPoolPaged(Paged):
     """
     A paging container for iterating over a list of :class:`RecommendedElasticPool <azure.mgmt.sql.models.RecommendedElasticPool>` object

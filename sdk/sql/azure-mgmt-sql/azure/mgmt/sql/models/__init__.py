@@ -19,12 +19,10 @@ try:
     from ._models_py3 import CheckNameAvailabilityResponse
     from ._models_py3 import CompleteDatabaseRestoreDefinition
     from ._models_py3 import CreateDatabaseRestorePointDefinition
-    from ._models_py3 import Database
     from ._models_py3 import DatabaseAutomaticTuning
     from ._models_py3 import DatabaseBlobAuditingPolicy
     from ._models_py3 import DatabaseOperation
     from ._models_py3 import DatabaseSecurityAlertPolicy
-    from ._models_py3 import DatabaseUpdate
     from ._models_py3 import DatabaseUsage
     from ._models_py3 import DatabaseVulnerabilityAssessment
     from ._models_py3 import DatabaseVulnerabilityAssessmentRuleBaseline
@@ -33,16 +31,13 @@ try:
     from ._models_py3 import DataMaskingPolicy
     from ._models_py3 import DataMaskingRule
     from ._models_py3 import EditionCapability
-    from ._models_py3 import ElasticPool
     from ._models_py3 import ElasticPoolActivity
     from ._models_py3 import ElasticPoolDatabaseActivity
     from ._models_py3 import ElasticPoolEditionCapability
     from ._models_py3 import ElasticPoolOperation
     from ._models_py3 import ElasticPoolPerDatabaseMaxPerformanceLevelCapability
     from ._models_py3 import ElasticPoolPerDatabaseMinPerformanceLevelCapability
-    from ._models_py3 import ElasticPoolPerDatabaseSettings
     from ._models_py3 import ElasticPoolPerformanceLevelCapability
-    from ._models_py3 import ElasticPoolUpdate
     from ._models_py3 import EncryptionProtector
     from ._models_py3 import ExportDatabaseDefinition
     from ._models_py3 import ExtendedDatabaseBlobAuditingPolicy
@@ -139,7 +134,6 @@ try:
     from ._models_py3 import ReplicationLink
     from ._models_py3 import Resource
     from ._models_py3 import ResourceIdentity
-    from ._models_py3 import ResourceMoveDefinition
     from ._models_py3 import RestorableDroppedDatabase
     from ._models_py3 import RestorableDroppedManagedDatabase
     from ._models_py3 import RestorePoint
@@ -208,12 +202,10 @@ except (SyntaxError, ImportError):
     from ._models import CheckNameAvailabilityResponse
     from ._models import CompleteDatabaseRestoreDefinition
     from ._models import CreateDatabaseRestorePointDefinition
-    from ._models import Database
     from ._models import DatabaseAutomaticTuning
     from ._models import DatabaseBlobAuditingPolicy
     from ._models import DatabaseOperation
     from ._models import DatabaseSecurityAlertPolicy
-    from ._models import DatabaseUpdate
     from ._models import DatabaseUsage
     from ._models import DatabaseVulnerabilityAssessment
     from ._models import DatabaseVulnerabilityAssessmentRuleBaseline
@@ -222,16 +214,13 @@ except (SyntaxError, ImportError):
     from ._models import DataMaskingPolicy
     from ._models import DataMaskingRule
     from ._models import EditionCapability
-    from ._models import ElasticPool
     from ._models import ElasticPoolActivity
     from ._models import ElasticPoolDatabaseActivity
     from ._models import ElasticPoolEditionCapability
     from ._models import ElasticPoolOperation
     from ._models import ElasticPoolPerDatabaseMaxPerformanceLevelCapability
     from ._models import ElasticPoolPerDatabaseMinPerformanceLevelCapability
-    from ._models import ElasticPoolPerDatabaseSettings
     from ._models import ElasticPoolPerformanceLevelCapability
-    from ._models import ElasticPoolUpdate
     from ._models import EncryptionProtector
     from ._models import ExportDatabaseDefinition
     from ._models import ExtendedDatabaseBlobAuditingPolicy
@@ -328,7 +317,6 @@ except (SyntaxError, ImportError):
     from ._models import ReplicationLink
     from ._models import Resource
     from ._models import ResourceIdentity
-    from ._models import ResourceMoveDefinition
     from ._models import RestorableDroppedDatabase
     from ._models import RestorableDroppedManagedDatabase
     from ._models import RestorePoint
@@ -390,14 +378,12 @@ except (SyntaxError, ImportError):
 from ._paged_models import BackupShortTermRetentionPolicyPaged
 from ._paged_models import DatabaseBlobAuditingPolicyPaged
 from ._paged_models import DatabaseOperationPaged
-from ._paged_models import DatabasePaged
 from ._paged_models import DatabaseUsagePaged
 from ._paged_models import DatabaseVulnerabilityAssessmentPaged
 from ._paged_models import DataMaskingRulePaged
 from ._paged_models import ElasticPoolActivityPaged
 from ._paged_models import ElasticPoolDatabaseActivityPaged
 from ._paged_models import ElasticPoolOperationPaged
-from ._paged_models import ElasticPoolPaged
 from ._paged_models import EncryptionProtectorPaged
 from ._paged_models import ExtendedDatabaseBlobAuditingPolicyPaged
 from ._paged_models import ExtendedServerBlobAuditingPolicyPaged
@@ -545,14 +531,6 @@ from ._sql_management_client_enums import (
     ManagedInstanceProxyOverride,
     StorageAccountType,
     StorageKeyType,
-    CreateMode,
-    SampleName,
-    DatabaseStatus,
-    DatabaseLicenseType,
-    DatabaseReadScale,
-    SecondaryType,
-    ElasticPoolState,
-    ElasticPoolLicenseType,
     LongTermRetentionDatabaseState,
     VulnerabilityAssessmentPolicyBaselineName,
     SensitivityLabelSource,
@@ -576,12 +554,10 @@ __all__ = [
     'CheckNameAvailabilityResponse',
     'CompleteDatabaseRestoreDefinition',
     'CreateDatabaseRestorePointDefinition',
-    'Database',
     'DatabaseAutomaticTuning',
     'DatabaseBlobAuditingPolicy',
     'DatabaseOperation',
     'DatabaseSecurityAlertPolicy',
-    'DatabaseUpdate',
     'DatabaseUsage',
     'DatabaseVulnerabilityAssessment',
     'DatabaseVulnerabilityAssessmentRuleBaseline',
@@ -590,16 +566,13 @@ __all__ = [
     'DataMaskingPolicy',
     'DataMaskingRule',
     'EditionCapability',
-    'ElasticPool',
     'ElasticPoolActivity',
     'ElasticPoolDatabaseActivity',
     'ElasticPoolEditionCapability',
     'ElasticPoolOperation',
     'ElasticPoolPerDatabaseMaxPerformanceLevelCapability',
     'ElasticPoolPerDatabaseMinPerformanceLevelCapability',
-    'ElasticPoolPerDatabaseSettings',
     'ElasticPoolPerformanceLevelCapability',
-    'ElasticPoolUpdate',
     'EncryptionProtector',
     'ExportDatabaseDefinition',
     'ExtendedDatabaseBlobAuditingPolicy',
@@ -696,7 +669,6 @@ __all__ = [
     'ReplicationLink',
     'Resource',
     'ResourceIdentity',
-    'ResourceMoveDefinition',
     'RestorableDroppedDatabase',
     'RestorableDroppedManagedDatabase',
     'RestorePoint',
@@ -762,8 +734,6 @@ __all__ = [
     'GeoBackupPolicyPaged',
     'MetricPaged',
     'MetricDefinitionPaged',
-    'DatabasePaged',
-    'ElasticPoolPaged',
     'RecommendedElasticPoolPaged',
     'RecommendedElasticPoolMetricPaged',
     'ReplicationLinkPaged',
@@ -912,14 +882,6 @@ __all__ = [
     'ManagedInstanceProxyOverride',
     'StorageAccountType',
     'StorageKeyType',
-    'CreateMode',
-    'SampleName',
-    'DatabaseStatus',
-    'DatabaseLicenseType',
-    'DatabaseReadScale',
-    'SecondaryType',
-    'ElasticPoolState',
-    'ElasticPoolLicenseType',
     'LongTermRetentionDatabaseState',
     'VulnerabilityAssessmentPolicyBaselineName',
     'SensitivityLabelSource',

@@ -426,331 +426,6 @@ class CreateDatabaseRestorePointDefinition(Model):
         self.restore_point_label = restore_point_label
 
 
-class TrackedResource(Resource):
-    """ARM tracked top level resource.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :ivar id: Resource ID.
-    :vartype id: str
-    :ivar name: Resource name.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :param location: Required. Resource location.
-    :type location: str
-    :param tags: Resource tags.
-    :type tags: dict[str, str]
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'location': {'required': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'location': {'key': 'location', 'type': 'str'},
-        'tags': {'key': 'tags', 'type': '{str}'},
-    }
-
-    def __init__(self, *, location: str, tags=None, **kwargs) -> None:
-        super(TrackedResource, self).__init__(**kwargs)
-        self.location = location
-        self.tags = tags
-
-
-class Database(TrackedResource):
-    """A database resource.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :ivar id: Resource ID.
-    :vartype id: str
-    :ivar name: Resource name.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :param location: Required. Resource location.
-    :type location: str
-    :param tags: Resource tags.
-    :type tags: dict[str, str]
-    :param sku: The database SKU.
-     The list of SKUs may vary by region and support offer. To determine the
-     SKUs (including the SKU name, tier/edition, family, and capacity) that are
-     available to your subscription in an Azure region, use the
-     `Capabilities_ListByLocation` REST API or one of the following commands:
-     ```azurecli
-     az sql db list-editions -l <location> -o table
-     ````
-     ```powershell
-     Get-AzSqlServerServiceObjective -Location <location>
-     ````
-    :type sku: ~azure.mgmt.sql.models.Sku
-    :ivar kind: Kind of database. This is metadata used for the Azure portal
-     experience.
-    :vartype kind: str
-    :ivar managed_by: Resource that manages the database.
-    :vartype managed_by: str
-    :param create_mode: Specifies the mode of database creation.
-     Default: regular database creation.
-     Copy: creates a database as a copy of an existing database.
-     sourceDatabaseId must be specified as the resource ID of the source
-     database.
-     Secondary: creates a database as a secondary replica of an existing
-     database. sourceDatabaseId must be specified as the resource ID of the
-     existing primary database.
-     PointInTimeRestore: Creates a database by restoring a point in time backup
-     of an existing database. sourceDatabaseId must be specified as the
-     resource ID of the existing database, and restorePointInTime must be
-     specified.
-     Recovery: Creates a database by restoring a geo-replicated backup.
-     sourceDatabaseId must be specified as the recoverable database resource ID
-     to restore.
-     Restore: Creates a database by restoring a backup of a deleted database.
-     sourceDatabaseId must be specified. If sourceDatabaseId is the database's
-     original resource ID, then sourceDatabaseDeletionDate must be specified.
-     Otherwise sourceDatabaseId must be the restorable dropped database
-     resource ID and sourceDatabaseDeletionDate is ignored. restorePointInTime
-     may also be specified to restore from an earlier point in time.
-     RestoreLongTermRetentionBackup: Creates a database by restoring from a
-     long term retention vault. recoveryServicesRecoveryPointResourceId must be
-     specified as the recovery point resource ID.
-     Copy, Secondary, and RestoreLongTermRetentionBackup are not supported for
-     DataWarehouse edition. Possible values include: 'Default', 'Copy',
-     'Secondary', 'PointInTimeRestore', 'Restore', 'Recovery',
-     'RestoreExternalBackup', 'RestoreExternalBackupSecondary',
-     'RestoreLongTermRetentionBackup', 'OnlineSecondary'
-    :type create_mode: str or ~azure.mgmt.sql.models.CreateMode
-    :param collation: The collation of the database.
-    :type collation: str
-    :param max_size_bytes: The max size of the database expressed in bytes.
-    :type max_size_bytes: long
-    :param sample_name: The name of the sample schema to apply when creating
-     this database. Possible values include: 'AdventureWorksLT',
-     'WideWorldImportersStd', 'WideWorldImportersFull'
-    :type sample_name: str or ~azure.mgmt.sql.models.SampleName
-    :param elastic_pool_id: The resource identifier of the elastic pool
-     containing this database.
-    :type elastic_pool_id: str
-    :param source_database_id: The resource identifier of the source database
-     associated with create operation of this database.
-    :type source_database_id: str
-    :ivar status: The status of the database. Possible values include:
-     'Online', 'Restoring', 'RecoveryPending', 'Recovering', 'Suspect',
-     'Offline', 'Standby', 'Shutdown', 'EmergencyMode', 'AutoClosed',
-     'Copying', 'Creating', 'Inaccessible', 'OfflineSecondary', 'Pausing',
-     'Paused', 'Resuming', 'Scaling', 'OfflineChangingDwPerformanceTiers',
-     'OnlineChangingDwPerformanceTiers', 'Disabled'
-    :vartype status: str or ~azure.mgmt.sql.models.DatabaseStatus
-    :ivar database_id: The ID of the database.
-    :vartype database_id: str
-    :ivar creation_date: The creation date of the database (ISO8601 format).
-    :vartype creation_date: datetime
-    :ivar current_service_objective_name: The current service level objective
-     name of the database.
-    :vartype current_service_objective_name: str
-    :ivar requested_service_objective_name: The requested service level
-     objective name of the database.
-    :vartype requested_service_objective_name: str
-    :ivar default_secondary_location: The default secondary region for this
-     database.
-    :vartype default_secondary_location: str
-    :ivar failover_group_id: Failover Group resource identifier that this
-     database belongs to.
-    :vartype failover_group_id: str
-    :param restore_point_in_time: Specifies the point in time (ISO8601 format)
-     of the source database that will be restored to create the new database.
-    :type restore_point_in_time: datetime
-    :param source_database_deletion_date: Specifies the time that the database
-     was deleted.
-    :type source_database_deletion_date: datetime
-    :param recovery_services_recovery_point_id: The resource identifier of the
-     recovery point associated with create operation of this database.
-    :type recovery_services_recovery_point_id: str
-    :param long_term_retention_backup_resource_id: The resource identifier of
-     the long term retention backup associated with create operation of this
-     database.
-    :type long_term_retention_backup_resource_id: str
-    :param recoverable_database_id: The resource identifier of the recoverable
-     database associated with create operation of this database.
-    :type recoverable_database_id: str
-    :param restorable_dropped_database_id: The resource identifier of the
-     restorable dropped database associated with create operation of this
-     database.
-    :type restorable_dropped_database_id: str
-    :param catalog_collation: Collation of the metadata catalog. Possible
-     values include: 'DATABASE_DEFAULT', 'SQL_Latin1_General_CP1_CI_AS'
-    :type catalog_collation: str or
-     ~azure.mgmt.sql.models.CatalogCollationType
-    :param zone_redundant: Whether or not this database is zone redundant,
-     which means the replicas of this database will be spread across multiple
-     availability zones.
-    :type zone_redundant: bool
-    :param license_type: The license type to apply for this database.
-     `LicenseIncluded` if you need a license, or `BasePrice` if you have a
-     license and are eligible for the Azure Hybrid Benefit. Possible values
-     include: 'LicenseIncluded', 'BasePrice'
-    :type license_type: str or ~azure.mgmt.sql.models.DatabaseLicenseType
-    :ivar max_log_size_bytes: The max log size for this database.
-    :vartype max_log_size_bytes: long
-    :ivar earliest_restore_date: This records the earliest start date and time
-     that restore is available for this database (ISO8601 format).
-    :vartype earliest_restore_date: datetime
-    :param read_scale: The state of read-only routing. If enabled, connections
-     that have application intent set to readonly in their connection string
-     may be routed to a readonly secondary replica in the same region. Possible
-     values include: 'Enabled', 'Disabled'
-    :type read_scale: str or ~azure.mgmt.sql.models.DatabaseReadScale
-    :param high_availability_replica_count: The number of secondary replicas
-     associated with the database that are used to provide high availability.
-    :type high_availability_replica_count: int
-    :param secondary_type: The secondary type of the database if it is a
-     secondary.  Valid values are Geo and Named. Possible values include:
-     'Geo', 'Named'
-    :type secondary_type: str or ~azure.mgmt.sql.models.SecondaryType
-    :ivar current_sku: The name and tier of the SKU.
-    :vartype current_sku: ~azure.mgmt.sql.models.Sku
-    :param auto_pause_delay: Time in minutes after which database is
-     automatically paused. A value of -1 means that automatic pause is disabled
-    :type auto_pause_delay: int
-    :param storage_account_type: The storage account type used to store
-     backups for this database. Currently the only supported option is GRS
-     (GeoRedundantStorage). Possible values include: 'GRS', 'LRS', 'ZRS'
-    :type storage_account_type: str or
-     ~azure.mgmt.sql.models.StorageAccountType
-    :param min_capacity: Minimal capacity that database will always have
-     allocated, if not paused
-    :type min_capacity: float
-    :ivar paused_date: The date when database was paused by user configuration
-     or action(ISO8601 format). Null if the database is ready.
-    :vartype paused_date: datetime
-    :ivar resumed_date: The date when database was resumed by user action or
-     database login (ISO8601 format). Null if the database is paused.
-    :vartype resumed_date: datetime
-    :param maintenance_configuration_id: Maintenance configuration id assigned
-     to the database. This configuration defines the period when the
-     maintenance updates will be rolled out.
-    :type maintenance_configuration_id: str
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'location': {'required': True},
-        'kind': {'readonly': True},
-        'managed_by': {'readonly': True},
-        'status': {'readonly': True},
-        'database_id': {'readonly': True},
-        'creation_date': {'readonly': True},
-        'current_service_objective_name': {'readonly': True},
-        'requested_service_objective_name': {'readonly': True},
-        'default_secondary_location': {'readonly': True},
-        'failover_group_id': {'readonly': True},
-        'max_log_size_bytes': {'readonly': True},
-        'earliest_restore_date': {'readonly': True},
-        'current_sku': {'readonly': True},
-        'paused_date': {'readonly': True},
-        'resumed_date': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'location': {'key': 'location', 'type': 'str'},
-        'tags': {'key': 'tags', 'type': '{str}'},
-        'sku': {'key': 'sku', 'type': 'Sku'},
-        'kind': {'key': 'kind', 'type': 'str'},
-        'managed_by': {'key': 'managedBy', 'type': 'str'},
-        'create_mode': {'key': 'properties.createMode', 'type': 'str'},
-        'collation': {'key': 'properties.collation', 'type': 'str'},
-        'max_size_bytes': {'key': 'properties.maxSizeBytes', 'type': 'long'},
-        'sample_name': {'key': 'properties.sampleName', 'type': 'str'},
-        'elastic_pool_id': {'key': 'properties.elasticPoolId', 'type': 'str'},
-        'source_database_id': {'key': 'properties.sourceDatabaseId', 'type': 'str'},
-        'status': {'key': 'properties.status', 'type': 'str'},
-        'database_id': {'key': 'properties.databaseId', 'type': 'str'},
-        'creation_date': {'key': 'properties.creationDate', 'type': 'iso-8601'},
-        'current_service_objective_name': {'key': 'properties.currentServiceObjectiveName', 'type': 'str'},
-        'requested_service_objective_name': {'key': 'properties.requestedServiceObjectiveName', 'type': 'str'},
-        'default_secondary_location': {'key': 'properties.defaultSecondaryLocation', 'type': 'str'},
-        'failover_group_id': {'key': 'properties.failoverGroupId', 'type': 'str'},
-        'restore_point_in_time': {'key': 'properties.restorePointInTime', 'type': 'iso-8601'},
-        'source_database_deletion_date': {'key': 'properties.sourceDatabaseDeletionDate', 'type': 'iso-8601'},
-        'recovery_services_recovery_point_id': {'key': 'properties.recoveryServicesRecoveryPointId', 'type': 'str'},
-        'long_term_retention_backup_resource_id': {'key': 'properties.longTermRetentionBackupResourceId', 'type': 'str'},
-        'recoverable_database_id': {'key': 'properties.recoverableDatabaseId', 'type': 'str'},
-        'restorable_dropped_database_id': {'key': 'properties.restorableDroppedDatabaseId', 'type': 'str'},
-        'catalog_collation': {'key': 'properties.catalogCollation', 'type': 'str'},
-        'zone_redundant': {'key': 'properties.zoneRedundant', 'type': 'bool'},
-        'license_type': {'key': 'properties.licenseType', 'type': 'str'},
-        'max_log_size_bytes': {'key': 'properties.maxLogSizeBytes', 'type': 'long'},
-        'earliest_restore_date': {'key': 'properties.earliestRestoreDate', 'type': 'iso-8601'},
-        'read_scale': {'key': 'properties.readScale', 'type': 'str'},
-        'high_availability_replica_count': {'key': 'properties.highAvailabilityReplicaCount', 'type': 'int'},
-        'secondary_type': {'key': 'properties.secondaryType', 'type': 'str'},
-        'current_sku': {'key': 'properties.currentSku', 'type': 'Sku'},
-        'auto_pause_delay': {'key': 'properties.autoPauseDelay', 'type': 'int'},
-        'storage_account_type': {'key': 'properties.storageAccountType', 'type': 'str'},
-        'min_capacity': {'key': 'properties.minCapacity', 'type': 'float'},
-        'paused_date': {'key': 'properties.pausedDate', 'type': 'iso-8601'},
-        'resumed_date': {'key': 'properties.resumedDate', 'type': 'iso-8601'},
-        'maintenance_configuration_id': {'key': 'properties.maintenanceConfigurationId', 'type': 'str'},
-    }
-
-    def __init__(self, *, location: str, tags=None, sku=None, create_mode=None, collation: str=None, max_size_bytes: int=None, sample_name=None, elastic_pool_id: str=None, source_database_id: str=None, restore_point_in_time=None, source_database_deletion_date=None, recovery_services_recovery_point_id: str=None, long_term_retention_backup_resource_id: str=None, recoverable_database_id: str=None, restorable_dropped_database_id: str=None, catalog_collation=None, zone_redundant: bool=None, license_type=None, read_scale=None, high_availability_replica_count: int=None, secondary_type=None, auto_pause_delay: int=None, storage_account_type=None, min_capacity: float=None, maintenance_configuration_id: str=None, **kwargs) -> None:
-        super(Database, self).__init__(location=location, tags=tags, **kwargs)
-        self.sku = sku
-        self.kind = None
-        self.managed_by = None
-        self.create_mode = create_mode
-        self.collation = collation
-        self.max_size_bytes = max_size_bytes
-        self.sample_name = sample_name
-        self.elastic_pool_id = elastic_pool_id
-        self.source_database_id = source_database_id
-        self.status = None
-        self.database_id = None
-        self.creation_date = None
-        self.current_service_objective_name = None
-        self.requested_service_objective_name = None
-        self.default_secondary_location = None
-        self.failover_group_id = None
-        self.restore_point_in_time = restore_point_in_time
-        self.source_database_deletion_date = source_database_deletion_date
-        self.recovery_services_recovery_point_id = recovery_services_recovery_point_id
-        self.long_term_retention_backup_resource_id = long_term_retention_backup_resource_id
-        self.recoverable_database_id = recoverable_database_id
-        self.restorable_dropped_database_id = restorable_dropped_database_id
-        self.catalog_collation = catalog_collation
-        self.zone_redundant = zone_redundant
-        self.license_type = license_type
-        self.max_log_size_bytes = None
-        self.earliest_restore_date = None
-        self.read_scale = read_scale
-        self.high_availability_replica_count = high_availability_replica_count
-        self.secondary_type = secondary_type
-        self.current_sku = None
-        self.auto_pause_delay = auto_pause_delay
-        self.storage_account_type = storage_account_type
-        self.min_capacity = min_capacity
-        self.paused_date = None
-        self.resumed_date = None
-        self.maintenance_configuration_id = maintenance_configuration_id
-
-
 class DatabaseAutomaticTuning(ProxyResource):
     """Database-level Automatic Tuning.
 
@@ -1156,252 +831,6 @@ class DatabaseSecurityAlertPolicy(ProxyResource):
         self.storage_account_access_key = storage_account_access_key
         self.retention_days = retention_days
         self.use_server_default = use_server_default
-
-
-class DatabaseUpdate(Model):
-    """A database resource.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :param sku: The name and tier of the SKU.
-    :type sku: ~azure.mgmt.sql.models.Sku
-    :param create_mode: Specifies the mode of database creation.
-     Default: regular database creation.
-     Copy: creates a database as a copy of an existing database.
-     sourceDatabaseId must be specified as the resource ID of the source
-     database.
-     Secondary: creates a database as a secondary replica of an existing
-     database. sourceDatabaseId must be specified as the resource ID of the
-     existing primary database.
-     PointInTimeRestore: Creates a database by restoring a point in time backup
-     of an existing database. sourceDatabaseId must be specified as the
-     resource ID of the existing database, and restorePointInTime must be
-     specified.
-     Recovery: Creates a database by restoring a geo-replicated backup.
-     sourceDatabaseId must be specified as the recoverable database resource ID
-     to restore.
-     Restore: Creates a database by restoring a backup of a deleted database.
-     sourceDatabaseId must be specified. If sourceDatabaseId is the database's
-     original resource ID, then sourceDatabaseDeletionDate must be specified.
-     Otherwise sourceDatabaseId must be the restorable dropped database
-     resource ID and sourceDatabaseDeletionDate is ignored. restorePointInTime
-     may also be specified to restore from an earlier point in time.
-     RestoreLongTermRetentionBackup: Creates a database by restoring from a
-     long term retention vault. recoveryServicesRecoveryPointResourceId must be
-     specified as the recovery point resource ID.
-     Copy, Secondary, and RestoreLongTermRetentionBackup are not supported for
-     DataWarehouse edition. Possible values include: 'Default', 'Copy',
-     'Secondary', 'PointInTimeRestore', 'Restore', 'Recovery',
-     'RestoreExternalBackup', 'RestoreExternalBackupSecondary',
-     'RestoreLongTermRetentionBackup', 'OnlineSecondary'
-    :type create_mode: str or ~azure.mgmt.sql.models.CreateMode
-    :param collation: The collation of the database.
-    :type collation: str
-    :param max_size_bytes: The max size of the database expressed in bytes.
-    :type max_size_bytes: long
-    :param sample_name: The name of the sample schema to apply when creating
-     this database. Possible values include: 'AdventureWorksLT',
-     'WideWorldImportersStd', 'WideWorldImportersFull'
-    :type sample_name: str or ~azure.mgmt.sql.models.SampleName
-    :param elastic_pool_id: The resource identifier of the elastic pool
-     containing this database.
-    :type elastic_pool_id: str
-    :param source_database_id: The resource identifier of the source database
-     associated with create operation of this database.
-    :type source_database_id: str
-    :ivar status: The status of the database. Possible values include:
-     'Online', 'Restoring', 'RecoveryPending', 'Recovering', 'Suspect',
-     'Offline', 'Standby', 'Shutdown', 'EmergencyMode', 'AutoClosed',
-     'Copying', 'Creating', 'Inaccessible', 'OfflineSecondary', 'Pausing',
-     'Paused', 'Resuming', 'Scaling', 'OfflineChangingDwPerformanceTiers',
-     'OnlineChangingDwPerformanceTiers', 'Disabled'
-    :vartype status: str or ~azure.mgmt.sql.models.DatabaseStatus
-    :ivar database_id: The ID of the database.
-    :vartype database_id: str
-    :ivar creation_date: The creation date of the database (ISO8601 format).
-    :vartype creation_date: datetime
-    :ivar current_service_objective_name: The current service level objective
-     name of the database.
-    :vartype current_service_objective_name: str
-    :ivar requested_service_objective_name: The requested service level
-     objective name of the database.
-    :vartype requested_service_objective_name: str
-    :ivar default_secondary_location: The default secondary region for this
-     database.
-    :vartype default_secondary_location: str
-    :ivar failover_group_id: Failover Group resource identifier that this
-     database belongs to.
-    :vartype failover_group_id: str
-    :param restore_point_in_time: Specifies the point in time (ISO8601 format)
-     of the source database that will be restored to create the new database.
-    :type restore_point_in_time: datetime
-    :param source_database_deletion_date: Specifies the time that the database
-     was deleted.
-    :type source_database_deletion_date: datetime
-    :param recovery_services_recovery_point_id: The resource identifier of the
-     recovery point associated with create operation of this database.
-    :type recovery_services_recovery_point_id: str
-    :param long_term_retention_backup_resource_id: The resource identifier of
-     the long term retention backup associated with create operation of this
-     database.
-    :type long_term_retention_backup_resource_id: str
-    :param recoverable_database_id: The resource identifier of the recoverable
-     database associated with create operation of this database.
-    :type recoverable_database_id: str
-    :param restorable_dropped_database_id: The resource identifier of the
-     restorable dropped database associated with create operation of this
-     database.
-    :type restorable_dropped_database_id: str
-    :param catalog_collation: Collation of the metadata catalog. Possible
-     values include: 'DATABASE_DEFAULT', 'SQL_Latin1_General_CP1_CI_AS'
-    :type catalog_collation: str or
-     ~azure.mgmt.sql.models.CatalogCollationType
-    :param zone_redundant: Whether or not this database is zone redundant,
-     which means the replicas of this database will be spread across multiple
-     availability zones.
-    :type zone_redundant: bool
-    :param license_type: The license type to apply for this database.
-     `LicenseIncluded` if you need a license, or `BasePrice` if you have a
-     license and are eligible for the Azure Hybrid Benefit. Possible values
-     include: 'LicenseIncluded', 'BasePrice'
-    :type license_type: str or ~azure.mgmt.sql.models.DatabaseLicenseType
-    :ivar max_log_size_bytes: The max log size for this database.
-    :vartype max_log_size_bytes: long
-    :ivar earliest_restore_date: This records the earliest start date and time
-     that restore is available for this database (ISO8601 format).
-    :vartype earliest_restore_date: datetime
-    :param read_scale: The state of read-only routing. If enabled, connections
-     that have application intent set to readonly in their connection string
-     may be routed to a readonly secondary replica in the same region. Possible
-     values include: 'Enabled', 'Disabled'
-    :type read_scale: str or ~azure.mgmt.sql.models.DatabaseReadScale
-    :param high_availability_replica_count: The number of secondary replicas
-     associated with the database that are used to provide high availability.
-    :type high_availability_replica_count: int
-    :param secondary_type: The secondary type of the database if it is a
-     secondary.  Valid values are Geo and Named. Possible values include:
-     'Geo', 'Named'
-    :type secondary_type: str or ~azure.mgmt.sql.models.SecondaryType
-    :ivar current_sku: The name and tier of the SKU.
-    :vartype current_sku: ~azure.mgmt.sql.models.Sku
-    :param auto_pause_delay: Time in minutes after which database is
-     automatically paused. A value of -1 means that automatic pause is disabled
-    :type auto_pause_delay: int
-    :param storage_account_type: The storage account type used to store
-     backups for this database. Currently the only supported option is GRS
-     (GeoRedundantStorage). Possible values include: 'GRS', 'LRS', 'ZRS'
-    :type storage_account_type: str or
-     ~azure.mgmt.sql.models.StorageAccountType
-    :param min_capacity: Minimal capacity that database will always have
-     allocated, if not paused
-    :type min_capacity: float
-    :ivar paused_date: The date when database was paused by user configuration
-     or action(ISO8601 format). Null if the database is ready.
-    :vartype paused_date: datetime
-    :ivar resumed_date: The date when database was resumed by user action or
-     database login (ISO8601 format). Null if the database is paused.
-    :vartype resumed_date: datetime
-    :param maintenance_configuration_id: Maintenance configuration id assigned
-     to the database. This configuration defines the period when the
-     maintenance updates will be rolled out.
-    :type maintenance_configuration_id: str
-    :param tags: Resource tags.
-    :type tags: dict[str, str]
-    """
-
-    _validation = {
-        'status': {'readonly': True},
-        'database_id': {'readonly': True},
-        'creation_date': {'readonly': True},
-        'current_service_objective_name': {'readonly': True},
-        'requested_service_objective_name': {'readonly': True},
-        'default_secondary_location': {'readonly': True},
-        'failover_group_id': {'readonly': True},
-        'max_log_size_bytes': {'readonly': True},
-        'earliest_restore_date': {'readonly': True},
-        'current_sku': {'readonly': True},
-        'paused_date': {'readonly': True},
-        'resumed_date': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'sku': {'key': 'sku', 'type': 'Sku'},
-        'create_mode': {'key': 'properties.createMode', 'type': 'str'},
-        'collation': {'key': 'properties.collation', 'type': 'str'},
-        'max_size_bytes': {'key': 'properties.maxSizeBytes', 'type': 'long'},
-        'sample_name': {'key': 'properties.sampleName', 'type': 'str'},
-        'elastic_pool_id': {'key': 'properties.elasticPoolId', 'type': 'str'},
-        'source_database_id': {'key': 'properties.sourceDatabaseId', 'type': 'str'},
-        'status': {'key': 'properties.status', 'type': 'str'},
-        'database_id': {'key': 'properties.databaseId', 'type': 'str'},
-        'creation_date': {'key': 'properties.creationDate', 'type': 'iso-8601'},
-        'current_service_objective_name': {'key': 'properties.currentServiceObjectiveName', 'type': 'str'},
-        'requested_service_objective_name': {'key': 'properties.requestedServiceObjectiveName', 'type': 'str'},
-        'default_secondary_location': {'key': 'properties.defaultSecondaryLocation', 'type': 'str'},
-        'failover_group_id': {'key': 'properties.failoverGroupId', 'type': 'str'},
-        'restore_point_in_time': {'key': 'properties.restorePointInTime', 'type': 'iso-8601'},
-        'source_database_deletion_date': {'key': 'properties.sourceDatabaseDeletionDate', 'type': 'iso-8601'},
-        'recovery_services_recovery_point_id': {'key': 'properties.recoveryServicesRecoveryPointId', 'type': 'str'},
-        'long_term_retention_backup_resource_id': {'key': 'properties.longTermRetentionBackupResourceId', 'type': 'str'},
-        'recoverable_database_id': {'key': 'properties.recoverableDatabaseId', 'type': 'str'},
-        'restorable_dropped_database_id': {'key': 'properties.restorableDroppedDatabaseId', 'type': 'str'},
-        'catalog_collation': {'key': 'properties.catalogCollation', 'type': 'str'},
-        'zone_redundant': {'key': 'properties.zoneRedundant', 'type': 'bool'},
-        'license_type': {'key': 'properties.licenseType', 'type': 'str'},
-        'max_log_size_bytes': {'key': 'properties.maxLogSizeBytes', 'type': 'long'},
-        'earliest_restore_date': {'key': 'properties.earliestRestoreDate', 'type': 'iso-8601'},
-        'read_scale': {'key': 'properties.readScale', 'type': 'str'},
-        'high_availability_replica_count': {'key': 'properties.highAvailabilityReplicaCount', 'type': 'int'},
-        'secondary_type': {'key': 'properties.secondaryType', 'type': 'str'},
-        'current_sku': {'key': 'properties.currentSku', 'type': 'Sku'},
-        'auto_pause_delay': {'key': 'properties.autoPauseDelay', 'type': 'int'},
-        'storage_account_type': {'key': 'properties.storageAccountType', 'type': 'str'},
-        'min_capacity': {'key': 'properties.minCapacity', 'type': 'float'},
-        'paused_date': {'key': 'properties.pausedDate', 'type': 'iso-8601'},
-        'resumed_date': {'key': 'properties.resumedDate', 'type': 'iso-8601'},
-        'maintenance_configuration_id': {'key': 'properties.maintenanceConfigurationId', 'type': 'str'},
-        'tags': {'key': 'tags', 'type': '{str}'},
-    }
-
-    def __init__(self, *, sku=None, create_mode=None, collation: str=None, max_size_bytes: int=None, sample_name=None, elastic_pool_id: str=None, source_database_id: str=None, restore_point_in_time=None, source_database_deletion_date=None, recovery_services_recovery_point_id: str=None, long_term_retention_backup_resource_id: str=None, recoverable_database_id: str=None, restorable_dropped_database_id: str=None, catalog_collation=None, zone_redundant: bool=None, license_type=None, read_scale=None, high_availability_replica_count: int=None, secondary_type=None, auto_pause_delay: int=None, storage_account_type=None, min_capacity: float=None, maintenance_configuration_id: str=None, tags=None, **kwargs) -> None:
-        super(DatabaseUpdate, self).__init__(**kwargs)
-        self.sku = sku
-        self.create_mode = create_mode
-        self.collation = collation
-        self.max_size_bytes = max_size_bytes
-        self.sample_name = sample_name
-        self.elastic_pool_id = elastic_pool_id
-        self.source_database_id = source_database_id
-        self.status = None
-        self.database_id = None
-        self.creation_date = None
-        self.current_service_objective_name = None
-        self.requested_service_objective_name = None
-        self.default_secondary_location = None
-        self.failover_group_id = None
-        self.restore_point_in_time = restore_point_in_time
-        self.source_database_deletion_date = source_database_deletion_date
-        self.recovery_services_recovery_point_id = recovery_services_recovery_point_id
-        self.long_term_retention_backup_resource_id = long_term_retention_backup_resource_id
-        self.recoverable_database_id = recoverable_database_id
-        self.restorable_dropped_database_id = restorable_dropped_database_id
-        self.catalog_collation = catalog_collation
-        self.zone_redundant = zone_redundant
-        self.license_type = license_type
-        self.max_log_size_bytes = None
-        self.earliest_restore_date = None
-        self.read_scale = read_scale
-        self.high_availability_replica_count = high_availability_replica_count
-        self.secondary_type = secondary_type
-        self.current_sku = None
-        self.auto_pause_delay = auto_pause_delay
-        self.storage_account_type = storage_account_type
-        self.min_capacity = min_capacity
-        self.paused_date = None
-        self.resumed_date = None
-        self.maintenance_configuration_id = maintenance_configuration_id
-        self.tags = tags
 
 
 class DatabaseUsage(Model):
@@ -1851,102 +1280,6 @@ class EditionCapability(Model):
         self.supported_storage_capabilities = None
         self.status = None
         self.reason = reason
-
-
-class ElasticPool(TrackedResource):
-    """An elastic pool.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :ivar id: Resource ID.
-    :vartype id: str
-    :ivar name: Resource name.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :param location: Required. Resource location.
-    :type location: str
-    :param tags: Resource tags.
-    :type tags: dict[str, str]
-    :param sku: The elastic pool SKU.
-     The list of SKUs may vary by region and support offer. To determine the
-     SKUs (including the SKU name, tier/edition, family, and capacity) that are
-     available to your subscription in an Azure region, use the
-     `Capabilities_ListByLocation` REST API or the following command:
-     ```azurecli
-     az sql elastic-pool list-editions -l <location> -o table
-     ````
-    :type sku: ~azure.mgmt.sql.models.Sku
-    :ivar kind: Kind of elastic pool. This is metadata used for the Azure
-     portal experience.
-    :vartype kind: str
-    :ivar state: The state of the elastic pool. Possible values include:
-     'Creating', 'Ready', 'Disabled'
-    :vartype state: str or ~azure.mgmt.sql.models.ElasticPoolState
-    :ivar creation_date: The creation date of the elastic pool (ISO8601
-     format).
-    :vartype creation_date: datetime
-    :param max_size_bytes: The storage limit for the database elastic pool in
-     bytes.
-    :type max_size_bytes: long
-    :param per_database_settings: The per database settings for the elastic
-     pool.
-    :type per_database_settings:
-     ~azure.mgmt.sql.models.ElasticPoolPerDatabaseSettings
-    :param zone_redundant: Whether or not this elastic pool is zone redundant,
-     which means the replicas of this elastic pool will be spread across
-     multiple availability zones.
-    :type zone_redundant: bool
-    :param license_type: The license type to apply for this elastic pool.
-     Possible values include: 'LicenseIncluded', 'BasePrice'
-    :type license_type: str or ~azure.mgmt.sql.models.ElasticPoolLicenseType
-    :param maintenance_configuration_id: Maintenance configuration id assigned
-     to the elastic pool. This configuration defines the period when the
-     maintenance updates will be rolled out.
-    :type maintenance_configuration_id: str
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'location': {'required': True},
-        'kind': {'readonly': True},
-        'state': {'readonly': True},
-        'creation_date': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'location': {'key': 'location', 'type': 'str'},
-        'tags': {'key': 'tags', 'type': '{str}'},
-        'sku': {'key': 'sku', 'type': 'Sku'},
-        'kind': {'key': 'kind', 'type': 'str'},
-        'state': {'key': 'properties.state', 'type': 'str'},
-        'creation_date': {'key': 'properties.creationDate', 'type': 'iso-8601'},
-        'max_size_bytes': {'key': 'properties.maxSizeBytes', 'type': 'long'},
-        'per_database_settings': {'key': 'properties.perDatabaseSettings', 'type': 'ElasticPoolPerDatabaseSettings'},
-        'zone_redundant': {'key': 'properties.zoneRedundant', 'type': 'bool'},
-        'license_type': {'key': 'properties.licenseType', 'type': 'str'},
-        'maintenance_configuration_id': {'key': 'properties.maintenanceConfigurationId', 'type': 'str'},
-    }
-
-    def __init__(self, *, location: str, tags=None, sku=None, max_size_bytes: int=None, per_database_settings=None, zone_redundant: bool=None, license_type=None, maintenance_configuration_id: str=None, **kwargs) -> None:
-        super(ElasticPool, self).__init__(location=location, tags=tags, **kwargs)
-        self.sku = sku
-        self.kind = None
-        self.state = None
-        self.creation_date = None
-        self.max_size_bytes = max_size_bytes
-        self.per_database_settings = per_database_settings
-        self.zone_redundant = zone_redundant
-        self.license_type = license_type
-        self.maintenance_configuration_id = maintenance_configuration_id
 
 
 class ElasticPoolActivity(ProxyResource):
@@ -2434,26 +1767,6 @@ class ElasticPoolPerDatabaseMinPerformanceLevelCapability(Model):
         self.reason = reason
 
 
-class ElasticPoolPerDatabaseSettings(Model):
-    """Per database settings of an elastic pool.
-
-    :param min_capacity: The minimum capacity all databases are guaranteed.
-    :type min_capacity: float
-    :param max_capacity: The maximum capacity any one database can consume.
-    :type max_capacity: float
-    """
-
-    _attribute_map = {
-        'min_capacity': {'key': 'minCapacity', 'type': 'float'},
-        'max_capacity': {'key': 'maxCapacity', 'type': 'float'},
-    }
-
-    def __init__(self, *, min_capacity: float=None, max_capacity: float=None, **kwargs) -> None:
-        super(ElasticPoolPerDatabaseSettings, self).__init__(**kwargs)
-        self.min_capacity = min_capacity
-        self.max_capacity = max_capacity
-
-
 class ElasticPoolPerformanceLevelCapability(Model):
     """The Elastic Pool performance level capability.
 
@@ -2534,54 +1847,6 @@ class ElasticPoolPerformanceLevelCapability(Model):
         self.zone_redundant = None
         self.status = None
         self.reason = reason
-
-
-class ElasticPoolUpdate(Model):
-    """An elastic pool update.
-
-    :param sku:
-    :type sku: ~azure.mgmt.sql.models.Sku
-    :param max_size_bytes: The storage limit for the database elastic pool in
-     bytes.
-    :type max_size_bytes: long
-    :param per_database_settings: The per database settings for the elastic
-     pool.
-    :type per_database_settings:
-     ~azure.mgmt.sql.models.ElasticPoolPerDatabaseSettings
-    :param zone_redundant: Whether or not this elastic pool is zone redundant,
-     which means the replicas of this elastic pool will be spread across
-     multiple availability zones.
-    :type zone_redundant: bool
-    :param license_type: The license type to apply for this elastic pool.
-     Possible values include: 'LicenseIncluded', 'BasePrice'
-    :type license_type: str or ~azure.mgmt.sql.models.ElasticPoolLicenseType
-    :param maintenance_configuration_id: Maintenance configuration id assigned
-     to the elastic pool. This configuration defines the period when the
-     maintenance updates will be rolled out.
-    :type maintenance_configuration_id: str
-    :param tags: Resource tags.
-    :type tags: dict[str, str]
-    """
-
-    _attribute_map = {
-        'sku': {'key': 'sku', 'type': 'Sku'},
-        'max_size_bytes': {'key': 'properties.maxSizeBytes', 'type': 'long'},
-        'per_database_settings': {'key': 'properties.perDatabaseSettings', 'type': 'ElasticPoolPerDatabaseSettings'},
-        'zone_redundant': {'key': 'properties.zoneRedundant', 'type': 'bool'},
-        'license_type': {'key': 'properties.licenseType', 'type': 'str'},
-        'maintenance_configuration_id': {'key': 'properties.maintenanceConfigurationId', 'type': 'str'},
-        'tags': {'key': 'tags', 'type': '{str}'},
-    }
-
-    def __init__(self, *, sku=None, max_size_bytes: int=None, per_database_settings=None, zone_redundant: bool=None, license_type=None, maintenance_configuration_id: str=None, tags=None, **kwargs) -> None:
-        super(ElasticPoolUpdate, self).__init__(**kwargs)
-        self.sku = sku
-        self.max_size_bytes = max_size_bytes
-        self.per_database_settings = per_database_settings
-        self.zone_redundant = zone_redundant
-        self.license_type = license_type
-        self.maintenance_configuration_id = maintenance_configuration_id
-        self.tags = tags
 
 
 class EncryptionProtector(ProxyResource):
@@ -3639,6 +2904,47 @@ class InstanceFailoverGroupReadWriteEndpoint(Model):
         super(InstanceFailoverGroupReadWriteEndpoint, self).__init__(**kwargs)
         self.failover_policy = failover_policy
         self.failover_with_data_loss_grace_period_minutes = failover_with_data_loss_grace_period_minutes
+
+
+class TrackedResource(Resource):
+    """ARM tracked top level resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Resource ID.
+    :vartype id: str
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param location: Required. Resource location.
+    :type location: str
+    :param tags: Resource tags.
+    :type tags: dict[str, str]
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'location': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+    }
+
+    def __init__(self, *, location: str, tags=None, **kwargs) -> None:
+        super(TrackedResource, self).__init__(**kwargs)
+        self.location = location
+        self.tags = tags
 
 
 class InstancePool(TrackedResource):
@@ -7604,28 +6910,6 @@ class ResourceIdentity(Model):
         self.principal_id = None
         self.type = type
         self.tenant_id = None
-
-
-class ResourceMoveDefinition(Model):
-    """Contains the information necessary to perform a resource move (rename).
-
-    All required parameters must be populated in order to send to Azure.
-
-    :param id: Required. The target ID for the resource
-    :type id: str
-    """
-
-    _validation = {
-        'id': {'required': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-    }
-
-    def __init__(self, *, id: str, **kwargs) -> None:
-        super(ResourceMoveDefinition, self).__init__(**kwargs)
-        self.id = id
 
 
 class RestorableDroppedDatabase(ProxyResource):
