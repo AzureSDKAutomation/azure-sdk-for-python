@@ -88,6 +88,32 @@ class DiskCreateOptionTypes(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum))
     EMPTY = "Empty"
     ATTACH = "Attach"
 
+class DiskDetachOptionTypes(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
+    """Specifies the detach behavior to be used while detaching a disk or which is already in the
+    process of detachment from the virtual machine. Supported values: **ForceDetach**.
+    :code:`<br>`:code:`<br>` detachOption: **ForceDetach** is applicable only for managed data
+    disks. If a previous detachment attempt of the data disk did not complete due to an unexpected
+    failure from the virtual machine and the disk is still not released then use force-detach as a
+    last resort option to detach the disk forcibly from the VM. All writes might not have been
+    flushed when using this detach behavior. :code:`<br>`:code:`<br>` This feature is still in
+    preview mode and is not supported for VirtualMachineScaleSet. To force-detach a data disk
+    update toBeDetached to 'true' along with setting detachOption: 'ForceDetach'.
+    """
+
+    FORCE_DETACH = "ForceDetach"
+
+class ExecutionState(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
+    """Script execution status.
+    """
+
+    UNKNOWN = "Unknown"
+    PENDING = "Pending"
+    RUNNING = "Running"
+    FAILED = "Failed"
+    SUCCEEDED = "Succeeded"
+    TIMED_OUT = "TimedOut"
+    CANCELED = "Canceled"
+
 class HyperVGenerationType(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
     """Specifies the HyperVGeneration Type associated with a resource
     """
