@@ -132,6 +132,10 @@ try:
     from ._models_py3 import VirtualMachineInstanceView
     from ._models_py3 import VirtualMachinePatchStatus
     from ._models_py3 import VirtualMachineReimageParameters
+    from ._models_py3 import VirtualMachineRunCommand
+    from ._models_py3 import VirtualMachineRunCommandInstanceView
+    from ._models_py3 import VirtualMachineRunCommandScriptSource
+    from ._models_py3 import VirtualMachineRunCommandUpdate
     from ._models_py3 import VirtualMachineScaleSet
     from ._models_py3 import VirtualMachineScaleSetDataDisk
     from ._models_py3 import VirtualMachineScaleSetExtension
@@ -165,7 +169,10 @@ try:
     from ._models_py3 import VirtualMachineScaleSetUpdateStorageProfile
     from ._models_py3 import VirtualMachineScaleSetUpdateVMProfile
     from ._models_py3 import VirtualMachineScaleSetVM
+    from ._models_py3 import VirtualMachineScaleSetVMExtension
+    from ._models_py3 import VirtualMachineScaleSetVMExtensionsListResult
     from ._models_py3 import VirtualMachineScaleSetVMExtensionsSummary
+    from ._models_py3 import VirtualMachineScaleSetVMExtensionUpdate
     from ._models_py3 import VirtualMachineScaleSetVMInstanceIDs
     from ._models_py3 import VirtualMachineScaleSetVMInstanceRequiredIDs
     from ._models_py3 import VirtualMachineScaleSetVMInstanceView
@@ -304,6 +311,10 @@ except (SyntaxError, ImportError):
     from ._models import VirtualMachineInstanceView
     from ._models import VirtualMachinePatchStatus
     from ._models import VirtualMachineReimageParameters
+    from ._models import VirtualMachineRunCommand
+    from ._models import VirtualMachineRunCommandInstanceView
+    from ._models import VirtualMachineRunCommandScriptSource
+    from ._models import VirtualMachineRunCommandUpdate
     from ._models import VirtualMachineScaleSet
     from ._models import VirtualMachineScaleSetDataDisk
     from ._models import VirtualMachineScaleSetExtension
@@ -337,7 +348,10 @@ except (SyntaxError, ImportError):
     from ._models import VirtualMachineScaleSetUpdateStorageProfile
     from ._models import VirtualMachineScaleSetUpdateVMProfile
     from ._models import VirtualMachineScaleSetVM
+    from ._models import VirtualMachineScaleSetVMExtension
+    from ._models import VirtualMachineScaleSetVMExtensionsListResult
     from ._models import VirtualMachineScaleSetVMExtensionsSummary
+    from ._models import VirtualMachineScaleSetVMExtensionUpdate
     from ._models import VirtualMachineScaleSetVMInstanceIDs
     from ._models import VirtualMachineScaleSetVMInstanceRequiredIDs
     from ._models import VirtualMachineScaleSetVMInstanceView
@@ -364,6 +378,7 @@ from ._paged_models import SshPublicKeyResourcePaged
 from ._paged_models import UpgradeOperationHistoricalStatusInfoPaged
 from ._paged_models import UsagePaged
 from ._paged_models import VirtualMachinePaged
+from ._paged_models import VirtualMachineRunCommandPaged
 from ._paged_models import VirtualMachineScaleSetExtensionPaged
 from ._paged_models import VirtualMachineScaleSetPaged
 from ._paged_models import VirtualMachineScaleSetSkuPaged
@@ -383,6 +398,7 @@ from ._compute_management_client_enums import (
     VirtualMachineSizeTypes,
     CachingTypes,
     DiskCreateOptionTypes,
+    DiskDetachOptionTypes,
     StorageAccountTypes,
     DiffDiskOptions,
     DiffDiskPlacement,
@@ -410,6 +426,7 @@ from ._compute_management_client_enums import (
     RollingUpgradeActionType,
     IntervalInMins,
     OrchestrationServiceStateAction,
+    ExecutionState,
     InstanceViewTypes,
 )
 
@@ -536,6 +553,10 @@ __all__ = [
     'VirtualMachineInstanceView',
     'VirtualMachinePatchStatus',
     'VirtualMachineReimageParameters',
+    'VirtualMachineRunCommand',
+    'VirtualMachineRunCommandInstanceView',
+    'VirtualMachineRunCommandScriptSource',
+    'VirtualMachineRunCommandUpdate',
     'VirtualMachineScaleSet',
     'VirtualMachineScaleSetDataDisk',
     'VirtualMachineScaleSetExtension',
@@ -569,7 +590,10 @@ __all__ = [
     'VirtualMachineScaleSetUpdateStorageProfile',
     'VirtualMachineScaleSetUpdateVMProfile',
     'VirtualMachineScaleSetVM',
+    'VirtualMachineScaleSetVMExtension',
+    'VirtualMachineScaleSetVMExtensionsListResult',
     'VirtualMachineScaleSetVMExtensionsSummary',
+    'VirtualMachineScaleSetVMExtensionUpdate',
     'VirtualMachineScaleSetVMInstanceIDs',
     'VirtualMachineScaleSetVMInstanceRequiredIDs',
     'VirtualMachineScaleSetVMInstanceView',
@@ -601,6 +625,7 @@ __all__ = [
     'VirtualMachineScaleSetExtensionPaged',
     'VirtualMachineScaleSetVMPaged',
     'RunCommandDocumentBasePaged',
+    'VirtualMachineRunCommandPaged',
     'VmDiskTypes',
     'HyperVGenerationTypes',
     'StatusLevelTypes',
@@ -614,6 +639,7 @@ __all__ = [
     'VirtualMachineSizeTypes',
     'CachingTypes',
     'DiskCreateOptionTypes',
+    'DiskDetachOptionTypes',
     'StorageAccountTypes',
     'DiffDiskOptions',
     'DiffDiskPlacement',
@@ -641,5 +667,6 @@ __all__ = [
     'RollingUpgradeActionType',
     'IntervalInMins',
     'OrchestrationServiceStateAction',
+    'ExecutionState',
     'InstanceViewTypes',
 ]

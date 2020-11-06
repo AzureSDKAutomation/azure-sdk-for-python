@@ -265,6 +265,11 @@ class DiskCreateOptionTypes(str, Enum):
     attach = "Attach"
 
 
+class DiskDetachOptionTypes(str, Enum):
+
+    force_detach = "ForceDetach"
+
+
 class StorageAccountTypes(str, Enum):
 
     standard_lrs = "Standard_LRS"
@@ -442,6 +447,17 @@ class OrchestrationServiceStateAction(str, Enum):
 
     resume = "Resume"
     suspend = "Suspend"
+
+
+class ExecutionState(str, Enum):
+
+    unknown = "Unknown"
+    pending = "Pending"
+    running = "Running"
+    failed = "Failed"
+    succeeded = "Succeeded"
+    timed_out = "TimedOut"
+    canceled = "Canceled"
 
 
 class InstanceViewTypes(str, Enum):
