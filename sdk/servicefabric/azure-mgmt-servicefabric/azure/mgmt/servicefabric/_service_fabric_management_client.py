@@ -15,12 +15,12 @@ from msrest import Serializer, Deserializer
 from ._configuration import ServiceFabricManagementClientConfiguration
 from .operations import ClustersOperations
 from .operations import ClusterVersionsOperations
-from .operations import Operations
 from .operations import ApplicationTypesOperations
 from .operations import ApplicationTypeVersionsOperations
 from .operations import ApplicationsOperations
 from .operations import ServicesOperations
 from .operations import ManagedClustersOperations
+from .operations import Operations
 from .operations import ManagedClusterVersionsOperations
 from .operations import NodeTypesOperations
 from . import models
@@ -36,8 +36,6 @@ class ServiceFabricManagementClient(SDKClient):
     :vartype clusters: azure.mgmt.servicefabric.operations.ClustersOperations
     :ivar cluster_versions: ClusterVersions operations
     :vartype cluster_versions: azure.mgmt.servicefabric.operations.ClusterVersionsOperations
-    :ivar operations: Operations operations
-    :vartype operations: azure.mgmt.servicefabric.operations.Operations
     :ivar application_types: ApplicationTypes operations
     :vartype application_types: azure.mgmt.servicefabric.operations.ApplicationTypesOperations
     :ivar application_type_versions: ApplicationTypeVersions operations
@@ -48,6 +46,8 @@ class ServiceFabricManagementClient(SDKClient):
     :vartype services: azure.mgmt.servicefabric.operations.ServicesOperations
     :ivar managed_clusters: ManagedClusters operations
     :vartype managed_clusters: azure.mgmt.servicefabric.operations.ManagedClustersOperations
+    :ivar operations: Operations operations
+    :vartype operations: azure.mgmt.servicefabric.operations.Operations
     :ivar managed_cluster_versions: ManagedClusterVersions operations
     :vartype managed_cluster_versions: azure.mgmt.servicefabric.operations.ManagedClusterVersionsOperations
     :ivar node_types: NodeTypes operations
@@ -75,8 +75,6 @@ class ServiceFabricManagementClient(SDKClient):
             self._client, self.config, self._serialize, self._deserialize)
         self.cluster_versions = ClusterVersionsOperations(
             self._client, self.config, self._serialize, self._deserialize)
-        self.operations = Operations(
-            self._client, self.config, self._serialize, self._deserialize)
         self.application_types = ApplicationTypesOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.application_type_versions = ApplicationTypeVersionsOperations(
@@ -86,6 +84,8 @@ class ServiceFabricManagementClient(SDKClient):
         self.services = ServicesOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.managed_clusters = ManagedClustersOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.operations = Operations(
             self._client, self.config, self._serialize, self._deserialize)
         self.managed_cluster_versions = ManagedClusterVersionsOperations(
             self._client, self.config, self._serialize, self._deserialize)
