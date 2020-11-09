@@ -194,7 +194,6 @@ class CachesOperations(object):
 
         # Construct headers
         header_parameters = {}
-        header_parameters['Accept'] = 'application/json'
         if self.config.generate_client_request_id:
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
         if custom_headers:
@@ -211,20 +210,9 @@ class CachesOperations(object):
             exp.request_id = response.headers.get('x-ms-request-id')
             raise exp
 
-        deserialized = None
-
-        if response.status_code == 200:
-            deserialized = self._deserialize('object', response)
-        if response.status_code == 202:
-            deserialized = self._deserialize('object', response)
-        if response.status_code == 204:
-            deserialized = self._deserialize('object', response)
-
         if raw:
-            client_raw_response = ClientRawResponse(deserialized, response)
+            client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-
-        return deserialized
 
     def delete(
             self, resource_group_name, cache_name, custom_headers=None, raw=False, polling=True, **operation_config):
@@ -240,10 +228,10 @@ class CachesOperations(object):
          direct response alongside the deserialized response
         :param polling: True for ARMPolling, False for no polling, or a
          polling object for personal polling strategy
-        :return: An instance of LROPoller that returns object or
-         ClientRawResponse<object> if raw==True
-        :rtype: ~msrestazure.azure_operation.AzureOperationPoller[object] or
-         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[object]]
+        :return: An instance of LROPoller that returns None or
+         ClientRawResponse<None> if raw==True
+        :rtype: ~msrestazure.azure_operation.AzureOperationPoller[None] or
+         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[None]]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._delete_initial(
@@ -255,13 +243,9 @@ class CachesOperations(object):
         )
 
         def get_long_running_output(response):
-            deserialized = self._deserialize('object', response)
-
             if raw:
-                client_raw_response = ClientRawResponse(deserialized, response)
+                client_raw_response = ClientRawResponse(None, response)
                 return client_raw_response
-
-            return deserialized
 
         lro_delay = operation_config.get(
             'long_running_operation_timeout',
@@ -371,7 +355,7 @@ class CachesOperations(object):
         request = self._client.put(url, query_parameters, header_parameters, body_content)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200, 201]:
+        if response.status_code not in [200, 201, 202]:
             exp = CloudError(response)
             exp.request_id = response.headers.get('x-ms-request-id')
             raise exp
@@ -381,6 +365,8 @@ class CachesOperations(object):
         if response.status_code == 200:
             deserialized = self._deserialize('Cache', response)
         if response.status_code == 201:
+            deserialized = self._deserialize('Cache', response)
+        if response.status_code == 202:
             deserialized = self._deserialize('Cache', response)
 
         if raw:
@@ -533,7 +519,6 @@ class CachesOperations(object):
 
         # Construct headers
         header_parameters = {}
-        header_parameters['Accept'] = 'application/json'
         if self.config.generate_client_request_id:
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
         if custom_headers:
@@ -550,20 +535,9 @@ class CachesOperations(object):
             exp.request_id = response.headers.get('x-ms-request-id')
             raise exp
 
-        deserialized = None
-
-        if response.status_code == 200:
-            deserialized = self._deserialize('object', response)
-        if response.status_code == 202:
-            deserialized = self._deserialize('object', response)
-        if response.status_code == 204:
-            deserialized = self._deserialize('object', response)
-
         if raw:
-            client_raw_response = ClientRawResponse(deserialized, response)
+            client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-
-        return deserialized
 
     def flush(
             self, resource_group_name, cache_name, custom_headers=None, raw=False, polling=True, **operation_config):
@@ -581,10 +555,10 @@ class CachesOperations(object):
          direct response alongside the deserialized response
         :param polling: True for ARMPolling, False for no polling, or a
          polling object for personal polling strategy
-        :return: An instance of LROPoller that returns object or
-         ClientRawResponse<object> if raw==True
-        :rtype: ~msrestazure.azure_operation.AzureOperationPoller[object] or
-         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[object]]
+        :return: An instance of LROPoller that returns None or
+         ClientRawResponse<None> if raw==True
+        :rtype: ~msrestazure.azure_operation.AzureOperationPoller[None] or
+         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[None]]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._flush_initial(
@@ -596,13 +570,9 @@ class CachesOperations(object):
         )
 
         def get_long_running_output(response):
-            deserialized = self._deserialize('object', response)
-
             if raw:
-                client_raw_response = ClientRawResponse(deserialized, response)
+                client_raw_response = ClientRawResponse(None, response)
                 return client_raw_response
-
-            return deserialized
 
         lro_delay = operation_config.get(
             'long_running_operation_timeout',
@@ -631,7 +601,6 @@ class CachesOperations(object):
 
         # Construct headers
         header_parameters = {}
-        header_parameters['Accept'] = 'application/json'
         if self.config.generate_client_request_id:
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
         if custom_headers:
@@ -648,20 +617,9 @@ class CachesOperations(object):
             exp.request_id = response.headers.get('x-ms-request-id')
             raise exp
 
-        deserialized = None
-
-        if response.status_code == 200:
-            deserialized = self._deserialize('object', response)
-        if response.status_code == 202:
-            deserialized = self._deserialize('object', response)
-        if response.status_code == 204:
-            deserialized = self._deserialize('object', response)
-
         if raw:
-            client_raw_response = ClientRawResponse(deserialized, response)
+            client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-
-        return deserialized
 
     def start(
             self, resource_group_name, cache_name, custom_headers=None, raw=False, polling=True, **operation_config):
@@ -677,10 +635,10 @@ class CachesOperations(object):
          direct response alongside the deserialized response
         :param polling: True for ARMPolling, False for no polling, or a
          polling object for personal polling strategy
-        :return: An instance of LROPoller that returns object or
-         ClientRawResponse<object> if raw==True
-        :rtype: ~msrestazure.azure_operation.AzureOperationPoller[object] or
-         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[object]]
+        :return: An instance of LROPoller that returns None or
+         ClientRawResponse<None> if raw==True
+        :rtype: ~msrestazure.azure_operation.AzureOperationPoller[None] or
+         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[None]]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._start_initial(
@@ -692,13 +650,9 @@ class CachesOperations(object):
         )
 
         def get_long_running_output(response):
-            deserialized = self._deserialize('object', response)
-
             if raw:
-                client_raw_response = ClientRawResponse(deserialized, response)
+                client_raw_response = ClientRawResponse(None, response)
                 return client_raw_response
-
-            return deserialized
 
         lro_delay = operation_config.get(
             'long_running_operation_timeout',
@@ -727,7 +681,6 @@ class CachesOperations(object):
 
         # Construct headers
         header_parameters = {}
-        header_parameters['Accept'] = 'application/json'
         if self.config.generate_client_request_id:
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
         if custom_headers:
@@ -744,20 +697,9 @@ class CachesOperations(object):
             exp.request_id = response.headers.get('x-ms-request-id')
             raise exp
 
-        deserialized = None
-
-        if response.status_code == 200:
-            deserialized = self._deserialize('object', response)
-        if response.status_code == 202:
-            deserialized = self._deserialize('object', response)
-        if response.status_code == 204:
-            deserialized = self._deserialize('object', response)
-
         if raw:
-            client_raw_response = ClientRawResponse(deserialized, response)
+            client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-
-        return deserialized
 
     def stop(
             self, resource_group_name, cache_name, custom_headers=None, raw=False, polling=True, **operation_config):
@@ -773,10 +715,10 @@ class CachesOperations(object):
          direct response alongside the deserialized response
         :param polling: True for ARMPolling, False for no polling, or a
          polling object for personal polling strategy
-        :return: An instance of LROPoller that returns object or
-         ClientRawResponse<object> if raw==True
-        :rtype: ~msrestazure.azure_operation.AzureOperationPoller[object] or
-         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[object]]
+        :return: An instance of LROPoller that returns None or
+         ClientRawResponse<None> if raw==True
+        :rtype: ~msrestazure.azure_operation.AzureOperationPoller[None] or
+         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[None]]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._stop_initial(
@@ -788,13 +730,9 @@ class CachesOperations(object):
         )
 
         def get_long_running_output(response):
-            deserialized = self._deserialize('object', response)
-
             if raw:
-                client_raw_response = ClientRawResponse(deserialized, response)
+                client_raw_response = ClientRawResponse(None, response)
                 return client_raw_response
-
-            return deserialized
 
         lro_delay = operation_config.get(
             'long_running_operation_timeout',
@@ -823,7 +761,6 @@ class CachesOperations(object):
 
         # Construct headers
         header_parameters = {}
-        header_parameters['Accept'] = 'application/json'
         if self.config.generate_client_request_id:
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
         if custom_headers:
@@ -840,20 +777,9 @@ class CachesOperations(object):
             exp.request_id = response.headers.get('x-ms-request-id')
             raise exp
 
-        deserialized = None
-
-        if response.status_code == 201:
-            deserialized = self._deserialize('object', response)
-        if response.status_code == 202:
-            deserialized = self._deserialize('object', response)
-        if response.status_code == 204:
-            deserialized = self._deserialize('object', response)
-
         if raw:
-            client_raw_response = ClientRawResponse(deserialized, response)
+            client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-
-        return deserialized
 
     def upgrade_firmware(
             self, resource_group_name, cache_name, custom_headers=None, raw=False, polling=True, **operation_config):
@@ -870,10 +796,10 @@ class CachesOperations(object):
          direct response alongside the deserialized response
         :param polling: True for ARMPolling, False for no polling, or a
          polling object for personal polling strategy
-        :return: An instance of LROPoller that returns object or
-         ClientRawResponse<object> if raw==True
-        :rtype: ~msrestazure.azure_operation.AzureOperationPoller[object] or
-         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[object]]
+        :return: An instance of LROPoller that returns None or
+         ClientRawResponse<None> if raw==True
+        :rtype: ~msrestazure.azure_operation.AzureOperationPoller[None] or
+         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[None]]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._upgrade_firmware_initial(
@@ -885,13 +811,9 @@ class CachesOperations(object):
         )
 
         def get_long_running_output(response):
-            deserialized = self._deserialize('object', response)
-
             if raw:
-                client_raw_response = ClientRawResponse(deserialized, response)
+                client_raw_response = ClientRawResponse(None, response)
                 return client_raw_response
-
-            return deserialized
 
         lro_delay = operation_config.get(
             'long_running_operation_timeout',
