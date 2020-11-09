@@ -93,6 +93,14 @@ class WebhookAction(str, Enum):
     chart_delete = "chart_delete"
 
 
+class CreatedByType(str, Enum):
+
+    user = "User"
+    application = "Application"
+    managed_identity = "ManagedIdentity"
+    key = "Key"
+
+
 class TokenCertificateName(str, Enum):
 
     certificate1 = "certificate1"

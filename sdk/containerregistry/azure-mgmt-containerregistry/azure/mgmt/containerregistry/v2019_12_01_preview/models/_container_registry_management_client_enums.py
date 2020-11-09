@@ -38,6 +38,14 @@ class ProvisioningState(str, Enum):
     canceled = "Canceled"
 
 
+class CreatedByType(str, Enum):
+
+    user = "User"
+    application = "Application"
+    managed_identity = "ManagedIdentity"
+    key = "Key"
+
+
 class ImportMode(str, Enum):
 
     no_force = "NoForce"
