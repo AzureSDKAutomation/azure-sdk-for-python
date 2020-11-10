@@ -1561,6 +1561,29 @@ class AppendVariableActivity(ControlActivity):
         self.type = 'AppendVariable'
 
 
+class ArmIdWrapper(Model):
+    """A wrapper for an ARM resource id.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id:
+    :vartype id: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(ArmIdWrapper, self).__init__(**kwargs)
+        self.id = None
+
+
 class AvroDataset(Dataset):
     """Avro dataset.
 
@@ -13462,20 +13485,20 @@ class ExecuteDataFlowActivityTypePropertiesCompute(Model):
 
     :param compute_type: Compute type of the cluster which will execute data
      flow job. Possible values include: 'General', 'MemoryOptimized',
-     'ComputeOptimized'
-    :type compute_type: str or
-     ~azure.mgmt.datafactory.models.DataFlowComputeType
+     'ComputeOptimized'. Type: string (or Expression with resultType string)
+    :type compute_type: object
     :param core_count: Core count of the cluster which will execute data flow
-     job. Supported values are: 8, 16, 32, 48, 80, 144 and 272.
-    :type core_count: int
+     job. Supported values are: 8, 16, 32, 48, 80, 144 and 272. Type: integer
+     (or Expression with resultType integer)
+    :type core_count: object
     """
 
     _attribute_map = {
-        'compute_type': {'key': 'computeType', 'type': 'str'},
-        'core_count': {'key': 'coreCount', 'type': 'int'},
+        'compute_type': {'key': 'computeType', 'type': 'object'},
+        'core_count': {'key': 'coreCount', 'type': 'object'},
     }
 
-    def __init__(self, *, compute_type=None, core_count: int=None, **kwargs) -> None:
+    def __init__(self, *, compute_type=None, core_count=None, **kwargs) -> None:
         super(ExecuteDataFlowActivityTypePropertiesCompute, self).__init__(**kwargs)
         self.compute_type = compute_type
         self.core_count = core_count
@@ -25483,6 +25506,219 @@ class PrestoSource(TabularSource):
         self.type = 'PrestoSource'
 
 
+class PrivateEndpointConnectionResource(SubResource):
+    """Private Endpoint Connection ARM resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: The resource identifier.
+    :vartype id: str
+    :ivar name: The resource name.
+    :vartype name: str
+    :ivar type: The resource type.
+    :vartype type: str
+    :ivar etag: Etag identifies change in the resource.
+    :vartype etag: str
+    :param properties: Core resource properties
+    :type properties:
+     ~azure.mgmt.datafactory.models.RemotePrivateEndpointConnection
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'etag': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'RemotePrivateEndpointConnection'},
+    }
+
+    def __init__(self, *, properties=None, **kwargs) -> None:
+        super(PrivateEndpointConnectionResource, self).__init__(**kwargs)
+        self.properties = properties
+
+
+class PrivateLinkConnectionApprovalRequest(Model):
+    """A request to approve or reject a private endpoint connection.
+
+    :param private_link_service_connection_state:
+    :type private_link_service_connection_state:
+     ~azure.mgmt.datafactory.models.PrivateLinkConnectionState
+    """
+
+    _attribute_map = {
+        'private_link_service_connection_state': {'key': 'privateLinkServiceConnectionState', 'type': 'PrivateLinkConnectionState'},
+    }
+
+    def __init__(self, *, private_link_service_connection_state=None, **kwargs) -> None:
+        super(PrivateLinkConnectionApprovalRequest, self).__init__(**kwargs)
+        self.private_link_service_connection_state = private_link_service_connection_state
+
+
+class PrivateLinkConnectionApprovalRequestResource(SubResource):
+    """Private Endpoint Connection Approval ARM resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: The resource identifier.
+    :vartype id: str
+    :ivar name: The resource name.
+    :vartype name: str
+    :ivar type: The resource type.
+    :vartype type: str
+    :ivar etag: Etag identifies change in the resource.
+    :vartype etag: str
+    :param properties: Core resource properties
+    :type properties:
+     ~azure.mgmt.datafactory.models.PrivateLinkConnectionApprovalRequest
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'etag': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'PrivateLinkConnectionApprovalRequest'},
+    }
+
+    def __init__(self, *, properties=None, **kwargs) -> None:
+        super(PrivateLinkConnectionApprovalRequestResource, self).__init__(**kwargs)
+        self.properties = properties
+
+
+class PrivateLinkConnectionState(Model):
+    """The state of a private link connection.
+
+    :param status: Status of a private link connection
+    :type status: str
+    :param description: Description of a private link connection
+    :type description: str
+    :param actions_required: ActionsRequired for a private link connection
+    :type actions_required: str
+    """
+
+    _attribute_map = {
+        'status': {'key': 'status', 'type': 'str'},
+        'description': {'key': 'description', 'type': 'str'},
+        'actions_required': {'key': 'actionsRequired', 'type': 'str'},
+    }
+
+    def __init__(self, *, status: str=None, description: str=None, actions_required: str=None, **kwargs) -> None:
+        super(PrivateLinkConnectionState, self).__init__(**kwargs)
+        self.status = status
+        self.description = description
+        self.actions_required = actions_required
+
+
+class PrivateLinkResource(SubResource):
+    """A private link resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: The resource identifier.
+    :vartype id: str
+    :ivar name: The resource name.
+    :vartype name: str
+    :ivar type: The resource type.
+    :vartype type: str
+    :ivar etag: Etag identifies change in the resource.
+    :vartype etag: str
+    :param properties: Core resource properties
+    :type properties:
+     ~azure.mgmt.datafactory.models.PrivateLinkResourceProperties
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'etag': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'PrivateLinkResourceProperties'},
+    }
+
+    def __init__(self, *, properties=None, **kwargs) -> None:
+        super(PrivateLinkResource, self).__init__(**kwargs)
+        self.properties = properties
+
+
+class PrivateLinkResourceProperties(Model):
+    """Properties of a private link resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar group_id: GroupId of a private link resource
+    :vartype group_id: str
+    :ivar required_members: RequiredMembers of a private link resource
+    :vartype required_members: list[str]
+    :ivar required_zone_names: RequiredZoneNames of a private link resource
+    :vartype required_zone_names: list[str]
+    """
+
+    _validation = {
+        'group_id': {'readonly': True},
+        'required_members': {'readonly': True},
+        'required_zone_names': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'group_id': {'key': 'groupId', 'type': 'str'},
+        'required_members': {'key': 'requiredMembers', 'type': '[str]'},
+        'required_zone_names': {'key': 'requiredZoneNames', 'type': '[str]'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(PrivateLinkResourceProperties, self).__init__(**kwargs)
+        self.group_id = None
+        self.required_members = None
+        self.required_zone_names = None
+
+
+class PrivateLinkResourcesWrapper(Model):
+    """Wrapper for a collection of private link resources.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param value: Required.
+    :type value: list[~azure.mgmt.datafactory.models.PrivateLinkResource]
+    """
+
+    _validation = {
+        'value': {'required': True},
+    }
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': '[PrivateLinkResource]'},
+    }
+
+    def __init__(self, *, value, **kwargs) -> None:
+        super(PrivateLinkResourcesWrapper, self).__init__(**kwargs)
+        self.value = value
+
+
 class QuickBooksLinkedService(LinkedService):
     """QuickBooks server linked service.
 
@@ -25928,6 +26164,39 @@ class RelationalTableDataset(Dataset):
         super(RelationalTableDataset, self).__init__(additional_properties=additional_properties, description=description, structure=structure, schema=schema, linked_service_name=linked_service_name, parameters=parameters, annotations=annotations, folder=folder, **kwargs)
         self.table_name = table_name
         self.type = 'RelationalTable'
+
+
+class RemotePrivateEndpointConnection(Model):
+    """A remote private endpoint connection.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar provisioning_state:
+    :vartype provisioning_state: str
+    :param private_endpoint: PrivateEndpoint of a remote private endpoint
+     connection
+    :type private_endpoint: ~azure.mgmt.datafactory.models.ArmIdWrapper
+    :param private_link_service_connection_state:
+    :type private_link_service_connection_state:
+     ~azure.mgmt.datafactory.models.PrivateLinkConnectionState
+    """
+
+    _validation = {
+        'provisioning_state': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
+        'private_endpoint': {'key': 'privateEndpoint', 'type': 'ArmIdWrapper'},
+        'private_link_service_connection_state': {'key': 'privateLinkServiceConnectionState', 'type': 'PrivateLinkConnectionState'},
+    }
+
+    def __init__(self, *, private_endpoint=None, private_link_service_connection_state=None, **kwargs) -> None:
+        super(RemotePrivateEndpointConnection, self).__init__(**kwargs)
+        self.provisioning_state = None
+        self.private_endpoint = private_endpoint
+        self.private_link_service_connection_state = private_link_service_connection_state
 
 
 class RerunTumblingWindowTrigger(Trigger):

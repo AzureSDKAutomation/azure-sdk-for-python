@@ -29,6 +29,7 @@ try:
     from ._models_py3 import AmazonS3Location
     from ._models_py3 import AmazonS3ReadSettings
     from ._models_py3 import AppendVariableActivity
+    from ._models_py3 import ArmIdWrapper
     from ._models_py3 import AvroDataset
     from ._models_py3 import AvroFormat
     from ._models_py3 import AvroSink
@@ -455,6 +456,13 @@ try:
     from ._models_py3 import PrestoLinkedService
     from ._models_py3 import PrestoObjectDataset
     from ._models_py3 import PrestoSource
+    from ._models_py3 import PrivateEndpointConnectionResource
+    from ._models_py3 import PrivateLinkConnectionApprovalRequest
+    from ._models_py3 import PrivateLinkConnectionApprovalRequestResource
+    from ._models_py3 import PrivateLinkConnectionState
+    from ._models_py3 import PrivateLinkResource
+    from ._models_py3 import PrivateLinkResourceProperties
+    from ._models_py3 import PrivateLinkResourcesWrapper
     from ._models_py3 import QuickBooksLinkedService
     from ._models_py3 import QuickBooksObjectDataset
     from ._models_py3 import QuickBooksSource
@@ -464,6 +472,7 @@ try:
     from ._models_py3 import RedshiftUnloadSettings
     from ._models_py3 import RelationalSource
     from ._models_py3 import RelationalTableDataset
+    from ._models_py3 import RemotePrivateEndpointConnection
     from ._models_py3 import RerunTumblingWindowTrigger
     from ._models_py3 import Resource
     from ._models_py3 import ResponsysLinkedService
@@ -659,6 +668,7 @@ except (SyntaxError, ImportError):
     from ._models import AmazonS3Location
     from ._models import AmazonS3ReadSettings
     from ._models import AppendVariableActivity
+    from ._models import ArmIdWrapper
     from ._models import AvroDataset
     from ._models import AvroFormat
     from ._models import AvroSink
@@ -1085,6 +1095,13 @@ except (SyntaxError, ImportError):
     from ._models import PrestoLinkedService
     from ._models import PrestoObjectDataset
     from ._models import PrestoSource
+    from ._models import PrivateEndpointConnectionResource
+    from ._models import PrivateLinkConnectionApprovalRequest
+    from ._models import PrivateLinkConnectionApprovalRequestResource
+    from ._models import PrivateLinkConnectionState
+    from ._models import PrivateLinkResource
+    from ._models import PrivateLinkResourceProperties
+    from ._models import PrivateLinkResourcesWrapper
     from ._models import QuickBooksLinkedService
     from ._models import QuickBooksObjectDataset
     from ._models import QuickBooksSource
@@ -1094,6 +1111,7 @@ except (SyntaxError, ImportError):
     from ._models import RedshiftUnloadSettings
     from ._models import RelationalSource
     from ._models import RelationalTableDataset
+    from ._models import RemotePrivateEndpointConnection
     from ._models import RerunTumblingWindowTrigger
     from ._models import Resource
     from ._models import ResponsysLinkedService
@@ -1279,6 +1297,7 @@ from ._paged_models import ManagedPrivateEndpointResourcePaged
 from ._paged_models import ManagedVirtualNetworkResourcePaged
 from ._paged_models import OperationPaged
 from ._paged_models import PipelineResourcePaged
+from ._paged_models import PrivateEndpointConnectionResourcePaged
 from ._paged_models import TriggerResourcePaged
 from ._data_factory_management_client_enums import (
     GlobalParameterType,
@@ -1329,7 +1348,6 @@ from ._data_factory_management_client_enums import (
     DayOfWeek,
     DaysOfWeek,
     RecurrenceFrequency,
-    DataFlowComputeType,
     AzureFunctionActivityMethod,
     WebActivityMethod,
     OraclePartitionOption,
@@ -1359,6 +1377,7 @@ from ._data_factory_management_client_enums import (
     IntegrationRuntimeSsisCatalogPricingTier,
     IntegrationRuntimeLicenseType,
     IntegrationRuntimeEdition,
+    DataFlowComputeType,
     SsisObjectMetadataType,
     IntegrationRuntimeAuthKeyName,
     CopyBehaviorType,
@@ -1384,6 +1403,7 @@ __all__ = [
     'AmazonS3Location',
     'AmazonS3ReadSettings',
     'AppendVariableActivity',
+    'ArmIdWrapper',
     'AvroDataset',
     'AvroFormat',
     'AvroSink',
@@ -1810,6 +1830,13 @@ __all__ = [
     'PrestoLinkedService',
     'PrestoObjectDataset',
     'PrestoSource',
+    'PrivateEndpointConnectionResource',
+    'PrivateLinkConnectionApprovalRequest',
+    'PrivateLinkConnectionApprovalRequestResource',
+    'PrivateLinkConnectionState',
+    'PrivateLinkResource',
+    'PrivateLinkResourceProperties',
+    'PrivateLinkResourcesWrapper',
     'QuickBooksLinkedService',
     'QuickBooksObjectDataset',
     'QuickBooksSource',
@@ -1819,6 +1846,7 @@ __all__ = [
     'RedshiftUnloadSettings',
     'RelationalSource',
     'RelationalTableDataset',
+    'RemotePrivateEndpointConnection',
     'RerunTumblingWindowTrigger',
     'Resource',
     'ResponsysLinkedService',
@@ -2005,6 +2033,7 @@ __all__ = [
     'DataFlowDebugSessionInfoPaged',
     'ManagedVirtualNetworkResourcePaged',
     'ManagedPrivateEndpointResourcePaged',
+    'PrivateEndpointConnectionResourcePaged',
     'GlobalParameterType',
     'PublicNetworkAccess',
     'IntegrationRuntimeState',
@@ -2053,7 +2082,6 @@ __all__ = [
     'DayOfWeek',
     'DaysOfWeek',
     'RecurrenceFrequency',
-    'DataFlowComputeType',
     'AzureFunctionActivityMethod',
     'WebActivityMethod',
     'OraclePartitionOption',
@@ -2083,6 +2111,7 @@ __all__ = [
     'IntegrationRuntimeSsisCatalogPricingTier',
     'IntegrationRuntimeLicenseType',
     'IntegrationRuntimeEdition',
+    'DataFlowComputeType',
     'SsisObjectMetadataType',
     'IntegrationRuntimeAuthKeyName',
     'CopyBehaviorType',
