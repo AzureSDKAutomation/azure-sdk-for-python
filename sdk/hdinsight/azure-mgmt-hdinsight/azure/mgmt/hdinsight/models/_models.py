@@ -426,6 +426,9 @@ class BillingResponseListResult(Model):
     """The response for the operation to get regional billingSpecs for a
     subscription.
 
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
     :param vm_sizes: The virtual machine sizes to include or exclude.
     :type vm_sizes: list[str]
     :param vm_size_filters: The virtual machine filtering mode. Effectively
@@ -437,12 +440,25 @@ class BillingResponseListResult(Model):
      for a region.
     :type billing_resources:
      list[~azure.mgmt.hdinsight.models.BillingResources]
+    :ivar vm_sizes_with_encryption_at_host: The vm sizes when enabling
+     encryption at host.
+    :vartype vm_sizes_with_encryption_at_host: list[str]
+    :ivar vm_size_properties: The vm size properties.
+    :vartype vm_size_properties:
+     list[~azure.mgmt.hdinsight.models.VmSizeProperty]
     """
+
+    _validation = {
+        'vm_sizes_with_encryption_at_host': {'readonly': True},
+        'vm_size_properties': {'readonly': True},
+    }
 
     _attribute_map = {
         'vm_sizes': {'key': 'vmSizes', 'type': '[str]'},
         'vm_size_filters': {'key': 'vmSizeFilters', 'type': '[VmSizeCompatibilityFilterV2]'},
         'billing_resources': {'key': 'billingResources', 'type': '[BillingResources]'},
+        'vm_sizes_with_encryption_at_host': {'key': 'vmSizesWithEncryptionAtHost', 'type': '[str]'},
+        'vm_size_properties': {'key': 'vmSizeProperties', 'type': '[VmSizeProperty]'},
     }
 
     def __init__(self, **kwargs):
@@ -450,6 +466,8 @@ class BillingResponseListResult(Model):
         self.vm_sizes = kwargs.get('vm_sizes', None)
         self.vm_size_filters = kwargs.get('vm_size_filters', None)
         self.billing_resources = kwargs.get('billing_resources', None)
+        self.vm_sizes_with_encryption_at_host = None
+        self.vm_size_properties = None
 
 
 class CapabilitiesResult(Model):
@@ -2277,6 +2295,62 @@ class VmSizeCompatibilityFilterV2(Model):
         self.cluster_versions = kwargs.get('cluster_versions', None)
         self.os_type = kwargs.get('os_type', None)
         self.vm_sizes = kwargs.get('vm_sizes', None)
+
+
+class VmSizeProperty(Model):
+    """The vm size property.
+
+    :param name: The vm size name
+    :type name: str
+    :param cores: The number of cores that the vm size has.
+    :type cores: str
+    :param data_disk_storage_tier: The data disk storage tier of the vm size.
+    :type data_disk_storage_tier: str
+    :param label: The label of the vm size.
+    :type label: str
+    :param max_data_disk_count: The max data disk count of the vm size.
+    :type max_data_disk_count: str
+    :param memory_in_mb: The memory whose unit is MB of the vm size.
+    :type memory_in_mb: str
+    :param supported_by_virtual_machines: This indicates this vm size is
+     supported by virtual machines or not
+    :type supported_by_virtual_machines: str
+    :param supported_by_web_worker_roles: The indicates this vm size is
+     supported by web worker roles or not
+    :type supported_by_web_worker_roles: str
+    :param virtual_machine_resource_disk_size_in_mb: The virtual machine
+     resource disk size whose unit is MB of the vm size.
+    :type virtual_machine_resource_disk_size_in_mb: str
+    :param web_worker_resource_disk_size_in_mb: The web worker resource disk
+     size whose unit is MB of the vm size.
+    :type web_worker_resource_disk_size_in_mb: str
+    """
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'cores': {'key': 'cores', 'type': 'str'},
+        'data_disk_storage_tier': {'key': 'dataDiskStorageTier', 'type': 'str'},
+        'label': {'key': 'label', 'type': 'str'},
+        'max_data_disk_count': {'key': 'maxDataDiskCount', 'type': 'str'},
+        'memory_in_mb': {'key': 'memoryInMb', 'type': 'str'},
+        'supported_by_virtual_machines': {'key': 'supportedByVirtualMachines', 'type': 'str'},
+        'supported_by_web_worker_roles': {'key': 'supportedByWebWorkerRoles', 'type': 'str'},
+        'virtual_machine_resource_disk_size_in_mb': {'key': 'virtualMachineResourceDiskSizeInMb', 'type': 'str'},
+        'web_worker_resource_disk_size_in_mb': {'key': 'webWorkerResourceDiskSizeInMb', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(VmSizeProperty, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+        self.cores = kwargs.get('cores', None)
+        self.data_disk_storage_tier = kwargs.get('data_disk_storage_tier', None)
+        self.label = kwargs.get('label', None)
+        self.max_data_disk_count = kwargs.get('max_data_disk_count', None)
+        self.memory_in_mb = kwargs.get('memory_in_mb', None)
+        self.supported_by_virtual_machines = kwargs.get('supported_by_virtual_machines', None)
+        self.supported_by_web_worker_roles = kwargs.get('supported_by_web_worker_roles', None)
+        self.virtual_machine_resource_disk_size_in_mb = kwargs.get('virtual_machine_resource_disk_size_in_mb', None)
+        self.web_worker_resource_disk_size_in_mb = kwargs.get('web_worker_resource_disk_size_in_mb', None)
 
 
 class VmSizesCapability(Model):

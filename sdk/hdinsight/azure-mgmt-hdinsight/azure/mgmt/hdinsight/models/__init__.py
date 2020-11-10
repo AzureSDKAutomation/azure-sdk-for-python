@@ -87,6 +87,7 @@ try:
     from ._models_py3 import VirtualNetworkProfile
     from ._models_py3 import VmSizeCompatibilityFilter
     from ._models_py3 import VmSizeCompatibilityFilterV2
+    from ._models_py3 import VmSizeProperty
     from ._models_py3 import VmSizesCapability
 except (SyntaxError, ImportError):
     from ._models import Application
@@ -166,6 +167,7 @@ except (SyntaxError, ImportError):
     from ._models import VirtualNetworkProfile
     from ._models import VmSizeCompatibilityFilter
     from ._models import VmSizeCompatibilityFilterV2
+    from ._models import VmSizeProperty
     from ._models import VmSizesCapability
 from ._paged_models import ApplicationPaged
 from ._paged_models import ClusterPaged
@@ -263,6 +265,7 @@ __all__ = [
     'VirtualNetworkProfile',
     'VmSizeCompatibilityFilter',
     'VmSizeCompatibilityFilterV2',
+    'VmSizeProperty',
     'VmSizesCapability',
     'ClusterPaged',
     'ApplicationPaged',
