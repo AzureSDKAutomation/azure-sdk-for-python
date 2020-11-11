@@ -12,10 +12,29 @@
 from enum import Enum
 
 
+class MetricAggregationType(str, Enum):
+
+    not_specified = "NotSpecified"
+    none = "None"
+    average = "Average"
+    minimum = "Minimum"
+    maximum = "Maximum"
+    total = "Total"
+    count = "Count"
+
+
 class CacheIdentityType(str, Enum):
 
     system_assigned = "SystemAssigned"
     none = "None"
+
+
+class CreatedByType(str, Enum):
+
+    user = "User"
+    application = "Application"
+    managed_identity = "ManagedIdentity"
+    key = "Key"
 
 
 class HealthStateType(str, Enum):
@@ -45,6 +64,42 @@ class FirmwareStatusType(str, Enum):
 
     available = "available"
     unavailable = "unavailable"
+
+
+class NfsAccessRuleScope(str, Enum):
+
+    default = "default"
+    network = "network"
+    host = "host"
+
+
+class NfsAccessRuleAccess(str, Enum):
+
+    no = "no"
+    ro = "ro"
+    rw = "rw"
+
+
+class DomainJoinedType(str, Enum):
+
+    yes = "Yes"
+    no = "No"
+    error = "Error"
+
+
+class UsernameSource(str, Enum):
+
+    ad = "AD"
+    ldap = "LDAP"
+    file = "File"
+    none = "None"
+
+
+class UsernameDownloadedType(str, Enum):
+
+    yes = "Yes"
+    no = "No"
+    error = "Error"
 
 
 class StorageTargetType(str, Enum):
