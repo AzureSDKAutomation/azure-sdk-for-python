@@ -13,6 +13,29 @@ from msrest.serialization import Model
 from msrest.exceptions import HttpOperationError
 
 
+class ApplicationInsightsAgentVersions(Model):
+    """Application Insights agent versions properties payload.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar java: Indicates the version of application insight java agent
+    :vartype java: str
+    """
+
+    _validation = {
+        'java': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'java': {'key': 'java', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ApplicationInsightsAgentVersions, self).__init__(**kwargs)
+        self.java = None
+
+
 class Resource(Model):
     """The core properties of ARM resources.
 
@@ -181,6 +204,30 @@ class AppResourceProperties(Model):
         self.created_time = None
         self.temporary_disk = kwargs.get('temporary_disk', None)
         self.persistent_disk = kwargs.get('persistent_disk', None)
+
+
+class AvailableRuntimeVersions(Model):
+    """AvailableRuntimeVersions.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar value: A list of all supported runtime versions.
+    :vartype value:
+     list[~azure.mgmt.appplatform.v2020_07_01.models.SupportedRuntimeVersion]
+    """
+
+    _validation = {
+        'value': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': '[SupportedRuntimeVersion]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AvailableRuntimeVersions, self).__init__(**kwargs)
+        self.value = None
 
 
 class BindingResource(ProxyResource):
@@ -748,6 +795,8 @@ class DeploymentInstance(Model):
     :vartype reason: str
     :ivar discovery_status: Discovery status of the deployment instance
     :vartype discovery_status: str
+    :ivar start_time: Start time of the deployment instance
+    :vartype start_time: str
     """
 
     _validation = {
@@ -755,6 +804,7 @@ class DeploymentInstance(Model):
         'status': {'readonly': True},
         'reason': {'readonly': True},
         'discovery_status': {'readonly': True},
+        'start_time': {'readonly': True},
     }
 
     _attribute_map = {
@@ -762,6 +812,7 @@ class DeploymentInstance(Model):
         'status': {'key': 'status', 'type': 'str'},
         'reason': {'key': 'reason', 'type': 'str'},
         'discovery_status': {'key': 'discoveryStatus', 'type': 'str'},
+        'start_time': {'key': 'startTime', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -770,6 +821,7 @@ class DeploymentInstance(Model):
         self.status = None
         self.reason = None
         self.discovery_status = None
+        self.start_time = None
 
 
 class DeploymentResource(ProxyResource):
@@ -885,10 +937,13 @@ class DeploymentSettings(Model):
     :type memory_in_gb: int
     :param jvm_options: JVM parameter
     :type jvm_options: str
+    :param net_core_main_entry_path: The path to the .NET executable relative
+     to zip root
+    :type net_core_main_entry_path: str
     :param environment_variables: Collection of environment variables
     :type environment_variables: dict[str, str]
     :param runtime_version: Runtime version. Possible values include:
-     'Java_8', 'Java_11'
+     'Java_8', 'Java_11', 'NetCore_31'
     :type runtime_version: str or
      ~azure.mgmt.appplatform.v2020_07_01.models.RuntimeVersion
     """
@@ -897,6 +952,7 @@ class DeploymentSettings(Model):
         'cpu': {'key': 'cpu', 'type': 'int'},
         'memory_in_gb': {'key': 'memoryInGB', 'type': 'int'},
         'jvm_options': {'key': 'jvmOptions', 'type': 'str'},
+        'net_core_main_entry_path': {'key': 'netCoreMainEntryPath', 'type': 'str'},
         'environment_variables': {'key': 'environmentVariables', 'type': '{str}'},
         'runtime_version': {'key': 'runtimeVersion', 'type': 'str'},
     }
@@ -906,6 +962,7 @@ class DeploymentSettings(Model):
         self.cpu = kwargs.get('cpu', 1)
         self.memory_in_gb = kwargs.get('memory_in_gb', 1)
         self.jvm_options = kwargs.get('jvm_options', None)
+        self.net_core_main_entry_path = kwargs.get('net_core_main_entry_path', None)
         self.environment_variables = kwargs.get('environment_variables', None)
         self.runtime_version = kwargs.get('runtime_version', None)
 
@@ -1158,10 +1215,22 @@ class MonitoringSettingProperties(Model):
     :param app_insights_instrumentation_key: Target application insight
      instrumentation key
     :type app_insights_instrumentation_key: str
+    :param app_insights_sampling_rate: Indicates the sampling rate of
+     application insight agent, should be in range [0.0, 100.0]
+    :type app_insights_sampling_rate: float
+    :param monitoring_type: Type of the monitoring. Possible values include:
+     'AppInsights'
+    :type monitoring_type: str or
+     ~azure.mgmt.appplatform.v2020_07_01.models.MonitoringType
+    :param app_insights_agent_versions: Indicates the versions of application
+     insight agent
+    :type app_insights_agent_versions:
+     ~azure.mgmt.appplatform.v2020_07_01.models.ApplicationInsightsAgentVersions
     """
 
     _validation = {
         'provisioning_state': {'readonly': True},
+        'app_insights_sampling_rate': {'maximum': 100, 'minimum': 0},
     }
 
     _attribute_map = {
@@ -1169,6 +1238,9 @@ class MonitoringSettingProperties(Model):
         'error': {'key': 'error', 'type': 'Error'},
         'trace_enabled': {'key': 'traceEnabled', 'type': 'bool'},
         'app_insights_instrumentation_key': {'key': 'appInsightsInstrumentationKey', 'type': 'str'},
+        'app_insights_sampling_rate': {'key': 'appInsightsSamplingRate', 'type': 'float'},
+        'monitoring_type': {'key': 'monitoringType', 'type': 'str'},
+        'app_insights_agent_versions': {'key': 'appInsightsAgentVersions', 'type': 'ApplicationInsightsAgentVersions'},
     }
 
     def __init__(self, **kwargs):
@@ -1177,6 +1249,9 @@ class MonitoringSettingProperties(Model):
         self.error = kwargs.get('error', None)
         self.trace_enabled = kwargs.get('trace_enabled', None)
         self.app_insights_instrumentation_key = kwargs.get('app_insights_instrumentation_key', None)
+        self.app_insights_sampling_rate = kwargs.get('app_insights_sampling_rate', None)
+        self.monitoring_type = kwargs.get('monitoring_type', None)
+        self.app_insights_agent_versions = kwargs.get('app_insights_agent_versions', None)
 
 
 class MonitoringSettingResource(ProxyResource):
@@ -1268,6 +1343,9 @@ class NameAvailabilityParameters(Model):
 class NetworkProfile(Model):
     """Service network profile payload.
 
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
     :param service_runtime_subnet_id: Fully qualified resource Id of the
      subnet to host Azure Spring Cloud Service Runtime
     :type service_runtime_subnet_id: str
@@ -1282,7 +1360,15 @@ class NetworkProfile(Model):
     :param app_network_resource_group: Name of the resource group containing
      network resources of Azure Spring Cloud Apps
     :type app_network_resource_group: str
+    :ivar outbound_ips: Desired outbound IP resources for Azure Spring Cloud
+     instance.
+    :vartype outbound_ips:
+     ~azure.mgmt.appplatform.v2020_07_01.models.NetworkProfileOutboundIPs
     """
+
+    _validation = {
+        'outbound_ips': {'readonly': True},
+    }
 
     _attribute_map = {
         'service_runtime_subnet_id': {'key': 'serviceRuntimeSubnetId', 'type': 'str'},
@@ -1290,6 +1376,7 @@ class NetworkProfile(Model):
         'service_cidr': {'key': 'serviceCidr', 'type': 'str'},
         'service_runtime_network_resource_group': {'key': 'serviceRuntimeNetworkResourceGroup', 'type': 'str'},
         'app_network_resource_group': {'key': 'appNetworkResourceGroup', 'type': 'str'},
+        'outbound_ips': {'key': 'outboundIPs', 'type': 'NetworkProfileOutboundIPs'},
     }
 
     def __init__(self, **kwargs):
@@ -1299,6 +1386,30 @@ class NetworkProfile(Model):
         self.service_cidr = kwargs.get('service_cidr', None)
         self.service_runtime_network_resource_group = kwargs.get('service_runtime_network_resource_group', None)
         self.app_network_resource_group = kwargs.get('app_network_resource_group', None)
+        self.outbound_ips = None
+
+
+class NetworkProfileOutboundIPs(Model):
+    """Desired outbound IP resources for Azure Spring Cloud instance.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar public_ips: A list of public IP addresses.
+    :vartype public_ips: list[str]
+    """
+
+    _validation = {
+        'public_ips': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'public_ips': {'key': 'publicIPs', 'type': '[str]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(NetworkProfileOutboundIPs, self).__init__(**kwargs)
+        self.public_ips = None
 
 
 class OperationDetail(Model):
@@ -1794,6 +1905,34 @@ class SkuCapacity(Model):
         self.scale_type = kwargs.get('scale_type', None)
 
 
+class SupportedRuntimeVersion(Model):
+    """Supported deployment runtime version descriptor.
+
+    :param value: The raw value which could be passed to deployment CRUD
+     operations. Possible values include: 'Java_8', 'Java_11', 'NetCore_31'
+    :type value: str or
+     ~azure.mgmt.appplatform.v2020_07_01.models.SupportedRuntimeValue
+    :param platform: The platform of this runtime version (possible values:
+     "Java" or ".NET"). Possible values include: 'Java', '.NET Core'
+    :type platform: str or
+     ~azure.mgmt.appplatform.v2020_07_01.models.SupportedRuntimePlatform
+    :param version: The detailed version (major.minor) of the platform.
+    :type version: str
+    """
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': 'str'},
+        'platform': {'key': 'platform', 'type': 'str'},
+        'version': {'key': 'version', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SupportedRuntimeVersion, self).__init__(**kwargs)
+        self.value = kwargs.get('value', None)
+        self.platform = kwargs.get('platform', None)
+        self.version = kwargs.get('version', None)
+
+
 class TemporaryDisk(Model):
     """Temporary disk payload.
 
@@ -1854,7 +1993,7 @@ class UserSourceInfo(Model):
     """Source information for a deployment.
 
     :param type: Type of the source uploaded. Possible values include: 'Jar',
-     'Source'
+     'NetCoreZip', 'Source'
     :type type: str or
      ~azure.mgmt.appplatform.v2020_07_01.models.UserSourceType
     :param relative_path: Relative path of the storage which stores the source

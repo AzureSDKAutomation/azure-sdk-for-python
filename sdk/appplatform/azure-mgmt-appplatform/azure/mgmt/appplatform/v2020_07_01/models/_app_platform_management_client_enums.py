@@ -50,6 +50,11 @@ class MonitoringSettingState(str, Enum):
     updating = "Updating"
 
 
+class MonitoringType(str, Enum):
+
+    app_insights = "AppInsights"
+
+
 class TestKeyType(str, Enum):
 
     primary = "Primary"
@@ -67,6 +72,7 @@ class AppResourceProvisioningState(str, Enum):
 class UserSourceType(str, Enum):
 
     jar = "Jar"
+    net_core_zip = "NetCoreZip"
     source = "Source"
 
 
@@ -74,6 +80,7 @@ class RuntimeVersion(str, Enum):
 
     java_8 = "Java_8"
     java_11 = "Java_11"
+    net_core_31 = "NetCore_31"
 
 
 class DeploymentResourceProvisioningState(str, Enum):
@@ -112,3 +119,16 @@ class ResourceSkuRestrictionsReasonCode(str, Enum):
 
     quota_id = "QuotaId"
     not_available_for_subscription = "NotAvailableForSubscription"
+
+
+class SupportedRuntimeValue(str, Enum):
+
+    java_8 = "Java_8"
+    java_11 = "Java_11"
+    net_core_31 = "NetCore_31"
+
+
+class SupportedRuntimePlatform(str, Enum):
+
+    java = "Java"
+    net_core = ".NET Core"
