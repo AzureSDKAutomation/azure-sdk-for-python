@@ -9,88 +9,28 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from .automation_account_operations import AutomationAccountOperations
-from .operations import Operations
-from .statistics_operations import StatisticsOperations
-from .usages_operations import UsagesOperations
-from .keys_operations import KeysOperations
-from .certificate_operations import CertificateOperations
-from .connection_operations import ConnectionOperations
-from .connection_type_operations import ConnectionTypeOperations
-from .credential_operations import CredentialOperations
-from .dsc_configuration_operations import DscConfigurationOperations
-from .hybrid_runbook_worker_group_operations import HybridRunbookWorkerGroupOperations
-from .job_schedule_operations import JobScheduleOperations
-from .linked_workspace_operations import LinkedWorkspaceOperations
-from .activity_operations import ActivityOperations
-from .module_operations import ModuleOperations
-from .object_data_types_operations import ObjectDataTypesOperations
-from .fields_operations import FieldsOperations
-from .schedule_operations import ScheduleOperations
-from .variable_operations import VariableOperations
-from .webhook_operations import WebhookOperations
-from .watcher_operations import WatcherOperations
-from .software_update_configurations_operations import SoftwareUpdateConfigurationsOperations
-from .software_update_configuration_runs_operations import SoftwareUpdateConfigurationRunsOperations
-from .software_update_configuration_machine_runs_operations import SoftwareUpdateConfigurationMachineRunsOperations
-from .source_control_operations import SourceControlOperations
-from .source_control_sync_job_operations import SourceControlSyncJobOperations
-from .source_control_sync_job_streams_operations import SourceControlSyncJobStreamsOperations
-from .job_operations import JobOperations
-from .job_stream_operations import JobStreamOperations
-from .agent_registration_information_operations import AgentRegistrationInformationOperations
-from .dsc_node_operations import DscNodeOperations
-from .node_reports_operations import NodeReportsOperations
-from .dsc_compilation_job_operations import DscCompilationJobOperations
-from .dsc_compilation_job_stream_operations import DscCompilationJobStreamOperations
-from .dsc_node_configuration_operations import DscNodeConfigurationOperations
-from .node_count_information_operations import NodeCountInformationOperations
-from .runbook_draft_operations import RunbookDraftOperations
-from .runbook_operations import RunbookOperations
-from .test_job_streams_operations import TestJobStreamsOperations
-from .test_job_operations import TestJobOperations
-from .python2_package_operations import Python2PackageOperations
+from ._runbook_draft_operations import RunbookDraftOperations
+from ._runbook_operations import RunbookOperations
+from ._test_job_streams_operations import TestJobStreamsOperations
+from ._test_job_operations import TestJobOperations
+from ._automation_account_operations import AutomationAccountOperations
+from ._operations import Operations
+from ._statistics_operations import StatisticsOperations
+from ._usages_operations import UsagesOperations
+from ._keys_operations import KeysOperations
+from ._job_operations import JobOperations
+from ._job_stream_operations import JobStreamOperations
 
 __all__ = [
+    'RunbookDraftOperations',
+    'RunbookOperations',
+    'TestJobStreamsOperations',
+    'TestJobOperations',
     'AutomationAccountOperations',
     'Operations',
     'StatisticsOperations',
     'UsagesOperations',
     'KeysOperations',
-    'CertificateOperations',
-    'ConnectionOperations',
-    'ConnectionTypeOperations',
-    'CredentialOperations',
-    'DscConfigurationOperations',
-    'HybridRunbookWorkerGroupOperations',
-    'JobScheduleOperations',
-    'LinkedWorkspaceOperations',
-    'ActivityOperations',
-    'ModuleOperations',
-    'ObjectDataTypesOperations',
-    'FieldsOperations',
-    'ScheduleOperations',
-    'VariableOperations',
-    'WebhookOperations',
-    'WatcherOperations',
-    'SoftwareUpdateConfigurationsOperations',
-    'SoftwareUpdateConfigurationRunsOperations',
-    'SoftwareUpdateConfigurationMachineRunsOperations',
-    'SourceControlOperations',
-    'SourceControlSyncJobOperations',
-    'SourceControlSyncJobStreamsOperations',
     'JobOperations',
     'JobStreamOperations',
-    'AgentRegistrationInformationOperations',
-    'DscNodeOperations',
-    'NodeReportsOperations',
-    'DscCompilationJobOperations',
-    'DscCompilationJobStreamOperations',
-    'DscNodeConfigurationOperations',
-    'NodeCountInformationOperations',
-    'RunbookDraftOperations',
-    'RunbookOperations',
-    'TestJobStreamsOperations',
-    'TestJobOperations',
-    'Python2PackageOperations',
 ]
