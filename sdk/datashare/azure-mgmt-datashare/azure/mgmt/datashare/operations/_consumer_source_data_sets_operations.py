@@ -116,4 +116,4 @@ class ConsumerSourceDataSetsOperations(object):
         deserialized = models.ConsumerSourceDataSetPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list_by_share_subscription.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataShare/accounts/{accountName}/shareSubscriptions/{shareSubscriptionName}/ConsumerSourceDataSets'}
+    list_by_share_subscription.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataShare/accounts/{accountName}/shareSubscriptions/{shareSubscriptionName}/consumerSourceDataSets'}
