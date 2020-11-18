@@ -16,7 +16,7 @@ from azure.core.polling import AsyncLROPoller, AsyncNoPolling, AsyncPollingMetho
 from azure.mgmt.core.exceptions import ARMErrorFormat
 from azure.mgmt.core.polling.async_arm_polling import AsyncARMPolling
 
-from ... import models
+from ... import models as _models
 
 T = TypeVar('T')
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, AsyncHttpResponse], T, Dict[str, Any]], Any]]
@@ -35,7 +35,7 @@ class TopicsOperations:
     :param deserializer: An object model deserializer.
     """
 
-    models = models
+    models = _models
 
     def __init__(self, client, config, serializer, deserializer) -> None:
         self._client = client
@@ -48,7 +48,7 @@ class TopicsOperations:
         resource_group_name: str,
         topic_name: str,
         **kwargs
-    ) -> "models.Topic":
+    ) -> "_models.Topic":
         """Get a topic.
 
         Get properties of a topic.
@@ -62,7 +62,7 @@ class TopicsOperations:
         :rtype: ~azure.mgmt.eventgrid.models.Topic
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.Topic"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.Topic"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -107,10 +107,10 @@ class TopicsOperations:
         self,
         resource_group_name: str,
         topic_name: str,
-        topic_info: "models.Topic",
+        topic_info: "_models.Topic",
         **kwargs
-    ) -> "models.Topic":
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.Topic"]
+    ) -> "_models.Topic":
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.Topic"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -160,9 +160,9 @@ class TopicsOperations:
         self,
         resource_group_name: str,
         topic_name: str,
-        topic_info: "models.Topic",
+        topic_info: "_models.Topic",
         **kwargs
-    ) -> AsyncLROPoller["models.Topic"]:
+    ) -> AsyncLROPoller["_models.Topic"]:
         """Create a topic.
 
         Asynchronously creates a new topic with the specified parameters.
@@ -184,7 +184,7 @@ class TopicsOperations:
         :raises ~azure.core.exceptions.HttpResponseError:
         """
         polling = kwargs.pop('polling', True)  # type: Union[bool, AsyncPollingMethod]
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.Topic"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.Topic"]
         lro_delay = kwargs.pop(
             'polling_interval',
             self._config.polling_interval
@@ -209,7 +209,13 @@ class TopicsOperations:
                 return cls(pipeline_response, deserialized, {})
             return deserialized
 
-        if polling is True: polling_method = AsyncARMPolling(lro_delay,  **kwargs)
+        path_format_arguments = {
+            'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
+            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
+            'topicName': self._serialize.url("topic_name", topic_name, 'str'),
+        }
+
+        if polling is True: polling_method = AsyncARMPolling(lro_delay, path_format_arguments=path_format_arguments,  **kwargs)
         elif polling is False: polling_method = AsyncNoPolling()
         else: polling_method = polling
         if cont_token:
@@ -311,7 +317,13 @@ class TopicsOperations:
             if cls:
                 return cls(pipeline_response, None, {})
 
-        if polling is True: polling_method = AsyncARMPolling(lro_delay,  **kwargs)
+        path_format_arguments = {
+            'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
+            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
+            'topicName': self._serialize.url("topic_name", topic_name, 'str'),
+        }
+
+        if polling is True: polling_method = AsyncARMPolling(lro_delay, path_format_arguments=path_format_arguments,  **kwargs)
         elif polling is False: polling_method = AsyncNoPolling()
         else: polling_method = polling
         if cont_token:
@@ -329,10 +341,10 @@ class TopicsOperations:
         self,
         resource_group_name: str,
         topic_name: str,
-        topic_update_parameters: "models.TopicUpdateParameters",
+        topic_update_parameters: "_models.TopicUpdateParameters",
         **kwargs
-    ) -> Optional["models.Topic"]:
-        cls = kwargs.pop('cls', None)  # type: ClsType[Optional["models.Topic"]]
+    ) -> Optional["_models.Topic"]:
+        cls = kwargs.pop('cls', None)  # type: ClsType[Optional["_models.Topic"]]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -384,9 +396,9 @@ class TopicsOperations:
         self,
         resource_group_name: str,
         topic_name: str,
-        topic_update_parameters: "models.TopicUpdateParameters",
+        topic_update_parameters: "_models.TopicUpdateParameters",
         **kwargs
-    ) -> AsyncLROPoller["models.Topic"]:
+    ) -> AsyncLROPoller["_models.Topic"]:
         """Update a topic.
 
         Asynchronously updates a topic with the specified parameters.
@@ -408,7 +420,7 @@ class TopicsOperations:
         :raises ~azure.core.exceptions.HttpResponseError:
         """
         polling = kwargs.pop('polling', True)  # type: Union[bool, AsyncPollingMethod]
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.Topic"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.Topic"]
         lro_delay = kwargs.pop(
             'polling_interval',
             self._config.polling_interval
@@ -433,7 +445,13 @@ class TopicsOperations:
                 return cls(pipeline_response, deserialized, {})
             return deserialized
 
-        if polling is True: polling_method = AsyncARMPolling(lro_delay,  **kwargs)
+        path_format_arguments = {
+            'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
+            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
+            'topicName': self._serialize.url("topic_name", topic_name, 'str'),
+        }
+
+        if polling is True: polling_method = AsyncARMPolling(lro_delay, path_format_arguments=path_format_arguments,  **kwargs)
         elif polling is False: polling_method = AsyncNoPolling()
         else: polling_method = polling
         if cont_token:
@@ -452,7 +470,7 @@ class TopicsOperations:
         filter: Optional[str] = None,
         top: Optional[int] = None,
         **kwargs
-    ) -> AsyncIterable["models.TopicsListResult"]:
+    ) -> AsyncIterable["_models.TopicsListResult"]:
         """List topics under an Azure subscription.
 
         List all the topics under an Azure subscription.
@@ -473,7 +491,7 @@ class TopicsOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.eventgrid.models.TopicsListResult]
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.TopicsListResult"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.TopicsListResult"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -538,7 +556,7 @@ class TopicsOperations:
         filter: Optional[str] = None,
         top: Optional[int] = None,
         **kwargs
-    ) -> AsyncIterable["models.TopicsListResult"]:
+    ) -> AsyncIterable["_models.TopicsListResult"]:
         """List topics under a resource group.
 
         List all the topics under a resource group.
@@ -561,7 +579,7 @@ class TopicsOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.eventgrid.models.TopicsListResult]
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.TopicsListResult"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.TopicsListResult"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -626,7 +644,7 @@ class TopicsOperations:
         resource_group_name: str,
         topic_name: str,
         **kwargs
-    ) -> "models.TopicSharedAccessKeys":
+    ) -> "_models.TopicSharedAccessKeys":
         """List keys for a topic.
 
         List the two keys used to publish to a topic.
@@ -640,7 +658,7 @@ class TopicsOperations:
         :rtype: ~azure.mgmt.eventgrid.models.TopicSharedAccessKeys
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.TopicSharedAccessKeys"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.TopicSharedAccessKeys"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -687,7 +705,7 @@ class TopicsOperations:
         topic_name: str,
         key_name: str,
         **kwargs
-    ) -> "models.TopicSharedAccessKeys":
+    ) -> "_models.TopicSharedAccessKeys":
         """Regenerate key for a topic.
 
         Regenerate a shared access key for a topic.
@@ -703,13 +721,13 @@ class TopicsOperations:
         :rtype: ~azure.mgmt.eventgrid.models.TopicSharedAccessKeys
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.TopicSharedAccessKeys"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.TopicSharedAccessKeys"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        _regenerate_key_request = models.TopicRegenerateKeyRequest(key_name=key_name)
+        _regenerate_key_request = _models.TopicRegenerateKeyRequest(key_name=key_name)
         api_version = "2020-06-01"
         content_type = kwargs.pop("content_type", "application/json")
         accept = "application/json"
@@ -758,7 +776,7 @@ class TopicsOperations:
         resource_type_name: str,
         resource_name: str,
         **kwargs
-    ) -> AsyncIterable["models.EventTypesListResult"]:
+    ) -> AsyncIterable["_models.EventTypesListResult"]:
         """List topic event types.
 
         List event types for a topic.
@@ -776,7 +794,7 @@ class TopicsOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.eventgrid.models.EventTypesListResult]
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.EventTypesListResult"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.EventTypesListResult"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
