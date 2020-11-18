@@ -13,7 +13,7 @@ from azure.core.pipeline import PipelineResponse
 from azure.core.pipeline.transport import HttpRequest, HttpResponse
 from azure.mgmt.core.exceptions import ARMErrorFormat
 
-from .. import models
+from .. import models as _models
 
 if TYPE_CHECKING:
     # pylint: disable=unused-import,ungrouped-imports
@@ -36,7 +36,7 @@ class ApiOperationPolicyOperations(object):
     :param deserializer: An object model deserializer.
     """
 
-    models = models
+    models = _models
 
     def __init__(self, client, config, serializer, deserializer):
         self._client = client
@@ -52,7 +52,7 @@ class ApiOperationPolicyOperations(object):
         operation_id,  # type: str
         **kwargs  # type: Any
     ):
-        # type: (...) -> "models.PolicyCollection"
+        # type: (...) -> "_models.PolicyCollection"
         """Get the list of policy configuration at the API Operation level.
 
         :param resource_group_name: The name of the resource group.
@@ -70,7 +70,7 @@ class ApiOperationPolicyOperations(object):
         :rtype: ~azure.mgmt.apimanagement.models.PolicyCollection
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.PolicyCollection"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.PolicyCollection"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -103,7 +103,7 @@ class ApiOperationPolicyOperations(object):
 
         if response.status_code not in [200]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         deserialized = self._deserialize('PolicyCollection', pipeline_response)
@@ -120,7 +120,7 @@ class ApiOperationPolicyOperations(object):
         service_name,  # type: str
         api_id,  # type: str
         operation_id,  # type: str
-        policy_id,  # type: Union[str, "models.PolicyIdName"]
+        policy_id,  # type: Union[str, "_models.PolicyIdName"]
         **kwargs  # type: Any
     ):
         # type: (...) -> bool
@@ -177,7 +177,7 @@ class ApiOperationPolicyOperations(object):
 
         if response.status_code not in [200]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         response_headers = {}
@@ -195,11 +195,11 @@ class ApiOperationPolicyOperations(object):
         service_name,  # type: str
         api_id,  # type: str
         operation_id,  # type: str
-        policy_id,  # type: Union[str, "models.PolicyIdName"]
-        format="xml",  # type: Optional[Union[str, "models.PolicyExportFormat"]]
+        policy_id,  # type: Union[str, "_models.PolicyIdName"]
+        format="xml",  # type: Optional[Union[str, "_models.PolicyExportFormat"]]
         **kwargs  # type: Any
     ):
-        # type: (...) -> "models.PolicyContract"
+        # type: (...) -> "_models.PolicyContract"
         """Get the policy configuration at the API Operation level.
 
         :param resource_group_name: The name of the resource group.
@@ -221,7 +221,7 @@ class ApiOperationPolicyOperations(object):
         :rtype: ~azure.mgmt.apimanagement.models.PolicyContract
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.PolicyContract"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.PolicyContract"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -257,7 +257,7 @@ class ApiOperationPolicyOperations(object):
 
         if response.status_code not in [200]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         response_headers = {}
@@ -276,13 +276,13 @@ class ApiOperationPolicyOperations(object):
         service_name,  # type: str
         api_id,  # type: str
         operation_id,  # type: str
-        policy_id,  # type: Union[str, "models.PolicyIdName"]
+        policy_id,  # type: Union[str, "_models.PolicyIdName"]
         if_match=None,  # type: Optional[str]
         value=None,  # type: Optional[str]
-        format="xml",  # type: Optional[Union[str, "models.PolicyContentFormat"]]
+        format="xml",  # type: Optional[Union[str, "_models.PolicyContentFormat"]]
         **kwargs  # type: Any
     ):
-        # type: (...) -> "models.PolicyContract"
+        # type: (...) -> "_models.PolicyContract"
         """Creates or updates policy configuration for the API Operation level.
 
         :param resource_group_name: The name of the resource group.
@@ -309,13 +309,13 @@ class ApiOperationPolicyOperations(object):
         :rtype: ~azure.mgmt.apimanagement.models.PolicyContract
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.PolicyContract"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.PolicyContract"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        _parameters = models.PolicyContract(value=value, format=format)
+        _parameters = _models.PolicyContract(value=value, format=format)
         api_version = "2020-06-01-preview"
         content_type = kwargs.pop("content_type", "application/json")
         accept = "application/json"
@@ -352,7 +352,7 @@ class ApiOperationPolicyOperations(object):
 
         if response.status_code not in [200, 201]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         response_headers = {}
@@ -376,7 +376,7 @@ class ApiOperationPolicyOperations(object):
         service_name,  # type: str
         api_id,  # type: str
         operation_id,  # type: str
-        policy_id,  # type: Union[str, "models.PolicyIdName"]
+        policy_id,  # type: Union[str, "_models.PolicyIdName"]
         if_match,  # type: str
         **kwargs  # type: Any
     ):
@@ -438,7 +438,7 @@ class ApiOperationPolicyOperations(object):
 
         if response.status_code not in [200, 204]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         if cls:

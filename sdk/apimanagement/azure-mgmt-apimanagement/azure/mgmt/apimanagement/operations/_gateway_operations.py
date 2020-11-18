@@ -15,7 +15,7 @@ from azure.core.pipeline import PipelineResponse
 from azure.core.pipeline.transport import HttpRequest, HttpResponse
 from azure.mgmt.core.exceptions import ARMErrorFormat
 
-from .. import models
+from .. import models as _models
 
 if TYPE_CHECKING:
     # pylint: disable=unused-import,ungrouped-imports
@@ -38,7 +38,7 @@ class GatewayOperations(object):
     :param deserializer: An object model deserializer.
     """
 
-    models = models
+    models = _models
 
     def __init__(self, client, config, serializer, deserializer):
         self._client = client
@@ -55,7 +55,7 @@ class GatewayOperations(object):
         skip=None,  # type: Optional[int]
         **kwargs  # type: Any
     ):
-        # type: (...) -> Iterable["models.GatewayCollection"]
+        # type: (...) -> Iterable["_models.GatewayCollection"]
         """Lists a collection of gateways registered with service instance.
 
         :param resource_group_name: The name of the resource group.
@@ -78,7 +78,7 @@ class GatewayOperations(object):
         :rtype: ~azure.core.paging.ItemPaged[~azure.mgmt.apimanagement.models.GatewayCollection]
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.GatewayCollection"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.GatewayCollection"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -131,7 +131,7 @@ class GatewayOperations(object):
             response = pipeline_response.http_response
 
             if response.status_code not in [200]:
-                error = self._deserialize(models.ErrorResponse, response)
+                error = self._deserialize(_models.ErrorResponse, response)
                 map_error(status_code=response.status_code, response=response, error_map=error_map)
                 raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
@@ -196,7 +196,7 @@ class GatewayOperations(object):
 
         if response.status_code not in [200]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         response_headers = {}
@@ -215,7 +215,7 @@ class GatewayOperations(object):
         gateway_id,  # type: str
         **kwargs  # type: Any
     ):
-        # type: (...) -> "models.GatewayContract"
+        # type: (...) -> "_models.GatewayContract"
         """Gets the details of the Gateway specified by its identifier.
 
         :param resource_group_name: The name of the resource group.
@@ -230,7 +230,7 @@ class GatewayOperations(object):
         :rtype: ~azure.mgmt.apimanagement.models.GatewayContract
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.GatewayContract"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.GatewayContract"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -262,7 +262,7 @@ class GatewayOperations(object):
 
         if response.status_code not in [200]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         response_headers = {}
@@ -281,11 +281,11 @@ class GatewayOperations(object):
         service_name,  # type: str
         gateway_id,  # type: str
         if_match=None,  # type: Optional[str]
-        location_data=None,  # type: Optional["models.ResourceLocationDataContract"]
+        location_data=None,  # type: Optional["_models.ResourceLocationDataContract"]
         description=None,  # type: Optional[str]
         **kwargs  # type: Any
     ):
-        # type: (...) -> "models.GatewayContract"
+        # type: (...) -> "_models.GatewayContract"
         """Creates or updates a Gateway to be used in Api Management instance.
 
         :param resource_group_name: The name of the resource group.
@@ -307,13 +307,13 @@ class GatewayOperations(object):
         :rtype: ~azure.mgmt.apimanagement.models.GatewayContract
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.GatewayContract"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.GatewayContract"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        _parameters = models.GatewayContract(location_data=location_data, description=description)
+        _parameters = _models.GatewayContract(location_data=location_data, description=description)
         api_version = "2020-06-01-preview"
         content_type = kwargs.pop("content_type", "application/json")
         accept = "application/json"
@@ -348,7 +348,7 @@ class GatewayOperations(object):
 
         if response.status_code not in [200, 201]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         response_headers = {}
@@ -372,11 +372,11 @@ class GatewayOperations(object):
         service_name,  # type: str
         gateway_id,  # type: str
         if_match,  # type: str
-        location_data=None,  # type: Optional["models.ResourceLocationDataContract"]
+        location_data=None,  # type: Optional["_models.ResourceLocationDataContract"]
         description=None,  # type: Optional[str]
         **kwargs  # type: Any
     ):
-        # type: (...) -> "models.GatewayContract"
+        # type: (...) -> "_models.GatewayContract"
         """Updates the details of the gateway specified by its identifier.
 
         :param resource_group_name: The name of the resource group.
@@ -398,13 +398,13 @@ class GatewayOperations(object):
         :rtype: ~azure.mgmt.apimanagement.models.GatewayContract
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.GatewayContract"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.GatewayContract"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        _parameters = models.GatewayContract(location_data=location_data, description=description)
+        _parameters = _models.GatewayContract(location_data=location_data, description=description)
         api_version = "2020-06-01-preview"
         content_type = kwargs.pop("content_type", "application/json")
         accept = "application/json"
@@ -438,7 +438,7 @@ class GatewayOperations(object):
 
         if response.status_code not in [200]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         response_headers = {}
@@ -510,7 +510,7 @@ class GatewayOperations(object):
 
         if response.status_code not in [200, 204]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         if cls:
@@ -525,7 +525,7 @@ class GatewayOperations(object):
         gateway_id,  # type: str
         **kwargs  # type: Any
     ):
-        # type: (...) -> "models.GatewayKeysContract"
+        # type: (...) -> "_models.GatewayKeysContract"
         """Retrieves gateway keys.
 
         :param resource_group_name: The name of the resource group.
@@ -540,7 +540,7 @@ class GatewayOperations(object):
         :rtype: ~azure.mgmt.apimanagement.models.GatewayKeysContract
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.GatewayKeysContract"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.GatewayKeysContract"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -572,7 +572,7 @@ class GatewayOperations(object):
 
         if response.status_code not in [200]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         response_headers = {}
@@ -590,7 +590,7 @@ class GatewayOperations(object):
         resource_group_name,  # type: str
         service_name,  # type: str
         gateway_id,  # type: str
-        key_type,  # type: Union[str, "models.KeyType"]
+        key_type,  # type: Union[str, "_models.KeyType"]
         **kwargs  # type: Any
     ):
         # type: (...) -> None
@@ -616,7 +616,7 @@ class GatewayOperations(object):
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        _parameters = models.GatewayKeyRegenerationRequestContract(key_type=key_type)
+        _parameters = _models.GatewayKeyRegenerationRequestContract(key_type=key_type)
         api_version = "2020-06-01-preview"
         content_type = kwargs.pop("content_type", "application/json")
         accept = "application/json"
@@ -649,7 +649,7 @@ class GatewayOperations(object):
 
         if response.status_code not in [204]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         if cls:
@@ -662,11 +662,11 @@ class GatewayOperations(object):
         resource_group_name,  # type: str
         service_name,  # type: str
         gateway_id,  # type: str
-        key_type,  # type: Union[str, "models.KeyType"]
+        key_type,  # type: Union[str, "_models.KeyType"]
         expiry,  # type: datetime.datetime
         **kwargs  # type: Any
     ):
-        # type: (...) -> "models.GatewayTokenContract"
+        # type: (...) -> "_models.GatewayTokenContract"
         """Gets the Shared Access Authorization Token for the gateway.
 
         :param resource_group_name: The name of the resource group.
@@ -687,13 +687,13 @@ class GatewayOperations(object):
         :rtype: ~azure.mgmt.apimanagement.models.GatewayTokenContract
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.GatewayTokenContract"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.GatewayTokenContract"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        _parameters = models.GatewayTokenRequestContract(key_type=key_type, expiry=expiry)
+        _parameters = _models.GatewayTokenRequestContract(key_type=key_type, expiry=expiry)
         api_version = "2020-06-01-preview"
         content_type = kwargs.pop("content_type", "application/json")
         accept = "application/json"
@@ -726,7 +726,7 @@ class GatewayOperations(object):
 
         if response.status_code not in [200]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         deserialized = self._deserialize('GatewayTokenContract', pipeline_response)

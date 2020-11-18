@@ -19,8 +19,8 @@ from ... import models as _models
 T = TypeVar('T')
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, AsyncHttpResponse], T, Dict[str, Any]], Any]]
 
-class ApiReleaseOperations:
-    """ApiReleaseOperations async operations.
+class ContentItemOperations:
+    """ContentItemOperations async operations.
 
     You should not instantiate this class directly. Instead, you should create a Client instance that
     instantiates it for you and attaches it as an attribute.
@@ -45,36 +45,23 @@ class ApiReleaseOperations:
         self,
         resource_group_name: str,
         service_name: str,
-        api_id: str,
-        filter: Optional[str] = None,
-        top: Optional[int] = None,
-        skip: Optional[int] = None,
+        content_type_id: str,
         **kwargs
-    ) -> AsyncIterable["_models.ApiReleaseCollection"]:
-        """Lists all releases of an API. An API release is created when making an API Revision current.
-        Releases are also used to rollback to previous revisions. Results will be paged and can be
-        constrained by the $top and $skip parameters.
+    ) -> AsyncIterable["_models.ContentItemCollection"]:
+        """Returns list of content items.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param service_name: The name of the API Management service.
         :type service_name: str
-        :param api_id: API identifier. Must be unique in the current API Management service instance.
-        :type api_id: str
-        :param filter: |     Field     |     Usage     |     Supported operators     |     Supported
-         functions     |</br>|-------------|-------------|-------------|-------------|</br>| notes |
-         filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>.
-        :type filter: str
-        :param top: Number of records to return.
-        :type top: int
-        :param skip: Number of records to skip.
-        :type skip: int
+        :param content_type_id: Content type identifier.
+        :type content_type_id: str
         :keyword callable cls: A custom type or function that will be passed the direct response
-        :return: An iterator like instance of either ApiReleaseCollection or the result of cls(response)
-        :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.apimanagement.models.ApiReleaseCollection]
+        :return: An iterator like instance of either ContentItemCollection or the result of cls(response)
+        :rtype: ~azure.core.async_paging.AsyncItemPaged[~azure.mgmt.apimanagement.models.ContentItemCollection]
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["_models.ApiReleaseCollection"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.ContentItemCollection"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -93,18 +80,12 @@ class ApiReleaseOperations:
                 path_format_arguments = {
                     'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
                     'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
-                    'apiId': self._serialize.url("api_id", api_id, 'str', max_length=80, min_length=1),
+                    'contentTypeId': self._serialize.url("content_type_id", content_type_id, 'str', max_length=80, min_length=1),
                     'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
                 }
                 url = self._client.format_url(url, **path_format_arguments)
                 # Construct parameters
                 query_parameters = {}  # type: Dict[str, Any]
-                if filter is not None:
-                    query_parameters['$filter'] = self._serialize.query("filter", filter, 'str')
-                if top is not None:
-                    query_parameters['$top'] = self._serialize.query("top", top, 'int', minimum=1)
-                if skip is not None:
-                    query_parameters['$skip'] = self._serialize.query("skip", skip, 'int', minimum=0)
                 query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
 
                 request = self._client.get(url, query_parameters, header_parameters)
@@ -115,7 +96,7 @@ class ApiReleaseOperations:
             return request
 
         async def extract_data(pipeline_response):
-            deserialized = self._deserialize('ApiReleaseCollection', pipeline_response)
+            deserialized = self._deserialize('ContentItemCollection', pipeline_response)
             list_of_elem = deserialized.value
             if cls:
                 list_of_elem = cls(list_of_elem)
@@ -137,27 +118,26 @@ class ApiReleaseOperations:
         return AsyncItemPaged(
             get_next, extract_data
         )
-    list_by_service.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}/releases'}  # type: ignore
+    list_by_service.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/contentTypes/{contentTypeId}/contentItems'}  # type: ignore
 
     async def get_entity_tag(
         self,
         resource_group_name: str,
         service_name: str,
-        api_id: str,
-        release_id: str,
+        content_type_id: str,
+        content_item_id: str,
         **kwargs
     ) -> bool:
-        """Returns the etag of an API release.
+        """Returns content item metadata.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param service_name: The name of the API Management service.
         :type service_name: str
-        :param api_id: API identifier. Must be unique in the current API Management service instance.
-        :type api_id: str
-        :param release_id: Release identifier within an API. Must be unique in the current API
-         Management service instance.
-        :type release_id: str
+        :param content_type_id: Content type identifier.
+        :type content_type_id: str
+        :param content_item_id: Content item identifier.
+        :type content_item_id: str
         :keyword callable cls: A custom type or function that will be passed the direct response
         :return: bool, or the result of cls(response)
         :rtype: bool
@@ -176,8 +156,8 @@ class ApiReleaseOperations:
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
-            'apiId': self._serialize.url("api_id", api_id, 'str', max_length=80, min_length=1),
-            'releaseId': self._serialize.url("release_id", release_id, 'str', max_length=80, min_length=1, pattern=r'^[^*#&+:<>?]+$'),
+            'contentTypeId': self._serialize.url("content_type_id", content_type_id, 'str', max_length=80, min_length=1),
+            'contentItemId': self._serialize.url("content_item_id", content_item_id, 'str', max_length=80, min_length=1),
             'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -206,33 +186,32 @@ class ApiReleaseOperations:
             return cls(pipeline_response, None, response_headers)
 
         return 200 <= response.status_code <= 299
-    get_entity_tag.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}/releases/{releaseId}'}  # type: ignore
+    get_entity_tag.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/contentTypes/{contentTypeId}/contentItems/{contentItemId}'}  # type: ignore
 
     async def get(
         self,
         resource_group_name: str,
         service_name: str,
-        api_id: str,
-        release_id: str,
+        content_type_id: str,
+        content_item_id: str,
         **kwargs
-    ) -> "_models.ApiReleaseContract":
-        """Returns the details of an API release.
+    ) -> "_models.ContentItemContract":
+        """Returns content item details.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param service_name: The name of the API Management service.
         :type service_name: str
-        :param api_id: API identifier. Must be unique in the current API Management service instance.
-        :type api_id: str
-        :param release_id: Release identifier within an API. Must be unique in the current API
-         Management service instance.
-        :type release_id: str
+        :param content_type_id: Content type identifier.
+        :type content_type_id: str
+        :param content_item_id: Content item identifier.
+        :type content_item_id: str
         :keyword callable cls: A custom type or function that will be passed the direct response
-        :return: ApiReleaseContract, or the result of cls(response)
-        :rtype: ~azure.mgmt.apimanagement.models.ApiReleaseContract
+        :return: ContentItemContract, or the result of cls(response)
+        :rtype: ~azure.mgmt.apimanagement.models.ContentItemContract
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["_models.ApiReleaseContract"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.ContentItemContract"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -245,8 +224,8 @@ class ApiReleaseOperations:
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
-            'apiId': self._serialize.url("api_id", api_id, 'str', max_length=80, min_length=1),
-            'releaseId': self._serialize.url("release_id", release_id, 'str', max_length=80, min_length=1, pattern=r'^[^*#&+:<>?]+$'),
+            'contentTypeId': self._serialize.url("content_type_id", content_type_id, 'str', max_length=80, min_length=1),
+            'contentItemId': self._serialize.url("content_item_id", content_item_id, 'str', max_length=80, min_length=1),
             'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -270,57 +249,47 @@ class ApiReleaseOperations:
 
         response_headers = {}
         response_headers['ETag']=self._deserialize('str', response.headers.get('ETag'))
-        deserialized = self._deserialize('ApiReleaseContract', pipeline_response)
+        deserialized = self._deserialize('ContentItemContract', pipeline_response)
 
         if cls:
             return cls(pipeline_response, deserialized, response_headers)
 
         return deserialized
-    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}/releases/{releaseId}'}  # type: ignore
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/contentTypes/{contentTypeId}/contentItems/{contentItemId}'}  # type: ignore
 
     async def create_or_update(
         self,
         resource_group_name: str,
         service_name: str,
-        api_id: str,
-        release_id: str,
+        content_type_id: str,
+        content_item_id: str,
         if_match: Optional[str] = None,
-        api_release_contract_properties_api_id: Optional[str] = None,
-        notes: Optional[str] = None,
         **kwargs
-    ) -> "_models.ApiReleaseContract":
-        """Creates a new Release for the API.
+    ) -> "_models.ContentItemContract":
+        """Creates new content item.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param service_name: The name of the API Management service.
         :type service_name: str
-        :param api_id: API identifier. Must be unique in the current API Management service instance.
-        :type api_id: str
-        :param release_id: Release identifier within an API. Must be unique in the current API
-         Management service instance.
-        :type release_id: str
+        :param content_type_id: Content type identifier.
+        :type content_type_id: str
+        :param content_item_id: Content item identifier.
+        :type content_item_id: str
         :param if_match: ETag of the Entity. Not required when creating an entity, but required when
          updating an entity.
         :type if_match: str
-        :param api_release_contract_properties_api_id: Identifier of the API the release belongs to.
-        :type api_release_contract_properties_api_id: str
-        :param notes: Release Notes.
-        :type notes: str
         :keyword callable cls: A custom type or function that will be passed the direct response
-        :return: ApiReleaseContract, or the result of cls(response)
-        :rtype: ~azure.mgmt.apimanagement.models.ApiReleaseContract
+        :return: ContentItemContract, or the result of cls(response)
+        :rtype: ~azure.mgmt.apimanagement.models.ContentItemContract
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["_models.ApiReleaseContract"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.ContentItemContract"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
         error_map.update(kwargs.pop('error_map', {}))
-
-        _parameters = _models.ApiReleaseContract(api_id=api_release_contract_properties_api_id, notes=notes)
         api_version = "2020-06-01-preview"
-        content_type = kwargs.pop("content_type", "application/json")
         accept = "application/json"
 
         # Construct URL
@@ -328,8 +297,8 @@ class ApiReleaseOperations:
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
-            'apiId': self._serialize.url("api_id", api_id, 'str', max_length=80, min_length=1),
-            'releaseId': self._serialize.url("release_id", release_id, 'str', max_length=80, min_length=1, pattern=r'^[^*#&+:<>?]+$'),
+            'contentTypeId': self._serialize.url("content_type_id", content_type_id, 'str', max_length=80, min_length=1),
+            'contentItemId': self._serialize.url("content_item_id", content_item_id, 'str', max_length=80, min_length=1),
             'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -342,13 +311,9 @@ class ApiReleaseOperations:
         header_parameters = {}  # type: Dict[str, Any]
         if if_match is not None:
             header_parameters['If-Match'] = self._serialize.header("if_match", if_match, 'str')
-        header_parameters['Content-Type'] = self._serialize.header("content_type", content_type, 'str')
         header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
 
-        body_content_kwargs = {}  # type: Dict[str, Any]
-        body_content = self._serialize.body(_parameters, 'ApiReleaseContract')
-        body_content_kwargs['content'] = body_content
-        request = self._client.put(url, query_parameters, header_parameters, **body_content_kwargs)
+        request = self._client.put(url, query_parameters, header_parameters)
         pipeline_response = await self._client._pipeline.run(request, stream=False, **kwargs)
         response = pipeline_response.http_response
 
@@ -360,126 +325,37 @@ class ApiReleaseOperations:
         response_headers = {}
         if response.status_code == 200:
             response_headers['ETag']=self._deserialize('str', response.headers.get('ETag'))
-            deserialized = self._deserialize('ApiReleaseContract', pipeline_response)
+            deserialized = self._deserialize('ContentItemContract', pipeline_response)
 
         if response.status_code == 201:
             response_headers['ETag']=self._deserialize('str', response.headers.get('ETag'))
-            deserialized = self._deserialize('ApiReleaseContract', pipeline_response)
+            deserialized = self._deserialize('ContentItemContract', pipeline_response)
 
         if cls:
             return cls(pipeline_response, deserialized, response_headers)
 
         return deserialized
-    create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}/releases/{releaseId}'}  # type: ignore
-
-    async def update(
-        self,
-        resource_group_name: str,
-        service_name: str,
-        api_id: str,
-        release_id: str,
-        if_match: str,
-        api_release_contract_properties_api_id: Optional[str] = None,
-        notes: Optional[str] = None,
-        **kwargs
-    ) -> "_models.ApiReleaseContract":
-        """Updates the details of the release of the API specified by its identifier.
-
-        :param resource_group_name: The name of the resource group.
-        :type resource_group_name: str
-        :param service_name: The name of the API Management service.
-        :type service_name: str
-        :param api_id: API identifier. Must be unique in the current API Management service instance.
-        :type api_id: str
-        :param release_id: Release identifier within an API. Must be unique in the current API
-         Management service instance.
-        :type release_id: str
-        :param if_match: ETag of the Entity. ETag should match the current entity state from the header
-         response of the GET request or it should be * for unconditional update.
-        :type if_match: str
-        :param api_release_contract_properties_api_id: Identifier of the API the release belongs to.
-        :type api_release_contract_properties_api_id: str
-        :param notes: Release Notes.
-        :type notes: str
-        :keyword callable cls: A custom type or function that will be passed the direct response
-        :return: ApiReleaseContract, or the result of cls(response)
-        :rtype: ~azure.mgmt.apimanagement.models.ApiReleaseContract
-        :raises: ~azure.core.exceptions.HttpResponseError
-        """
-        cls = kwargs.pop('cls', None)  # type: ClsType["_models.ApiReleaseContract"]
-        error_map = {
-            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
-        }
-        error_map.update(kwargs.pop('error_map', {}))
-
-        _parameters = _models.ApiReleaseContract(api_id=api_release_contract_properties_api_id, notes=notes)
-        api_version = "2020-06-01-preview"
-        content_type = kwargs.pop("content_type", "application/json")
-        accept = "application/json"
-
-        # Construct URL
-        url = self.update.metadata['url']  # type: ignore
-        path_format_arguments = {
-            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-            'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
-            'apiId': self._serialize.url("api_id", api_id, 'str', max_length=80, min_length=1),
-            'releaseId': self._serialize.url("release_id", release_id, 'str', max_length=80, min_length=1, pattern=r'^[^*#&+:<>?]+$'),
-            'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
-        }
-        url = self._client.format_url(url, **path_format_arguments)
-
-        # Construct parameters
-        query_parameters = {}  # type: Dict[str, Any]
-        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
-
-        # Construct headers
-        header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['If-Match'] = self._serialize.header("if_match", if_match, 'str')
-        header_parameters['Content-Type'] = self._serialize.header("content_type", content_type, 'str')
-        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
-
-        body_content_kwargs = {}  # type: Dict[str, Any]
-        body_content = self._serialize.body(_parameters, 'ApiReleaseContract')
-        body_content_kwargs['content'] = body_content
-        request = self._client.patch(url, query_parameters, header_parameters, **body_content_kwargs)
-        pipeline_response = await self._client._pipeline.run(request, stream=False, **kwargs)
-        response = pipeline_response.http_response
-
-        if response.status_code not in [200]:
-            map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(_models.ErrorResponse, response)
-            raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
-
-        response_headers = {}
-        response_headers['ETag']=self._deserialize('str', response.headers.get('ETag'))
-        deserialized = self._deserialize('ApiReleaseContract', pipeline_response)
-
-        if cls:
-            return cls(pipeline_response, deserialized, response_headers)
-
-        return deserialized
-    update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}/releases/{releaseId}'}  # type: ignore
+    create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/contentTypes/{contentTypeId}/contentItems/{contentItemId}'}  # type: ignore
 
     async def delete(
         self,
         resource_group_name: str,
         service_name: str,
-        api_id: str,
-        release_id: str,
+        content_type_id: str,
+        content_item_id: str,
         if_match: str,
         **kwargs
     ) -> None:
-        """Deletes the specified release in the API.
+        """Removes specified content item.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param service_name: The name of the API Management service.
         :type service_name: str
-        :param api_id: API identifier. Must be unique in the current API Management service instance.
-        :type api_id: str
-        :param release_id: Release identifier within an API. Must be unique in the current API
-         Management service instance.
-        :type release_id: str
+        :param content_type_id: Content type identifier.
+        :type content_type_id: str
+        :param content_item_id: Content item identifier.
+        :type content_item_id: str
         :param if_match: ETag of the Entity. ETag should match the current entity state from the header
          response of the GET request or it should be * for unconditional update.
         :type if_match: str
@@ -501,8 +377,8 @@ class ApiReleaseOperations:
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
-            'apiId': self._serialize.url("api_id", api_id, 'str', max_length=80, min_length=1),
-            'releaseId': self._serialize.url("release_id", release_id, 'str', max_length=80, min_length=1, pattern=r'^[^*#&+:<>?]+$'),
+            'contentTypeId': self._serialize.url("content_type_id", content_type_id, 'str', max_length=80, min_length=1),
+            'contentItemId': self._serialize.url("content_item_id", content_item_id, 'str', max_length=80, min_length=1),
             'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -528,4 +404,4 @@ class ApiReleaseOperations:
         if cls:
             return cls(pipeline_response, None, {})
 
-    delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}/releases/{releaseId}'}  # type: ignore
+    delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/contentTypes/{contentTypeId}/contentItems/{contentItemId}'}  # type: ignore

@@ -38,7 +38,7 @@ from .operations import BackendOperations
 from .operations import CacheOperations
 from .operations import CertificateOperations
 from .operations import ContentTypeOperations
-from .operations import ContentTypeContentItemOperations
+from .operations import ContentItemOperations
 from .operations import DeletedServicesOperations
 from .operations import ApiManagementOperationsOperations
 from .operations import ApiManagementServiceSkusOperations
@@ -133,8 +133,8 @@ class ApiManagementClient(object):
     :vartype certificate: azure.mgmt.apimanagement.aio.operations.CertificateOperations
     :ivar content_type: ContentTypeOperations operations
     :vartype content_type: azure.mgmt.apimanagement.aio.operations.ContentTypeOperations
-    :ivar content_type_content_item: ContentTypeContentItemOperations operations
-    :vartype content_type_content_item: azure.mgmt.apimanagement.aio.operations.ContentTypeContentItemOperations
+    :ivar content_item: ContentItemOperations operations
+    :vartype content_item: azure.mgmt.apimanagement.aio.operations.ContentItemOperations
     :ivar deleted_services: DeletedServicesOperations operations
     :vartype deleted_services: azure.mgmt.apimanagement.aio.operations.DeletedServicesOperations
     :ivar api_management_operations: ApiManagementOperationsOperations operations
@@ -245,7 +245,6 @@ class ApiManagementClient(object):
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
         self._serialize = Serializer(client_models)
-        self._serialize.client_side_validation = False
         self._deserialize = Deserializer(client_models)
 
         self.api = ApiOperations(
@@ -292,7 +291,7 @@ class ApiManagementClient(object):
             self._client, self._config, self._serialize, self._deserialize)
         self.content_type = ContentTypeOperations(
             self._client, self._config, self._serialize, self._deserialize)
-        self.content_type_content_item = ContentTypeContentItemOperations(
+        self.content_item = ContentItemOperations(
             self._client, self._config, self._serialize, self._deserialize)
         self.deleted_services = DeletedServicesOperations(
             self._client, self._config, self._serialize, self._deserialize)

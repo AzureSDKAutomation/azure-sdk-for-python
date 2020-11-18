@@ -13,7 +13,7 @@ from azure.core.pipeline import PipelineResponse
 from azure.core.pipeline.transport import HttpRequest, HttpResponse
 from azure.mgmt.core.exceptions import ARMErrorFormat
 
-from .. import models
+from .. import models as _models
 
 if TYPE_CHECKING:
     # pylint: disable=unused-import,ungrouped-imports
@@ -36,7 +36,7 @@ class QuotaByCounterKeysOperations(object):
     :param deserializer: An object model deserializer.
     """
 
-    models = models
+    models = _models
 
     def __init__(self, client, config, serializer, deserializer):
         self._client = client
@@ -51,7 +51,7 @@ class QuotaByCounterKeysOperations(object):
         quota_counter_key,  # type: str
         **kwargs  # type: Any
     ):
-        # type: (...) -> "models.QuotaCounterCollection"
+        # type: (...) -> "_models.QuotaCounterCollection"
         """Lists a collection of current quota counter periods associated with the counter-key configured
         in the policy on the specified service instance. The api does not support paging yet.
 
@@ -69,7 +69,7 @@ class QuotaByCounterKeysOperations(object):
         :rtype: ~azure.mgmt.apimanagement.models.QuotaCounterCollection
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.QuotaCounterCollection"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.QuotaCounterCollection"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -101,7 +101,7 @@ class QuotaByCounterKeysOperations(object):
 
         if response.status_code not in [200]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         deserialized = self._deserialize('QuotaCounterCollection', pipeline_response)
@@ -121,7 +121,7 @@ class QuotaByCounterKeysOperations(object):
         kb_transferred=None,  # type: Optional[float]
         **kwargs  # type: Any
     ):
-        # type: (...) -> "models.QuotaCounterCollection"
+        # type: (...) -> "_models.QuotaCounterCollection"
         """Updates all the quota counter values specified with the existing quota counter key to a value
         in the specified service instance. This should be used for reset of the quota counter values.
 
@@ -143,13 +143,13 @@ class QuotaByCounterKeysOperations(object):
         :rtype: ~azure.mgmt.apimanagement.models.QuotaCounterCollection
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.QuotaCounterCollection"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.QuotaCounterCollection"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
         error_map.update(kwargs.pop('error_map', {}))
 
-        _parameters = models.QuotaCounterValueUpdateContract(calls_count=calls_count, kb_transferred=kb_transferred)
+        _parameters = _models.QuotaCounterValueUpdateContract(calls_count=calls_count, kb_transferred=kb_transferred)
         api_version = "2020-06-01-preview"
         content_type = kwargs.pop("content_type", "application/json")
         accept = "application/json"
@@ -182,7 +182,7 @@ class QuotaByCounterKeysOperations(object):
 
         if response.status_code not in [200]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         deserialized = self._deserialize('QuotaCounterCollection', pipeline_response)
