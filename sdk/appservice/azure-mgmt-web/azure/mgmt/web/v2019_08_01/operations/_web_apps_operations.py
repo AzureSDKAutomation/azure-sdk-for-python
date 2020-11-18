@@ -23288,7 +23288,7 @@ class WebAppsOperations(object):
     create_or_update_source_control_slot.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/sourcecontrols/web'}
 
     def delete_source_control_slot(
-            self, resource_group_name, name, slot, custom_headers=None, raw=False, **operation_config):
+            self, resource_group_name, name, slot, additional_flags=None, custom_headers=None, raw=False, **operation_config):
         """Deletes the source control configuration of an app.
 
         Description for Deletes the source control configuration of an app.
@@ -23302,6 +23302,10 @@ class WebAppsOperations(object):
          the API will delete the source control configuration for the
          production slot.
         :type slot: str
+        :param additional_flags: Comma separated flags to be considered during
+         delete operations. E.g. 'ScmGitHubActionSkipWorkflowDelete' will
+         delete the GitHub Action workflow file from GitHub repo.
+        :type additional_flags: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -23324,6 +23328,8 @@ class WebAppsOperations(object):
 
         # Construct parameters
         query_parameters = {}
+        if additional_flags is not None:
+            query_parameters['additionalFlags'] = self._serialize.query("additional_flags", additional_flags, 'str')
         query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
 
         # Construct headers
@@ -25618,7 +25624,7 @@ class WebAppsOperations(object):
     create_or_update_source_control.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/sourcecontrols/web'}
 
     def delete_source_control(
-            self, resource_group_name, name, custom_headers=None, raw=False, **operation_config):
+            self, resource_group_name, name, additional_flags=None, custom_headers=None, raw=False, **operation_config):
         """Deletes the source control configuration of an app.
 
         Description for Deletes the source control configuration of an app.
@@ -25628,6 +25634,10 @@ class WebAppsOperations(object):
         :type resource_group_name: str
         :param name: Name of the app.
         :type name: str
+        :param additional_flags: Comma separated flags to be considered during
+         delete operations. E.g. 'ScmGitHubActionSkipWorkflowDelete' will
+         delete the GitHub Action workflow file from GitHub repo.
+        :type additional_flags: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -25649,6 +25659,8 @@ class WebAppsOperations(object):
 
         # Construct parameters
         query_parameters = {}
+        if additional_flags is not None:
+            query_parameters['additionalFlags'] = self._serialize.query("additional_flags", additional_flags, 'str')
         query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
 
         # Construct headers
