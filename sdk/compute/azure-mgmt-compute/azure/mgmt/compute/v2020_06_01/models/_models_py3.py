@@ -4763,15 +4763,14 @@ class VirtualMachine(Resource):
     :ivar instance_view: The virtual machine instance view.
     :vartype instance_view: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineInstanceView
     :param license_type: Specifies that the image or disk that is being used was licensed on-
-     premises. :code:`<br>`:code:`<br>` Possible values for Windows Server operating system are:
-     :code:`<br>`:code:`<br>` Windows_Client :code:`<br>`:code:`<br>` Windows_Server
-     :code:`<br>`:code:`<br>` Possible values for Linux Server operating system are:
-     :code:`<br>`:code:`<br>` RHEL_BYOS (for RHEL) :code:`<br>`:code:`<br>` SLES_BYOS (for SUSE)
+     premises. This element is only used for images that contain the Windows Server operating
+     system. :code:`<br>`:code:`<br>` Possible values are: :code:`<br>`:code:`<br>` Windows_Client
+     :code:`<br>`:code:`<br>` Windows_Server :code:`<br>`:code:`<br>` If this element is included in
+     a request for an update, the value must match the initial value. This value cannot be updated.
      :code:`<br>`:code:`<br>` For more information, see `Azure Hybrid Use Benefit for Windows Server
-     <https://docs.microsoft.com/azure/virtual-machines/windows/hybrid-use-benefit-licensing>`_
-     :code:`<br>`:code:`<br>` `Azure Hybrid Use Benefit for Linux Server
-     <https://docs.microsoft.com/azure/virtual-machines/linux/azure-hybrid-benefit-linux>`_
-     :code:`<br>`:code:`<br>` Minimum api-version: 2015-06-15.
+     <https://docs.microsoft.com/azure/virtual-machines/virtual-machines-windows-hybrid-use-benefit-
+     licensing?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json>`_ :code:`<br>`:code:`<br>`
+     Minimum api-version: 2015-06-15.
     :type license_type: str
     :ivar vm_id: Specifies the VM unique ID which is a 128-bits identifier that is encoded and
      stored in all Azure IaaS VMs SMBIOS and can be read using platform BIOS commands.
@@ -8073,15 +8072,14 @@ class VirtualMachineScaleSetVM(Resource):
     :ivar provisioning_state: The provisioning state, which only appears in the response.
     :vartype provisioning_state: str
     :param license_type: Specifies that the image or disk that is being used was licensed on-
-     premises. :code:`<br>`:code:`<br>` Possible values for Windows Server operating system are:
-     :code:`<br>`:code:`<br>` Windows_Client :code:`<br>`:code:`<br>` Windows_Server
-     :code:`<br>`:code:`<br>` Possible values for Linux Server operating system are:
-     :code:`<br>`:code:`<br>` RHEL_BYOS (for RHEL) :code:`<br>`:code:`<br>` SLES_BYOS (for SUSE)
+     premises. This element is only used for images that contain the Windows Server operating
+     system. :code:`<br>`:code:`<br>` Possible values are: :code:`<br>`:code:`<br>` Windows_Client
+     :code:`<br>`:code:`<br>` Windows_Server :code:`<br>`:code:`<br>` If this element is included in
+     a request for an update, the value must match the initial value. This value cannot be updated.
      :code:`<br>`:code:`<br>` For more information, see `Azure Hybrid Use Benefit for Windows Server
-     <https://docs.microsoft.com/azure/virtual-machines/windows/hybrid-use-benefit-licensing>`_
-     :code:`<br>`:code:`<br>` `Azure Hybrid Use Benefit for Linux Server
-     <https://docs.microsoft.com/azure/virtual-machines/linux/azure-hybrid-benefit-linux>`_
-     :code:`<br>`:code:`<br>` Minimum api-version: 2015-06-15.
+     <https://docs.microsoft.com/azure/virtual-machines/virtual-machines-windows-hybrid-use-benefit-
+     licensing?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json>`_ :code:`<br>`:code:`<br>`
+     Minimum api-version: 2015-06-15.
     :type license_type: str
     :ivar model_definition_applied: Specifies whether the model applied to the virtual machine is
      the model of the virtual machine scale set or the customized model for the virtual machine.
@@ -8179,118 +8177,6 @@ class VirtualMachineScaleSetVM(Resource):
         self.protection_policy = protection_policy
 
 
-class VirtualMachineScaleSetVMExtension(SubResourceReadOnly):
-    """Describes a VMSS VM Extension.
-
-    Variables are only populated by the server, and will be ignored when sending a request.
-
-    :ivar id: Resource Id.
-    :vartype id: str
-    :ivar name: The name of the extension.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :param force_update_tag: How the extension handler should be forced to update even if the
-     extension configuration has not changed.
-    :type force_update_tag: str
-    :param publisher: The name of the extension handler publisher.
-    :type publisher: str
-    :param type_properties_type: Specifies the type of the extension; an example is
-     "CustomScriptExtension".
-    :type type_properties_type: str
-    :param type_handler_version: Specifies the version of the script handler.
-    :type type_handler_version: str
-    :param auto_upgrade_minor_version: Indicates whether the extension should use a newer minor
-     version if one is available at deployment time. Once deployed, however, the extension will not
-     upgrade minor versions unless redeployed, even with this property set to true.
-    :type auto_upgrade_minor_version: bool
-    :param enable_automatic_upgrade: Indicates whether the extension should be automatically
-     upgraded by the platform if there is a newer version of the extension available.
-    :type enable_automatic_upgrade: bool
-    :param settings: Json formatted public settings for the extension.
-    :type settings: object
-    :param protected_settings: The extension can contain either protectedSettings or
-     protectedSettingsFromKeyVault or no protected settings at all.
-    :type protected_settings: object
-    :ivar provisioning_state: The provisioning state, which only appears in the response.
-    :vartype provisioning_state: str
-    :param instance_view: The virtual machine extension instance view.
-    :type instance_view: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineExtensionInstanceView
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'provisioning_state': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'force_update_tag': {'key': 'properties.forceUpdateTag', 'type': 'str'},
-        'publisher': {'key': 'properties.publisher', 'type': 'str'},
-        'type_properties_type': {'key': 'properties.type', 'type': 'str'},
-        'type_handler_version': {'key': 'properties.typeHandlerVersion', 'type': 'str'},
-        'auto_upgrade_minor_version': {'key': 'properties.autoUpgradeMinorVersion', 'type': 'bool'},
-        'enable_automatic_upgrade': {'key': 'properties.enableAutomaticUpgrade', 'type': 'bool'},
-        'settings': {'key': 'properties.settings', 'type': 'object'},
-        'protected_settings': {'key': 'properties.protectedSettings', 'type': 'object'},
-        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
-        'instance_view': {'key': 'properties.instanceView', 'type': 'VirtualMachineExtensionInstanceView'},
-    }
-
-    def __init__(
-        self,
-        *,
-        force_update_tag: Optional[str] = None,
-        publisher: Optional[str] = None,
-        type_properties_type: Optional[str] = None,
-        type_handler_version: Optional[str] = None,
-        auto_upgrade_minor_version: Optional[bool] = None,
-        enable_automatic_upgrade: Optional[bool] = None,
-        settings: Optional[object] = None,
-        protected_settings: Optional[object] = None,
-        instance_view: Optional["VirtualMachineExtensionInstanceView"] = None,
-        **kwargs
-    ):
-        super(VirtualMachineScaleSetVMExtension, self).__init__(**kwargs)
-        self.name = None
-        self.type = None
-        self.force_update_tag = force_update_tag
-        self.publisher = publisher
-        self.type_properties_type = type_properties_type
-        self.type_handler_version = type_handler_version
-        self.auto_upgrade_minor_version = auto_upgrade_minor_version
-        self.enable_automatic_upgrade = enable_automatic_upgrade
-        self.settings = settings
-        self.protected_settings = protected_settings
-        self.provisioning_state = None
-        self.instance_view = instance_view
-
-
-class VirtualMachineScaleSetVMExtensionsListResult(msrest.serialization.Model):
-    """The List VMSS VM Extension operation response.
-
-    :param value: The list of VMSS VM extensions.
-    :type value: list[~azure.mgmt.compute.v2020_06_01.models.VirtualMachineScaleSetVMExtension]
-    """
-
-    _attribute_map = {
-        'value': {'key': 'value', 'type': '[VirtualMachineScaleSetVMExtension]'},
-    }
-
-    def __init__(
-        self,
-        *,
-        value: Optional[List["VirtualMachineScaleSetVMExtension"]] = None,
-        **kwargs
-    ):
-        super(VirtualMachineScaleSetVMExtensionsListResult, self).__init__(**kwargs)
-        self.value = value
-
-
 class VirtualMachineScaleSetVMExtensionsSummary(msrest.serialization.Model):
     """Extensions summary for virtual machines of a virtual machine scale set.
 
@@ -8320,87 +8206,6 @@ class VirtualMachineScaleSetVMExtensionsSummary(msrest.serialization.Model):
         super(VirtualMachineScaleSetVMExtensionsSummary, self).__init__(**kwargs)
         self.name = None
         self.statuses_summary = None
-
-
-class VirtualMachineScaleSetVMExtensionUpdate(SubResourceReadOnly):
-    """Describes a VMSS VM Extension.
-
-    Variables are only populated by the server, and will be ignored when sending a request.
-
-    :ivar id: Resource Id.
-    :vartype id: str
-    :ivar name: The name of the extension.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :param force_update_tag: How the extension handler should be forced to update even if the
-     extension configuration has not changed.
-    :type force_update_tag: str
-    :param publisher: The name of the extension handler publisher.
-    :type publisher: str
-    :param type_properties_type: Specifies the type of the extension; an example is
-     "CustomScriptExtension".
-    :type type_properties_type: str
-    :param type_handler_version: Specifies the version of the script handler.
-    :type type_handler_version: str
-    :param auto_upgrade_minor_version: Indicates whether the extension should use a newer minor
-     version if one is available at deployment time. Once deployed, however, the extension will not
-     upgrade minor versions unless redeployed, even with this property set to true.
-    :type auto_upgrade_minor_version: bool
-    :param enable_automatic_upgrade: Indicates whether the extension should be automatically
-     upgraded by the platform if there is a newer version of the extension available.
-    :type enable_automatic_upgrade: bool
-    :param settings: Json formatted public settings for the extension.
-    :type settings: object
-    :param protected_settings: The extension can contain either protectedSettings or
-     protectedSettingsFromKeyVault or no protected settings at all.
-    :type protected_settings: object
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'force_update_tag': {'key': 'properties.forceUpdateTag', 'type': 'str'},
-        'publisher': {'key': 'properties.publisher', 'type': 'str'},
-        'type_properties_type': {'key': 'properties.type', 'type': 'str'},
-        'type_handler_version': {'key': 'properties.typeHandlerVersion', 'type': 'str'},
-        'auto_upgrade_minor_version': {'key': 'properties.autoUpgradeMinorVersion', 'type': 'bool'},
-        'enable_automatic_upgrade': {'key': 'properties.enableAutomaticUpgrade', 'type': 'bool'},
-        'settings': {'key': 'properties.settings', 'type': 'object'},
-        'protected_settings': {'key': 'properties.protectedSettings', 'type': 'object'},
-    }
-
-    def __init__(
-        self,
-        *,
-        force_update_tag: Optional[str] = None,
-        publisher: Optional[str] = None,
-        type_properties_type: Optional[str] = None,
-        type_handler_version: Optional[str] = None,
-        auto_upgrade_minor_version: Optional[bool] = None,
-        enable_automatic_upgrade: Optional[bool] = None,
-        settings: Optional[object] = None,
-        protected_settings: Optional[object] = None,
-        **kwargs
-    ):
-        super(VirtualMachineScaleSetVMExtensionUpdate, self).__init__(**kwargs)
-        self.name = None
-        self.type = None
-        self.force_update_tag = force_update_tag
-        self.publisher = publisher
-        self.type_properties_type = type_properties_type
-        self.type_handler_version = type_handler_version
-        self.auto_upgrade_minor_version = auto_upgrade_minor_version
-        self.enable_automatic_upgrade = enable_automatic_upgrade
-        self.settings = settings
-        self.protected_settings = protected_settings
 
 
 class VirtualMachineScaleSetVMInstanceIDs(msrest.serialization.Model):
@@ -8622,15 +8427,14 @@ class VirtualMachineScaleSetVMProfile(msrest.serialization.Model):
     :type extension_profile:
      ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineScaleSetExtensionProfile
     :param license_type: Specifies that the image or disk that is being used was licensed on-
-     premises. :code:`<br>`:code:`<br>` Possible values for Windows Server operating system are:
-     :code:`<br>`:code:`<br>` Windows_Client :code:`<br>`:code:`<br>` Windows_Server
-     :code:`<br>`:code:`<br>` Possible values for Linux Server operating system are:
-     :code:`<br>`:code:`<br>` RHEL_BYOS (for RHEL) :code:`<br>`:code:`<br>` SLES_BYOS (for SUSE)
+     premises. This element is only used for images that contain the Windows Server operating
+     system. :code:`<br>`:code:`<br>` Possible values are: :code:`<br>`:code:`<br>` Windows_Client
+     :code:`<br>`:code:`<br>` Windows_Server :code:`<br>`:code:`<br>` If this element is included in
+     a request for an update, the value must match the initial value. This value cannot be updated.
      :code:`<br>`:code:`<br>` For more information, see `Azure Hybrid Use Benefit for Windows Server
-     <https://docs.microsoft.com/azure/virtual-machines/windows/hybrid-use-benefit-licensing>`_
-     :code:`<br>`:code:`<br>` `Azure Hybrid Use Benefit for Linux Server
-     <https://docs.microsoft.com/azure/virtual-machines/linux/azure-hybrid-benefit-linux>`_
-     :code:`<br>`:code:`<br>` Minimum api-version: 2015-06-15.
+     <https://docs.microsoft.com/azure/virtual-machines/virtual-machines-windows-hybrid-use-benefit-
+     licensing?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json>`_ :code:`<br>`:code:`<br>`
+     Minimum api-version: 2015-06-15.
     :type license_type: str
     :param priority: Specifies the priority for the virtual machines in the scale set.
      :code:`<br>`:code:`<br>`Minimum api-version: 2017-10-30-preview. Possible values include:
@@ -9008,15 +8812,14 @@ class VirtualMachineUpdate(UpdateResource):
     :ivar instance_view: The virtual machine instance view.
     :vartype instance_view: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineInstanceView
     :param license_type: Specifies that the image or disk that is being used was licensed on-
-     premises. :code:`<br>`:code:`<br>` Possible values for Windows Server operating system are:
-     :code:`<br>`:code:`<br>` Windows_Client :code:`<br>`:code:`<br>` Windows_Server
-     :code:`<br>`:code:`<br>` Possible values for Linux Server operating system are:
-     :code:`<br>`:code:`<br>` RHEL_BYOS (for RHEL) :code:`<br>`:code:`<br>` SLES_BYOS (for SUSE)
+     premises. This element is only used for images that contain the Windows Server operating
+     system. :code:`<br>`:code:`<br>` Possible values are: :code:`<br>`:code:`<br>` Windows_Client
+     :code:`<br>`:code:`<br>` Windows_Server :code:`<br>`:code:`<br>` If this element is included in
+     a request for an update, the value must match the initial value. This value cannot be updated.
      :code:`<br>`:code:`<br>` For more information, see `Azure Hybrid Use Benefit for Windows Server
-     <https://docs.microsoft.com/azure/virtual-machines/windows/hybrid-use-benefit-licensing>`_
-     :code:`<br>`:code:`<br>` `Azure Hybrid Use Benefit for Linux Server
-     <https://docs.microsoft.com/azure/virtual-machines/linux/azure-hybrid-benefit-linux>`_
-     :code:`<br>`:code:`<br>` Minimum api-version: 2015-06-15.
+     <https://docs.microsoft.com/azure/virtual-machines/virtual-machines-windows-hybrid-use-benefit-
+     licensing?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json>`_ :code:`<br>`:code:`<br>`
+     Minimum api-version: 2015-06-15.
     :type license_type: str
     :ivar vm_id: Specifies the VM unique ID which is a 128-bits identifier that is encoded and
      stored in all Azure IaaS VMs SMBIOS and can be read using platform BIOS commands.
