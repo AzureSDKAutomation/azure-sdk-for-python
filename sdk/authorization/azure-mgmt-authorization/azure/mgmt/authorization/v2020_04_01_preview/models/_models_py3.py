@@ -39,9 +39,7 @@ class RoleAssignment(Model):
     :param principal_id: The principal ID.
     :type principal_id: str
     :param principal_type: The principal type of the assigned principal ID.
-     Possible values include: 'User', 'Group', 'ServicePrincipal', 'Unknown',
-     'DirectoryRoleTemplate', 'ForeignGroup', 'Application', 'MSI',
-     'DirectoryObjectOrGroup', 'Everyone'
+     Possible values include: 'User', 'Group', 'ServicePrincipal'
     :type principal_type: str or
      ~azure.mgmt.authorization.v2020_04_01_preview.models.PrincipalType
     :param can_delegate: The Delegation flag for the role assignment
@@ -54,7 +52,7 @@ class RoleAssignment(Model):
      StringEqualsIgnoreCase 'foo_storage_container'
     :type condition: str
     :param condition_version: Version of the condition. Currently accepted
-     values are '1.0' or '2.0'
+     value is '2.0'
     :type condition_version: str
     """
 
@@ -106,9 +104,7 @@ class RoleAssignmentCreateParameters(Model):
      service principal, or security group.
     :type principal_id: str
     :param principal_type: The principal type of the assigned principal ID.
-     Possible values include: 'User', 'Group', 'ServicePrincipal', 'Unknown',
-     'DirectoryRoleTemplate', 'ForeignGroup', 'Application', 'MSI',
-     'DirectoryObjectOrGroup', 'Everyone'
+     Possible values include: 'User', 'Group', 'ServicePrincipal'
     :type principal_type: str or
      ~azure.mgmt.authorization.v2020_04_01_preview.models.PrincipalType
     :param can_delegate: The delegation flag used for creating a role
@@ -116,9 +112,13 @@ class RoleAssignmentCreateParameters(Model):
     :type can_delegate: bool
     :param description: Description of role assignment
     :type description: str
-    :param condition: The conditions on the role assignment
+    :param condition: The conditions on the role assignment. This limits the
+     resources it can be assigned to. e.g.:
+     @Resource[Microsoft.Storage/storageAccounts/blobServices/containers:ContainerName]
+     StringEqualsIgnoreCase 'foo_storage_container'
     :type condition: str
-    :param condition_version: Version of the condition
+    :param condition_version: Version of the condition. Currently accepted
+     value is '2.0'
     :type condition_version: str
     """
 

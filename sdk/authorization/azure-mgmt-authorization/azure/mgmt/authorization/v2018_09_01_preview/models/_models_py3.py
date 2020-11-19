@@ -39,9 +39,7 @@ class RoleAssignment(Model):
     :param principal_id: The principal ID.
     :type principal_id: str
     :param principal_type: The principal type of the assigned principal ID.
-     Possible values include: 'User', 'Group', 'ServicePrincipal', 'Unknown',
-     'DirectoryRoleTemplate', 'ForeignGroup', 'Application', 'MSI',
-     'DirectoryObjectOrGroup', 'Everyone'
+     Possible values include: 'User', 'Group', 'ServicePrincipal'
     :type principal_type: str or
      ~azure.mgmt.authorization.v2018_09_01_preview.models.PrincipalType
     :param can_delegate: The Delegation flag for the role assignment
@@ -90,9 +88,7 @@ class RoleAssignmentCreateParameters(Model):
      service principal, or security group.
     :type principal_id: str
     :param principal_type: The principal type of the assigned principal ID.
-     Possible values include: 'User', 'Group', 'ServicePrincipal', 'Unknown',
-     'DirectoryRoleTemplate', 'ForeignGroup', 'Application', 'MSI',
-     'DirectoryObjectOrGroup', 'Everyone'
+     Possible values include: 'User', 'Group', 'ServicePrincipal'
     :type principal_type: str or
      ~azure.mgmt.authorization.v2018_09_01_preview.models.PrincipalType
     :param can_delegate: The delegation flag used for creating a role
