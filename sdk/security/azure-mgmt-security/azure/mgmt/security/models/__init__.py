@@ -148,7 +148,6 @@ try:
     from ._models_py3 import PackageDownloadsSensor
     from ._models_py3 import PackageDownloadsSensorFull
     from ._models_py3 import PackageDownloadsSensorFullOvf
-    from ._models_py3 import PackageDownloadsThreatIntelligence
     from ._models_py3 import PathRecommendation
     from ._models_py3 import Pricing
     from ._models_py3 import PricingList
@@ -221,6 +220,7 @@ try:
     from ._models_py3 import TwinUpdatesNotInAllowedRange
     from ._models_py3 import UnauthorizedOperationsNotInAllowedRange
     from ._models_py3 import UpdateIotSecuritySolutionData
+    from ._models_py3 import UpgradePackageDownloadInfo
     from ._models_py3 import UserDefinedResourcesProperties
     from ._models_py3 import UserRecommendation
     from ._models_py3 import VaRule
@@ -366,7 +366,6 @@ except (SyntaxError, ImportError):
     from ._models import PackageDownloadsSensor
     from ._models import PackageDownloadsSensorFull
     from ._models import PackageDownloadsSensorFullOvf
-    from ._models import PackageDownloadsThreatIntelligence
     from ._models import PathRecommendation
     from ._models import Pricing
     from ._models import PricingList
@@ -439,6 +438,7 @@ except (SyntaxError, ImportError):
     from ._models import TwinUpdatesNotInAllowedRange
     from ._models import UnauthorizedOperationsNotInAllowedRange
     from ._models import UpdateIotSecuritySolutionData
+    from ._models import UpgradePackageDownloadInfo
     from ._models import UserDefinedResourcesProperties
     from ._models import UserRecommendation
     from ._models import VaRule
@@ -689,7 +689,6 @@ __all__ = [
     'PackageDownloadsSensor',
     'PackageDownloadsSensorFull',
     'PackageDownloadsSensorFullOvf',
-    'PackageDownloadsThreatIntelligence',
     'PathRecommendation',
     'Pricing',
     'PricingList',
@@ -762,6 +761,7 @@ __all__ = [
     'TwinUpdatesNotInAllowedRange',
     'UnauthorizedOperationsNotInAllowedRange',
     'UpdateIotSecuritySolutionData',
+    'UpgradePackageDownloadInfo',
     'UserDefinedResourcesProperties',
     'UserRecommendation',
     'VaRule',

@@ -1797,7 +1797,8 @@ class AutomationSource(Model):
     https://aka.ms/ASCAutomationSchemas.
 
     :param event_source: A valid event source type. Possible values include:
-     'Assessments', 'SubAssessments', 'Alerts'
+     'Assessments', 'SubAssessments', 'Alerts', 'SecureScores',
+     'SecureScoreControls'
     :type event_source: str or ~azure.mgmt.security.models.EventSource
     :param rule_sets: A set of rules which evaluate upon event interception. A
      logical disjunction is applied between defined rule sets (logical 'or').
@@ -6054,19 +6055,39 @@ class PackageDownloads(Model):
      ~azure.mgmt.security.models.PackageDownloadsCentralManager
     :ivar threat_intelligence: All downloads for threat intelligence
     :vartype threat_intelligence:
-     ~azure.mgmt.security.models.PackageDownloadsThreatIntelligence
+     list[~azure.mgmt.security.models.PackageDownloadInfo]
+    :ivar snmp: SNMP Server file
+    :vartype snmp: list[~azure.mgmt.security.models.PackageDownloadInfo]
+    :ivar wmi_tool: Used for local configuration export
+    :vartype wmi_tool: list[~azure.mgmt.security.models.PackageDownloadInfo]
+    :ivar authorized_devices_import_template: Authorized devices import
+     template
+    :vartype authorized_devices_import_template:
+     list[~azure.mgmt.security.models.PackageDownloadInfo]
+    :ivar device_information_update_import_template: Authorized devices import
+     template
+    :vartype device_information_update_import_template:
+     list[~azure.mgmt.security.models.PackageDownloadInfo]
     """
 
     _validation = {
         'sensor': {'readonly': True},
         'central_manager': {'readonly': True},
         'threat_intelligence': {'readonly': True},
+        'snmp': {'readonly': True},
+        'wmi_tool': {'readonly': True},
+        'authorized_devices_import_template': {'readonly': True},
+        'device_information_update_import_template': {'readonly': True},
     }
 
     _attribute_map = {
         'sensor': {'key': 'sensor', 'type': 'PackageDownloadsSensor'},
         'central_manager': {'key': 'centralManager', 'type': 'PackageDownloadsCentralManager'},
-        'threat_intelligence': {'key': 'threatIntelligence', 'type': 'PackageDownloadsThreatIntelligence'},
+        'threat_intelligence': {'key': 'threatIntelligence', 'type': '[PackageDownloadInfo]'},
+        'snmp': {'key': 'snmp', 'type': '[PackageDownloadInfo]'},
+        'wmi_tool': {'key': 'wmiTool', 'type': '[PackageDownloadInfo]'},
+        'authorized_devices_import_template': {'key': 'authorizedDevicesImportTemplate', 'type': '[PackageDownloadInfo]'},
+        'device_information_update_import_template': {'key': 'deviceInformationUpdateImportTemplate', 'type': '[PackageDownloadInfo]'},
     }
 
     def __init__(self, **kwargs) -> None:
@@ -6074,6 +6095,10 @@ class PackageDownloads(Model):
         self.sensor = None
         self.central_manager = None
         self.threat_intelligence = None
+        self.snmp = None
+        self.wmi_tool = None
+        self.authorized_devices_import_template = None
+        self.device_information_update_import_template = None
 
 
 class PackageDownloadsCentralManager(Model):
@@ -6087,7 +6112,8 @@ class PackageDownloadsCentralManager(Model):
      ~azure.mgmt.security.models.PackageDownloadsCentralManagerFull
     :ivar upgrade: Central Manager upgrade package downloads (on existing
      installations)
-    :vartype upgrade: list[~azure.mgmt.security.models.PackageDownloadInfo]
+    :vartype upgrade:
+     list[~azure.mgmt.security.models.UpgradePackageDownloadInfo]
     """
 
     _validation = {
@@ -6097,7 +6123,7 @@ class PackageDownloadsCentralManager(Model):
 
     _attribute_map = {
         'full': {'key': 'full', 'type': 'PackageDownloadsCentralManagerFull'},
-        'upgrade': {'key': 'upgrade', 'type': '[PackageDownloadInfo]'},
+        'upgrade': {'key': 'upgrade', 'type': '[UpgradePackageDownloadInfo]'},
     }
 
     def __init__(self, **kwargs) -> None:
@@ -6187,7 +6213,8 @@ class PackageDownloadsSensor(Model):
     :vartype full: ~azure.mgmt.security.models.PackageDownloadsSensorFull
     :param upgrade: Sensor upgrade package downloads (on existing
      installations)
-    :type upgrade: list[~azure.mgmt.security.models.PackageDownloadInfo]
+    :type upgrade:
+     list[~azure.mgmt.security.models.UpgradePackageDownloadInfo]
     """
 
     _validation = {
@@ -6196,7 +6223,7 @@ class PackageDownloadsSensor(Model):
 
     _attribute_map = {
         'full': {'key': 'full', 'type': 'PackageDownloadsSensorFull'},
-        'upgrade': {'key': 'upgrade', 'type': '[PackageDownloadInfo]'},
+        'upgrade': {'key': 'upgrade', 'type': '[UpgradePackageDownloadInfo]'},
     }
 
     def __init__(self, *, upgrade=None, **kwargs) -> None:
@@ -6264,22 +6291,6 @@ class PackageDownloadsSensorFullOvf(Model):
         self.enterprise = None
         self.medium = None
         self.line = None
-
-
-class PackageDownloadsThreatIntelligence(Model):
-    """All downloads for threat intelligence.
-
-    :param link: Download link
-    :type link: str
-    """
-
-    _attribute_map = {
-        'link': {'key': 'link', 'type': 'str'},
-    }
-
-    def __init__(self, *, link: str=None, **kwargs) -> None:
-        super(PackageDownloadsThreatIntelligence, self).__init__(**kwargs)
-        self.link = link
 
 
 class PathRecommendation(Model):
@@ -8858,6 +8869,41 @@ class UpdateIotSecuritySolutionData(TagsResource):
         super(UpdateIotSecuritySolutionData, self).__init__(tags=tags, **kwargs)
         self.user_defined_resources = user_defined_resources
         self.recommendations_configuration = recommendations_configuration
+
+
+class UpgradePackageDownloadInfo(PackageDownloadInfo):
+    """Information on a specific package upgrade download.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar version: Version number
+    :vartype version: str
+    :param link: Download link
+    :type link: str
+    :ivar version_kind: Kind of the version. Possible values include:
+     'Latest', 'Previous', 'Preview'
+    :vartype version_kind: str or ~azure.mgmt.security.models.VersionKind
+    :ivar from_version: Minimum base version for upgrade
+    :vartype from_version: str
+    """
+
+    _validation = {
+        'version': {'readonly': True},
+        'version_kind': {'readonly': True},
+        'from_version': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'version': {'key': 'version', 'type': 'str'},
+        'link': {'key': 'link', 'type': 'str'},
+        'version_kind': {'key': 'versionKind', 'type': 'str'},
+        'from_version': {'key': 'fromVersion', 'type': 'str'},
+    }
+
+    def __init__(self, *, link: str=None, **kwargs) -> None:
+        super(UpgradePackageDownloadInfo, self).__init__(link=link, **kwargs)
+        self.from_version = None
 
 
 class UserDefinedResourcesProperties(Model):
