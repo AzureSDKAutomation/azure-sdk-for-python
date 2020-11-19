@@ -13,6 +13,7 @@ try:
     from ._models_py3 import Advisor
     from ._models_py3 import AzureEntityResource
     from ._models_py3 import Configuration
+    from ._models_py3 import ConfigurationListResult
     from ._models_py3 import Database
     from ._models_py3 import ErrorAdditionalInfo
     from ._models_py3 import ErrorResponse
@@ -36,6 +37,7 @@ try:
     from ._models_py3 import RecommendationAction
     from ._models_py3 import RecommendationActionsResultList
     from ._models_py3 import RecommendedActionSessionsOperationStatus
+    from ._models_py3 import RecoverableServerResource
     from ._models_py3 import Resource
     from ._models_py3 import ResourceIdentity
     from ._models_py3 import Server
@@ -65,6 +67,7 @@ except (SyntaxError, ImportError):
     from ._models import Advisor
     from ._models import AzureEntityResource
     from ._models import Configuration
+    from ._models import ConfigurationListResult
     from ._models import Database
     from ._models import ErrorAdditionalInfo
     from ._models import ErrorResponse
@@ -88,6 +91,7 @@ except (SyntaxError, ImportError):
     from ._models import RecommendationAction
     from ._models import RecommendationActionsResultList
     from ._models import RecommendedActionSessionsOperationStatus
+    from ._models import RecoverableServerResource
     from ._models import Resource
     from ._models import ResourceIdentity
     from ._models import Server
@@ -152,6 +156,7 @@ __all__ = [
     'Advisor',
     'AzureEntityResource',
     'Configuration',
+    'ConfigurationListResult',
     'Database',
     'ErrorAdditionalInfo',
     'ErrorResponse',
@@ -175,6 +180,7 @@ __all__ = [
     'RecommendationAction',
     'RecommendationActionsResultList',
     'RecommendedActionSessionsOperationStatus',
+    'RecoverableServerResource',
     'Resource',
     'ResourceIdentity',
     'Server',

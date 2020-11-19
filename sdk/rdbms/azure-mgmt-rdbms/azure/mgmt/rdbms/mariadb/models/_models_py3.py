@@ -16,16 +16,19 @@ from msrest.exceptions import HttpOperationError
 class Resource(Model):
     """Resource.
 
+    Common fields that are returned in the response for all Azure Resource
+    Manager resources.
+
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     """
 
@@ -49,19 +52,21 @@ class Resource(Model):
 
 
 class ProxyResource(Resource):
-    """The resource model definition for a ARM proxy resource. It will have
-    everything other than required location and tags.
+    """Proxy Resource.
+
+    The resource model definition for a Azure Resource Manager proxy resource.
+    It will not have tags and a location.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     """
 
@@ -87,13 +92,13 @@ class Advisor(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param properties: The properties of a recommendation action advisor.
     :type properties: object
@@ -118,19 +123,21 @@ class Advisor(ProxyResource):
 
 
 class AzureEntityResource(Resource):
-    """The resource model definition for a Azure Resource Manager resource with an
-    etag.
+    """Entity Resource.
+
+    The resource model definition for an Azure Resource Manager resource with
+    an etag.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -189,13 +196,13 @@ class Configuration(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param value: Value of the configuration.
     :type value: str
@@ -243,19 +250,35 @@ class Configuration(ProxyResource):
         self.source = source
 
 
+class ConfigurationListResult(Model):
+    """A list of server configurations.
+
+    :param value: The list of server configurations.
+    :type value: list[~azure.mgmt.rdbms.mariadb.models.Configuration]
+    """
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': '[Configuration]'},
+    }
+
+    def __init__(self, *, value=None, **kwargs) -> None:
+        super(ConfigurationListResult, self).__init__(**kwargs)
+        self.value = value
+
+
 class Database(ProxyResource):
     """Represents a Database.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param charset: The charset of the database.
     :type charset: str
@@ -312,7 +335,11 @@ class ErrorAdditionalInfo(Model):
 
 
 class ErrorResponse(Model):
-    """The resource management error response.
+    """Error Response.
+
+    Common error response for all Azure Resource Manager APIs to return error
+    details for failed operations. (This also follows the OData error response
+    format.).
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
@@ -363,13 +390,13 @@ class FirewallRule(ProxyResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param start_ip_address: Required. The start IP address of the server
      firewall rule. Must be IPv4 format.
@@ -407,13 +434,13 @@ class LogFile(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param size_in_kb: Size of the log file.
     :type size_in_kb: long
@@ -606,6 +633,20 @@ class PerformanceTierProperties(Model):
 
     :param id: ID of the performance tier.
     :type id: str
+    :param max_backup_retention_days: Maximum Backup retention in days for the
+     performance tier edition
+    :type max_backup_retention_days: int
+    :param min_backup_retention_days: Minimum Backup retention in days for the
+     performance tier edition
+    :type min_backup_retention_days: int
+    :param max_storage_mb: Max storage allowed for a server.
+    :type max_storage_mb: int
+    :param min_large_storage_mb: Max storage allowed for a server.
+    :type min_large_storage_mb: int
+    :param max_large_storage_mb: Max storage allowed for a server.
+    :type max_large_storage_mb: int
+    :param min_storage_mb: Max storage allowed for a server.
+    :type min_storage_mb: int
     :param service_level_objectives: Service level objectives associated with
      the performance tier
     :type service_level_objectives:
@@ -614,12 +655,24 @@ class PerformanceTierProperties(Model):
 
     _attribute_map = {
         'id': {'key': 'id', 'type': 'str'},
+        'max_backup_retention_days': {'key': 'maxBackupRetentionDays', 'type': 'int'},
+        'min_backup_retention_days': {'key': 'minBackupRetentionDays', 'type': 'int'},
+        'max_storage_mb': {'key': 'maxStorageMB', 'type': 'int'},
+        'min_large_storage_mb': {'key': 'minLargeStorageMB', 'type': 'int'},
+        'max_large_storage_mb': {'key': 'maxLargeStorageMB', 'type': 'int'},
+        'min_storage_mb': {'key': 'minStorageMB', 'type': 'int'},
         'service_level_objectives': {'key': 'serviceLevelObjectives', 'type': '[PerformanceTierServiceLevelObjectives]'},
     }
 
-    def __init__(self, *, id: str=None, service_level_objectives=None, **kwargs) -> None:
+    def __init__(self, *, id: str=None, max_backup_retention_days: int=None, min_backup_retention_days: int=None, max_storage_mb: int=None, min_large_storage_mb: int=None, max_large_storage_mb: int=None, min_storage_mb: int=None, service_level_objectives=None, **kwargs) -> None:
         super(PerformanceTierProperties, self).__init__(**kwargs)
         self.id = id
+        self.max_backup_retention_days = max_backup_retention_days
+        self.min_backup_retention_days = min_backup_retention_days
+        self.max_storage_mb = max_storage_mb
+        self.min_large_storage_mb = min_large_storage_mb
+        self.max_large_storage_mb = max_large_storage_mb
+        self.min_storage_mb = min_storage_mb
         self.service_level_objectives = service_level_objectives
 
 
@@ -676,13 +729,13 @@ class PrivateEndpointConnection(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param private_endpoint: Private endpoint which the connection belongs to.
     :type private_endpoint:
@@ -740,13 +793,13 @@ class PrivateLinkResource(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :ivar properties: The private link resource group id.
     :vartype properties:
@@ -843,13 +896,13 @@ class QueryStatistic(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param query_id: Database query identifier.
     :type query_id: str
@@ -916,13 +969,13 @@ class QueryText(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param query_id: Query identifier unique to the server.
     :type query_id: str
@@ -956,13 +1009,13 @@ class RecommendationAction(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param advisor_name: Advisor name.
     :type advisor_name: str
@@ -1067,21 +1120,88 @@ class RecommendedActionSessionsOperationStatus(Model):
         self.status = status
 
 
+class RecoverableServerResource(ProxyResource):
+    """A recoverable server resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Fully qualified resource ID for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+    :vartype type: str
+    :ivar last_available_backup_date_time: The last available backup date
+     time.
+    :vartype last_available_backup_date_time: str
+    :ivar service_level_objective: The service level objective
+    :vartype service_level_objective: str
+    :ivar edition: Edition of the performance tier.
+    :vartype edition: str
+    :ivar v_core: vCore associated with the service level objective
+    :vartype v_core: int
+    :ivar hardware_generation: Hardware generation associated with the service
+     level objective
+    :vartype hardware_generation: str
+    :ivar version: The MariaDB version
+    :vartype version: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'last_available_backup_date_time': {'readonly': True},
+        'service_level_objective': {'readonly': True},
+        'edition': {'readonly': True},
+        'v_core': {'readonly': True},
+        'hardware_generation': {'readonly': True},
+        'version': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'last_available_backup_date_time': {'key': 'properties.lastAvailableBackupDateTime', 'type': 'str'},
+        'service_level_objective': {'key': 'properties.serviceLevelObjective', 'type': 'str'},
+        'edition': {'key': 'properties.edition', 'type': 'str'},
+        'v_core': {'key': 'properties.vCore', 'type': 'int'},
+        'hardware_generation': {'key': 'properties.hardwareGeneration', 'type': 'str'},
+        'version': {'key': 'properties.version', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(RecoverableServerResource, self).__init__(**kwargs)
+        self.last_available_backup_date_time = None
+        self.service_level_objective = None
+        self.edition = None
+        self.v_core = None
+        self.hardware_generation = None
+        self.version = None
+
+
 class TrackedResource(Resource):
-    """The resource model definition for a ARM tracked top level resource.
+    """Tracked Resource.
+
+    The resource model definition for an Azure Resource Manager tracked top
+    level resource which has 'tags' and a 'location'.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -1118,13 +1238,13 @@ class Server(TrackedResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -1613,13 +1733,13 @@ class ServerSecurityAlertPolicy(ProxyResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param state: Required. Specifies the state of the policy, whether it is
      enabled or disabled. Possible values include: 'Enabled', 'Disabled'
@@ -1732,8 +1852,10 @@ class ServerUpdateParameters(Model):
 class Sku(Model):
     """Billing information related properties of a server.
 
-    :param name: The name of the sku, typically, tier + family + cores, e.g.
-     B_Gen4_1, GP_Gen5_8.
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. The name of the sku, typically, tier + family +
+     cores, e.g. B_Gen4_1, GP_Gen5_8.
     :type name: str
     :param tier: The tier of the particular SKU, e.g. Basic. Possible values
      include: 'Basic', 'GeneralPurpose', 'MemoryOptimized'
@@ -1748,6 +1870,7 @@ class Sku(Model):
     """
 
     _validation = {
+        'name': {'required': True},
         'capacity': {'minimum': 0},
     }
 
@@ -1759,7 +1882,7 @@ class Sku(Model):
         'family': {'key': 'family', 'type': 'str'},
     }
 
-    def __init__(self, *, name: str=None, tier=None, capacity: int=None, size: str=None, family: str=None, **kwargs) -> None:
+    def __init__(self, *, name: str, tier=None, capacity: int=None, size: str=None, family: str=None, **kwargs) -> None:
         super(Sku, self).__init__(**kwargs)
         self.name = name
         self.tier = tier
@@ -1873,13 +1996,13 @@ class VirtualNetworkRule(ProxyResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param virtual_network_subnet_id: Required. The ARM resource id of the
      virtual network subnet.
@@ -1923,13 +2046,13 @@ class WaitStatistic(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param start_time: Observation start time.
     :type start_time: datetime
