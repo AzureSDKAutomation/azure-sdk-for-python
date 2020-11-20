@@ -13,45 +13,178 @@ from msrest.serialization import Model
 from msrest.exceptions import HttpOperationError
 
 
-class AliasPathType(Model):
-    """The type of the paths for alias. .
-
-    :param path: The path of an alias.
-    :type path: str
-    :param api_versions: The API versions.
-    :type api_versions: list[str]
-    """
-
-    _attribute_map = {
-        'path': {'key': 'path', 'type': 'str'},
-        'api_versions': {'key': 'apiVersions', 'type': '[str]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(AliasPathType, self).__init__(**kwargs)
-        self.path = kwargs.get('path', None)
-        self.api_versions = kwargs.get('api_versions', None)
-
-
-class AliasType(Model):
+class Alias(Model):
     """The alias type. .
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
 
     :param name: The alias name.
     :type name: str
     :param paths: The paths for an alias.
     :type paths:
-     list[~azure.mgmt.resource.resources.v2018_05_01.models.AliasPathType]
+     list[~azure.mgmt.resource.resources.v2020_10_01.models.AliasPath]
+    :param type: The type of the alias. Possible values include:
+     'NotSpecified', 'PlainText', 'Mask'
+    :type type: str or
+     ~azure.mgmt.resource.resources.v2020_10_01.models.AliasType
+    :param default_path: The default path for an alias.
+    :type default_path: str
+    :param default_pattern: The default pattern for an alias.
+    :type default_pattern:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.AliasPattern
+    :ivar default_metadata: The default alias path metadata. Applies to the
+     default path and to any alias path that doesn't have metadata
+    :vartype default_metadata:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.AliasPathMetadata
     """
+
+    _validation = {
+        'default_metadata': {'readonly': True},
+    }
 
     _attribute_map = {
         'name': {'key': 'name', 'type': 'str'},
-        'paths': {'key': 'paths', 'type': '[AliasPathType]'},
+        'paths': {'key': 'paths', 'type': '[AliasPath]'},
+        'type': {'key': 'type', 'type': 'AliasType'},
+        'default_path': {'key': 'defaultPath', 'type': 'str'},
+        'default_pattern': {'key': 'defaultPattern', 'type': 'AliasPattern'},
+        'default_metadata': {'key': 'defaultMetadata', 'type': 'AliasPathMetadata'},
     }
 
     def __init__(self, **kwargs):
-        super(AliasType, self).__init__(**kwargs)
+        super(Alias, self).__init__(**kwargs)
         self.name = kwargs.get('name', None)
         self.paths = kwargs.get('paths', None)
+        self.type = kwargs.get('type', None)
+        self.default_path = kwargs.get('default_path', None)
+        self.default_pattern = kwargs.get('default_pattern', None)
+        self.default_metadata = None
+
+
+class AliasPath(Model):
+    """The type of the paths for alias.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param path: The path of an alias.
+    :type path: str
+    :param api_versions: The API versions.
+    :type api_versions: list[str]
+    :param pattern: The pattern for an alias path.
+    :type pattern:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.AliasPattern
+    :ivar metadata: The metadata of the alias path. If missing, fall back to
+     the default metadata of the alias.
+    :vartype metadata:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.AliasPathMetadata
+    """
+
+    _validation = {
+        'metadata': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'path': {'key': 'path', 'type': 'str'},
+        'api_versions': {'key': 'apiVersions', 'type': '[str]'},
+        'pattern': {'key': 'pattern', 'type': 'AliasPattern'},
+        'metadata': {'key': 'metadata', 'type': 'AliasPathMetadata'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AliasPath, self).__init__(**kwargs)
+        self.path = kwargs.get('path', None)
+        self.api_versions = kwargs.get('api_versions', None)
+        self.pattern = kwargs.get('pattern', None)
+        self.metadata = None
+
+
+class AliasPathMetadata(Model):
+    """AliasPathMetadata.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar type: The type of the token that the alias path is referring to.
+     Possible values include: 'NotSpecified', 'Any', 'String', 'Object',
+     'Array', 'Integer', 'Number', 'Boolean'
+    :vartype type: str or
+     ~azure.mgmt.resource.resources.v2020_10_01.models.AliasPathTokenType
+    :ivar attributes: The attributes of the token that the alias path is
+     referring to. Possible values include: 'None', 'Modifiable'
+    :vartype attributes: str or
+     ~azure.mgmt.resource.resources.v2020_10_01.models.AliasPathAttributes
+    """
+
+    _validation = {
+        'type': {'readonly': True},
+        'attributes': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'attributes': {'key': 'attributes', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AliasPathMetadata, self).__init__(**kwargs)
+        self.type = None
+        self.attributes = None
+
+
+class AliasPattern(Model):
+    """The type of the pattern for an alias path.
+
+    :param phrase: The alias pattern phrase.
+    :type phrase: str
+    :param variable: The alias pattern variable.
+    :type variable: str
+    :param type: The type of alias pattern. Possible values include:
+     'NotSpecified', 'Extract'
+    :type type: str or
+     ~azure.mgmt.resource.resources.v2020_10_01.models.AliasPatternType
+    """
+
+    _attribute_map = {
+        'phrase': {'key': 'phrase', 'type': 'str'},
+        'variable': {'key': 'variable', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'AliasPatternType'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AliasPattern, self).__init__(**kwargs)
+        self.phrase = kwargs.get('phrase', None)
+        self.variable = kwargs.get('variable', None)
+        self.type = kwargs.get('type', None)
+
+
+class ApiProfile(Model):
+    """ApiProfile.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar profile_version: The profile version.
+    :vartype profile_version: str
+    :ivar api_version: The API version.
+    :vartype api_version: str
+    """
+
+    _validation = {
+        'profile_version': {'readonly': True},
+        'api_version': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'profile_version': {'key': 'profileVersion', 'type': 'str'},
+        'api_version': {'key': 'apiVersion', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ApiProfile, self).__init__(**kwargs)
+        self.profile_version = None
+        self.api_version = None
 
 
 class BasicDependency(Model):
@@ -83,7 +216,7 @@ class CloudError(Model):
 
     :param error:
     :type error:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.ErrorResponse
+     ~azure.mgmt.resource.resources.v2020_10_01.models.ErrorResponse
     """
 
     _attribute_map = {
@@ -108,7 +241,7 @@ class CloudErrorException(HttpOperationError):
 
 
 class DebugSetting(Model):
-    """DebugSetting.
+    """The debug setting.
 
     :param detail_level: Specifies the type of information to log for
      debugging. The permitted values are none, requestContent, responseContent,
@@ -134,7 +267,7 @@ class Dependency(Model):
 
     :param depends_on: The list of dependencies.
     :type depends_on:
-     list[~azure.mgmt.resource.resources.v2018_05_01.models.BasicDependency]
+     list[~azure.mgmt.resource.resources.v2020_10_01.models.BasicDependency]
     :param id: The ID of the dependency.
     :type id: str
     :param resource_type: The dependency resource type.
@@ -167,7 +300,9 @@ class Deployment(Model):
     :type location: str
     :param properties: Required. The deployment properties.
     :type properties:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.DeploymentProperties
+     ~azure.mgmt.resource.resources.v2020_10_01.models.DeploymentProperties
+    :param tags: Deployment tags
+    :type tags: dict[str, str]
     """
 
     _validation = {
@@ -177,12 +312,14 @@ class Deployment(Model):
     _attribute_map = {
         'location': {'key': 'location', 'type': 'str'},
         'properties': {'key': 'properties', 'type': 'DeploymentProperties'},
+        'tags': {'key': 'tags', 'type': '{str}'},
     }
 
     def __init__(self, **kwargs):
         super(Deployment, self).__init__(**kwargs)
         self.location = kwargs.get('location', None)
         self.properties = kwargs.get('properties', None)
+        self.tags = kwargs.get('tags', None)
 
 
 class DeploymentExportResult(Model):
@@ -217,7 +354,9 @@ class DeploymentExtended(Model):
     :type location: str
     :param properties: Deployment properties.
     :type properties:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.DeploymentPropertiesExtended
+     ~azure.mgmt.resource.resources.v2020_10_01.models.DeploymentPropertiesExtended
+    :param tags: Deployment tags
+    :type tags: dict[str, str]
     """
 
     _validation = {
@@ -232,6 +371,7 @@ class DeploymentExtended(Model):
         'type': {'key': 'type', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'properties': {'key': 'properties', 'type': 'DeploymentPropertiesExtended'},
+        'tags': {'key': 'tags', 'type': '{str}'},
     }
 
     def __init__(self, **kwargs):
@@ -241,6 +381,7 @@ class DeploymentExtended(Model):
         self.type = None
         self.location = kwargs.get('location', None)
         self.properties = kwargs.get('properties', None)
+        self.tags = kwargs.get('tags', None)
 
 
 class DeploymentExtendedFilter(Model):
@@ -271,7 +412,7 @@ class DeploymentOperation(Model):
     :vartype operation_id: str
     :param properties: Deployment properties.
     :type properties:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.DeploymentOperationProperties
+     ~azure.mgmt.resource.resources.v2020_10_01.models.DeploymentOperationProperties
     """
 
     _validation = {
@@ -298,30 +439,44 @@ class DeploymentOperationProperties(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
+    :ivar provisioning_operation: The name of the current provisioning
+     operation. Possible values include: 'NotSpecified', 'Create', 'Delete',
+     'Waiting', 'AzureAsyncOperationWaiting', 'ResourceCacheWaiting', 'Action',
+     'Read', 'EvaluateDeploymentOutput', 'DeploymentCleanup'
+    :vartype provisioning_operation: str or
+     ~azure.mgmt.resource.resources.v2020_10_01.models.ProvisioningOperation
     :ivar provisioning_state: The state of the provisioning.
     :vartype provisioning_state: str
     :ivar timestamp: The date and time of the operation.
     :vartype timestamp: datetime
+    :ivar duration: The duration of the operation.
+    :vartype duration: str
     :ivar service_request_id: Deployment operation service request id.
     :vartype service_request_id: str
-    :ivar status_code: Operation status code.
+    :ivar status_code: Operation status code from the resource provider. This
+     property may not be set if a response has not yet been received.
     :vartype status_code: str
-    :ivar status_message: Operation status message.
-    :vartype status_message: object
+    :ivar status_message: Operation status message from the resource provider.
+     This property is optional.  It will only be provided if an error was
+     received from the resource provider.
+    :vartype status_message:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.StatusMessage
     :ivar target_resource: The target resource.
     :vartype target_resource:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.TargetResource
+     ~azure.mgmt.resource.resources.v2020_10_01.models.TargetResource
     :ivar request: The HTTP request message.
     :vartype request:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.HttpMessage
+     ~azure.mgmt.resource.resources.v2020_10_01.models.HttpMessage
     :ivar response: The HTTP response message.
     :vartype response:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.HttpMessage
+     ~azure.mgmt.resource.resources.v2020_10_01.models.HttpMessage
     """
 
     _validation = {
+        'provisioning_operation': {'readonly': True},
         'provisioning_state': {'readonly': True},
         'timestamp': {'readonly': True},
+        'duration': {'readonly': True},
         'service_request_id': {'readonly': True},
         'status_code': {'readonly': True},
         'status_message': {'readonly': True},
@@ -331,11 +486,13 @@ class DeploymentOperationProperties(Model):
     }
 
     _attribute_map = {
+        'provisioning_operation': {'key': 'provisioningOperation', 'type': 'ProvisioningOperation'},
         'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
         'timestamp': {'key': 'timestamp', 'type': 'iso-8601'},
+        'duration': {'key': 'duration', 'type': 'str'},
         'service_request_id': {'key': 'serviceRequestId', 'type': 'str'},
         'status_code': {'key': 'statusCode', 'type': 'str'},
-        'status_message': {'key': 'statusMessage', 'type': 'object'},
+        'status_message': {'key': 'statusMessage', 'type': 'StatusMessage'},
         'target_resource': {'key': 'targetResource', 'type': 'TargetResource'},
         'request': {'key': 'request', 'type': 'HttpMessage'},
         'response': {'key': 'response', 'type': 'HttpMessage'},
@@ -343,8 +500,10 @@ class DeploymentOperationProperties(Model):
 
     def __init__(self, **kwargs):
         super(DeploymentOperationProperties, self).__init__(**kwargs)
+        self.provisioning_operation = None
         self.provisioning_state = None
         self.timestamp = None
+        self.duration = None
         self.service_request_id = None
         self.status_code = None
         self.status_message = None
@@ -366,7 +525,7 @@ class DeploymentProperties(Model):
     :param template_link: The URI of the template. Use either the templateLink
      property or the template property, but not both.
     :type template_link:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.TemplateLink
+     ~azure.mgmt.resource.resources.v2020_10_01.models.TemplateLink
     :param parameters: Name and value pairs that define the deployment
      parameters for the template. You use this element when you want to provide
      the parameter values directly in the request rather than link to an
@@ -378,7 +537,7 @@ class DeploymentProperties(Model):
      to link to an existing parameters file. Use either the parametersLink
      property or the parameters property, but not both.
     :type parameters_link:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.ParametersLink
+     ~azure.mgmt.resource.resources.v2020_10_01.models.ParametersLink
     :param mode: Required. The mode that is used to deploy resources. This
      value can be either Incremental or Complete. In Incremental mode,
      resources are deployed without deleting existing resources that are not
@@ -388,13 +547,19 @@ class DeploymentProperties(Model):
      unintentionally delete resources. Possible values include: 'Incremental',
      'Complete'
     :type mode: str or
-     ~azure.mgmt.resource.resources.v2018_05_01.models.DeploymentMode
+     ~azure.mgmt.resource.resources.v2020_10_01.models.DeploymentMode
     :param debug_setting: The debug setting of the deployment.
     :type debug_setting:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.DebugSetting
+     ~azure.mgmt.resource.resources.v2020_10_01.models.DebugSetting
     :param on_error_deployment: The deployment on error behavior.
     :type on_error_deployment:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.OnErrorDeployment
+     ~azure.mgmt.resource.resources.v2020_10_01.models.OnErrorDeployment
+    :param expression_evaluation_options: Specifies whether template
+     expressions are evaluated within the scope of the parent template or
+     nested template. Only applicable to nested templates. If not specified,
+     default value is outer.
+    :type expression_evaluation_options:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.ExpressionEvaluationOptions
     """
 
     _validation = {
@@ -409,6 +574,7 @@ class DeploymentProperties(Model):
         'mode': {'key': 'mode', 'type': 'DeploymentMode'},
         'debug_setting': {'key': 'debugSetting', 'type': 'DebugSetting'},
         'on_error_deployment': {'key': 'onErrorDeployment', 'type': 'OnErrorDeployment'},
+        'expression_evaluation_options': {'key': 'expressionEvaluationOptions', 'type': 'ExpressionEvaluationOptions'},
     }
 
     def __init__(self, **kwargs):
@@ -420,6 +586,7 @@ class DeploymentProperties(Model):
         self.mode = kwargs.get('mode', None)
         self.debug_setting = kwargs.get('debug_setting', None)
         self.on_error_deployment = kwargs.get('on_error_deployment', None)
+        self.expression_evaluation_options = kwargs.get('expression_evaluation_options', None)
 
 
 class DeploymentPropertiesExtended(Model):
@@ -428,67 +595,95 @@ class DeploymentPropertiesExtended(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar provisioning_state: The state of the provisioning.
-    :vartype provisioning_state: str
+    :ivar provisioning_state: Denotes the state of provisioning. Possible
+     values include: 'NotSpecified', 'Accepted', 'Running', 'Ready',
+     'Creating', 'Created', 'Deleting', 'Deleted', 'Canceled', 'Failed',
+     'Succeeded', 'Updating'
+    :vartype provisioning_state: str or
+     ~azure.mgmt.resource.resources.v2020_10_01.models.ProvisioningState
     :ivar correlation_id: The correlation ID of the deployment.
     :vartype correlation_id: str
     :ivar timestamp: The timestamp of the template deployment.
     :vartype timestamp: datetime
-    :param outputs: Key/value pairs that represent deployment output.
-    :type outputs: object
-    :param providers: The list of resource providers needed for the
-     deployment.
-    :type providers:
-     list[~azure.mgmt.resource.resources.v2018_05_01.models.Provider]
-    :param dependencies: The list of deployment dependencies.
-    :type dependencies:
-     list[~azure.mgmt.resource.resources.v2018_05_01.models.Dependency]
-    :param template: The template content. Use only one of Template or
-     TemplateLink.
-    :type template: object
-    :param template_link: The URI referencing the template. Use only one of
-     Template or TemplateLink.
-    :type template_link:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.TemplateLink
-    :param parameters: Deployment parameters. Use only one of Parameters or
-     ParametersLink.
-    :type parameters: object
-    :param parameters_link: The URI referencing the parameters. Use only one
-     of Parameters or ParametersLink.
-    :type parameters_link:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.ParametersLink
-    :param mode: The deployment mode. Possible values are Incremental and
+    :ivar duration: The duration of the template deployment.
+    :vartype duration: str
+    :ivar outputs: Key/value pairs that represent deployment output.
+    :vartype outputs: object
+    :ivar providers: The list of resource providers needed for the deployment.
+    :vartype providers:
+     list[~azure.mgmt.resource.resources.v2020_10_01.models.Provider]
+    :ivar dependencies: The list of deployment dependencies.
+    :vartype dependencies:
+     list[~azure.mgmt.resource.resources.v2020_10_01.models.Dependency]
+    :ivar template_link: The URI referencing the template.
+    :vartype template_link:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.TemplateLink
+    :ivar parameters: Deployment parameters.
+    :vartype parameters: object
+    :ivar parameters_link: The URI referencing the parameters.
+    :vartype parameters_link:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.ParametersLink
+    :ivar mode: The deployment mode. Possible values are Incremental and
      Complete. Possible values include: 'Incremental', 'Complete'
-    :type mode: str or
-     ~azure.mgmt.resource.resources.v2018_05_01.models.DeploymentMode
-    :param debug_setting: The debug setting of the deployment.
-    :type debug_setting:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.DebugSetting
-    :param on_error_deployment: The deployment on error behavior.
-    :type on_error_deployment:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.OnErrorDeploymentExtended
+    :vartype mode: str or
+     ~azure.mgmt.resource.resources.v2020_10_01.models.DeploymentMode
+    :ivar debug_setting: The debug setting of the deployment.
+    :vartype debug_setting:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.DebugSetting
+    :ivar on_error_deployment: The deployment on error behavior.
+    :vartype on_error_deployment:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.OnErrorDeploymentExtended
+    :ivar template_hash: The hash produced for the template.
+    :vartype template_hash: str
+    :ivar output_resources: Array of provisioned resources.
+    :vartype output_resources:
+     list[~azure.mgmt.resource.resources.v2020_10_01.models.ResourceReference]
+    :ivar validated_resources: Array of validated resources.
+    :vartype validated_resources:
+     list[~azure.mgmt.resource.resources.v2020_10_01.models.ResourceReference]
+    :ivar error: The deployment error.
+    :vartype error:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.ErrorResponse
     """
 
     _validation = {
         'provisioning_state': {'readonly': True},
         'correlation_id': {'readonly': True},
         'timestamp': {'readonly': True},
+        'duration': {'readonly': True},
+        'outputs': {'readonly': True},
+        'providers': {'readonly': True},
+        'dependencies': {'readonly': True},
+        'template_link': {'readonly': True},
+        'parameters': {'readonly': True},
+        'parameters_link': {'readonly': True},
+        'mode': {'readonly': True},
+        'debug_setting': {'readonly': True},
+        'on_error_deployment': {'readonly': True},
+        'template_hash': {'readonly': True},
+        'output_resources': {'readonly': True},
+        'validated_resources': {'readonly': True},
+        'error': {'readonly': True},
     }
 
     _attribute_map = {
         'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
         'correlation_id': {'key': 'correlationId', 'type': 'str'},
         'timestamp': {'key': 'timestamp', 'type': 'iso-8601'},
+        'duration': {'key': 'duration', 'type': 'str'},
         'outputs': {'key': 'outputs', 'type': 'object'},
         'providers': {'key': 'providers', 'type': '[Provider]'},
         'dependencies': {'key': 'dependencies', 'type': '[Dependency]'},
-        'template': {'key': 'template', 'type': 'object'},
         'template_link': {'key': 'templateLink', 'type': 'TemplateLink'},
         'parameters': {'key': 'parameters', 'type': 'object'},
         'parameters_link': {'key': 'parametersLink', 'type': 'ParametersLink'},
         'mode': {'key': 'mode', 'type': 'DeploymentMode'},
         'debug_setting': {'key': 'debugSetting', 'type': 'DebugSetting'},
         'on_error_deployment': {'key': 'onErrorDeployment', 'type': 'OnErrorDeploymentExtended'},
+        'template_hash': {'key': 'templateHash', 'type': 'str'},
+        'output_resources': {'key': 'outputResources', 'type': '[ResourceReference]'},
+        'validated_resources': {'key': 'validatedResources', 'type': '[ResourceReference]'},
+        'error': {'key': 'error', 'type': 'ErrorResponse'},
     }
 
     def __init__(self, **kwargs):
@@ -496,38 +691,168 @@ class DeploymentPropertiesExtended(Model):
         self.provisioning_state = None
         self.correlation_id = None
         self.timestamp = None
-        self.outputs = kwargs.get('outputs', None)
-        self.providers = kwargs.get('providers', None)
-        self.dependencies = kwargs.get('dependencies', None)
-        self.template = kwargs.get('template', None)
-        self.template_link = kwargs.get('template_link', None)
-        self.parameters = kwargs.get('parameters', None)
-        self.parameters_link = kwargs.get('parameters_link', None)
-        self.mode = kwargs.get('mode', None)
-        self.debug_setting = kwargs.get('debug_setting', None)
-        self.on_error_deployment = kwargs.get('on_error_deployment', None)
+        self.duration = None
+        self.outputs = None
+        self.providers = None
+        self.dependencies = None
+        self.template_link = None
+        self.parameters = None
+        self.parameters_link = None
+        self.mode = None
+        self.debug_setting = None
+        self.on_error_deployment = None
+        self.template_hash = None
+        self.output_resources = None
+        self.validated_resources = None
+        self.error = None
 
 
 class DeploymentValidateResult(Model):
     """Information from validate template deployment response.
 
-    :param error: Validation error.
-    :type error:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.ResourceManagementErrorWithDetails
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar error: The deployment validation error.
+    :vartype error:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.ErrorResponse
     :param properties: The template deployment properties.
     :type properties:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.DeploymentPropertiesExtended
+     ~azure.mgmt.resource.resources.v2020_10_01.models.DeploymentPropertiesExtended
     """
 
+    _validation = {
+        'error': {'readonly': True},
+    }
+
     _attribute_map = {
-        'error': {'key': 'error', 'type': 'ResourceManagementErrorWithDetails'},
+        'error': {'key': 'error', 'type': 'ErrorResponse'},
         'properties': {'key': 'properties', 'type': 'DeploymentPropertiesExtended'},
     }
 
     def __init__(self, **kwargs):
         super(DeploymentValidateResult, self).__init__(**kwargs)
-        self.error = kwargs.get('error', None)
+        self.error = None
         self.properties = kwargs.get('properties', None)
+
+
+class DeploymentWhatIf(Model):
+    """Deployment What-if operation parameters.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param location: The location to store the deployment data.
+    :type location: str
+    :param properties: Required. The deployment properties.
+    :type properties:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.DeploymentWhatIfProperties
+    """
+
+    _validation = {
+        'properties': {'required': True},
+    }
+
+    _attribute_map = {
+        'location': {'key': 'location', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'DeploymentWhatIfProperties'},
+    }
+
+    def __init__(self, **kwargs):
+        super(DeploymentWhatIf, self).__init__(**kwargs)
+        self.location = kwargs.get('location', None)
+        self.properties = kwargs.get('properties', None)
+
+
+class DeploymentWhatIfProperties(DeploymentProperties):
+    """Deployment What-if properties.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param template: The template content. You use this element when you want
+     to pass the template syntax directly in the request rather than link to an
+     existing template. It can be a JObject or well-formed JSON string. Use
+     either the templateLink property or the template property, but not both.
+    :type template: object
+    :param template_link: The URI of the template. Use either the templateLink
+     property or the template property, but not both.
+    :type template_link:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.TemplateLink
+    :param parameters: Name and value pairs that define the deployment
+     parameters for the template. You use this element when you want to provide
+     the parameter values directly in the request rather than link to an
+     existing parameter file. Use either the parametersLink property or the
+     parameters property, but not both. It can be a JObject or a well formed
+     JSON string.
+    :type parameters: object
+    :param parameters_link: The URI of parameters file. You use this element
+     to link to an existing parameters file. Use either the parametersLink
+     property or the parameters property, but not both.
+    :type parameters_link:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.ParametersLink
+    :param mode: Required. The mode that is used to deploy resources. This
+     value can be either Incremental or Complete. In Incremental mode,
+     resources are deployed without deleting existing resources that are not
+     included in the template. In Complete mode, resources are deployed and
+     existing resources in the resource group that are not included in the
+     template are deleted. Be careful when using Complete mode as you may
+     unintentionally delete resources. Possible values include: 'Incremental',
+     'Complete'
+    :type mode: str or
+     ~azure.mgmt.resource.resources.v2020_10_01.models.DeploymentMode
+    :param debug_setting: The debug setting of the deployment.
+    :type debug_setting:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.DebugSetting
+    :param on_error_deployment: The deployment on error behavior.
+    :type on_error_deployment:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.OnErrorDeployment
+    :param expression_evaluation_options: Specifies whether template
+     expressions are evaluated within the scope of the parent template or
+     nested template. Only applicable to nested templates. If not specified,
+     default value is outer.
+    :type expression_evaluation_options:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.ExpressionEvaluationOptions
+    :param what_if_settings: Optional What-If operation settings.
+    :type what_if_settings:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.DeploymentWhatIfSettings
+    """
+
+    _validation = {
+        'mode': {'required': True},
+    }
+
+    _attribute_map = {
+        'template': {'key': 'template', 'type': 'object'},
+        'template_link': {'key': 'templateLink', 'type': 'TemplateLink'},
+        'parameters': {'key': 'parameters', 'type': 'object'},
+        'parameters_link': {'key': 'parametersLink', 'type': 'ParametersLink'},
+        'mode': {'key': 'mode', 'type': 'DeploymentMode'},
+        'debug_setting': {'key': 'debugSetting', 'type': 'DebugSetting'},
+        'on_error_deployment': {'key': 'onErrorDeployment', 'type': 'OnErrorDeployment'},
+        'expression_evaluation_options': {'key': 'expressionEvaluationOptions', 'type': 'ExpressionEvaluationOptions'},
+        'what_if_settings': {'key': 'whatIfSettings', 'type': 'DeploymentWhatIfSettings'},
+    }
+
+    def __init__(self, **kwargs):
+        super(DeploymentWhatIfProperties, self).__init__(**kwargs)
+        self.what_if_settings = kwargs.get('what_if_settings', None)
+
+
+class DeploymentWhatIfSettings(Model):
+    """Deployment What-If operation settings.
+
+    :param result_format: The format of the What-If results. Possible values
+     include: 'ResourceIdOnly', 'FullResourcePayloads'
+    :type result_format: str or
+     ~azure.mgmt.resource.resources.v2020_10_01.models.WhatIfResultFormat
+    """
+
+    _attribute_map = {
+        'result_format': {'key': 'resultFormat', 'type': 'WhatIfResultFormat'},
+    }
+
+    def __init__(self, **kwargs):
+        super(DeploymentWhatIfSettings, self).__init__(**kwargs)
+        self.result_format = kwargs.get('result_format', None)
 
 
 class ErrorAdditionalInfo(Model):
@@ -576,10 +901,10 @@ class ErrorResponse(Model):
     :vartype target: str
     :ivar details: The error details.
     :vartype details:
-     list[~azure.mgmt.resource.resources.v2018_05_01.models.ErrorResponse]
+     list[~azure.mgmt.resource.resources.v2020_10_01.models.ErrorResponse]
     :ivar additional_info: The error additional info.
     :vartype additional_info:
-     list[~azure.mgmt.resource.resources.v2018_05_01.models.ErrorAdditionalInfo]
+     list[~azure.mgmt.resource.resources.v2020_10_01.models.ErrorAdditionalInfo]
     """
 
     _validation = {
@@ -629,6 +954,26 @@ class ExportTemplateRequest(Model):
         super(ExportTemplateRequest, self).__init__(**kwargs)
         self.resources = kwargs.get('resources', None)
         self.options = kwargs.get('options', None)
+
+
+class ExpressionEvaluationOptions(Model):
+    """Specifies whether template expressions are evaluated within the scope of
+    the parent template or nested template.
+
+    :param scope: The scope to be used for evaluation of parameters, variables
+     and functions in a nested template. Possible values include:
+     'NotSpecified', 'Outer', 'Inner'
+    :type scope: str or
+     ~azure.mgmt.resource.resources.v2020_10_01.models.ExpressionEvaluationOptionsScopeType
+    """
+
+    _attribute_map = {
+        'scope': {'key': 'scope', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ExpressionEvaluationOptions, self).__init__(**kwargs)
+        self.scope = kwargs.get('scope', None)
 
 
 class Resource(Model):
@@ -689,7 +1034,7 @@ class GenericResource(Resource):
     :param tags: Resource tags
     :type tags: dict[str, str]
     :param plan: The plan of the resource.
-    :type plan: ~azure.mgmt.resource.resources.v2018_05_01.models.Plan
+    :type plan: ~azure.mgmt.resource.resources.v2020_10_01.models.Plan
     :param properties: The resource properties.
     :type properties: object
     :param kind: The kind of the resource.
@@ -697,9 +1042,9 @@ class GenericResource(Resource):
     :param managed_by: ID of the resource that manages this resource.
     :type managed_by: str
     :param sku: The SKU of the resource.
-    :type sku: ~azure.mgmt.resource.resources.v2018_05_01.models.Sku
+    :type sku: ~azure.mgmt.resource.resources.v2020_10_01.models.Sku
     :param identity: The identity of the resource.
-    :type identity: ~azure.mgmt.resource.resources.v2018_05_01.models.Identity
+    :type identity: ~azure.mgmt.resource.resources.v2020_10_01.models.Identity
     """
 
     _validation = {
@@ -750,7 +1095,7 @@ class GenericResourceExpanded(GenericResource):
     :param tags: Resource tags
     :type tags: dict[str, str]
     :param plan: The plan of the resource.
-    :type plan: ~azure.mgmt.resource.resources.v2018_05_01.models.Plan
+    :type plan: ~azure.mgmt.resource.resources.v2020_10_01.models.Plan
     :param properties: The resource properties.
     :type properties: object
     :param kind: The kind of the resource.
@@ -758,9 +1103,9 @@ class GenericResourceExpanded(GenericResource):
     :param managed_by: ID of the resource that manages this resource.
     :type managed_by: str
     :param sku: The SKU of the resource.
-    :type sku: ~azure.mgmt.resource.resources.v2018_05_01.models.Sku
+    :type sku: ~azure.mgmt.resource.resources.v2020_10_01.models.Sku
     :param identity: The identity of the resource.
-    :type identity: ~azure.mgmt.resource.resources.v2018_05_01.models.Identity
+    :type identity: ~azure.mgmt.resource.resources.v2020_10_01.models.Identity
     :ivar created_time: The created time of the resource. This is only present
      if requested via the $expand query parameter.
     :vartype created_time: datetime
@@ -859,13 +1204,13 @@ class Identity(Model):
     :param type: The identity type. Possible values include: 'SystemAssigned',
      'UserAssigned', 'SystemAssigned, UserAssigned', 'None'
     :type type: str or
-     ~azure.mgmt.resource.resources.v2018_05_01.models.ResourceIdentityType
+     ~azure.mgmt.resource.resources.v2020_10_01.models.ResourceIdentityType
     :param user_assigned_identities: The list of user identities associated
      with the resource. The user identity dictionary key references will be ARM
      resource ids in the form:
      '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
     :type user_assigned_identities: dict[str,
-     ~azure.mgmt.resource.resources.v2018_05_01.models.IdentityUserAssignedIdentitiesValue]
+     ~azure.mgmt.resource.resources.v2020_10_01.models.IdentityUserAssignedIdentitiesValue]
     """
 
     _validation = {
@@ -923,7 +1268,7 @@ class OnErrorDeployment(Model):
      LastSuccessful and SpecificDeployment. Possible values include:
      'LastSuccessful', 'SpecificDeployment'
     :type type: str or
-     ~azure.mgmt.resource.resources.v2018_05_01.models.OnErrorDeploymentType
+     ~azure.mgmt.resource.resources.v2020_10_01.models.OnErrorDeploymentType
     :param deployment_name: The deployment to be used on error case.
     :type deployment_name: str
     """
@@ -952,7 +1297,7 @@ class OnErrorDeploymentExtended(Model):
      LastSuccessful and SpecificDeployment. Possible values include:
      'LastSuccessful', 'SpecificDeployment'
     :type type: str or
-     ~azure.mgmt.resource.resources.v2018_05_01.models.OnErrorDeploymentType
+     ~azure.mgmt.resource.resources.v2020_10_01.models.OnErrorDeploymentType
     :param deployment_name: The deployment to be used on error case.
     :type deployment_name: str
     """
@@ -981,7 +1326,7 @@ class Operation(Model):
     :type name: str
     :param display: The object that represents the operation.
     :type display:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.OperationDisplay
+     ~azure.mgmt.resource.resources.v2020_10_01.models.OperationDisplay
     """
 
     _attribute_map = {
@@ -1093,16 +1438,20 @@ class Provider(Model):
     :vartype id: str
     :param namespace: The namespace of the resource provider.
     :type namespace: str
-    :ivar registration_state: The registration state of the provider.
+    :ivar registration_state: The registration state of the resource provider.
     :vartype registration_state: str
+    :ivar registration_policy: The registration policy of the resource
+     provider.
+    :vartype registration_policy: str
     :ivar resource_types: The collection of provider resource types.
     :vartype resource_types:
-     list[~azure.mgmt.resource.resources.v2018_05_01.models.ProviderResourceType]
+     list[~azure.mgmt.resource.resources.v2020_10_01.models.ProviderResourceType]
     """
 
     _validation = {
         'id': {'readonly': True},
         'registration_state': {'readonly': True},
+        'registration_policy': {'readonly': True},
         'resource_types': {'readonly': True},
     }
 
@@ -1110,6 +1459,7 @@ class Provider(Model):
         'id': {'key': 'id', 'type': 'str'},
         'namespace': {'key': 'namespace', 'type': 'str'},
         'registration_state': {'key': 'registrationState', 'type': 'str'},
+        'registration_policy': {'key': 'registrationPolicy', 'type': 'str'},
         'resource_types': {'key': 'resourceTypes', 'type': '[ProviderResourceType]'},
     }
 
@@ -1118,31 +1468,80 @@ class Provider(Model):
         self.id = None
         self.namespace = kwargs.get('namespace', None)
         self.registration_state = None
+        self.registration_policy = None
         self.resource_types = None
+
+
+class ProviderExtendedLocation(Model):
+    """The provider extended location. .
+
+    :param location: The azure location.
+    :type location: str
+    :param type: The extended location type.
+    :type type: str
+    :param extended_locations: The extended locations for the azure location.
+    :type extended_locations: list[str]
+    """
+
+    _attribute_map = {
+        'location': {'key': 'location', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'extended_locations': {'key': 'extendedLocations', 'type': '[str]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ProviderExtendedLocation, self).__init__(**kwargs)
+        self.location = kwargs.get('location', None)
+        self.type = kwargs.get('type', None)
+        self.extended_locations = kwargs.get('extended_locations', None)
 
 
 class ProviderResourceType(Model):
     """Resource type managed by the resource provider.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
 
     :param resource_type: The resource type.
     :type resource_type: str
     :param locations: The collection of locations where this resource type can
      be created.
     :type locations: list[str]
+    :param location_mappings: The location mappings that are supported by this
+     resource type.
+    :type location_mappings:
+     list[~azure.mgmt.resource.resources.v2020_10_01.models.ProviderExtendedLocation]
     :param aliases: The aliases that are supported by this resource type.
     :type aliases:
-     list[~azure.mgmt.resource.resources.v2018_05_01.models.AliasType]
+     list[~azure.mgmt.resource.resources.v2020_10_01.models.Alias]
     :param api_versions: The API version.
     :type api_versions: list[str]
+    :ivar default_api_version: The default API version.
+    :vartype default_api_version: str
+    :ivar api_profiles: The API profiles for the resource provider.
+    :vartype api_profiles:
+     list[~azure.mgmt.resource.resources.v2020_10_01.models.ApiProfile]
+    :param capabilities: The additional capabilities offered by this resource
+     type.
+    :type capabilities: str
     :param properties: The properties.
     :type properties: dict[str, str]
     """
 
+    _validation = {
+        'default_api_version': {'readonly': True},
+        'api_profiles': {'readonly': True},
+    }
+
     _attribute_map = {
         'resource_type': {'key': 'resourceType', 'type': 'str'},
         'locations': {'key': 'locations', 'type': '[str]'},
-        'aliases': {'key': 'aliases', 'type': '[AliasType]'},
+        'location_mappings': {'key': 'locationMappings', 'type': '[ProviderExtendedLocation]'},
+        'aliases': {'key': 'aliases', 'type': '[Alias]'},
         'api_versions': {'key': 'apiVersions', 'type': '[str]'},
+        'default_api_version': {'key': 'defaultApiVersion', 'type': 'str'},
+        'api_profiles': {'key': 'apiProfiles', 'type': '[ApiProfile]'},
+        'capabilities': {'key': 'capabilities', 'type': 'str'},
         'properties': {'key': 'properties', 'type': '{str}'},
     }
 
@@ -1150,9 +1549,41 @@ class ProviderResourceType(Model):
         super(ProviderResourceType, self).__init__(**kwargs)
         self.resource_type = kwargs.get('resource_type', None)
         self.locations = kwargs.get('locations', None)
+        self.location_mappings = kwargs.get('location_mappings', None)
         self.aliases = kwargs.get('aliases', None)
         self.api_versions = kwargs.get('api_versions', None)
+        self.default_api_version = None
+        self.api_profiles = None
+        self.capabilities = kwargs.get('capabilities', None)
         self.properties = kwargs.get('properties', None)
+
+
+class ProviderResourceTypeListResult(Model):
+    """List of resource types of a resource provider.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param value: An array of resource types.
+    :type value:
+     list[~azure.mgmt.resource.resources.v2020_10_01.models.ProviderResourceType]
+    :ivar next_link: The URL to use for getting the next set of results.
+    :vartype next_link: str
+    """
+
+    _validation = {
+        'next_link': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': '[ProviderResourceType]'},
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ProviderResourceTypeListResult, self).__init__(**kwargs)
+        self.value = kwargs.get('value', None)
+        self.next_link = None
 
 
 class ResourceGroup(Model):
@@ -1169,9 +1600,9 @@ class ResourceGroup(Model):
     :vartype name: str
     :ivar type: The type of the resource group.
     :vartype type: str
-    :param properties:
+    :param properties: The resource group properties.
     :type properties:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.ResourceGroupProperties
+     ~azure.mgmt.resource.resources.v2020_10_01.models.ResourceGroupProperties
     :param location: Required. The location of the resource group. It cannot
      be changed after the resource group has been created. It must be one of
      the supported Azure locations.
@@ -1216,14 +1647,14 @@ class ResourceGroupExportResult(Model):
 
     :param template: The template content.
     :type template: object
-    :param error: The error.
+    :param error: The template export error.
     :type error:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.ResourceManagementErrorWithDetails
+     ~azure.mgmt.resource.resources.v2020_10_01.models.ErrorResponse
     """
 
     _attribute_map = {
         'template': {'key': 'template', 'type': 'object'},
-        'error': {'key': 'error', 'type': 'ResourceManagementErrorWithDetails'},
+        'error': {'key': 'error', 'type': 'ErrorResponse'},
     }
 
     def __init__(self, **kwargs):
@@ -1257,9 +1688,9 @@ class ResourceGroupPatchable(Model):
 
     :param name: The name of the resource group.
     :type name: str
-    :param properties:
+    :param properties: The resource group properties.
     :type properties:
-     ~azure.mgmt.resource.resources.v2018_05_01.models.ResourceGroupProperties
+     ~azure.mgmt.resource.resources.v2020_10_01.models.ResourceGroupProperties
     :param managed_by: The ID of the resource that manages this resource
      group.
     :type managed_by: str
@@ -1305,45 +1736,6 @@ class ResourceGroupProperties(Model):
         self.provisioning_state = None
 
 
-class ResourceManagementErrorWithDetails(Model):
-    """The detailed error message of resource management.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar code: The error code returned when exporting the template.
-    :vartype code: str
-    :ivar message: The error message describing the export error.
-    :vartype message: str
-    :ivar target: The target of the error.
-    :vartype target: str
-    :ivar details: Validation error.
-    :vartype details:
-     list[~azure.mgmt.resource.resources.v2018_05_01.models.ResourceManagementErrorWithDetails]
-    """
-
-    _validation = {
-        'code': {'readonly': True},
-        'message': {'readonly': True},
-        'target': {'readonly': True},
-        'details': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'code': {'key': 'code', 'type': 'str'},
-        'message': {'key': 'message', 'type': 'str'},
-        'target': {'key': 'target', 'type': 'str'},
-        'details': {'key': 'details', 'type': '[ResourceManagementErrorWithDetails]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ResourceManagementErrorWithDetails, self).__init__(**kwargs)
-        self.code = None
-        self.message = None
-        self.target = None
-        self.details = None
-
-
 class ResourceProviderOperationDisplayProperties(Model):
     """Resource provider operation's display properties.
 
@@ -1376,6 +1768,29 @@ class ResourceProviderOperationDisplayProperties(Model):
         self.description = kwargs.get('description', None)
 
 
+class ResourceReference(Model):
+    """The resource Id model.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: The fully qualified resource Id.
+    :vartype id: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ResourceReference, self).__init__(**kwargs)
+        self.id = None
+
+
 class ResourcesMoveInfo(Model):
     """Parameters of move resources.
 
@@ -1394,6 +1809,66 @@ class ResourcesMoveInfo(Model):
         super(ResourcesMoveInfo, self).__init__(**kwargs)
         self.resources = kwargs.get('resources', None)
         self.target_resource_group = kwargs.get('target_resource_group', None)
+
+
+class ScopedDeployment(Model):
+    """Deployment operation parameters.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param location: Required. The location to store the deployment data.
+    :type location: str
+    :param properties: Required. The deployment properties.
+    :type properties:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.DeploymentProperties
+    :param tags: Deployment tags
+    :type tags: dict[str, str]
+    """
+
+    _validation = {
+        'location': {'required': True},
+        'properties': {'required': True},
+    }
+
+    _attribute_map = {
+        'location': {'key': 'location', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'DeploymentProperties'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ScopedDeployment, self).__init__(**kwargs)
+        self.location = kwargs.get('location', None)
+        self.properties = kwargs.get('properties', None)
+        self.tags = kwargs.get('tags', None)
+
+
+class ScopedDeploymentWhatIf(Model):
+    """Deployment What-if operation parameters.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param location: Required. The location to store the deployment data.
+    :type location: str
+    :param properties: Required. The deployment properties.
+    :type properties:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.DeploymentWhatIfProperties
+    """
+
+    _validation = {
+        'location': {'required': True},
+        'properties': {'required': True},
+    }
+
+    _attribute_map = {
+        'location': {'key': 'location', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'DeploymentWhatIfProperties'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ScopedDeploymentWhatIf, self).__init__(**kwargs)
+        self.location = kwargs.get('location', None)
+        self.properties = kwargs.get('properties', None)
 
 
 class Sku(Model):
@@ -1430,6 +1905,27 @@ class Sku(Model):
         self.family = kwargs.get('family', None)
         self.model = kwargs.get('model', None)
         self.capacity = kwargs.get('capacity', None)
+
+
+class StatusMessage(Model):
+    """Operation status message object.
+
+    :param status: Status of the deployment operation.
+    :type status: str
+    :param error: The error reported by the operation.
+    :type error:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.ErrorResponse
+    """
+
+    _attribute_map = {
+        'status': {'key': 'status', 'type': 'str'},
+        'error': {'key': 'error', 'type': 'ErrorResponse'},
+    }
+
+    def __init__(self, **kwargs):
+        super(StatusMessage, self).__init__(**kwargs)
+        self.status = kwargs.get('status', None)
+        self.error = kwargs.get('error', None)
 
 
 class SubResource(Model):
@@ -1474,17 +1970,17 @@ class TagDetails(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: The tag ID.
+    :ivar id: The tag name ID.
     :vartype id: str
     :param tag_name: The tag name.
     :type tag_name: str
     :param count: The total number of resources that use the resource tag.
      When a tag is initially created and has no associated resources, the value
      is 0.
-    :type count: ~azure.mgmt.resource.resources.v2018_05_01.models.TagCount
+    :type count: ~azure.mgmt.resource.resources.v2020_10_01.models.TagCount
     :param values: The list of tag values.
     :type values:
-     list[~azure.mgmt.resource.resources.v2018_05_01.models.TagValue]
+     list[~azure.mgmt.resource.resources.v2020_10_01.models.TagValue]
     """
 
     _validation = {
@@ -1506,18 +2002,96 @@ class TagDetails(Model):
         self.values = kwargs.get('values', None)
 
 
+class Tags(Model):
+    """A dictionary of name and value pairs.
+
+    :param tags:
+    :type tags: dict[str, str]
+    """
+
+    _attribute_map = {
+        'tags': {'key': 'tags', 'type': '{str}'},
+    }
+
+    def __init__(self, **kwargs):
+        super(Tags, self).__init__(**kwargs)
+        self.tags = kwargs.get('tags', None)
+
+
+class TagsPatchResource(Model):
+    """Wrapper resource for tags patch API request only.
+
+    :param operation: The operation type for the patch API. Possible values
+     include: 'Replace', 'Merge', 'Delete'
+    :type operation: str or
+     ~azure.mgmt.resource.resources.v2020_10_01.models.TagsPatchOperation
+    :param properties: The set of tags.
+    :type properties: ~azure.mgmt.resource.resources.v2020_10_01.models.Tags
+    """
+
+    _attribute_map = {
+        'operation': {'key': 'operation', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'Tags'},
+    }
+
+    def __init__(self, **kwargs):
+        super(TagsPatchResource, self).__init__(**kwargs)
+        self.operation = kwargs.get('operation', None)
+        self.properties = kwargs.get('properties', None)
+
+
+class TagsResource(Model):
+    """Wrapper resource for tags API requests and responses.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: The ID of the tags wrapper resource.
+    :vartype id: str
+    :ivar name: The name of the tags wrapper resource.
+    :vartype name: str
+    :ivar type: The type of the tags wrapper resource.
+    :vartype type: str
+    :param properties: Required. The set of tags.
+    :type properties: ~azure.mgmt.resource.resources.v2020_10_01.models.Tags
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'properties': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'Tags'},
+    }
+
+    def __init__(self, **kwargs):
+        super(TagsResource, self).__init__(**kwargs)
+        self.id = None
+        self.name = None
+        self.type = None
+        self.properties = kwargs.get('properties', None)
+
+
 class TagValue(Model):
     """Tag information.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: The tag ID.
+    :ivar id: The tag value ID.
     :vartype id: str
     :param tag_value: The tag value.
     :type tag_value: str
     :param count: The tag value count.
-    :type count: ~azure.mgmt.resource.resources.v2018_05_01.models.TagCount
+    :type count: ~azure.mgmt.resource.resources.v2020_10_01.models.TagCount
     """
 
     _validation = {
@@ -1585,25 +2159,153 @@ class TemplateHashResult(Model):
 class TemplateLink(Model):
     """Entity representing the reference to the template.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param uri: Required. The URI of the template to deploy.
+    :param uri: The URI of the template to deploy. Use either the uri or id
+     property, but not both.
     :type uri: str
+    :param id: The resource id of a Template Spec. Use either the id or uri
+     property, but not both.
+    :type id: str
+    :param relative_path: The relativePath property can be used to deploy a
+     linked template at a location relative to the parent. If the parent
+     template was linked with a TemplateSpec, this will reference an artifact
+     in the TemplateSpec.  If the parent was linked with a URI, the child
+     deployment will be a combination of the parent and relativePath URIs
+    :type relative_path: str
+    :param query_string: The query string (for example, a SAS token) to be
+     used with the templateLink URI.
+    :type query_string: str
     :param content_version: If included, must match the ContentVersion in the
      template.
     :type content_version: str
     """
 
-    _validation = {
-        'uri': {'required': True},
-    }
-
     _attribute_map = {
         'uri': {'key': 'uri', 'type': 'str'},
+        'id': {'key': 'id', 'type': 'str'},
+        'relative_path': {'key': 'relativePath', 'type': 'str'},
+        'query_string': {'key': 'queryString', 'type': 'str'},
         'content_version': {'key': 'contentVersion', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
         super(TemplateLink, self).__init__(**kwargs)
         self.uri = kwargs.get('uri', None)
+        self.id = kwargs.get('id', None)
+        self.relative_path = kwargs.get('relative_path', None)
+        self.query_string = kwargs.get('query_string', None)
         self.content_version = kwargs.get('content_version', None)
+
+
+class WhatIfChange(Model):
+    """Information about a single resource change predicted by What-If operation.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param resource_id: Required. Resource ID
+    :type resource_id: str
+    :param change_type: Required. Type of change that will be made to the
+     resource when the deployment is executed. Possible values include:
+     'Create', 'Delete', 'Ignore', 'Deploy', 'NoChange', 'Modify'
+    :type change_type: str or
+     ~azure.mgmt.resource.resources.v2020_10_01.models.ChangeType
+    :param before: The snapshot of the resource before the deployment is
+     executed.
+    :type before: object
+    :param after: The predicted snapshot of the resource after the deployment
+     is executed.
+    :type after: object
+    :param delta: The predicted changes to resource properties.
+    :type delta:
+     list[~azure.mgmt.resource.resources.v2020_10_01.models.WhatIfPropertyChange]
+    """
+
+    _validation = {
+        'resource_id': {'required': True},
+        'change_type': {'required': True},
+    }
+
+    _attribute_map = {
+        'resource_id': {'key': 'resourceId', 'type': 'str'},
+        'change_type': {'key': 'changeType', 'type': 'ChangeType'},
+        'before': {'key': 'before', 'type': 'object'},
+        'after': {'key': 'after', 'type': 'object'},
+        'delta': {'key': 'delta', 'type': '[WhatIfPropertyChange]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(WhatIfChange, self).__init__(**kwargs)
+        self.resource_id = kwargs.get('resource_id', None)
+        self.change_type = kwargs.get('change_type', None)
+        self.before = kwargs.get('before', None)
+        self.after = kwargs.get('after', None)
+        self.delta = kwargs.get('delta', None)
+
+
+class WhatIfOperationResult(Model):
+    """Result of the What-If operation. Contains a list of predicted changes and a
+    URL link to get to the next set of results.
+
+    :param status: Status of the What-If operation.
+    :type status: str
+    :param changes: List of resource changes predicted by What-If operation.
+    :type changes:
+     list[~azure.mgmt.resource.resources.v2020_10_01.models.WhatIfChange]
+    :param error: Error when What-If operation fails.
+    :type error:
+     ~azure.mgmt.resource.resources.v2020_10_01.models.ErrorResponse
+    """
+
+    _attribute_map = {
+        'status': {'key': 'status', 'type': 'str'},
+        'changes': {'key': 'properties.changes', 'type': '[WhatIfChange]'},
+        'error': {'key': 'error', 'type': 'ErrorResponse'},
+    }
+
+    def __init__(self, **kwargs):
+        super(WhatIfOperationResult, self).__init__(**kwargs)
+        self.status = kwargs.get('status', None)
+        self.changes = kwargs.get('changes', None)
+        self.error = kwargs.get('error', None)
+
+
+class WhatIfPropertyChange(Model):
+    """The predicted change to the resource property.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param path: Required. The path of the property.
+    :type path: str
+    :param property_change_type: Required. The type of property change.
+     Possible values include: 'Create', 'Delete', 'Modify', 'Array'
+    :type property_change_type: str or
+     ~azure.mgmt.resource.resources.v2020_10_01.models.PropertyChangeType
+    :param before: The value of the property before the deployment is
+     executed.
+    :type before: object
+    :param after: The value of the property after the deployment is executed.
+    :type after: object
+    :param children: Nested property changes.
+    :type children:
+     list[~azure.mgmt.resource.resources.v2020_10_01.models.WhatIfPropertyChange]
+    """
+
+    _validation = {
+        'path': {'required': True},
+        'property_change_type': {'required': True},
+    }
+
+    _attribute_map = {
+        'path': {'key': 'path', 'type': 'str'},
+        'property_change_type': {'key': 'propertyChangeType', 'type': 'PropertyChangeType'},
+        'before': {'key': 'before', 'type': 'object'},
+        'after': {'key': 'after', 'type': 'object'},
+        'children': {'key': 'children', 'type': '[WhatIfPropertyChange]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(WhatIfPropertyChange, self).__init__(**kwargs)
+        self.path = kwargs.get('path', None)
+        self.property_change_type = kwargs.get('property_change_type', None)
+        self.before = kwargs.get('before', None)
+        self.after = kwargs.get('after', None)
+        self.children = kwargs.get('children', None)
