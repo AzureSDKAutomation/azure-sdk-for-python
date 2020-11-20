@@ -24,7 +24,7 @@ class BillingPropertyOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The version of the API to be used with the client request. The current version is 2020-05-01. Constant value: "2020-05-01".
+    :ivar api_version: The version of the API to be used with the client request. The current version is 2020-11-01. Constant value: "2020-11-01".
     """
 
     models = models
@@ -34,7 +34,7 @@ class BillingPropertyOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-05-01"
+        self.api_version = "2020-11-01"
 
         self.config = config
 
@@ -95,13 +95,17 @@ class BillingPropertyOperations(object):
     get.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Billing/billingProperty/default'}
 
     def update(
-            self, cost_center=None, custom_headers=None, raw=False, **operation_config):
-        """Updates the billing property of a subscription. Currently, cost center
-        can be updated. The operation is supported only for billing accounts
-        with agreement type Microsoft Customer Agreement.
+            self, parameters, custom_headers=None, raw=False, **operation_config):
+        """Updates the billing property of a subscription. Currently, only cost
+        center can be updated for billing accounts with agreement type
+        Microsoft Customer Agreement. Subscription address can be updated for
+        billing accounts with agreement type Microsoft Online Service Program.
+        GST ID can be updated for billing accounts with agreement type
+        Microsoft Online Service Program only for country India.
 
-        :param cost_center: The cost center applied to the subscription.
-        :type cost_center: str
+        :param parameters: Request parameters that are provided to the update
+         billing property operation.
+        :type parameters: ~azure.mgmt.billing.models.BillingProperty
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -113,8 +117,6 @@ class BillingPropertyOperations(object):
         :raises:
          :class:`ErrorResponseException<azure.mgmt.billing.models.ErrorResponseException>`
         """
-        parameters = models.BillingProperty(cost_center=cost_center)
-
         # Construct URL
         url = self.update.metadata['url']
         path_format_arguments = {

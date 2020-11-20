@@ -12,30 +12,22 @@
 from enum import Enum
 
 
-class AddressValidationStatus(str, Enum):
+class AccountStatus(str, Enum):
 
-    valid = "Valid"
-    invalid = "Invalid"
-
-
-class SubscriptionTransferValidationErrorCode(str, Enum):
-
-    invalid_source = "InvalidSource"
-    subscription_not_active = "SubscriptionNotActive"
-    insufficient_permission_on_source = "InsufficientPermissionOnSource"
-    insufficient_permission_on_destination = "InsufficientPermissionOnDestination"
-    destination_billing_profile_past_due = "DestinationBillingProfilePastDue"
-    subscription_type_not_supported = "SubscriptionTypeNotSupported"
-    cross_billing_account_not_allowed = "CrossBillingAccountNotAllowed"
-    not_available_for_destination_market = "NotAvailableForDestinationMarket"
+    unknown = "Unknown"
+    active = "Active"
+    deleted = "Deleted"
+    disabled = "Disabled"
+    expired = "Expired"
+    transferred = "Transferred"
+    extended = "Extended"
+    terminated = "Terminated"
+    under_review = "UnderReview"
 
 
-class AgreementType(str, Enum):
+class AccountStatusReasonCode(str, Enum):
 
-    microsoft_customer_agreement = "MicrosoftCustomerAgreement"
-    enterprise_agreement = "EnterpriseAgreement"
-    microsoft_online_services_program = "MicrosoftOnlineServicesProgram"
-    microsoft_partner_agreement = "MicrosoftPartnerAgreement"
+    unusal_activity = "UnusalActivity"
 
 
 class AccountType(str, Enum):
@@ -45,15 +37,12 @@ class AccountType(str, Enum):
     partner = "Partner"
 
 
-class AccountStatus(str, Enum):
+class AgreementType(str, Enum):
 
-    active = "Active"
-    deleted = "Deleted"
-    disabled = "Disabled"
-    expired = "Expired"
-    transferred = "Transferred"
-    extended = "Extended"
-    terminated = "Terminated"
+    microsoft_customer_agreement = "MicrosoftCustomerAgreement"
+    enterprise_agreement = "EnterpriseAgreement"
+    microsoft_online_services_program = "MicrosoftOnlineServicesProgram"
+    microsoft_partner_agreement = "MicrosoftPartnerAgreement"
 
 
 class BillingRelationshipType(str, Enum):
@@ -97,11 +86,51 @@ class SpendingLimit(str, Enum):
     on = "On"
 
 
-class BillingProfileStatusReasonCode(str, Enum):
+class Type(str, Enum):
 
-    past_due = "PastDue"
-    spending_limit_reached = "SpendingLimitReached"
-    spending_limit_expired = "SpendingLimitExpired"
+    free_account = "FreeAccount"
+    sandbox = "Sandbox"
+
+
+class SpendingLimitStatus(str, Enum):
+
+    active = "Active"
+    expired = "Expired"
+    reached = "Reached"
+    removed = "Removed"
+
+
+class BillingAccountAgreementType(str, Enum):
+
+    microsoft_customer_agreement = "MicrosoftCustomerAgreement"
+    microsoft_online_services_program = "MicrosoftOnlineServicesProgram"
+    microsoft_partner_agreement = "MicrosoftPartnerAgreement"
+    enterprise_agreement = "EnterpriseAgreement"
+
+
+class BillingAccountStatus(str, Enum):
+
+    unknown = "Unknown"
+    active = "Active"
+    deleted = "Deleted"
+    disabled = "Disabled"
+    expired = "Expired"
+    transferred = "Transferred"
+    extended = "Extended"
+    terminated = "Terminated"
+    pending_review = "PendingReview"
+    under_review = "UnderReview"
+
+
+class BillingAccountType(str, Enum):
+
+    enterprise = "Enterprise"
+    individual = "Individual"
+    partner = "Partner"
+    us_do_d = "USDoD"
+    reseller = "Reseller"
+    classic_partner = "ClassicPartner"
+    internal = "Internal"
 
 
 class BillingProfileSpendingLimit(str, Enum):
@@ -110,101 +139,66 @@ class BillingProfileSpendingLimit(str, Enum):
     on = "On"
 
 
-class StatusReasonCodeForBillingProfile(str, Enum):
+class BillingProfileStatusReasonCode(str, Enum):
 
     past_due = "PastDue"
     spending_limit_reached = "SpendingLimitReached"
     spending_limit_expired = "SpendingLimitExpired"
 
 
-class SpendingLimitForBillingProfile(str, Enum):
-
-    off = "Off"
-    on = "On"
-
-
-class InvoiceStatus(str, Enum):
-
-    due = "Due"
-    over_due = "OverDue"
-    paid = "Paid"
-    void = "Void"
-
-
-class InvoiceType(str, Enum):
-
-    azure_service = "AzureService"
-    azure_marketplace = "AzureMarketplace"
-    azure_support = "AzureSupport"
-
-
-class DocumentType(str, Enum):
-
-    invoice = "Invoice"
-    void_note = "VoidNote"
-    tax_receipt = "TaxReceipt"
-    credit_note = "CreditNote"
-
-
-class DocumentSource(str, Enum):
-
-    drs = "DRS"
-    enf = "ENF"
-
-
-class PaymentMethodFamily(str, Enum):
-
-    credits = "Credits"
-    check_wire = "CheckWire"
-    credit_card = "CreditCard"
-    none = "None"
-
-
-class InvoiceDocumentType(str, Enum):
-
-    invoice = "Invoice"
-    credit_note = "CreditNote"
-
-
-class AutoRenew(str, Enum):
-
-    off = "Off"
-    on = "On"
-
-
-class ProductStatusType(str, Enum):
+class SubscriptionBillingStatus(str, Enum):
 
     active = "Active"
-    inactive = "Inactive"
-    past_due = "PastDue"
-    expiring = "Expiring"
-    expired = "Expired"
+    deleted = "Deleted"
     disabled = "Disabled"
-    cancelled = "Cancelled"
-    auto_renew = "AutoRenew"
+    past_due = "PastDue"
 
 
-class BillingFrequency(str, Enum):
+class SubscriptionStatusReason(str, Enum):
 
-    one_time = "OneTime"
-    monthly = "Monthly"
-    usage_based = "UsageBased"
-
-
-class ProductTransferValidationErrorCode(str, Enum):
-
-    invalid_source = "InvalidSource"
-    product_not_active = "ProductNotActive"
-    insufficient_permission_on_source = "InsufficientPermissionOnSource"
-    insufficient_permission_on_destination = "InsufficientPermissionOnDestination"
-    destination_billing_profile_past_due = "DestinationBillingProfilePastDue"
-    product_type_not_supported = "ProductTypeNotSupported"
-    cross_billing_account_not_allowed = "CrossBillingAccountNotAllowed"
-    not_available_for_destination_market = "NotAvailableForDestinationMarket"
-    one_time_purchase_product_transfer_not_allowed = "OneTimePurchaseProductTransferNotAllowed"
+    canceled = "Canceled"
+    past_due = "PastDue"
+    suspicious_activity = "SuspiciousActivity"
+    other = "Other"
+    transferred = "Transferred"
+    policy_violation = "PolicyViolation"
+    spending_limit_reached = "SpendingLimitReached"
+    expired = "Expired"
 
 
-class BillingSubscriptionStatusType(str, Enum):
+class TaxRecordType(str, Enum):
+
+    australia_abn = "AustraliaABN"
+    cnpj_id = "CNPJId"
+    gstinid = "GSTINID"
+    india_federal_service_tax_id = "IndiaFederalServiceTaxID"
+    india_panid = "IndiaPANID"
+    india_state_cstid = "IndiaStateCSTID"
+    india_state_vatid = "IndiaStateVATID"
+    love_code = "LoveCode"
+    mobile_barcode = "MobileBarcode"
+    new_zealand_gst = "NewZealandGST"
+    registration_number = "RegistrationNumber"
+    tin = "Tin"
+    vat_id = "VatId"
+
+
+class SubscriptionBillingType(str, Enum):
+
+    benefit = "Benefit"
+    free = "Free"
+    paid = "Paid"
+    pre_paid = "PrePaid"
+
+
+class SubscriptionWorkloadType(str, Enum):
+
+    production = "Production"
+    dev_test = "DevTest"
+    internal = "Internal"
+
+
+class BillingSubscriptionStatus(str, Enum):
 
     active = "Active"
     inactive = "Inactive"
@@ -213,52 +207,13 @@ class BillingSubscriptionStatusType(str, Enum):
     warning = "Warning"
 
 
-class TransactionTypeKind(str, Enum):
+class SubscriptionSuspensionReason(str, Enum):
 
-    all = "all"
-    reservation = "reservation"
-
-
-class ReservationType(str, Enum):
-
-    purchase = "Purchase"
-    usage_charge = "Usage Charge"
-
-
-class MarketplacePurchasesPolicy(str, Enum):
-
-    all_allowed = "AllAllowed"
-    only_free_allowed = "OnlyFreeAllowed"
-    not_allowed = "NotAllowed"
-
-
-class ReservationPurchasesPolicy(str, Enum):
-
-    allowed = "Allowed"
-    not_allowed = "NotAllowed"
-
-
-class ViewChargesPolicy(str, Enum):
-
-    allowed = "Allowed"
-    not_allowed = "NotAllowed"
-
-
-class ViewCharges(str, Enum):
-
-    allowed = "Allowed"
-    not_allowed = "NotAllowed"
-
-
-class Category(str, Enum):
-
-    microsoft_customer_agreement = "MicrosoftCustomerAgreement"
-    affiliate_purchase_terms = "AffiliatePurchaseTerms"
+    canceled = "Canceled"
+    past_due = "PastDue"
+    suspicious_activity = "SuspiciousActivity"
     other = "Other"
-
-
-class AcceptanceMode(str, Enum):
-
-    click_to_accept = "ClickToAccept"
-    esign_embedded = "ESignEmbedded"
-    esign_offline = "ESignOffline"
+    transferred = "Transferred"
+    policy_violation = "PolicyViolation"
+    spending_limit_reached = "SpendingLimitReached"
+    expired = "Expired"
