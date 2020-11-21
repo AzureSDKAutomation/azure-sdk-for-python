@@ -9,6 +9,7 @@
 from ._operations import Operations
 from ._skus_operations import SkusOperations
 from ._storage_accounts_operations import StorageAccountsOperations
+from ._usage_operations import UsageOperations
 from ._usages_operations import UsagesOperations
 from ._management_policies_operations import ManagementPoliciesOperations
 from ._private_endpoint_connections_operations import PrivateEndpointConnectionsOperations
@@ -28,6 +29,7 @@ __all__ = [
     'Operations',
     'SkusOperations',
     'StorageAccountsOperations',
+    'UsageOperations',
     'UsagesOperations',
     'ManagementPoliciesOperations',
     'PrivateEndpointConnectionsOperations',

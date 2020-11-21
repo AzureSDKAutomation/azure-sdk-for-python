@@ -19,6 +19,7 @@ from ._configuration import StorageManagementClientConfiguration
 from .operations import Operations
 from .operations import SkusOperations
 from .operations import StorageAccountsOperations
+from .operations import UsageOperations
 from .operations import UsagesOperations
 from .operations import ManagementPoliciesOperations
 from .operations import PrivateEndpointConnectionsOperations
@@ -45,6 +46,8 @@ class StorageManagementClient(object):
     :vartype skus: azure.mgmt.storage.v2019_06_01.aio.operations.SkusOperations
     :ivar storage_accounts: StorageAccountsOperations operations
     :vartype storage_accounts: azure.mgmt.storage.v2019_06_01.aio.operations.StorageAccountsOperations
+    :ivar usage: UsageOperations operations
+    :vartype usage: azure.mgmt.storage.v2019_06_01.aio.operations.UsageOperations
     :ivar usages: UsagesOperations operations
     :vartype usages: azure.mgmt.storage.v2019_06_01.aio.operations.UsagesOperations
     :ivar management_policies: ManagementPoliciesOperations operations
@@ -95,7 +98,6 @@ class StorageManagementClient(object):
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
         self._serialize = Serializer(client_models)
-        self._serialize.client_side_validation = False
         self._deserialize = Deserializer(client_models)
 
         self.operations = Operations(
@@ -103,6 +105,8 @@ class StorageManagementClient(object):
         self.skus = SkusOperations(
             self._client, self._config, self._serialize, self._deserialize)
         self.storage_accounts = StorageAccountsOperations(
+            self._client, self._config, self._serialize, self._deserialize)
+        self.usage = UsageOperations(
             self._client, self._config, self._serialize, self._deserialize)
         self.usages = UsagesOperations(
             self._client, self._config, self._serialize, self._deserialize)
