@@ -77,19 +77,6 @@ class UsagePaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(UsagePaged, self).__init__(*args, **kwargs)
-class ImagePaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`Image <azure.mgmt.compute.v2017_12_01.models.Image>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[Image]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(ImagePaged, self).__init__(*args, **kwargs)
 class VirtualMachineScaleSetPaged(Paged):
     """
     A paging container for iterating over a list of :class:`VirtualMachineScaleSet <azure.mgmt.compute.v2017_12_01.models.VirtualMachineScaleSet>` object
@@ -129,6 +116,19 @@ class UpgradeOperationHistoricalStatusInfoPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(UpgradeOperationHistoricalStatusInfoPaged, self).__init__(*args, **kwargs)
+class ImagePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`Image <azure.mgmt.compute.v2017_12_01.models.Image>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[Image]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(ImagePaged, self).__init__(*args, **kwargs)
 class VirtualMachineScaleSetExtensionPaged(Paged):
     """
     A paging container for iterating over a list of :class:`VirtualMachineScaleSetExtension <azure.mgmt.compute.v2017_12_01.models.VirtualMachineScaleSetExtension>` object

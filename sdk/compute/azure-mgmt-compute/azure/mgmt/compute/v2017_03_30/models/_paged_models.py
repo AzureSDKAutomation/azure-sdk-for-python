@@ -64,32 +64,6 @@ class UsagePaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(UsagePaged, self).__init__(*args, **kwargs)
-class ImagePaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`Image <azure.mgmt.compute.v2017_03_30.models.Image>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[Image]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(ImagePaged, self).__init__(*args, **kwargs)
-class ResourceSkuPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`ResourceSku <azure.mgmt.compute.v2017_03_30.models.ResourceSku>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[ResourceSku]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(ResourceSkuPaged, self).__init__(*args, **kwargs)
 class VirtualMachineScaleSetPaged(Paged):
     """
     A paging container for iterating over a list of :class:`VirtualMachineScaleSet <azure.mgmt.compute.v2017_03_30.models.VirtualMachineScaleSet>` object
@@ -116,6 +90,32 @@ class VirtualMachineScaleSetSkuPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(VirtualMachineScaleSetSkuPaged, self).__init__(*args, **kwargs)
+class ImagePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`Image <azure.mgmt.compute.v2017_03_30.models.Image>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[Image]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(ImagePaged, self).__init__(*args, **kwargs)
+class ResourceSkuPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`ResourceSku <azure.mgmt.compute.v2017_03_30.models.ResourceSku>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[ResourceSku]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(ResourceSkuPaged, self).__init__(*args, **kwargs)
 class VirtualMachineScaleSetExtensionPaged(Paged):
     """
     A paging container for iterating over a list of :class:`VirtualMachineScaleSetExtension <azure.mgmt.compute.v2017_03_30.models.VirtualMachineScaleSetExtension>` object

@@ -20,15 +20,16 @@ from ._virtual_machine_extensions_operations import VirtualMachineExtensionsOper
 from ._virtual_machine_images_operations import VirtualMachineImagesOperations
 from ._usage_operations import UsageOperations
 from ._virtual_machines_operations import VirtualMachinesOperations
+from ._virtual_machine_scale_sets_operations import VirtualMachineScaleSetsOperations
 from ._virtual_machine_sizes_operations import VirtualMachineSizesOperations
 from ._images_operations import ImagesOperations
-from ._virtual_machine_scale_sets_operations import VirtualMachineScaleSetsOperations
 from ._virtual_machine_scale_set_extensions_operations import VirtualMachineScaleSetExtensionsOperations
 from ._virtual_machine_scale_set_rolling_upgrades_operations import VirtualMachineScaleSetRollingUpgradesOperations
 from ._virtual_machine_scale_set_vm_extensions_operations import VirtualMachineScaleSetVMExtensionsOperations
 from ._virtual_machine_scale_set_vms_operations import VirtualMachineScaleSetVMsOperations
 from ._log_analytics_operations import LogAnalyticsOperations
 from ._virtual_machine_run_commands_operations import VirtualMachineRunCommandsOperations
+from ._virtual_machine_scale_set_vm_run_commands_operations import VirtualMachineScaleSetVMRunCommandsOperations
 
 __all__ = [
     'Operations',
@@ -42,13 +43,14 @@ __all__ = [
     'VirtualMachineImagesOperations',
     'UsageOperations',
     'VirtualMachinesOperations',
+    'VirtualMachineScaleSetsOperations',
     'VirtualMachineSizesOperations',
     'ImagesOperations',
-    'VirtualMachineScaleSetsOperations',
     'VirtualMachineScaleSetExtensionsOperations',
     'VirtualMachineScaleSetRollingUpgradesOperations',
     'VirtualMachineScaleSetVMExtensionsOperations',
     'VirtualMachineScaleSetVMsOperations',
     'LogAnalyticsOperations',
     'VirtualMachineRunCommandsOperations',
+    'VirtualMachineScaleSetVMRunCommandsOperations',
 ]

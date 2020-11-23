@@ -15,10 +15,10 @@ from ._virtual_machine_extensions_operations import VirtualMachineExtensionsOper
 from ._virtual_machines_operations import VirtualMachinesOperations
 from ._virtual_machine_images_operations import VirtualMachineImagesOperations
 from ._usage_operations import UsageOperations
+from ._virtual_machine_scale_sets_operations import VirtualMachineScaleSetsOperations
 from ._virtual_machine_sizes_operations import VirtualMachineSizesOperations
 from ._images_operations import ImagesOperations
 from ._resource_skus_operations import ResourceSkusOperations
-from ._virtual_machine_scale_sets_operations import VirtualMachineScaleSetsOperations
 from ._virtual_machine_scale_set_extensions_operations import VirtualMachineScaleSetExtensionsOperations
 from ._virtual_machine_scale_set_rolling_upgrades_operations import VirtualMachineScaleSetRollingUpgradesOperations
 from ._virtual_machine_scale_set_vms_operations import VirtualMachineScaleSetVMsOperations
@@ -33,10 +33,10 @@ __all__ = [
     'VirtualMachinesOperations',
     'VirtualMachineImagesOperations',
     'UsageOperations',
+    'VirtualMachineScaleSetsOperations',
     'VirtualMachineSizesOperations',
     'ImagesOperations',
     'ResourceSkusOperations',
-    'VirtualMachineScaleSetsOperations',
     'VirtualMachineScaleSetExtensionsOperations',
     'VirtualMachineScaleSetRollingUpgradesOperations',
     'VirtualMachineScaleSetVMsOperations',
