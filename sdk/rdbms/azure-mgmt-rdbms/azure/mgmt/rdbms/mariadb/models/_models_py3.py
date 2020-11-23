@@ -16,16 +16,19 @@ from msrest.exceptions import HttpOperationError
 class Resource(Model):
     """Resource.
 
+    Common fields that are returned in the response for all Azure Resource
+    Manager resources.
+
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     """
 
@@ -49,19 +52,21 @@ class Resource(Model):
 
 
 class ProxyResource(Resource):
-    """The resource model definition for a ARM proxy resource. It will have
-    everything other than required location and tags.
+    """Proxy Resource.
+
+    The resource model definition for a Azure Resource Manager proxy resource.
+    It will not have tags and a location.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     """
 
@@ -87,13 +92,13 @@ class Advisor(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param properties: The properties of a recommendation action advisor.
     :type properties: object
@@ -118,19 +123,21 @@ class Advisor(ProxyResource):
 
 
 class AzureEntityResource(Resource):
-    """The resource model definition for a Azure Resource Manager resource with an
-    etag.
+    """Entity Resource.
+
+    The resource model definition for an Azure Resource Manager resource with
+    an etag.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -189,13 +196,13 @@ class Configuration(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param value: Value of the configuration.
     :type value: str
@@ -249,13 +256,13 @@ class Database(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param charset: The charset of the database.
     :type charset: str
@@ -312,7 +319,11 @@ class ErrorAdditionalInfo(Model):
 
 
 class ErrorResponse(Model):
-    """The resource management error response.
+    """Error Response.
+
+    Common error response for all Azure Resource Manager APIs to return error
+    details for failed operations. (This also follows the OData error response
+    format.).
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
@@ -363,13 +374,13 @@ class FirewallRule(ProxyResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param start_ip_address: Required. The start IP address of the server
      firewall rule. Must be IPv4 format.
@@ -407,13 +418,13 @@ class LogFile(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param size_in_kb: Size of the log file.
     :type size_in_kb: long
@@ -676,13 +687,13 @@ class PrivateEndpointConnection(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param private_endpoint: Private endpoint which the connection belongs to.
     :type private_endpoint:
@@ -740,13 +751,13 @@ class PrivateLinkResource(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :ivar properties: The private link resource group id.
     :vartype properties:
@@ -843,13 +854,13 @@ class QueryStatistic(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param query_id: Database query identifier.
     :type query_id: str
@@ -916,13 +927,13 @@ class QueryText(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param query_id: Query identifier unique to the server.
     :type query_id: str
@@ -956,13 +967,13 @@ class RecommendationAction(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param advisor_name: Advisor name.
     :type advisor_name: str
@@ -1068,20 +1079,23 @@ class RecommendedActionSessionsOperationStatus(Model):
 
 
 class TrackedResource(Resource):
-    """The resource model definition for a ARM tracked top level resource.
+    """Tracked Resource.
+
+    The resource model definition for an Azure Resource Manager tracked top
+    level resource which has 'tags' and a 'location'.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -1118,13 +1132,13 @@ class Server(TrackedResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -1142,6 +1156,11 @@ class Server(TrackedResource):
      server. Possible values include: 'Enabled', 'Disabled'
     :type ssl_enforcement: str or
      ~azure.mgmt.rdbms.mariadb.models.SslEnforcementEnum
+    :param minimal_tls_version: Enforce a minimal Tls version for the server.
+     Possible values include: 'TLS1_0', 'TLS1_1', 'TLS1_2',
+     'TLSEnforcementDisabled'
+    :type minimal_tls_version: str or
+     ~azure.mgmt.rdbms.mariadb.models.MinimalTlsVersionEnum
     :param user_visible_state: A state of a server that is visible to user.
      Possible values include: 'Ready', 'Dropping', 'Disabled'
     :type user_visible_state: str or
@@ -1191,6 +1210,7 @@ class Server(TrackedResource):
         'administrator_login': {'key': 'properties.administratorLogin', 'type': 'str'},
         'version': {'key': 'properties.version', 'type': 'str'},
         'ssl_enforcement': {'key': 'properties.sslEnforcement', 'type': 'SslEnforcementEnum'},
+        'minimal_tls_version': {'key': 'properties.minimalTlsVersion', 'type': 'str'},
         'user_visible_state': {'key': 'properties.userVisibleState', 'type': 'str'},
         'fully_qualified_domain_name': {'key': 'properties.fullyQualifiedDomainName', 'type': 'str'},
         'earliest_restore_date': {'key': 'properties.earliestRestoreDate', 'type': 'iso-8601'},
@@ -1202,12 +1222,13 @@ class Server(TrackedResource):
         'private_endpoint_connections': {'key': 'properties.privateEndpointConnections', 'type': '[ServerPrivateEndpointConnection]'},
     }
 
-    def __init__(self, *, location: str, tags=None, sku=None, administrator_login: str=None, version=None, ssl_enforcement=None, user_visible_state=None, fully_qualified_domain_name: str=None, earliest_restore_date=None, storage_profile=None, replication_role: str=None, master_server_id: str=None, replica_capacity: int=None, public_network_access=None, **kwargs) -> None:
+    def __init__(self, *, location: str, tags=None, sku=None, administrator_login: str=None, version=None, ssl_enforcement=None, minimal_tls_version=None, user_visible_state=None, fully_qualified_domain_name: str=None, earliest_restore_date=None, storage_profile=None, replication_role: str=None, master_server_id: str=None, replica_capacity: int=None, public_network_access=None, **kwargs) -> None:
         super(Server, self).__init__(tags=tags, location=location, **kwargs)
         self.sku = sku
         self.administrator_login = administrator_login
         self.version = version
         self.ssl_enforcement = ssl_enforcement
+        self.minimal_tls_version = minimal_tls_version
         self.user_visible_state = user_visible_state
         self.fully_qualified_domain_name = fully_qualified_domain_name
         self.earliest_restore_date = earliest_restore_date
@@ -1377,6 +1398,11 @@ class ServerPropertiesForCreate(Model):
      server. Possible values include: 'Enabled', 'Disabled'
     :type ssl_enforcement: str or
      ~azure.mgmt.rdbms.mariadb.models.SslEnforcementEnum
+    :param minimal_tls_version: Enforce a minimal Tls version for the server.
+     Possible values include: 'TLS1_0', 'TLS1_1', 'TLS1_2',
+     'TLSEnforcementDisabled'
+    :type minimal_tls_version: str or
+     ~azure.mgmt.rdbms.mariadb.models.MinimalTlsVersionEnum
     :param public_network_access: Whether or not public network access is
      allowed for this server. Value is optional but if passed in, must be
      'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
@@ -1395,6 +1421,7 @@ class ServerPropertiesForCreate(Model):
     _attribute_map = {
         'version': {'key': 'version', 'type': 'str'},
         'ssl_enforcement': {'key': 'sslEnforcement', 'type': 'SslEnforcementEnum'},
+        'minimal_tls_version': {'key': 'minimalTlsVersion', 'type': 'str'},
         'public_network_access': {'key': 'publicNetworkAccess', 'type': 'str'},
         'storage_profile': {'key': 'storageProfile', 'type': 'StorageProfile'},
         'create_mode': {'key': 'createMode', 'type': 'str'},
@@ -1404,10 +1431,11 @@ class ServerPropertiesForCreate(Model):
         'create_mode': {'Default': 'ServerPropertiesForDefaultCreate', 'PointInTimeRestore': 'ServerPropertiesForRestore', 'GeoRestore': 'ServerPropertiesForGeoRestore', 'Replica': 'ServerPropertiesForReplica'}
     }
 
-    def __init__(self, *, version=None, ssl_enforcement=None, public_network_access=None, storage_profile=None, **kwargs) -> None:
+    def __init__(self, *, version=None, ssl_enforcement=None, minimal_tls_version=None, public_network_access=None, storage_profile=None, **kwargs) -> None:
         super(ServerPropertiesForCreate, self).__init__(**kwargs)
         self.version = version
         self.ssl_enforcement = ssl_enforcement
+        self.minimal_tls_version = minimal_tls_version
         self.public_network_access = public_network_access
         self.storage_profile = storage_profile
         self.create_mode = None
@@ -1424,6 +1452,11 @@ class ServerPropertiesForDefaultCreate(ServerPropertiesForCreate):
      server. Possible values include: 'Enabled', 'Disabled'
     :type ssl_enforcement: str or
      ~azure.mgmt.rdbms.mariadb.models.SslEnforcementEnum
+    :param minimal_tls_version: Enforce a minimal Tls version for the server.
+     Possible values include: 'TLS1_0', 'TLS1_1', 'TLS1_2',
+     'TLSEnforcementDisabled'
+    :type minimal_tls_version: str or
+     ~azure.mgmt.rdbms.mariadb.models.MinimalTlsVersionEnum
     :param public_network_access: Whether or not public network access is
      allowed for this server. Value is optional but if passed in, must be
      'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
@@ -1451,6 +1484,7 @@ class ServerPropertiesForDefaultCreate(ServerPropertiesForCreate):
     _attribute_map = {
         'version': {'key': 'version', 'type': 'str'},
         'ssl_enforcement': {'key': 'sslEnforcement', 'type': 'SslEnforcementEnum'},
+        'minimal_tls_version': {'key': 'minimalTlsVersion', 'type': 'str'},
         'public_network_access': {'key': 'publicNetworkAccess', 'type': 'str'},
         'storage_profile': {'key': 'storageProfile', 'type': 'StorageProfile'},
         'create_mode': {'key': 'createMode', 'type': 'str'},
@@ -1458,8 +1492,8 @@ class ServerPropertiesForDefaultCreate(ServerPropertiesForCreate):
         'administrator_login_password': {'key': 'administratorLoginPassword', 'type': 'str'},
     }
 
-    def __init__(self, *, administrator_login: str, administrator_login_password: str, version=None, ssl_enforcement=None, public_network_access=None, storage_profile=None, **kwargs) -> None:
-        super(ServerPropertiesForDefaultCreate, self).__init__(version=version, ssl_enforcement=ssl_enforcement, public_network_access=public_network_access, storage_profile=storage_profile, **kwargs)
+    def __init__(self, *, administrator_login: str, administrator_login_password: str, version=None, ssl_enforcement=None, minimal_tls_version=None, public_network_access=None, storage_profile=None, **kwargs) -> None:
+        super(ServerPropertiesForDefaultCreate, self).__init__(version=version, ssl_enforcement=ssl_enforcement, minimal_tls_version=minimal_tls_version, public_network_access=public_network_access, storage_profile=storage_profile, **kwargs)
         self.administrator_login = administrator_login
         self.administrator_login_password = administrator_login_password
         self.create_mode = 'Default'
@@ -1477,6 +1511,11 @@ class ServerPropertiesForGeoRestore(ServerPropertiesForCreate):
      server. Possible values include: 'Enabled', 'Disabled'
     :type ssl_enforcement: str or
      ~azure.mgmt.rdbms.mariadb.models.SslEnforcementEnum
+    :param minimal_tls_version: Enforce a minimal Tls version for the server.
+     Possible values include: 'TLS1_0', 'TLS1_1', 'TLS1_2',
+     'TLSEnforcementDisabled'
+    :type minimal_tls_version: str or
+     ~azure.mgmt.rdbms.mariadb.models.MinimalTlsVersionEnum
     :param public_network_access: Whether or not public network access is
      allowed for this server. Value is optional but if passed in, must be
      'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
@@ -1498,14 +1537,15 @@ class ServerPropertiesForGeoRestore(ServerPropertiesForCreate):
     _attribute_map = {
         'version': {'key': 'version', 'type': 'str'},
         'ssl_enforcement': {'key': 'sslEnforcement', 'type': 'SslEnforcementEnum'},
+        'minimal_tls_version': {'key': 'minimalTlsVersion', 'type': 'str'},
         'public_network_access': {'key': 'publicNetworkAccess', 'type': 'str'},
         'storage_profile': {'key': 'storageProfile', 'type': 'StorageProfile'},
         'create_mode': {'key': 'createMode', 'type': 'str'},
         'source_server_id': {'key': 'sourceServerId', 'type': 'str'},
     }
 
-    def __init__(self, *, source_server_id: str, version=None, ssl_enforcement=None, public_network_access=None, storage_profile=None, **kwargs) -> None:
-        super(ServerPropertiesForGeoRestore, self).__init__(version=version, ssl_enforcement=ssl_enforcement, public_network_access=public_network_access, storage_profile=storage_profile, **kwargs)
+    def __init__(self, *, source_server_id: str, version=None, ssl_enforcement=None, minimal_tls_version=None, public_network_access=None, storage_profile=None, **kwargs) -> None:
+        super(ServerPropertiesForGeoRestore, self).__init__(version=version, ssl_enforcement=ssl_enforcement, minimal_tls_version=minimal_tls_version, public_network_access=public_network_access, storage_profile=storage_profile, **kwargs)
         self.source_server_id = source_server_id
         self.create_mode = 'GeoRestore'
 
@@ -1521,6 +1561,11 @@ class ServerPropertiesForReplica(ServerPropertiesForCreate):
      server. Possible values include: 'Enabled', 'Disabled'
     :type ssl_enforcement: str or
      ~azure.mgmt.rdbms.mariadb.models.SslEnforcementEnum
+    :param minimal_tls_version: Enforce a minimal Tls version for the server.
+     Possible values include: 'TLS1_0', 'TLS1_1', 'TLS1_2',
+     'TLSEnforcementDisabled'
+    :type minimal_tls_version: str or
+     ~azure.mgmt.rdbms.mariadb.models.MinimalTlsVersionEnum
     :param public_network_access: Whether or not public network access is
      allowed for this server. Value is optional but if passed in, must be
      'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
@@ -1543,14 +1588,15 @@ class ServerPropertiesForReplica(ServerPropertiesForCreate):
     _attribute_map = {
         'version': {'key': 'version', 'type': 'str'},
         'ssl_enforcement': {'key': 'sslEnforcement', 'type': 'SslEnforcementEnum'},
+        'minimal_tls_version': {'key': 'minimalTlsVersion', 'type': 'str'},
         'public_network_access': {'key': 'publicNetworkAccess', 'type': 'str'},
         'storage_profile': {'key': 'storageProfile', 'type': 'StorageProfile'},
         'create_mode': {'key': 'createMode', 'type': 'str'},
         'source_server_id': {'key': 'sourceServerId', 'type': 'str'},
     }
 
-    def __init__(self, *, source_server_id: str, version=None, ssl_enforcement=None, public_network_access=None, storage_profile=None, **kwargs) -> None:
-        super(ServerPropertiesForReplica, self).__init__(version=version, ssl_enforcement=ssl_enforcement, public_network_access=public_network_access, storage_profile=storage_profile, **kwargs)
+    def __init__(self, *, source_server_id: str, version=None, ssl_enforcement=None, minimal_tls_version=None, public_network_access=None, storage_profile=None, **kwargs) -> None:
+        super(ServerPropertiesForReplica, self).__init__(version=version, ssl_enforcement=ssl_enforcement, minimal_tls_version=minimal_tls_version, public_network_access=public_network_access, storage_profile=storage_profile, **kwargs)
         self.source_server_id = source_server_id
         self.create_mode = 'Replica'
 
@@ -1566,6 +1612,11 @@ class ServerPropertiesForRestore(ServerPropertiesForCreate):
      server. Possible values include: 'Enabled', 'Disabled'
     :type ssl_enforcement: str or
      ~azure.mgmt.rdbms.mariadb.models.SslEnforcementEnum
+    :param minimal_tls_version: Enforce a minimal Tls version for the server.
+     Possible values include: 'TLS1_0', 'TLS1_1', 'TLS1_2',
+     'TLSEnforcementDisabled'
+    :type minimal_tls_version: str or
+     ~azure.mgmt.rdbms.mariadb.models.MinimalTlsVersionEnum
     :param public_network_access: Whether or not public network access is
      allowed for this server. Value is optional but if passed in, must be
      'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
@@ -1591,6 +1642,7 @@ class ServerPropertiesForRestore(ServerPropertiesForCreate):
     _attribute_map = {
         'version': {'key': 'version', 'type': 'str'},
         'ssl_enforcement': {'key': 'sslEnforcement', 'type': 'SslEnforcementEnum'},
+        'minimal_tls_version': {'key': 'minimalTlsVersion', 'type': 'str'},
         'public_network_access': {'key': 'publicNetworkAccess', 'type': 'str'},
         'storage_profile': {'key': 'storageProfile', 'type': 'StorageProfile'},
         'create_mode': {'key': 'createMode', 'type': 'str'},
@@ -1598,8 +1650,8 @@ class ServerPropertiesForRestore(ServerPropertiesForCreate):
         'restore_point_in_time': {'key': 'restorePointInTime', 'type': 'iso-8601'},
     }
 
-    def __init__(self, *, source_server_id: str, restore_point_in_time, version=None, ssl_enforcement=None, public_network_access=None, storage_profile=None, **kwargs) -> None:
-        super(ServerPropertiesForRestore, self).__init__(version=version, ssl_enforcement=ssl_enforcement, public_network_access=public_network_access, storage_profile=storage_profile, **kwargs)
+    def __init__(self, *, source_server_id: str, restore_point_in_time, version=None, ssl_enforcement=None, minimal_tls_version=None, public_network_access=None, storage_profile=None, **kwargs) -> None:
+        super(ServerPropertiesForRestore, self).__init__(version=version, ssl_enforcement=ssl_enforcement, minimal_tls_version=minimal_tls_version, public_network_access=public_network_access, storage_profile=storage_profile, **kwargs)
         self.source_server_id = source_server_id
         self.restore_point_in_time = restore_point_in_time
         self.create_mode = 'PointInTimeRestore'
@@ -1613,13 +1665,13 @@ class ServerSecurityAlertPolicy(ProxyResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param state: Required. Specifies the state of the policy, whether it is
      enabled or disabled. Possible values include: 'Enabled', 'Disabled'
@@ -1695,6 +1747,11 @@ class ServerUpdateParameters(Model):
      server. Possible values include: 'Enabled', 'Disabled'
     :type ssl_enforcement: str or
      ~azure.mgmt.rdbms.mariadb.models.SslEnforcementEnum
+    :param minimal_tls_version: Enforce a minimal Tls version for the server.
+     Possible values include: 'TLS1_0', 'TLS1_1', 'TLS1_2',
+     'TLSEnforcementDisabled'
+    :type minimal_tls_version: str or
+     ~azure.mgmt.rdbms.mariadb.models.MinimalTlsVersionEnum
     :param public_network_access: Whether or not public network access is
      allowed for this server. Value is optional but if passed in, must be
      'Enabled' or 'Disabled'. Possible values include: 'Enabled', 'Disabled'
@@ -1712,18 +1769,20 @@ class ServerUpdateParameters(Model):
         'administrator_login_password': {'key': 'properties.administratorLoginPassword', 'type': 'str'},
         'version': {'key': 'properties.version', 'type': 'str'},
         'ssl_enforcement': {'key': 'properties.sslEnforcement', 'type': 'SslEnforcementEnum'},
+        'minimal_tls_version': {'key': 'properties.minimalTlsVersion', 'type': 'str'},
         'public_network_access': {'key': 'properties.publicNetworkAccess', 'type': 'str'},
         'replication_role': {'key': 'properties.replicationRole', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
     }
 
-    def __init__(self, *, sku=None, storage_profile=None, administrator_login_password: str=None, version=None, ssl_enforcement=None, public_network_access=None, replication_role: str=None, tags=None, **kwargs) -> None:
+    def __init__(self, *, sku=None, storage_profile=None, administrator_login_password: str=None, version=None, ssl_enforcement=None, minimal_tls_version=None, public_network_access=None, replication_role: str=None, tags=None, **kwargs) -> None:
         super(ServerUpdateParameters, self).__init__(**kwargs)
         self.sku = sku
         self.storage_profile = storage_profile
         self.administrator_login_password = administrator_login_password
         self.version = version
         self.ssl_enforcement = ssl_enforcement
+        self.minimal_tls_version = minimal_tls_version
         self.public_network_access = public_network_access
         self.replication_role = replication_role
         self.tags = tags
@@ -1732,8 +1791,10 @@ class ServerUpdateParameters(Model):
 class Sku(Model):
     """Billing information related properties of a server.
 
-    :param name: The name of the sku, typically, tier + family + cores, e.g.
-     B_Gen4_1, GP_Gen5_8.
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. The name of the sku, typically, tier + family +
+     cores, e.g. B_Gen4_1, GP_Gen5_8.
     :type name: str
     :param tier: The tier of the particular SKU, e.g. Basic. Possible values
      include: 'Basic', 'GeneralPurpose', 'MemoryOptimized'
@@ -1748,6 +1809,7 @@ class Sku(Model):
     """
 
     _validation = {
+        'name': {'required': True},
         'capacity': {'minimum': 0},
     }
 
@@ -1759,7 +1821,7 @@ class Sku(Model):
         'family': {'key': 'family', 'type': 'str'},
     }
 
-    def __init__(self, *, name: str=None, tier=None, capacity: int=None, size: str=None, family: str=None, **kwargs) -> None:
+    def __init__(self, *, name: str, tier=None, capacity: int=None, size: str=None, family: str=None, **kwargs) -> None:
         super(Sku, self).__init__(**kwargs)
         self.name = name
         self.tier = tier
@@ -1873,13 +1935,13 @@ class VirtualNetworkRule(ProxyResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param virtual_network_subnet_id: Required. The ARM resource id of the
      virtual network subnet.
@@ -1923,13 +1985,13 @@ class WaitStatistic(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param start_time: Observation start time.
     :type start_time: datetime

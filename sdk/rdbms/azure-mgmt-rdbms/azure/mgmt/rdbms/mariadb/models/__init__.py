@@ -122,6 +122,7 @@ from ._paged_models import WaitStatisticPaged
 from ._maria_db_management_client_enums import (
     ServerVersion,
     SslEnforcementEnum,
+    MinimalTlsVersionEnum,
     PublicNetworkAccessEnum,
     PrivateLinkServiceConnectionStateStatus,
     PrivateLinkServiceConnectionStateActionsRequire,
@@ -199,6 +200,7 @@ __all__ = [
     'PrivateLinkResourcePaged',
     'ServerVersion',
     'SslEnforcementEnum',
+    'MinimalTlsVersionEnum',
     'PublicNetworkAccessEnum',
     'PrivateLinkServiceConnectionStateStatus',
     'PrivateLinkServiceConnectionStateActionsRequire',
