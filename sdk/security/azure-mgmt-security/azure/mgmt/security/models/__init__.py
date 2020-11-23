@@ -164,6 +164,7 @@ try:
     from ._models_py3 import RegulatoryComplianceControl
     from ._models_py3 import RegulatoryComplianceStandard
     from ._models_py3 import Remediation
+    from ._models_py3 import ResetPasswordInput
     from ._models_py3 import Resource
     from ._models_py3 import ResourceDetails
     from ._models_py3 import ResourceIdentifier
@@ -382,6 +383,7 @@ except (SyntaxError, ImportError):
     from ._models import RegulatoryComplianceControl
     from ._models import RegulatoryComplianceStandard
     from ._models import Remediation
+    from ._models import ResetPasswordInput
     from ._models import Resource
     from ._models import ResourceDetails
     from ._models import ResourceIdentifier
@@ -705,6 +707,7 @@ __all__ = [
     'RegulatoryComplianceControl',
     'RegulatoryComplianceStandard',
     'Remediation',
+    'ResetPasswordInput',
     'Resource',
     'ResourceDetails',
     'ResourceIdentifier',

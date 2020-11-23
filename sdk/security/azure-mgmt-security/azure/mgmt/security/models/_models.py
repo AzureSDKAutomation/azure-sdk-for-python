@@ -1797,7 +1797,8 @@ class AutomationSource(Model):
     https://aka.ms/ASCAutomationSchemas.
 
     :param event_source: A valid event source type. Possible values include:
-     'Assessments', 'SubAssessments', 'Alerts'
+     'Assessments', 'SubAssessments', 'Alerts', 'SecureScores',
+     'SecureScoreControls'
     :type event_source: str or ~azure.mgmt.security.models.EventSource
     :param rule_sets: A set of rules which evaluate upon event interception. A
      logical disjunction is applied between defined rule sets (logical 'or').
@@ -6907,6 +6908,22 @@ class Remediation(Model):
         self.scripts = kwargs.get('scripts', None)
         self.automated = kwargs.get('automated', None)
         self.portal_link = kwargs.get('portal_link', None)
+
+
+class ResetPasswordInput(Model):
+    """Reset password input.
+
+    :param appliance_id: The appliance id of the sensor.
+    :type appliance_id: str
+    """
+
+    _attribute_map = {
+        'appliance_id': {'key': 'applianceId', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ResetPasswordInput, self).__init__(**kwargs)
+        self.appliance_id = kwargs.get('appliance_id', None)
 
 
 class Rule(Model):
