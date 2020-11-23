@@ -26,9 +26,9 @@ from .operations import VirtualMachineExtensionsOperations
 from .operations import VirtualMachineImagesOperations
 from .operations import UsageOperations
 from .operations import VirtualMachinesOperations
+from .operations import VirtualMachineScaleSetsOperations
 from .operations import VirtualMachineSizesOperations
 from .operations import ImagesOperations
-from .operations import VirtualMachineScaleSetsOperations
 from .operations import VirtualMachineScaleSetExtensionsOperations
 from .operations import VirtualMachineScaleSetRollingUpgradesOperations
 from .operations import VirtualMachineScaleSetVMsOperations
@@ -58,12 +58,12 @@ class ComputeManagementClient(object):
     :vartype usage: azure.mgmt.compute.v2018_04_01.operations.UsageOperations
     :ivar virtual_machines: VirtualMachinesOperations operations
     :vartype virtual_machines: azure.mgmt.compute.v2018_04_01.operations.VirtualMachinesOperations
+    :ivar virtual_machine_scale_sets: VirtualMachineScaleSetsOperations operations
+    :vartype virtual_machine_scale_sets: azure.mgmt.compute.v2018_04_01.operations.VirtualMachineScaleSetsOperations
     :ivar virtual_machine_sizes: VirtualMachineSizesOperations operations
     :vartype virtual_machine_sizes: azure.mgmt.compute.v2018_04_01.operations.VirtualMachineSizesOperations
     :ivar images: ImagesOperations operations
     :vartype images: azure.mgmt.compute.v2018_04_01.operations.ImagesOperations
-    :ivar virtual_machine_scale_sets: VirtualMachineScaleSetsOperations operations
-    :vartype virtual_machine_scale_sets: azure.mgmt.compute.v2018_04_01.operations.VirtualMachineScaleSetsOperations
     :ivar virtual_machine_scale_set_extensions: VirtualMachineScaleSetExtensionsOperations operations
     :vartype virtual_machine_scale_set_extensions: azure.mgmt.compute.v2018_04_01.operations.VirtualMachineScaleSetExtensionsOperations
     :ivar virtual_machine_scale_set_rolling_upgrades: VirtualMachineScaleSetRollingUpgradesOperations operations
@@ -101,7 +101,6 @@ class ComputeManagementClient(object):
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
         self._serialize = Serializer(client_models)
-        self._serialize.client_side_validation = False
         self._deserialize = Deserializer(client_models)
 
         self.operations = Operations(
@@ -120,11 +119,11 @@ class ComputeManagementClient(object):
             self._client, self._config, self._serialize, self._deserialize)
         self.virtual_machines = VirtualMachinesOperations(
             self._client, self._config, self._serialize, self._deserialize)
+        self.virtual_machine_scale_sets = VirtualMachineScaleSetsOperations(
+            self._client, self._config, self._serialize, self._deserialize)
         self.virtual_machine_sizes = VirtualMachineSizesOperations(
             self._client, self._config, self._serialize, self._deserialize)
         self.images = ImagesOperations(
-            self._client, self._config, self._serialize, self._deserialize)
-        self.virtual_machine_scale_sets = VirtualMachineScaleSetsOperations(
             self._client, self._config, self._serialize, self._deserialize)
         self.virtual_machine_scale_set_extensions = VirtualMachineScaleSetExtensionsOperations(
             self._client, self._config, self._serialize, self._deserialize)
