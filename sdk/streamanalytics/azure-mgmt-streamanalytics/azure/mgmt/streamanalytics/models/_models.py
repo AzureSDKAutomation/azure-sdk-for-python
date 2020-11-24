@@ -4404,10 +4404,10 @@ class StreamingJob(TrackedResource):
     :param job_storage_account: The properties that are associated with an Azure Storage account
      with MSI.
     :type job_storage_account: ~stream_analytics_management_client.models.JobStorageAccount
-    :ivar content_storage_policy: Valid values are JobStorageAccount and SystemAccount. If set to
+    :param content_storage_policy: Valid values are JobStorageAccount and SystemAccount. If set to
      JobStorageAccount, this requires the user to also specify jobStorageAccount property. .
      Possible values include: "SystemAccount", "JobStorageAccount".
-    :vartype content_storage_policy: str or
+    :type content_storage_policy: str or
      ~stream_analytics_management_client.models.ContentStoragePolicy
     :param externals: The storage account where the custom code artifacts are located.
     :type externals: ~stream_analytics_management_client.models.External
@@ -4425,7 +4425,6 @@ class StreamingJob(TrackedResource):
         'last_output_event_time': {'readonly': True},
         'created_date': {'readonly': True},
         'etag': {'readonly': True},
-        'content_storage_policy': {'readonly': True},
     }
 
     _attribute_map = {
@@ -4488,7 +4487,7 @@ class StreamingJob(TrackedResource):
         self.functions = kwargs.get('functions', None)
         self.etag = None
         self.job_storage_account = kwargs.get('job_storage_account', None)
-        self.content_storage_policy = None
+        self.content_storage_policy = kwargs.get('content_storage_policy', None)
         self.externals = kwargs.get('externals', None)
         self.cluster = kwargs.get('cluster', None)
 
