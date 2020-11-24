@@ -2411,6 +2411,10 @@ class LogAnalyticsInputBase(msrest.serialization.Model):
     :type group_by_operation_name: bool
     :param group_by_resource_name: Group query result by Resource Name.
     :type group_by_resource_name: bool
+    :param group_by_client_application_id: Group query result by Client Application ID.
+    :type group_by_client_application_id: bool
+    :param group_by_user_agent: Group query result by User Agent.
+    :type group_by_user_agent: bool
     """
 
     _validation = {
@@ -2426,6 +2430,8 @@ class LogAnalyticsInputBase(msrest.serialization.Model):
         'group_by_throttle_policy': {'key': 'groupByThrottlePolicy', 'type': 'bool'},
         'group_by_operation_name': {'key': 'groupByOperationName', 'type': 'bool'},
         'group_by_resource_name': {'key': 'groupByResourceName', 'type': 'bool'},
+        'group_by_client_application_id': {'key': 'groupByClientApplicationId', 'type': 'bool'},
+        'group_by_user_agent': {'key': 'groupByUserAgent', 'type': 'bool'},
     }
 
     def __init__(
@@ -2437,6 +2443,8 @@ class LogAnalyticsInputBase(msrest.serialization.Model):
         group_by_throttle_policy: Optional[bool] = None,
         group_by_operation_name: Optional[bool] = None,
         group_by_resource_name: Optional[bool] = None,
+        group_by_client_application_id: Optional[bool] = None,
+        group_by_user_agent: Optional[bool] = None,
         **kwargs
     ):
         super(LogAnalyticsInputBase, self).__init__(**kwargs)
@@ -2446,6 +2454,8 @@ class LogAnalyticsInputBase(msrest.serialization.Model):
         self.group_by_throttle_policy = group_by_throttle_policy
         self.group_by_operation_name = group_by_operation_name
         self.group_by_resource_name = group_by_resource_name
+        self.group_by_client_application_id = group_by_client_application_id
+        self.group_by_user_agent = group_by_user_agent
 
 
 class LogAnalyticsOperationResult(msrest.serialization.Model):
@@ -3233,6 +3243,10 @@ class RequestRateByIntervalInput(LogAnalyticsInputBase):
     :type group_by_operation_name: bool
     :param group_by_resource_name: Group query result by Resource Name.
     :type group_by_resource_name: bool
+    :param group_by_client_application_id: Group query result by Client Application ID.
+    :type group_by_client_application_id: bool
+    :param group_by_user_agent: Group query result by User Agent.
+    :type group_by_user_agent: bool
     :param interval_length: Required. Interval value in minutes used to create LogAnalytics call
      rate logs. Possible values include: "ThreeMins", "FiveMins", "ThirtyMins", "SixtyMins".
     :type interval_length: str or ~azure.mgmt.compute.v2020_06_01.models.IntervalInMins
@@ -3252,6 +3266,8 @@ class RequestRateByIntervalInput(LogAnalyticsInputBase):
         'group_by_throttle_policy': {'key': 'groupByThrottlePolicy', 'type': 'bool'},
         'group_by_operation_name': {'key': 'groupByOperationName', 'type': 'bool'},
         'group_by_resource_name': {'key': 'groupByResourceName', 'type': 'bool'},
+        'group_by_client_application_id': {'key': 'groupByClientApplicationId', 'type': 'bool'},
+        'group_by_user_agent': {'key': 'groupByUserAgent', 'type': 'bool'},
         'interval_length': {'key': 'intervalLength', 'type': 'str'},
     }
 
@@ -3265,9 +3281,11 @@ class RequestRateByIntervalInput(LogAnalyticsInputBase):
         group_by_throttle_policy: Optional[bool] = None,
         group_by_operation_name: Optional[bool] = None,
         group_by_resource_name: Optional[bool] = None,
+        group_by_client_application_id: Optional[bool] = None,
+        group_by_user_agent: Optional[bool] = None,
         **kwargs
     ):
-        super(RequestRateByIntervalInput, self).__init__(blob_container_sas_uri=blob_container_sas_uri, from_time=from_time, to_time=to_time, group_by_throttle_policy=group_by_throttle_policy, group_by_operation_name=group_by_operation_name, group_by_resource_name=group_by_resource_name, **kwargs)
+        super(RequestRateByIntervalInput, self).__init__(blob_container_sas_uri=blob_container_sas_uri, from_time=from_time, to_time=to_time, group_by_throttle_policy=group_by_throttle_policy, group_by_operation_name=group_by_operation_name, group_by_resource_name=group_by_resource_name, group_by_client_application_id=group_by_client_application_id, group_by_user_agent=group_by_user_agent, **kwargs)
         self.interval_length = interval_length
 
 
@@ -4280,6 +4298,10 @@ class ThrottledRequestsInput(LogAnalyticsInputBase):
     :type group_by_operation_name: bool
     :param group_by_resource_name: Group query result by Resource Name.
     :type group_by_resource_name: bool
+    :param group_by_client_application_id: Group query result by Client Application ID.
+    :type group_by_client_application_id: bool
+    :param group_by_user_agent: Group query result by User Agent.
+    :type group_by_user_agent: bool
     """
 
     _validation = {
@@ -4295,6 +4317,8 @@ class ThrottledRequestsInput(LogAnalyticsInputBase):
         'group_by_throttle_policy': {'key': 'groupByThrottlePolicy', 'type': 'bool'},
         'group_by_operation_name': {'key': 'groupByOperationName', 'type': 'bool'},
         'group_by_resource_name': {'key': 'groupByResourceName', 'type': 'bool'},
+        'group_by_client_application_id': {'key': 'groupByClientApplicationId', 'type': 'bool'},
+        'group_by_user_agent': {'key': 'groupByUserAgent', 'type': 'bool'},
     }
 
     def __init__(
@@ -4306,9 +4330,11 @@ class ThrottledRequestsInput(LogAnalyticsInputBase):
         group_by_throttle_policy: Optional[bool] = None,
         group_by_operation_name: Optional[bool] = None,
         group_by_resource_name: Optional[bool] = None,
+        group_by_client_application_id: Optional[bool] = None,
+        group_by_user_agent: Optional[bool] = None,
         **kwargs
     ):
-        super(ThrottledRequestsInput, self).__init__(blob_container_sas_uri=blob_container_sas_uri, from_time=from_time, to_time=to_time, group_by_throttle_policy=group_by_throttle_policy, group_by_operation_name=group_by_operation_name, group_by_resource_name=group_by_resource_name, **kwargs)
+        super(ThrottledRequestsInput, self).__init__(blob_container_sas_uri=blob_container_sas_uri, from_time=from_time, to_time=to_time, group_by_throttle_policy=group_by_throttle_policy, group_by_operation_name=group_by_operation_name, group_by_resource_name=group_by_resource_name, group_by_client_application_id=group_by_client_application_id, group_by_user_agent=group_by_user_agent, **kwargs)
 
 
 class UpgradeOperationHistoricalStatusInfo(msrest.serialization.Model):

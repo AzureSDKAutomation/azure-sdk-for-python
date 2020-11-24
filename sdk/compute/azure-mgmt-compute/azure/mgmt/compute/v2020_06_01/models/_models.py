@@ -2206,6 +2206,10 @@ class LogAnalyticsInputBase(msrest.serialization.Model):
     :type group_by_operation_name: bool
     :param group_by_resource_name: Group query result by Resource Name.
     :type group_by_resource_name: bool
+    :param group_by_client_application_id: Group query result by Client Application ID.
+    :type group_by_client_application_id: bool
+    :param group_by_user_agent: Group query result by User Agent.
+    :type group_by_user_agent: bool
     """
 
     _validation = {
@@ -2221,6 +2225,8 @@ class LogAnalyticsInputBase(msrest.serialization.Model):
         'group_by_throttle_policy': {'key': 'groupByThrottlePolicy', 'type': 'bool'},
         'group_by_operation_name': {'key': 'groupByOperationName', 'type': 'bool'},
         'group_by_resource_name': {'key': 'groupByResourceName', 'type': 'bool'},
+        'group_by_client_application_id': {'key': 'groupByClientApplicationId', 'type': 'bool'},
+        'group_by_user_agent': {'key': 'groupByUserAgent', 'type': 'bool'},
     }
 
     def __init__(
@@ -2234,6 +2240,8 @@ class LogAnalyticsInputBase(msrest.serialization.Model):
         self.group_by_throttle_policy = kwargs.get('group_by_throttle_policy', None)
         self.group_by_operation_name = kwargs.get('group_by_operation_name', None)
         self.group_by_resource_name = kwargs.get('group_by_resource_name', None)
+        self.group_by_client_application_id = kwargs.get('group_by_client_application_id', None)
+        self.group_by_user_agent = kwargs.get('group_by_user_agent', None)
 
 
 class LogAnalyticsOperationResult(msrest.serialization.Model):
@@ -2956,6 +2964,10 @@ class RequestRateByIntervalInput(LogAnalyticsInputBase):
     :type group_by_operation_name: bool
     :param group_by_resource_name: Group query result by Resource Name.
     :type group_by_resource_name: bool
+    :param group_by_client_application_id: Group query result by Client Application ID.
+    :type group_by_client_application_id: bool
+    :param group_by_user_agent: Group query result by User Agent.
+    :type group_by_user_agent: bool
     :param interval_length: Required. Interval value in minutes used to create LogAnalytics call
      rate logs. Possible values include: "ThreeMins", "FiveMins", "ThirtyMins", "SixtyMins".
     :type interval_length: str or ~azure.mgmt.compute.v2020_06_01.models.IntervalInMins
@@ -2975,6 +2987,8 @@ class RequestRateByIntervalInput(LogAnalyticsInputBase):
         'group_by_throttle_policy': {'key': 'groupByThrottlePolicy', 'type': 'bool'},
         'group_by_operation_name': {'key': 'groupByOperationName', 'type': 'bool'},
         'group_by_resource_name': {'key': 'groupByResourceName', 'type': 'bool'},
+        'group_by_client_application_id': {'key': 'groupByClientApplicationId', 'type': 'bool'},
+        'group_by_user_agent': {'key': 'groupByUserAgent', 'type': 'bool'},
         'interval_length': {'key': 'intervalLength', 'type': 'str'},
     }
 
@@ -3917,6 +3931,10 @@ class ThrottledRequestsInput(LogAnalyticsInputBase):
     :type group_by_operation_name: bool
     :param group_by_resource_name: Group query result by Resource Name.
     :type group_by_resource_name: bool
+    :param group_by_client_application_id: Group query result by Client Application ID.
+    :type group_by_client_application_id: bool
+    :param group_by_user_agent: Group query result by User Agent.
+    :type group_by_user_agent: bool
     """
 
     _validation = {
@@ -3932,6 +3950,8 @@ class ThrottledRequestsInput(LogAnalyticsInputBase):
         'group_by_throttle_policy': {'key': 'groupByThrottlePolicy', 'type': 'bool'},
         'group_by_operation_name': {'key': 'groupByOperationName', 'type': 'bool'},
         'group_by_resource_name': {'key': 'groupByResourceName', 'type': 'bool'},
+        'group_by_client_application_id': {'key': 'groupByClientApplicationId', 'type': 'bool'},
+        'group_by_user_agent': {'key': 'groupByUserAgent', 'type': 'bool'},
     }
 
     def __init__(
