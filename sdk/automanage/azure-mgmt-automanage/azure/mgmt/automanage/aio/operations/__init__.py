@@ -6,14 +6,14 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------
 
-from ._automanage_client import AutomanageClient
-from ._version import VERSION
+from ._accounts_operations import AccountsOperations
+from ._configuration_profile_assignments_operations import ConfigurationProfileAssignmentsOperations
+from ._configuration_profile_preferences_operations import ConfigurationProfilePreferencesOperations
+from ._operations import Operations
 
-__version__ = VERSION
-__all__ = ['AutomanageClient']
-
-try:
-    from ._patch import patch_sdk  # type: ignore
-    patch_sdk()
-except ImportError:
-    pass
+__all__ = [
+    'AccountsOperations',
+    'ConfigurationProfileAssignmentsOperations',
+    'ConfigurationProfilePreferencesOperations',
+    'Operations',
+]
