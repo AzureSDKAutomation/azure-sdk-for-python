@@ -29,6 +29,9 @@ from ._authorization_server_operations import AuthorizationServerOperations
 from ._backend_operations import BackendOperations
 from ._cache_operations import CacheOperations
 from ._certificate_operations import CertificateOperations
+from ._content_type_operations import ContentTypeOperations
+from ._content_item_operations import ContentItemOperations
+from ._deleted_services_operations import DeletedServicesOperations
 from ._api_management_operations import ApiManagementOperations
 from ._api_management_service_skus_operations import ApiManagementServiceSkusOperations
 from ._api_management_service_operations import ApiManagementServiceOperations
@@ -50,6 +53,7 @@ from ._notification_recipient_email_operations import NotificationRecipientEmail
 from ._open_id_connect_provider_operations import OpenIdConnectProviderOperations
 from ._policy_operations import PolicyOperations
 from ._policy_description_operations import PolicyDescriptionOperations
+from ._portal_revision_operations import PortalRevisionOperations
 from ._sign_in_settings_operations import SignInSettingsOperations
 from ._sign_up_settings_operations import SignUpSettingsOperations
 from ._delegation_settings_operations import DelegationSettingsOperations
@@ -95,6 +99,9 @@ __all__ = [
     'BackendOperations',
     'CacheOperations',
     'CertificateOperations',
+    'ContentTypeOperations',
+    'ContentItemOperations',
+    'DeletedServicesOperations',
     'ApiManagementOperations',
     'ApiManagementServiceSkusOperations',
     'ApiManagementServiceOperations',
@@ -116,6 +123,7 @@ __all__ = [
     'OpenIdConnectProviderOperations',
     'PolicyOperations',
     'PolicyDescriptionOperations',
+    'PortalRevisionOperations',
     'SignInSettingsOperations',
     'SignUpSettingsOperations',
     'DelegationSettingsOperations',
