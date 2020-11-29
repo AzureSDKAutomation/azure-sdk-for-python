@@ -13,6 +13,7 @@ try:
     from ._models_py3 import AadConnectivityState1
     from ._models_py3 import AadExternalSecuritySolution
     from ._models_py3 import AadSolutionProperties
+    from ._models_py3 import AccountEntity
     from ._models_py3 import ActiveConnectionsNotInAllowedRange
     from ._models_py3 import AdaptiveApplicationControlGroup
     from ._models_py3 import AdaptiveApplicationControlGroups
@@ -23,6 +24,7 @@ try:
     from ._models_py3 import AdvancedThreatProtectionSetting
     from ._models_py3 import Alert
     from ._models_py3 import AlertEntity
+    from ._models_py3 import AlertsEntity
     from ._models_py3 import AlertsSuppressionRule
     from ._models_py3 import AllowedConnectionsResource
     from ._models_py3 import AllowlistCustomAlertRule
@@ -57,6 +59,7 @@ try:
     from ._models_py3 import BenchmarkReference
     from ._models_py3 import CefExternalSecuritySolution
     from ._models_py3 import CefSolutionProperties
+    from ._models_py3 import CloudApplicationEntity
     from ._models_py3 import Compliance
     from ._models_py3 import ComplianceResult
     from ._models_py3 import ComplianceSegment
@@ -75,15 +78,20 @@ try:
     from ._models_py3 import DeviceSecurityGroup
     from ._models_py3 import DirectMethodInvokesNotInAllowedRange
     from ._models_py3 import DiscoveredSecuritySolution
+    from ._models_py3 import DnsEntity
     from ._models_py3 import EffectiveNetworkSecurityGroups
     from ._models_py3 import ETag
     from ._models_py3 import ExternalSecuritySolution
     from ._models_py3 import ExternalSecuritySolutionKind1
     from ._models_py3 import ExternalSecuritySolutionProperties
     from ._models_py3 import FailedLocalLoginsNotInAllowedRange
+    from ._models_py3 import FileEntity
+    from ._models_py3 import FileHashEntity
     from ._models_py3 import FileUploadsNotInAllowedRange
     from ._models_py3 import Firmware
     from ._models_py3 import GcpCredentialsDetailsProperties
+    from ._models_py3 import HostEntity
+    from ._models_py3 import HostLogonSessionEntity
     from ._models_py3 import HttpC2DMessagesNotInAllowedRange
     from ._models_py3 import HttpC2DRejectedMessagesNotInAllowedRange
     from ._models_py3 import HttpD2CMessagesNotInAllowedRange
@@ -97,6 +105,8 @@ try:
     from ._models_py3 import IotAlertTypeList
     from ._models_py3 import IotDefenderSettingsList
     from ._models_py3 import IotDefenderSettingsModel
+    from ._models_py3 import IoTDeviceEntity
+    from ._models_py3 import IoTDeviceEntityAzureResource
     from ._models_py3 import IotRecommendation
     from ._models_py3 import IotRecommendationModel
     from ._models_py3 import IotRecommendationType
@@ -115,6 +125,7 @@ try:
     from ._models_py3 import IotSensorsList
     from ._models_py3 import IoTSeverityMetrics
     from ._models_py3 import IpAddress
+    from ._models_py3 import IPEntity
     from ._models_py3 import JitNetworkAccessPolicy
     from ._models_py3 import JitNetworkAccessPolicyInitiatePort
     from ._models_py3 import JitNetworkAccessPolicyInitiateRequest
@@ -130,9 +141,12 @@ try:
     from ._models_py3 import Location
     from ._models_py3 import LogAnalyticsIdentifier
     from ._models_py3 import MacAddress
+    from ._models_py3 import MailboxEntity
+    from ._models_py3 import MalwareEntity
     from ._models_py3 import MqttC2DMessagesNotInAllowedRange
     from ._models_py3 import MqttC2DRejectedMessagesNotInAllowedRange
     from ._models_py3 import MqttD2CMessagesNotInAllowedRange
+    from ._models_py3 import NetworkConnectionEntity
     from ._models_py3 import NetworkInterface
     from ._models_py3 import OnPremiseIotSensor
     from ._models_py3 import OnPremiseIotSensorsList
@@ -148,10 +162,10 @@ try:
     from ._models_py3 import PackageDownloadsSensor
     from ._models_py3 import PackageDownloadsSensorFull
     from ._models_py3 import PackageDownloadsSensorFullOvf
-    from ._models_py3 import PackageDownloadsThreatIntelligence
     from ._models_py3 import PathRecommendation
     from ._models_py3 import Pricing
     from ._models_py3 import PricingList
+    from ._models_py3 import ProcessEntity
     from ._models_py3 import ProcessNotAllowed
     from ._models_py3 import ProtectionMode
     from ._models_py3 import Protocol1
@@ -160,10 +174,13 @@ try:
     from ._models_py3 import QueryCheck
     from ._models_py3 import QueuePurgesNotInAllowedRange
     from ._models_py3 import RecommendationConfigurationProperties
+    from ._models_py3 import RegistryKeyEntity
+    from ._models_py3 import RegistryValueEntity
     from ._models_py3 import RegulatoryComplianceAssessment
     from ._models_py3 import RegulatoryComplianceControl
     from ._models_py3 import RegulatoryComplianceStandard
     from ._models_py3 import Remediation
+    from ._models_py3 import ResetPasswordInput
     from ._models_py3 import Resource
     from ._models_py3 import ResourceDetails
     from ._models_py3 import ResourceIdentifier
@@ -191,6 +208,7 @@ try:
     from ._models_py3 import SecurityAssessmentMetadataProperties
     from ._models_py3 import SecurityAssessmentPartnerData
     from ._models_py3 import SecurityContact
+    from ._models_py3 import SecurityGroupEntity
     from ._models_py3 import SecuritySolution
     from ._models_py3 import SecuritySolutionsReferenceData
     from ._models_py3 import SecuritySolutionsReferenceDataList
@@ -221,6 +239,7 @@ try:
     from ._models_py3 import TwinUpdatesNotInAllowedRange
     from ._models_py3 import UnauthorizedOperationsNotInAllowedRange
     from ._models_py3 import UpdateIotSecuritySolutionData
+    from ._models_py3 import UpgradePackageDownloadInfo
     from ._models_py3 import UserDefinedResourcesProperties
     from ._models_py3 import UserRecommendation
     from ._models_py3 import VaRule
@@ -231,6 +250,7 @@ except (SyntaxError, ImportError):
     from ._models import AadConnectivityState1
     from ._models import AadExternalSecuritySolution
     from ._models import AadSolutionProperties
+    from ._models import AccountEntity
     from ._models import ActiveConnectionsNotInAllowedRange
     from ._models import AdaptiveApplicationControlGroup
     from ._models import AdaptiveApplicationControlGroups
@@ -241,6 +261,7 @@ except (SyntaxError, ImportError):
     from ._models import AdvancedThreatProtectionSetting
     from ._models import Alert
     from ._models import AlertEntity
+    from ._models import AlertsEntity
     from ._models import AlertsSuppressionRule
     from ._models import AllowedConnectionsResource
     from ._models import AllowlistCustomAlertRule
@@ -275,6 +296,7 @@ except (SyntaxError, ImportError):
     from ._models import BenchmarkReference
     from ._models import CefExternalSecuritySolution
     from ._models import CefSolutionProperties
+    from ._models import CloudApplicationEntity
     from ._models import Compliance
     from ._models import ComplianceResult
     from ._models import ComplianceSegment
@@ -293,15 +315,20 @@ except (SyntaxError, ImportError):
     from ._models import DeviceSecurityGroup
     from ._models import DirectMethodInvokesNotInAllowedRange
     from ._models import DiscoveredSecuritySolution
+    from ._models import DnsEntity
     from ._models import EffectiveNetworkSecurityGroups
     from ._models import ETag
     from ._models import ExternalSecuritySolution
     from ._models import ExternalSecuritySolutionKind1
     from ._models import ExternalSecuritySolutionProperties
     from ._models import FailedLocalLoginsNotInAllowedRange
+    from ._models import FileEntity
+    from ._models import FileHashEntity
     from ._models import FileUploadsNotInAllowedRange
     from ._models import Firmware
     from ._models import GcpCredentialsDetailsProperties
+    from ._models import HostEntity
+    from ._models import HostLogonSessionEntity
     from ._models import HttpC2DMessagesNotInAllowedRange
     from ._models import HttpC2DRejectedMessagesNotInAllowedRange
     from ._models import HttpD2CMessagesNotInAllowedRange
@@ -315,6 +342,8 @@ except (SyntaxError, ImportError):
     from ._models import IotAlertTypeList
     from ._models import IotDefenderSettingsList
     from ._models import IotDefenderSettingsModel
+    from ._models import IoTDeviceEntity
+    from ._models import IoTDeviceEntityAzureResource
     from ._models import IotRecommendation
     from ._models import IotRecommendationModel
     from ._models import IotRecommendationType
@@ -333,6 +362,7 @@ except (SyntaxError, ImportError):
     from ._models import IotSensorsList
     from ._models import IoTSeverityMetrics
     from ._models import IpAddress
+    from ._models import IPEntity
     from ._models import JitNetworkAccessPolicy
     from ._models import JitNetworkAccessPolicyInitiatePort
     from ._models import JitNetworkAccessPolicyInitiateRequest
@@ -348,9 +378,12 @@ except (SyntaxError, ImportError):
     from ._models import Location
     from ._models import LogAnalyticsIdentifier
     from ._models import MacAddress
+    from ._models import MailboxEntity
+    from ._models import MalwareEntity
     from ._models import MqttC2DMessagesNotInAllowedRange
     from ._models import MqttC2DRejectedMessagesNotInAllowedRange
     from ._models import MqttD2CMessagesNotInAllowedRange
+    from ._models import NetworkConnectionEntity
     from ._models import NetworkInterface
     from ._models import OnPremiseIotSensor
     from ._models import OnPremiseIotSensorsList
@@ -366,10 +399,10 @@ except (SyntaxError, ImportError):
     from ._models import PackageDownloadsSensor
     from ._models import PackageDownloadsSensorFull
     from ._models import PackageDownloadsSensorFullOvf
-    from ._models import PackageDownloadsThreatIntelligence
     from ._models import PathRecommendation
     from ._models import Pricing
     from ._models import PricingList
+    from ._models import ProcessEntity
     from ._models import ProcessNotAllowed
     from ._models import ProtectionMode
     from ._models import Protocol1
@@ -378,10 +411,13 @@ except (SyntaxError, ImportError):
     from ._models import QueryCheck
     from ._models import QueuePurgesNotInAllowedRange
     from ._models import RecommendationConfigurationProperties
+    from ._models import RegistryKeyEntity
+    from ._models import RegistryValueEntity
     from ._models import RegulatoryComplianceAssessment
     from ._models import RegulatoryComplianceControl
     from ._models import RegulatoryComplianceStandard
     from ._models import Remediation
+    from ._models import ResetPasswordInput
     from ._models import Resource
     from ._models import ResourceDetails
     from ._models import ResourceIdentifier
@@ -409,6 +445,7 @@ except (SyntaxError, ImportError):
     from ._models import SecurityAssessmentMetadataProperties
     from ._models import SecurityAssessmentPartnerData
     from ._models import SecurityContact
+    from ._models import SecurityGroupEntity
     from ._models import SecuritySolution
     from ._models import SecuritySolutionsReferenceData
     from ._models import SecuritySolutionsReferenceDataList
@@ -439,6 +476,7 @@ except (SyntaxError, ImportError):
     from ._models import TwinUpdatesNotInAllowedRange
     from ._models import UnauthorizedOperationsNotInAllowedRange
     from ._models import UpdateIotSecuritySolutionData
+    from ._models import UpgradePackageDownloadInfo
     from ._models import UserDefinedResourcesProperties
     from ._models import UserRecommendation
     from ._models import VaRule
@@ -554,6 +592,7 @@ __all__ = [
     'AadConnectivityState1',
     'AadExternalSecuritySolution',
     'AadSolutionProperties',
+    'AccountEntity',
     'ActiveConnectionsNotInAllowedRange',
     'AdaptiveApplicationControlGroup',
     'AdaptiveApplicationControlGroups',
@@ -564,6 +603,7 @@ __all__ = [
     'AdvancedThreatProtectionSetting',
     'Alert',
     'AlertEntity',
+    'AlertsEntity',
     'AlertsSuppressionRule',
     'AllowedConnectionsResource',
     'AllowlistCustomAlertRule',
@@ -598,6 +638,7 @@ __all__ = [
     'BenchmarkReference',
     'CefExternalSecuritySolution',
     'CefSolutionProperties',
+    'CloudApplicationEntity',
     'Compliance',
     'ComplianceResult',
     'ComplianceSegment',
@@ -616,15 +657,20 @@ __all__ = [
     'DeviceSecurityGroup',
     'DirectMethodInvokesNotInAllowedRange',
     'DiscoveredSecuritySolution',
+    'DnsEntity',
     'EffectiveNetworkSecurityGroups',
     'ETag',
     'ExternalSecuritySolution',
     'ExternalSecuritySolutionKind1',
     'ExternalSecuritySolutionProperties',
     'FailedLocalLoginsNotInAllowedRange',
+    'FileEntity',
+    'FileHashEntity',
     'FileUploadsNotInAllowedRange',
     'Firmware',
     'GcpCredentialsDetailsProperties',
+    'HostEntity',
+    'HostLogonSessionEntity',
     'HttpC2DMessagesNotInAllowedRange',
     'HttpC2DRejectedMessagesNotInAllowedRange',
     'HttpD2CMessagesNotInAllowedRange',
@@ -638,6 +684,8 @@ __all__ = [
     'IotAlertTypeList',
     'IotDefenderSettingsList',
     'IotDefenderSettingsModel',
+    'IoTDeviceEntity',
+    'IoTDeviceEntityAzureResource',
     'IotRecommendation',
     'IotRecommendationModel',
     'IotRecommendationType',
@@ -656,6 +704,7 @@ __all__ = [
     'IotSensorsList',
     'IoTSeverityMetrics',
     'IpAddress',
+    'IPEntity',
     'JitNetworkAccessPolicy',
     'JitNetworkAccessPolicyInitiatePort',
     'JitNetworkAccessPolicyInitiateRequest',
@@ -671,9 +720,12 @@ __all__ = [
     'Location',
     'LogAnalyticsIdentifier',
     'MacAddress',
+    'MailboxEntity',
+    'MalwareEntity',
     'MqttC2DMessagesNotInAllowedRange',
     'MqttC2DRejectedMessagesNotInAllowedRange',
     'MqttD2CMessagesNotInAllowedRange',
+    'NetworkConnectionEntity',
     'NetworkInterface',
     'OnPremiseIotSensor',
     'OnPremiseIotSensorsList',
@@ -689,10 +741,10 @@ __all__ = [
     'PackageDownloadsSensor',
     'PackageDownloadsSensorFull',
     'PackageDownloadsSensorFullOvf',
-    'PackageDownloadsThreatIntelligence',
     'PathRecommendation',
     'Pricing',
     'PricingList',
+    'ProcessEntity',
     'ProcessNotAllowed',
     'ProtectionMode',
     'Protocol1',
@@ -701,10 +753,13 @@ __all__ = [
     'QueryCheck',
     'QueuePurgesNotInAllowedRange',
     'RecommendationConfigurationProperties',
+    'RegistryKeyEntity',
+    'RegistryValueEntity',
     'RegulatoryComplianceAssessment',
     'RegulatoryComplianceControl',
     'RegulatoryComplianceStandard',
     'Remediation',
+    'ResetPasswordInput',
     'Resource',
     'ResourceDetails',
     'ResourceIdentifier',
@@ -732,6 +787,7 @@ __all__ = [
     'SecurityAssessmentMetadataProperties',
     'SecurityAssessmentPartnerData',
     'SecurityContact',
+    'SecurityGroupEntity',
     'SecuritySolution',
     'SecuritySolutionsReferenceData',
     'SecuritySolutionsReferenceDataList',
@@ -762,6 +818,7 @@ __all__ = [
     'TwinUpdatesNotInAllowedRange',
     'UnauthorizedOperationsNotInAllowedRange',
     'UpdateIotSecuritySolutionData',
+    'UpgradePackageDownloadInfo',
     'UserDefinedResourcesProperties',
     'UserRecommendation',
     'VaRule',

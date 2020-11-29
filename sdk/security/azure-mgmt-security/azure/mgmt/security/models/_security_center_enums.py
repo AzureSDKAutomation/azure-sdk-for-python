@@ -181,6 +181,8 @@ class EventSource(str, Enum):
     assessments = "Assessments"
     sub_assessments = "SubAssessments"
     alerts = "Alerts"
+    secure_scores = "SecureScores"
+    secure_score_controls = "SecureScoreControls"
 
 
 class PropertyType(str, Enum):
@@ -276,7 +278,7 @@ class TransportProtocol(str, Enum):
 class Intent(str, Enum):
 
     unknown = "Unknown"  #: Unknown
-    pre_attack = "PreAttack"  #: PreAttack could be either an attempt to access a certain resource regardless of a malicious intent, or a failed attempt to gain access to a target system to gather information prior to exploitation. This step is usually detected as an attempt, originating from outside the network, to scan the target system and find a way in.  Further details on the PreAttack stage can be read in [MITRE Pre-Att&ck matrix](https://attack.mitre.org/matrices/pre/).
+    pre_attack = "PreAttack"  #: PreAttack could be either an attempt to access a certain resource regardless of a malicious intent, or a failed attempt to gain access to a target system to gather information prior to exploitation. This step is usually detected as an attempt, originating from outside the network, to scan the target system and find a way in. Further details on the PreAttack stage can be read in [MITRE Pre-Att&ck matrix](https://attack.mitre.org/matrices/pre/).
     initial_access = "InitialAccess"  #: InitialAccess is the stage where an attacker manages to get foothold on the attacked resource.
     persistence = "Persistence"  #: Persistence is any access, action, or configuration change to a system that gives a threat actor a persistent presence on that system.
     privilege_escalation = "PrivilegeEscalation"  #: Privilege escalation is the result of actions that allow an adversary to obtain a higher level of permissions on a system or network.

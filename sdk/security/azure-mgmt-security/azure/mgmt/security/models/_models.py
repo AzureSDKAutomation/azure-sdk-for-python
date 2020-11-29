@@ -164,6 +164,122 @@ class AadSolutionProperties(Model):
         self.connectivity_state = kwargs.get('connectivity_state', None)
 
 
+class AlertEntity(Model):
+    """Changing set of properties depending on the entity type.
+
+    You probably want to use the sub-classes and not this class directly. Known
+    sub-classes are: IPEntity, IoTDeviceEntity, HostEntity, AccountEntity,
+    AlertsEntity, CloudApplicationEntity, DnsEntity, FileHashEntity,
+    FileEntity, HostLogonSessionEntity, MailboxEntity, ProcessEntity,
+    MalwareEntity, NetworkConnectionEntity, RegistryKeyEntity,
+    RegistryValueEntity, SecurityGroupEntity
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    _subtype_map = {
+        'type': {'ip': 'IPEntity', 'iotdevice': 'IoTDeviceEntity', 'host': 'HostEntity', 'account': 'AccountEntity', 'alerts': 'AlertsEntity', 'cloud-application': 'CloudApplicationEntity', 'dns': 'DnsEntity', 'filehash': 'FileHashEntity', 'file': 'FileEntity', 'host-logon-session': 'HostLogonSessionEntity', 'mailbox': 'MailboxEntity', 'process': 'ProcessEntity', 'malware': 'MalwareEntity', 'network-connection': 'NetworkConnectionEntity', 'registry-key': 'RegistryKeyEntity', 'registry-value': 'RegistryValueEntity', 'security-group': 'SecurityGroupEntity'}
+    }
+
+    def __init__(self, **kwargs):
+        super(AlertEntity, self).__init__(**kwargs)
+        self.additional_properties = kwargs.get('additional_properties', None)
+        self.type = None
+
+
+class AccountEntity(AlertEntity):
+    """Represents an account. The account can be either a domain account, a local
+    account, or an AAD account.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param name: The name of the account.
+    :type name: str
+    :param nt_domain: The NETBIOS domain name – domain\\username.
+    :type nt_domain: str
+    :param dns_domain: The fully qualified DNS name.
+    :type dns_domain: str
+    :param upn_suffix: The user principal name suffix for the account. In some
+     cases it is also the domain name.
+    :type upn_suffix: str
+    :param sid: The account security identifier.
+    :type sid: str
+    :param aad_tenant_id: The Azure Active Directory tenant ID.
+    :type aad_tenant_id: str
+    :param aad_user_id: The Azure Active Directory user ID.
+    :type aad_user_id: str
+    :param puid:  The Azure Active Directory passport user ID.
+    :type puid: str
+    :param display_name: The display name of the account.
+    :type display_name: str
+    :param is_domain_joined: Determines whether this is a domain account.
+    :type is_domain_joined: bool
+    :param object_guid: The objectGUID attribute is a single-value attribute
+     that is the unique identifier for the object, assigned by Active
+     Directory.
+    :type object_guid: str
+    :param host:
+    :type host: ~azure.mgmt.security.models.HostEntity
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'nt_domain': {'key': 'ntDomain', 'type': 'str'},
+        'dns_domain': {'key': 'dnsDomain', 'type': 'str'},
+        'upn_suffix': {'key': 'upnSuffix', 'type': 'str'},
+        'sid': {'key': 'sid', 'type': 'str'},
+        'aad_tenant_id': {'key': 'aadTenantId', 'type': 'str'},
+        'aad_user_id': {'key': 'aadUserId', 'type': 'str'},
+        'puid': {'key': 'puid', 'type': 'str'},
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'is_domain_joined': {'key': 'isDomainJoined', 'type': 'bool'},
+        'object_guid': {'key': 'objectGuid', 'type': 'str'},
+        'host': {'key': 'host', 'type': 'HostEntity'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AccountEntity, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+        self.nt_domain = kwargs.get('nt_domain', None)
+        self.dns_domain = kwargs.get('dns_domain', None)
+        self.upn_suffix = kwargs.get('upn_suffix', None)
+        self.sid = kwargs.get('sid', None)
+        self.aad_tenant_id = kwargs.get('aad_tenant_id', None)
+        self.aad_user_id = kwargs.get('aad_user_id', None)
+        self.puid = kwargs.get('puid', None)
+        self.display_name = kwargs.get('display_name', None)
+        self.is_domain_joined = kwargs.get('is_domain_joined', None)
+        self.object_guid = kwargs.get('object_guid', None)
+        self.host = kwargs.get('host', None)
+        self.type = 'account'
+
+
 class CustomAlertRule(Model):
     """A custom alert rule.
 
@@ -729,24 +845,24 @@ class Alert(Resource):
      per alert.
     :vartype resource_identifiers:
      list[~azure.mgmt.security.models.ResourceIdentifier]
-    :ivar remediation_steps: Manual action items to take to remediate the
-     alert.
+    :ivar remediation_steps: Manual actions to take to remediate the alert.
     :vartype remediation_steps: list[str]
     :ivar vendor_name: The name of the vendor that raises the alert.
     :vartype vendor_name: str
-    :ivar status: The life cycle status of the alert. Possible values include:
+    :ivar status: The lifecycle status of the alert. Possible values include:
      'Active', 'Resolved', 'Dismissed'
     :vartype status: str or ~azure.mgmt.security.models.AlertStatus
     :ivar extended_links: Links related to the alert
     :vartype extended_links: list[dict[str, str]]
-    :ivar alert_uri: A direct link to the alert page in Azure Portal.
+    :ivar alert_uri: A direct link to the alert page in the Azure portal.
     :vartype alert_uri: str
     :ivar time_generated_utc: The UTC time the alert was generated in ISO8601
      format.
     :vartype time_generated_utc: datetime
     :ivar product_name: The name of the product which published this alert
-     (Azure Security Center, Azure ATP, Microsoft Defender ATP, O365 ATP, MCAS,
-     and so on).
+     (Azure Security Center, Microsoft Defender for Identity, Microsoft
+     Defender for Endpoint, Microsoft Defender for Office 365, MCAS, and so
+     on).
     :vartype product_name: str
     :ivar processing_end_time_utc: The UTC processing end time of the alert in
      ISO8601 format.
@@ -756,8 +872,8 @@ class Alert(Resource):
     :ivar is_incident: This field determines whether the alert is an incident
      (a compound grouping of several alerts) or a single alert.
     :vartype is_incident: bool
-    :ivar correlation_key: Key for corelating related alerts. Alerts with the
-     same correlation key considered to be related.
+    :ivar correlation_key: Key for correlating related alerts. Alerts with the
+     same correlation key are considered as related.
     :vartype correlation_key: str
     :param extended_properties: Custom properties for the alert.
     :type extended_properties: dict[str, str]
@@ -850,32 +966,59 @@ class Alert(Resource):
         self.compromised_entity = None
 
 
-class AlertEntity(Model):
-    """Changing set of properties depending on the entity type.
+class AlertsEntity(AlertEntity):
+    """Represents alerts that are related to a given alert.
 
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
+    All required parameters must be populated in order to send to Azure.
 
     :param additional_properties: Unmatched properties from the message are
      deserialized this collection
     :type additional_properties: dict[str, object]
-    :ivar type: Type of entity
-    :vartype type: str
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param display_name: The display name for the related alert.
+    :type display_name: str
+    :param compromised_entity: The display name of the compromised entity for
+     the alert.
+    :type compromised_entity: str
+    :param count: The number of related alerts grouped into the incident.
+    :type count: long
+    :param severity: The related alert severity.
+    :type severity: str
+    :param alert_type: The related alert type.
+    :type alert_type: str
+    :param vendor_name: The related alert vendor name.
+    :type vendor_name: str
+    :param system_alert_ids: The related alerts identifiers.
+    :type system_alert_ids: list[str]
     """
 
     _validation = {
-        'type': {'readonly': True},
+        'type': {'required': True},
     }
 
     _attribute_map = {
         'additional_properties': {'key': '', 'type': '{object}'},
         'type': {'key': 'type', 'type': 'str'},
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'compromised_entity': {'key': 'compromisedEntity', 'type': 'str'},
+        'count': {'key': 'count', 'type': 'long'},
+        'severity': {'key': 'severity', 'type': 'str'},
+        'alert_type': {'key': 'alertType', 'type': 'str'},
+        'vendor_name': {'key': 'vendorName', 'type': 'str'},
+        'system_alert_ids': {'key': 'systemAlertIds', 'type': '[str]'},
     }
 
     def __init__(self, **kwargs):
-        super(AlertEntity, self).__init__(**kwargs)
-        self.additional_properties = kwargs.get('additional_properties', None)
-        self.type = None
+        super(AlertsEntity, self).__init__(**kwargs)
+        self.display_name = kwargs.get('display_name', None)
+        self.compromised_entity = kwargs.get('compromised_entity', None)
+        self.count = kwargs.get('count', None)
+        self.severity = kwargs.get('severity', None)
+        self.alert_type = kwargs.get('alert_type', None)
+        self.vendor_name = kwargs.get('vendor_name', None)
+        self.system_alert_ids = kwargs.get('system_alert_ids', None)
+        self.type = 'alerts'
 
 
 class AlertsSuppressionRule(Resource):
@@ -1797,7 +1940,8 @@ class AutomationSource(Model):
     https://aka.ms/ASCAutomationSchemas.
 
     :param event_source: A valid event source type. Possible values include:
-     'Assessments', 'SubAssessments', 'Alerts'
+     'Assessments', 'SubAssessments', 'Alerts', 'SecureScores',
+     'SecureScoreControls'
     :type event_source: str or ~azure.mgmt.security.models.EventSource
     :param rule_sets: A set of rules which evaluate upon event interception. A
      logical disjunction is applied between defined rule sets (logical 'or').
@@ -2332,6 +2476,45 @@ class CefSolutionProperties(ExternalSecuritySolutionProperties):
         self.hostname = kwargs.get('hostname', None)
         self.agent = kwargs.get('agent', None)
         self.last_event_received = kwargs.get('last_event_received', None)
+
+
+class CloudApplicationEntity(AlertEntity):
+    """Represents a cloud application such as Microsoft 365, Salesforce etc.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param app_id: The technical identifier of the application.
+    :type app_id: long
+    :param name: The name of the related cloud application.
+    :type name: str
+    :param instance_name: The user defined instance name of the cloud
+     application.
+    :type instance_name: str
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'app_id': {'key': 'appId', 'type': 'long'},
+        'name': {'key': 'name', 'type': 'str'},
+        'instance_name': {'key': 'instanceName', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CloudApplicationEntity, self).__init__(**kwargs)
+        self.app_id = kwargs.get('app_id', None)
+        self.name = kwargs.get('name', None)
+        self.instance_name = kwargs.get('instance_name', None)
+        self.type = 'cloud-application'
 
 
 class CloudError(Model):
@@ -3288,6 +3471,48 @@ class DiscoveredSecuritySolution(Model):
         self.sku = kwargs.get('sku', None)
 
 
+class DnsEntity(AlertEntity):
+    """Represents DNS resolution query results.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param domain_name: The name of the DNS record associated with the alert.
+    :type domain_name: str
+    :param ip_addresses: Entities of type ‘ip’ for the resolved IP address.
+    :type ip_addresses: list[~azure.mgmt.security.models.IPEntity]
+    :param dns_server_ip:
+    :type dns_server_ip: ~azure.mgmt.security.models.IPEntity
+    :param host_ip_address:
+    :type host_ip_address: ~azure.mgmt.security.models.IPEntity
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'domain_name': {'key': 'domainName', 'type': 'str'},
+        'ip_addresses': {'key': 'ipAddresses', 'type': '[IPEntity]'},
+        'dns_server_ip': {'key': 'dnsServerIp', 'type': 'IPEntity'},
+        'host_ip_address': {'key': 'hostIpAddress', 'type': 'IPEntity'},
+    }
+
+    def __init__(self, **kwargs):
+        super(DnsEntity, self).__init__(**kwargs)
+        self.domain_name = kwargs.get('domain_name', None)
+        self.ip_addresses = kwargs.get('ip_addresses', None)
+        self.dns_server_ip = kwargs.get('dns_server_ip', None)
+        self.host_ip_address = kwargs.get('host_ip_address', None)
+        self.type = 'dns'
+
+
 class EffectiveNetworkSecurityGroups(Model):
     """Describes the Network Security Groups effective on a network interface.
 
@@ -3392,6 +3617,87 @@ class FailedLocalLoginsNotInAllowedRange(TimeWindowCustomAlertRule):
     def __init__(self, **kwargs):
         super(FailedLocalLoginsNotInAllowedRange, self).__init__(**kwargs)
         self.rule_type = 'FailedLocalLoginsNotInAllowedRange'
+
+
+class FileEntity(AlertEntity):
+    """Represents a file that is reported as part of the security detection alert.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param full_path: The file's full path, combining both directory and name.
+    :type full_path: str
+    :param directory: The full path to the file’s directory.
+    :type directory: str
+    :param name: The file name without the path.
+    :type name: str
+    :param host:
+    :type host: ~azure.mgmt.security.models.HostEntity
+    :param file_hashes: The file hashes associated with this file.
+    :type file_hashes: list[~azure.mgmt.security.models.FileHashEntity]
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'full_path': {'key': 'fullPath', 'type': 'str'},
+        'directory': {'key': 'directory', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'host': {'key': 'host', 'type': 'HostEntity'},
+        'file_hashes': {'key': 'fileHashes', 'type': '[FileHashEntity]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(FileEntity, self).__init__(**kwargs)
+        self.full_path = kwargs.get('full_path', None)
+        self.directory = kwargs.get('directory', None)
+        self.name = kwargs.get('name', None)
+        self.host = kwargs.get('host', None)
+        self.file_hashes = kwargs.get('file_hashes', None)
+        self.type = 'file'
+
+
+class FileHashEntity(AlertEntity):
+    """Represents a file hash value that is reported as part of the security
+    detection alert, usually in relation to some file entity instance.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param file_hash_algorithm: The hash algorithm type.
+    :type file_hash_algorithm: str
+    :param value: The hash value.
+    :type value: str
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'file_hash_algorithm': {'key': 'fileHashAlgorithm', 'type': 'str'},
+        'value': {'key': 'value', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(FileHashEntity, self).__init__(**kwargs)
+        self.file_hash_algorithm = kwargs.get('file_hash_algorithm', None)
+        self.value = kwargs.get('value', None)
+        self.type = 'filehash'
 
 
 class FileUploadsNotInAllowedRange(TimeWindowCustomAlertRule):
@@ -3596,6 +3902,108 @@ class GcpCredentialsDetailsProperties(AuthenticationDetailsProperties):
         self.auth_provider_x509_cert_url = kwargs.get('auth_provider_x509_cert_url', None)
         self.client_x509_cert_url = kwargs.get('client_x509_cert_url', None)
         self.authentication_type = 'gcpCredentials'
+
+
+class HostEntity(AlertEntity):
+    """Represents a host that is reported as part of the alert.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param dns_domain: The DNS domain to which this computer belongs.
+    :type dns_domain: str
+    :param nt_domain: The NT domain to which this computer belongs.
+    :type nt_domain: str
+    :param host_name: The NT domain to which this computer belongs.
+    :type host_name: str
+    :param net_bios_name: The computer name (pre-windows2000).
+    :type net_bios_name: str
+    :param azure_id: The Azure resource ID of the VM, if known.
+    :type azure_id: str
+    :param oms_agent_id: The OMS agent ID, if the computer has OMS agent
+     installed.
+    :type oms_agent_id: str
+    :param os_family: The computer operating system.
+    :type os_family: str
+    :param os_version: The computer operating system specific version. This is
+     a free form textual representation of the OS.
+    :type os_version: str
+    :param iot_device:
+    :type iot_device: ~azure.mgmt.security.models.IoTDeviceEntity
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'dns_domain': {'key': 'dnsDomain', 'type': 'str'},
+        'nt_domain': {'key': 'ntDomain', 'type': 'str'},
+        'host_name': {'key': 'hostName', 'type': 'str'},
+        'net_bios_name': {'key': 'netBiosName', 'type': 'str'},
+        'azure_id': {'key': 'azureID', 'type': 'str'},
+        'oms_agent_id': {'key': 'omsAgentID', 'type': 'str'},
+        'os_family': {'key': 'osFamily', 'type': 'str'},
+        'os_version': {'key': 'osVersion', 'type': 'str'},
+        'iot_device': {'key': 'iotDevice', 'type': 'IoTDeviceEntity'},
+    }
+
+    def __init__(self, **kwargs):
+        super(HostEntity, self).__init__(**kwargs)
+        self.dns_domain = kwargs.get('dns_domain', None)
+        self.nt_domain = kwargs.get('nt_domain', None)
+        self.host_name = kwargs.get('host_name', None)
+        self.net_bios_name = kwargs.get('net_bios_name', None)
+        self.azure_id = kwargs.get('azure_id', None)
+        self.oms_agent_id = kwargs.get('oms_agent_id', None)
+        self.os_family = kwargs.get('os_family', None)
+        self.os_version = kwargs.get('os_version', None)
+        self.iot_device = kwargs.get('iot_device', None)
+        self.type = 'host'
+
+
+class HostLogonSessionEntity(AlertEntity):
+    """Represents a logon session to a host by an account.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param session_id: The session ID for the account reported in the alert.
+    :type session_id: str
+    :param host:
+    :type host: ~azure.mgmt.security.models.HostEntity
+    :param account:
+    :type account: ~azure.mgmt.security.models.AccountEntity
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'session_id': {'key': 'sessionId', 'type': 'str'},
+        'host': {'key': 'host', 'type': 'HostEntity'},
+        'account': {'key': 'account', 'type': 'AccountEntity'},
+    }
+
+    def __init__(self, **kwargs):
+        super(HostLogonSessionEntity, self).__init__(**kwargs)
+        self.session_id = kwargs.get('session_id', None)
+        self.host = kwargs.get('host', None)
+        self.account = kwargs.get('account', None)
+        self.type = 'host-logon-session'
 
 
 class HttpC2DMessagesNotInAllowedRange(TimeWindowCustomAlertRule):
@@ -4199,6 +4607,111 @@ class IotDefenderSettingsModel(Resource):
         super(IotDefenderSettingsModel, self).__init__(**kwargs)
         self.device_quota = kwargs.get('device_quota', None)
         self.sentinel_workspace_resource_ids = kwargs.get('sentinel_workspace_resource_ids', None)
+
+
+class IoTDeviceEntity(AlertEntity):
+    """Represents an IoT Device that is reported as part of the alert.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param azure_resource: ARM ID of for connected IoT Hub
+    :type azure_resource:
+     ~azure.mgmt.security.models.IoTDeviceEntityAzureResource
+    :param device_id: The ID of the IoT Device in the IoT Hub.
+    :type device_id: str
+    :param device_name: The friendly name of the device
+    :type device_name: str
+    :param manufacturer: The manufacturer of the device
+    :type manufacturer: str
+    :param model: The model of the IoT device
+    :type model: str
+    :param firmware_version: The firmware version that the device is running
+    :type firmware_version: str
+    :param operating_system: The operating system that the device is running
+    :type operating_system: str
+    :param ip_address:
+    :type ip_address: ~azure.mgmt.security.models.IPEntity
+    :param mac_address: The MAC address of the device
+    :type mac_address: str
+    :param protocols: The communication protocols the device is using
+    :type protocols: list[str]
+    :param serial_number: The serial number of the device
+    :type serial_number: str
+    :param source: The source of the device entity
+    :type source: str
+    :param source_ref: URL reference to the source item where the device is
+     managed
+    :type source_ref: str
+    :param iot_security_agent_id: The ID of the security agent running on the
+     device
+    :type iot_security_agent_id: str
+    :param device_type: The type of the device
+    :type device_type: str
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'azure_resource': {'key': 'azureResource', 'type': 'IoTDeviceEntityAzureResource'},
+        'device_id': {'key': 'deviceId', 'type': 'str'},
+        'device_name': {'key': 'deviceName', 'type': 'str'},
+        'manufacturer': {'key': 'manufacturer', 'type': 'str'},
+        'model': {'key': 'model', 'type': 'str'},
+        'firmware_version': {'key': 'firmwareVersion', 'type': 'str'},
+        'operating_system': {'key': 'operatingSystem', 'type': 'str'},
+        'ip_address': {'key': 'ipAddress', 'type': 'IPEntity'},
+        'mac_address': {'key': 'macAddress', 'type': 'str'},
+        'protocols': {'key': 'protocols', 'type': '[str]'},
+        'serial_number': {'key': 'serialNumber', 'type': 'str'},
+        'source': {'key': 'source', 'type': 'str'},
+        'source_ref': {'key': 'sourceRef', 'type': 'str'},
+        'iot_security_agent_id': {'key': 'iotSecurityAgentId', 'type': 'str'},
+        'device_type': {'key': 'deviceType', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(IoTDeviceEntity, self).__init__(**kwargs)
+        self.azure_resource = kwargs.get('azure_resource', None)
+        self.device_id = kwargs.get('device_id', None)
+        self.device_name = kwargs.get('device_name', None)
+        self.manufacturer = kwargs.get('manufacturer', None)
+        self.model = kwargs.get('model', None)
+        self.firmware_version = kwargs.get('firmware_version', None)
+        self.operating_system = kwargs.get('operating_system', None)
+        self.ip_address = kwargs.get('ip_address', None)
+        self.mac_address = kwargs.get('mac_address', None)
+        self.protocols = kwargs.get('protocols', None)
+        self.serial_number = kwargs.get('serial_number', None)
+        self.source = kwargs.get('source', None)
+        self.source_ref = kwargs.get('source_ref', None)
+        self.iot_security_agent_id = kwargs.get('iot_security_agent_id', None)
+        self.device_type = kwargs.get('device_type', None)
+        self.type = 'iotdevice'
+
+
+class IoTDeviceEntityAzureResource(Model):
+    """ARM ID of for connected IoT Hub.
+
+    :param resource_id:
+    :type resource_id: str
+    """
+
+    _attribute_map = {
+        'resource_id': {'key': 'ResourceId', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(IoTDeviceEntityAzureResource, self).__init__(**kwargs)
+        self.resource_id = kwargs.get('resource_id', None)
 
 
 class IotRecommendation(Resource):
@@ -5071,6 +5584,36 @@ class IpAddress(Model):
         self.fqdn_last_lookup_time = None
 
 
+class IPEntity(AlertEntity):
+    """Represents an IP endpoint entity.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param address: The IP address as string
+    :type address: str
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'address': {'key': 'address', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(IPEntity, self).__init__(**kwargs)
+        self.address = kwargs.get('address', None)
+        self.type = 'ip'
+
+
 class JitNetworkAccessPolicy(Model):
     """JitNetworkAccessPolicy.
 
@@ -5520,15 +6063,15 @@ class LogAnalyticsIdentifier(ResourceIdentifier):
 
     :param type: Required. Constant filled by server.
     :type type: str
-    :ivar workspace_id: The LogAnalytics workspace id that stores this alert.
+    :ivar workspace_id: The Log Analytics workspace ID that stores this alert.
     :vartype workspace_id: str
-    :ivar workspace_subscription_id: The azure subscription id for the
-     LogAnalytics workspace storing this alert.
+    :ivar workspace_subscription_id: The Azure subscription ID for the Log
+     Analytics workspace storing this alert.
     :vartype workspace_subscription_id: str
-    :ivar workspace_resource_group: The azure resource group for the
-     LogAnalytics workspace storing this alert
+    :ivar workspace_resource_group: The Azure resource group for the Log
+     Analytics workspace storing this alert
     :vartype workspace_resource_group: str
-    :ivar agent_id: (optional) The LogAnalytics agent id reporting the event
+    :ivar agent_id: (optional) The Log Analytics agent ID reporting the event
      that this alert is based on.
     :vartype agent_id: str
     """
@@ -5598,6 +6141,97 @@ class MacAddress(Model):
         self.detection_time = None
         self.significance = None
         self.relation_to_ip_status = None
+
+
+class MailboxEntity(AlertEntity):
+    """Represents an impacted mailbox.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param mailbox_primary_address: Primary email of the mailbox
+    :type mailbox_primary_address: str
+    :param display_name: Display name of the mailbox
+    :type display_name: str
+    :param upn: UPN of the mailbox
+    :type upn: str
+    :param external_directory_object_id: External directory object identifier
+     of the mailbox
+    :type external_directory_object_id: str
+    :param risk_level: The risk level of this mailbox like Low, Medium, High
+    :type risk_level: str
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'mailbox_primary_address': {'key': 'mailboxPrimaryAddress', 'type': 'str'},
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'upn': {'key': 'upn', 'type': 'str'},
+        'external_directory_object_id': {'key': 'externalDirectoryObjectId', 'type': 'str'},
+        'risk_level': {'key': 'riskLevel', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(MailboxEntity, self).__init__(**kwargs)
+        self.mailbox_primary_address = kwargs.get('mailbox_primary_address', None)
+        self.display_name = kwargs.get('display_name', None)
+        self.upn = kwargs.get('upn', None)
+        self.external_directory_object_id = kwargs.get('external_directory_object_id', None)
+        self.risk_level = kwargs.get('risk_level', None)
+        self.type = 'mailbox'
+
+
+class MalwareEntity(AlertEntity):
+    """Represents a malware that is reported as part of the security alert.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param name: The malware name by the vendor, e.g. Win32/Toga!rfn
+    :type name: str
+    :param category: The malware category by the vendor, e.g. Trojan
+    :type category: str
+    :param files: Holds list of File entities which relate to this Malware
+     entity instance
+    :type files: list[~azure.mgmt.security.models.FileEntity]
+    :param processes: Holds list of Process entities which relate to this
+     Malware entity instance
+    :type processes: list[~azure.mgmt.security.models.ProcessEntity]
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'category': {'key': 'category', 'type': 'str'},
+        'files': {'key': 'files', 'type': '[FileEntity]'},
+        'processes': {'key': 'processes', 'type': '[ProcessEntity]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(MalwareEntity, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+        self.category = kwargs.get('category', None)
+        self.files = kwargs.get('files', None)
+        self.processes = kwargs.get('processes', None)
+        self.type = 'malware'
 
 
 class MqttC2DMessagesNotInAllowedRange(TimeWindowCustomAlertRule):
@@ -5746,6 +6380,53 @@ class MqttD2CMessagesNotInAllowedRange(TimeWindowCustomAlertRule):
     def __init__(self, **kwargs):
         super(MqttD2CMessagesNotInAllowedRange, self).__init__(**kwargs)
         self.rule_type = 'MqttD2CMessagesNotInAllowedRange'
+
+
+class NetworkConnectionEntity(AlertEntity):
+    """NetworkConnectionEntity.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param source_address:
+    :type source_address: ~azure.mgmt.security.models.IPEntity
+    :param source_port: The source port number
+    :type source_port: long
+    :param destination_address:
+    :type destination_address: ~azure.mgmt.security.models.IPEntity
+    :param destination_port: The destination port number
+    :type destination_port: long
+    :param protocol: The protocol type of the network connection (i.e. TCP,
+     UDP)
+    :type protocol: str
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'source_address': {'key': 'sourceAddress', 'type': 'IPEntity'},
+        'source_port': {'key': 'sourcePort', 'type': 'long'},
+        'destination_address': {'key': 'destinationAddress', 'type': 'IPEntity'},
+        'destination_port': {'key': 'destinationPort', 'type': 'long'},
+        'protocol': {'key': 'protocol', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(NetworkConnectionEntity, self).__init__(**kwargs)
+        self.source_address = kwargs.get('source_address', None)
+        self.source_port = kwargs.get('source_port', None)
+        self.destination_address = kwargs.get('destination_address', None)
+        self.destination_port = kwargs.get('destination_port', None)
+        self.protocol = kwargs.get('protocol', None)
+        self.type = 'network-connection'
 
 
 class NetworkInterface(Model):
@@ -6054,19 +6735,39 @@ class PackageDownloads(Model):
      ~azure.mgmt.security.models.PackageDownloadsCentralManager
     :ivar threat_intelligence: All downloads for threat intelligence
     :vartype threat_intelligence:
-     ~azure.mgmt.security.models.PackageDownloadsThreatIntelligence
+     list[~azure.mgmt.security.models.PackageDownloadInfo]
+    :ivar snmp: SNMP Server file
+    :vartype snmp: list[~azure.mgmt.security.models.PackageDownloadInfo]
+    :ivar wmi_tool: Used for local configuration export
+    :vartype wmi_tool: list[~azure.mgmt.security.models.PackageDownloadInfo]
+    :ivar authorized_devices_import_template: Authorized devices import
+     template
+    :vartype authorized_devices_import_template:
+     list[~azure.mgmt.security.models.PackageDownloadInfo]
+    :ivar device_information_update_import_template: Authorized devices import
+     template
+    :vartype device_information_update_import_template:
+     list[~azure.mgmt.security.models.PackageDownloadInfo]
     """
 
     _validation = {
         'sensor': {'readonly': True},
         'central_manager': {'readonly': True},
         'threat_intelligence': {'readonly': True},
+        'snmp': {'readonly': True},
+        'wmi_tool': {'readonly': True},
+        'authorized_devices_import_template': {'readonly': True},
+        'device_information_update_import_template': {'readonly': True},
     }
 
     _attribute_map = {
         'sensor': {'key': 'sensor', 'type': 'PackageDownloadsSensor'},
         'central_manager': {'key': 'centralManager', 'type': 'PackageDownloadsCentralManager'},
-        'threat_intelligence': {'key': 'threatIntelligence', 'type': 'PackageDownloadsThreatIntelligence'},
+        'threat_intelligence': {'key': 'threatIntelligence', 'type': '[PackageDownloadInfo]'},
+        'snmp': {'key': 'snmp', 'type': '[PackageDownloadInfo]'},
+        'wmi_tool': {'key': 'wmiTool', 'type': '[PackageDownloadInfo]'},
+        'authorized_devices_import_template': {'key': 'authorizedDevicesImportTemplate', 'type': '[PackageDownloadInfo]'},
+        'device_information_update_import_template': {'key': 'deviceInformationUpdateImportTemplate', 'type': '[PackageDownloadInfo]'},
     }
 
     def __init__(self, **kwargs):
@@ -6074,6 +6775,10 @@ class PackageDownloads(Model):
         self.sensor = None
         self.central_manager = None
         self.threat_intelligence = None
+        self.snmp = None
+        self.wmi_tool = None
+        self.authorized_devices_import_template = None
+        self.device_information_update_import_template = None
 
 
 class PackageDownloadsCentralManager(Model):
@@ -6087,7 +6792,8 @@ class PackageDownloadsCentralManager(Model):
      ~azure.mgmt.security.models.PackageDownloadsCentralManagerFull
     :ivar upgrade: Central Manager upgrade package downloads (on existing
      installations)
-    :vartype upgrade: list[~azure.mgmt.security.models.PackageDownloadInfo]
+    :vartype upgrade:
+     list[~azure.mgmt.security.models.UpgradePackageDownloadInfo]
     """
 
     _validation = {
@@ -6097,7 +6803,7 @@ class PackageDownloadsCentralManager(Model):
 
     _attribute_map = {
         'full': {'key': 'full', 'type': 'PackageDownloadsCentralManagerFull'},
-        'upgrade': {'key': 'upgrade', 'type': '[PackageDownloadInfo]'},
+        'upgrade': {'key': 'upgrade', 'type': '[UpgradePackageDownloadInfo]'},
     }
 
     def __init__(self, **kwargs):
@@ -6187,7 +6893,8 @@ class PackageDownloadsSensor(Model):
     :vartype full: ~azure.mgmt.security.models.PackageDownloadsSensorFull
     :param upgrade: Sensor upgrade package downloads (on existing
      installations)
-    :type upgrade: list[~azure.mgmt.security.models.PackageDownloadInfo]
+    :type upgrade:
+     list[~azure.mgmt.security.models.UpgradePackageDownloadInfo]
     """
 
     _validation = {
@@ -6196,7 +6903,7 @@ class PackageDownloadsSensor(Model):
 
     _attribute_map = {
         'full': {'key': 'full', 'type': 'PackageDownloadsSensorFull'},
-        'upgrade': {'key': 'upgrade', 'type': '[PackageDownloadInfo]'},
+        'upgrade': {'key': 'upgrade', 'type': '[UpgradePackageDownloadInfo]'},
     }
 
     def __init__(self, **kwargs):
@@ -6264,22 +6971,6 @@ class PackageDownloadsSensorFullOvf(Model):
         self.enterprise = None
         self.medium = None
         self.line = None
-
-
-class PackageDownloadsThreatIntelligence(Model):
-    """All downloads for threat intelligence.
-
-    :param link: Download link
-    :type link: str
-    """
-
-    _attribute_map = {
-        'link': {'key': 'link', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(PackageDownloadsThreatIntelligence, self).__init__(**kwargs)
-        self.link = kwargs.get('link', None)
 
 
 class PathRecommendation(Model):
@@ -6405,6 +7096,68 @@ class PricingList(Model):
     def __init__(self, **kwargs):
         super(PricingList, self).__init__(**kwargs)
         self.value = kwargs.get('value', None)
+
+
+class ProcessEntity(AlertEntity):
+    """Represents a process running on a host.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param process_id: The process ID
+    :type process_id: str
+    :param command_line: The command line used to create the process
+    :type command_line: str
+    :param elevation_token: The elevation token associated with the process
+    :type elevation_token: str
+    :param creation_time_utc: The time when the process started to run
+    :type creation_time_utc: str
+    :param image_file:
+    :type image_file: ~azure.mgmt.security.models.FileEntity
+    :param account:
+    :type account: ~azure.mgmt.security.models.AccountEntity
+    :param logon_session:
+    :type logon_session: ~azure.mgmt.security.models.HostLogonSessionEntity
+    :param parent_process:
+    :type parent_process: ~azure.mgmt.security.models.ProcessEntity
+    :param host:
+    :type host: ~azure.mgmt.security.models.HostEntity
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'process_id': {'key': 'processId', 'type': 'str'},
+        'command_line': {'key': 'commandLine', 'type': 'str'},
+        'elevation_token': {'key': 'elevationToken', 'type': 'str'},
+        'creation_time_utc': {'key': 'creationTimeUtc', 'type': 'str'},
+        'image_file': {'key': 'imageFile', 'type': 'FileEntity'},
+        'account': {'key': 'account', 'type': 'AccountEntity'},
+        'logon_session': {'key': 'logonSession', 'type': 'HostLogonSessionEntity'},
+        'parent_process': {'key': 'parentProcess', 'type': 'ProcessEntity'},
+        'host': {'key': 'host', 'type': 'HostEntity'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ProcessEntity, self).__init__(**kwargs)
+        self.process_id = kwargs.get('process_id', None)
+        self.command_line = kwargs.get('command_line', None)
+        self.elevation_token = kwargs.get('elevation_token', None)
+        self.creation_time_utc = kwargs.get('creation_time_utc', None)
+        self.image_file = kwargs.get('image_file', None)
+        self.account = kwargs.get('account', None)
+        self.logon_session = kwargs.get('logon_session', None)
+        self.parent_process = kwargs.get('parent_process', None)
+        self.host = kwargs.get('host', None)
+        self.type = 'process'
 
 
 class ProcessNotAllowed(AllowlistCustomAlertRule):
@@ -6685,6 +7438,78 @@ class RecommendationConfigurationProperties(Model):
         self.status = kwargs.get('status', "Enabled")
 
 
+class RegistryKeyEntity(AlertEntity):
+    """Represents a registry key entity.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param hive: The hive that holds the registry key
+    :type hive: str
+    :param key: The registry key path
+    :type key: str
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'hive': {'key': 'hive', 'type': 'str'},
+        'key': {'key': 'key', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(RegistryKeyEntity, self).__init__(**kwargs)
+        self.hive = kwargs.get('hive', None)
+        self.key = kwargs.get('key', None)
+        self.type = 'registry-key'
+
+
+class RegistryValueEntity(AlertEntity):
+    """Represents a registry value entity.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param key:
+    :type key: ~azure.mgmt.security.models.RegistryKeyEntity
+    :param name: The registry key entity
+    :type name: str
+    :param value: The registry value name
+    :type value: str
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'key': {'key': 'key', 'type': 'RegistryKeyEntity'},
+        'name': {'key': 'name', 'type': 'str'},
+        'value': {'key': 'value', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(RegistryValueEntity, self).__init__(**kwargs)
+        self.key = kwargs.get('key', None)
+        self.name = kwargs.get('name', None)
+        self.value = kwargs.get('value', None)
+        self.type = 'registry-value'
+
+
 class RegulatoryComplianceAssessment(Resource):
     """Regulatory compliance assessment details and state.
 
@@ -6907,6 +7732,22 @@ class Remediation(Model):
         self.scripts = kwargs.get('scripts', None)
         self.automated = kwargs.get('automated', None)
         self.portal_link = kwargs.get('portal_link', None)
+
+
+class ResetPasswordInput(Model):
+    """Reset password input.
+
+    :param appliance_id: The appliance id of the sensor.
+    :type appliance_id: str
+    """
+
+    _attribute_map = {
+        'appliance_id': {'key': 'applianceId', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ResetPasswordInput, self).__init__(**kwargs)
+        self.appliance_id = kwargs.get('appliance_id', None)
 
 
 class Rule(Model):
@@ -7900,6 +8741,48 @@ class SecurityContact(Resource):
         self.alerts_to_admins = kwargs.get('alerts_to_admins', None)
 
 
+class SecurityGroupEntity(AlertEntity):
+    """Represents a security group that is reported as part of the security
+    detection alert. The security group in most cases would be a domain group,
+    local group, AAD group or other.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param distinguished_name: The group distinguished name
+    :type distinguished_name: str
+    :param sid: The SID attribute is a single-value attribute that specifies
+     the security identifier (SID) of the group
+    :type sid: str
+    :param object_guid: The objectGUID attribute is a single-value attribute
+     that is the unique identifier for the object, assigned by Active Directory
+    :type object_guid: str
+    """
+
+    _validation = {
+        'type': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'type': {'key': 'type', 'type': 'str'},
+        'distinguished_name': {'key': 'distinguishedName', 'type': 'str'},
+        'sid': {'key': 'sid', 'type': 'str'},
+        'object_guid': {'key': 'objectGuid', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SecurityGroupEntity, self).__init__(**kwargs)
+        self.distinguished_name = kwargs.get('distinguished_name', None)
+        self.sid = kwargs.get('sid', None)
+        self.object_guid = kwargs.get('object_guid', None)
+        self.type = 'security-group'
+
+
 class SecuritySolution(Model):
     """SecuritySolution.
 
@@ -8858,6 +9741,41 @@ class UpdateIotSecuritySolutionData(TagsResource):
         super(UpdateIotSecuritySolutionData, self).__init__(**kwargs)
         self.user_defined_resources = kwargs.get('user_defined_resources', None)
         self.recommendations_configuration = kwargs.get('recommendations_configuration', None)
+
+
+class UpgradePackageDownloadInfo(PackageDownloadInfo):
+    """Information on a specific package upgrade download.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar version: Version number
+    :vartype version: str
+    :param link: Download link
+    :type link: str
+    :ivar version_kind: Kind of the version. Possible values include:
+     'Latest', 'Previous', 'Preview'
+    :vartype version_kind: str or ~azure.mgmt.security.models.VersionKind
+    :ivar from_version: Minimum base version for upgrade
+    :vartype from_version: str
+    """
+
+    _validation = {
+        'version': {'readonly': True},
+        'version_kind': {'readonly': True},
+        'from_version': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'version': {'key': 'version', 'type': 'str'},
+        'link': {'key': 'link', 'type': 'str'},
+        'version_kind': {'key': 'versionKind', 'type': 'str'},
+        'from_version': {'key': 'fromVersion', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(UpgradePackageDownloadInfo, self).__init__(**kwargs)
+        self.from_version = None
 
 
 class UserDefinedResourcesProperties(Model):
