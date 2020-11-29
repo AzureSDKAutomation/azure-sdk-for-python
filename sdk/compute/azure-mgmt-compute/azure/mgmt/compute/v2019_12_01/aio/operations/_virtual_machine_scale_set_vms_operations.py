@@ -1383,8 +1383,7 @@ class VirtualMachineScaleSetVMsOperations:
         instance_id: str,
         **kwargs
     ) -> AsyncLROPoller[None]:
-        """Shuts down the virtual machine in a VMScaleSet, moves it to an already updated node, and powers
-        it back on during the self-service phase of planned maintenance.
+        """Performs maintenance on a virtual machine in a VM scale set.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
