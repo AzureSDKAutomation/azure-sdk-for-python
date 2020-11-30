@@ -111,9 +111,11 @@ try:
     from ._models_py3 import IoTSecuritySolutionAnalyticsModelList
     from ._models_py3 import IoTSecuritySolutionAnalyticsModelPropertiesDevicesMetricsItem
     from ._models_py3 import IoTSecuritySolutionModel
-    from ._models_py3 import IotSensor
     from ._models_py3 import IotSensorsList
+    from ._models_py3 import IotSensorsModel
     from ._models_py3 import IoTSeverityMetrics
+    from ._models_py3 import IotSitesList
+    from ._models_py3 import IotSitesModel
     from ._models_py3 import IpAddress
     from ._models_py3 import JitNetworkAccessPolicy
     from ._models_py3 import JitNetworkAccessPolicyInitiatePort
@@ -148,7 +150,6 @@ try:
     from ._models_py3 import PackageDownloadsSensor
     from ._models_py3 import PackageDownloadsSensorFull
     from ._models_py3 import PackageDownloadsSensorFullOvf
-    from ._models_py3 import PackageDownloadsThreatIntelligence
     from ._models_py3 import PathRecommendation
     from ._models_py3 import Pricing
     from ._models_py3 import PricingList
@@ -164,6 +165,7 @@ try:
     from ._models_py3 import RegulatoryComplianceControl
     from ._models_py3 import RegulatoryComplianceStandard
     from ._models_py3 import Remediation
+    from ._models_py3 import ResetPasswordInput
     from ._models_py3 import Resource
     from ._models_py3 import ResourceDetails
     from ._models_py3 import ResourceIdentifier
@@ -221,6 +223,7 @@ try:
     from ._models_py3 import TwinUpdatesNotInAllowedRange
     from ._models_py3 import UnauthorizedOperationsNotInAllowedRange
     from ._models_py3 import UpdateIotSecuritySolutionData
+    from ._models_py3 import UpgradePackageDownloadInfo
     from ._models_py3 import UserDefinedResourcesProperties
     from ._models_py3 import UserRecommendation
     from ._models_py3 import VaRule
@@ -329,9 +332,11 @@ except (SyntaxError, ImportError):
     from ._models import IoTSecuritySolutionAnalyticsModelList
     from ._models import IoTSecuritySolutionAnalyticsModelPropertiesDevicesMetricsItem
     from ._models import IoTSecuritySolutionModel
-    from ._models import IotSensor
     from ._models import IotSensorsList
+    from ._models import IotSensorsModel
     from ._models import IoTSeverityMetrics
+    from ._models import IotSitesList
+    from ._models import IotSitesModel
     from ._models import IpAddress
     from ._models import JitNetworkAccessPolicy
     from ._models import JitNetworkAccessPolicyInitiatePort
@@ -366,7 +371,6 @@ except (SyntaxError, ImportError):
     from ._models import PackageDownloadsSensor
     from ._models import PackageDownloadsSensorFull
     from ._models import PackageDownloadsSensorFullOvf
-    from ._models import PackageDownloadsThreatIntelligence
     from ._models import PathRecommendation
     from ._models import Pricing
     from ._models import PricingList
@@ -382,6 +386,7 @@ except (SyntaxError, ImportError):
     from ._models import RegulatoryComplianceControl
     from ._models import RegulatoryComplianceStandard
     from ._models import Remediation
+    from ._models import ResetPasswordInput
     from ._models import Resource
     from ._models import ResourceDetails
     from ._models import ResourceIdentifier
@@ -439,6 +444,7 @@ except (SyntaxError, ImportError):
     from ._models import TwinUpdatesNotInAllowedRange
     from ._models import UnauthorizedOperationsNotInAllowedRange
     from ._models import UpdateIotSecuritySolutionData
+    from ._models import UpgradePackageDownloadInfo
     from ._models import UserDefinedResourcesProperties
     from ._models import UserRecommendation
     from ._models import VaRule
@@ -652,9 +658,11 @@ __all__ = [
     'IoTSecuritySolutionAnalyticsModelList',
     'IoTSecuritySolutionAnalyticsModelPropertiesDevicesMetricsItem',
     'IoTSecuritySolutionModel',
-    'IotSensor',
     'IotSensorsList',
+    'IotSensorsModel',
     'IoTSeverityMetrics',
+    'IotSitesList',
+    'IotSitesModel',
     'IpAddress',
     'JitNetworkAccessPolicy',
     'JitNetworkAccessPolicyInitiatePort',
@@ -689,7 +697,6 @@ __all__ = [
     'PackageDownloadsSensor',
     'PackageDownloadsSensorFull',
     'PackageDownloadsSensorFullOvf',
-    'PackageDownloadsThreatIntelligence',
     'PathRecommendation',
     'Pricing',
     'PricingList',
@@ -705,6 +712,7 @@ __all__ = [
     'RegulatoryComplianceControl',
     'RegulatoryComplianceStandard',
     'Remediation',
+    'ResetPasswordInput',
     'Resource',
     'ResourceDetails',
     'ResourceIdentifier',
@@ -762,6 +770,7 @@ __all__ = [
     'TwinUpdatesNotInAllowedRange',
     'UnauthorizedOperationsNotInAllowedRange',
     'UpdateIotSecuritySolutionData',
+    'UpgradePackageDownloadInfo',
     'UserDefinedResourcesProperties',
     'UserRecommendation',
     'VaRule',
