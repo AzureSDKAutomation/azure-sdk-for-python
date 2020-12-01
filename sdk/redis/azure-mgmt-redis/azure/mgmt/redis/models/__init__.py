@@ -11,17 +11,24 @@
 
 try:
     from ._models_py3 import CheckNameAvailabilityParameters
+    from ._models_py3 import ErrorAdditionalInfo
+    from ._models_py3 import ErrorDetail, ErrorDetailException
+    from ._models_py3 import ErrorResponse, ErrorResponseException
     from ._models_py3 import ExportRDBParameters
     from ._models_py3 import ImportRDBParameters
     from ._models_py3 import NotificationListResponse
     from ._models_py3 import Operation
     from ._models_py3 import OperationDisplay
+    from ._models_py3 import PrivateEndpoint
+    from ._models_py3 import PrivateEndpointConnection
+    from ._models_py3 import PrivateLinkResource
+    from ._models_py3 import PrivateLinkServiceConnectionState
     from ._models_py3 import ProxyResource
     from ._models_py3 import RedisAccessKeys
     from ._models_py3 import RedisCreateParameters
     from ._models_py3 import RedisFirewallRule
     from ._models_py3 import RedisFirewallRuleCreateParameters
-    from ._models_py3 import RedisForceRebootResponse
+    from ._models_py3 import RedisForceRebootResponse, RedisForceRebootResponseException
     from ._models_py3 import RedisInstanceDetails
     from ._models_py3 import RedisLinkedServer
     from ._models_py3 import RedisLinkedServerCreateParameters
@@ -38,17 +45,24 @@ try:
     from ._models_py3 import UpgradeNotification
 except (SyntaxError, ImportError):
     from ._models import CheckNameAvailabilityParameters
+    from ._models import ErrorAdditionalInfo
+    from ._models import ErrorDetail, ErrorDetailException
+    from ._models import ErrorResponse, ErrorResponseException
     from ._models import ExportRDBParameters
     from ._models import ImportRDBParameters
     from ._models import NotificationListResponse
     from ._models import Operation
     from ._models import OperationDisplay
+    from ._models import PrivateEndpoint
+    from ._models import PrivateEndpointConnection
+    from ._models import PrivateLinkResource
+    from ._models import PrivateLinkServiceConnectionState
     from ._models import ProxyResource
     from ._models import RedisAccessKeys
     from ._models import RedisCreateParameters
     from ._models import RedisFirewallRule
     from ._models import RedisFirewallRuleCreateParameters
-    from ._models import RedisForceRebootResponse
+    from ._models import RedisForceRebootResponse, RedisForceRebootResponseException
     from ._models import RedisInstanceDetails
     from ._models import RedisLinkedServer
     from ._models import RedisLinkedServerCreateParameters
@@ -64,6 +78,8 @@ except (SyntaxError, ImportError):
     from ._models import TrackedResource
     from ._models import UpgradeNotification
 from ._paged_models import OperationPaged
+from ._paged_models import PrivateEndpointConnectionPaged
+from ._paged_models import PrivateLinkResourcePaged
 from ._paged_models import RedisFirewallRulePaged
 from ._paged_models import RedisLinkedServerWithPropertiesPaged
 from ._paged_models import RedisPatchSchedulePaged
@@ -72,7 +88,10 @@ from ._redis_management_client_enums import (
     SkuName,
     SkuFamily,
     TlsVersion,
+    PublicNetworkAccess,
     ProvisioningState,
+    PrivateEndpointServiceConnectionStatus,
+    PrivateEndpointConnectionProvisioningState,
     RedisKeyType,
     RebootType,
     DayOfWeek,
@@ -81,17 +100,24 @@ from ._redis_management_client_enums import (
 
 __all__ = [
     'CheckNameAvailabilityParameters',
+    'ErrorAdditionalInfo',
+    'ErrorDetail', 'ErrorDetailException',
+    'ErrorResponse', 'ErrorResponseException',
     'ExportRDBParameters',
     'ImportRDBParameters',
     'NotificationListResponse',
     'Operation',
     'OperationDisplay',
+    'PrivateEndpoint',
+    'PrivateEndpointConnection',
+    'PrivateLinkResource',
+    'PrivateLinkServiceConnectionState',
     'ProxyResource',
     'RedisAccessKeys',
     'RedisCreateParameters',
     'RedisFirewallRule',
     'RedisFirewallRuleCreateParameters',
-    'RedisForceRebootResponse',
+    'RedisForceRebootResponse', 'RedisForceRebootResponseException',
     'RedisInstanceDetails',
     'RedisLinkedServer',
     'RedisLinkedServerCreateParameters',
@@ -111,10 +137,15 @@ __all__ = [
     'RedisFirewallRulePaged',
     'RedisPatchSchedulePaged',
     'RedisLinkedServerWithPropertiesPaged',
+    'PrivateEndpointConnectionPaged',
+    'PrivateLinkResourcePaged',
     'SkuName',
     'SkuFamily',
     'TlsVersion',
+    'PublicNetworkAccess',
     'ProvisioningState',
+    'PrivateEndpointServiceConnectionStatus',
+    'PrivateEndpointConnectionProvisioningState',
     'RedisKeyType',
     'RebootType',
     'DayOfWeek',
