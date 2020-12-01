@@ -49,6 +49,22 @@ class PrivateCloudProvisioningState(str, Enum):
     updating = "Updating"
 
 
+class InternetEnum(str, Enum):
+
+    enabled = "Enabled"
+    disabled = "Disabled"
+
+
+class VcsaAdminRotateEnum(str, Enum):
+
+    onetime_rotate = "OnetimeRotate"
+
+
+class NsxtAdminRotateEnum(str, Enum):
+
+    onetime_rotate = "OnetimeRotate"
+
+
 class ClusterProvisioningState(str, Enum):
 
     succeeded = "Succeeded"
@@ -58,15 +74,117 @@ class ClusterProvisioningState(str, Enum):
     updating = "Updating"
 
 
-class InternetEnum(str, Enum):
-
-    enabled = "Enabled"
-    disabled = "Disabled"
-
-
 class HcxEnterpriseSiteStatus(str, Enum):
 
     available = "Available"
     consumed = "Consumed"
     deactivated = "Deactivated"
     deleted = "Deleted"
+
+
+class GlobalReachConnectionProvisioningState(str, Enum):
+
+    succeeded = "Succeeded"
+    failed = "Failed"
+    updating = "Updating"
+
+
+class GlobalReachConnectionStatus(str, Enum):
+
+    connected = "Connected"
+    connecting = "Connecting"
+    disconnected = "Disconnected"
+
+
+class SegmentStatusEnum(str, Enum):
+
+    successfailure = "SUCCESS, FAILURE"
+
+
+class WorkloadNetworkSegmentProvisioningState(str, Enum):
+
+    succeeded = "Succeeded"
+    failed = "Failed"
+    building = "Building"
+    deleting = "Deleting"
+    updating = "Updating"
+
+
+class WorkloadNetworkDhcpProvisioningState(str, Enum):
+
+    succeeded = "Succeeded"
+    failed = "Failed"
+    building = "Building"
+    deleting = "Deleting"
+    updating = "Updating"
+
+
+class PortMirroringDirectionEnum(str, Enum):
+
+    ingressegressbidirectional = "INGRESS, EGRESS, BIDIRECTIONAL"
+
+
+class PortMirroringStatusEnum(str, Enum):
+
+    successfailure = "SUCCESS, FAILURE"
+
+
+class WorkloadNetworkPortMirroringProvisioningState(str, Enum):
+
+    succeeded = "Succeeded"
+    failed = "Failed"
+    building = "Building"
+    deleting = "Deleting"
+    updating = "Updating"
+
+
+class VMGroupStatusEnum(str, Enum):
+
+    successfailure = "SUCCESS, FAILURE"
+
+
+class WorkloadNetworkVMGroupProvisioningState(str, Enum):
+
+    succeeded = "Succeeded"
+    failed = "Failed"
+    building = "Building"
+    deleting = "Deleting"
+    updating = "Updating"
+
+
+class VMTypeEnum(str, Enum):
+
+    regularedgeservice = "REGULAR, EDGE, SERVICE"
+
+
+class DnsServiceLogLevelEnum(str, Enum):
+
+    debug = "DEBUG"
+    info = "INFO"
+    warning = "WARNING"
+    error = "ERROR"
+    fatal = "FATAL"
+
+
+class DnsServiceStatusEnum(str, Enum):
+
+    success = "SUCCESS"
+    failure = "FAILURE"
+
+
+class WorkloadNetworkDnsServiceProvisioningState(str, Enum):
+
+    succeeded = "Succeeded"
+    failed = "Failed"
+    building = "Building"
+    deleting = "Deleting"
+    updating = "Updating"
+
+
+class WorkloadNetworkDnsZoneProvisioningState(str, Enum):
+
+    succeeded = "Succeeded"
+    failed = "Failed"
+    building = "Building"
+    deleting = "Deleting"
+    updating = "Updating"
