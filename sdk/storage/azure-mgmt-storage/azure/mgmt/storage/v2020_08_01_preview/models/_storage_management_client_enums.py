@@ -123,6 +123,11 @@ class MinimumTlsVersion(str, Enum):
     tls1_2 = "TLS1_2"
 
 
+class ExtendedLocationTypes(str, Enum):
+
+    edge_zone = "EdgeZone"
+
+
 class GeoReplicationStatus(str, Enum):
 
     live = "Live"
@@ -167,10 +172,8 @@ class PrivateEndpointConnectionProvisioningState(str, Enum):
 
 class KeyPermission(str, Enum):
 
-    read = "READ"
-    full = "FULL"
-    none = "NONE"
-    delete = "DELETE"
+    read = "Read"
+    full = "Full"
 
 
 class UsageUnit(str, Enum):
@@ -236,6 +239,14 @@ class EncryptionScopeState(str, Enum):
     disabled = "Disabled"
 
 
+class CreatedByType(str, Enum):
+
+    user = "User"
+    application = "Application"
+    managed_identity = "ManagedIdentity"
+    key = "Key"
+
+
 class PublicAccess(str, Enum):
 
     container = "Container"
@@ -275,6 +286,11 @@ class ImmutabilityPolicyUpdateType(str, Enum):
     put = "put"
     lock = "lock"
     extend = "extend"
+
+
+class Name(str, Enum):
+
+    access_time_tracking = "AccessTimeTracking"
 
 
 class EnabledProtocols(str, Enum):
@@ -317,6 +333,12 @@ class ListContainersInclude(str, Enum):
 class ListSharesExpand(str, Enum):
 
     deleted = "deleted"
+    snapshots = "snapshots"
+
+
+class PutSharesExpand(str, Enum):
+
+    snapshots = "snapshots"
 
 
 class GetShareExpand(str, Enum):
