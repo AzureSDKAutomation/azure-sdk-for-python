@@ -149,8 +149,10 @@ class KeyPermission(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
     """Permissions for the key -- read-only or full permissions.
     """
 
-    READ = "Read"
-    FULL = "Full"
+    READ = "READ"
+    FULL = "FULL"
+    NONE = "NONE"
+    DELETE = "DELETE"
 
 class KeySource(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
     """The encryption keySource (provider). Possible values (case-insensitive):  Microsoft.Storage,
