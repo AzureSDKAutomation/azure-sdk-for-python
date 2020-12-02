@@ -82,7 +82,7 @@ class SmartGroupsOperations(object):
          response. Permissible value is between 1 to 250. When the
          "includeContent"  filter is selected, maximum value allowed is 25.
          Default value is 25.
-        :type page_count: int
+        :type page_count: long
         :param sort_by: Sort the query results by input field. Default value
          is sort by 'lastModifiedDateTime'. Possible values include:
          'alertsCount', 'state', 'severity', 'startDateTime',
@@ -132,7 +132,7 @@ class SmartGroupsOperations(object):
                 if time_range is not None:
                     query_parameters['timeRange'] = self._serialize.query("time_range", time_range, 'str')
                 if page_count is not None:
-                    query_parameters['pageCount'] = self._serialize.query("page_count", page_count, 'int')
+                    query_parameters['pageCount'] = self._serialize.query("page_count", page_count, 'long')
                 if sort_by is not None:
                     query_parameters['sortBy'] = self._serialize.query("sort_by", sort_by, 'str')
                 if sort_order is not None:
