@@ -181,6 +181,8 @@ class EventSource(str, Enum):
     assessments = "Assessments"
     sub_assessments = "SubAssessments"
     alerts = "Alerts"
+    secure_scores = "SecureScores"
+    secure_score_controls = "SecureScoreControls"
 
 
 class PropertyType(str, Enum):
