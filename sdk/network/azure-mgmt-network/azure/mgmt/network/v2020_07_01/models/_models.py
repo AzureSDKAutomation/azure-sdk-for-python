@@ -6062,6 +6062,9 @@ class CustomIpPrefix(Resource):
     :type location: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
+    :param extended_location: The extended location of the custom IP prefix.
+    :type extended_location:
+     ~azure.mgmt.network.v2020_07_01.models.ExtendedLocation
     :param cidr: The prefix range in CIDR notation. Should include the start
      address and the prefix length.
     :type cidr: str
@@ -6104,6 +6107,7 @@ class CustomIpPrefix(Resource):
         'type': {'key': 'type', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'extended_location': {'key': 'extendedLocation', 'type': 'ExtendedLocation'},
         'cidr': {'key': 'properties.cidr', 'type': 'str'},
         'commissioned_state': {'key': 'properties.commissionedState', 'type': 'str'},
         'public_ip_prefixes': {'key': 'properties.publicIpPrefixes', 'type': '[SubResource]'},
@@ -6115,6 +6119,7 @@ class CustomIpPrefix(Resource):
 
     def __init__(self, **kwargs):
         super(CustomIpPrefix, self).__init__(**kwargs)
+        self.extended_location = kwargs.get('extended_location', None)
         self.cidr = kwargs.get('cidr', None)
         self.commissioned_state = kwargs.get('commissioned_state', None)
         self.public_ip_prefixes = None
@@ -7714,8 +7719,6 @@ class ExpressRouteConnection(SubResource):
     :type routing_weight: int
     :param enable_internet_security: Enable internet security.
     :type enable_internet_security: bool
-    :param express_route_gateway_bypass: Enable FastPath to vWan Firewall hub.
-    :type express_route_gateway_bypass: bool
     :param routing_configuration: The Routing Configuration indicating the
      associated and propagated route tables on this connection.
     :type routing_configuration:
@@ -7737,7 +7740,6 @@ class ExpressRouteConnection(SubResource):
         'authorization_key': {'key': 'properties.authorizationKey', 'type': 'str'},
         'routing_weight': {'key': 'properties.routingWeight', 'type': 'int'},
         'enable_internet_security': {'key': 'properties.enableInternetSecurity', 'type': 'bool'},
-        'express_route_gateway_bypass': {'key': 'properties.expressRouteGatewayBypass', 'type': 'bool'},
         'routing_configuration': {'key': 'properties.routingConfiguration', 'type': 'RoutingConfiguration'},
         'name': {'key': 'name', 'type': 'str'},
     }
@@ -7749,7 +7751,6 @@ class ExpressRouteConnection(SubResource):
         self.authorization_key = kwargs.get('authorization_key', None)
         self.routing_weight = kwargs.get('routing_weight', None)
         self.enable_internet_security = kwargs.get('enable_internet_security', None)
-        self.express_route_gateway_bypass = kwargs.get('express_route_gateway_bypass', None)
         self.routing_configuration = kwargs.get('routing_configuration', None)
         self.name = kwargs.get('name', None)
 

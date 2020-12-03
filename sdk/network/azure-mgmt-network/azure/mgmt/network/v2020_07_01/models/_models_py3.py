@@ -6062,6 +6062,9 @@ class CustomIpPrefix(Resource):
     :type location: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
+    :param extended_location: The extended location of the custom IP prefix.
+    :type extended_location:
+     ~azure.mgmt.network.v2020_07_01.models.ExtendedLocation
     :param cidr: The prefix range in CIDR notation. Should include the start
      address and the prefix length.
     :type cidr: str
@@ -6104,6 +6107,7 @@ class CustomIpPrefix(Resource):
         'type': {'key': 'type', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'extended_location': {'key': 'extendedLocation', 'type': 'ExtendedLocation'},
         'cidr': {'key': 'properties.cidr', 'type': 'str'},
         'commissioned_state': {'key': 'properties.commissionedState', 'type': 'str'},
         'public_ip_prefixes': {'key': 'properties.publicIpPrefixes', 'type': '[SubResource]'},
@@ -6113,8 +6117,9 @@ class CustomIpPrefix(Resource):
         'zones': {'key': 'zones', 'type': '[str]'},
     }
 
-    def __init__(self, *, id: str=None, location: str=None, tags=None, cidr: str=None, commissioned_state=None, zones=None, **kwargs) -> None:
+    def __init__(self, *, id: str=None, location: str=None, tags=None, extended_location=None, cidr: str=None, commissioned_state=None, zones=None, **kwargs) -> None:
         super(CustomIpPrefix, self).__init__(id=id, location=location, tags=tags, **kwargs)
+        self.extended_location = extended_location
         self.cidr = cidr
         self.commissioned_state = commissioned_state
         self.public_ip_prefixes = None
@@ -7714,8 +7719,6 @@ class ExpressRouteConnection(SubResource):
     :type routing_weight: int
     :param enable_internet_security: Enable internet security.
     :type enable_internet_security: bool
-    :param express_route_gateway_bypass: Enable FastPath to vWan Firewall hub.
-    :type express_route_gateway_bypass: bool
     :param routing_configuration: The Routing Configuration indicating the
      associated and propagated route tables on this connection.
     :type routing_configuration:
@@ -7737,19 +7740,17 @@ class ExpressRouteConnection(SubResource):
         'authorization_key': {'key': 'properties.authorizationKey', 'type': 'str'},
         'routing_weight': {'key': 'properties.routingWeight', 'type': 'int'},
         'enable_internet_security': {'key': 'properties.enableInternetSecurity', 'type': 'bool'},
-        'express_route_gateway_bypass': {'key': 'properties.expressRouteGatewayBypass', 'type': 'bool'},
         'routing_configuration': {'key': 'properties.routingConfiguration', 'type': 'RoutingConfiguration'},
         'name': {'key': 'name', 'type': 'str'},
     }
 
-    def __init__(self, *, express_route_circuit_peering, name: str, id: str=None, authorization_key: str=None, routing_weight: int=None, enable_internet_security: bool=None, express_route_gateway_bypass: bool=None, routing_configuration=None, **kwargs) -> None:
+    def __init__(self, *, express_route_circuit_peering, name: str, id: str=None, authorization_key: str=None, routing_weight: int=None, enable_internet_security: bool=None, routing_configuration=None, **kwargs) -> None:
         super(ExpressRouteConnection, self).__init__(id=id, **kwargs)
         self.provisioning_state = None
         self.express_route_circuit_peering = express_route_circuit_peering
         self.authorization_key = authorization_key
         self.routing_weight = routing_weight
         self.enable_internet_security = enable_internet_security
-        self.express_route_gateway_bypass = express_route_gateway_bypass
         self.routing_configuration = routing_configuration
         self.name = name
 
