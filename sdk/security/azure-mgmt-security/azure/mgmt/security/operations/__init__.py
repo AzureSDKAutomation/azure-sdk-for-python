@@ -62,6 +62,7 @@ from ._devices_for_subscription_operations import DevicesForSubscriptionOperatio
 from ._devices_for_hub_operations import DevicesForHubOperations
 from ._device_operations import DeviceOperations
 from ._on_premise_iot_sensors_operations import OnPremiseIotSensorsOperations
+from ._iot_sites_operations import IotSitesOperations
 
 __all__ = [
     'ComplianceResultsOperations',
@@ -117,4 +118,5 @@ __all__ = [
     'DevicesForHubOperations',
     'DeviceOperations',
     'OnPremiseIotSensorsOperations',
+    'IotSitesOperations',
 ]

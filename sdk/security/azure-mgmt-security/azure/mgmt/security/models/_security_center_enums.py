@@ -181,6 +181,8 @@ class EventSource(str, Enum):
     assessments = "Assessments"
     sub_assessments = "SubAssessments"
     alerts = "Alerts"
+    secure_scores = "SecureScores"
+    secure_score_controls = "SecureScoreControls"
 
 
 class PropertyType(str, Enum):
@@ -421,6 +423,21 @@ class VersionKind(str, Enum):
     latest = "Latest"
     previous = "Previous"
     preview = "Preview"
+
+
+class SensorStatus(str, Enum):
+
+    ok = "Ok"
+    disconnected = "Disconnected"
+    unavailable = "Unavailable"
+
+
+class TiStatus(str, Enum):
+
+    ok = "Ok"
+    failed = "Failed"
+    in_progress = "InProgress"
+    update_available = "UpdateAvailable"
 
 
 class MacSignificance(str, Enum):
