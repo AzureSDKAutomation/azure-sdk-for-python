@@ -6651,10 +6651,9 @@ class AzureSqlSource(TabularSource):
     :param produce_additional_types: Which additional types to produce.
     :type produce_additional_types: object
     :param partition_option: The partition mechanism that will be used for Sql
-     read in parallel. Possible values include: 'None',
-     'PhysicalPartitionsOfTable', 'DynamicRange'
-    :type partition_option: str or
-     ~azure.mgmt.datafactory.models.SqlPartitionOption
+     read in parallel. Possible values include: "None",
+     "PhysicalPartitionsOfTable", "DynamicRange".
+    :type partition_option: object
     :param partition_settings: The settings that will be leveraged for Sql
      source partitioning.
     :type partition_settings:
@@ -6677,7 +6676,7 @@ class AzureSqlSource(TabularSource):
         'sql_reader_stored_procedure_name': {'key': 'sqlReaderStoredProcedureName', 'type': 'object'},
         'stored_procedure_parameters': {'key': 'storedProcedureParameters', 'type': '{StoredProcedureParameter}'},
         'produce_additional_types': {'key': 'produceAdditionalTypes', 'type': 'object'},
-        'partition_option': {'key': 'partitionOption', 'type': 'str'},
+        'partition_option': {'key': 'partitionOption', 'type': 'object'},
         'partition_settings': {'key': 'partitionSettings', 'type': 'SqlPartitionSettings'},
     }
 
@@ -13425,6 +13424,18 @@ class ExecuteDataFlowActivity(ExecutionActivity):
     :param compute: Compute properties for data flow activity.
     :type compute:
      ~azure.mgmt.datafactory.models.ExecuteDataFlowActivityTypePropertiesCompute
+    :param trace_level: Trace level setting used for data flow monitoring
+     output. Supported values are: 'coarse', 'fine', and 'none'. Type: string
+     (or Expression with resultType string)
+    :type trace_level: object
+    :param continue_on_error: Continue on error setting used for data flow
+     execution. Enables processing to continue if a sink fails. Type: boolean
+     (or Expression with resultType boolean)
+    :type continue_on_error: object
+    :param run_concurrently: Concurrent run setting used for data flow
+     execution. Allows sinks with the same save order to be processed
+     concurrently. Type: boolean (or Expression with resultType boolean)
+    :type run_concurrently: object
     """
 
     _validation = {
@@ -13446,14 +13457,20 @@ class ExecuteDataFlowActivity(ExecutionActivity):
         'staging': {'key': 'typeProperties.staging', 'type': 'DataFlowStagingInfo'},
         'integration_runtime': {'key': 'typeProperties.integrationRuntime', 'type': 'IntegrationRuntimeReference'},
         'compute': {'key': 'typeProperties.compute', 'type': 'ExecuteDataFlowActivityTypePropertiesCompute'},
+        'trace_level': {'key': 'typeProperties.traceLevel', 'type': 'object'},
+        'continue_on_error': {'key': 'typeProperties.continueOnError', 'type': 'object'},
+        'run_concurrently': {'key': 'typeProperties.runConcurrently', 'type': 'object'},
     }
 
-    def __init__(self, *, name: str, data_flow, additional_properties=None, description: str=None, depends_on=None, user_properties=None, linked_service_name=None, policy=None, staging=None, integration_runtime=None, compute=None, **kwargs) -> None:
+    def __init__(self, *, name: str, data_flow, additional_properties=None, description: str=None, depends_on=None, user_properties=None, linked_service_name=None, policy=None, staging=None, integration_runtime=None, compute=None, trace_level=None, continue_on_error=None, run_concurrently=None, **kwargs) -> None:
         super(ExecuteDataFlowActivity, self).__init__(additional_properties=additional_properties, name=name, description=description, depends_on=depends_on, user_properties=user_properties, linked_service_name=linked_service_name, policy=policy, **kwargs)
         self.data_flow = data_flow
         self.staging = staging
         self.integration_runtime = integration_runtime
         self.compute = compute
+        self.trace_level = trace_level
+        self.continue_on_error = continue_on_error
+        self.run_concurrently = run_concurrently
         self.type = 'ExecuteDataFlow'
 
 
@@ -13462,20 +13479,20 @@ class ExecuteDataFlowActivityTypePropertiesCompute(Model):
 
     :param compute_type: Compute type of the cluster which will execute data
      flow job. Possible values include: 'General', 'MemoryOptimized',
-     'ComputeOptimized'
-    :type compute_type: str or
-     ~azure.mgmt.datafactory.models.DataFlowComputeType
+     'ComputeOptimized'. Type: string (or Expression with resultType string)
+    :type compute_type: object
     :param core_count: Core count of the cluster which will execute data flow
-     job. Supported values are: 8, 16, 32, 48, 80, 144 and 272.
-    :type core_count: int
+     job. Supported values are: 8, 16, 32, 48, 80, 144 and 272. Type: integer
+     (or Expression with resultType integer)
+    :type core_count: object
     """
 
     _attribute_map = {
-        'compute_type': {'key': 'computeType', 'type': 'str'},
-        'core_count': {'key': 'coreCount', 'type': 'int'},
+        'compute_type': {'key': 'computeType', 'type': 'object'},
+        'core_count': {'key': 'coreCount', 'type': 'object'},
     }
 
-    def __init__(self, *, compute_type=None, core_count: int=None, **kwargs) -> None:
+    def __init__(self, *, compute_type=None, core_count=None, **kwargs) -> None:
         super(ExecuteDataFlowActivityTypePropertiesCompute, self).__init__(**kwargs)
         self.compute_type = compute_type
         self.core_count = core_count
@@ -22257,10 +22274,9 @@ class NetezzaSource(TabularSource):
      Expression with resultType string).
     :type query: object
     :param partition_option: The partition mechanism that will be used for
-     Netezza read in parallel. Possible values include: 'None', 'DataSlice',
-     'DynamicRange'
-    :type partition_option: str or
-     ~azure.mgmt.datafactory.models.NetezzaPartitionOption
+     Netezza read in parallel. Possible values include: "None", "DataSlice",
+     "DynamicRange".
+    :type partition_option: object
     :param partition_settings: The settings that will be leveraged for Netezza
      source partitioning.
     :type partition_settings:
@@ -22280,7 +22296,7 @@ class NetezzaSource(TabularSource):
         'query_timeout': {'key': 'queryTimeout', 'type': 'object'},
         'additional_columns': {'key': 'additionalColumns', 'type': '[AdditionalColumns]'},
         'query': {'key': 'query', 'type': 'object'},
-        'partition_option': {'key': 'partitionOption', 'type': 'str'},
+        'partition_option': {'key': 'partitionOption', 'type': 'object'},
         'partition_settings': {'key': 'partitionSettings', 'type': 'NetezzaPartitionSettings'},
     }
 
@@ -23640,10 +23656,9 @@ class OracleSource(CopySource):
      ((\\d+)\\.)?(\\d\\d):(60|([0-5][0-9])):(60|([0-5][0-9])).
     :type query_timeout: object
     :param partition_option: The partition mechanism that will be used for
-     Oracle read in parallel. Possible values include: 'None',
-     'PhysicalPartitionsOfTable', 'DynamicRange'
-    :type partition_option: str or
-     ~azure.mgmt.datafactory.models.OraclePartitionOption
+     Oracle read in parallel. Possible values include: "None",
+     "PhysicalPartitionsOfTable", "DynamicRange".
+    :type partition_option: object
     :param partition_settings: The settings that will be leveraged for Oracle
      source partitioning.
     :type partition_settings:
@@ -23667,7 +23682,7 @@ class OracleSource(CopySource):
         'type': {'key': 'type', 'type': 'str'},
         'oracle_reader_query': {'key': 'oracleReaderQuery', 'type': 'object'},
         'query_timeout': {'key': 'queryTimeout', 'type': 'object'},
-        'partition_option': {'key': 'partitionOption', 'type': 'str'},
+        'partition_option': {'key': 'partitionOption', 'type': 'object'},
         'partition_settings': {'key': 'partitionSettings', 'type': 'OraclePartitionSettings'},
         'additional_columns': {'key': 'additionalColumns', 'type': '[AdditionalColumns]'},
     }
@@ -28173,10 +28188,9 @@ class SapHanaSource(TabularSource):
      integer(or Expression with resultType integer).
     :type packet_size: object
     :param partition_option: The partition mechanism that will be used for SAP
-     HANA read in parallel. Possible values include: 'None',
-     'PhysicalPartitionsOfTable', 'SapHanaDynamicRange'
-    :type partition_option: str or
-     ~azure.mgmt.datafactory.models.SapHanaPartitionOption
+     HANA read in parallel. Possible values include: "None",
+     "PhysicalPartitionsOfTable", "SapHanaDynamicRange".
+    :type partition_option: object
     :param partition_settings: The settings that will be leveraged for SAP
      HANA source partitioning.
     :type partition_settings:
@@ -28197,7 +28211,7 @@ class SapHanaSource(TabularSource):
         'additional_columns': {'key': 'additionalColumns', 'type': '[AdditionalColumns]'},
         'query': {'key': 'query', 'type': 'object'},
         'packet_size': {'key': 'packetSize', 'type': 'object'},
-        'partition_option': {'key': 'partitionOption', 'type': 'str'},
+        'partition_option': {'key': 'partitionOption', 'type': 'object'},
         'partition_settings': {'key': 'partitionSettings', 'type': 'SapHanaPartitionSettings'},
     }
 
@@ -28811,11 +28825,10 @@ class SapTableSource(TabularSource):
      retrieved. Type: string (or Expression with resultType string).
     :type sap_data_column_delimiter: object
     :param partition_option: The partition mechanism that will be used for SAP
-     table read in parallel. Possible values include: 'None', 'PartitionOnInt',
-     'PartitionOnCalendarYear', 'PartitionOnCalendarMonth',
-     'PartitionOnCalendarDate', 'PartitionOnTime'
-    :type partition_option: str or
-     ~azure.mgmt.datafactory.models.SapTablePartitionOption
+     table read in parallel. Possible values include: "None", "PartitionOnInt",
+     "PartitionOnCalendarYear", "PartitionOnCalendarMonth",
+     "PartitionOnCalendarDate", "PartitionOnTime".
+    :type partition_option: object
     :param partition_settings: The settings that will be leveraged for SAP
      table source partitioning.
     :type partition_settings:
@@ -28841,7 +28854,7 @@ class SapTableSource(TabularSource):
         'batch_size': {'key': 'batchSize', 'type': 'object'},
         'custom_rfc_read_table_function_module': {'key': 'customRfcReadTableFunctionModule', 'type': 'object'},
         'sap_data_column_delimiter': {'key': 'sapDataColumnDelimiter', 'type': 'object'},
-        'partition_option': {'key': 'partitionOption', 'type': 'str'},
+        'partition_option': {'key': 'partitionOption', 'type': 'object'},
         'partition_settings': {'key': 'partitionSettings', 'type': 'SapTablePartitionSettings'},
     }
 
@@ -30960,10 +30973,9 @@ class SqlDWSource(TabularSource):
      StoredProcedureParameter.
     :type stored_procedure_parameters: object
     :param partition_option: The partition mechanism that will be used for Sql
-     read in parallel. Possible values include: 'None',
-     'PhysicalPartitionsOfTable', 'DynamicRange'
-    :type partition_option: str or
-     ~azure.mgmt.datafactory.models.SqlPartitionOption
+     read in parallel. Possible values include: "None",
+     "PhysicalPartitionsOfTable", "DynamicRange".
+    :type partition_option: object
     :param partition_settings: The settings that will be leveraged for Sql
      source partitioning.
     :type partition_settings:
@@ -30985,7 +30997,7 @@ class SqlDWSource(TabularSource):
         'sql_reader_query': {'key': 'sqlReaderQuery', 'type': 'object'},
         'sql_reader_stored_procedure_name': {'key': 'sqlReaderStoredProcedureName', 'type': 'object'},
         'stored_procedure_parameters': {'key': 'storedProcedureParameters', 'type': 'object'},
-        'partition_option': {'key': 'partitionOption', 'type': 'str'},
+        'partition_option': {'key': 'partitionOption', 'type': 'object'},
         'partition_settings': {'key': 'partitionSettings', 'type': 'SqlPartitionSettings'},
     }
 
@@ -31124,10 +31136,9 @@ class SqlMISource(TabularSource):
     :param produce_additional_types: Which additional types to produce.
     :type produce_additional_types: object
     :param partition_option: The partition mechanism that will be used for Sql
-     read in parallel. Possible values include: 'None',
-     'PhysicalPartitionsOfTable', 'DynamicRange'
-    :type partition_option: str or
-     ~azure.mgmt.datafactory.models.SqlPartitionOption
+     read in parallel. Possible values include: "None",
+     "PhysicalPartitionsOfTable", "DynamicRange".
+    :type partition_option: object
     :param partition_settings: The settings that will be leveraged for Sql
      source partitioning.
     :type partition_settings:
@@ -31150,7 +31161,7 @@ class SqlMISource(TabularSource):
         'sql_reader_stored_procedure_name': {'key': 'sqlReaderStoredProcedureName', 'type': 'object'},
         'stored_procedure_parameters': {'key': 'storedProcedureParameters', 'type': '{StoredProcedureParameter}'},
         'produce_additional_types': {'key': 'produceAdditionalTypes', 'type': 'object'},
-        'partition_option': {'key': 'partitionOption', 'type': 'str'},
+        'partition_option': {'key': 'partitionOption', 'type': 'object'},
         'partition_settings': {'key': 'partitionSettings', 'type': 'SqlPartitionSettings'},
     }
 
@@ -31387,10 +31398,9 @@ class SqlServerSource(TabularSource):
     :param produce_additional_types: Which additional types to produce.
     :type produce_additional_types: object
     :param partition_option: The partition mechanism that will be used for Sql
-     read in parallel. Possible values include: 'None',
-     'PhysicalPartitionsOfTable', 'DynamicRange'
-    :type partition_option: str or
-     ~azure.mgmt.datafactory.models.SqlPartitionOption
+     read in parallel. Possible values include: "None",
+     "PhysicalPartitionsOfTable", "DynamicRange".
+    :type partition_option: object
     :param partition_settings: The settings that will be leveraged for Sql
      source partitioning.
     :type partition_settings:
@@ -31413,7 +31423,7 @@ class SqlServerSource(TabularSource):
         'sql_reader_stored_procedure_name': {'key': 'sqlReaderStoredProcedureName', 'type': 'object'},
         'stored_procedure_parameters': {'key': 'storedProcedureParameters', 'type': '{StoredProcedureParameter}'},
         'produce_additional_types': {'key': 'produceAdditionalTypes', 'type': 'object'},
-        'partition_option': {'key': 'partitionOption', 'type': 'str'},
+        'partition_option': {'key': 'partitionOption', 'type': 'object'},
         'partition_settings': {'key': 'partitionSettings', 'type': 'SqlPartitionSettings'},
     }
 
@@ -31685,10 +31695,9 @@ class SqlSource(TabularSource):
      resultType string).
     :type isolation_level: object
     :param partition_option: The partition mechanism that will be used for Sql
-     read in parallel. Possible values include: 'None',
-     'PhysicalPartitionsOfTable', 'DynamicRange'
-    :type partition_option: str or
-     ~azure.mgmt.datafactory.models.SqlPartitionOption
+     read in parallel. Possible values include: "None",
+     "PhysicalPartitionsOfTable", "DynamicRange".
+    :type partition_option: object
     :param partition_settings: The settings that will be leveraged for Sql
      source partitioning.
     :type partition_settings:
@@ -31711,7 +31720,7 @@ class SqlSource(TabularSource):
         'sql_reader_stored_procedure_name': {'key': 'sqlReaderStoredProcedureName', 'type': 'object'},
         'stored_procedure_parameters': {'key': 'storedProcedureParameters', 'type': '{StoredProcedureParameter}'},
         'isolation_level': {'key': 'isolationLevel', 'type': 'object'},
-        'partition_option': {'key': 'partitionOption', 'type': 'str'},
+        'partition_option': {'key': 'partitionOption', 'type': 'object'},
         'partition_settings': {'key': 'partitionSettings', 'type': 'SqlPartitionSettings'},
     }
 
@@ -33182,10 +33191,9 @@ class TeradataSource(TabularSource):
      string).
     :type query: object
     :param partition_option: The partition mechanism that will be used for
-     teradata read in parallel. Possible values include: 'None', 'Hash',
-     'DynamicRange'
-    :type partition_option: str or
-     ~azure.mgmt.datafactory.models.TeradataPartitionOption
+     teradata read in parallel. Possible values include: "None", "Hash",
+     "DynamicRange".
+    :type partition_option: object
     :param partition_settings: The settings that will be leveraged for
      teradata source partitioning.
     :type partition_settings:
@@ -33205,7 +33213,7 @@ class TeradataSource(TabularSource):
         'query_timeout': {'key': 'queryTimeout', 'type': 'object'},
         'additional_columns': {'key': 'additionalColumns', 'type': '[AdditionalColumns]'},
         'query': {'key': 'query', 'type': 'object'},
-        'partition_option': {'key': 'partitionOption', 'type': 'str'},
+        'partition_option': {'key': 'partitionOption', 'type': 'object'},
         'partition_settings': {'key': 'partitionSettings', 'type': 'TeradataPartitionSettings'},
     }
 
