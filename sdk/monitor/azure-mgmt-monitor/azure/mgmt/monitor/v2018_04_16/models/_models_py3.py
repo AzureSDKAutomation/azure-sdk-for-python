@@ -220,13 +220,14 @@ class LogMetricTrigger(Model):
 
     :param threshold_operator: Evaluation operation for Metric -'GreaterThan'
      or 'LessThan' or 'Equal'. Possible values include: 'GreaterThan',
-     'LessThan', 'Equal'
+     'LessThan', 'Equal'. Default value: "GreaterThanOrEqual" .
     :type threshold_operator: str or
      ~azure.mgmt.monitor.v2018_04_16.models.ConditionalOperator
     :param threshold: The threshold of the metric trigger.
     :type threshold: float
     :param metric_trigger_type: Metric Trigger Type - 'Consecutive' or
-     'Total'. Possible values include: 'Consecutive', 'Total'
+     'Total'. Possible values include: 'Consecutive', 'Total'. Default value:
+     "Consecutive" .
     :type metric_trigger_type: str or
      ~azure.mgmt.monitor.v2018_04_16.models.MetricTriggerType
     :param metric_column: Evaluation of metric on a particular column
@@ -240,7 +241,7 @@ class LogMetricTrigger(Model):
         'metric_column': {'key': 'metricColumn', 'type': 'str'},
     }
 
-    def __init__(self, *, threshold_operator=None, threshold: float=None, metric_trigger_type=None, metric_column: str=None, **kwargs) -> None:
+    def __init__(self, *, threshold_operator="GreaterThanOrEqual", threshold: float=None, metric_trigger_type="Consecutive", metric_column: str=None, **kwargs) -> None:
         super(LogMetricTrigger, self).__init__(**kwargs)
         self.threshold_operator = threshold_operator
         self.threshold = threshold
@@ -266,6 +267,18 @@ class Resource(Model):
     :type location: str
     :param tags: Resource tags
     :type tags: dict[str, str]
+    :ivar kind: Metadata used by portal/tooling/etc to render different UX
+     experiences for resources of the same type; e.g. ApiApps are a kind of
+     Microsoft.Web/sites type.  If supported, the resource provider must
+     validate and persist this value.
+    :vartype kind: str
+    :ivar etag: The etag field is *not* required. If it is provided in the
+     response body, it must also be provided as a header per the normal etag
+     convention.  Entity tags are used for comparing two or more entities from
+     the same requested resource. HTTP/1.1 uses entity tags in the etag
+     (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26),
+     and If-Range (section 14.27) header fields.
+    :vartype etag: str
     """
 
     _validation = {
@@ -273,6 +286,8 @@ class Resource(Model):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'location': {'required': True},
+        'kind': {'readonly': True},
+        'etag': {'readonly': True},
     }
 
     _attribute_map = {
@@ -281,6 +296,8 @@ class Resource(Model):
         'type': {'key': 'type', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
     }
 
     def __init__(self, *, location: str, tags=None, **kwargs) -> None:
@@ -290,6 +307,8 @@ class Resource(Model):
         self.type = None
         self.location = location
         self.tags = tags
+        self.kind = None
+        self.etag = None
 
 
 class LogSearchRuleResource(Resource):
@@ -310,6 +329,18 @@ class LogSearchRuleResource(Resource):
     :type location: str
     :param tags: Resource tags
     :type tags: dict[str, str]
+    :ivar kind: Metadata used by portal/tooling/etc to render different UX
+     experiences for resources of the same type; e.g. ApiApps are a kind of
+     Microsoft.Web/sites type.  If supported, the resource provider must
+     validate and persist this value.
+    :vartype kind: str
+    :ivar etag: The etag field is *not* required. If it is provided in the
+     response body, it must also be provided as a header per the normal etag
+     convention.  Entity tags are used for comparing two or more entities from
+     the same requested resource. HTTP/1.1 uses entity tags in the etag
+     (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26),
+     and If-Range (section 14.27) header fields.
+    :vartype etag: str
     :param description: The description of the Log Search rule.
     :type description: str
     :param enabled: The flag which indicates whether the Log Search rule is
@@ -336,6 +367,8 @@ class LogSearchRuleResource(Resource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'location': {'required': True},
+        'kind': {'readonly': True},
+        'etag': {'readonly': True},
         'last_updated_time': {'readonly': True},
         'provisioning_state': {'readonly': True},
         'source': {'required': True},
@@ -348,6 +381,8 @@ class LogSearchRuleResource(Resource):
         'type': {'key': 'type', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
         'description': {'key': 'properties.description', 'type': 'str'},
         'enabled': {'key': 'properties.enabled', 'type': 'str'},
         'last_updated_time': {'key': 'properties.lastUpdatedTime', 'type': 'iso-8601'},
@@ -490,7 +525,7 @@ class TriggerCondition(Model):
 
     :param threshold_operator: Required. Evaluation operation for rule -
      'GreaterThan' or 'LessThan. Possible values include: 'GreaterThan',
-     'LessThan', 'Equal'
+     'LessThan', 'Equal'. Default value: "GreaterThanOrEqual" .
     :type threshold_operator: str or
      ~azure.mgmt.monitor.v2018_04_16.models.ConditionalOperator
     :param threshold: Required. Result or count threshold based on which rule
@@ -512,7 +547,7 @@ class TriggerCondition(Model):
         'metric_trigger': {'key': 'metricTrigger', 'type': 'LogMetricTrigger'},
     }
 
-    def __init__(self, *, threshold_operator, threshold: float, metric_trigger=None, **kwargs) -> None:
+    def __init__(self, *, threshold: float, threshold_operator="GreaterThanOrEqual", metric_trigger=None, **kwargs) -> None:
         super(TriggerCondition, self).__init__(**kwargs)
         self.threshold_operator = threshold_operator
         self.threshold = threshold

@@ -467,6 +467,18 @@ class ScheduledQueryRuleResource(TrackedResource):
     :type tags: dict[str, str]
     :param location: Required. The geo-location where the resource lives
     :type location: str
+    :ivar kind: Metadata used by portal/tooling/etc to render different UX
+     experiences for resources of the same type; e.g. ApiApps are a kind of
+     Microsoft.Web/sites type.  If supported, the resource provider must
+     validate and persist this value.
+    :vartype kind: str
+    :ivar etag: The etag field is *not* required. If it is provided in the
+     response body, it must also be provided as a header per the normal etag
+     convention.  Entity tags are used for comparing two or more entities from
+     the same requested resource. HTTP/1.1 uses entity tags in the etag
+     (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26),
+     and If-Range (section 14.27) header fields.
+    :vartype etag: str
     :param description: The description of the scheduled query rule.
     :type description: str
     :param severity: Severity of the alert. Should be an integer between
@@ -507,6 +519,8 @@ class ScheduledQueryRuleResource(TrackedResource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'location': {'required': True},
+        'kind': {'readonly': True},
+        'etag': {'readonly': True},
     }
 
     _attribute_map = {
@@ -515,6 +529,8 @@ class ScheduledQueryRuleResource(TrackedResource):
         'type': {'key': 'type', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
         'location': {'key': 'location', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
         'description': {'key': 'properties.description', 'type': 'str'},
         'severity': {'key': 'properties.severity', 'type': 'float'},
         'enabled': {'key': 'properties.enabled', 'type': 'bool'},
@@ -529,6 +545,8 @@ class ScheduledQueryRuleResource(TrackedResource):
 
     def __init__(self, **kwargs):
         super(ScheduledQueryRuleResource, self).__init__(**kwargs)
+        self.kind = None
+        self.etag = None
         self.description = kwargs.get('description', None)
         self.severity = kwargs.get('severity', None)
         self.enabled = kwargs.get('enabled', None)
