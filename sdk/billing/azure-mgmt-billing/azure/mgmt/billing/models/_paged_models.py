@@ -38,123 +38,6 @@ class InvoiceSectionWithCreateSubPermissionPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(InvoiceSectionWithCreateSubPermissionPaged, self).__init__(*args, **kwargs)
-class InstructionPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`Instruction <azure.mgmt.billing.models.Instruction>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[Instruction]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(InstructionPaged, self).__init__(*args, **kwargs)
-class BillingProfilePaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`BillingProfile <azure.mgmt.billing.models.BillingProfile>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[BillingProfile]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(BillingProfilePaged, self).__init__(*args, **kwargs)
-class CustomerPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`Customer <azure.mgmt.billing.models.Customer>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[Customer]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(CustomerPaged, self).__init__(*args, **kwargs)
-class InvoiceSectionPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`InvoiceSection <azure.mgmt.billing.models.InvoiceSection>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[InvoiceSection]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(InvoiceSectionPaged, self).__init__(*args, **kwargs)
-class BillingPermissionsPropertiesPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`BillingPermissionsProperties <azure.mgmt.billing.models.BillingPermissionsProperties>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[BillingPermissionsProperties]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(BillingPermissionsPropertiesPaged, self).__init__(*args, **kwargs)
-class BillingSubscriptionPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`BillingSubscription <azure.mgmt.billing.models.BillingSubscription>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[BillingSubscription]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(BillingSubscriptionPaged, self).__init__(*args, **kwargs)
-class ProductPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`Product <azure.mgmt.billing.models.Product>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[Product]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(ProductPaged, self).__init__(*args, **kwargs)
-class InvoicePaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`Invoice <azure.mgmt.billing.models.Invoice>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[Invoice]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(InvoicePaged, self).__init__(*args, **kwargs)
-class TransactionPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`Transaction <azure.mgmt.billing.models.Transaction>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[Transaction]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(TransactionPaged, self).__init__(*args, **kwargs)
 class OperationPaged(Paged):
     """
     A paging container for iterating over a list of :class:`Operation <azure.mgmt.billing.models.Operation>` object
@@ -168,19 +51,19 @@ class OperationPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(OperationPaged, self).__init__(*args, **kwargs)
-class BillingRoleDefinitionPaged(Paged):
+class BillingProfilePaged(Paged):
     """
-    A paging container for iterating over a list of :class:`BillingRoleDefinition <azure.mgmt.billing.models.BillingRoleDefinition>` object
+    A paging container for iterating over a list of :class:`BillingProfile <azure.mgmt.billing.models.BillingProfile>` object
     """
 
     _attribute_map = {
         'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[BillingRoleDefinition]'}
+        'current_page': {'key': 'value', 'type': '[BillingProfile]'}
     }
 
     def __init__(self, *args, **kwargs):
 
-        super(BillingRoleDefinitionPaged, self).__init__(*args, **kwargs)
+        super(BillingProfilePaged, self).__init__(*args, **kwargs)
 class BillingRoleAssignmentPaged(Paged):
     """
     A paging container for iterating over a list of :class:`BillingRoleAssignment <azure.mgmt.billing.models.BillingRoleAssignment>` object
@@ -194,42 +77,16 @@ class BillingRoleAssignmentPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(BillingRoleAssignmentPaged, self).__init__(*args, **kwargs)
-class AgreementPaged(Paged):
+class BillingSubscriptionPaged(Paged):
     """
-    A paging container for iterating over a list of :class:`Agreement <azure.mgmt.billing.models.Agreement>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[Agreement]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(AgreementPaged, self).__init__(*args, **kwargs)
-class EnrollmentAccountSummaryPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`EnrollmentAccountSummary <azure.mgmt.billing.models.EnrollmentAccountSummary>` object
+    A paging container for iterating over a list of :class:`BillingSubscription <azure.mgmt.billing.models.BillingSubscription>` object
     """
 
     _attribute_map = {
         'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[EnrollmentAccountSummary]'}
+        'current_page': {'key': 'value', 'type': '[BillingSubscription]'}
     }
 
     def __init__(self, *args, **kwargs):
 
-        super(EnrollmentAccountSummaryPaged, self).__init__(*args, **kwargs)
-class BillingPeriodPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`BillingPeriod <azure.mgmt.billing.models.BillingPeriod>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[BillingPeriod]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(BillingPeriodPaged, self).__init__(*args, **kwargs)
+        super(BillingSubscriptionPaged, self).__init__(*args, **kwargs)

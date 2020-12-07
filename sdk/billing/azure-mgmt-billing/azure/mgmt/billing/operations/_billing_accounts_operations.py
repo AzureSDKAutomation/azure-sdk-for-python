@@ -26,7 +26,7 @@ class BillingAccountsOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The version of the API to be used with the client request. The current version is 2020-05-01. Constant value: "2020-05-01".
+    :ivar api_version: The version of the API to be used with the client request. The current version is 2020-11-01. Constant value: "2020-11-01".
     """
 
     models = models
@@ -36,7 +36,7 @@ class BillingAccountsOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-05-01"
+        self.api_version = "2020-11-01"
 
         self.config = config
 
@@ -217,8 +217,10 @@ class BillingAccountsOperations(object):
     def update(
             self, billing_account_name, parameters, custom_headers=None, raw=False, polling=True, **operation_config):
         """Updates the properties of a billing account. Currently, displayName and
-        address can be updated. The operation is supported only for billing
-        accounts with agreement type Microsoft Customer Agreement.
+        address can be updated for billing accounts with agreement type
+        Microsoft Customer Agreement. Currently address and notification email
+        address can be updated for billing accounts with agreement type
+        Microsoft Online Services Agreement.
 
         :param billing_account_name: The ID that uniquely identifies a billing
          account.

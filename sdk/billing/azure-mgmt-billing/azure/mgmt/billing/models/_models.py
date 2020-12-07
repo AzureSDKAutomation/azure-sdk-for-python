@@ -44,6 +44,8 @@ class AddressDetails(Model):
     :type email: str
     :param phone_number: Phone number.
     :type phone_number: str
+    :param middle_name: Middle name.
+    :type middle_name: str
     """
 
     _validation = {
@@ -65,6 +67,7 @@ class AddressDetails(Model):
         'postal_code': {'key': 'postalCode', 'type': 'str'},
         'email': {'key': 'email', 'type': 'str'},
         'phone_number': {'key': 'phoneNumber', 'type': 'str'},
+        'middle_name': {'key': 'middleName', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -82,6 +85,61 @@ class AddressDetails(Model):
         self.postal_code = kwargs.get('postal_code', None)
         self.email = kwargs.get('email', None)
         self.phone_number = kwargs.get('phone_number', None)
+        self.middle_name = kwargs.get('middle_name', None)
+
+
+class Amount(Model):
+    """The amount.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar currency: The currency for the amount value.
+    :vartype currency: str
+    :param value: Amount value.
+    :type value: float
+    """
+
+    _validation = {
+        'currency': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'currency': {'key': 'currency', 'type': 'str'},
+        'value': {'key': 'value', 'type': 'float'},
+    }
+
+    def __init__(self, **kwargs):
+        super(Amount, self).__init__(**kwargs)
+        self.currency = None
+        self.value = kwargs.get('value', None)
+
+
+class AzurePlan(Model):
+    """Details of the Azure plan.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param sku_id: The sku id.
+    :type sku_id: str
+    :ivar sku_description: The sku description.
+    :vartype sku_description: str
+    """
+
+    _validation = {
+        'sku_description': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'sku_id': {'key': 'skuId', 'type': 'str'},
+        'sku_description': {'key': 'skuDescription', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AzurePlan, self).__init__(**kwargs)
+        self.sku_id = kwargs.get('sku_id', None)
+        self.sku_description = None
 
 
 class Resource(Model):
@@ -117,163 +175,6 @@ class Resource(Model):
         self.type = None
 
 
-class Agreement(Resource):
-    """An agreement.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Resource Id.
-    :vartype id: str
-    :ivar name: Resource name.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :ivar agreement_link: The URL to download the agreement.
-    :vartype agreement_link: str
-    :ivar category: The category of the agreement signed by a customer.
-     Possible values include: 'MicrosoftCustomerAgreement',
-     'AffiliatePurchaseTerms', 'Other'
-    :vartype category: str or ~azure.mgmt.billing.models.Category
-    :ivar acceptance_mode: The mode of acceptance for an agreement. Possible
-     values include: 'ClickToAccept', 'ESignEmbedded', 'ESignOffline'
-    :vartype acceptance_mode: str or ~azure.mgmt.billing.models.AcceptanceMode
-    :ivar effective_date: The date from which the agreement is effective.
-    :vartype effective_date: datetime
-    :ivar expiration_date: The date when the agreement expires.
-    :vartype expiration_date: datetime
-    :param participants: The list of participants that participates in
-     acceptance of an agreement.
-    :type participants: list[~azure.mgmt.billing.models.Participants]
-    :ivar status: The current status of the agreement.
-    :vartype status: str
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'agreement_link': {'readonly': True},
-        'category': {'readonly': True},
-        'acceptance_mode': {'readonly': True},
-        'effective_date': {'readonly': True},
-        'expiration_date': {'readonly': True},
-        'status': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'agreement_link': {'key': 'properties.agreementLink', 'type': 'str'},
-        'category': {'key': 'properties.category', 'type': 'str'},
-        'acceptance_mode': {'key': 'properties.acceptanceMode', 'type': 'str'},
-        'effective_date': {'key': 'properties.effectiveDate', 'type': 'iso-8601'},
-        'expiration_date': {'key': 'properties.expirationDate', 'type': 'iso-8601'},
-        'participants': {'key': 'properties.participants', 'type': '[Participants]'},
-        'status': {'key': 'properties.status', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(Agreement, self).__init__(**kwargs)
-        self.agreement_link = None
-        self.category = None
-        self.acceptance_mode = None
-        self.effective_date = None
-        self.expiration_date = None
-        self.participants = kwargs.get('participants', None)
-        self.status = None
-
-
-class Amount(Model):
-    """The amount.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar currency: The currency for the amount value.
-    :vartype currency: str
-    :param value: Amount value.
-    :type value: float
-    """
-
-    _validation = {
-        'currency': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'currency': {'key': 'currency', 'type': 'str'},
-        'value': {'key': 'value', 'type': 'float'},
-    }
-
-    def __init__(self, **kwargs):
-        super(Amount, self).__init__(**kwargs)
-        self.currency = None
-        self.value = kwargs.get('value', None)
-
-
-class AvailableBalance(Resource):
-    """The latest Azure credit balance. This is the balance available for pay now.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Resource Id.
-    :vartype id: str
-    :ivar name: Resource name.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :ivar amount: Balance amount.
-    :vartype amount: ~azure.mgmt.billing.models.Amount
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'amount': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'amount': {'key': 'properties.amount', 'type': 'Amount'},
-    }
-
-    def __init__(self, **kwargs):
-        super(AvailableBalance, self).__init__(**kwargs)
-        self.amount = None
-
-
-class AzurePlan(Model):
-    """Details of the Azure plan.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :param sku_id: The sku id.
-    :type sku_id: str
-    :ivar sku_description: The sku description.
-    :vartype sku_description: str
-    """
-
-    _validation = {
-        'sku_description': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'sku_id': {'key': 'skuId', 'type': 'str'},
-        'sku_description': {'key': 'skuDescription', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(AzurePlan, self).__init__(**kwargs)
-        self.sku_id = kwargs.get('sku_id', None)
-        self.sku_description = None
-
-
 class BillingAccount(Resource):
     """A billing account.
 
@@ -286,47 +187,60 @@ class BillingAccount(Resource):
     :vartype name: str
     :ivar type: Resource type.
     :vartype type: str
-    :param display_name: The billing account name.
-    :type display_name: str
-    :param sold_to: The address of the individual or organization that is
-     responsible for the billing account.
-    :type sold_to: ~azure.mgmt.billing.models.AddressDetails
+    :ivar account_status: The current status of the billing account. Possible
+     values include: 'Unknown', 'Active', 'Deleted', 'Disabled', 'Expired',
+     'Transferred', 'Extended', 'Terminated', 'UnderReview'
+    :vartype account_status: str or ~azure.mgmt.billing.models.AccountStatus
+    :ivar account_status_reason_code: Reason for the specified billing account
+     status. Possible values include: 'UnusualActivity'
+    :vartype account_status_reason_code: str or
+     ~azure.mgmt.billing.models.AccountStatusReasonCode
+    :ivar account_type: The type of customer. Possible values include:
+     'Enterprise', 'Individual', 'Partner'
+    :vartype account_type: str or ~azure.mgmt.billing.models.AccountType
     :ivar agreement_type: The type of agreement. Possible values include:
      'MicrosoftCustomerAgreement', 'EnterpriseAgreement',
      'MicrosoftOnlineServicesProgram', 'MicrosoftPartnerAgreement'
     :vartype agreement_type: str or ~azure.mgmt.billing.models.AgreementType
-    :ivar account_type: The type of customer. Possible values include:
-     'Enterprise', 'Individual', 'Partner'
-    :vartype account_type: str or ~azure.mgmt.billing.models.AccountType
-    :ivar account_status: The current status of the billing account. Possible
-     values include: 'Active', 'Deleted', 'Disabled', 'Expired', 'Transferred',
-     'Extended', 'Terminated'
-    :vartype account_status: str or ~azure.mgmt.billing.models.AccountStatus
     :param billing_profiles: The billing profiles associated with the billing
      account. By default this is not populated, unless it's specified in
-     $expand.
+     $expand. This property is available for agreement type Microsoft Customer
+     Agreement and Microsoft Partner Agreement.
     :type billing_profiles: ~azure.mgmt.billing.models.BillingProfilesOnExpand
-    :ivar enrollment_details: The details about the associated legacy
-     enrollment. By default this is not populated, unless it's specified in
-     $expand.
-    :vartype enrollment_details: ~azure.mgmt.billing.models.Enrollment
-    :param departments: The departments associated to the enrollment.
+    :param departments: The departments associated to the enrollment. This
+     property is available for agreement type Enterprise Agreement.
     :type departments: list[~azure.mgmt.billing.models.Department]
+    :param display_name: The billing account name.
+    :type display_name: str
     :param enrollment_accounts: The accounts associated to the enrollment.
+     This property is available for agreement type Enterprise Agreement.
     :type enrollment_accounts:
      list[~azure.mgmt.billing.models.EnrollmentAccount]
+    :ivar enrollment_details: The details about the associated legacy
+     enrollment. By default this is not populated, unless it's specified in
+     $expand. This property is available for agreement type Enterprise
+     Agreement.
+    :vartype enrollment_details: ~azure.mgmt.billing.models.Enrollment
+    :param notification_email_address: Notification email address for legacy
+     account. This property is available for agreement type Microsoft Online
+     Services Program.
+    :type notification_email_address: str
     :ivar has_read_access: Indicates whether user has read access to the
      billing account.
     :vartype has_read_access: bool
+    :param sold_to: The address of the individual or organization that is
+     responsible for the billing account.
+    :type sold_to: ~azure.mgmt.billing.models.AddressDetails
     """
 
     _validation = {
         'id': {'readonly': True},
         'name': {'readonly': True},
         'type': {'readonly': True},
-        'agreement_type': {'readonly': True},
-        'account_type': {'readonly': True},
         'account_status': {'readonly': True},
+        'account_status_reason_code': {'readonly': True},
+        'account_type': {'readonly': True},
+        'agreement_type': {'readonly': True},
         'enrollment_details': {'readonly': True},
         'has_read_access': {'readonly': True},
     }
@@ -335,30 +249,34 @@ class BillingAccount(Resource):
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
-        'display_name': {'key': 'properties.displayName', 'type': 'str'},
-        'sold_to': {'key': 'properties.soldTo', 'type': 'AddressDetails'},
-        'agreement_type': {'key': 'properties.agreementType', 'type': 'str'},
-        'account_type': {'key': 'properties.accountType', 'type': 'str'},
         'account_status': {'key': 'properties.accountStatus', 'type': 'str'},
+        'account_status_reason_code': {'key': 'properties.accountStatusReasonCode', 'type': 'str'},
+        'account_type': {'key': 'properties.accountType', 'type': 'str'},
+        'agreement_type': {'key': 'properties.agreementType', 'type': 'str'},
         'billing_profiles': {'key': 'properties.billingProfiles', 'type': 'BillingProfilesOnExpand'},
-        'enrollment_details': {'key': 'properties.enrollmentDetails', 'type': 'Enrollment'},
         'departments': {'key': 'properties.departments', 'type': '[Department]'},
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
         'enrollment_accounts': {'key': 'properties.enrollmentAccounts', 'type': '[EnrollmentAccount]'},
+        'enrollment_details': {'key': 'properties.enrollmentDetails', 'type': 'Enrollment'},
+        'notification_email_address': {'key': 'properties.notificationEmailAddress', 'type': 'str'},
         'has_read_access': {'key': 'properties.hasReadAccess', 'type': 'bool'},
+        'sold_to': {'key': 'properties.soldTo', 'type': 'AddressDetails'},
     }
 
     def __init__(self, **kwargs):
         super(BillingAccount, self).__init__(**kwargs)
-        self.display_name = kwargs.get('display_name', None)
-        self.sold_to = kwargs.get('sold_to', None)
-        self.agreement_type = None
-        self.account_type = None
         self.account_status = None
+        self.account_status_reason_code = None
+        self.account_type = None
+        self.agreement_type = None
         self.billing_profiles = kwargs.get('billing_profiles', None)
-        self.enrollment_details = None
         self.departments = kwargs.get('departments', None)
+        self.display_name = kwargs.get('display_name', None)
         self.enrollment_accounts = kwargs.get('enrollment_accounts', None)
+        self.enrollment_details = None
+        self.notification_email_address = kwargs.get('notification_email_address', None)
         self.has_read_access = None
+        self.sold_to = kwargs.get('sold_to', None)
 
 
 class BillingAccountUpdateRequest(Model):
@@ -367,150 +285,90 @@ class BillingAccountUpdateRequest(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :param display_name: The billing account name.
-    :type display_name: str
-    :param sold_to: The address of the individual or organization that is
-     responsible for the billing account.
-    :type sold_to: ~azure.mgmt.billing.models.AddressDetails
+    :ivar account_status: The current status of the billing account. Possible
+     values include: 'Unknown', 'Active', 'Deleted', 'Disabled', 'Expired',
+     'Transferred', 'Extended', 'Terminated', 'UnderReview'
+    :vartype account_status: str or ~azure.mgmt.billing.models.AccountStatus
+    :ivar account_status_reason_code: Reason for the specified billing account
+     status. Possible values include: 'UnusualActivity'
+    :vartype account_status_reason_code: str or
+     ~azure.mgmt.billing.models.AccountStatusReasonCode
+    :ivar account_type: The type of customer. Possible values include:
+     'Enterprise', 'Individual', 'Partner'
+    :vartype account_type: str or ~azure.mgmt.billing.models.AccountType
     :ivar agreement_type: The type of agreement. Possible values include:
      'MicrosoftCustomerAgreement', 'EnterpriseAgreement',
      'MicrosoftOnlineServicesProgram', 'MicrosoftPartnerAgreement'
     :vartype agreement_type: str or ~azure.mgmt.billing.models.AgreementType
-    :ivar account_type: The type of customer. Possible values include:
-     'Enterprise', 'Individual', 'Partner'
-    :vartype account_type: str or ~azure.mgmt.billing.models.AccountType
-    :ivar account_status: The current status of the billing account. Possible
-     values include: 'Active', 'Deleted', 'Disabled', 'Expired', 'Transferred',
-     'Extended', 'Terminated'
-    :vartype account_status: str or ~azure.mgmt.billing.models.AccountStatus
     :param billing_profiles: The billing profiles associated with the billing
      account. By default this is not populated, unless it's specified in
-     $expand.
+     $expand. This property is available for agreement type Microsoft Customer
+     Agreement and Microsoft Partner Agreement.
     :type billing_profiles: ~azure.mgmt.billing.models.BillingProfilesOnExpand
-    :ivar enrollment_details: The details about the associated legacy
-     enrollment. By default this is not populated, unless it's specified in
-     $expand.
-    :vartype enrollment_details: ~azure.mgmt.billing.models.Enrollment
-    :param departments: The departments associated to the enrollment.
+    :param departments: The departments associated to the enrollment. This
+     property is available for agreement type Enterprise Agreement.
     :type departments: list[~azure.mgmt.billing.models.Department]
+    :param display_name: The billing account name.
+    :type display_name: str
     :param enrollment_accounts: The accounts associated to the enrollment.
+     This property is available for agreement type Enterprise Agreement.
     :type enrollment_accounts:
      list[~azure.mgmt.billing.models.EnrollmentAccount]
+    :ivar enrollment_details: The details about the associated legacy
+     enrollment. By default this is not populated, unless it's specified in
+     $expand. This property is available for agreement type Enterprise
+     Agreement.
+    :vartype enrollment_details: ~azure.mgmt.billing.models.Enrollment
+    :param notification_email_address: Notification email address for legacy
+     account. This property is available for agreement type Microsoft Online
+     Services Program.
+    :type notification_email_address: str
     :ivar has_read_access: Indicates whether user has read access to the
      billing account.
     :vartype has_read_access: bool
+    :param sold_to: The address of the individual or organization that is
+     responsible for the billing account.
+    :type sold_to: ~azure.mgmt.billing.models.AddressDetails
     """
 
     _validation = {
-        'agreement_type': {'readonly': True},
-        'account_type': {'readonly': True},
         'account_status': {'readonly': True},
+        'account_status_reason_code': {'readonly': True},
+        'account_type': {'readonly': True},
+        'agreement_type': {'readonly': True},
         'enrollment_details': {'readonly': True},
         'has_read_access': {'readonly': True},
     }
 
     _attribute_map = {
-        'display_name': {'key': 'properties.displayName', 'type': 'str'},
-        'sold_to': {'key': 'properties.soldTo', 'type': 'AddressDetails'},
-        'agreement_type': {'key': 'properties.agreementType', 'type': 'str'},
-        'account_type': {'key': 'properties.accountType', 'type': 'str'},
         'account_status': {'key': 'properties.accountStatus', 'type': 'str'},
+        'account_status_reason_code': {'key': 'properties.accountStatusReasonCode', 'type': 'str'},
+        'account_type': {'key': 'properties.accountType', 'type': 'str'},
+        'agreement_type': {'key': 'properties.agreementType', 'type': 'str'},
         'billing_profiles': {'key': 'properties.billingProfiles', 'type': 'BillingProfilesOnExpand'},
-        'enrollment_details': {'key': 'properties.enrollmentDetails', 'type': 'Enrollment'},
         'departments': {'key': 'properties.departments', 'type': '[Department]'},
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
         'enrollment_accounts': {'key': 'properties.enrollmentAccounts', 'type': '[EnrollmentAccount]'},
+        'enrollment_details': {'key': 'properties.enrollmentDetails', 'type': 'Enrollment'},
+        'notification_email_address': {'key': 'properties.notificationEmailAddress', 'type': 'str'},
         'has_read_access': {'key': 'properties.hasReadAccess', 'type': 'bool'},
+        'sold_to': {'key': 'properties.soldTo', 'type': 'AddressDetails'},
     }
 
     def __init__(self, **kwargs):
         super(BillingAccountUpdateRequest, self).__init__(**kwargs)
-        self.display_name = kwargs.get('display_name', None)
-        self.sold_to = kwargs.get('sold_to', None)
-        self.agreement_type = None
-        self.account_type = None
         self.account_status = None
+        self.account_status_reason_code = None
+        self.account_type = None
+        self.agreement_type = None
         self.billing_profiles = kwargs.get('billing_profiles', None)
-        self.enrollment_details = None
         self.departments = kwargs.get('departments', None)
+        self.display_name = kwargs.get('display_name', None)
         self.enrollment_accounts = kwargs.get('enrollment_accounts', None)
+        self.enrollment_details = None
+        self.notification_email_address = kwargs.get('notification_email_address', None)
         self.has_read_access = None
-
-
-class BillingPeriod(Resource):
-    """A billing period resource.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Resource Id.
-    :vartype id: str
-    :ivar name: Resource name.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :ivar billing_period_start_date: The start of the date range covered by
-     the billing period.
-    :vartype billing_period_start_date: date
-    :ivar billing_period_end_date: The end of the date range covered by the
-     billing period.
-    :vartype billing_period_end_date: date
-    :ivar invoice_ids: Array of invoice ids that associated with.
-    :vartype invoice_ids: list[str]
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'billing_period_start_date': {'readonly': True},
-        'billing_period_end_date': {'readonly': True},
-        'invoice_ids': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'billing_period_start_date': {'key': 'properties.billingPeriodStartDate', 'type': 'date'},
-        'billing_period_end_date': {'key': 'properties.billingPeriodEndDate', 'type': 'date'},
-        'invoice_ids': {'key': 'properties.invoiceIds', 'type': '[str]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(BillingPeriod, self).__init__(**kwargs)
-        self.billing_period_start_date = None
-        self.billing_period_end_date = None
-        self.invoice_ids = None
-
-
-class BillingPermissionsProperties(Model):
-    """The set of allowed action and not allowed actions a caller has on a billing
-    account.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar actions: The set of actions that the caller is allowed to perform.
-    :vartype actions: list[str]
-    :ivar not_actions: The set of actions that the caller is not allowed to
-     perform.
-    :vartype not_actions: list[str]
-    """
-
-    _validation = {
-        'actions': {'readonly': True},
-        'not_actions': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'actions': {'key': 'actions', 'type': '[str]'},
-        'not_actions': {'key': 'notActions', 'type': '[str]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(BillingPermissionsProperties, self).__init__(**kwargs)
-        self.actions = None
-        self.not_actions = None
+        self.sold_to = kwargs.get('sold_to', None)
 
 
 class BillingProfile(Resource):
@@ -537,16 +395,19 @@ class BillingProfile(Resource):
      ~azure.mgmt.billing.models.BillingRelationshipType
     :param bill_to: Billing address.
     :type bill_to: ~azure.mgmt.billing.models.AddressDetails
+    :param invoice_email_opt_in: Flag controlling whether the invoices for the
+     billing profile are sent through email.
+    :type invoice_email_opt_in: bool
     :ivar indirect_relationship_info: Identifies the billing profile that is
      linked to another billing profile in indirect purchase motion.
     :vartype indirect_relationship_info:
      ~azure.mgmt.billing.models.IndirectRelationshipInfo
-    :param invoice_email_opt_in: Flag controlling whether the invoices for the
-     billing profile are sent through email.
-    :type invoice_email_opt_in: bool
     :ivar invoice_day: The day of the month when the invoice for the billing
      profile is generated.
     :vartype invoice_day: int
+    :param invoice_recipients: The list of email addresses to receive invoices
+     by email for the billing profile.
+    :type invoice_recipients: list[str]
     :ivar currency: The currency in which the charges for the billing profile
      are billed.
     :vartype currency: str
@@ -573,6 +434,10 @@ class BillingProfile(Resource):
     :ivar spending_limit: The billing profile spending limit. Possible values
      include: 'Off', 'On'
     :vartype spending_limit: str or ~azure.mgmt.billing.models.SpendingLimit
+    :param spending_limit_details: The details of billing profile spending
+     limit.
+    :type spending_limit_details:
+     list[~azure.mgmt.billing.models.SpendingLimitDetails]
     :ivar target_clouds: Identifies the cloud environments that are associated
      with a billing profile. This is a system managed optional field and gets
      updated as the billing profile gets associated with accounts in various
@@ -605,9 +470,10 @@ class BillingProfile(Resource):
         'po_number': {'key': 'properties.poNumber', 'type': 'str'},
         'billing_relationship_type': {'key': 'properties.billingRelationshipType', 'type': 'str'},
         'bill_to': {'key': 'properties.billTo', 'type': 'AddressDetails'},
-        'indirect_relationship_info': {'key': 'properties.indirectRelationshipInfo', 'type': 'IndirectRelationshipInfo'},
         'invoice_email_opt_in': {'key': 'properties.invoiceEmailOptIn', 'type': 'bool'},
+        'indirect_relationship_info': {'key': 'properties.indirectRelationshipInfo', 'type': 'IndirectRelationshipInfo'},
         'invoice_day': {'key': 'properties.invoiceDay', 'type': 'int'},
+        'invoice_recipients': {'key': 'properties.invoiceRecipients', 'type': '[str]'},
         'currency': {'key': 'properties.currency', 'type': 'str'},
         'enabled_azure_plans': {'key': 'properties.enabledAzurePlans', 'type': '[AzurePlan]'},
         'invoice_sections': {'key': 'properties.invoiceSections', 'type': 'InvoiceSectionsOnExpand'},
@@ -616,6 +482,7 @@ class BillingProfile(Resource):
         'status': {'key': 'properties.status', 'type': 'str'},
         'status_reason_code': {'key': 'properties.statusReasonCode', 'type': 'str'},
         'spending_limit': {'key': 'properties.spendingLimit', 'type': 'str'},
+        'spending_limit_details': {'key': 'properties.spendingLimitDetails', 'type': '[SpendingLimitDetails]'},
         'target_clouds': {'key': 'properties.targetClouds', 'type': '[str]'},
     }
 
@@ -625,9 +492,10 @@ class BillingProfile(Resource):
         self.po_number = kwargs.get('po_number', None)
         self.billing_relationship_type = None
         self.bill_to = kwargs.get('bill_to', None)
-        self.indirect_relationship_info = None
         self.invoice_email_opt_in = kwargs.get('invoice_email_opt_in', None)
+        self.indirect_relationship_info = None
         self.invoice_day = None
+        self.invoice_recipients = kwargs.get('invoice_recipients', None)
         self.currency = None
         self.enabled_azure_plans = kwargs.get('enabled_azure_plans', None)
         self.invoice_sections = kwargs.get('invoice_sections', None)
@@ -636,42 +504,8 @@ class BillingProfile(Resource):
         self.status = None
         self.status_reason_code = None
         self.spending_limit = None
+        self.spending_limit_details = kwargs.get('spending_limit_details', None)
         self.target_clouds = None
-
-
-class BillingProfileCreationRequest(Model):
-    """The request parameters for creating a new billing profile.
-
-    :param display_name: The name of the billing profile.
-    :type display_name: str
-    :param po_number: The purchase order name that will appear on the invoices
-     generated for the billing profile.
-    :type po_number: str
-    :param bill_to: The address of the individual or organization that is
-     responsible for the billing profile.
-    :type bill_to: ~azure.mgmt.billing.models.AddressDetails
-    :param invoice_email_opt_in: Flag controlling whether the invoices for the
-     billing profile are sent through email.
-    :type invoice_email_opt_in: bool
-    :param enabled_azure_plans: Enabled azure plans for the billing profile.
-    :type enabled_azure_plans: list[~azure.mgmt.billing.models.AzurePlan]
-    """
-
-    _attribute_map = {
-        'display_name': {'key': 'displayName', 'type': 'str'},
-        'po_number': {'key': 'poNumber', 'type': 'str'},
-        'bill_to': {'key': 'billTo', 'type': 'AddressDetails'},
-        'invoice_email_opt_in': {'key': 'invoiceEmailOptIn', 'type': 'bool'},
-        'enabled_azure_plans': {'key': 'enabledAzurePlans', 'type': '[AzurePlan]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(BillingProfileCreationRequest, self).__init__(**kwargs)
-        self.display_name = kwargs.get('display_name', None)
-        self.po_number = kwargs.get('po_number', None)
-        self.bill_to = kwargs.get('bill_to', None)
-        self.invoice_email_opt_in = kwargs.get('invoice_email_opt_in', None)
-        self.enabled_azure_plans = kwargs.get('enabled_azure_plans', None)
 
 
 class BillingProfilesOnExpand(Model):
@@ -717,56 +551,123 @@ class BillingProperty(Resource):
     :vartype name: str
     :ivar type: Resource type.
     :vartype type: str
-    :ivar account_admin_notification_email_address: The email address on which
-     the account admin gets all Azure notifications.
+    :ivar account_admin_notification_email_address: The notification email
+     address for the account admin. This property is available for agreement
+     type Microsoft Online Services Program.
     :vartype account_admin_notification_email_address: str
-    :ivar billing_tenant_id: The Azure AD tenant ID of the billing account for
-     the subscription.
-    :vartype billing_tenant_id: str
-    :ivar billing_account_id: The ID of the billing account to which the
-     subscription is billed.
-    :vartype billing_account_id: str
+    :ivar billing_account_agreement_type: The signed agreement of the billing
+     account. Possible values include: 'MicrosoftCustomerAgreement',
+     'MicrosoftOnlineServicesProgram', 'MicrosoftPartnerAgreement',
+     'EnterpriseAgreement'
+    :vartype billing_account_agreement_type: str or
+     ~azure.mgmt.billing.models.BillingAccountAgreementType
     :ivar billing_account_display_name: The name of the billing account to
      which the subscription is billed.
     :vartype billing_account_display_name: str
-    :ivar billing_profile_id: The ID of the billing profile to which the
+    :ivar billing_account_id: The ID of the billing account to which the
      subscription is billed.
+    :vartype billing_account_id: str
+    :param billing_account_sold_to_country: Country code for billing account's
+     billing address.
+    :type billing_account_sold_to_country: str
+    :ivar billing_account_status: The current status of the billing account.
+     Possible values include: 'Unknown', 'Active', 'Deleted', 'Disabled',
+     'Expired', 'Transferred', 'Extended', 'Terminated', 'PendingReview',
+     'UnderReview'
+    :vartype billing_account_status: str or
+     ~azure.mgmt.billing.models.BillingAccountStatus
+    :ivar billing_account_type: The type billing account. Possible values
+     include: 'Enterprise', 'Individual', 'Partner', 'USDoD', 'Reseller',
+     'ClassicPartner', 'Internal'
+    :vartype billing_account_type: str or
+     ~azure.mgmt.billing.models.BillingAccountType
+    :ivar billing_profile_id: The ID of the billing profile to which the
+     subscription is billed. This property is available for agreement type
+     Microsoft Customer Agreement and Microsoft Partner Agreement.
     :vartype billing_profile_id: str
     :ivar billing_profile_display_name: The name of the billing profile to
-     which the subscription is billed.
+     which the subscription is billed. This property is available for agreement
+     type Microsoft Customer Agreement and Microsoft Partner Agreement.
     :vartype billing_profile_display_name: str
-    :ivar billing_profile_status: The status of the billing profile. Possible
-     values include: 'Active', 'Disabled', 'Warned'
-    :vartype billing_profile_status: str or
-     ~azure.mgmt.billing.models.BillingProfileStatus
-    :ivar billing_profile_status_reason_code: Reason for the specified billing
-     profile status. Possible values include: 'PastDue',
-     'SpendingLimitReached', 'SpendingLimitExpired'
-    :vartype billing_profile_status_reason_code: str or
-     ~azure.mgmt.billing.models.BillingProfileStatusReasonCode
     :ivar billing_profile_spending_limit: The billing profile spending limit.
-     Possible values include: 'Off', 'On'
+     This property is available for agreement type Microsoft Customer Agreement
+     and Microsoft Partner Agreement. Possible values include: 'Off', 'On'
     :vartype billing_profile_spending_limit: str or
      ~azure.mgmt.billing.models.BillingProfileSpendingLimit
-    :param cost_center: The cost center applied to the subscription.
+    :ivar billing_profile_status: The status of the billing profile. This
+     property is available for agreement type Microsoft Customer Agreement and
+     Microsoft Partner Agreement. Possible values include: 'Active',
+     'Disabled', 'Warned'
+    :vartype billing_profile_status: str or
+     ~azure.mgmt.billing.models.BillingProfileStatus
+    :ivar billing_profile_status_reason_code: The status reason code when the
+     specified billing profile is in Disabled status. This property is for
+     agreement type Microsoft Customer Agreement and Microsoft Partner
+     Agreement. Possible values include: 'PastDue', 'SpendingLimitReached',
+     'SpendingLimitExpired'
+    :vartype billing_profile_status_reason_code: str or
+     ~azure.mgmt.billing.models.BillingProfileStatusReasonCode
+    :param cost_center: The cost center applied to the subscription. This
+     property is available for agreement type Microsoft Customer Agreement and
+     Microsoft Partner Agreement.
     :type cost_center: str
+    :ivar customer_id: The ID of the customer to which the subscription is
+     billed. This property is available for agreement type Microsoft Partner
+     Agreement.
+    :vartype customer_id: str
+    :ivar customer_display_name: The display name of the customer to which the
+     subscription is billed. This property is available for agreement type
+     Microsoft Partner Agreement.
+    :vartype customer_display_name: str
+    :param free_services_benefit_end_date: The end date of the free service
+     benefit for the subscription.
+    :type free_services_benefit_end_date: datetime
     :ivar invoice_section_id: The ID of the invoice section to which the
-     subscription is billed.
+     subscription is billed. This property is available for agreement type
+     Microsoft Customer Agreement.
     :vartype invoice_section_id: str
     :ivar invoice_section_display_name: The name of the invoice section to
-     which the subscription is billed.
+     which the subscription is billed. This property is available for agreement
+     type Microsoft Customer Agreement.
     :vartype invoice_section_display_name: str
-    :ivar is_account_admin: Indicates whether user is the account admin.
+    :ivar is_account_admin: Indicates whether user is the billing account
+     admin for the subscription. This property is available for agreement type
+     Microsoft Online Services Program.
     :vartype is_account_admin: bool
-    :ivar product_id: The product ID of the Azure plan.
-    :vartype product_id: str
-    :ivar product_name: The product name of the Azure plan.
-    :vartype product_name: str
-    :ivar sku_id: The sku ID of the Azure plan for the subscription.
+    :ivar sku_id: The sku ID of the Azure plan for the subscription. This
+     property is available for agreement type Microsoft Customer Agreement and
+     Microsoft Partner Agreement.
     :vartype sku_id: str
     :ivar sku_description: The sku description of the Azure plan for the
-     subscription.
+     subscription. This property is available for agreement type Microsoft
+     Customer Agreement and Microsoft Partner Agreement.
     :vartype sku_description: str
+    :ivar subscription_billing_status: The subscription status. Possible
+     values include: 'Active', 'Deleted', 'Disabled', 'PastDue'
+    :vartype subscription_billing_status: str or
+     ~azure.mgmt.billing.models.SubscriptionBillingStatus
+    :param subscription_billing_status_details: The reason codes for the
+     subscription status.
+    :type subscription_billing_status_details:
+     list[~azure.mgmt.billing.models.SubscriptionBillingStatusReasonDetails]
+    :param subscription_tax_details: The tax details of the subscription. This
+     property is available for agreement type Microsoft Online Services Program
+     and country India.
+    :type subscription_tax_details:
+     list[~azure.mgmt.billing.models.SubscriptionTaxDetails]
+    :ivar subscription_billing_type: The type of billing subscription.
+     Possible values include: 'Benefit', 'Free', 'Paid', 'PrePaid'
+    :vartype subscription_billing_type: str or
+     ~azure.mgmt.billing.models.SubscriptionBillingType
+    :param subscription_service_usage_address: The address of the individual
+     or organization where service subscription is being used. This property is
+     available for agreement type Microsoft Online Services Program.
+    :type subscription_service_usage_address:
+     ~azure.mgmt.billing.models.AddressDetails
+    :ivar subscription_workload_type: The Azure workload type of the
+     subscription. Possible values include: 'Production', 'DevTest', 'Internal'
+    :vartype subscription_workload_type: str or
+     ~azure.mgmt.billing.models.SubscriptionWorkloadType
     """
 
     _validation = {
@@ -774,21 +675,26 @@ class BillingProperty(Resource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'account_admin_notification_email_address': {'readonly': True},
-        'billing_tenant_id': {'readonly': True},
-        'billing_account_id': {'readonly': True},
+        'billing_account_agreement_type': {'readonly': True},
         'billing_account_display_name': {'readonly': True},
+        'billing_account_id': {'readonly': True},
+        'billing_account_status': {'readonly': True},
+        'billing_account_type': {'readonly': True},
         'billing_profile_id': {'readonly': True},
         'billing_profile_display_name': {'readonly': True},
+        'billing_profile_spending_limit': {'readonly': True},
         'billing_profile_status': {'readonly': True},
         'billing_profile_status_reason_code': {'readonly': True},
-        'billing_profile_spending_limit': {'readonly': True},
+        'customer_id': {'readonly': True},
+        'customer_display_name': {'readonly': True},
         'invoice_section_id': {'readonly': True},
         'invoice_section_display_name': {'readonly': True},
         'is_account_admin': {'readonly': True},
-        'product_id': {'readonly': True},
-        'product_name': {'readonly': True},
         'sku_id': {'readonly': True},
         'sku_description': {'readonly': True},
+        'subscription_billing_status': {'readonly': True},
+        'subscription_billing_type': {'readonly': True},
+        'subscription_workload_type': {'readonly': True},
     }
 
     _attribute_map = {
@@ -796,43 +702,63 @@ class BillingProperty(Resource):
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
         'account_admin_notification_email_address': {'key': 'properties.accountAdminNotificationEmailAddress', 'type': 'str'},
-        'billing_tenant_id': {'key': 'properties.billingTenantId', 'type': 'str'},
-        'billing_account_id': {'key': 'properties.billingAccountId', 'type': 'str'},
+        'billing_account_agreement_type': {'key': 'properties.billingAccountAgreementType', 'type': 'str'},
         'billing_account_display_name': {'key': 'properties.billingAccountDisplayName', 'type': 'str'},
+        'billing_account_id': {'key': 'properties.billingAccountId', 'type': 'str'},
+        'billing_account_sold_to_country': {'key': 'properties.billingAccountSoldToCountry', 'type': 'str'},
+        'billing_account_status': {'key': 'properties.billingAccountStatus', 'type': 'str'},
+        'billing_account_type': {'key': 'properties.billingAccountType', 'type': 'str'},
         'billing_profile_id': {'key': 'properties.billingProfileId', 'type': 'str'},
         'billing_profile_display_name': {'key': 'properties.billingProfileDisplayName', 'type': 'str'},
+        'billing_profile_spending_limit': {'key': 'properties.billingProfileSpendingLimit', 'type': 'str'},
         'billing_profile_status': {'key': 'properties.billingProfileStatus', 'type': 'str'},
         'billing_profile_status_reason_code': {'key': 'properties.billingProfileStatusReasonCode', 'type': 'str'},
-        'billing_profile_spending_limit': {'key': 'properties.billingProfileSpendingLimit', 'type': 'str'},
         'cost_center': {'key': 'properties.costCenter', 'type': 'str'},
+        'customer_id': {'key': 'properties.customerId', 'type': 'str'},
+        'customer_display_name': {'key': 'properties.customerDisplayName', 'type': 'str'},
+        'free_services_benefit_end_date': {'key': 'properties.freeServicesBenefitEndDate', 'type': 'iso-8601'},
         'invoice_section_id': {'key': 'properties.invoiceSectionId', 'type': 'str'},
         'invoice_section_display_name': {'key': 'properties.invoiceSectionDisplayName', 'type': 'str'},
         'is_account_admin': {'key': 'properties.isAccountAdmin', 'type': 'bool'},
-        'product_id': {'key': 'properties.productId', 'type': 'str'},
-        'product_name': {'key': 'properties.productName', 'type': 'str'},
         'sku_id': {'key': 'properties.skuId', 'type': 'str'},
         'sku_description': {'key': 'properties.skuDescription', 'type': 'str'},
+        'subscription_billing_status': {'key': 'properties.subscriptionBillingStatus', 'type': 'str'},
+        'subscription_billing_status_details': {'key': 'properties.subscriptionBillingStatusDetails', 'type': '[SubscriptionBillingStatusReasonDetails]'},
+        'subscription_tax_details': {'key': 'properties.subscriptionTaxDetails', 'type': '[SubscriptionTaxDetails]'},
+        'subscription_billing_type': {'key': 'properties.subscriptionBillingType', 'type': 'str'},
+        'subscription_service_usage_address': {'key': 'properties.subscriptionServiceUsageAddress', 'type': 'AddressDetails'},
+        'subscription_workload_type': {'key': 'properties.subscriptionWorkloadType', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
         super(BillingProperty, self).__init__(**kwargs)
         self.account_admin_notification_email_address = None
-        self.billing_tenant_id = None
-        self.billing_account_id = None
+        self.billing_account_agreement_type = None
         self.billing_account_display_name = None
+        self.billing_account_id = None
+        self.billing_account_sold_to_country = kwargs.get('billing_account_sold_to_country', None)
+        self.billing_account_status = None
+        self.billing_account_type = None
         self.billing_profile_id = None
         self.billing_profile_display_name = None
+        self.billing_profile_spending_limit = None
         self.billing_profile_status = None
         self.billing_profile_status_reason_code = None
-        self.billing_profile_spending_limit = None
         self.cost_center = kwargs.get('cost_center', None)
+        self.customer_id = None
+        self.customer_display_name = None
+        self.free_services_benefit_end_date = kwargs.get('free_services_benefit_end_date', None)
         self.invoice_section_id = None
         self.invoice_section_display_name = None
         self.is_account_admin = None
-        self.product_id = None
-        self.product_name = None
         self.sku_id = None
         self.sku_description = None
+        self.subscription_billing_status = None
+        self.subscription_billing_status_details = kwargs.get('subscription_billing_status_details', None)
+        self.subscription_tax_details = kwargs.get('subscription_tax_details', None)
+        self.subscription_billing_type = None
+        self.subscription_service_usage_address = kwargs.get('subscription_service_usage_address', None)
+        self.subscription_workload_type = None
 
 
 class BillingRoleAssignment(Resource):
@@ -915,49 +841,25 @@ class BillingRoleAssignment(Resource):
         self.user_email_address = kwargs.get('user_email_address', None)
 
 
-class BillingRoleDefinition(Resource):
-    """The properties of a role definition.
+class BillingRoleAssignmentRequestProperties(Model):
+    """The request parameters to add the role assignment on a scope.
 
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Resource Id.
-    :vartype id: str
-    :ivar name: Resource name.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :ivar description: The role description
-    :vartype description: str
-    :param permissions: The billingPermissions the role has
-    :type permissions:
-     list[~azure.mgmt.billing.models.BillingPermissionsProperties]
-    :ivar role_name: The name of the role
-    :vartype role_name: str
+    :param principal_id: The user's principal id that the role gets assigned
+     to
+    :type principal_id: str
+    :param role_definition_id: The role definition id
+    :type role_definition_id: str
     """
 
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'description': {'readonly': True},
-        'role_name': {'readonly': True},
-    }
-
     _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'description': {'key': 'properties.description', 'type': 'str'},
-        'permissions': {'key': 'properties.permissions', 'type': '[BillingPermissionsProperties]'},
-        'role_name': {'key': 'properties.roleName', 'type': 'str'},
+        'principal_id': {'key': 'principalId', 'type': 'str'},
+        'role_definition_id': {'key': 'roleDefinitionId', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
-        super(BillingRoleDefinition, self).__init__(**kwargs)
-        self.description = None
-        self.permissions = kwargs.get('permissions', None)
-        self.role_name = None
+        super(BillingRoleAssignmentRequestProperties, self).__init__(**kwargs)
+        self.principal_id = kwargs.get('principal_id', None)
+        self.role_definition_id = kwargs.get('role_definition_id', None)
 
 
 class BillingSubscription(Resource):
@@ -980,7 +882,11 @@ class BillingSubscription(Resource):
      subscription. Possible values include: 'Active', 'Inactive', 'Abandoned',
      'Deleted', 'Warning'
     :type subscription_billing_status: str or
-     ~azure.mgmt.billing.models.BillingSubscriptionStatusType
+     ~azure.mgmt.billing.models.BillingSubscriptionStatus
+    :param suspension_reasons: The suspension reasons for current
+     subscription.
+    :type suspension_reasons:
+     list[~azure.mgmt.billing.models.SubscriptionSuspensionReason1]
     :ivar last_month_charges: The last month charges.
     :vartype last_month_charges: ~azure.mgmt.billing.models.Amount
     :ivar month_to_date_charges: The current month to date charges.
@@ -1041,6 +947,7 @@ class BillingSubscription(Resource):
         'display_name': {'key': 'properties.displayName', 'type': 'str'},
         'subscription_id': {'key': 'properties.subscriptionId', 'type': 'str'},
         'subscription_billing_status': {'key': 'properties.subscriptionBillingStatus', 'type': 'str'},
+        'suspension_reasons': {'key': 'properties.suspensionReasons', 'type': '[SubscriptionSuspensionReason1]'},
         'last_month_charges': {'key': 'properties.lastMonthCharges', 'type': 'Amount'},
         'month_to_date_charges': {'key': 'properties.monthToDateCharges', 'type': 'Amount'},
         'billing_profile_id': {'key': 'properties.billingProfileId', 'type': 'str'},
@@ -1060,6 +967,115 @@ class BillingSubscription(Resource):
         self.display_name = None
         self.subscription_id = None
         self.subscription_billing_status = kwargs.get('subscription_billing_status', None)
+        self.suspension_reasons = kwargs.get('suspension_reasons', None)
+        self.last_month_charges = None
+        self.month_to_date_charges = None
+        self.billing_profile_id = None
+        self.billing_profile_display_name = None
+        self.cost_center = kwargs.get('cost_center', None)
+        self.customer_id = None
+        self.customer_display_name = None
+        self.invoice_section_id = None
+        self.invoice_section_display_name = None
+        self.reseller = None
+        self.sku_id = kwargs.get('sku_id', None)
+        self.sku_description = None
+
+
+class BillingSubscriptionUpdateRequest(Model):
+    """The request properties of the billing subscription that can be updated.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar display_name: The name of the subscription.
+    :vartype display_name: str
+    :ivar subscription_id: The ID of the subscription.
+    :vartype subscription_id: str
+    :param subscription_billing_status: The current billing status of the
+     subscription. Possible values include: 'Active', 'Inactive', 'Abandoned',
+     'Deleted', 'Warning'
+    :type subscription_billing_status: str or
+     ~azure.mgmt.billing.models.BillingSubscriptionStatus
+    :param suspension_reasons: The suspension reasons for current
+     subscription.
+    :type suspension_reasons:
+     list[~azure.mgmt.billing.models.SubscriptionSuspensionReason1]
+    :ivar last_month_charges: The last month charges.
+    :vartype last_month_charges: ~azure.mgmt.billing.models.Amount
+    :ivar month_to_date_charges: The current month to date charges.
+    :vartype month_to_date_charges: ~azure.mgmt.billing.models.Amount
+    :ivar billing_profile_id: The ID of the billing profile to which the
+     subscription is billed.
+    :vartype billing_profile_id: str
+    :ivar billing_profile_display_name: The name of the billing profile to
+     which the subscription is billed.
+    :vartype billing_profile_display_name: str
+    :param cost_center: The cost center applied to the subscription.
+    :type cost_center: str
+    :ivar customer_id: The ID of the customer for whom the subscription was
+     created. The field is applicable only for Microsoft Partner Agreement
+     billing account.
+    :vartype customer_id: str
+    :ivar customer_display_name: The name of the customer for whom the
+     subscription was created. The field is applicable only for Microsoft
+     Partner Agreement billing account.
+    :vartype customer_display_name: str
+    :ivar invoice_section_id: The ID of the invoice section to which the
+     subscription is billed.
+    :vartype invoice_section_id: str
+    :ivar invoice_section_display_name: The name of the invoice section to
+     which the subscription is billed.
+    :vartype invoice_section_display_name: str
+    :ivar reseller: Reseller for this subscription.
+    :vartype reseller: ~azure.mgmt.billing.models.Reseller
+    :param sku_id: The sku ID of the Azure plan for the subscription.
+    :type sku_id: str
+    :ivar sku_description: The sku description of the Azure plan for the
+     subscription.
+    :vartype sku_description: str
+    """
+
+    _validation = {
+        'display_name': {'readonly': True},
+        'subscription_id': {'readonly': True},
+        'last_month_charges': {'readonly': True},
+        'month_to_date_charges': {'readonly': True},
+        'billing_profile_id': {'readonly': True},
+        'billing_profile_display_name': {'readonly': True},
+        'customer_id': {'readonly': True},
+        'customer_display_name': {'readonly': True},
+        'invoice_section_id': {'readonly': True},
+        'invoice_section_display_name': {'readonly': True},
+        'reseller': {'readonly': True},
+        'sku_description': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
+        'subscription_id': {'key': 'properties.subscriptionId', 'type': 'str'},
+        'subscription_billing_status': {'key': 'properties.subscriptionBillingStatus', 'type': 'str'},
+        'suspension_reasons': {'key': 'properties.suspensionReasons', 'type': '[SubscriptionSuspensionReason1]'},
+        'last_month_charges': {'key': 'properties.lastMonthCharges', 'type': 'Amount'},
+        'month_to_date_charges': {'key': 'properties.monthToDateCharges', 'type': 'Amount'},
+        'billing_profile_id': {'key': 'properties.billingProfileId', 'type': 'str'},
+        'billing_profile_display_name': {'key': 'properties.billingProfileDisplayName', 'type': 'str'},
+        'cost_center': {'key': 'properties.costCenter', 'type': 'str'},
+        'customer_id': {'key': 'properties.customerId', 'type': 'str'},
+        'customer_display_name': {'key': 'properties.customerDisplayName', 'type': 'str'},
+        'invoice_section_id': {'key': 'properties.invoiceSectionId', 'type': 'str'},
+        'invoice_section_display_name': {'key': 'properties.invoiceSectionDisplayName', 'type': 'str'},
+        'reseller': {'key': 'properties.reseller', 'type': 'Reseller'},
+        'sku_id': {'key': 'properties.skuId', 'type': 'str'},
+        'sku_description': {'key': 'properties.skuDescription', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(BillingSubscriptionUpdateRequest, self).__init__(**kwargs)
+        self.display_name = None
+        self.subscription_id = None
+        self.subscription_billing_status = kwargs.get('subscription_billing_status', None)
+        self.suspension_reasons = kwargs.get('suspension_reasons', None)
         self.last_month_charges = None
         self.month_to_date_charges = None
         self.billing_profile_id = None
@@ -1080,97 +1096,6 @@ class CloudError(Model):
 
     _attribute_map = {
     }
-
-
-class Customer(Resource):
-    """A partner's customer.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Resource Id.
-    :vartype id: str
-    :ivar name: Resource name.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :ivar billing_profile_id: The ID of the billing profile for the invoice
-     section.
-    :vartype billing_profile_id: str
-    :ivar billing_profile_display_name: The name of the billing profile for
-     the invoice section.
-    :vartype billing_profile_display_name: str
-    :param display_name: The name of the customer.
-    :type display_name: str
-    :param enabled_azure_plans: Azure plans enabled for the customer.
-    :type enabled_azure_plans: list[~azure.mgmt.billing.models.AzurePlan]
-    :param resellers: The list of resellers for which an Azure plan is enabled
-     for the customer.
-    :type resellers: list[~azure.mgmt.billing.models.Reseller]
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'billing_profile_id': {'readonly': True},
-        'billing_profile_display_name': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'billing_profile_id': {'key': 'properties.billingProfileId', 'type': 'str'},
-        'billing_profile_display_name': {'key': 'properties.billingProfileDisplayName', 'type': 'str'},
-        'display_name': {'key': 'properties.displayName', 'type': 'str'},
-        'enabled_azure_plans': {'key': 'properties.enabledAzurePlans', 'type': '[AzurePlan]'},
-        'resellers': {'key': 'properties.resellers', 'type': '[Reseller]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(Customer, self).__init__(**kwargs)
-        self.billing_profile_id = None
-        self.billing_profile_display_name = None
-        self.display_name = kwargs.get('display_name', None)
-        self.enabled_azure_plans = kwargs.get('enabled_azure_plans', None)
-        self.resellers = kwargs.get('resellers', None)
-
-
-class CustomerPolicy(Resource):
-    """The customer's Policy.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Resource Id.
-    :vartype id: str
-    :ivar name: Resource name.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :param view_charges: The policy that controls whether the users in
-     customer's organization can view charges at pay-as-you-go prices. Possible
-     values include: 'Allowed', 'NotAllowed'
-    :type view_charges: str or ~azure.mgmt.billing.models.ViewCharges
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'view_charges': {'key': 'properties.viewCharges', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(CustomerPolicy, self).__init__(**kwargs)
-        self.view_charges = kwargs.get('view_charges', None)
 
 
 class Department(Resource):
@@ -1219,70 +1144,6 @@ class Department(Resource):
         self.cost_center = kwargs.get('cost_center', None)
         self.status = kwargs.get('status', None)
         self.enrollment_accounts = kwargs.get('enrollment_accounts', None)
-
-
-class Document(Model):
-    """The properties of a document.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar kind: The type of the document. Possible values include: 'Invoice',
-     'VoidNote', 'TaxReceipt', 'CreditNote'
-    :vartype kind: str or ~azure.mgmt.billing.models.DocumentType
-    :ivar url: Document URL.
-    :vartype url: str
-    :ivar source: The source of the document. ENF for Brazil and DRS for rest
-     of the world. Possible values include: 'DRS', 'ENF'
-    :vartype source: str or ~azure.mgmt.billing.models.DocumentSource
-    """
-
-    _validation = {
-        'kind': {'readonly': True},
-        'url': {'readonly': True},
-        'source': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'kind': {'key': 'kind', 'type': 'str'},
-        'url': {'key': 'url', 'type': 'str'},
-        'source': {'key': 'source', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(Document, self).__init__(**kwargs)
-        self.kind = None
-        self.url = None
-        self.source = None
-
-
-class DownloadUrl(Model):
-    """A secure URL that can be used to download a an entity until the URL
-    expires.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar expiry_time: The time in UTC when the download URL will expire.
-    :vartype expiry_time: datetime
-    :ivar url: The URL to the PDF file.
-    :vartype url: str
-    """
-
-    _validation = {
-        'expiry_time': {'readonly': True},
-        'url': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'expiry_time': {'key': 'expiryTime', 'type': 'iso-8601'},
-        'url': {'key': 'url', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(DownloadUrl, self).__init__(**kwargs)
-        self.expiry_time = None
-        self.url = None
 
 
 class Enrollment(Model):
@@ -1404,70 +1265,6 @@ class EnrollmentAccount(Resource):
         self.start_date = kwargs.get('start_date', None)
         self.end_date = kwargs.get('end_date', None)
         self.department = kwargs.get('department', None)
-
-
-class EnrollmentAccountContext(Model):
-    """The enrollment account context.
-
-    :param cost_center: The cost center associated with the enrollment
-     account.
-    :type cost_center: str
-    :param start_date: The start date of the enrollment account.
-    :type start_date: datetime
-    :param end_date: The end date of the enrollment account.
-    :type end_date: datetime
-    :param enrollment_account_name: The ID of the enrollment account.
-    :type enrollment_account_name: str
-    """
-
-    _attribute_map = {
-        'cost_center': {'key': 'costCenter', 'type': 'str'},
-        'start_date': {'key': 'startDate', 'type': 'iso-8601'},
-        'end_date': {'key': 'endDate', 'type': 'iso-8601'},
-        'enrollment_account_name': {'key': 'enrollmentAccountName', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(EnrollmentAccountContext, self).__init__(**kwargs)
-        self.cost_center = kwargs.get('cost_center', None)
-        self.start_date = kwargs.get('start_date', None)
-        self.end_date = kwargs.get('end_date', None)
-        self.enrollment_account_name = kwargs.get('enrollment_account_name', None)
-
-
-class EnrollmentAccountSummary(Resource):
-    """An enrollment account resource.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Resource Id.
-    :vartype id: str
-    :ivar name: Resource name.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :ivar principal_name: The account owner's principal name.
-    :vartype principal_name: str
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'principal_name': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'principal_name': {'key': 'properties.principalName', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(EnrollmentAccountSummary, self).__init__(**kwargs)
-        self.principal_name = None
 
 
 class EnrollmentPolicies(Model):
@@ -1640,243 +1437,6 @@ class IndirectRelationshipInfo(Model):
         self.display_name = kwargs.get('display_name', None)
 
 
-class Instruction(Resource):
-    """An instruction.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :ivar id: Resource Id.
-    :vartype id: str
-    :ivar name: Resource name.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :param amount: Required. The amount budgeted for this billing instruction.
-    :type amount: float
-    :param start_date: Required. The date this billing instruction goes into
-     effect.
-    :type start_date: datetime
-    :param end_date: Required. The date this billing instruction is no longer
-     in effect.
-    :type end_date: datetime
-    :param creation_date: The date this billing instruction was created.
-    :type creation_date: datetime
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'amount': {'required': True},
-        'start_date': {'required': True},
-        'end_date': {'required': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'amount': {'key': 'properties.amount', 'type': 'float'},
-        'start_date': {'key': 'properties.startDate', 'type': 'iso-8601'},
-        'end_date': {'key': 'properties.endDate', 'type': 'iso-8601'},
-        'creation_date': {'key': 'properties.creationDate', 'type': 'iso-8601'},
-    }
-
-    def __init__(self, **kwargs):
-        super(Instruction, self).__init__(**kwargs)
-        self.amount = kwargs.get('amount', None)
-        self.start_date = kwargs.get('start_date', None)
-        self.end_date = kwargs.get('end_date', None)
-        self.creation_date = kwargs.get('creation_date', None)
-
-
-class Invoice(Resource):
-    """An invoice.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Resource Id.
-    :vartype id: str
-    :ivar name: Resource name.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :ivar due_date: The due date for the invoice.
-    :vartype due_date: datetime
-    :ivar invoice_date: The date when the invoice was generated.
-    :vartype invoice_date: datetime
-    :ivar status: The current status of the invoice. Possible values include:
-     'Due', 'OverDue', 'Paid', 'Void'
-    :vartype status: str or ~azure.mgmt.billing.models.InvoiceStatus
-    :ivar amount_due: The amount due as of now.
-    :vartype amount_due: ~azure.mgmt.billing.models.Amount
-    :ivar azure_prepayment_applied: The amount of Azure prepayment applied to
-     the charges. This field is applicable to billing accounts with agreement
-     type Microsoft Customer Agreement.
-    :vartype azure_prepayment_applied: ~azure.mgmt.billing.models.Amount
-    :ivar billed_amount: The total charges for the invoice billing period.
-    :vartype billed_amount: ~azure.mgmt.billing.models.Amount
-    :ivar credit_amount: The total refund for returns and cancellations during
-     the invoice billing period. This field is applicable to billing accounts
-     with agreement type Microsoft Customer Agreement.
-    :vartype credit_amount: ~azure.mgmt.billing.models.Amount
-    :ivar free_azure_credit_applied: The amount of free Azure credits applied
-     to the charges. This field is applicable to billing accounts with
-     agreement type Microsoft Customer Agreement.
-    :vartype free_azure_credit_applied: ~azure.mgmt.billing.models.Amount
-    :ivar sub_total: The pre-tax amount due. This field is applicable to
-     billing accounts with agreement type Microsoft Customer Agreement.
-    :vartype sub_total: ~azure.mgmt.billing.models.Amount
-    :ivar tax_amount: The amount of tax charged for the billing period. This
-     field is applicable to billing accounts with agreement type Microsoft
-     Customer Agreement.
-    :vartype tax_amount: ~azure.mgmt.billing.models.Amount
-    :ivar total_amount: The amount due when the invoice was generated. This
-     field is applicable to billing accounts with agreement type Microsoft
-     Customer Agreement.
-    :vartype total_amount: ~azure.mgmt.billing.models.Amount
-    :ivar invoice_period_start_date: The start date of the billing period for
-     which the invoice is generated.
-    :vartype invoice_period_start_date: datetime
-    :ivar invoice_period_end_date: The end date of the billing period for
-     which the invoice is generated.
-    :vartype invoice_period_end_date: datetime
-    :ivar invoice_type: Invoice type. Possible values include: 'AzureService',
-     'AzureMarketplace', 'AzureSupport'
-    :vartype invoice_type: str or ~azure.mgmt.billing.models.InvoiceType
-    :ivar is_monthly_invoice: Specifies if the invoice is generated as part of
-     monthly invoicing cycle or not. This field is applicable to billing
-     accounts with agreement type Microsoft Customer Agreement.
-    :vartype is_monthly_invoice: bool
-    :ivar billing_profile_id: The ID of the billing profile for which the
-     invoice is generated.
-    :vartype billing_profile_id: str
-    :ivar billing_profile_display_name: The name of the billing profile for
-     which the invoice is generated.
-    :vartype billing_profile_display_name: str
-    :ivar purchase_order_number: An optional purchase order number for the
-     invoice.
-    :vartype purchase_order_number: str
-    :ivar documents: List of documents available to download such as invoice
-     and tax receipt.
-    :vartype documents: list[~azure.mgmt.billing.models.Document]
-    :ivar payments: List of payments.
-    :vartype payments: list[~azure.mgmt.billing.models.PaymentProperties]
-    :ivar rebill_details: Rebill details for an invoice.
-    :vartype rebill_details: dict[str,
-     ~azure.mgmt.billing.models.RebillDetails]
-    :ivar document_type: The type of the document. Possible values include:
-     'Invoice', 'CreditNote'
-    :vartype document_type: str or
-     ~azure.mgmt.billing.models.InvoiceDocumentType
-    :ivar billed_document_id: The Id of the active invoice which is originally
-     billed after this invoice was voided. This field is applicable to the void
-     invoices only.
-    :vartype billed_document_id: str
-    :ivar credit_for_document_id: The Id of the invoice which got voided and
-     this credit note was issued as a result. This field is applicable to the
-     credit notes only.
-    :vartype credit_for_document_id: str
-    :ivar subscription_id: The ID of the subscription for which the invoice is
-     generated.
-    :vartype subscription_id: str
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'due_date': {'readonly': True},
-        'invoice_date': {'readonly': True},
-        'status': {'readonly': True},
-        'amount_due': {'readonly': True},
-        'azure_prepayment_applied': {'readonly': True},
-        'billed_amount': {'readonly': True},
-        'credit_amount': {'readonly': True},
-        'free_azure_credit_applied': {'readonly': True},
-        'sub_total': {'readonly': True},
-        'tax_amount': {'readonly': True},
-        'total_amount': {'readonly': True},
-        'invoice_period_start_date': {'readonly': True},
-        'invoice_period_end_date': {'readonly': True},
-        'invoice_type': {'readonly': True},
-        'is_monthly_invoice': {'readonly': True},
-        'billing_profile_id': {'readonly': True},
-        'billing_profile_display_name': {'readonly': True},
-        'purchase_order_number': {'readonly': True},
-        'documents': {'readonly': True},
-        'payments': {'readonly': True},
-        'rebill_details': {'readonly': True},
-        'document_type': {'readonly': True},
-        'billed_document_id': {'readonly': True},
-        'credit_for_document_id': {'readonly': True},
-        'subscription_id': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'due_date': {'key': 'properties.dueDate', 'type': 'iso-8601'},
-        'invoice_date': {'key': 'properties.invoiceDate', 'type': 'iso-8601'},
-        'status': {'key': 'properties.status', 'type': 'str'},
-        'amount_due': {'key': 'properties.amountDue', 'type': 'Amount'},
-        'azure_prepayment_applied': {'key': 'properties.azurePrepaymentApplied', 'type': 'Amount'},
-        'billed_amount': {'key': 'properties.billedAmount', 'type': 'Amount'},
-        'credit_amount': {'key': 'properties.creditAmount', 'type': 'Amount'},
-        'free_azure_credit_applied': {'key': 'properties.freeAzureCreditApplied', 'type': 'Amount'},
-        'sub_total': {'key': 'properties.subTotal', 'type': 'Amount'},
-        'tax_amount': {'key': 'properties.taxAmount', 'type': 'Amount'},
-        'total_amount': {'key': 'properties.totalAmount', 'type': 'Amount'},
-        'invoice_period_start_date': {'key': 'properties.invoicePeriodStartDate', 'type': 'iso-8601'},
-        'invoice_period_end_date': {'key': 'properties.invoicePeriodEndDate', 'type': 'iso-8601'},
-        'invoice_type': {'key': 'properties.invoiceType', 'type': 'str'},
-        'is_monthly_invoice': {'key': 'properties.isMonthlyInvoice', 'type': 'bool'},
-        'billing_profile_id': {'key': 'properties.billingProfileId', 'type': 'str'},
-        'billing_profile_display_name': {'key': 'properties.billingProfileDisplayName', 'type': 'str'},
-        'purchase_order_number': {'key': 'properties.purchaseOrderNumber', 'type': 'str'},
-        'documents': {'key': 'properties.documents', 'type': '[Document]'},
-        'payments': {'key': 'properties.payments', 'type': '[PaymentProperties]'},
-        'rebill_details': {'key': 'properties.rebillDetails', 'type': '{RebillDetails}'},
-        'document_type': {'key': 'properties.documentType', 'type': 'str'},
-        'billed_document_id': {'key': 'properties.billedDocumentId', 'type': 'str'},
-        'credit_for_document_id': {'key': 'properties.creditForDocumentId', 'type': 'str'},
-        'subscription_id': {'key': 'properties.subscriptionId', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(Invoice, self).__init__(**kwargs)
-        self.due_date = None
-        self.invoice_date = None
-        self.status = None
-        self.amount_due = None
-        self.azure_prepayment_applied = None
-        self.billed_amount = None
-        self.credit_amount = None
-        self.free_azure_credit_applied = None
-        self.sub_total = None
-        self.tax_amount = None
-        self.total_amount = None
-        self.invoice_period_start_date = None
-        self.invoice_period_end_date = None
-        self.invoice_type = None
-        self.is_monthly_invoice = None
-        self.billing_profile_id = None
-        self.billing_profile_display_name = None
-        self.purchase_order_number = None
-        self.documents = None
-        self.payments = None
-        self.rebill_details = None
-        self.document_type = None
-        self.billed_document_id = None
-        self.credit_for_document_id = None
-        self.subscription_id = None
-
-
 class InvoiceSection(Resource):
     """An invoice section.
 
@@ -1891,11 +1451,11 @@ class InvoiceSection(Resource):
     :vartype type: str
     :param display_name: The name of the invoice section.
     :type display_name: str
-    :param labels: Dictionary of metadata associated with the invoice section.
-    :type labels: dict[str, str]
     :ivar state: Identifies the state of an invoice section. Possible values
      include: 'Active', 'Restricted'
     :vartype state: str or ~azure.mgmt.billing.models.InvoiceSectionState
+    :param tags: Dictionary of metadata associated with the invoice section.
+    :type tags: dict[str, str]
     :ivar system_id: The system generated unique identifier for an invoice
      section.
     :vartype system_id: str
@@ -1920,8 +1480,8 @@ class InvoiceSection(Resource):
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
         'display_name': {'key': 'properties.displayName', 'type': 'str'},
-        'labels': {'key': 'properties.labels', 'type': '{str}'},
         'state': {'key': 'properties.state', 'type': 'str'},
+        'tags': {'key': 'properties.tags', 'type': '{str}'},
         'system_id': {'key': 'properties.systemId', 'type': 'str'},
         'target_cloud': {'key': 'properties.targetCloud', 'type': 'str'},
     }
@@ -1929,26 +1489,38 @@ class InvoiceSection(Resource):
     def __init__(self, **kwargs):
         super(InvoiceSection, self).__init__(**kwargs)
         self.display_name = kwargs.get('display_name', None)
-        self.labels = kwargs.get('labels', None)
         self.state = None
+        self.tags = kwargs.get('tags', None)
         self.system_id = None
         self.target_cloud = None
 
 
-class InvoiceSectionCreationRequest(Model):
-    """The properties of the invoice section.
+class InvoiceSectionListResult(Model):
+    """The list of invoice sections.
 
-    :param display_name: The name of the invoice section.
-    :type display_name: str
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar value: The list of invoice sections.
+    :vartype value: list[~azure.mgmt.billing.models.InvoiceSection]
+    :ivar next_link: The link (url) to the next page of results.
+    :vartype next_link: str
     """
 
+    _validation = {
+        'value': {'readonly': True},
+        'next_link': {'readonly': True},
+    }
+
     _attribute_map = {
-        'display_name': {'key': 'displayName', 'type': 'str'},
+        'value': {'key': 'value', 'type': '[InvoiceSection]'},
+        'next_link': {'key': 'nextLink', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
-        super(InvoiceSectionCreationRequest, self).__init__(**kwargs)
-        self.display_name = kwargs.get('display_name', None)
+        super(InvoiceSectionListResult, self).__init__(**kwargs)
+        self.value = None
+        self.next_link = None
 
 
 class InvoiceSectionsOnExpand(Model):
@@ -2122,317 +1694,6 @@ class OperationDisplay(Model):
         self.operation = None
 
 
-class Participants(Model):
-    """The details about a participant.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar status: The acceptance status of the participant.
-    :vartype status: str
-    :ivar status_date: The date when the status got changed.
-    :vartype status_date: datetime
-    :ivar email: The email address of the participant.
-    :vartype email: str
-    """
-
-    _validation = {
-        'status': {'readonly': True},
-        'status_date': {'readonly': True},
-        'email': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'status': {'key': 'status', 'type': 'str'},
-        'status_date': {'key': 'statusDate', 'type': 'iso-8601'},
-        'email': {'key': 'email', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(Participants, self).__init__(**kwargs)
-        self.status = None
-        self.status_date = None
-        self.email = None
-
-
-class PaymentProperties(Model):
-    """The properties of a payment.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar payment_type: The type of payment.
-    :vartype payment_type: str
-    :ivar amount: The paid amount.
-    :vartype amount: ~azure.mgmt.billing.models.Amount
-    :ivar date_property: The date when the payment was made.
-    :vartype date_property: datetime
-    :param payment_method_family: The family of payment method. Possible
-     values include: 'Credits', 'CheckWire', 'CreditCard', 'None'
-    :type payment_method_family: str or
-     ~azure.mgmt.billing.models.PaymentMethodFamily
-    :ivar payment_method_type: The type of payment method.
-    :vartype payment_method_type: str
-    """
-
-    _validation = {
-        'payment_type': {'readonly': True},
-        'amount': {'readonly': True},
-        'date_property': {'readonly': True},
-        'payment_method_type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'payment_type': {'key': 'paymentType', 'type': 'str'},
-        'amount': {'key': 'amount', 'type': 'Amount'},
-        'date_property': {'key': 'date', 'type': 'iso-8601'},
-        'payment_method_family': {'key': 'paymentMethodFamily', 'type': 'str'},
-        'payment_method_type': {'key': 'paymentMethodType', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(PaymentProperties, self).__init__(**kwargs)
-        self.payment_type = None
-        self.amount = None
-        self.date_property = None
-        self.payment_method_family = kwargs.get('payment_method_family', None)
-        self.payment_method_type = None
-
-
-class Policy(Resource):
-    """A policy.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Resource Id.
-    :vartype id: str
-    :ivar name: Resource name.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :param marketplace_purchases: The policy that controls whether Azure
-     marketplace purchases are allowed for a billing profile. Possible values
-     include: 'AllAllowed', 'OnlyFreeAllowed', 'NotAllowed'
-    :type marketplace_purchases: str or
-     ~azure.mgmt.billing.models.MarketplacePurchasesPolicy
-    :param reservation_purchases: The policy that controls whether Azure
-     reservation purchases are allowed for a billing profile. Possible values
-     include: 'Allowed', 'NotAllowed'
-    :type reservation_purchases: str or
-     ~azure.mgmt.billing.models.ReservationPurchasesPolicy
-    :param view_charges: The policy that controls whether users with Azure
-     RBAC access to a subscription can view its charges. Possible values
-     include: 'Allowed', 'NotAllowed'
-    :type view_charges: str or ~azure.mgmt.billing.models.ViewChargesPolicy
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'marketplace_purchases': {'key': 'properties.marketplacePurchases', 'type': 'str'},
-        'reservation_purchases': {'key': 'properties.reservationPurchases', 'type': 'str'},
-        'view_charges': {'key': 'properties.viewCharges', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(Policy, self).__init__(**kwargs)
-        self.marketplace_purchases = kwargs.get('marketplace_purchases', None)
-        self.reservation_purchases = kwargs.get('reservation_purchases', None)
-        self.view_charges = kwargs.get('view_charges', None)
-
-
-class Product(Resource):
-    """A product.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Resource Id.
-    :vartype id: str
-    :ivar name: Resource name.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :param auto_renew: Indicates whether auto renewal is turned on or off for
-     a product. Possible values include: 'Off', 'On'
-    :type auto_renew: str or ~azure.mgmt.billing.models.AutoRenew
-    :ivar display_name: The display name of the product.
-    :vartype display_name: str
-    :ivar purchase_date: The date when the product was purchased.
-    :vartype purchase_date: datetime
-    :ivar product_type_id: The ID of the type of product.
-    :vartype product_type_id: str
-    :ivar product_type: The description of the type of product.
-    :vartype product_type: str
-    :param status: The current status of the product. Possible values include:
-     'Active', 'Inactive', 'PastDue', 'Expiring', 'Expired', 'Disabled',
-     'Cancelled', 'AutoRenew'
-    :type status: str or ~azure.mgmt.billing.models.ProductStatusType
-    :ivar end_date: The date when the product will be renewed or canceled.
-    :vartype end_date: datetime
-    :param billing_frequency: The frequency at which the product will be
-     billed. Possible values include: 'OneTime', 'Monthly', 'UsageBased'
-    :type billing_frequency: str or
-     ~azure.mgmt.billing.models.BillingFrequency
-    :ivar last_charge: The last month charges.
-    :vartype last_charge: ~azure.mgmt.billing.models.Amount
-    :ivar last_charge_date: The date of the last charge.
-    :vartype last_charge_date: datetime
-    :ivar quantity: The quantity purchased for the product.
-    :vartype quantity: float
-    :ivar sku_id: The sku ID of the product.
-    :vartype sku_id: str
-    :ivar sku_description: The sku description of the product.
-    :vartype sku_description: str
-    :ivar tenant_id: The id of the tenant in which the product is used.
-    :vartype tenant_id: str
-    :ivar availability_id: The availability of the product.
-    :vartype availability_id: str
-    :ivar invoice_section_id: The ID of the invoice section to which the
-     product is billed.
-    :vartype invoice_section_id: str
-    :ivar invoice_section_display_name: The name of the invoice section to
-     which the product is billed.
-    :vartype invoice_section_display_name: str
-    :ivar billing_profile_id: The ID of the billing profile to which the
-     product is billed.
-    :vartype billing_profile_id: str
-    :ivar billing_profile_display_name: The name of the billing profile to
-     which the product is billed.
-    :vartype billing_profile_display_name: str
-    :ivar customer_id: The ID of the customer for whom the product was
-     purchased. The field is applicable only for Microsoft Partner Agreement
-     billing account.
-    :vartype customer_id: str
-    :ivar customer_display_name: The name of the customer for whom the product
-     was purchased. The field is applicable only for Microsoft Partner
-     Agreement billing account.
-    :vartype customer_display_name: str
-    :ivar reseller: Reseller for this product.
-    :vartype reseller: ~azure.mgmt.billing.models.Reseller
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'display_name': {'readonly': True},
-        'purchase_date': {'readonly': True},
-        'product_type_id': {'readonly': True},
-        'product_type': {'readonly': True},
-        'end_date': {'readonly': True},
-        'last_charge': {'readonly': True},
-        'last_charge_date': {'readonly': True},
-        'quantity': {'readonly': True},
-        'sku_id': {'readonly': True},
-        'sku_description': {'readonly': True},
-        'tenant_id': {'readonly': True},
-        'availability_id': {'readonly': True},
-        'invoice_section_id': {'readonly': True},
-        'invoice_section_display_name': {'readonly': True},
-        'billing_profile_id': {'readonly': True},
-        'billing_profile_display_name': {'readonly': True},
-        'customer_id': {'readonly': True},
-        'customer_display_name': {'readonly': True},
-        'reseller': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'auto_renew': {'key': 'properties.autoRenew', 'type': 'str'},
-        'display_name': {'key': 'properties.displayName', 'type': 'str'},
-        'purchase_date': {'key': 'properties.purchaseDate', 'type': 'iso-8601'},
-        'product_type_id': {'key': 'properties.productTypeId', 'type': 'str'},
-        'product_type': {'key': 'properties.productType', 'type': 'str'},
-        'status': {'key': 'properties.status', 'type': 'str'},
-        'end_date': {'key': 'properties.endDate', 'type': 'iso-8601'},
-        'billing_frequency': {'key': 'properties.billingFrequency', 'type': 'str'},
-        'last_charge': {'key': 'properties.lastCharge', 'type': 'Amount'},
-        'last_charge_date': {'key': 'properties.lastChargeDate', 'type': 'iso-8601'},
-        'quantity': {'key': 'properties.quantity', 'type': 'float'},
-        'sku_id': {'key': 'properties.skuId', 'type': 'str'},
-        'sku_description': {'key': 'properties.skuDescription', 'type': 'str'},
-        'tenant_id': {'key': 'properties.tenantId', 'type': 'str'},
-        'availability_id': {'key': 'properties.availabilityId', 'type': 'str'},
-        'invoice_section_id': {'key': 'properties.invoiceSectionId', 'type': 'str'},
-        'invoice_section_display_name': {'key': 'properties.invoiceSectionDisplayName', 'type': 'str'},
-        'billing_profile_id': {'key': 'properties.billingProfileId', 'type': 'str'},
-        'billing_profile_display_name': {'key': 'properties.billingProfileDisplayName', 'type': 'str'},
-        'customer_id': {'key': 'properties.customerId', 'type': 'str'},
-        'customer_display_name': {'key': 'properties.customerDisplayName', 'type': 'str'},
-        'reseller': {'key': 'properties.reseller', 'type': 'Reseller'},
-    }
-
-    def __init__(self, **kwargs):
-        super(Product, self).__init__(**kwargs)
-        self.auto_renew = kwargs.get('auto_renew', None)
-        self.display_name = None
-        self.purchase_date = None
-        self.product_type_id = None
-        self.product_type = None
-        self.status = kwargs.get('status', None)
-        self.end_date = None
-        self.billing_frequency = kwargs.get('billing_frequency', None)
-        self.last_charge = None
-        self.last_charge_date = None
-        self.quantity = None
-        self.sku_id = None
-        self.sku_description = None
-        self.tenant_id = None
-        self.availability_id = None
-        self.invoice_section_id = None
-        self.invoice_section_display_name = None
-        self.billing_profile_id = None
-        self.billing_profile_display_name = None
-        self.customer_id = None
-        self.customer_display_name = None
-        self.reseller = None
-
-
-class RebillDetails(Model):
-    """The rebill details of an invoice.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar credit_note_document_id: The ID of credit note.
-    :vartype credit_note_document_id: str
-    :ivar invoice_document_id: The ID of invoice.
-    :vartype invoice_document_id: str
-    :ivar rebill_details: Rebill details for an invoice.
-    :vartype rebill_details: dict[str,
-     ~azure.mgmt.billing.models.RebillDetails]
-    """
-
-    _validation = {
-        'credit_note_document_id': {'readonly': True},
-        'invoice_document_id': {'readonly': True},
-        'rebill_details': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'credit_note_document_id': {'key': 'creditNoteDocumentId', 'type': 'str'},
-        'invoice_document_id': {'key': 'invoiceDocumentId', 'type': 'str'},
-        'rebill_details': {'key': 'rebillDetails', 'type': '{RebillDetails}'},
-    }
-
-    def __init__(self, **kwargs):
-        super(RebillDetails, self).__init__(**kwargs)
-        self.credit_note_document_id = None
-        self.invoice_document_id = None
-        self.rebill_details = None
-
-
 class Reseller(Model):
     """Details of the reseller.
 
@@ -2461,422 +1722,135 @@ class Reseller(Model):
         self.description = None
 
 
-class Transaction(Resource):
-    """A transaction.
+class SpendingLimitDetails(Model):
+    """The details of spending limit policy set on a billing profile.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Resource Id.
-    :vartype id: str
-    :ivar name: Resource name.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :param kind: The kind of transaction. Options are all or reservation.
-     Possible values include: 'all', 'reservation'
-    :type kind: str or ~azure.mgmt.billing.models.TransactionTypeKind
-    :ivar date_property: The date of transaction.
-    :vartype date_property: datetime
-    :ivar invoice: Invoice on which the transaction was billed or 'pending' if
-     the transaction is not billed.
-    :vartype invoice: str
-    :ivar invoice_id: The ID of the invoice on which the transaction was
-     billed. This field is only applicable for transactions which are billed.
-    :vartype invoice_id: str
-    :ivar order_id: The order ID of the reservation. The field is only
-     applicable for transaction of kind reservation.
-    :vartype order_id: str
-    :ivar order_name: The name of the reservation order. The field is only
-     applicable for transactions of kind reservation.
-    :vartype order_name: str
-    :ivar product_family: The family of the product for which the transaction
-     took place.
-    :vartype product_family: str
-    :ivar product_type_id: The ID of the product type for which the
-     transaction took place.
-    :vartype product_type_id: str
-    :ivar product_type: The type of the product for which the transaction took
-     place.
-    :vartype product_type: str
-    :ivar product_description: The description of the product for which the
-     transaction took place.
-    :vartype product_description: str
-    :param transaction_type: The type of transaction. Possible values include:
-     'Purchase', 'Usage Charge'
-    :type transaction_type: str or ~azure.mgmt.billing.models.ReservationType
-    :ivar transaction_amount: The charge associated with the transaction.
-    :vartype transaction_amount: ~azure.mgmt.billing.models.Amount
-    :ivar quantity: The quantity purchased in the transaction.
-    :vartype quantity: int
-    :ivar invoice_section_id: The ID of the invoice section which will be
-     billed for the transaction.
-    :vartype invoice_section_id: str
-    :ivar invoice_section_display_name: The name of the invoice section which
-     will be billed for the transaction.
-    :vartype invoice_section_display_name: str
-    :ivar billing_profile_id: The ID of the billing profile which will be
-     billed for the transaction.
-    :vartype billing_profile_id: str
-    :ivar billing_profile_display_name: The name of the billing profile which
-     will be billed for the transaction.
-    :vartype billing_profile_display_name: str
-    :ivar customer_id: The ID of the customer for which the transaction took
-     place. The field is applicable only for Microsoft Partner Agreement
-     billing account.
-    :vartype customer_id: str
-    :ivar customer_display_name: The name of the customer for which the
-     transaction took place. The field is applicable only for Microsoft Partner
-     Agreement billing account.
-    :vartype customer_display_name: str
-    :ivar subscription_id: The ID of the subscription that was used for the
-     transaction. The field is only applicable for transaction of kind
-     reservation.
-    :vartype subscription_id: str
-    :ivar subscription_name: The name of the subscription that was used for
-     the transaction. The field is only applicable for transaction of kind
-     reservation.
-    :vartype subscription_name: str
-    :ivar azure_plan: The type of azure plan of the subscription that was used
-     for the transaction.
-    :vartype azure_plan: str
-    :ivar azure_credit_applied: The amount of any Azure credits automatically
-     applied to this transaction.
-    :vartype azure_credit_applied: ~azure.mgmt.billing.models.Amount
-    :ivar billing_currency: The ISO 4217 code for the currency in which this
-     transaction is billed.
-    :vartype billing_currency: str
-    :ivar discount: The percentage discount, if any, applied to this
-     transaction.
-    :vartype discount: float
-    :ivar effective_price: The price of the product after applying any
-     discounts.
-    :vartype effective_price: ~azure.mgmt.billing.models.Amount
-    :ivar exchange_rate: The exchange rate used to convert charged amount to
-     billing currency, if applicable.
-    :vartype exchange_rate: float
-    :ivar market_price: The retail price of the product.
-    :vartype market_price: ~azure.mgmt.billing.models.Amount
-    :ivar pricing_currency: The ISO 4217 code for the currency in which the
-     product is priced.
-    :vartype pricing_currency: str
-    :ivar service_period_start_date: The date of the purchase of the product,
-     or the start date of the month in which usage started.
-    :vartype service_period_start_date: datetime
-    :ivar service_period_end_date: The end date of the product term, or the
-     end date of the month in which usage ended.
-    :vartype service_period_end_date: datetime
-    :ivar sub_total: The pre-tax charged amount for the transaction.
-    :vartype sub_total: ~azure.mgmt.billing.models.Amount
-    :ivar tax: The tax amount applied to the transaction.
-    :vartype tax: ~azure.mgmt.billing.models.Amount
-    :ivar unit_of_measure: The unit of measure used to bill for the product.
-     For example, compute services are billed per hour.
-    :vartype unit_of_measure: str
-    :ivar units: The number of units used for a given product.
-    :vartype units: float
-    :ivar unit_type: The description for the unit of measure for a given
-     product.
-    :vartype unit_type: str
+    :ivar amount: The initial amount for the billing profile.
+    :vartype amount: float
+    :ivar currency: The currency in which the charges for the billing profile
+     are billed.
+    :vartype currency: str
+    :param end_date: The date when this spending limit is no longer in effect.
+    :type end_date: datetime
+    :param start_date: The date when this spending limit goes into effect.
+    :type start_date: datetime
+    :ivar type: The type of spending limit. Possible values include:
+     'FreeAccount', 'Sandbox'
+    :vartype type: str or ~azure.mgmt.billing.models.Type
+    :ivar spending_limit_status: The status of current spending limit.
+     Possible values include: 'Active', 'Expired', 'Reached', 'Removed'
+    :vartype spending_limit_status: str or
+     ~azure.mgmt.billing.models.SpendingLimitStatus
     """
 
     _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
+        'amount': {'readonly': True},
+        'currency': {'readonly': True},
         'type': {'readonly': True},
-        'date_property': {'readonly': True},
-        'invoice': {'readonly': True},
-        'invoice_id': {'readonly': True},
-        'order_id': {'readonly': True},
-        'order_name': {'readonly': True},
-        'product_family': {'readonly': True},
-        'product_type_id': {'readonly': True},
-        'product_type': {'readonly': True},
-        'product_description': {'readonly': True},
-        'transaction_amount': {'readonly': True},
-        'quantity': {'readonly': True},
-        'invoice_section_id': {'readonly': True},
-        'invoice_section_display_name': {'readonly': True},
-        'billing_profile_id': {'readonly': True},
-        'billing_profile_display_name': {'readonly': True},
-        'customer_id': {'readonly': True},
-        'customer_display_name': {'readonly': True},
-        'subscription_id': {'readonly': True},
-        'subscription_name': {'readonly': True},
-        'azure_plan': {'readonly': True},
-        'azure_credit_applied': {'readonly': True},
-        'billing_currency': {'readonly': True},
-        'discount': {'readonly': True},
-        'effective_price': {'readonly': True},
-        'exchange_rate': {'readonly': True},
-        'market_price': {'readonly': True},
-        'pricing_currency': {'readonly': True},
-        'service_period_start_date': {'readonly': True},
-        'service_period_end_date': {'readonly': True},
-        'sub_total': {'readonly': True},
-        'tax': {'readonly': True},
-        'unit_of_measure': {'readonly': True},
-        'units': {'readonly': True},
-        'unit_type': {'readonly': True},
+        'spending_limit_status': {'readonly': True},
     }
 
     _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
+        'amount': {'key': 'amount', 'type': 'float'},
+        'currency': {'key': 'currency', 'type': 'str'},
+        'end_date': {'key': 'endDate', 'type': 'iso-8601'},
+        'start_date': {'key': 'startDate', 'type': 'iso-8601'},
         'type': {'key': 'type', 'type': 'str'},
-        'kind': {'key': 'properties.kind', 'type': 'str'},
-        'date_property': {'key': 'properties.date', 'type': 'iso-8601'},
-        'invoice': {'key': 'properties.invoice', 'type': 'str'},
-        'invoice_id': {'key': 'properties.invoiceId', 'type': 'str'},
-        'order_id': {'key': 'properties.orderId', 'type': 'str'},
-        'order_name': {'key': 'properties.orderName', 'type': 'str'},
-        'product_family': {'key': 'properties.productFamily', 'type': 'str'},
-        'product_type_id': {'key': 'properties.productTypeId', 'type': 'str'},
-        'product_type': {'key': 'properties.productType', 'type': 'str'},
-        'product_description': {'key': 'properties.productDescription', 'type': 'str'},
-        'transaction_type': {'key': 'properties.transactionType', 'type': 'str'},
-        'transaction_amount': {'key': 'properties.transactionAmount', 'type': 'Amount'},
-        'quantity': {'key': 'properties.quantity', 'type': 'int'},
-        'invoice_section_id': {'key': 'properties.invoiceSectionId', 'type': 'str'},
-        'invoice_section_display_name': {'key': 'properties.invoiceSectionDisplayName', 'type': 'str'},
-        'billing_profile_id': {'key': 'properties.billingProfileId', 'type': 'str'},
-        'billing_profile_display_name': {'key': 'properties.billingProfileDisplayName', 'type': 'str'},
-        'customer_id': {'key': 'properties.customerId', 'type': 'str'},
-        'customer_display_name': {'key': 'properties.customerDisplayName', 'type': 'str'},
-        'subscription_id': {'key': 'properties.subscriptionId', 'type': 'str'},
-        'subscription_name': {'key': 'properties.subscriptionName', 'type': 'str'},
-        'azure_plan': {'key': 'properties.azurePlan', 'type': 'str'},
-        'azure_credit_applied': {'key': 'properties.azureCreditApplied', 'type': 'Amount'},
-        'billing_currency': {'key': 'properties.billingCurrency', 'type': 'str'},
-        'discount': {'key': 'properties.discount', 'type': 'float'},
-        'effective_price': {'key': 'properties.effectivePrice', 'type': 'Amount'},
-        'exchange_rate': {'key': 'properties.exchangeRate', 'type': 'float'},
-        'market_price': {'key': 'properties.marketPrice', 'type': 'Amount'},
-        'pricing_currency': {'key': 'properties.pricingCurrency', 'type': 'str'},
-        'service_period_start_date': {'key': 'properties.servicePeriodStartDate', 'type': 'iso-8601'},
-        'service_period_end_date': {'key': 'properties.servicePeriodEndDate', 'type': 'iso-8601'},
-        'sub_total': {'key': 'properties.subTotal', 'type': 'Amount'},
-        'tax': {'key': 'properties.tax', 'type': 'Amount'},
-        'unit_of_measure': {'key': 'properties.unitOfMeasure', 'type': 'str'},
-        'units': {'key': 'properties.units', 'type': 'float'},
-        'unit_type': {'key': 'properties.unitType', 'type': 'str'},
+        'spending_limit_status': {'key': 'spendingLimitStatus', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
-        super(Transaction, self).__init__(**kwargs)
-        self.kind = kwargs.get('kind', None)
-        self.date_property = None
-        self.invoice = None
-        self.invoice_id = None
-        self.order_id = None
-        self.order_name = None
-        self.product_family = None
-        self.product_type_id = None
-        self.product_type = None
-        self.product_description = None
-        self.transaction_type = kwargs.get('transaction_type', None)
-        self.transaction_amount = None
-        self.quantity = None
-        self.invoice_section_id = None
-        self.invoice_section_display_name = None
-        self.billing_profile_id = None
-        self.billing_profile_display_name = None
-        self.customer_id = None
-        self.customer_display_name = None
-        self.subscription_id = None
-        self.subscription_name = None
-        self.azure_plan = None
-        self.azure_credit_applied = None
-        self.billing_currency = None
-        self.discount = None
-        self.effective_price = None
-        self.exchange_rate = None
-        self.market_price = None
-        self.pricing_currency = None
-        self.service_period_start_date = None
-        self.service_period_end_date = None
-        self.sub_total = None
-        self.tax = None
-        self.unit_of_measure = None
-        self.units = None
-        self.unit_type = None
+        super(SpendingLimitDetails, self).__init__(**kwargs)
+        self.amount = None
+        self.currency = None
+        self.end_date = kwargs.get('end_date', None)
+        self.start_date = kwargs.get('start_date', None)
+        self.type = None
+        self.spending_limit_status = None
 
 
-class TransferBillingSubscriptionRequestProperties(Model):
-    """Request parameters to transfer billing subscription.
+class SubscriptionBillingStatusReasonDetails(Model):
+    """The reason codes for the status of billing subscription.
 
-    All required parameters must be populated in order to send to Azure.
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
 
-    :param destination_invoice_section_id: Required. The destination invoice
-     section id.
-    :type destination_invoice_section_id: str
+    :param effective_date: Effective date.
+    :type effective_date: datetime
+    :ivar subscription_status_reason: The reason for the state of the
+     subscription. Possible values include: 'Canceled', 'PastDue',
+     'SuspiciousActivity', 'Other', 'Transferred', 'PolicyViolation',
+     'SpendingLimitReached', 'Expired'
+    :vartype subscription_status_reason: str or
+     ~azure.mgmt.billing.models.SubscriptionStatusReason
     """
 
     _validation = {
-        'destination_invoice_section_id': {'required': True},
+        'subscription_status_reason': {'readonly': True},
     }
 
     _attribute_map = {
-        'destination_invoice_section_id': {'key': 'destinationInvoiceSectionId', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(TransferBillingSubscriptionRequestProperties, self).__init__(**kwargs)
-        self.destination_invoice_section_id = kwargs.get('destination_invoice_section_id', None)
-
-
-class TransferProductRequestProperties(Model):
-    """The properties of the product to initiate a transfer.
-
-    :param destination_invoice_section_id: The destination invoice section id.
-    :type destination_invoice_section_id: str
-    """
-
-    _attribute_map = {
-        'destination_invoice_section_id': {'key': 'destinationInvoiceSectionId', 'type': 'str'},
+        'effective_date': {'key': 'effectiveDate', 'type': 'iso-8601'},
+        'subscription_status_reason': {'key': 'subscriptionStatusReason', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
-        super(TransferProductRequestProperties, self).__init__(**kwargs)
-        self.destination_invoice_section_id = kwargs.get('destination_invoice_section_id', None)
+        super(SubscriptionBillingStatusReasonDetails, self).__init__(**kwargs)
+        self.effective_date = kwargs.get('effective_date', None)
+        self.subscription_status_reason = None
 
 
-class ValidateAddressResponse(Model):
-    """Result of the address validation.
+class SubscriptionSuspensionReason1(Model):
+    """The subscription state reason.
 
-    :param status: status of the address validation. Possible values include:
-     'Valid', 'Invalid'
-    :type status: str or ~azure.mgmt.billing.models.AddressValidationStatus
-    :param suggested_addresses: The list of suggested addresses.
-    :type suggested_addresses: list[~azure.mgmt.billing.models.AddressDetails]
-    :param validation_message: Validation error message.
-    :type validation_message: str
+    :param value: Subscription suspension reason. Possible values include:
+     'Canceled', 'PastDue', 'SuspiciousActivity', 'Other', 'Transferred',
+     'PolicyViolation', 'SpendingLimitReached', 'Expired'
+    :type value: str or
+     ~azure.mgmt.billing.models.SubscriptionSuspensionReason
     """
 
     _attribute_map = {
+        'value': {'key': 'value', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SubscriptionSuspensionReason1, self).__init__(**kwargs)
+        self.value = kwargs.get('value', None)
+
+
+class SubscriptionTaxDetails(Model):
+    """The Goods Services Tax details of the subscription. This property is
+    available for agreement type Microsoft Online Services Program and country
+    India.
+
+    :param tax_id: Represents Goods Services TaxId.
+    :type tax_id: str
+    :param region: Two digit region code where subscription is taxed, e.g. MH,
+     TN etc.
+    :type region: str
+    :param status: Tax Exemption status, Valid or Invalid.
+    :type status: str
+    :param tax_record_type: The tax record type. Possible values include:
+     'AustraliaABN', 'CNPJId', 'GSTINID', 'IndiaFederalServiceTaxID',
+     'IndiaPANID', 'IndiaStateCSTID', 'IndiaStateVATID', 'LoveCode',
+     'MobileBarcode', 'NewZealandGST', 'RegistrationNumber', 'Tin', 'VatId'
+    :type tax_record_type: str or ~azure.mgmt.billing.models.TaxRecordType
+    """
+
+    _attribute_map = {
+        'tax_id': {'key': 'taxId', 'type': 'str'},
+        'region': {'key': 'region', 'type': 'str'},
         'status': {'key': 'status', 'type': 'str'},
-        'suggested_addresses': {'key': 'suggestedAddresses', 'type': '[AddressDetails]'},
-        'validation_message': {'key': 'validationMessage', 'type': 'str'},
+        'tax_record_type': {'key': 'taxRecordType', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
-        super(ValidateAddressResponse, self).__init__(**kwargs)
+        super(SubscriptionTaxDetails, self).__init__(**kwargs)
+        self.tax_id = kwargs.get('tax_id', None)
+        self.region = kwargs.get('region', None)
         self.status = kwargs.get('status', None)
-        self.suggested_addresses = kwargs.get('suggested_addresses', None)
-        self.validation_message = kwargs.get('validation_message', None)
-
-
-class ValidateProductTransferEligibilityError(Model):
-    """Error details of the product transfer eligibility validation.
-
-    :param code: Error code for the product transfer validation. Possible
-     values include: 'InvalidSource', 'ProductNotActive',
-     'InsufficientPermissionOnSource', 'InsufficientPermissionOnDestination',
-     'DestinationBillingProfilePastDue', 'ProductTypeNotSupported',
-     'CrossBillingAccountNotAllowed', 'NotAvailableForDestinationMarket',
-     'OneTimePurchaseProductTransferNotAllowed'
-    :type code: str or
-     ~azure.mgmt.billing.models.ProductTransferValidationErrorCode
-    :param message: The error message.
-    :type message: str
-    :param details: Detailed error message explaining the error.
-    :type details: str
-    """
-
-    _attribute_map = {
-        'code': {'key': 'code', 'type': 'str'},
-        'message': {'key': 'message', 'type': 'str'},
-        'details': {'key': 'details', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ValidateProductTransferEligibilityError, self).__init__(**kwargs)
-        self.code = kwargs.get('code', None)
-        self.message = kwargs.get('message', None)
-        self.details = kwargs.get('details', None)
-
-
-class ValidateProductTransferEligibilityResult(Model):
-    """Result of the product transfer eligibility validation.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar is_move_eligible: Specifies whether the transfer is eligible or not.
-    :vartype is_move_eligible: bool
-    :param error_details: Validation error details.
-    :type error_details:
-     ~azure.mgmt.billing.models.ValidateProductTransferEligibilityError
-    """
-
-    _validation = {
-        'is_move_eligible': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'is_move_eligible': {'key': 'isMoveEligible', 'type': 'bool'},
-        'error_details': {'key': 'errorDetails', 'type': 'ValidateProductTransferEligibilityError'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ValidateProductTransferEligibilityResult, self).__init__(**kwargs)
-        self.is_move_eligible = None
-        self.error_details = kwargs.get('error_details', None)
-
-
-class ValidateSubscriptionTransferEligibilityError(Model):
-    """Error details of the transfer eligibility validation.
-
-    :param code: Error code for the product transfer validation. Possible
-     values include: 'InvalidSource', 'SubscriptionNotActive',
-     'InsufficientPermissionOnSource', 'InsufficientPermissionOnDestination',
-     'DestinationBillingProfilePastDue', 'SubscriptionTypeNotSupported',
-     'CrossBillingAccountNotAllowed', 'NotAvailableForDestinationMarket'
-    :type code: str or
-     ~azure.mgmt.billing.models.SubscriptionTransferValidationErrorCode
-    :param message: The error message.
-    :type message: str
-    :param details: Detailed error message explaining the error.
-    :type details: str
-    """
-
-    _attribute_map = {
-        'code': {'key': 'code', 'type': 'str'},
-        'message': {'key': 'message', 'type': 'str'},
-        'details': {'key': 'details', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ValidateSubscriptionTransferEligibilityError, self).__init__(**kwargs)
-        self.code = kwargs.get('code', None)
-        self.message = kwargs.get('message', None)
-        self.details = kwargs.get('details', None)
-
-
-class ValidateSubscriptionTransferEligibilityResult(Model):
-    """Result of the transfer eligibility validation.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar is_move_eligible: Specifies whether the subscription is eligible to
-     be transferred.
-    :vartype is_move_eligible: bool
-    :param error_details: Validation error details.
-    :type error_details:
-     ~azure.mgmt.billing.models.ValidateSubscriptionTransferEligibilityError
-    """
-
-    _validation = {
-        'is_move_eligible': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'is_move_eligible': {'key': 'isMoveEligible', 'type': 'bool'},
-        'error_details': {'key': 'errorDetails', 'type': 'ValidateSubscriptionTransferEligibilityError'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ValidateSubscriptionTransferEligibilityResult, self).__init__(**kwargs)
-        self.is_move_eligible = None
-        self.error_details = kwargs.get('error_details', None)
+        self.tax_record_type = kwargs.get('tax_record_type', None)
