@@ -52,11 +52,11 @@ class VirtualMachineScaleSetVMExtensionsOperations(object):
         vm_scale_set_name,  # type: str
         instance_id,  # type: str
         vm_extension_name,  # type: str
-        extension_parameters,  # type: "_models.VirtualMachineScaleSetVMExtension"
+        extension_parameters,  # type: "_models.VirtualMachineExtension"
         **kwargs  # type: Any
     ):
-        # type: (...) -> "_models.VirtualMachineScaleSetVMExtension"
-        cls = kwargs.pop('cls', None)  # type: ClsType["_models.VirtualMachineScaleSetVMExtension"]
+        # type: (...) -> "_models.VirtualMachineExtension"
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.VirtualMachineExtension"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -86,7 +86,7 @@ class VirtualMachineScaleSetVMExtensionsOperations(object):
         header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
 
         body_content_kwargs = {}  # type: Dict[str, Any]
-        body_content = self._serialize.body(extension_parameters, 'VirtualMachineScaleSetVMExtension')
+        body_content = self._serialize.body(extension_parameters, 'VirtualMachineExtension')
         body_content_kwargs['content'] = body_content
         request = self._client.put(url, query_parameters, header_parameters, **body_content_kwargs)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
@@ -97,10 +97,10 @@ class VirtualMachineScaleSetVMExtensionsOperations(object):
             raise HttpResponseError(response=response, error_format=ARMErrorFormat)
 
         if response.status_code == 200:
-            deserialized = self._deserialize('VirtualMachineScaleSetVMExtension', pipeline_response)
+            deserialized = self._deserialize('VirtualMachineExtension', pipeline_response)
 
         if response.status_code == 201:
-            deserialized = self._deserialize('VirtualMachineScaleSetVMExtension', pipeline_response)
+            deserialized = self._deserialize('VirtualMachineExtension', pipeline_response)
 
         if cls:
             return cls(pipeline_response, deserialized, {})
@@ -114,10 +114,10 @@ class VirtualMachineScaleSetVMExtensionsOperations(object):
         vm_scale_set_name,  # type: str
         instance_id,  # type: str
         vm_extension_name,  # type: str
-        extension_parameters,  # type: "_models.VirtualMachineScaleSetVMExtension"
+        extension_parameters,  # type: "_models.VirtualMachineExtension"
         **kwargs  # type: Any
     ):
-        # type: (...) -> LROPoller["_models.VirtualMachineScaleSetVMExtension"]
+        # type: (...) -> LROPoller["_models.VirtualMachineExtension"]
         """The operation to create or update the VMSS VM extension.
 
         :param resource_group_name: The name of the resource group.
@@ -130,19 +130,19 @@ class VirtualMachineScaleSetVMExtensionsOperations(object):
         :type vm_extension_name: str
         :param extension_parameters: Parameters supplied to the Create Virtual Machine Extension
          operation.
-        :type extension_parameters: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineScaleSetVMExtension
+        :type extension_parameters: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineExtension
         :keyword callable cls: A custom type or function that will be passed the direct response
         :keyword str continuation_token: A continuation token to restart a poller from a saved state.
         :keyword polling: True for ARMPolling, False for no polling, or a
          polling object for personal polling strategy
         :paramtype polling: bool or ~azure.core.polling.PollingMethod
         :keyword int polling_interval: Default waiting time between two polls for LRO operations if no Retry-After header is present.
-        :return: An instance of LROPoller that returns either VirtualMachineScaleSetVMExtension or the result of cls(response)
-        :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.v2020_06_01.models.VirtualMachineScaleSetVMExtension]
+        :return: An instance of LROPoller that returns either VirtualMachineExtension or the result of cls(response)
+        :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.v2020_06_01.models.VirtualMachineExtension]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
         polling = kwargs.pop('polling', True)  # type: Union[bool, PollingMethod]
-        cls = kwargs.pop('cls', None)  # type: ClsType["_models.VirtualMachineScaleSetVMExtension"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.VirtualMachineExtension"]
         lro_delay = kwargs.pop(
             'polling_interval',
             self._config.polling_interval
@@ -163,7 +163,7 @@ class VirtualMachineScaleSetVMExtensionsOperations(object):
         kwargs.pop('content_type', None)
 
         def get_long_running_output(pipeline_response):
-            deserialized = self._deserialize('VirtualMachineScaleSetVMExtension', pipeline_response)
+            deserialized = self._deserialize('VirtualMachineExtension', pipeline_response)
 
             if cls:
                 return cls(pipeline_response, deserialized, {})
@@ -197,11 +197,11 @@ class VirtualMachineScaleSetVMExtensionsOperations(object):
         vm_scale_set_name,  # type: str
         instance_id,  # type: str
         vm_extension_name,  # type: str
-        extension_parameters,  # type: "_models.VirtualMachineScaleSetVMExtensionUpdate"
+        extension_parameters,  # type: "_models.VirtualMachineExtensionUpdate"
         **kwargs  # type: Any
     ):
-        # type: (...) -> "_models.VirtualMachineScaleSetVMExtension"
-        cls = kwargs.pop('cls', None)  # type: ClsType["_models.VirtualMachineScaleSetVMExtension"]
+        # type: (...) -> "_models.VirtualMachineExtension"
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.VirtualMachineExtension"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -231,7 +231,7 @@ class VirtualMachineScaleSetVMExtensionsOperations(object):
         header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
 
         body_content_kwargs = {}  # type: Dict[str, Any]
-        body_content = self._serialize.body(extension_parameters, 'VirtualMachineScaleSetVMExtensionUpdate')
+        body_content = self._serialize.body(extension_parameters, 'VirtualMachineExtensionUpdate')
         body_content_kwargs['content'] = body_content
         request = self._client.patch(url, query_parameters, header_parameters, **body_content_kwargs)
         pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
@@ -241,7 +241,7 @@ class VirtualMachineScaleSetVMExtensionsOperations(object):
             map_error(status_code=response.status_code, response=response, error_map=error_map)
             raise HttpResponseError(response=response, error_format=ARMErrorFormat)
 
-        deserialized = self._deserialize('VirtualMachineScaleSetVMExtension', pipeline_response)
+        deserialized = self._deserialize('VirtualMachineExtension', pipeline_response)
 
         if cls:
             return cls(pipeline_response, deserialized, {})
@@ -255,10 +255,10 @@ class VirtualMachineScaleSetVMExtensionsOperations(object):
         vm_scale_set_name,  # type: str
         instance_id,  # type: str
         vm_extension_name,  # type: str
-        extension_parameters,  # type: "_models.VirtualMachineScaleSetVMExtensionUpdate"
+        extension_parameters,  # type: "_models.VirtualMachineExtensionUpdate"
         **kwargs  # type: Any
     ):
-        # type: (...) -> LROPoller["_models.VirtualMachineScaleSetVMExtension"]
+        # type: (...) -> LROPoller["_models.VirtualMachineExtension"]
         """The operation to update the VMSS VM extension.
 
         :param resource_group_name: The name of the resource group.
@@ -271,19 +271,19 @@ class VirtualMachineScaleSetVMExtensionsOperations(object):
         :type vm_extension_name: str
         :param extension_parameters: Parameters supplied to the Update Virtual Machine Extension
          operation.
-        :type extension_parameters: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineScaleSetVMExtensionUpdate
+        :type extension_parameters: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineExtensionUpdate
         :keyword callable cls: A custom type or function that will be passed the direct response
         :keyword str continuation_token: A continuation token to restart a poller from a saved state.
         :keyword polling: True for ARMPolling, False for no polling, or a
          polling object for personal polling strategy
         :paramtype polling: bool or ~azure.core.polling.PollingMethod
         :keyword int polling_interval: Default waiting time between two polls for LRO operations if no Retry-After header is present.
-        :return: An instance of LROPoller that returns either VirtualMachineScaleSetVMExtension or the result of cls(response)
-        :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.v2020_06_01.models.VirtualMachineScaleSetVMExtension]
+        :return: An instance of LROPoller that returns either VirtualMachineExtension or the result of cls(response)
+        :rtype: ~azure.core.polling.LROPoller[~azure.mgmt.compute.v2020_06_01.models.VirtualMachineExtension]
         :raises ~azure.core.exceptions.HttpResponseError:
         """
         polling = kwargs.pop('polling', True)  # type: Union[bool, PollingMethod]
-        cls = kwargs.pop('cls', None)  # type: ClsType["_models.VirtualMachineScaleSetVMExtension"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.VirtualMachineExtension"]
         lro_delay = kwargs.pop(
             'polling_interval',
             self._config.polling_interval
@@ -304,7 +304,7 @@ class VirtualMachineScaleSetVMExtensionsOperations(object):
         kwargs.pop('content_type', None)
 
         def get_long_running_output(pipeline_response):
-            deserialized = self._deserialize('VirtualMachineScaleSetVMExtension', pipeline_response)
+            deserialized = self._deserialize('VirtualMachineExtension', pipeline_response)
 
             if cls:
                 return cls(pipeline_response, deserialized, {})
@@ -465,7 +465,7 @@ class VirtualMachineScaleSetVMExtensionsOperations(object):
         expand=None,  # type: Optional[str]
         **kwargs  # type: Any
     ):
-        # type: (...) -> "_models.VirtualMachineScaleSetVMExtension"
+        # type: (...) -> "_models.VirtualMachineExtension"
         """The operation to get the VMSS VM extension.
 
         :param resource_group_name: The name of the resource group.
@@ -479,11 +479,11 @@ class VirtualMachineScaleSetVMExtensionsOperations(object):
         :param expand: The expand expression to apply on the operation.
         :type expand: str
         :keyword callable cls: A custom type or function that will be passed the direct response
-        :return: VirtualMachineScaleSetVMExtension, or the result of cls(response)
-        :rtype: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineScaleSetVMExtension
+        :return: VirtualMachineExtension, or the result of cls(response)
+        :rtype: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineExtension
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["_models.VirtualMachineScaleSetVMExtension"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.VirtualMachineExtension"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -520,7 +520,7 @@ class VirtualMachineScaleSetVMExtensionsOperations(object):
             map_error(status_code=response.status_code, response=response, error_map=error_map)
             raise HttpResponseError(response=response, error_format=ARMErrorFormat)
 
-        deserialized = self._deserialize('VirtualMachineScaleSetVMExtension', pipeline_response)
+        deserialized = self._deserialize('VirtualMachineExtension', pipeline_response)
 
         if cls:
             return cls(pipeline_response, deserialized, {})
@@ -536,7 +536,7 @@ class VirtualMachineScaleSetVMExtensionsOperations(object):
         expand=None,  # type: Optional[str]
         **kwargs  # type: Any
     ):
-        # type: (...) -> "_models.VirtualMachineScaleSetVMExtensionsListResult"
+        # type: (...) -> "_models.VirtualMachineExtensionsListResult"
         """The operation to get all extensions of an instance in Virtual Machine Scaleset.
 
         :param resource_group_name: The name of the resource group.
@@ -548,11 +548,11 @@ class VirtualMachineScaleSetVMExtensionsOperations(object):
         :param expand: The expand expression to apply on the operation.
         :type expand: str
         :keyword callable cls: A custom type or function that will be passed the direct response
-        :return: VirtualMachineScaleSetVMExtensionsListResult, or the result of cls(response)
-        :rtype: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineScaleSetVMExtensionsListResult
+        :return: VirtualMachineExtensionsListResult, or the result of cls(response)
+        :rtype: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineExtensionsListResult
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["_models.VirtualMachineScaleSetVMExtensionsListResult"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.VirtualMachineExtensionsListResult"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -588,7 +588,7 @@ class VirtualMachineScaleSetVMExtensionsOperations(object):
             map_error(status_code=response.status_code, response=response, error_map=error_map)
             raise HttpResponseError(response=response, error_format=ARMErrorFormat)
 
-        deserialized = self._deserialize('VirtualMachineScaleSetVMExtensionsListResult', pipeline_response)
+        deserialized = self._deserialize('VirtualMachineExtensionsListResult', pipeline_response)
 
         if cls:
             return cls(pipeline_response, deserialized, {})
