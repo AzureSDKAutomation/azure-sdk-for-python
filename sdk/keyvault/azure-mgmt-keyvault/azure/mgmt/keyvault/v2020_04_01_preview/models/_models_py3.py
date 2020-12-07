@@ -589,7 +589,7 @@ class ManagedHsmSku(msrest.serialization.Model):
     def __init__(
         self,
         *,
-        family: Union[str, "ManagedHsmSkuFamily"],
+        family: Union[str, "ManagedHsmSkuFamily"] = "B",
         name: Union[str, "ManagedHsmSkuName"],
         **kwargs
     ):
@@ -1127,7 +1127,7 @@ class Sku(msrest.serialization.Model):
     def __init__(
         self,
         *,
-        family: Union[str, "SkuFamily"],
+        family: Union[str, "SkuFamily"] = "A",
         name: Union[str, "SkuName"],
         **kwargs
     ):
@@ -1503,7 +1503,8 @@ class VaultProperties(msrest.serialization.Model):
      ``createMode`` is set to ``recover``\ , access policies are not required. Otherwise, access
      policies are required.
     :type access_policies: list[~azure.mgmt.keyvault.v2020_04_01_preview.models.AccessPolicyEntry]
-    :param vault_uri: The URI of the vault for performing operations on keys and secrets.
+    :param vault_uri: The URI of the vault for performing operations on keys and secrets. This
+     property is readonly.
     :type vault_uri: str
     :param enabled_for_deployment: Property to specify whether Azure Virtual Machines are permitted
      to retrieve certificates stored as secrets from the key vault.
