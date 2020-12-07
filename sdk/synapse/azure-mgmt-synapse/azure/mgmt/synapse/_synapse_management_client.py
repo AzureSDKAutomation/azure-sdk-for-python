@@ -65,7 +65,7 @@ from .operations import WorkspaceManagedSqlServerExtendedBlobAuditingPoliciesOpe
 from .operations import WorkspaceManagedSqlServerSecurityAlertPolicyOperations
 from .operations import WorkspaceManagedSqlServerVulnerabilityAssessmentsOperations
 from .operations import WorkspaceManagedSqlServerUsagesOperations
-from .operations import WorkspaceManagedSqlServerRecoverableSqlpoolsOperations
+from .operations import WorkspaceManagedSqlServerRecoverableSqlPoolsOperations
 from .operations import KeysOperations
 from . import models
 
@@ -180,8 +180,8 @@ class SynapseManagementClient(SDKClient):
     :vartype workspace_managed_sql_server_vulnerability_assessments: azure.mgmt.synapse.operations.WorkspaceManagedSqlServerVulnerabilityAssessmentsOperations
     :ivar workspace_managed_sql_server_usages: WorkspaceManagedSqlServerUsages operations
     :vartype workspace_managed_sql_server_usages: azure.mgmt.synapse.operations.WorkspaceManagedSqlServerUsagesOperations
-    :ivar workspace_managed_sql_server_recoverable_sqlpools: WorkspaceManagedSqlServerRecoverableSqlpools operations
-    :vartype workspace_managed_sql_server_recoverable_sqlpools: azure.mgmt.synapse.operations.WorkspaceManagedSqlServerRecoverableSqlpoolsOperations
+    :ivar workspace_managed_sql_server_recoverable_sql_pools: WorkspaceManagedSqlServerRecoverableSqlPools operations
+    :vartype workspace_managed_sql_server_recoverable_sql_pools: azure.mgmt.synapse.operations.WorkspaceManagedSqlServerRecoverableSqlPoolsOperations
     :ivar keys: Keys operations
     :vartype keys: azure.mgmt.synapse.operations.KeysOperations
 
@@ -308,7 +308,7 @@ class SynapseManagementClient(SDKClient):
             self._client, self.config, self._serialize, self._deserialize)
         self.workspace_managed_sql_server_usages = WorkspaceManagedSqlServerUsagesOperations(
             self._client, self.config, self._serialize, self._deserialize)
-        self.workspace_managed_sql_server_recoverable_sqlpools = WorkspaceManagedSqlServerRecoverableSqlpoolsOperations(
+        self.workspace_managed_sql_server_recoverable_sql_pools = WorkspaceManagedSqlServerRecoverableSqlPoolsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.keys = KeysOperations(
             self._client, self.config, self._serialize, self._deserialize)

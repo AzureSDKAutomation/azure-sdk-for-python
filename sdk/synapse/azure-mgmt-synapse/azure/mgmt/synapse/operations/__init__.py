@@ -61,7 +61,7 @@ from ._workspace_managed_sql_server_extended_blob_auditing_policies_operations i
 from ._workspace_managed_sql_server_security_alert_policy_operations import WorkspaceManagedSqlServerSecurityAlertPolicyOperations
 from ._workspace_managed_sql_server_vulnerability_assessments_operations import WorkspaceManagedSqlServerVulnerabilityAssessmentsOperations
 from ._workspace_managed_sql_server_usages_operations import WorkspaceManagedSqlServerUsagesOperations
-from ._workspace_managed_sql_server_recoverable_sqlpools_operations import WorkspaceManagedSqlServerRecoverableSqlpoolsOperations
+from ._workspace_managed_sql_server_recoverable_sql_pools_operations import WorkspaceManagedSqlServerRecoverableSqlPoolsOperations
 from ._keys_operations import KeysOperations
 
 __all__ = [
@@ -117,6 +117,6 @@ __all__ = [
     'WorkspaceManagedSqlServerSecurityAlertPolicyOperations',
     'WorkspaceManagedSqlServerVulnerabilityAssessmentsOperations',
     'WorkspaceManagedSqlServerUsagesOperations',
-    'WorkspaceManagedSqlServerRecoverableSqlpoolsOperations',
+    'WorkspaceManagedSqlServerRecoverableSqlPoolsOperations',
     'KeysOperations',
 ]
