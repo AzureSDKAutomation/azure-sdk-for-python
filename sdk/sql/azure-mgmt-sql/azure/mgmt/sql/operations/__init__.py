@@ -101,9 +101,9 @@ from ._managed_instances_operations import ManagedInstancesOperations
 from ._managed_database_restore_details_operations import ManagedDatabaseRestoreDetailsOperations
 from ._managed_databases_operations import ManagedDatabasesOperations
 from ._server_azure_ad_only_authentications_operations import ServerAzureADOnlyAuthenticationsOperations
-from ._import_export_operations import ImportExportOperations
 from ._managed_instance_azure_ad_only_authentications_operations import ManagedInstanceAzureADOnlyAuthenticationsOperations
 from ._server_trust_groups_operations import ServerTrustGroupsOperations
+from ._server_dev_ops_audit_settings_operations import ServerDevOpsAuditSettingsOperations
 
 __all__ = [
     'RecoverableDatabasesOperations',
@@ -198,7 +198,7 @@ __all__ = [
     'ManagedDatabaseRestoreDetailsOperations',
     'ManagedDatabasesOperations',
     'ServerAzureADOnlyAuthenticationsOperations',
-    'ImportExportOperations',
     'ManagedInstanceAzureADOnlyAuthenticationsOperations',
     'ServerTrustGroupsOperations',
+    'ServerDevOpsAuditSettingsOperations',
 ]
