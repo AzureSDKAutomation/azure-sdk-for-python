@@ -480,7 +480,9 @@ class PrivateEndpointProvisioningState(str, Enum):
 
 class IdentityType(str, Enum):
 
+    none = "None"
     system_assigned = "SystemAssigned"
+    user_assigned = "UserAssigned"
 
 
 class ServerPublicNetworkAccess(str, Enum):
@@ -635,12 +637,6 @@ class StorageAccountType(str, Enum):
     zrs = "ZRS"
 
 
-class StorageKeyType(str, Enum):
-
-    shared_access_key = "SharedAccessKey"
-    storage_access_key = "StorageAccessKey"
-
-
 class CreateMode(str, Enum):
 
     default = "Default"
@@ -705,6 +701,12 @@ class SecondaryType(str, Enum):
     named = "Named"
 
 
+class StorageKeyType(str, Enum):
+
+    shared_access_key = "SharedAccessKey"
+    storage_access_key = "StorageAccessKey"
+
+
 class ElasticPoolState(str, Enum):
 
     creating = "Creating"
@@ -716,6 +718,14 @@ class ElasticPoolLicenseType(str, Enum):
 
     license_included = "LicenseIncluded"
     base_price = "BasePrice"
+
+
+class CreatedByType(str, Enum):
+
+    user = "User"
+    application = "Application"
+    managed_identity = "ManagedIdentity"
+    key = "Key"
 
 
 class LongTermRetentionDatabaseState(str, Enum):

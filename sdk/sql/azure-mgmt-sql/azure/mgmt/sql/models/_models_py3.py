@@ -625,8 +625,7 @@ class Database(TrackedResource):
      automatically paused. A value of -1 means that automatic pause is disabled
     :type auto_pause_delay: int
     :param storage_account_type: The storage account type used to store
-     backups for this database. Currently the only supported option is GRS
-     (GeoRedundantStorage). Possible values include: 'GRS', 'LRS', 'ZRS'
+     backups for this database. Possible values include: 'GRS', 'LRS', 'ZRS'
     :type storage_account_type: str or
      ~azure.mgmt.sql.models.StorageAccountType
     :param min_capacity: Minimal capacity that database will always have
@@ -640,7 +639,7 @@ class Database(TrackedResource):
     :vartype resumed_date: datetime
     :param maintenance_configuration_id: Maintenance configuration id assigned
      to the database. This configuration defines the period when the
-     maintenance updates will be rolled out.
+     maintenance updates will occur.
     :type maintenance_configuration_id: str
     """
 
@@ -1289,8 +1288,7 @@ class DatabaseUpdate(Model):
      automatically paused. A value of -1 means that automatic pause is disabled
     :type auto_pause_delay: int
     :param storage_account_type: The storage account type used to store
-     backups for this database. Currently the only supported option is GRS
-     (GeoRedundantStorage). Possible values include: 'GRS', 'LRS', 'ZRS'
+     backups for this database. Possible values include: 'GRS', 'LRS', 'ZRS'
     :type storage_account_type: str or
      ~azure.mgmt.sql.models.StorageAccountType
     :param min_capacity: Minimal capacity that database will always have
@@ -1304,7 +1302,7 @@ class DatabaseUpdate(Model):
     :vartype resumed_date: datetime
     :param maintenance_configuration_id: Maintenance configuration id assigned
      to the database. This configuration defines the period when the
-     maintenance updates will be rolled out.
+     maintenance updates will occur.
     :type maintenance_configuration_id: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -1905,7 +1903,7 @@ class ElasticPool(TrackedResource):
     :type license_type: str or ~azure.mgmt.sql.models.ElasticPoolLicenseType
     :param maintenance_configuration_id: Maintenance configuration id assigned
      to the elastic pool. This configuration defines the period when the
-     maintenance updates will be rolled out.
+     maintenance updates will will occur.
     :type maintenance_configuration_id: str
     """
 
@@ -2557,7 +2555,7 @@ class ElasticPoolUpdate(Model):
     :type license_type: str or ~azure.mgmt.sql.models.ElasticPoolLicenseType
     :param maintenance_configuration_id: Maintenance configuration id assigned
      to the elastic pool. This configuration defines the period when the
-     maintenance updates will be rolled out.
+     maintenance updates will will occur.
     :type maintenance_configuration_id: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -7582,7 +7580,8 @@ class ResourceIdentity(Model):
     :vartype principal_id: str
     :param type: The identity type. Set this to 'SystemAssigned' in order to
      automatically create and assign an Azure Active Directory principal for
-     the resource. Possible values include: 'SystemAssigned'
+     the resource. Possible values include: 'None', 'SystemAssigned',
+     'UserAssigned'
     :type type: str or ~azure.mgmt.sql.models.IdentityType
     :ivar tenant_id: The Azure Active Directory tenant id.
     :vartype tenant_id: str
@@ -8383,6 +8382,93 @@ class ServerConnectionPolicy(ProxyResource):
         self.kind = None
         self.location = None
         self.connection_type = connection_type
+
+
+class ServerDevOpsAuditingSettings(ProxyResource):
+    """A server DevOps auditing settings.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Resource ID.
+    :vartype id: str
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :ivar system_data: SystemData of ServerDevOpsAuditSettingsResource.
+    :vartype system_data: ~azure.mgmt.sql.models.SystemData
+    :param is_azure_monitor_target_enabled: Specifies whether DevOps audit
+     events are sent to Azure Monitor.
+     In order to send the events to Azure Monitor, specify 'State' as 'Enabled'
+     and 'IsAzureMonitorTargetEnabled' as true.
+     When using REST API to configure DevOps audit, Diagnostic Settings with
+     'DevOpsOperationsAudit' diagnostic logs category on the master database
+     should be also created.
+     Diagnostic Settings URI format:
+     PUT
+     https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Sql/servers/{serverName}/databases/master/providers/microsoft.insights/diagnosticSettings/{settingsName}?api-version=2017-05-01-preview
+     For more information, see [Diagnostic Settings REST
+     API](https://go.microsoft.com/fwlink/?linkid=2033207)
+     or [Diagnostic Settings
+     PowerShell](https://go.microsoft.com/fwlink/?linkid=2033043)
+    :type is_azure_monitor_target_enabled: bool
+    :param state: Required. Specifies the state of the audit. If state is
+     Enabled, storageEndpoint or isAzureMonitorTargetEnabled are required.
+     Possible values include: 'Enabled', 'Disabled'
+    :type state: str or ~azure.mgmt.sql.models.BlobAuditingPolicyState
+    :param storage_endpoint: Specifies the blob storage endpoint (e.g.
+     https://MyAccount.blob.core.windows.net). If state is Enabled,
+     storageEndpoint or isAzureMonitorTargetEnabled is required.
+    :type storage_endpoint: str
+    :param storage_account_access_key: Specifies the identifier key of the
+     auditing storage account.
+     If state is Enabled and storageEndpoint is specified, not specifying the
+     storageAccountAccessKey will use SQL server system-assigned managed
+     identity to access the storage.
+     Prerequisites for using managed identity authentication:
+     1. Assign SQL Server a system-assigned managed identity in Azure Active
+     Directory (AAD).
+     2. Grant SQL Server identity access to the storage account by adding
+     'Storage Blob Data Contributor' RBAC role to the server identity.
+     For more information, see [Auditing to storage using Managed Identity
+     authentication](https://go.microsoft.com/fwlink/?linkid=2114355)
+    :type storage_account_access_key: str
+    :param storage_account_subscription_id: Specifies the blob storage
+     subscription Id.
+    :type storage_account_subscription_id: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'system_data': {'readonly': True},
+        'state': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
+        'is_azure_monitor_target_enabled': {'key': 'properties.isAzureMonitorTargetEnabled', 'type': 'bool'},
+        'state': {'key': 'properties.state', 'type': 'BlobAuditingPolicyState'},
+        'storage_endpoint': {'key': 'properties.storageEndpoint', 'type': 'str'},
+        'storage_account_access_key': {'key': 'properties.storageAccountAccessKey', 'type': 'str'},
+        'storage_account_subscription_id': {'key': 'properties.storageAccountSubscriptionId', 'type': 'str'},
+    }
+
+    def __init__(self, *, state, is_azure_monitor_target_enabled: bool=None, storage_endpoint: str=None, storage_account_access_key: str=None, storage_account_subscription_id: str=None, **kwargs) -> None:
+        super(ServerDevOpsAuditingSettings, self).__init__(**kwargs)
+        self.system_data = None
+        self.is_azure_monitor_target_enabled = is_azure_monitor_target_enabled
+        self.state = state
+        self.storage_endpoint = storage_endpoint
+        self.storage_account_access_key = storage_account_access_key
+        self.storage_account_subscription_id = storage_account_subscription_id
 
 
 class ServerDnsAlias(ProxyResource):
@@ -9942,6 +10028,61 @@ class SyncMember(ProxyResource):
         self.password = password
         self.sync_direction = sync_direction
         self.sync_state = None
+
+
+class SystemData(Model):
+    """Metadata pertaining to creation and last modification of the resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar created_by: A string identifier for the identity that created the
+     resource.
+    :vartype created_by: str
+    :ivar created_by_type: The type of identity that created the resource:
+     <User|Application|ManagedIdentity|Key>. Possible values include: 'User',
+     'Application', 'ManagedIdentity', 'Key'
+    :vartype created_by_type: str or ~azure.mgmt.sql.models.CreatedByType
+    :ivar created_at: The timestamp of resource creation (UTC).
+    :vartype created_at: datetime
+    :ivar last_modified_by: A string identifier for the identity that last
+     modified the resource.
+    :vartype last_modified_by: str
+    :ivar last_modified_by_type: The type of identity that last modified the
+     resource: <User|Application|ManagedIdentity|Key>. Possible values include:
+     'User', 'Application', 'ManagedIdentity', 'Key'
+    :vartype last_modified_by_type: str or
+     ~azure.mgmt.sql.models.CreatedByType
+    :ivar last_modified_at: The timestamp of last modification (UTC).
+    :vartype last_modified_at: datetime
+    """
+
+    _validation = {
+        'created_by': {'readonly': True},
+        'created_by_type': {'readonly': True},
+        'created_at': {'readonly': True},
+        'last_modified_by': {'readonly': True},
+        'last_modified_by_type': {'readonly': True},
+        'last_modified_at': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'created_by': {'key': 'createdBy', 'type': 'str'},
+        'created_by_type': {'key': 'createdByType', 'type': 'str'},
+        'created_at': {'key': 'createdAt', 'type': 'iso-8601'},
+        'last_modified_by': {'key': 'lastModifiedBy', 'type': 'str'},
+        'last_modified_by_type': {'key': 'lastModifiedByType', 'type': 'str'},
+        'last_modified_at': {'key': 'lastModifiedAt', 'type': 'iso-8601'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(SystemData, self).__init__(**kwargs)
+        self.created_by = None
+        self.created_by_type = None
+        self.created_at = None
+        self.last_modified_by = None
+        self.last_modified_by_type = None
+        self.last_modified_at = None
 
 
 class TdeCertificate(ProxyResource):
