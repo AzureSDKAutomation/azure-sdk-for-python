@@ -717,6 +717,8 @@ class DataMaskingPolicy(ProxyResource):
     :ivar kind: The kind of data masking policy. Metadata, used for Azure
      portal.
     :vartype kind: str
+    :ivar managed_by: Fully qualified resource ID of the sql pool
+    :vartype managed_by: str
     """
 
     _validation = {
@@ -728,6 +730,7 @@ class DataMaskingPolicy(ProxyResource):
         'masking_level': {'readonly': True},
         'location': {'readonly': True},
         'kind': {'readonly': True},
+        'managed_by': {'readonly': True},
     }
 
     _attribute_map = {
@@ -740,6 +743,7 @@ class DataMaskingPolicy(ProxyResource):
         'masking_level': {'key': 'properties.maskingLevel', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'kind': {'key': 'kind', 'type': 'str'},
+        'managed_by': {'key': 'managedBy', 'type': 'str'},
     }
 
     def __init__(self, *, data_masking_state, exempt_principals: str=None, **kwargs) -> None:
@@ -750,6 +754,7 @@ class DataMaskingPolicy(ProxyResource):
         self.masking_level = None
         self.location = None
         self.kind = None
+        self.managed_by = None
 
 
 class DataMaskingRule(ProxyResource):
