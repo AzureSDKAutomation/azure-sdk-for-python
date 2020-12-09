@@ -606,6 +606,24 @@ class Eventhub(Resource):
         self.capture_description = kwargs.get('capture_description', None)
 
 
+class FailoverProperties(Model):
+    """Safe failover is to indicate the service should wait for pending
+    replication to finish before switching to the secondary.
+
+    :param is_safe_failover: Safe failover is to indicate the service should
+     wait for pending replication to finish before switching to the secondary.
+    :type is_safe_failover: bool
+    """
+
+    _attribute_map = {
+        'is_safe_failover': {'key': 'properties.IsSafeFailover', 'type': 'bool'},
+    }
+
+    def __init__(self, **kwargs):
+        super(FailoverProperties, self).__init__(**kwargs)
+        self.is_safe_failover = kwargs.get('is_safe_failover', None)
+
+
 class Identity(Model):
     """Properties to configure Identity for Bring your Own Keys.
 
@@ -816,6 +834,9 @@ class NetworkRuleSet(Resource):
     :vartype name: str
     :ivar type: Resource type
     :vartype type: str
+    :param trusted_service_access_enabled: Value that indicates whether
+     Trusted Service Access is Enabled or not.
+    :type trusted_service_access_enabled: bool
     :param default_action: Default Action for Network Rule Set. Possible
      values include: 'Allow', 'Deny'
     :type default_action: str or ~azure.mgmt.servicebus.models.DefaultAction
@@ -836,6 +857,7 @@ class NetworkRuleSet(Resource):
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
+        'trusted_service_access_enabled': {'key': 'properties.trustedServiceAccessEnabled', 'type': 'bool'},
         'default_action': {'key': 'properties.defaultAction', 'type': 'str'},
         'virtual_network_rules': {'key': 'properties.virtualNetworkRules', 'type': '[NWRuleSetVirtualNetworkRules]'},
         'ip_rules': {'key': 'properties.ipRules', 'type': '[NWRuleSetIpRules]'},
@@ -843,6 +865,7 @@ class NetworkRuleSet(Resource):
 
     def __init__(self, **kwargs):
         super(NetworkRuleSet, self).__init__(**kwargs)
+        self.trusted_service_access_enabled = kwargs.get('trusted_service_access_enabled', None)
         self.default_action = kwargs.get('default_action', None)
         self.virtual_network_rules = kwargs.get('virtual_network_rules', None)
         self.ip_rules = kwargs.get('ip_rules', None)
@@ -1352,6 +1375,8 @@ class SBNamespace(TrackedResource):
     :type tags: dict[str, str]
     :param sku: Properties of SKU
     :type sku: ~azure.mgmt.servicebus.models.SBSku
+    :param identity: Properties of BYOK Identity description
+    :type identity: ~azure.mgmt.servicebus.models.Identity
     :ivar provisioning_state: Provisioning state of the namespace.
     :vartype provisioning_state: str
     :ivar created_at: The time the namespace was created
@@ -1389,6 +1414,7 @@ class SBNamespace(TrackedResource):
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
         'sku': {'key': 'sku', 'type': 'SBSku'},
+        'identity': {'key': 'identity', 'type': 'Identity'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'created_at': {'key': 'properties.createdAt', 'type': 'iso-8601'},
         'updated_at': {'key': 'properties.updatedAt', 'type': 'iso-8601'},
@@ -1401,6 +1427,7 @@ class SBNamespace(TrackedResource):
     def __init__(self, **kwargs):
         super(SBNamespace, self).__init__(**kwargs)
         self.sku = kwargs.get('sku', None)
+        self.identity = kwargs.get('identity', None)
         self.provisioning_state = None
         self.created_at = None
         self.updated_at = None
