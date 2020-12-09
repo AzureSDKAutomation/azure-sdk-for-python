@@ -10,7 +10,6 @@
 # --------------------------------------------------------------------------
 
 from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
 from .. import models
 import uuid
 
@@ -39,7 +38,8 @@ class CognitiveServicesManagementClientOperationsMixin(object):
         :rtype:
          ~azure.mgmt.cognitiveservices.models.CheckSkuAvailabilityResultList or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorException<azure.mgmt.cognitiveservices.models.ErrorException>`
         """
         parameters = models.CheckSkuAvailabilityParameter(skus=skus, kind=kind, type=type)
 
@@ -74,9 +74,7 @@ class CognitiveServicesManagementClientOperationsMixin(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -107,7 +105,8 @@ class CognitiveServicesManagementClientOperationsMixin(object):
         :rtype:
          ~azure.mgmt.cognitiveservices.models.CheckDomainAvailabilityResult or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorException<azure.mgmt.cognitiveservices.models.ErrorException>`
         """
         parameters = models.CheckDomainAvailabilityParameter(subdomain_name=subdomain_name, type=type)
 
@@ -141,9 +140,7 @@ class CognitiveServicesManagementClientOperationsMixin(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
