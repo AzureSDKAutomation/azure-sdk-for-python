@@ -62,7 +62,6 @@ try:
     from ._models_py3 import SharingUpdate
     from ._models_py3 import TargetRegion
     from ._models_py3 import UpdateResourceDefinition
-    from ._models_py3 import UserArtifactManage
     from ._models_py3 import UserArtifactSource
 except (SyntaxError, ImportError):
     from ._models import ApiError  # type: ignore
@@ -120,7 +119,6 @@ except (SyntaxError, ImportError):
     from ._models import SharingUpdate  # type: ignore
     from ._models import TargetRegion  # type: ignore
     from ._models import UpdateResourceDefinition  # type: ignore
-    from ._models import UserArtifactManage  # type: ignore
     from ._models import UserArtifactSource  # type: ignore
 
 from ._compute_management_client_enums import (
@@ -199,7 +197,6 @@ __all__ = [
     'SharingUpdate',
     'TargetRegion',
     'UpdateResourceDefinition',
-    'UserArtifactManage',
     'UserArtifactSource',
     'AggregatedReplicationState',
     'GalleryApplicationVersionPropertiesProvisioningState',
