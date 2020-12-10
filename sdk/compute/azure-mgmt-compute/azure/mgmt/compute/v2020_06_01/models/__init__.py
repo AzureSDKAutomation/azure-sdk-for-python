@@ -135,6 +135,7 @@ try:
     from ._models_py3 import VirtualMachineHealthStatus
     from ._models_py3 import VirtualMachineIdentity
     from ._models_py3 import VirtualMachineImage
+    from ._models_py3 import VirtualMachineImageFeature
     from ._models_py3 import VirtualMachineImageResource
     from ._models_py3 import VirtualMachineInstanceView
     from ._models_py3 import VirtualMachineListResult
@@ -332,6 +333,7 @@ except (SyntaxError, ImportError):
     from ._models import VirtualMachineHealthStatus  # type: ignore
     from ._models import VirtualMachineIdentity  # type: ignore
     from ._models import VirtualMachineImage  # type: ignore
+    from ._models import VirtualMachineImageFeature  # type: ignore
     from ._models import VirtualMachineImageResource  # type: ignore
     from ._models import VirtualMachineInstanceView  # type: ignore
     from ._models import VirtualMachineListResult  # type: ignore
@@ -572,6 +574,7 @@ __all__ = [
     'VirtualMachineHealthStatus',
     'VirtualMachineIdentity',
     'VirtualMachineImage',
+    'VirtualMachineImageFeature',
     'VirtualMachineImageResource',
     'VirtualMachineInstanceView',
     'VirtualMachineListResult',
