@@ -11,7 +11,6 @@
 
 import uuid
 from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
 
 from .. import models
 
@@ -57,7 +56,8 @@ class SubscriptionsOperations(object):
         :return: An iterator like instance of Location
         :rtype:
          ~azure.mgmt.subscription.models.LocationPaged[~azure.mgmt.subscription.models.Location]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseBodyException<azure.mgmt.subscription.models.ErrorResponseBodyException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
@@ -96,9 +96,7 @@ class SubscriptionsOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
+                raise models.ErrorResponseBodyException(self._deserialize, response)
 
             return response
 
@@ -125,7 +123,8 @@ class SubscriptionsOperations(object):
         :return: Subscription or ClientRawResponse if raw=true
         :rtype: ~azure.mgmt.subscription.models.Subscription or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseBodyException<azure.mgmt.subscription.models.ErrorResponseBodyException>`
         """
         # Construct URL
         url = self.get.metadata['url']
@@ -153,9 +152,7 @@ class SubscriptionsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseBodyException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -180,7 +177,8 @@ class SubscriptionsOperations(object):
         :return: An iterator like instance of Subscription
         :rtype:
          ~azure.mgmt.subscription.models.SubscriptionPaged[~azure.mgmt.subscription.models.Subscription]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseBodyException<azure.mgmt.subscription.models.ErrorResponseBodyException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
@@ -215,9 +213,7 @@ class SubscriptionsOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
+                raise models.ErrorResponseBodyException(self._deserialize, response)
 
             return response
 
