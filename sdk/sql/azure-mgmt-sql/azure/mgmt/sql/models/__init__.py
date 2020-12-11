@@ -151,6 +151,7 @@ try:
     from ._models_py3 import ServerBlobAuditingPolicy
     from ._models_py3 import ServerCommunicationLink
     from ._models_py3 import ServerConnectionPolicy
+    from ._models_py3 import ServerDevOpsAuditingSettings
     from ._models_py3 import ServerDnsAlias
     from ._models_py3 import ServerDnsAliasAcquisition
     from ._models_py3 import ServerInfo
@@ -182,6 +183,7 @@ try:
     from ._models_py3 import SyncGroupSchemaTable
     from ._models_py3 import SyncGroupSchemaTableColumn
     from ._models_py3 import SyncMember
+    from ._models_py3 import SystemData
     from ._models_py3 import TdeCertificate
     from ._models_py3 import TrackedResource
     from ._models_py3 import TransparentDataEncryption
@@ -340,6 +342,7 @@ except (SyntaxError, ImportError):
     from ._models import ServerBlobAuditingPolicy
     from ._models import ServerCommunicationLink
     from ._models import ServerConnectionPolicy
+    from ._models import ServerDevOpsAuditingSettings
     from ._models import ServerDnsAlias
     from ._models import ServerDnsAliasAcquisition
     from ._models import ServerInfo
@@ -371,6 +374,7 @@ except (SyntaxError, ImportError):
     from ._models import SyncGroupSchemaTable
     from ._models import SyncGroupSchemaTableColumn
     from ._models import SyncMember
+    from ._models import SystemData
     from ._models import TdeCertificate
     from ._models import TrackedResource
     from ._models import TransparentDataEncryption
@@ -445,6 +449,7 @@ from ._paged_models import ServerAzureADAdministratorPaged
 from ._paged_models import ServerAzureADOnlyAuthenticationPaged
 from ._paged_models import ServerBlobAuditingPolicyPaged
 from ._paged_models import ServerCommunicationLinkPaged
+from ._paged_models import ServerDevOpsAuditingSettingsPaged
 from ._paged_models import ServerDnsAliasPaged
 from ._paged_models import ServerKeyPaged
 from ._paged_models import ServerPaged
@@ -544,15 +549,16 @@ from ._sql_management_client_enums import (
     ManagedInstanceLicenseType,
     ManagedInstanceProxyOverride,
     StorageAccountType,
-    StorageKeyType,
     CreateMode,
     SampleName,
     DatabaseStatus,
     DatabaseLicenseType,
     DatabaseReadScale,
     SecondaryType,
+    StorageKeyType,
     ElasticPoolState,
     ElasticPoolLicenseType,
+    CreatedByType,
     LongTermRetentionDatabaseState,
     VulnerabilityAssessmentPolicyBaselineName,
     SensitivityLabelSource,
@@ -708,6 +714,7 @@ __all__ = [
     'ServerBlobAuditingPolicy',
     'ServerCommunicationLink',
     'ServerConnectionPolicy',
+    'ServerDevOpsAuditingSettings',
     'ServerDnsAlias',
     'ServerDnsAliasAcquisition',
     'ServerInfo',
@@ -739,6 +746,7 @@ __all__ = [
     'SyncGroupSchemaTable',
     'SyncGroupSchemaTableColumn',
     'SyncMember',
+    'SystemData',
     'TdeCertificate',
     'TrackedResource',
     'TransparentDataEncryption',
@@ -837,6 +845,7 @@ __all__ = [
     'ServerAzureADOnlyAuthenticationPaged',
     'ManagedInstanceAzureADOnlyAuthenticationPaged',
     'ServerTrustGroupPaged',
+    'ServerDevOpsAuditingSettingsPaged',
     'ServerConnectionType',
     'SecurityAlertPolicyState',
     'SecurityAlertPolicyEmailAccountAdmins',
@@ -911,15 +920,16 @@ __all__ = [
     'ManagedInstanceLicenseType',
     'ManagedInstanceProxyOverride',
     'StorageAccountType',
-    'StorageKeyType',
     'CreateMode',
     'SampleName',
     'DatabaseStatus',
     'DatabaseLicenseType',
     'DatabaseReadScale',
     'SecondaryType',
+    'StorageKeyType',
     'ElasticPoolState',
     'ElasticPoolLicenseType',
+    'CreatedByType',
     'LongTermRetentionDatabaseState',
     'VulnerabilityAssessmentPolicyBaselineName',
     'SensitivityLabelSource',
