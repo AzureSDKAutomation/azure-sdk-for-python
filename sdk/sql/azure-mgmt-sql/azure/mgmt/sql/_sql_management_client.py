@@ -105,9 +105,9 @@ from .operations import ManagedInstancesOperations
 from .operations import ManagedDatabaseRestoreDetailsOperations
 from .operations import ManagedDatabasesOperations
 from .operations import ServerAzureADOnlyAuthenticationsOperations
-from .operations import ImportExportOperations
 from .operations import ManagedInstanceAzureADOnlyAuthenticationsOperations
 from .operations import ServerTrustGroupsOperations
+from .operations import ServerDevOpsAuditSettingsOperations
 from . import models
 
 
@@ -301,12 +301,12 @@ class SqlManagementClient(SDKClient):
     :vartype managed_databases: azure.mgmt.sql.operations.ManagedDatabasesOperations
     :ivar server_azure_ad_only_authentications: ServerAzureADOnlyAuthentications operations
     :vartype server_azure_ad_only_authentications: azure.mgmt.sql.operations.ServerAzureADOnlyAuthenticationsOperations
-    :ivar import_export: ImportExport operations
-    :vartype import_export: azure.mgmt.sql.operations.ImportExportOperations
     :ivar managed_instance_azure_ad_only_authentications: ManagedInstanceAzureADOnlyAuthentications operations
     :vartype managed_instance_azure_ad_only_authentications: azure.mgmt.sql.operations.ManagedInstanceAzureADOnlyAuthenticationsOperations
     :ivar server_trust_groups: ServerTrustGroups operations
     :vartype server_trust_groups: azure.mgmt.sql.operations.ServerTrustGroupsOperations
+    :ivar server_dev_ops_audit_settings: ServerDevOpsAuditSettings operations
+    :vartype server_dev_ops_audit_settings: azure.mgmt.sql.operations.ServerDevOpsAuditSettingsOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -511,9 +511,9 @@ class SqlManagementClient(SDKClient):
             self._client, self.config, self._serialize, self._deserialize)
         self.server_azure_ad_only_authentications = ServerAzureADOnlyAuthenticationsOperations(
             self._client, self.config, self._serialize, self._deserialize)
-        self.import_export = ImportExportOperations(
-            self._client, self.config, self._serialize, self._deserialize)
         self.managed_instance_azure_ad_only_authentications = ManagedInstanceAzureADOnlyAuthenticationsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.server_trust_groups = ServerTrustGroupsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.server_dev_ops_audit_settings = ServerDevOpsAuditSettingsOperations(
             self._client, self.config, self._serialize, self._deserialize)
