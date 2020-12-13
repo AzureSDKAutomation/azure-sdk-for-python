@@ -500,6 +500,10 @@ class ScheduledQueryRuleResource(TrackedResource):
     :type mute_actions_duration: timedelta
     :param actions:
     :type actions: list[~azure.mgmt.monitor.v2020_05_01_preview.models.Action]
+    :param check_workspace_alerts_storage_configured: The flag which indicates
+     whether this scheduled query rule should be stored in the customer's
+     storage.
+    :type check_workspace_alerts_storage_configured: bool
     """
 
     _validation = {
@@ -525,6 +529,7 @@ class ScheduledQueryRuleResource(TrackedResource):
         'criteria': {'key': 'properties.criteria', 'type': 'ScheduledQueryRuleCriteria'},
         'mute_actions_duration': {'key': 'properties.muteActionsDuration', 'type': 'duration'},
         'actions': {'key': 'properties.actions', 'type': '[Action]'},
+        'check_workspace_alerts_storage_configured': {'key': 'properties.checkWorkspaceAlertsStorageConfigured', 'type': 'bool'},
     }
 
     def __init__(self, **kwargs):
@@ -539,6 +544,7 @@ class ScheduledQueryRuleResource(TrackedResource):
         self.criteria = kwargs.get('criteria', None)
         self.mute_actions_duration = kwargs.get('mute_actions_duration', None)
         self.actions = kwargs.get('actions', None)
+        self.check_workspace_alerts_storage_configured = kwargs.get('check_workspace_alerts_storage_configured', None)
 
 
 class ScheduledQueryRuleResourcePatch(Model):
@@ -579,6 +585,10 @@ class ScheduledQueryRuleResourcePatch(Model):
     :type mute_actions_duration: timedelta
     :param actions:
     :type actions: list[~azure.mgmt.monitor.v2020_05_01_preview.models.Action]
+    :param check_workspace_alerts_storage_configured: The flag which indicates
+     whether this scheduled query rule should be stored in the customer's
+     storage.
+    :type check_workspace_alerts_storage_configured: bool
     """
 
     _attribute_map = {
@@ -593,6 +603,7 @@ class ScheduledQueryRuleResourcePatch(Model):
         'criteria': {'key': 'properties.criteria', 'type': 'ScheduledQueryRuleCriteria'},
         'mute_actions_duration': {'key': 'properties.muteActionsDuration', 'type': 'duration'},
         'actions': {'key': 'properties.actions', 'type': '[Action]'},
+        'check_workspace_alerts_storage_configured': {'key': 'properties.checkWorkspaceAlertsStorageConfigured', 'type': 'bool'},
     }
 
     def __init__(self, **kwargs):
@@ -608,3 +619,4 @@ class ScheduledQueryRuleResourcePatch(Model):
         self.criteria = kwargs.get('criteria', None)
         self.mute_actions_duration = kwargs.get('mute_actions_duration', None)
         self.actions = kwargs.get('actions', None)
+        self.check_workspace_alerts_storage_configured = kwargs.get('check_workspace_alerts_storage_configured', None)
