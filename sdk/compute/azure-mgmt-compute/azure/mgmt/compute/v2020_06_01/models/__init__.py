@@ -183,9 +183,6 @@ try:
     from ._models_py3 import VirtualMachineScaleSetUpdateStorageProfile
     from ._models_py3 import VirtualMachineScaleSetUpdateVMProfile
     from ._models_py3 import VirtualMachineScaleSetVM
-    from ._models_py3 import VirtualMachineScaleSetVMExtension
-    from ._models_py3 import VirtualMachineScaleSetVMExtensionUpdate
-    from ._models_py3 import VirtualMachineScaleSetVMExtensionsListResult
     from ._models_py3 import VirtualMachineScaleSetVMExtensionsSummary
     from ._models_py3 import VirtualMachineScaleSetVMInstanceIDs
     from ._models_py3 import VirtualMachineScaleSetVMInstanceRequiredIDs
@@ -380,9 +377,6 @@ except (SyntaxError, ImportError):
     from ._models import VirtualMachineScaleSetUpdateStorageProfile  # type: ignore
     from ._models import VirtualMachineScaleSetUpdateVMProfile  # type: ignore
     from ._models import VirtualMachineScaleSetVM  # type: ignore
-    from ._models import VirtualMachineScaleSetVMExtension  # type: ignore
-    from ._models import VirtualMachineScaleSetVMExtensionUpdate  # type: ignore
-    from ._models import VirtualMachineScaleSetVMExtensionsListResult  # type: ignore
     from ._models import VirtualMachineScaleSetVMExtensionsSummary  # type: ignore
     from ._models import VirtualMachineScaleSetVMInstanceIDs  # type: ignore
     from ._models import VirtualMachineScaleSetVMInstanceRequiredIDs  # type: ignore
@@ -620,9 +614,6 @@ __all__ = [
     'VirtualMachineScaleSetUpdateStorageProfile',
     'VirtualMachineScaleSetUpdateVMProfile',
     'VirtualMachineScaleSetVM',
-    'VirtualMachineScaleSetVMExtension',
-    'VirtualMachineScaleSetVMExtensionUpdate',
-    'VirtualMachineScaleSetVMExtensionsListResult',
     'VirtualMachineScaleSetVMExtensionsSummary',
     'VirtualMachineScaleSetVMInstanceIDs',
     'VirtualMachineScaleSetVMInstanceRequiredIDs',
