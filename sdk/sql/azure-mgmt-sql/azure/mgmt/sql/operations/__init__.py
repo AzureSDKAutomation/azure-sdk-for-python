@@ -12,7 +12,7 @@
 from ._recoverable_databases_operations import RecoverableDatabasesOperations
 from ._restorable_dropped_databases_operations import RestorableDroppedDatabasesOperations
 from ._server_connection_policies_operations import ServerConnectionPoliciesOperations
-from ._database_threat_detection_policies_operations import DatabaseThreatDetectionPoliciesOperations
+from ._database_security_alert_policies_operations import DatabaseSecurityAlertPoliciesOperations
 from ._data_masking_policies_operations import DataMaskingPoliciesOperations
 from ._data_masking_rules_operations import DataMaskingRulesOperations
 from ._firewall_rules_operations import FirewallRulesOperations
@@ -97,19 +97,18 @@ from ._managed_instance_operations import ManagedInstanceOperations
 from ._server_azure_ad_administrators_operations import ServerAzureADAdministratorsOperations
 from ._sync_groups_operations import SyncGroupsOperations
 from ._sync_members_operations import SyncMembersOperations
-from ._managed_instances_operations import ManagedInstancesOperations
-from ._managed_database_restore_details_operations import ManagedDatabaseRestoreDetailsOperations
 from ._managed_databases_operations import ManagedDatabasesOperations
 from ._server_azure_ad_only_authentications_operations import ServerAzureADOnlyAuthenticationsOperations
-from ._import_export_operations import ImportExportOperations
+from ._managed_instances_operations import ManagedInstancesOperations
 from ._managed_instance_azure_ad_only_authentications_operations import ManagedInstanceAzureADOnlyAuthenticationsOperations
 from ._server_trust_groups_operations import ServerTrustGroupsOperations
+from ._server_dev_ops_audit_settings_operations import ServerDevOpsAuditSettingsOperations
 
 __all__ = [
     'RecoverableDatabasesOperations',
     'RestorableDroppedDatabasesOperations',
     'ServerConnectionPoliciesOperations',
-    'DatabaseThreatDetectionPoliciesOperations',
+    'DatabaseSecurityAlertPoliciesOperations',
     'DataMaskingPoliciesOperations',
     'DataMaskingRulesOperations',
     'FirewallRulesOperations',
@@ -194,11 +193,10 @@ __all__ = [
     'ServerAzureADAdministratorsOperations',
     'SyncGroupsOperations',
     'SyncMembersOperations',
-    'ManagedInstancesOperations',
-    'ManagedDatabaseRestoreDetailsOperations',
     'ManagedDatabasesOperations',
     'ServerAzureADOnlyAuthenticationsOperations',
-    'ImportExportOperations',
+    'ManagedInstancesOperations',
     'ManagedInstanceAzureADOnlyAuthenticationsOperations',
     'ServerTrustGroupsOperations',
+    'ServerDevOpsAuditSettingsOperations',
 ]
