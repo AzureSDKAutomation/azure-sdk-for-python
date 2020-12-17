@@ -15,14 +15,32 @@ try:
     from ._models_py3 import CheckNameAvailabilityParameters
     from ._models_py3 import CheckNameAvailabilityResult
     from ._models_py3 import CloudEndpoint
+    from ._models_py3 import CloudEndpointChangeEnumerationActivity
+    from ._models_py3 import CloudEndpointChangeEnumerationStatus
     from ._models_py3 import CloudEndpointCreateParameters
+    from ._models_py3 import CloudEndpointLastChangeEnumerationStatus
+    from ._models_py3 import CloudTieringCachePerformance
+    from ._models_py3 import CloudTieringDatePolicyStatus
+    from ._models_py3 import CloudTieringFilesNotTiering
+    from ._models_py3 import CloudTieringSpaceSavings
+    from ._models_py3 import CloudTieringVolumeFreeSpacePolicyStatus
+    from ._models_py3 import FilesNotTieringError
     from ._models_py3 import OperationDisplayInfo
     from ._models_py3 import OperationDisplayResource
     from ._models_py3 import OperationEntity
+    from ._models_py3 import OperationProperties
+    from ._models_py3 import OperationResourceMetricSpecification
+    from ._models_py3 import OperationResourceMetricSpecificationDimension
+    from ._models_py3 import OperationResourceServiceSpecification
     from ._models_py3 import OperationStatus
     from ._models_py3 import PostBackupResponse
     from ._models_py3 import PostRestoreRequest
     from ._models_py3 import PreRestoreRequest
+    from ._models_py3 import PrivateEndpoint
+    from ._models_py3 import PrivateEndpointConnection
+    from ._models_py3 import PrivateLinkResource
+    from ._models_py3 import PrivateLinkResourceListResult
+    from ._models_py3 import PrivateLinkServiceConnectionState
     from ._models_py3 import ProxyResource
     from ._models_py3 import RecallActionParameters
     from ._models_py3 import RegisteredServer
@@ -31,6 +49,7 @@ try:
     from ._models_py3 import ResourcesMoveInfo
     from ._models_py3 import RestoreFileSpec
     from ._models_py3 import ServerEndpoint
+    from ._models_py3 import ServerEndpointBackgroundDataDownloadActivity
     from ._models_py3 import ServerEndpointCloudTieringStatus
     from ._models_py3 import ServerEndpointCreateParameters
     from ._models_py3 import ServerEndpointFilesNotSyncingError
@@ -43,6 +62,7 @@ try:
     from ._models_py3 import StorageSyncApiError
     from ._models_py3 import StorageSyncError, StorageSyncErrorException
     from ._models_py3 import StorageSyncErrorDetails
+    from ._models_py3 import StorageSyncInnerErrorDetails
     from ._models_py3 import StorageSyncService
     from ._models_py3 import StorageSyncServiceCreateParameters
     from ._models_py3 import StorageSyncServiceUpdateParameters
@@ -59,14 +79,32 @@ except (SyntaxError, ImportError):
     from ._models import CheckNameAvailabilityParameters
     from ._models import CheckNameAvailabilityResult
     from ._models import CloudEndpoint
+    from ._models import CloudEndpointChangeEnumerationActivity
+    from ._models import CloudEndpointChangeEnumerationStatus
     from ._models import CloudEndpointCreateParameters
+    from ._models import CloudEndpointLastChangeEnumerationStatus
+    from ._models import CloudTieringCachePerformance
+    from ._models import CloudTieringDatePolicyStatus
+    from ._models import CloudTieringFilesNotTiering
+    from ._models import CloudTieringSpaceSavings
+    from ._models import CloudTieringVolumeFreeSpacePolicyStatus
+    from ._models import FilesNotTieringError
     from ._models import OperationDisplayInfo
     from ._models import OperationDisplayResource
     from ._models import OperationEntity
+    from ._models import OperationProperties
+    from ._models import OperationResourceMetricSpecification
+    from ._models import OperationResourceMetricSpecificationDimension
+    from ._models import OperationResourceServiceSpecification
     from ._models import OperationStatus
     from ._models import PostBackupResponse
     from ._models import PostRestoreRequest
     from ._models import PreRestoreRequest
+    from ._models import PrivateEndpoint
+    from ._models import PrivateEndpointConnection
+    from ._models import PrivateLinkResource
+    from ._models import PrivateLinkResourceListResult
+    from ._models import PrivateLinkServiceConnectionState
     from ._models import ProxyResource
     from ._models import RecallActionParameters
     from ._models import RegisteredServer
@@ -75,6 +113,7 @@ except (SyntaxError, ImportError):
     from ._models import ResourcesMoveInfo
     from ._models import RestoreFileSpec
     from ._models import ServerEndpoint
+    from ._models import ServerEndpointBackgroundDataDownloadActivity
     from ._models import ServerEndpointCloudTieringStatus
     from ._models import ServerEndpointCreateParameters
     from ._models import ServerEndpointFilesNotSyncingError
@@ -87,6 +126,7 @@ except (SyntaxError, ImportError):
     from ._models import StorageSyncApiError
     from ._models import StorageSyncError, StorageSyncErrorException
     from ._models import StorageSyncErrorDetails
+    from ._models import StorageSyncInnerErrorDetails
     from ._models import StorageSyncService
     from ._models import StorageSyncServiceCreateParameters
     from ._models import StorageSyncServiceUpdateParameters
@@ -99,6 +139,7 @@ except (SyntaxError, ImportError):
     from ._models import Workflow
 from ._paged_models import CloudEndpointPaged
 from ._paged_models import OperationEntityPaged
+from ._paged_models import PrivateEndpointConnectionPaged
 from ._paged_models import RegisteredServerPaged
 from ._paged_models import ServerEndpointPaged
 from ._paged_models import StorageSyncServicePaged
@@ -106,8 +147,24 @@ from ._paged_models import SyncGroupPaged
 from ._paged_models import WorkflowPaged
 from ._storage_sync_management_client_enums import (
     Reason,
+    IncomingTrafficPolicy,
+    PrivateEndpointServiceConnectionStatus,
+    PrivateEndpointConnectionProvisioningState,
+    CloudEndpointChangeEnumerationActivityState,
+    CloudEndpointChangeEnumerationTotalCountsState,
     ChangeDetectionMode,
+    FeatureStatus,
+    InitialDownloadPolicy,
+    LocalCacheMode,
+    ServerEndpointHealthState,
+    ServerEndpointSyncActivityState,
+    ServerEndpointSyncMode,
+    ServerEndpointOfflineDataTransferState,
+    RegisteredServerAgentVersionStatus,
+    WorkflowStatus,
+    OperationDirection,
     NameAvailabilityReason,
+    ProgressType,
 )
 
 __all__ = [
@@ -116,14 +173,32 @@ __all__ = [
     'CheckNameAvailabilityParameters',
     'CheckNameAvailabilityResult',
     'CloudEndpoint',
+    'CloudEndpointChangeEnumerationActivity',
+    'CloudEndpointChangeEnumerationStatus',
     'CloudEndpointCreateParameters',
+    'CloudEndpointLastChangeEnumerationStatus',
+    'CloudTieringCachePerformance',
+    'CloudTieringDatePolicyStatus',
+    'CloudTieringFilesNotTiering',
+    'CloudTieringSpaceSavings',
+    'CloudTieringVolumeFreeSpacePolicyStatus',
+    'FilesNotTieringError',
     'OperationDisplayInfo',
     'OperationDisplayResource',
     'OperationEntity',
+    'OperationProperties',
+    'OperationResourceMetricSpecification',
+    'OperationResourceMetricSpecificationDimension',
+    'OperationResourceServiceSpecification',
     'OperationStatus',
     'PostBackupResponse',
     'PostRestoreRequest',
     'PreRestoreRequest',
+    'PrivateEndpoint',
+    'PrivateEndpointConnection',
+    'PrivateLinkResource',
+    'PrivateLinkResourceListResult',
+    'PrivateLinkServiceConnectionState',
     'ProxyResource',
     'RecallActionParameters',
     'RegisteredServer',
@@ -132,6 +207,7 @@ __all__ = [
     'ResourcesMoveInfo',
     'RestoreFileSpec',
     'ServerEndpoint',
+    'ServerEndpointBackgroundDataDownloadActivity',
     'ServerEndpointCloudTieringStatus',
     'ServerEndpointCreateParameters',
     'ServerEndpointFilesNotSyncingError',
@@ -144,6 +220,7 @@ __all__ = [
     'StorageSyncApiError',
     'StorageSyncError', 'StorageSyncErrorException',
     'StorageSyncErrorDetails',
+    'StorageSyncInnerErrorDetails',
     'StorageSyncService',
     'StorageSyncServiceCreateParameters',
     'StorageSyncServiceUpdateParameters',
@@ -156,12 +233,29 @@ __all__ = [
     'Workflow',
     'OperationEntityPaged',
     'StorageSyncServicePaged',
+    'PrivateEndpointConnectionPaged',
     'SyncGroupPaged',
     'CloudEndpointPaged',
     'ServerEndpointPaged',
     'RegisteredServerPaged',
     'WorkflowPaged',
     'Reason',
+    'IncomingTrafficPolicy',
+    'PrivateEndpointServiceConnectionStatus',
+    'PrivateEndpointConnectionProvisioningState',
+    'CloudEndpointChangeEnumerationActivityState',
+    'CloudEndpointChangeEnumerationTotalCountsState',
     'ChangeDetectionMode',
+    'FeatureStatus',
+    'InitialDownloadPolicy',
+    'LocalCacheMode',
+    'ServerEndpointHealthState',
+    'ServerEndpointSyncActivityState',
+    'ServerEndpointSyncMode',
+    'ServerEndpointOfflineDataTransferState',
+    'RegisteredServerAgentVersionStatus',
+    'WorkflowStatus',
+    'OperationDirection',
     'NameAvailabilityReason',
+    'ProgressType',
 ]
