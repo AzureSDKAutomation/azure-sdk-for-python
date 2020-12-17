@@ -46,6 +46,14 @@ class PublicNetworkAccess(str, Enum):
     disabled = "Disabled"
 
 
+class CreatedByType(str, Enum):
+
+    user = "User"
+    application = "Application"
+    managed_identity = "ManagedIdentity"
+    key = "Key"
+
+
 class Kind(str, Enum):
 
     fhir = "fhir"
