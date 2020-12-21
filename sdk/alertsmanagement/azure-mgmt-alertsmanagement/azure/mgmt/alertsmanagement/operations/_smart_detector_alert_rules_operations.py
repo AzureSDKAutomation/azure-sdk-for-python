@@ -55,7 +55,7 @@ class SmartDetectorAlertRulesOperations(object):
         :rtype:
          ~azure.mgmt.alertsmanagement.models.AlertRulePaged[~azure.mgmt.alertsmanagement.models.AlertRule]
         :raises:
-         :class:`ErrorResponse1Exception<azure.mgmt.alertsmanagement.models.ErrorResponse1Exception>`
+         :class:`SmartDetectorErrorResponseException<azure.mgmt.alertsmanagement.models.SmartDetectorErrorResponseException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
@@ -96,7 +96,7 @@ class SmartDetectorAlertRulesOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                raise models.ErrorResponse1Exception(self._deserialize, response)
+                raise models.SmartDetectorErrorResponseException(self._deserialize, response)
 
             return response
 
@@ -107,7 +107,7 @@ class SmartDetectorAlertRulesOperations(object):
         deserialized = models.AlertRulePaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/subscriptions/{subscriptionId}/providers/microsoft.alertsManagement/smartDetectorAlertRules'}
+    list.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.AlertsManagement/smartDetectorAlertRules'}
 
     def list_by_resource_group(
             self, resource_group_name, expand_detector=None, custom_headers=None, raw=False, **operation_config):
@@ -128,7 +128,7 @@ class SmartDetectorAlertRulesOperations(object):
         :rtype:
          ~azure.mgmt.alertsmanagement.models.AlertRulePaged[~azure.mgmt.alertsmanagement.models.AlertRule]
         :raises:
-         :class:`ErrorResponse1Exception<azure.mgmt.alertsmanagement.models.ErrorResponse1Exception>`
+         :class:`SmartDetectorErrorResponseException<azure.mgmt.alertsmanagement.models.SmartDetectorErrorResponseException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
@@ -170,7 +170,7 @@ class SmartDetectorAlertRulesOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                raise models.ErrorResponse1Exception(self._deserialize, response)
+                raise models.SmartDetectorErrorResponseException(self._deserialize, response)
 
             return response
 
@@ -181,7 +181,7 @@ class SmartDetectorAlertRulesOperations(object):
         deserialized = models.AlertRulePaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list_by_resource_group.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.alertsManagement/smartDetectorAlertRules'}
+    list_by_resource_group.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AlertsManagement/smartDetectorAlertRules'}
 
     def get(
             self, resource_group_name, alert_rule_name, expand_detector=None, custom_headers=None, raw=False, **operation_config):
@@ -203,7 +203,7 @@ class SmartDetectorAlertRulesOperations(object):
         :rtype: ~azure.mgmt.alertsmanagement.models.AlertRule or
          ~msrest.pipeline.ClientRawResponse
         :raises:
-         :class:`ErrorResponse1Exception<azure.mgmt.alertsmanagement.models.ErrorResponse1Exception>`
+         :class:`SmartDetectorErrorResponseException<azure.mgmt.alertsmanagement.models.SmartDetectorErrorResponseException>`
         """
         # Construct URL
         url = self.get.metadata['url']
@@ -235,7 +235,7 @@ class SmartDetectorAlertRulesOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            raise models.ErrorResponse1Exception(self._deserialize, response)
+            raise models.SmartDetectorErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -246,7 +246,7 @@ class SmartDetectorAlertRulesOperations(object):
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.alertsManagement/smartDetectorAlertRules/{alertRuleName}'}
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AlertsManagement/smartDetectorAlertRules/{alertRuleName}'}
 
     def create_or_update(
             self, resource_group_name, alert_rule_name, parameters, custom_headers=None, raw=False, **operation_config):
@@ -267,7 +267,7 @@ class SmartDetectorAlertRulesOperations(object):
         :rtype: ~azure.mgmt.alertsmanagement.models.AlertRule or
          ~msrest.pipeline.ClientRawResponse
         :raises:
-         :class:`ErrorResponse1Exception<azure.mgmt.alertsmanagement.models.ErrorResponse1Exception>`
+         :class:`SmartDetectorErrorResponseException<azure.mgmt.alertsmanagement.models.SmartDetectorErrorResponseException>`
         """
         # Construct URL
         url = self.create_or_update.metadata['url']
@@ -301,7 +301,7 @@ class SmartDetectorAlertRulesOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200, 201]:
-            raise models.ErrorResponse1Exception(self._deserialize, response)
+            raise models.SmartDetectorErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -314,7 +314,7 @@ class SmartDetectorAlertRulesOperations(object):
             return client_raw_response
 
         return deserialized
-    create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.alertsManagement/smartDetectorAlertRules/{alertRuleName}'}
+    create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AlertsManagement/smartDetectorAlertRules/{alertRuleName}'}
 
     def patch(
             self, resource_group_name, alert_rule_name, parameters, custom_headers=None, raw=False, **operation_config):
@@ -336,7 +336,7 @@ class SmartDetectorAlertRulesOperations(object):
         :rtype: ~azure.mgmt.alertsmanagement.models.AlertRule or
          ~msrest.pipeline.ClientRawResponse
         :raises:
-         :class:`ErrorResponse1Exception<azure.mgmt.alertsmanagement.models.ErrorResponse1Exception>`
+         :class:`SmartDetectorErrorResponseException<azure.mgmt.alertsmanagement.models.SmartDetectorErrorResponseException>`
         """
         # Construct URL
         url = self.patch.metadata['url']
@@ -370,7 +370,7 @@ class SmartDetectorAlertRulesOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            raise models.ErrorResponse1Exception(self._deserialize, response)
+            raise models.SmartDetectorErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -381,7 +381,7 @@ class SmartDetectorAlertRulesOperations(object):
             return client_raw_response
 
         return deserialized
-    patch.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.alertsManagement/smartDetectorAlertRules/{alertRuleName}'}
+    patch.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AlertsManagement/smartDetectorAlertRules/{alertRuleName}'}
 
     def delete(
             self, resource_group_name, alert_rule_name, custom_headers=None, raw=False, **operation_config):
@@ -399,7 +399,7 @@ class SmartDetectorAlertRulesOperations(object):
         :return: None or ClientRawResponse if raw=true
         :rtype: None or ~msrest.pipeline.ClientRawResponse
         :raises:
-         :class:`ErrorResponse1Exception<azure.mgmt.alertsmanagement.models.ErrorResponse1Exception>`
+         :class:`SmartDetectorErrorResponseException<azure.mgmt.alertsmanagement.models.SmartDetectorErrorResponseException>`
         """
         # Construct URL
         url = self.delete.metadata['url']
@@ -428,9 +428,9 @@ class SmartDetectorAlertRulesOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200, 204]:
-            raise models.ErrorResponse1Exception(self._deserialize, response)
+            raise models.SmartDetectorErrorResponseException(self._deserialize, response)
 
         if raw:
             client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-    delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.alertsManagement/smartDetectorAlertRules/{alertRuleName}'}
+    delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AlertsManagement/smartDetectorAlertRules/{alertRuleName}'}
