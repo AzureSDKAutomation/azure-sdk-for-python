@@ -12,12 +12,6 @@
 from enum import Enum
 
 
-class NameAvailability(str, Enum):
-
-    true = "true"
-    false = "false"
-
-
 class NameUnavailableReason(str, Enum):
 
     invalid = "Invalid"
