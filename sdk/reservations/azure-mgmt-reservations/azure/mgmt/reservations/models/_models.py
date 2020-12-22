@@ -13,22 +13,6 @@ from msrest.serialization import Model
 from msrest.exceptions import HttpOperationError
 
 
-class Actions(Model):
-    """The actions for auto quota increase.
-
-    :param email_actions: The email actions for auto quota increase.
-    :type email_actions: ~azure.mgmt.reservations.models.EmailActions
-    """
-
-    _attribute_map = {
-        'email_actions': {'key': 'emailActions', 'type': 'EmailActions'},
-    }
-
-    def __init__(self, **kwargs):
-        super(Actions, self).__init__(**kwargs)
-        self.email_actions = kwargs.get('email_actions', None)
-
-
 class AppliedReservationList(Model):
     """AppliedReservationList.
 
@@ -87,179 +71,6 @@ class AppliedReservations(Model):
         self.reservation_order_ids = kwargs.get('reservation_order_ids', None)
 
 
-class AqiSettings(Model):
-    """Settings for auto quota increase.
-
-    :param auto_quota_increase_state: If the subscription has enabled
-     automatic quota increase.
-    :type auto_quota_increase_state: object
-    """
-
-    _attribute_map = {
-        'auto_quota_increase_state': {'key': 'autoQuotaIncreaseState', 'type': 'object'},
-    }
-
-    def __init__(self, **kwargs):
-        super(AqiSettings, self).__init__(**kwargs)
-        self.auto_quota_increase_state = kwargs.get('auto_quota_increase_state', None)
-
-
-class AutoQuotaIncreaseDetail(Model):
-    """Auto Quota Increase settings.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: The subscription Id.
-    :vartype id: str
-    :ivar name: The name of the auto quota increase.
-    :vartype name: str
-    :ivar type: The type of the resource
-    :vartype type: str
-    :param settings: Settings for automatic quota increase.
-    :type settings: ~azure.mgmt.reservations.models.AqiSettings
-    :param on_failure: The on failure Actions.
-    :type on_failure: ~azure.mgmt.reservations.models.Actions
-    :param on_success: The on success Actions.
-    :type on_success: ~azure.mgmt.reservations.models.Actions
-    :param support_ticket_action: The support ticket action.
-    :type support_ticket_action:
-     ~azure.mgmt.reservations.models.SupportRequestAction
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'settings': {'key': 'properties.settings', 'type': 'AqiSettings'},
-        'on_failure': {'key': 'properties.onFailure', 'type': 'Actions'},
-        'on_success': {'key': 'properties.onSuccess', 'type': 'Actions'},
-        'support_ticket_action': {'key': 'properties.supportTicketAction', 'type': 'SupportRequestAction'},
-    }
-
-    def __init__(self, **kwargs):
-        super(AutoQuotaIncreaseDetail, self).__init__(**kwargs)
-        self.id = None
-        self.name = None
-        self.type = None
-        self.settings = kwargs.get('settings', None)
-        self.on_failure = kwargs.get('on_failure', None)
-        self.on_success = kwargs.get('on_success', None)
-        self.support_ticket_action = kwargs.get('support_ticket_action', None)
-
-
-class CalculatePriceResponse(Model):
-    """CalculatePriceResponse.
-
-    :param properties:
-    :type properties:
-     ~azure.mgmt.reservations.models.CalculatePriceResponseProperties
-    """
-
-    _attribute_map = {
-        'properties': {'key': 'properties', 'type': 'CalculatePriceResponseProperties'},
-    }
-
-    def __init__(self, **kwargs):
-        super(CalculatePriceResponse, self).__init__(**kwargs)
-        self.properties = kwargs.get('properties', None)
-
-
-class CalculatePriceResponseProperties(Model):
-    """CalculatePriceResponseProperties.
-
-    :param billing_currency_total: Currency and amount that customer will be
-     charged in customer's local currency. Tax is not included.
-    :type billing_currency_total:
-     ~azure.mgmt.reservations.models.CalculatePriceResponsePropertiesBillingCurrencyTotal
-    :param is_billing_partner_managed: True if billing is managed by Microsoft
-     Partner. Used only for CSP accounts.
-    :type is_billing_partner_managed: bool
-    :param reservation_order_id: GUID that represents reservation order that
-     can be placed after calculating price.
-    :type reservation_order_id: str
-    :param sku_title: Title of SKU that is being purchased.
-    :type sku_title: str
-    :param sku_description: Description of SKU that is being purchased.
-    :type sku_description: str
-    :param pricing_currency_total: Amount that Microsoft uses for record. Used
-     during refund for calculating refund limit. Tax is not included.
-    :type pricing_currency_total:
-     ~azure.mgmt.reservations.models.CalculatePriceResponsePropertiesPricingCurrencyTotal
-    :param payment_schedule:
-    :type payment_schedule:
-     list[~azure.mgmt.reservations.models.PaymentDetail]
-    """
-
-    _attribute_map = {
-        'billing_currency_total': {'key': 'billingCurrencyTotal', 'type': 'CalculatePriceResponsePropertiesBillingCurrencyTotal'},
-        'is_billing_partner_managed': {'key': 'isBillingPartnerManaged', 'type': 'bool'},
-        'reservation_order_id': {'key': 'reservationOrderId', 'type': 'str'},
-        'sku_title': {'key': 'skuTitle', 'type': 'str'},
-        'sku_description': {'key': 'skuDescription', 'type': 'str'},
-        'pricing_currency_total': {'key': 'pricingCurrencyTotal', 'type': 'CalculatePriceResponsePropertiesPricingCurrencyTotal'},
-        'payment_schedule': {'key': 'paymentSchedule', 'type': '[PaymentDetail]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(CalculatePriceResponseProperties, self).__init__(**kwargs)
-        self.billing_currency_total = kwargs.get('billing_currency_total', None)
-        self.is_billing_partner_managed = kwargs.get('is_billing_partner_managed', None)
-        self.reservation_order_id = kwargs.get('reservation_order_id', None)
-        self.sku_title = kwargs.get('sku_title', None)
-        self.sku_description = kwargs.get('sku_description', None)
-        self.pricing_currency_total = kwargs.get('pricing_currency_total', None)
-        self.payment_schedule = kwargs.get('payment_schedule', None)
-
-
-class CalculatePriceResponsePropertiesBillingCurrencyTotal(Model):
-    """Currency and amount that customer will be charged in customer's local
-    currency. Tax is not included.
-
-    :param currency_code:
-    :type currency_code: str
-    :param amount:
-    :type amount: float
-    """
-
-    _attribute_map = {
-        'currency_code': {'key': 'currencyCode', 'type': 'str'},
-        'amount': {'key': 'amount', 'type': 'float'},
-    }
-
-    def __init__(self, **kwargs):
-        super(CalculatePriceResponsePropertiesBillingCurrencyTotal, self).__init__(**kwargs)
-        self.currency_code = kwargs.get('currency_code', None)
-        self.amount = kwargs.get('amount', None)
-
-
-class CalculatePriceResponsePropertiesPricingCurrencyTotal(Model):
-    """Amount that Microsoft uses for record. Used during refund for calculating
-    refund limit. Tax is not included.
-
-    :param currency_code:
-    :type currency_code: str
-    :param amount:
-    :type amount: float
-    """
-
-    _attribute_map = {
-        'currency_code': {'key': 'currencyCode', 'type': 'str'},
-        'amount': {'key': 'amount', 'type': 'float'},
-    }
-
-    def __init__(self, **kwargs):
-        super(CalculatePriceResponsePropertiesPricingCurrencyTotal, self).__init__(**kwargs)
-        self.currency_code = kwargs.get('currency_code', None)
-        self.amount = kwargs.get('amount', None)
-
-
 class Catalog(Model):
     """Catalog.
 
@@ -270,16 +81,16 @@ class Catalog(Model):
     :vartype resource_type: str
     :ivar name: The name of SKU
     :vartype name: str
-    :param billing_plans: The billing plan options available for this SKU.
-    :type billing_plans: dict[str, list[str or
-     ~azure.mgmt.reservations.models.ReservationBillingPlan]]
+    :ivar tier: The tier of this SKU
+    :vartype tier: str
+    :ivar size: The size of this SKU
+    :vartype size: str
     :ivar terms: Available reservation terms for this resource
-    :vartype terms: list[str or
-     ~azure.mgmt.reservations.models.ReservationTerm]
+    :vartype terms: list[str]
     :ivar locations:
     :vartype locations: list[str]
-    :ivar sku_properties:
-    :vartype sku_properties: list[~azure.mgmt.reservations.models.SkuProperty]
+    :ivar capabilities:
+    :vartype capabilities: list[~azure.mgmt.reservations.models.SkuCapability]
     :ivar restrictions:
     :vartype restrictions:
      list[~azure.mgmt.reservations.models.SkuRestriction]
@@ -288,19 +99,22 @@ class Catalog(Model):
     _validation = {
         'resource_type': {'readonly': True},
         'name': {'readonly': True},
+        'tier': {'readonly': True},
+        'size': {'readonly': True},
         'terms': {'readonly': True},
         'locations': {'readonly': True},
-        'sku_properties': {'readonly': True},
+        'capabilities': {'readonly': True},
         'restrictions': {'readonly': True},
     }
 
     _attribute_map = {
         'resource_type': {'key': 'resourceType', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
-        'billing_plans': {'key': 'billingPlans', 'type': '{[str]}'},
+        'tier': {'key': 'tier', 'type': 'str'},
+        'size': {'key': 'size', 'type': 'str'},
         'terms': {'key': 'terms', 'type': '[str]'},
         'locations': {'key': 'locations', 'type': '[str]'},
-        'sku_properties': {'key': 'skuProperties', 'type': '[SkuProperty]'},
+        'capabilities': {'key': 'capabilities', 'type': '[SkuCapability]'},
         'restrictions': {'key': 'restrictions', 'type': '[SkuRestriction]'},
     }
 
@@ -308,10 +122,11 @@ class Catalog(Model):
         super(Catalog, self).__init__(**kwargs)
         self.resource_type = None
         self.name = None
-        self.billing_plans = kwargs.get('billing_plans', None)
+        self.tier = None
+        self.size = None
         self.terms = None
         self.locations = None
-        self.sku_properties = None
+        self.capabilities = None
         self.restrictions = None
 
 
@@ -340,14 +155,14 @@ class CreateGenericQuotaRequestParameters(Model):
 
 
 class CurrentQuotaLimit(Model):
-    """Quota limits.
+    """Current quota limits.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
     :param properties: Quota properties for the resource.
     :type properties: ~azure.mgmt.reservations.models.QuotaProperties
-    :ivar provisioning_state: The quota request status.
+    :ivar provisioning_state: The details of the quota request status.
     :vartype provisioning_state: object
     :ivar message: A user friendly message.
     :vartype message: str
@@ -372,7 +187,7 @@ class CurrentQuotaLimit(Model):
 
 
 class CurrentQuotaLimitBase(Model):
-    """Quota limits.
+    """Quota properties.
 
     :param properties: Quota properties for the resource.
     :type properties: ~azure.mgmt.reservations.models.QuotaProperties
@@ -385,38 +200,6 @@ class CurrentQuotaLimitBase(Model):
     def __init__(self, **kwargs):
         super(CurrentQuotaLimitBase, self).__init__(**kwargs)
         self.properties = kwargs.get('properties', None)
-
-
-class EmailAction(Model):
-    """Email Action.
-
-    :param email_address: The email address for the action.
-    :type email_address: str
-    """
-
-    _attribute_map = {
-        'email_address': {'key': 'emailAddress', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(EmailAction, self).__init__(**kwargs)
-        self.email_address = kwargs.get('email_address', None)
-
-
-class EmailActions(Model):
-    """The email actions.
-
-    :param email_addresses: The list of email actions.
-    :type email_addresses: list[~azure.mgmt.reservations.models.EmailAction]
-    """
-
-    _attribute_map = {
-        'email_addresses': {'key': 'emailAddresses', 'type': '[EmailAction]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(EmailActions, self).__init__(**kwargs)
-        self.email_addresses = kwargs.get('email_addresses', None)
 
 
 class Error(Model):
@@ -448,9 +231,9 @@ class ErrorException(HttpOperationError):
 
 
 class ExceptionResponse(Model):
-    """The api error.
+    """The API error.
 
-    :param error: The api error details.
+    :param error: The API error details.
     :type error: ~azure.mgmt.reservations.models.ServiceError
     """
 
@@ -489,7 +272,7 @@ class ExtendedErrorInfo(Model):
      'UnauthenticatedRequestsThrottled', 'InvalidHealthCheckType', 'Forbidden',
      'BillingScopeIdCannotBeChanged',
      'AppliedScopesNotAssociatedWithCommerceAccount',
-     'PatchValuesSameAsExisting', 'RoleAssignmentCreationFailed',
+     'AppliedScopesSameAsExisting', 'RoleAssignmentCreationFailed',
      'ReservationOrderCreationFailed', 'ReservationOrderNotEnabled',
      'CapacityUpdateScopesFailed', 'UnsupportedReservationTerm',
      'ReservationOrderIdAlreadyExists', 'RiskCheckFailed', 'CreateQuoteFailed',
@@ -504,7 +287,7 @@ class ExtendedErrorInfo(Model):
      'BillingError', 'FulfillmentConfigurationError',
      'FulfillmentOutOfStockError', 'FulfillmentTransientError',
      'FulfillmentError', 'CalculatePriceFailed'
-    :type code: str or ~azure.mgmt.reservations.models.ErrorResponseCode
+    :type code: str or ~azure.mgmt.reservations.models.enum
     :param message:
     :type message: str
     """
@@ -526,8 +309,7 @@ class ExtendedStatusInfo(Model):
     :param status_code: Possible values include: 'None', 'Pending', 'Active',
      'PurchaseError', 'PaymentInstrumentError', 'Split', 'Merged', 'Expired',
      'Succeeded'
-    :type status_code: str or
-     ~azure.mgmt.reservations.models.ReservationStatusCode
+    :type status_code: str or ~azure.mgmt.reservations.models.enum
     :param message: The message giving detailed information about the status
      code.
     :type message: str
@@ -617,256 +399,29 @@ class Patch(Model):
     """Patch.
 
     :param applied_scope_type: Possible values include: 'Single', 'Shared'
-    :type applied_scope_type: str or
-     ~azure.mgmt.reservations.models.AppliedScopeType
+    :type applied_scope_type: str or ~azure.mgmt.reservations.models.enum
     :param applied_scopes:
     :type applied_scopes: list[str]
-    :param instance_flexibility: Possible values include: 'On', 'Off'
-    :type instance_flexibility: str or
-     ~azure.mgmt.reservations.models.InstanceFlexibility
-    :param name: Name of the Reservation
-    :type name: str
-    :param renew:
-    :type renew: bool
-    :param renew_properties:
-    :type renew_properties:
-     ~azure.mgmt.reservations.models.PatchPropertiesRenewProperties
     """
 
     _attribute_map = {
         'applied_scope_type': {'key': 'properties.appliedScopeType', 'type': 'str'},
         'applied_scopes': {'key': 'properties.appliedScopes', 'type': '[str]'},
-        'instance_flexibility': {'key': 'properties.instanceFlexibility', 'type': 'str'},
-        'name': {'key': 'properties.name', 'type': 'str'},
-        'renew': {'key': 'properties.renew', 'type': 'bool'},
-        'renew_properties': {'key': 'properties.renewProperties', 'type': 'PatchPropertiesRenewProperties'},
     }
 
     def __init__(self, **kwargs):
         super(Patch, self).__init__(**kwargs)
         self.applied_scope_type = kwargs.get('applied_scope_type', None)
         self.applied_scopes = kwargs.get('applied_scopes', None)
-        self.instance_flexibility = kwargs.get('instance_flexibility', None)
-        self.name = kwargs.get('name', None)
-        self.renew = kwargs.get('renew', None)
-        self.renew_properties = kwargs.get('renew_properties', None)
-
-
-class PatchPropertiesRenewProperties(Model):
-    """PatchPropertiesRenewProperties.
-
-    :param purchase_properties:
-    :type purchase_properties: ~azure.mgmt.reservations.models.PurchaseRequest
-    """
-
-    _attribute_map = {
-        'purchase_properties': {'key': 'purchaseProperties', 'type': 'PurchaseRequest'},
-    }
-
-    def __init__(self, **kwargs):
-        super(PatchPropertiesRenewProperties, self).__init__(**kwargs)
-        self.purchase_properties = kwargs.get('purchase_properties', None)
-
-
-class PaymentDetail(Model):
-    """Information about payment related to a reservation order.
-
-    :param due_date: Date when the payment needs to be done.
-    :type due_date: date
-    :param payment_date: Date when the transaction is completed. Is null when
-     it is scheduled.
-    :type payment_date: date
-    :param pricing_currency_total: Amount in pricing currency. Tax not
-     included.
-    :type pricing_currency_total: ~azure.mgmt.reservations.models.Price
-    :param billing_currency_total: Amount charged in Billing currency. Tax not
-     included. Is null for future payments
-    :type billing_currency_total: ~azure.mgmt.reservations.models.Price
-    :param billing_account: Shows the Account that is charged for this
-     payment.
-    :type billing_account: str
-    :param status: Possible values include: 'Succeeded', 'Failed',
-     'Scheduled', 'Cancelled'
-    :type status: str or ~azure.mgmt.reservations.models.PaymentStatus
-    :param extended_status_info:
-    :type extended_status_info:
-     ~azure.mgmt.reservations.models.ExtendedStatusInfo
-    """
-
-    _attribute_map = {
-        'due_date': {'key': 'dueDate', 'type': 'date'},
-        'payment_date': {'key': 'paymentDate', 'type': 'date'},
-        'pricing_currency_total': {'key': 'pricingCurrencyTotal', 'type': 'Price'},
-        'billing_currency_total': {'key': 'billingCurrencyTotal', 'type': 'Price'},
-        'billing_account': {'key': 'billingAccount', 'type': 'str'},
-        'status': {'key': 'status', 'type': 'str'},
-        'extended_status_info': {'key': 'extendedStatusInfo', 'type': 'ExtendedStatusInfo'},
-    }
-
-    def __init__(self, **kwargs):
-        super(PaymentDetail, self).__init__(**kwargs)
-        self.due_date = kwargs.get('due_date', None)
-        self.payment_date = kwargs.get('payment_date', None)
-        self.pricing_currency_total = kwargs.get('pricing_currency_total', None)
-        self.billing_currency_total = kwargs.get('billing_currency_total', None)
-        self.billing_account = kwargs.get('billing_account', None)
-        self.status = kwargs.get('status', None)
-        self.extended_status_info = kwargs.get('extended_status_info', None)
-
-
-class PhoneAction(Model):
-    """Phone Action.
-
-    :param phone_number: The phone number for the action.
-    :type phone_number: str
-    :param preferred_channel: The preferred communication channel.
-    :type preferred_channel: object
-    """
-
-    _attribute_map = {
-        'phone_number': {'key': 'phoneNumber', 'type': 'str'},
-        'preferred_channel': {'key': 'preferredChannel', 'type': 'object'},
-    }
-
-    def __init__(self, **kwargs):
-        super(PhoneAction, self).__init__(**kwargs)
-        self.phone_number = kwargs.get('phone_number', None)
-        self.preferred_channel = kwargs.get('preferred_channel', None)
-
-
-class Price(Model):
-    """Price.
-
-    :param currency_code: The ISO 4217 3-letter currency code for the currency
-     used by this purchase record.
-    :type currency_code: str
-    :param amount:
-    :type amount: float
-    """
-
-    _attribute_map = {
-        'currency_code': {'key': 'currencyCode', 'type': 'str'},
-        'amount': {'key': 'amount', 'type': 'float'},
-    }
-
-    def __init__(self, **kwargs):
-        super(Price, self).__init__(**kwargs)
-        self.currency_code = kwargs.get('currency_code', None)
-        self.amount = kwargs.get('amount', None)
-
-
-class Properties(Model):
-    """Properties.
-
-    :param properties:
-    :type properties:
-     ~azure.mgmt.reservations.models.SubscriptionScopeProperties
-    """
-
-    _attribute_map = {
-        'properties': {'key': 'properties', 'type': 'SubscriptionScopeProperties'},
-    }
-
-    def __init__(self, **kwargs):
-        super(Properties, self).__init__(**kwargs)
-        self.properties = kwargs.get('properties', None)
-
-
-class PurchaseRequest(Model):
-    """PurchaseRequest.
-
-    :param sku:
-    :type sku: ~azure.mgmt.reservations.models.SkuName
-    :param location: The Azure Region where the reserved resource lives.
-    :type location: str
-    :param reserved_resource_type: Possible values include: 'VirtualMachines',
-     'SqlDatabases', 'SuseLinux', 'CosmosDb', 'RedHat', 'SqlDataWarehouse',
-     'VMwareCloudSimple', 'RedHatOsa', 'Databricks', 'AppService',
-     'ManagedDisk', 'BlockBlob', 'RedisCache', 'AzureDataExplorer', 'MySql',
-     'MariaDb', 'PostgreSql', 'DedicatedHost', 'SapHana',
-     'SqlAzureHybridBenefit'
-    :type reserved_resource_type: str or
-     ~azure.mgmt.reservations.models.ReservedResourceType
-    :param billing_scope_id:
-    :type billing_scope_id: str
-    :param term: Possible values include: 'P1Y', 'P3Y'
-    :type term: str or ~azure.mgmt.reservations.models.ReservationTerm
-    :param billing_plan: Possible values include: 'Upfront', 'Monthly'
-    :type billing_plan: str or
-     ~azure.mgmt.reservations.models.ReservationBillingPlan
-    :param quantity:
-    :type quantity: int
-    :param display_name: Friendly name of the Reservation
-    :type display_name: str
-    :param applied_scope_type: Possible values include: 'Single', 'Shared'
-    :type applied_scope_type: str or
-     ~azure.mgmt.reservations.models.AppliedScopeType
-    :param applied_scopes:
-    :type applied_scopes: list[str]
-    :param renew:
-    :type renew: bool
-    :param reserved_resource_properties: Properties specific to each reserved
-     resource type. Not required if not applicable.
-    :type reserved_resource_properties:
-     ~azure.mgmt.reservations.models.PurchaseRequestPropertiesReservedResourceProperties
-    """
-
-    _attribute_map = {
-        'sku': {'key': 'sku', 'type': 'SkuName'},
-        'location': {'key': 'location', 'type': 'str'},
-        'reserved_resource_type': {'key': 'properties.reservedResourceType', 'type': 'str'},
-        'billing_scope_id': {'key': 'properties.billingScopeId', 'type': 'str'},
-        'term': {'key': 'properties.term', 'type': 'str'},
-        'billing_plan': {'key': 'properties.billingPlan', 'type': 'str'},
-        'quantity': {'key': 'properties.quantity', 'type': 'int'},
-        'display_name': {'key': 'properties.displayName', 'type': 'str'},
-        'applied_scope_type': {'key': 'properties.appliedScopeType', 'type': 'str'},
-        'applied_scopes': {'key': 'properties.appliedScopes', 'type': '[str]'},
-        'renew': {'key': 'properties.renew', 'type': 'bool'},
-        'reserved_resource_properties': {'key': 'properties.reservedResourceProperties', 'type': 'PurchaseRequestPropertiesReservedResourceProperties'},
-    }
-
-    def __init__(self, **kwargs):
-        super(PurchaseRequest, self).__init__(**kwargs)
-        self.sku = kwargs.get('sku', None)
-        self.location = kwargs.get('location', None)
-        self.reserved_resource_type = kwargs.get('reserved_resource_type', None)
-        self.billing_scope_id = kwargs.get('billing_scope_id', None)
-        self.term = kwargs.get('term', None)
-        self.billing_plan = kwargs.get('billing_plan', None)
-        self.quantity = kwargs.get('quantity', None)
-        self.display_name = kwargs.get('display_name', None)
-        self.applied_scope_type = kwargs.get('applied_scope_type', None)
-        self.applied_scopes = kwargs.get('applied_scopes', None)
-        self.renew = kwargs.get('renew', None)
-        self.reserved_resource_properties = kwargs.get('reserved_resource_properties', None)
-
-
-class PurchaseRequestPropertiesReservedResourceProperties(Model):
-    """Properties specific to each reserved resource type. Not required if not
-    applicable.
-
-    :param instance_flexibility: Possible values include: 'On', 'Off'
-    :type instance_flexibility: str or
-     ~azure.mgmt.reservations.models.InstanceFlexibility
-    """
-
-    _attribute_map = {
-        'instance_flexibility': {'key': 'instanceFlexibility', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(PurchaseRequestPropertiesReservedResourceProperties, self).__init__(**kwargs)
-        self.instance_flexibility = kwargs.get('instance_flexibility', None)
 
 
 class QuotaLimitsResponse(Model):
-    """Quota limits request response.
+    """Quotas (service limits) in the request response.
 
-    :param value: List of Quota limits with the quota request status.
+    :param value: List of quotas with the quota request status.
     :type value: list[~azure.mgmt.reservations.models.CurrentQuotaLimit]
-    :param next_link: The uri to fetch the next page of quota limits. When
-     there are no more pages, this is null.
+    :param next_link: The URI for fetching the next page of quota limits. When
+     no more pages exist, the value is null.
     :type next_link: str
     """
 
@@ -887,24 +442,24 @@ class QuotaProperties(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :param limit: The quota limit.
+    :param limit: Quota properties.
     :type limit: int
-    :ivar current_value: The current resource usages information.
+    :ivar current_value: Current usage value for the resource.
     :vartype current_value: int
-    :param unit:  The units of the limit, such as - Count, Bytes, etc. Use the
-     unit field provided in the Get quota response.
+    :param unit:  The limit units, such as **count** and **bytes**. Use the
+     unit field provided in the response of the GET quota operation.
     :type unit: str
-    :param name: Name of the resource provide by the resource Provider. Please
-     use this name property for quotaRequests.
+    :param name: Name of the resource provide by the resource provider. Use
+     this property for quotaRequests resource operations.
     :type name: ~azure.mgmt.reservations.models.ResourceName
-    :param resource_type: The Resource Type Name.
+    :param resource_type: The name of the resource type.
     :type resource_type: object
-    :ivar quota_period: The quota period over which the usage values are
-     summarized, such as - P1D (Per one day), PT1M (Per one minute), PT1S (Per
-     one second). This parameter is optional because, for some resources like
-     compute, the period doesn’t matter.
+    :ivar quota_period: The time period over which the quota usage values are
+     summarized. For example, P1D (per one day), PT1M (per one minute), and
+     PT1S (per one second). This parameter is optional because, for some
+     resources such as compute, the time period is irrelevant.
     :vartype quota_period: str
-    :param properties: Additional properties for the specific resource
+    :param properties: Additional properties for the specified resource
      provider.
     :type properties: object
     """
@@ -936,26 +491,25 @@ class QuotaProperties(Model):
 
 
 class QuotaRequestDetails(Model):
-    """The details of the quota Request.
+    """Quota request details.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: The quota request Id.
+    :ivar id: Quota request ID.
     :vartype id: str
-    :ivar name: The name of the quota request.
+    :ivar name: Quota request name.
     :vartype name: str
     :param provisioning_state: The quota request status.
     :type provisioning_state: object
     :ivar message: User friendly status message.
     :vartype message: str
-    :ivar request_submit_time: The quota request submit time. The date
-     conforms to the following format: yyyy-MM-ddTHH:mm:ssZ as specified by the
-     ISO 8601 standard.
+    :ivar request_submit_time: The time when the quota request was submitted
+     using format: yyyy-MM-ddTHH:mm:ssZ as specified by the ISO 8601 standard.
     :vartype request_submit_time: datetime
     :param value: The quotaRequests.
     :type value: list[~azure.mgmt.reservations.models.SubRequest]
-    :ivar type: Type of resource. "Microsoft.Capacity/ServiceLimits"
+    :ivar type: Resource type
     :vartype type: str
     """
 
@@ -989,12 +543,12 @@ class QuotaRequestDetails(Model):
 
 
 class QuotaRequestOneResourceSubmitResponse(Model):
-    """Quota submit request response.
+    """Response for the quota submission request.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: The quota request Id.
+    :ivar id: The quota request ID.
     :vartype id: str
     :ivar name: The name of the quota request.
     :vartype name: str
@@ -1004,9 +558,8 @@ class QuotaRequestOneResourceSubmitResponse(Model):
     :vartype provisioning_state: object
     :ivar message: User friendly status message.
     :vartype message: str
-    :ivar request_submit_time: The quota request submit time. The date
-     conforms to the following format: yyyy-MM-ddTHH:mm:ssZ as specified by the
-     ISO 8601 standard.
+    :ivar request_submit_time: The time when the quota request was submitted
+     using format: yyyy-MM-ddTHH:mm:ssZ as specified by the ISO 8601 standard.
     :vartype request_submit_time: datetime
     :param properties: Quota properties for the resource.
     :type properties: ~azure.mgmt.reservations.models.QuotaProperties
@@ -1052,9 +605,8 @@ class QuotaRequestProperties(Model):
     :type provisioning_state: object
     :ivar message: User friendly status message.
     :vartype message: str
-    :ivar request_submit_time: The quota request submit time. The date
-     conforms to the following format: yyyy-MM-ddTHH:mm:ssZ as specified by the
-     ISO 8601 standard.
+    :ivar request_submit_time: The time when the quota request was submitted
+     using format: yyyy-MM-ddTHH:mm:ssZ as specified by the ISO 8601 standard.
     :vartype request_submit_time: datetime
     :param value: The quotaRequests.
     :type value: list[~azure.mgmt.reservations.models.SubRequest]
@@ -1081,12 +633,12 @@ class QuotaRequestProperties(Model):
 
 
 class QuotaRequestSubmitResponse(Model):
-    """Quota submit request response.
+    """Response for the quota submission request.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: The quota request Id.
+    :ivar id: The quota request ID.
     :vartype id: str
     :ivar name: The name of the quota request.
     :vartype name: str
@@ -1118,19 +670,19 @@ class QuotaRequestSubmitResponse(Model):
 
 
 class QuotaRequestSubmitResponse201(Model):
-    """The quota request submit response with request id.
+    """Response with request ID that the quota request was accepted.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: The quota request id. Please use the requestId to check the
+    :ivar id: The quota request ID. Use the requestId parameter to check the
      request status.
     :vartype id: str
-    :ivar name: The operation Id
+    :ivar name: Operation ID
     :vartype name: str
-    :ivar type: The resource type
+    :ivar type: Resource type
     :vartype type: str
-    :ivar provisioning_state: The quota request status.
+    :ivar provisioning_state: The details of the quota request status.
     :vartype provisioning_state: object
     :ivar message: A user friendly message.
     :vartype message: str
@@ -1161,79 +713,6 @@ class QuotaRequestSubmitResponse201(Model):
         self.message = None
 
 
-class RenewPropertiesResponse(Model):
-    """RenewPropertiesResponse.
-
-    :param purchase_properties:
-    :type purchase_properties: ~azure.mgmt.reservations.models.PurchaseRequest
-    :param pricing_currency_total: Amount that Microsoft uses for record. Used
-     during refund for calculating refund limit. Tax is not included. This is
-     locked price 30 days before expiry.
-    :type pricing_currency_total:
-     ~azure.mgmt.reservations.models.RenewPropertiesResponsePricingCurrencyTotal
-    :param billing_currency_total: Currency and amount that customer will be
-     charged in customer's local currency for renewal purchase. Tax is not
-     included.
-    :type billing_currency_total:
-     ~azure.mgmt.reservations.models.RenewPropertiesResponseBillingCurrencyTotal
-    """
-
-    _attribute_map = {
-        'purchase_properties': {'key': 'purchaseProperties', 'type': 'PurchaseRequest'},
-        'pricing_currency_total': {'key': 'pricingCurrencyTotal', 'type': 'RenewPropertiesResponsePricingCurrencyTotal'},
-        'billing_currency_total': {'key': 'billingCurrencyTotal', 'type': 'RenewPropertiesResponseBillingCurrencyTotal'},
-    }
-
-    def __init__(self, **kwargs):
-        super(RenewPropertiesResponse, self).__init__(**kwargs)
-        self.purchase_properties = kwargs.get('purchase_properties', None)
-        self.pricing_currency_total = kwargs.get('pricing_currency_total', None)
-        self.billing_currency_total = kwargs.get('billing_currency_total', None)
-
-
-class RenewPropertiesResponseBillingCurrencyTotal(Model):
-    """Currency and amount that customer will be charged in customer's local
-    currency for renewal purchase. Tax is not included.
-
-    :param currency_code:
-    :type currency_code: str
-    :param amount:
-    :type amount: float
-    """
-
-    _attribute_map = {
-        'currency_code': {'key': 'currencyCode', 'type': 'str'},
-        'amount': {'key': 'amount', 'type': 'float'},
-    }
-
-    def __init__(self, **kwargs):
-        super(RenewPropertiesResponseBillingCurrencyTotal, self).__init__(**kwargs)
-        self.currency_code = kwargs.get('currency_code', None)
-        self.amount = kwargs.get('amount', None)
-
-
-class RenewPropertiesResponsePricingCurrencyTotal(Model):
-    """Amount that Microsoft uses for record. Used during refund for calculating
-    refund limit. Tax is not included. This is locked price 30 days before
-    expiry.
-
-    :param currency_code:
-    :type currency_code: str
-    :param amount:
-    :type amount: float
-    """
-
-    _attribute_map = {
-        'currency_code': {'key': 'currencyCode', 'type': 'str'},
-        'amount': {'key': 'amount', 'type': 'float'},
-    }
-
-    def __init__(self, **kwargs):
-        super(RenewPropertiesResponsePricingCurrencyTotal, self).__init__(**kwargs)
-        self.currency_code = kwargs.get('currency_code', None)
-        self.amount = kwargs.get('amount', None)
-
-
 class ReservationMergeProperties(Model):
     """ReservationMergeProperties.
 
@@ -1256,36 +735,6 @@ class ReservationMergeProperties(Model):
         super(ReservationMergeProperties, self).__init__(**kwargs)
         self.merge_destination = kwargs.get('merge_destination', None)
         self.merge_sources = kwargs.get('merge_sources', None)
-
-
-class ReservationOrderBillingPlanInformation(Model):
-    """Information describing the type of billing plan for this reservation.
-
-    :param pricing_currency_total: Amount of money to be paid for the Order.
-     Tax is not included.
-    :type pricing_currency_total: ~azure.mgmt.reservations.models.Price
-    :param start_date: Date when the billing plan has started.
-    :type start_date: date
-    :param next_payment_due_date: For recurring billing plans, indicates the
-     date when next payment will be processed. Null when total is paid off.
-    :type next_payment_due_date: date
-    :param transactions:
-    :type transactions: list[~azure.mgmt.reservations.models.PaymentDetail]
-    """
-
-    _attribute_map = {
-        'pricing_currency_total': {'key': 'pricingCurrencyTotal', 'type': 'Price'},
-        'start_date': {'key': 'startDate', 'type': 'date'},
-        'next_payment_due_date': {'key': 'nextPaymentDueDate', 'type': 'date'},
-        'transactions': {'key': 'transactions', 'type': '[PaymentDetail]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ReservationOrderBillingPlanInformation, self).__init__(**kwargs)
-        self.pricing_currency_total = kwargs.get('pricing_currency_total', None)
-        self.start_date = kwargs.get('start_date', None)
-        self.next_payment_due_date = kwargs.get('next_payment_due_date', None)
-        self.transactions = kwargs.get('transactions', None)
 
 
 class ReservationOrderResponse(Model):
@@ -1311,18 +760,16 @@ class ReservationOrderResponse(Model):
     :type created_date_time: datetime
     :param expiry_date: This is the date when the Reservation will expire.
     :type expiry_date: date
-    :param original_quantity:
+    :param original_quantity: Total Quantity of the SKUs purchased in the
+     Reservation.
     :type original_quantity: int
     :param term: Possible values include: 'P1Y', 'P3Y'
-    :type term: str or ~azure.mgmt.reservations.models.ReservationTerm
-    :param provisioning_state: Current state of the reservation.
-    :type provisioning_state: str
-    :param billing_plan: Possible values include: 'Upfront', 'Monthly'
-    :type billing_plan: str or
-     ~azure.mgmt.reservations.models.ReservationBillingPlan
-    :param plan_information:
-    :type plan_information:
-     ~azure.mgmt.reservations.models.ReservationOrderBillingPlanInformation
+    :type term: str or ~azure.mgmt.reservations.models.enum
+    :param provisioning_state: Possible values include: 'Creating',
+     'PendingResourceHold', 'ConfirmedResourceHold', 'PendingBilling',
+     'ConfirmedBilling', 'Created', 'Succeeded', 'Cancelled', 'Expired',
+     'BillingFailed', 'Failed', 'Split', 'Merged'
+    :type provisioning_state: str or ~azure.mgmt.reservations.models.enum
     :param reservations:
     :type reservations:
      list[~azure.mgmt.reservations.models.ReservationResponse]
@@ -1347,8 +794,6 @@ class ReservationOrderResponse(Model):
         'original_quantity': {'key': 'properties.originalQuantity', 'type': 'int'},
         'term': {'key': 'properties.term', 'type': 'str'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
-        'billing_plan': {'key': 'properties.billingPlan', 'type': 'str'},
-        'plan_information': {'key': 'properties.planInformation', 'type': 'ReservationOrderBillingPlanInformation'},
         'reservations': {'key': 'properties.reservations', 'type': '[ReservationResponse]'},
         'type': {'key': 'type', 'type': 'str'},
     }
@@ -1365,8 +810,6 @@ class ReservationOrderResponse(Model):
         self.original_quantity = kwargs.get('original_quantity', None)
         self.term = kwargs.get('term', None)
         self.provisioning_state = kwargs.get('provisioning_state', None)
-        self.billing_plan = kwargs.get('billing_plan', None)
-        self.plan_information = kwargs.get('plan_information', None)
         self.reservations = kwargs.get('reservations', None)
         self.type = None
 
@@ -1377,29 +820,20 @@ class ReservationProperties(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :param reserved_resource_type: Possible values include: 'VirtualMachines',
-     'SqlDatabases', 'SuseLinux', 'CosmosDb', 'RedHat', 'SqlDataWarehouse',
-     'VMwareCloudSimple', 'RedHatOsa', 'Databricks', 'AppService',
-     'ManagedDisk', 'BlockBlob', 'RedisCache', 'AzureDataExplorer', 'MySql',
-     'MariaDb', 'PostgreSql', 'DedicatedHost', 'SapHana',
-     'SqlAzureHybridBenefit'
-    :type reserved_resource_type: str or
-     ~azure.mgmt.reservations.models.ReservedResourceType
-    :param instance_flexibility: Possible values include: 'On', 'Off'
-    :type instance_flexibility: str or
-     ~azure.mgmt.reservations.models.InstanceFlexibility
     :param display_name: Friendly name for user to easily identify the
      reservation
     :type display_name: str
     :param applied_scopes:
     :type applied_scopes: list[str]
     :param applied_scope_type: Possible values include: 'Single', 'Shared'
-    :type applied_scope_type: str or
-     ~azure.mgmt.reservations.models.AppliedScopeType
-    :param quantity:
+    :type applied_scope_type: str or ~azure.mgmt.reservations.models.enum
+    :param quantity: Quantity of the SKUs that are part of the Reservation.
     :type quantity: int
-    :param provisioning_state: Current state of the reservation.
-    :type provisioning_state: str
+    :param provisioning_state: Possible values include: 'Creating',
+     'PendingResourceHold', 'ConfirmedResourceHold', 'PendingBilling',
+     'ConfirmedBilling', 'Created', 'Succeeded', 'Cancelled', 'Expired',
+     'BillingFailed', 'Failed', 'Split', 'Merged'
+    :type provisioning_state: str or ~azure.mgmt.reservations.models.enum
     :param effective_date_time: DateTime of the Reservation starting when this
      version is effective from.
     :type effective_date_time: datetime
@@ -1408,37 +842,15 @@ class ReservationProperties(Model):
     :vartype last_updated_date_time: datetime
     :param expiry_date: This is the date when the Reservation will expire.
     :type expiry_date: date
-    :param sku_description: Description of the SKU in english.
-    :type sku_description: str
     :param extended_status_info:
     :type extended_status_info:
      ~azure.mgmt.reservations.models.ExtendedStatusInfo
-    :param billing_plan: Possible values include: 'Upfront', 'Monthly'
-    :type billing_plan: str or
-     ~azure.mgmt.reservations.models.ReservationBillingPlan
     :param split_properties:
     :type split_properties:
      ~azure.mgmt.reservations.models.ReservationSplitProperties
     :param merge_properties:
     :type merge_properties:
      ~azure.mgmt.reservations.models.ReservationMergeProperties
-    :param billing_scope_id:
-    :type billing_scope_id: str
-    :param renew:
-    :type renew: bool
-    :param renew_source: Reservation Id of the reservation from which this
-     reservation is renewed. Format of the resource Id is
-     /providers/Microsoft.Capacity/reservationOrders/{reservationOrderId}/reservations/{reservationId}.
-    :type renew_source: str
-    :param renew_destination: Reservation Id of the reservation which is
-     purchased because of renew. Format of the resource Id is
-     /providers/Microsoft.Capacity/reservationOrders/{reservationOrderId}/reservations/{reservationId}.
-    :type renew_destination: str
-    :param renew_properties:
-    :type renew_properties:
-     ~azure.mgmt.reservations.models.RenewPropertiesResponse
-    :param term: Possible values include: 'P1Y', 'P3Y'
-    :type term: str or ~azure.mgmt.reservations.models.ReservationTerm
     """
 
     _validation = {
@@ -1446,8 +858,6 @@ class ReservationProperties(Model):
     }
 
     _attribute_map = {
-        'reserved_resource_type': {'key': 'reservedResourceType', 'type': 'str'},
-        'instance_flexibility': {'key': 'instanceFlexibility', 'type': 'str'},
         'display_name': {'key': 'displayName', 'type': 'str'},
         'applied_scopes': {'key': 'appliedScopes', 'type': '[str]'},
         'applied_scope_type': {'key': 'appliedScopeType', 'type': 'str'},
@@ -1456,23 +866,13 @@ class ReservationProperties(Model):
         'effective_date_time': {'key': 'effectiveDateTime', 'type': 'iso-8601'},
         'last_updated_date_time': {'key': 'lastUpdatedDateTime', 'type': 'iso-8601'},
         'expiry_date': {'key': 'expiryDate', 'type': 'date'},
-        'sku_description': {'key': 'skuDescription', 'type': 'str'},
         'extended_status_info': {'key': 'extendedStatusInfo', 'type': 'ExtendedStatusInfo'},
-        'billing_plan': {'key': 'billingPlan', 'type': 'str'},
         'split_properties': {'key': 'splitProperties', 'type': 'ReservationSplitProperties'},
         'merge_properties': {'key': 'mergeProperties', 'type': 'ReservationMergeProperties'},
-        'billing_scope_id': {'key': 'billingScopeId', 'type': 'str'},
-        'renew': {'key': 'renew', 'type': 'bool'},
-        'renew_source': {'key': 'renewSource', 'type': 'str'},
-        'renew_destination': {'key': 'renewDestination', 'type': 'str'},
-        'renew_properties': {'key': 'renewProperties', 'type': 'RenewPropertiesResponse'},
-        'term': {'key': 'term', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
         super(ReservationProperties, self).__init__(**kwargs)
-        self.reserved_resource_type = kwargs.get('reserved_resource_type', None)
-        self.instance_flexibility = kwargs.get('instance_flexibility', None)
         self.display_name = kwargs.get('display_name', None)
         self.applied_scopes = kwargs.get('applied_scopes', None)
         self.applied_scope_type = kwargs.get('applied_scope_type', None)
@@ -1481,17 +881,9 @@ class ReservationProperties(Model):
         self.effective_date_time = kwargs.get('effective_date_time', None)
         self.last_updated_date_time = None
         self.expiry_date = kwargs.get('expiry_date', None)
-        self.sku_description = kwargs.get('sku_description', None)
         self.extended_status_info = kwargs.get('extended_status_info', None)
-        self.billing_plan = kwargs.get('billing_plan', None)
         self.split_properties = kwargs.get('split_properties', None)
         self.merge_properties = kwargs.get('merge_properties', None)
-        self.billing_scope_id = kwargs.get('billing_scope_id', None)
-        self.renew = kwargs.get('renew', None)
-        self.renew_source = kwargs.get('renew_source', None)
-        self.renew_destination = kwargs.get('renew_destination', None)
-        self.renew_properties = kwargs.get('renew_properties', None)
-        self.term = kwargs.get('term', None)
 
 
 class ReservationResponse(Model):
@@ -1500,14 +892,22 @@ class ReservationResponse(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar location: The Azure Region where the reserved resource lives.
-    :vartype location: str
+    :param location: Possible values include: 'westus', 'eastus', 'eastus2',
+     'northcentralus', 'westus2', 'southcentralus', 'centralus', 'westeurope',
+     'northeurope', 'eastasia', 'southeastasia', 'japaneast', 'japanwest',
+     'brazilsouth', 'australiaeast', 'australiasoutheast', 'southindia',
+     'westindia', 'centralindia', 'canadacentral', 'canadaeast', 'uksouth',
+     'westcentralus', 'ukwest'
+    :type location: str or ~azure.mgmt.reservations.models.enum
     :param etag:
     :type etag: int
     :ivar id: Identifier of the reservation
     :vartype id: str
     :ivar name: Name of the reservation
     :vartype name: str
+    :param kind: Resource Provider type to be reserved. Possible values
+     include: 'Microsoft.Compute'
+    :type kind: str or ~azure.mgmt.reservations.models.Kind
     :param sku:
     :type sku: ~azure.mgmt.reservations.models.SkuName
     :param properties:
@@ -1518,7 +918,6 @@ class ReservationResponse(Model):
     """
 
     _validation = {
-        'location': {'readonly': True},
         'id': {'readonly': True},
         'name': {'readonly': True},
         'type': {'readonly': True},
@@ -1529,6 +928,7 @@ class ReservationResponse(Model):
         'etag': {'key': 'etag', 'type': 'int'},
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'Kind'},
         'sku': {'key': 'sku', 'type': 'SkuName'},
         'properties': {'key': 'properties', 'type': 'ReservationProperties'},
         'type': {'key': 'type', 'type': 'str'},
@@ -1536,10 +936,11 @@ class ReservationResponse(Model):
 
     def __init__(self, **kwargs):
         super(ReservationResponse, self).__init__(**kwargs)
-        self.location = None
+        self.location = kwargs.get('location', None)
         self.etag = kwargs.get('etag', None)
         self.id = None
         self.name = None
+        self.kind = kwargs.get('kind', None)
         self.sku = kwargs.get('sku', None)
         self.properties = kwargs.get('properties', None)
         self.type = None
@@ -1570,15 +971,15 @@ class ReservationSplitProperties(Model):
 
 
 class ResourceName(Model):
-    """Name of the resource provide by the resource Provider. Please use this name
-    property for quotaRequests.
+    """Resource name provided by the resource provider. Use this property for
+    quotaRequest parameter.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
     :param value: Resource name.
     :type value: str
-    :ivar localized_value: Resource display name.
+    :ivar localized_value: Resource display localized name.
     :vartype localized_value: str
     """
 
@@ -1597,35 +998,15 @@ class ResourceName(Model):
         self.localized_value = None
 
 
-class ScopeProperties(Model):
-    """ScopeProperties.
-
-    :param scope:
-    :type scope: str
-    :param valid:
-    :type valid: bool
-    """
-
-    _attribute_map = {
-        'scope': {'key': 'scope', 'type': 'str'},
-        'valid': {'key': 'valid', 'type': 'bool'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ScopeProperties, self).__init__(**kwargs)
-        self.scope = kwargs.get('scope', None)
-        self.valid = kwargs.get('valid', None)
-
-
 class ServiceError(Model):
-    """The api error details.
+    """The API error details.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
     :param code: The error code.
     :type code: str
-    :param message: The error message.
+    :param message: The error message text.
     :type message: str
     :ivar details: The list of error details.
     :vartype details: list[~azure.mgmt.reservations.models.ServiceErrorDetail]
@@ -1676,6 +1057,26 @@ class ServiceErrorDetail(Model):
         self.message = None
 
 
+class SkuCapability(Model):
+    """SkuCapability.
+
+    :param name: An invariant to describe the feature.
+    :type name: str
+    :param value: An invariant if the feature is measured by quantity.
+    :type value: str
+    """
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'value': {'key': 'value', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SkuCapability, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+        self.value = kwargs.get('value', None)
+
+
 class SkuName(Model):
     """SkuName.
 
@@ -1690,26 +1091,6 @@ class SkuName(Model):
     def __init__(self, **kwargs):
         super(SkuName, self).__init__(**kwargs)
         self.name = kwargs.get('name', None)
-
-
-class SkuProperty(Model):
-    """SkuProperty.
-
-    :param name: An invariant to describe the feature.
-    :type name: str
-    :param value: An invariant if the feature is measured by quantity.
-    :type value: str
-    """
-
-    _attribute_map = {
-        'name': {'key': 'name', 'type': 'str'},
-        'value': {'key': 'value', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(SkuProperty, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
-        self.value = kwargs.get('value', None)
 
 
 class SkuRestriction(Model):
@@ -1767,20 +1148,20 @@ class SubRequest(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar limit: The Resource limit.
+    :ivar limit: Quota (resource limit).
     :vartype limit: int
-    :param name: The Resource name.
+    :param name: The resource name.
     :type name: ~azure.mgmt.reservations.models.ResourceName
     :ivar resource_type: Resource type for which the quota check was made.
     :vartype resource_type: str
-    :param unit:  The units of the limit, such as - Count, Bytes, etc. Use the
-     unit field provided in the Get quota response.
+    :param unit:  The limit units, such as **count** and **bytes**. Use the
+     unit field provided in the response of the GET quota operation.
     :type unit: str
     :param provisioning_state: The quota request status.
     :type provisioning_state: object
-    :ivar message: User friendly status message.
+    :ivar message: User-friendly status message.
     :vartype message: str
-    :ivar sub_request_id: Sub request id for individual request.
+    :ivar sub_request_id: Sub request ID for individual request.
     :vartype sub_request_id: str
     """
 
@@ -1810,69 +1191,3 @@ class SubRequest(Model):
         self.provisioning_state = kwargs.get('provisioning_state', None)
         self.message = None
         self.sub_request_id = None
-
-
-class SubscriptionScopeProperties(Model):
-    """SubscriptionScopeProperties.
-
-    :param scopes:
-    :type scopes: list[~azure.mgmt.reservations.models.ScopeProperties]
-    """
-
-    _attribute_map = {
-        'scopes': {'key': 'scopes', 'type': '[ScopeProperties]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(SubscriptionScopeProperties, self).__init__(**kwargs)
-        self.scopes = kwargs.get('scopes', None)
-
-
-class SupportRequestAction(Model):
-    """The SupportRequest action.
-
-    :param severity: The support request severity.
-    :type severity: object
-    :param first_name: The first name of the recipient.
-    :type first_name: str
-    :param last_name: The last name of the recipient.
-    :type last_name: str
-    :param country: The country of the recipient.
-    :type country: str
-    :param phone_number: The phone number of the recipient.
-    :type phone_number: str
-    :param primary_email_address: The primary email addresses of the
-     recipients.
-    :type primary_email_address: str
-    :param support_language: The support language.
-    :type support_language: str
-    :param preferred_contact_method: The preferred communication channel.
-    :type preferred_contact_method: object
-    :param alternate_email_addresses: The alternate email address of the
-     recipient.
-    :type alternate_email_addresses: list[str]
-    """
-
-    _attribute_map = {
-        'severity': {'key': 'severity', 'type': 'object'},
-        'first_name': {'key': 'firstName', 'type': 'str'},
-        'last_name': {'key': 'lastName', 'type': 'str'},
-        'country': {'key': 'country', 'type': 'str'},
-        'phone_number': {'key': 'phoneNumber', 'type': 'str'},
-        'primary_email_address': {'key': 'primaryEmailAddress', 'type': 'str'},
-        'support_language': {'key': 'supportLanguage', 'type': 'str'},
-        'preferred_contact_method': {'key': 'preferredContactMethod', 'type': 'object'},
-        'alternate_email_addresses': {'key': 'alternateEmailAddresses', 'type': '[str]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(SupportRequestAction, self).__init__(**kwargs)
-        self.severity = kwargs.get('severity', None)
-        self.first_name = kwargs.get('first_name', None)
-        self.last_name = kwargs.get('last_name', None)
-        self.country = kwargs.get('country', None)
-        self.phone_number = kwargs.get('phone_number', None)
-        self.primary_email_address = kwargs.get('primary_email_address', None)
-        self.support_language = kwargs.get('support_language', None)
-        self.preferred_contact_method = kwargs.get('preferred_contact_method', None)
-        self.alternate_email_addresses = kwargs.get('alternate_email_addresses', None)
