@@ -25,7 +25,7 @@ class EventSourcesOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Version of the API to be used with the client request. Constant value: "2018-08-15-preview".
+    :ivar api_version: Version of the API to be used with the client request. Constant value: "2020-05-15".
     """
 
     models = models
@@ -35,7 +35,7 @@ class EventSourcesOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2018-08-15-preview"
+        self.api_version = "2020-05-15"
 
         self.config = config
 
@@ -181,7 +181,7 @@ class EventSourcesOperations(object):
     get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.TimeSeriesInsights/environments/{environmentName}/eventSources/{eventSourceName}'}
 
     def update(
-            self, resource_group_name, environment_name, event_source_name, tags=None, custom_headers=None, raw=False, **operation_config):
+            self, resource_group_name, environment_name, event_source_name, event_source_update_parameters, custom_headers=None, raw=False, **operation_config):
         """Updates the event source with the specified name in the specified
         subscription, resource group, and environment.
 
@@ -193,9 +193,10 @@ class EventSourcesOperations(object):
         :param event_source_name: The name of the Time Series Insights event
          source associated with the specified environment.
         :type event_source_name: str
-        :param tags: Key-value pairs of additional properties for the event
-         source.
-        :type tags: dict[str, str]
+        :param event_source_update_parameters: Request object that contains
+         the updated information for the event source.
+        :type event_source_update_parameters:
+         ~azure.mgmt.timeseriesinsights.models.EventSourceUpdateParameters
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -206,8 +207,6 @@ class EventSourcesOperations(object):
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        event_source_update_parameters = models.EventSourceUpdateParameters(tags=tags)
-
         # Construct URL
         url = self.update.metadata['url']
         path_format_arguments = {
