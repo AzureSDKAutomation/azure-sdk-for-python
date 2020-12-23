@@ -39,12 +39,10 @@ class SubscriptionDiagnosticSettingsOperations(object):
         self.config = config
 
     def get(
-            self, subscription_id, name, custom_headers=None, raw=False, **operation_config):
+            self, name, custom_headers=None, raw=False, **operation_config):
         """Gets the active subscription diagnostic settings for the specified
         resource.
 
-        :param subscription_id: The subscription id.
-        :type subscription_id: str
         :param name: The name of the diagnostic setting.
         :type name: str
         :param dict custom_headers: headers that will be added to the request
@@ -63,7 +61,7 @@ class SubscriptionDiagnosticSettingsOperations(object):
         # Construct URL
         url = self.get.metadata['url']
         path_format_arguments = {
-            'subscriptionId': self._serialize.url("subscription_id", subscription_id, 'str', skip_quote=True),
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
             'name': self._serialize.url("name", name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -101,12 +99,10 @@ class SubscriptionDiagnosticSettingsOperations(object):
     get.metadata = {'url': '/subscriptions/{subscriptionId}/providers/microsoft.insights/diagnosticSettings/{name}'}
 
     def create_or_update(
-            self, subscription_id, parameters, name, custom_headers=None, raw=False, **operation_config):
+            self, parameters, name, custom_headers=None, raw=False, **operation_config):
         """Creates or updates subscription diagnostic settings for the specified
         resource.
 
-        :param subscription_id: The subscription id.
-        :type subscription_id: str
         :param parameters: Parameters supplied to the operation.
         :type parameters:
          ~azure.mgmt.monitor.v2017_05_01_preview.models.SubscriptionDiagnosticSettingsResource
@@ -128,7 +124,7 @@ class SubscriptionDiagnosticSettingsOperations(object):
         # Construct URL
         url = self.create_or_update.metadata['url']
         path_format_arguments = {
-            'subscriptionId': self._serialize.url("subscription_id", subscription_id, 'str', skip_quote=True),
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
             'name': self._serialize.url("name", name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -170,12 +166,10 @@ class SubscriptionDiagnosticSettingsOperations(object):
     create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/providers/microsoft.insights/diagnosticSettings/{name}'}
 
     def delete(
-            self, subscription_id, name, custom_headers=None, raw=False, **operation_config):
+            self, name, custom_headers=None, raw=False, **operation_config):
         """Deletes existing subscription diagnostic settings for the specified
         resource.
 
-        :param subscription_id: The subscription id.
-        :type subscription_id: str
         :param name: The name of the diagnostic setting.
         :type name: str
         :param dict custom_headers: headers that will be added to the request
@@ -191,7 +185,7 @@ class SubscriptionDiagnosticSettingsOperations(object):
         # Construct URL
         url = self.delete.metadata['url']
         path_format_arguments = {
-            'subscriptionId': self._serialize.url("subscription_id", subscription_id, 'str', skip_quote=True),
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
             'name': self._serialize.url("name", name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -222,12 +216,10 @@ class SubscriptionDiagnosticSettingsOperations(object):
     delete.metadata = {'url': '/subscriptions/{subscriptionId}/providers/microsoft.insights/diagnosticSettings/{name}'}
 
     def list(
-            self, subscription_id, custom_headers=None, raw=False, **operation_config):
+            self, custom_headers=None, raw=False, **operation_config):
         """Gets the active subscription diagnostic settings list for the specified
         subscriptionId.
 
-        :param subscription_id: The subscription id.
-        :type subscription_id: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -244,7 +236,7 @@ class SubscriptionDiagnosticSettingsOperations(object):
         # Construct URL
         url = self.list.metadata['url']
         path_format_arguments = {
-            'subscriptionId': self._serialize.url("subscription_id", subscription_id, 'str', skip_quote=True)
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
