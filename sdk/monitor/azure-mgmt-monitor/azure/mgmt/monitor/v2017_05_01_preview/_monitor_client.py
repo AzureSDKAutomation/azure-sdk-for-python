@@ -41,24 +41,26 @@ class MonitorClient(object):
     :vartype subscription_diagnostic_settings: $(python-base-namespace).v2017_05_01_preview.operations.SubscriptionDiagnosticSettingsOperations
     :param credential: Credential needed for the client to connect to Azure.
     :type credential: ~azure.core.credentials.TokenCredential
+    :param subscription_id: The Azure subscription Id.
+    :type subscription_id: str
     :param str base_url: Service URL
     """
 
     def __init__(
         self,
         credential,  # type: "TokenCredential"
+        subscription_id,  # type: str
         base_url=None,  # type: Optional[str]
         **kwargs  # type: Any
     ):
         # type: (...) -> None
         if not base_url:
             base_url = 'https://management.azure.com'
-        self._config = MonitorClientConfiguration(credential, **kwargs)
+        self._config = MonitorClientConfiguration(credential, subscription_id, **kwargs)
         self._client = ARMPipelineClient(base_url=base_url, config=self._config, **kwargs)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
         self._serialize = Serializer(client_models)
-        self._serialize.client_side_validation = False
         self._deserialize = Deserializer(client_models)
 
         self.diagnostic_settings_category = DiagnosticSettingsCategoryOperations(
