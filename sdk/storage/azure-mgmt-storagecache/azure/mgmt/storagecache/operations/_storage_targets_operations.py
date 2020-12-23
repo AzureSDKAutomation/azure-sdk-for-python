@@ -27,7 +27,7 @@ class StorageTargetsOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client API version. Constant value: "2020-03-01".
+    :ivar api_version: Client API version. Constant value: "2020-10-01".
     """
 
     models = models
@@ -37,7 +37,7 @@ class StorageTargetsOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-03-01"
+        self.api_version = "2020-10-01"
 
         self.config = config
 
@@ -47,8 +47,8 @@ class StorageTargetsOperations(object):
 
         :param resource_group_name: Target resource group.
         :type resource_group_name: str
-        :param cache_name: Name of Cache. Length of name must be not greater
-         than 80 and chars must be in list of [-0-9a-zA-Z_] char class.
+        :param cache_name: Name of Cache. Length of name must not be greater
+         than 80 and chars must be from the [-0-9a-zA-Z_] char class.
         :type cache_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
@@ -175,8 +175,8 @@ class StorageTargetsOperations(object):
 
         :param resource_group_name: Target resource group.
         :type resource_group_name: str
-        :param cache_name: Name of Cache. Length of name must be not greater
-         than 80 and chars must be in list of [-0-9a-zA-Z_] char class.
+        :param cache_name: Name of Cache. Length of name must not be greater
+         than 80 and chars must be from the [-0-9a-zA-Z_] char class.
         :type cache_name: str
         :param storage_target_name: Name of Storage Target.
         :type storage_target_name: str
@@ -224,11 +224,11 @@ class StorageTargetsOperations(object):
 
         :param resource_group_name: Target resource group.
         :type resource_group_name: str
-        :param cache_name: Name of Cache. Length of name must be not greater
-         than 80 and chars must be in list of [-0-9a-zA-Z_] char class.
+        :param cache_name: Name of Cache. Length of name must not be greater
+         than 80 and chars must be from the [-0-9a-zA-Z_] char class.
         :type cache_name: str
         :param storage_target_name: Name of the Storage Target. Length of name
-         must be not greater than 80 and chars must be in list of [-0-9a-zA-Z_]
+         must not be greater than 80 and chars must be from the [-0-9a-zA-Z_]
          char class.
         :type storage_target_name: str
         :param dict custom_headers: headers that will be added to the request
@@ -323,7 +323,7 @@ class StorageTargetsOperations(object):
         request = self._client.put(url, query_parameters, header_parameters, body_content)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200, 201]:
+        if response.status_code not in [200, 201, 202]:
             exp = CloudError(response)
             exp.request_id = response.headers.get('x-ms-request-id')
             raise exp
@@ -350,11 +350,11 @@ class StorageTargetsOperations(object):
 
         :param resource_group_name: Target resource group.
         :type resource_group_name: str
-        :param cache_name: Name of Cache. Length of name must be not greater
-         than 80 and chars must be in list of [-0-9a-zA-Z_] char class.
+        :param cache_name: Name of Cache. Length of name must not be greater
+         than 80 and chars must be from the [-0-9a-zA-Z_] char class.
         :type cache_name: str
         :param storage_target_name: Name of the Storage Target. Length of name
-         must be not greater than 80 and chars must be in list of [-0-9a-zA-Z_]
+         must not be greater than 80 and chars must be from the [-0-9a-zA-Z_]
          char class.
         :type storage_target_name: str
         :param storagetarget: Object containing the definition of a Storage
