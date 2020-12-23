@@ -8339,6 +8339,8 @@ class ExpressRouteConnection(SubResource):
     :type routing_weight: int
     :param enable_internet_security: Enable internet security.
     :type enable_internet_security: bool
+    :param express_route_gateway_bypass: Enable FastPath to vWan Firewall hub.
+    :type express_route_gateway_bypass: bool
     :param routing_configuration: The Routing Configuration indicating the associated and
      propagated route tables on this connection.
     :type routing_configuration: ~azure.mgmt.network.v2020_07_01.models.RoutingConfiguration
@@ -8357,6 +8359,7 @@ class ExpressRouteConnection(SubResource):
         'authorization_key': {'key': 'properties.authorizationKey', 'type': 'str'},
         'routing_weight': {'key': 'properties.routingWeight', 'type': 'int'},
         'enable_internet_security': {'key': 'properties.enableInternetSecurity', 'type': 'bool'},
+        'express_route_gateway_bypass': {'key': 'properties.expressRouteGatewayBypass', 'type': 'bool'},
         'routing_configuration': {'key': 'properties.routingConfiguration', 'type': 'RoutingConfiguration'},
     }
 
@@ -8371,6 +8374,7 @@ class ExpressRouteConnection(SubResource):
         self.authorization_key = kwargs.get('authorization_key', None)
         self.routing_weight = kwargs.get('routing_weight', None)
         self.enable_internet_security = kwargs.get('enable_internet_security', None)
+        self.express_route_gateway_bypass = kwargs.get('express_route_gateway_bypass', None)
         self.routing_configuration = kwargs.get('routing_configuration', None)
 
 
