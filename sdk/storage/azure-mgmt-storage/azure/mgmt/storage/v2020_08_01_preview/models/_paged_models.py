@@ -14,7 +14,7 @@ from msrest.paging import Paged
 
 class OperationPaged(Paged):
     """
-    A paging container for iterating over a list of :class:`Operation <azure.mgmt.storage.v2019_06_01.models.Operation>` object
+    A paging container for iterating over a list of :class:`Operation <azure.mgmt.storage.v2020_08_01_preview.models.Operation>` object
     """
 
     _attribute_map = {
@@ -27,7 +27,7 @@ class OperationPaged(Paged):
         super(OperationPaged, self).__init__(*args, **kwargs)
 class SkuInformationPaged(Paged):
     """
-    A paging container for iterating over a list of :class:`SkuInformation <azure.mgmt.storage.v2019_06_01.models.SkuInformation>` object
+    A paging container for iterating over a list of :class:`SkuInformation <azure.mgmt.storage.v2020_08_01_preview.models.SkuInformation>` object
     """
 
     _attribute_map = {
@@ -40,7 +40,7 @@ class SkuInformationPaged(Paged):
         super(SkuInformationPaged, self).__init__(*args, **kwargs)
 class StorageAccountPaged(Paged):
     """
-    A paging container for iterating over a list of :class:`StorageAccount <azure.mgmt.storage.v2019_06_01.models.StorageAccount>` object
+    A paging container for iterating over a list of :class:`StorageAccount <azure.mgmt.storage.v2020_08_01_preview.models.StorageAccount>` object
     """
 
     _attribute_map = {
@@ -53,7 +53,7 @@ class StorageAccountPaged(Paged):
         super(StorageAccountPaged, self).__init__(*args, **kwargs)
 class DeletedAccountPaged(Paged):
     """
-    A paging container for iterating over a list of :class:`DeletedAccount <azure.mgmt.storage.v2019_06_01.models.DeletedAccount>` object
+    A paging container for iterating over a list of :class:`DeletedAccount <azure.mgmt.storage.v2020_08_01_preview.models.DeletedAccount>` object
     """
 
     _attribute_map = {
@@ -66,7 +66,7 @@ class DeletedAccountPaged(Paged):
         super(DeletedAccountPaged, self).__init__(*args, **kwargs)
 class UsagePaged(Paged):
     """
-    A paging container for iterating over a list of :class:`Usage <azure.mgmt.storage.v2019_06_01.models.Usage>` object
+    A paging container for iterating over a list of :class:`Usage <azure.mgmt.storage.v2020_08_01_preview.models.Usage>` object
     """
 
     _attribute_map = {
@@ -77,9 +77,22 @@ class UsagePaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(UsagePaged, self).__init__(*args, **kwargs)
+class BlobInventoryPolicyPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`BlobInventoryPolicy <azure.mgmt.storage.v2020_08_01_preview.models.BlobInventoryPolicy>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[BlobInventoryPolicy]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(BlobInventoryPolicyPaged, self).__init__(*args, **kwargs)
 class PrivateEndpointConnectionPaged(Paged):
     """
-    A paging container for iterating over a list of :class:`PrivateEndpointConnection <azure.mgmt.storage.v2019_06_01.models.PrivateEndpointConnection>` object
+    A paging container for iterating over a list of :class:`PrivateEndpointConnection <azure.mgmt.storage.v2020_08_01_preview.models.PrivateEndpointConnection>` object
     """
 
     _attribute_map = {
@@ -92,7 +105,7 @@ class PrivateEndpointConnectionPaged(Paged):
         super(PrivateEndpointConnectionPaged, self).__init__(*args, **kwargs)
 class ObjectReplicationPolicyPaged(Paged):
     """
-    A paging container for iterating over a list of :class:`ObjectReplicationPolicy <azure.mgmt.storage.v2019_06_01.models.ObjectReplicationPolicy>` object
+    A paging container for iterating over a list of :class:`ObjectReplicationPolicy <azure.mgmt.storage.v2020_08_01_preview.models.ObjectReplicationPolicy>` object
     """
 
     _attribute_map = {
@@ -105,7 +118,7 @@ class ObjectReplicationPolicyPaged(Paged):
         super(ObjectReplicationPolicyPaged, self).__init__(*args, **kwargs)
 class EncryptionScopePaged(Paged):
     """
-    A paging container for iterating over a list of :class:`EncryptionScope <azure.mgmt.storage.v2019_06_01.models.EncryptionScope>` object
+    A paging container for iterating over a list of :class:`EncryptionScope <azure.mgmt.storage.v2020_08_01_preview.models.EncryptionScope>` object
     """
 
     _attribute_map = {
@@ -118,7 +131,7 @@ class EncryptionScopePaged(Paged):
         super(EncryptionScopePaged, self).__init__(*args, **kwargs)
 class BlobServicePropertiesPaged(Paged):
     """
-    A paging container for iterating over a list of :class:`BlobServiceProperties <azure.mgmt.storage.v2019_06_01.models.BlobServiceProperties>` object
+    A paging container for iterating over a list of :class:`BlobServiceProperties <azure.mgmt.storage.v2020_08_01_preview.models.BlobServiceProperties>` object
     """
 
     _attribute_map = {
@@ -131,7 +144,7 @@ class BlobServicePropertiesPaged(Paged):
         super(BlobServicePropertiesPaged, self).__init__(*args, **kwargs)
 class ListContainerItemPaged(Paged):
     """
-    A paging container for iterating over a list of :class:`ListContainerItem <azure.mgmt.storage.v2019_06_01.models.ListContainerItem>` object
+    A paging container for iterating over a list of :class:`ListContainerItem <azure.mgmt.storage.v2020_08_01_preview.models.ListContainerItem>` object
     """
 
     _attribute_map = {
@@ -144,7 +157,7 @@ class ListContainerItemPaged(Paged):
         super(ListContainerItemPaged, self).__init__(*args, **kwargs)
 class FileShareItemPaged(Paged):
     """
-    A paging container for iterating over a list of :class:`FileShareItem <azure.mgmt.storage.v2019_06_01.models.FileShareItem>` object
+    A paging container for iterating over a list of :class:`FileShareItem <azure.mgmt.storage.v2020_08_01_preview.models.FileShareItem>` object
     """
 
     _attribute_map = {
@@ -157,7 +170,7 @@ class FileShareItemPaged(Paged):
         super(FileShareItemPaged, self).__init__(*args, **kwargs)
 class ListQueuePaged(Paged):
     """
-    A paging container for iterating over a list of :class:`ListQueue <azure.mgmt.storage.v2019_06_01.models.ListQueue>` object
+    A paging container for iterating over a list of :class:`ListQueue <azure.mgmt.storage.v2020_08_01_preview.models.ListQueue>` object
     """
 
     _attribute_map = {
@@ -170,7 +183,7 @@ class ListQueuePaged(Paged):
         super(ListQueuePaged, self).__init__(*args, **kwargs)
 class TablePaged(Paged):
     """
-    A paging container for iterating over a list of :class:`Table <azure.mgmt.storage.v2019_06_01.models.Table>` object
+    A paging container for iterating over a list of :class:`Table <azure.mgmt.storage.v2020_08_01_preview.models.Table>` object
     """
 
     _attribute_map = {
