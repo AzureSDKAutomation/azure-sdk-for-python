@@ -49,6 +49,7 @@ try:
     from ._models_py3 import EncryptionInTransitProperties
     from ._models_py3 import ErrorResponse, ErrorResponseException
     from ._models_py3 import Errors
+    from ._models_py3 import ExcludedServicesConfig
     from ._models_py3 import ExecuteScriptActionParameters
     from ._models_py3 import Extension
     from ._models_py3 import GatewaySettings
@@ -88,6 +89,7 @@ try:
     from ._models_py3 import VirtualNetworkProfile
     from ._models_py3 import VmSizeCompatibilityFilter
     from ._models_py3 import VmSizeCompatibilityFilterV2
+    from ._models_py3 import VmSizeProperty
     from ._models_py3 import VmSizesCapability
 except (SyntaxError, ImportError):
     from ._models import Application
@@ -129,6 +131,7 @@ except (SyntaxError, ImportError):
     from ._models import EncryptionInTransitProperties
     from ._models import ErrorResponse, ErrorResponseException
     from ._models import Errors
+    from ._models import ExcludedServicesConfig
     from ._models import ExecuteScriptActionParameters
     from ._models import Extension
     from ._models import GatewaySettings
@@ -168,6 +171,7 @@ except (SyntaxError, ImportError):
     from ._models import VirtualNetworkProfile
     from ._models import VmSizeCompatibilityFilter
     from ._models import VmSizeCompatibilityFilterV2
+    from ._models import VmSizeProperty
     from ._models import VmSizesCapability
 from ._paged_models import ApplicationPaged
 from ._paged_models import ClusterPaged
@@ -227,6 +231,7 @@ __all__ = [
     'EncryptionInTransitProperties',
     'ErrorResponse', 'ErrorResponseException',
     'Errors',
+    'ExcludedServicesConfig',
     'ExecuteScriptActionParameters',
     'Extension',
     'GatewaySettings',
@@ -266,6 +271,7 @@ __all__ = [
     'VirtualNetworkProfile',
     'VmSizeCompatibilityFilter',
     'VmSizeCompatibilityFilterV2',
+    'VmSizeProperty',
     'VmSizesCapability',
     'ClusterPaged',
     'ApplicationPaged',

@@ -426,29 +426,46 @@ class BillingResponseListResult(Model):
     """The response for the operation to get regional billingSpecs for a
     subscription.
 
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
     :param vm_sizes: The virtual machine sizes to include or exclude.
     :type vm_sizes: list[str]
+    :param vm_sizes_with_encryption_at_host: The vm sizes which enable
+     encryption at host.
+    :type vm_sizes_with_encryption_at_host: list[str]
     :param vm_size_filters: The virtual machine filtering mode. Effectively
      this can enabling or disabling the virtual machine sizes in a particular
      set.
     :type vm_size_filters:
      list[~azure.mgmt.hdinsight.models.VmSizeCompatibilityFilterV2]
+    :ivar vm_size_properties: The vm size properties.
+    :vartype vm_size_properties:
+     list[~azure.mgmt.hdinsight.models.VmSizeProperty]
     :param billing_resources: The billing and managed disk billing resources
      for a region.
     :type billing_resources:
      list[~azure.mgmt.hdinsight.models.BillingResources]
     """
 
+    _validation = {
+        'vm_size_properties': {'readonly': True},
+    }
+
     _attribute_map = {
         'vm_sizes': {'key': 'vmSizes', 'type': '[str]'},
+        'vm_sizes_with_encryption_at_host': {'key': 'vmSizesWithEncryptionAtHost', 'type': '[str]'},
         'vm_size_filters': {'key': 'vmSizeFilters', 'type': '[VmSizeCompatibilityFilterV2]'},
+        'vm_size_properties': {'key': 'vmSizeProperties', 'type': '[VmSizeProperty]'},
         'billing_resources': {'key': 'billingResources', 'type': '[BillingResources]'},
     }
 
-    def __init__(self, *, vm_sizes=None, vm_size_filters=None, billing_resources=None, **kwargs) -> None:
+    def __init__(self, *, vm_sizes=None, vm_sizes_with_encryption_at_host=None, vm_size_filters=None, billing_resources=None, **kwargs) -> None:
         super(BillingResponseListResult, self).__init__(**kwargs)
         self.vm_sizes = vm_sizes
+        self.vm_sizes_with_encryption_at_host = vm_sizes_with_encryption_at_host
         self.vm_size_filters = vm_size_filters
+        self.vm_size_properties = None
         self.billing_resources = billing_resources
 
 
@@ -781,6 +798,8 @@ class ClusterGetProperties(Model):
 
     :param cluster_version: The version of the cluster.
     :type cluster_version: str
+    :param cluster_hdp_version: The hdp version of the cluster.
+    :type cluster_hdp_version: str
     :param os_type: The type of operating system. Possible values include:
      'Windows', 'Linux'
     :type os_type: str or ~azure.mgmt.hdinsight.models.OSType
@@ -821,8 +840,13 @@ class ClusterGetProperties(Model):
      properties.
     :type encryption_in_transit_properties:
      ~azure.mgmt.hdinsight.models.EncryptionInTransitProperties
+    :param storage_profile: The storage profile.
+    :type storage_profile: ~azure.mgmt.hdinsight.models.StorageProfile
     :param min_supported_tls_version: The minimal supported tls version.
     :type min_supported_tls_version: str
+    :param excluded_services_config: The excluded services config.
+    :type excluded_services_config:
+     ~azure.mgmt.hdinsight.models.ExcludedServicesConfig
     :param network_properties: The network properties.
     :type network_properties: ~azure.mgmt.hdinsight.models.NetworkProperties
     :param compute_isolation_properties: The compute isolation properties.
@@ -836,6 +860,7 @@ class ClusterGetProperties(Model):
 
     _attribute_map = {
         'cluster_version': {'key': 'clusterVersion', 'type': 'str'},
+        'cluster_hdp_version': {'key': 'clusterHdpVersion', 'type': 'str'},
         'os_type': {'key': 'osType', 'type': 'OSType'},
         'tier': {'key': 'tier', 'type': 'Tier'},
         'cluster_id': {'key': 'clusterId', 'type': 'str'},
@@ -851,14 +876,17 @@ class ClusterGetProperties(Model):
         'connectivity_endpoints': {'key': 'connectivityEndpoints', 'type': '[ConnectivityEndpoint]'},
         'disk_encryption_properties': {'key': 'diskEncryptionProperties', 'type': 'DiskEncryptionProperties'},
         'encryption_in_transit_properties': {'key': 'encryptionInTransitProperties', 'type': 'EncryptionInTransitProperties'},
+        'storage_profile': {'key': 'storageProfile', 'type': 'StorageProfile'},
         'min_supported_tls_version': {'key': 'minSupportedTlsVersion', 'type': 'str'},
+        'excluded_services_config': {'key': 'excludedServicesConfig', 'type': 'ExcludedServicesConfig'},
         'network_properties': {'key': 'networkProperties', 'type': 'NetworkProperties'},
         'compute_isolation_properties': {'key': 'computeIsolationProperties', 'type': 'ComputeIsolationProperties'},
     }
 
-    def __init__(self, *, cluster_definition, cluster_version: str=None, os_type=None, tier=None, cluster_id: str=None, kafka_rest_properties=None, security_profile=None, compute_profile=None, provisioning_state=None, created_date: str=None, cluster_state: str=None, quota_info=None, errors=None, connectivity_endpoints=None, disk_encryption_properties=None, encryption_in_transit_properties=None, min_supported_tls_version: str=None, network_properties=None, compute_isolation_properties=None, **kwargs) -> None:
+    def __init__(self, *, cluster_definition, cluster_version: str=None, cluster_hdp_version: str=None, os_type=None, tier=None, cluster_id: str=None, kafka_rest_properties=None, security_profile=None, compute_profile=None, provisioning_state=None, created_date: str=None, cluster_state: str=None, quota_info=None, errors=None, connectivity_endpoints=None, disk_encryption_properties=None, encryption_in_transit_properties=None, storage_profile=None, min_supported_tls_version: str=None, excluded_services_config=None, network_properties=None, compute_isolation_properties=None, **kwargs) -> None:
         super(ClusterGetProperties, self).__init__(**kwargs)
         self.cluster_version = cluster_version
+        self.cluster_hdp_version = cluster_hdp_version
         self.os_type = os_type
         self.tier = tier
         self.cluster_id = cluster_id
@@ -874,7 +902,9 @@ class ClusterGetProperties(Model):
         self.connectivity_endpoints = connectivity_endpoints
         self.disk_encryption_properties = disk_encryption_properties
         self.encryption_in_transit_properties = encryption_in_transit_properties
+        self.storage_profile = storage_profile
         self.min_supported_tls_version = min_supported_tls_version
+        self.excluded_services_config = excluded_services_config
         self.network_properties = network_properties
         self.compute_isolation_properties = compute_isolation_properties
 
@@ -934,6 +964,8 @@ class ClusterIdentityUserAssignedIdentitiesValue(Model):
     :vartype principal_id: str
     :ivar client_id: The client id of user assigned identity.
     :vartype client_id: str
+    :param tenant_id: The tenant id of user assigned identity.
+    :type tenant_id: str
     """
 
     _validation = {
@@ -944,12 +976,14 @@ class ClusterIdentityUserAssignedIdentitiesValue(Model):
     _attribute_map = {
         'principal_id': {'key': 'principalId', 'type': 'str'},
         'client_id': {'key': 'clientId', 'type': 'str'},
+        'tenant_id': {'key': 'tenantId', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs) -> None:
+    def __init__(self, *, tenant_id: str=None, **kwargs) -> None:
         super(ClusterIdentityUserAssignedIdentitiesValue, self).__init__(**kwargs)
         self.principal_id = None
         self.client_id = None
+        self.tenant_id = tenant_id
 
 
 class ClusterListPersistedScriptActionsResult(Model):
@@ -1314,6 +1348,26 @@ class Errors(Model):
         super(Errors, self).__init__(**kwargs)
         self.code = code
         self.message = message
+
+
+class ExcludedServicesConfig(Model):
+    """The configuration that services will be excluded when creating cluster.
+
+    :param excluded_services_config_id: The config id of excluded services.
+    :type excluded_services_config_id: str
+    :param excluded_services_list: The list of excluded services.
+    :type excluded_services_list: str
+    """
+
+    _attribute_map = {
+        'excluded_services_config_id': {'key': 'excludedServicesConfigId', 'type': 'str'},
+        'excluded_services_list': {'key': 'excludedServicesList', 'type': 'str'},
+    }
+
+    def __init__(self, *, excluded_services_config_id: str=None, excluded_services_list: str=None, **kwargs) -> None:
+        super(ExcludedServicesConfig, self).__init__(**kwargs)
+        self.excluded_services_config_id = excluded_services_config_id
+        self.excluded_services_list = excluded_services_list
 
 
 class ExecuteScriptActionParameters(Model):
@@ -1712,6 +1766,8 @@ class Role(Model):
      list[~azure.mgmt.hdinsight.models.DataDisksGroups]
     :param script_actions: The list of script actions on the role.
     :type script_actions: list[~azure.mgmt.hdinsight.models.ScriptAction]
+    :param encrypt_data_disks: Indicates whether encrypt the data disks.
+    :type encrypt_data_disks: bool
     """
 
     _attribute_map = {
@@ -1724,9 +1780,10 @@ class Role(Model):
         'virtual_network_profile': {'key': 'virtualNetworkProfile', 'type': 'VirtualNetworkProfile'},
         'data_disks_groups': {'key': 'dataDisksGroups', 'type': '[DataDisksGroups]'},
         'script_actions': {'key': 'scriptActions', 'type': '[ScriptAction]'},
+        'encrypt_data_disks': {'key': 'encryptDataDisks', 'type': 'bool'},
     }
 
-    def __init__(self, *, name: str=None, min_instance_count: int=None, target_instance_count: int=None, autoscale_configuration=None, hardware_profile=None, os_profile=None, virtual_network_profile=None, data_disks_groups=None, script_actions=None, **kwargs) -> None:
+    def __init__(self, *, name: str=None, min_instance_count: int=None, target_instance_count: int=None, autoscale_configuration=None, hardware_profile=None, os_profile=None, virtual_network_profile=None, data_disks_groups=None, script_actions=None, encrypt_data_disks: bool=None, **kwargs) -> None:
         super(Role, self).__init__(**kwargs)
         self.name = name
         self.min_instance_count = min_instance_count
@@ -1737,6 +1794,7 @@ class Role(Model):
         self.virtual_network_profile = virtual_network_profile
         self.data_disks_groups = data_disks_groups
         self.script_actions = script_actions
+        self.encrypt_data_disks = encrypt_data_disks
 
 
 class RuntimeScriptAction(Model):
@@ -2280,7 +2338,7 @@ class VmSizeCompatibilityFilterV2(Model):
 
     :param filter_mode: The filtering mode. Effectively this can enabling or
      disabling the VM sizes in a particular set. Possible values include:
-     'Exclude', 'Include'
+     'Exclude', 'Include', 'Recommend', 'Default'
     :type filter_mode: str or ~azure.mgmt.hdinsight.models.FilterMode
     :param regions: The list of regions under the effect of the filter.
     :type regions: list[str]
@@ -2317,6 +2375,62 @@ class VmSizeCompatibilityFilterV2(Model):
         self.cluster_versions = cluster_versions
         self.os_type = os_type
         self.vm_sizes = vm_sizes
+
+
+class VmSizeProperty(Model):
+    """The vm size property.
+
+    :param name: The vm size name.
+    :type name: str
+    :param cores: The number of cores that the vm size has.
+    :type cores: int
+    :param data_disk_storage_tier: The data disk storage tier of the vm size.
+    :type data_disk_storage_tier: str
+    :param label: The label of the vm size.
+    :type label: str
+    :param max_data_disk_count: The max data disk count of the vm size.
+    :type max_data_disk_count: long
+    :param memory_in_mb: The memory whose unit is MB of the vm size.
+    :type memory_in_mb: long
+    :param supported_by_virtual_machines: This indicates this vm size is
+     supported by virtual machines or not
+    :type supported_by_virtual_machines: bool
+    :param supported_by_web_worker_roles: The indicates this vm size is
+     supported by web worker roles or not
+    :type supported_by_web_worker_roles: bool
+    :param virtual_machine_resource_disk_size_in_mb: The virtual machine
+     resource disk size whose unit is MB of the vm size.
+    :type virtual_machine_resource_disk_size_in_mb: long
+    :param web_worker_resource_disk_size_in_mb: The web worker resource disk
+     size whose unit is MB of the vm size.
+    :type web_worker_resource_disk_size_in_mb: long
+    """
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'cores': {'key': 'cores', 'type': 'int'},
+        'data_disk_storage_tier': {'key': 'dataDiskStorageTier', 'type': 'str'},
+        'label': {'key': 'label', 'type': 'str'},
+        'max_data_disk_count': {'key': 'maxDataDiskCount', 'type': 'long'},
+        'memory_in_mb': {'key': 'memoryInMb', 'type': 'long'},
+        'supported_by_virtual_machines': {'key': 'supportedByVirtualMachines', 'type': 'bool'},
+        'supported_by_web_worker_roles': {'key': 'supportedByWebWorkerRoles', 'type': 'bool'},
+        'virtual_machine_resource_disk_size_in_mb': {'key': 'virtualMachineResourceDiskSizeInMb', 'type': 'long'},
+        'web_worker_resource_disk_size_in_mb': {'key': 'webWorkerResourceDiskSizeInMb', 'type': 'long'},
+    }
+
+    def __init__(self, *, name: str=None, cores: int=None, data_disk_storage_tier: str=None, label: str=None, max_data_disk_count: int=None, memory_in_mb: int=None, supported_by_virtual_machines: bool=None, supported_by_web_worker_roles: bool=None, virtual_machine_resource_disk_size_in_mb: int=None, web_worker_resource_disk_size_in_mb: int=None, **kwargs) -> None:
+        super(VmSizeProperty, self).__init__(**kwargs)
+        self.name = name
+        self.cores = cores
+        self.data_disk_storage_tier = data_disk_storage_tier
+        self.label = label
+        self.max_data_disk_count = max_data_disk_count
+        self.memory_in_mb = memory_in_mb
+        self.supported_by_virtual_machines = supported_by_virtual_machines
+        self.supported_by_web_worker_roles = supported_by_web_worker_roles
+        self.virtual_machine_resource_disk_size_in_mb = virtual_machine_resource_disk_size_in_mb
+        self.web_worker_resource_disk_size_in_mb = web_worker_resource_disk_size_in_mb
 
 
 class VmSizesCapability(Model):
