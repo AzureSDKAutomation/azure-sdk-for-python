@@ -13,9 +13,15 @@ from msrest.service_client import SDKClient
 from msrest import Serializer, Deserializer
 
 from ._configuration import CostManagementClientConfiguration
+from .operations import ExportsOperations
+from .operations import GenerateDetailedCostReportOperations
+from .operations import GenerateDetailedCostReportOperationResultsOperations
+from .operations import GenerateDetailedCostReportOperationStatusOperations
+from .operations import ViewsOperations
+from .operations import AlertsOperations
+from .operations import ForecastOperations
 from .operations import DimensionsOperations
 from .operations import QueryOperations
-from .operations import ExportsOperations
 from .operations import Operations
 from . import models
 
@@ -26,12 +32,24 @@ class CostManagementClient(SDKClient):
     :ivar config: Configuration for client.
     :vartype config: CostManagementClientConfiguration
 
+    :ivar exports: Exports operations
+    :vartype exports: azure.mgmt.costmanagement.operations.ExportsOperations
+    :ivar generate_detailed_cost_report: GenerateDetailedCostReport operations
+    :vartype generate_detailed_cost_report: azure.mgmt.costmanagement.operations.GenerateDetailedCostReportOperations
+    :ivar generate_detailed_cost_report_operation_results: GenerateDetailedCostReportOperationResults operations
+    :vartype generate_detailed_cost_report_operation_results: azure.mgmt.costmanagement.operations.GenerateDetailedCostReportOperationResultsOperations
+    :ivar generate_detailed_cost_report_operation_status: GenerateDetailedCostReportOperationStatus operations
+    :vartype generate_detailed_cost_report_operation_status: azure.mgmt.costmanagement.operations.GenerateDetailedCostReportOperationStatusOperations
+    :ivar views: Views operations
+    :vartype views: azure.mgmt.costmanagement.operations.ViewsOperations
+    :ivar alerts: Alerts operations
+    :vartype alerts: azure.mgmt.costmanagement.operations.AlertsOperations
+    :ivar forecast: Forecast operations
+    :vartype forecast: azure.mgmt.costmanagement.operations.ForecastOperations
     :ivar dimensions: Dimensions operations
     :vartype dimensions: azure.mgmt.costmanagement.operations.DimensionsOperations
     :ivar query: Query operations
     :vartype query: azure.mgmt.costmanagement.operations.QueryOperations
-    :ivar exports: Exports operations
-    :vartype exports: azure.mgmt.costmanagement.operations.ExportsOperations
     :ivar operations: Operations operations
     :vartype operations: azure.mgmt.costmanagement.operations.Operations
 
@@ -50,15 +68,27 @@ class CostManagementClient(SDKClient):
         super(CostManagementClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
-        self.api_version = '2019-11-01'
+        self.api_version = '2020-12-01-preview'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
+        self.exports = ExportsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.generate_detailed_cost_report = GenerateDetailedCostReportOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.generate_detailed_cost_report_operation_results = GenerateDetailedCostReportOperationResultsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.generate_detailed_cost_report_operation_status = GenerateDetailedCostReportOperationStatusOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.views = ViewsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.alerts = AlertsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.forecast = ForecastOperations(
+            self._client, self.config, self._serialize, self._deserialize)
         self.dimensions = DimensionsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.query = QueryOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.exports = ExportsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.operations = Operations(
             self._client, self.config, self._serialize, self._deserialize)

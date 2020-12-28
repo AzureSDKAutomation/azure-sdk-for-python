@@ -9,14 +9,26 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
+from ._exports_operations import ExportsOperations
+from ._generate_detailed_cost_report_operations import GenerateDetailedCostReportOperations
+from ._generate_detailed_cost_report_operation_results_operations import GenerateDetailedCostReportOperationResultsOperations
+from ._generate_detailed_cost_report_operation_status_operations import GenerateDetailedCostReportOperationStatusOperations
+from ._views_operations import ViewsOperations
+from ._alerts_operations import AlertsOperations
+from ._forecast_operations import ForecastOperations
 from ._dimensions_operations import DimensionsOperations
 from ._query_operations import QueryOperations
-from ._exports_operations import ExportsOperations
 from ._operations import Operations
 
 __all__ = [
+    'ExportsOperations',
+    'GenerateDetailedCostReportOperations',
+    'GenerateDetailedCostReportOperationResultsOperations',
+    'GenerateDetailedCostReportOperationStatusOperations',
+    'ViewsOperations',
+    'AlertsOperations',
+    'ForecastOperations',
     'DimensionsOperations',
     'QueryOperations',
-    'ExportsOperations',
     'Operations',
 ]
