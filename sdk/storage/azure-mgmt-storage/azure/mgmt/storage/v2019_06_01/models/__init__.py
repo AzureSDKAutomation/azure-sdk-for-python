@@ -26,6 +26,8 @@ try:
     from ._models_py3 import DateAfterCreation
     from ._models_py3 import DateAfterModification
     from ._models_py3 import DeleteRetentionPolicy
+    from ._models_py3 import DeletedAccount
+    from ._models_py3 import DeletedAccountListResult
     from ._models_py3 import DeletedShare
     from ._models_py3 import Dimension
     from ._models_py3 import Encryption
@@ -83,6 +85,7 @@ try:
     from ._models_py3 import PrivateLinkResource
     from ._models_py3 import PrivateLinkResourceListResult
     from ._models_py3 import PrivateLinkServiceConnectionState
+    from ._models_py3 import ProxyResource
     from ._models_py3 import QueueServiceProperties
     from ._models_py3 import Resource
     from ._models_py3 import RestorePolicyProperties
@@ -135,6 +138,8 @@ except (SyntaxError, ImportError):
     from ._models import DateAfterCreation  # type: ignore
     from ._models import DateAfterModification  # type: ignore
     from ._models import DeleteRetentionPolicy  # type: ignore
+    from ._models import DeletedAccount  # type: ignore
+    from ._models import DeletedAccountListResult  # type: ignore
     from ._models import DeletedShare  # type: ignore
     from ._models import Dimension  # type: ignore
     from ._models import Encryption  # type: ignore
@@ -192,6 +197,7 @@ except (SyntaxError, ImportError):
     from ._models import PrivateLinkResource  # type: ignore
     from ._models import PrivateLinkResourceListResult  # type: ignore
     from ._models import PrivateLinkServiceConnectionState  # type: ignore
+    from ._models import ProxyResource  # type: ignore
     from ._models import QueueServiceProperties  # type: ignore
     from ._models import Resource  # type: ignore
     from ._models import RestorePolicyProperties  # type: ignore
@@ -293,6 +299,8 @@ __all__ = [
     'DateAfterCreation',
     'DateAfterModification',
     'DeleteRetentionPolicy',
+    'DeletedAccount',
+    'DeletedAccountListResult',
     'DeletedShare',
     'Dimension',
     'Encryption',
@@ -350,6 +358,7 @@ __all__ = [
     'PrivateLinkResource',
     'PrivateLinkResourceListResult',
     'PrivateLinkServiceConnectionState',
+    'ProxyResource',
     'QueueServiceProperties',
     'Resource',
     'RestorePolicyProperties',
