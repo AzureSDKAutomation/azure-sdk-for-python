@@ -25,7 +25,7 @@ class SecureScoreControlsOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: API version for the operation. Constant value: "2020-01-01".
+    :ivar api_version: API version for the operation. Constant value: "2021-01-01-preview".
     """
 
     models = models
@@ -35,14 +35,18 @@ class SecureScoreControlsOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-01-01"
+        self.api_version = "2021-01-01-preview"
 
         self.config = config
 
     def list_by_secure_score(
-            self, secure_score_name, expand=None, custom_headers=None, raw=False, **operation_config):
+            self, scope, secure_score_name, expand=None, custom_headers=None, raw=False, **operation_config):
         """Get all security controls for a specific initiative within a scope.
 
+        :param scope: Scope of the query, can be subscription
+         (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management
+         group (/providers/Microsoft.Management/managementGroups/mgName).
+        :type scope: str
         :param secure_score_name: The initiative name. For the ASC Default
          initiative, use 'ascScore' as in the sample request below.
         :type secure_score_name: str
@@ -64,7 +68,7 @@ class SecureScoreControlsOperations(object):
                 # Construct URL
                 url = self.list_by_secure_score.metadata['url']
                 path_format_arguments = {
-                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', pattern=r'^[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}$'),
+                    'scope': self._serialize.url("scope", scope, 'str', skip_quote=True),
                     'secureScoreName': self._serialize.url("secure_score_name", secure_score_name, 'str')
                 }
                 url = self._client.format_url(url, **path_format_arguments)
@@ -112,12 +116,16 @@ class SecureScoreControlsOperations(object):
         deserialized = models.SecureScoreControlDetailsPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list_by_secure_score.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Security/secureScores/{secureScoreName}/secureScoreControls'}
+    list_by_secure_score.metadata = {'url': '/{scope}/providers/Microsoft.Security/secureScores/{secureScoreName}/secureScoreControls'}
 
     def list(
-            self, expand=None, custom_headers=None, raw=False, **operation_config):
+            self, scope, expand=None, custom_headers=None, raw=False, **operation_config):
         """Get all security controls within a scope.
 
+        :param scope: Scope of the query, can be subscription
+         (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management
+         group (/providers/Microsoft.Management/managementGroups/mgName).
+        :type scope: str
         :param expand: OData expand. Optional. Possible values include:
          'definition'
         :type expand: str or ~azure.mgmt.security.models.ExpandControlsEnum
@@ -136,7 +144,7 @@ class SecureScoreControlsOperations(object):
                 # Construct URL
                 url = self.list.metadata['url']
                 path_format_arguments = {
-                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', pattern=r'^[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}$')
+                    'scope': self._serialize.url("scope", scope, 'str', skip_quote=True)
                 }
                 url = self._client.format_url(url, **path_format_arguments)
 
@@ -183,4 +191,4 @@ class SecureScoreControlsOperations(object):
         deserialized = models.SecureScoreControlDetailsPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Security/secureScoreControls'}
+    list.metadata = {'url': '/{scope}/providers/Microsoft.Security/secureScoreControls'}

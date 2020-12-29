@@ -57,9 +57,6 @@ try:
     from ._models_py3 import BenchmarkReference
     from ._models_py3 import CefExternalSecuritySolution
     from ._models_py3 import CefSolutionProperties
-    from ._models_py3 import Compliance
-    from ._models_py3 import ComplianceResult
-    from ._models_py3 import ComplianceSegment
     from ._models_py3 import ConnectableResource
     from ._models_py3 import ConnectedResource
     from ._models_py3 import ConnectedWorkspace
@@ -111,9 +108,11 @@ try:
     from ._models_py3 import IoTSecuritySolutionAnalyticsModelList
     from ._models_py3 import IoTSecuritySolutionAnalyticsModelPropertiesDevicesMetricsItem
     from ._models_py3 import IoTSecuritySolutionModel
-    from ._models_py3 import IotSensor
     from ._models_py3 import IotSensorsList
+    from ._models_py3 import IotSensorsModel
     from ._models_py3 import IoTSeverityMetrics
+    from ._models_py3 import IotSitesList
+    from ._models_py3 import IotSitesModel
     from ._models_py3 import IpAddress
     from ._models_py3 import JitNetworkAccessPolicy
     from ._models_py3 import JitNetworkAccessPolicyInitiatePort
@@ -148,7 +147,6 @@ try:
     from ._models_py3 import PackageDownloadsSensor
     from ._models_py3 import PackageDownloadsSensorFull
     from ._models_py3 import PackageDownloadsSensorFullOvf
-    from ._models_py3 import PackageDownloadsThreatIntelligence
     from ._models_py3 import PathRecommendation
     from ._models_py3 import Pricing
     from ._models_py3 import PricingList
@@ -164,6 +162,7 @@ try:
     from ._models_py3 import RegulatoryComplianceControl
     from ._models_py3 import RegulatoryComplianceStandard
     from ._models_py3 import Remediation
+    from ._models_py3 import ResetPasswordInput
     from ._models_py3 import Resource
     from ._models_py3 import ResourceDetails
     from ._models_py3 import ResourceIdentifier
@@ -195,8 +194,6 @@ try:
     from ._models_py3 import SecuritySolutionsReferenceData
     from ._models_py3 import SecuritySolutionsReferenceDataList
     from ._models_py3 import SecuritySubAssessment
-    from ._models_py3 import SecurityTask
-    from ._models_py3 import SecurityTaskParameters
     from ._models_py3 import SensitivityLabel
     from ._models_py3 import Sensor
     from ._models_py3 import ServerVulnerabilityAssessment
@@ -204,7 +201,6 @@ try:
     from ._models_py3 import ServerVulnerabilityProperties
     from ._models_py3 import ServicePrincipalProperties
     from ._models_py3 import Setting
-    from ._models_py3 import SettingResource
     from ._models_py3 import Site
     from ._models_py3 import SqlServerVulnerabilityProperties
     from ._models_py3 import SubAssessmentStatus
@@ -221,6 +217,7 @@ try:
     from ._models_py3 import TwinUpdatesNotInAllowedRange
     from ._models_py3 import UnauthorizedOperationsNotInAllowedRange
     from ._models_py3 import UpdateIotSecuritySolutionData
+    from ._models_py3 import UpgradePackageDownloadInfo
     from ._models_py3 import UserDefinedResourcesProperties
     from ._models_py3 import UserRecommendation
     from ._models_py3 import VaRule
@@ -275,9 +272,6 @@ except (SyntaxError, ImportError):
     from ._models import BenchmarkReference
     from ._models import CefExternalSecuritySolution
     from ._models import CefSolutionProperties
-    from ._models import Compliance
-    from ._models import ComplianceResult
-    from ._models import ComplianceSegment
     from ._models import ConnectableResource
     from ._models import ConnectedResource
     from ._models import ConnectedWorkspace
@@ -329,9 +323,11 @@ except (SyntaxError, ImportError):
     from ._models import IoTSecuritySolutionAnalyticsModelList
     from ._models import IoTSecuritySolutionAnalyticsModelPropertiesDevicesMetricsItem
     from ._models import IoTSecuritySolutionModel
-    from ._models import IotSensor
     from ._models import IotSensorsList
+    from ._models import IotSensorsModel
     from ._models import IoTSeverityMetrics
+    from ._models import IotSitesList
+    from ._models import IotSitesModel
     from ._models import IpAddress
     from ._models import JitNetworkAccessPolicy
     from ._models import JitNetworkAccessPolicyInitiatePort
@@ -366,7 +362,6 @@ except (SyntaxError, ImportError):
     from ._models import PackageDownloadsSensor
     from ._models import PackageDownloadsSensorFull
     from ._models import PackageDownloadsSensorFullOvf
-    from ._models import PackageDownloadsThreatIntelligence
     from ._models import PathRecommendation
     from ._models import Pricing
     from ._models import PricingList
@@ -382,6 +377,7 @@ except (SyntaxError, ImportError):
     from ._models import RegulatoryComplianceControl
     from ._models import RegulatoryComplianceStandard
     from ._models import Remediation
+    from ._models import ResetPasswordInput
     from ._models import Resource
     from ._models import ResourceDetails
     from ._models import ResourceIdentifier
@@ -413,8 +409,6 @@ except (SyntaxError, ImportError):
     from ._models import SecuritySolutionsReferenceData
     from ._models import SecuritySolutionsReferenceDataList
     from ._models import SecuritySubAssessment
-    from ._models import SecurityTask
-    from ._models import SecurityTaskParameters
     from ._models import SensitivityLabel
     from ._models import Sensor
     from ._models import ServerVulnerabilityAssessment
@@ -422,7 +416,6 @@ except (SyntaxError, ImportError):
     from ._models import ServerVulnerabilityProperties
     from ._models import ServicePrincipalProperties
     from ._models import Setting
-    from ._models import SettingResource
     from ._models import Site
     from ._models import SqlServerVulnerabilityProperties
     from ._models import SubAssessmentStatus
@@ -439,6 +432,7 @@ except (SyntaxError, ImportError):
     from ._models import TwinUpdatesNotInAllowedRange
     from ._models import UnauthorizedOperationsNotInAllowedRange
     from ._models import UpdateIotSecuritySolutionData
+    from ._models import UpgradePackageDownloadInfo
     from ._models import UserDefinedResourcesProperties
     from ._models import UserRecommendation
     from ._models import VaRule
@@ -449,11 +443,8 @@ from ._paged_models import AdaptiveNetworkHardeningPaged
 from ._paged_models import AlertPaged
 from ._paged_models import AlertsSuppressionRulePaged
 from ._paged_models import AllowedConnectionsResourcePaged
-from ._paged_models import AscLocationPaged
 from ._paged_models import AutomationPaged
 from ._paged_models import AutoProvisioningSettingPaged
-from ._paged_models import CompliancePaged
-from ._paged_models import ComplianceResultPaged
 from ._paged_models import ConnectorSettingPaged
 from ._paged_models import DevicePaged
 from ._paged_models import DeviceSecurityGroupPaged
@@ -480,12 +471,10 @@ from ._paged_models import SecurityAssessmentPaged
 from ._paged_models import SecurityContactPaged
 from ._paged_models import SecuritySolutionPaged
 from ._paged_models import SecuritySubAssessmentPaged
-from ._paged_models import SecurityTaskPaged
 from ._paged_models import SettingPaged
 from ._paged_models import TopologyResourcePaged
 from ._paged_models import WorkspaceSettingPaged
 from ._security_center_enums import (
-    ResourceStatus,
     PricingTier,
     ValueType,
     SecuritySolutionStatus,
@@ -495,9 +484,6 @@ from ._security_center_enums import (
     RecommendationConfigStatus,
     UnmaskedIpLoggingStatus,
     ReportedSeverity,
-    AlertSeverity,
-    AlertIntent,
-    RecommendationSeverity,
     AutoProvision,
     Rank,
     AlertNotifications,
@@ -517,6 +503,7 @@ from ._security_center_enums import (
     AssessmentStatusCode,
     Direction,
     TransportProtocol,
+    AlertSeverity,
     Intent,
     AlertStatus,
     Protocol,
@@ -535,7 +522,11 @@ from ._security_center_enums import (
     RuleStatus,
     RuleSeverity,
     RuleType,
+    AlertIntent,
+    RecommendationSeverity,
     VersionKind,
+    SensorStatus,
+    TiStatus,
     MacSignificance,
     RelationToIpStatus,
     ManagementState,
@@ -598,9 +589,6 @@ __all__ = [
     'BenchmarkReference',
     'CefExternalSecuritySolution',
     'CefSolutionProperties',
-    'Compliance',
-    'ComplianceResult',
-    'ComplianceSegment',
     'ConnectableResource',
     'ConnectedResource',
     'ConnectedWorkspace',
@@ -652,9 +640,11 @@ __all__ = [
     'IoTSecuritySolutionAnalyticsModelList',
     'IoTSecuritySolutionAnalyticsModelPropertiesDevicesMetricsItem',
     'IoTSecuritySolutionModel',
-    'IotSensor',
     'IotSensorsList',
+    'IotSensorsModel',
     'IoTSeverityMetrics',
+    'IotSitesList',
+    'IotSitesModel',
     'IpAddress',
     'JitNetworkAccessPolicy',
     'JitNetworkAccessPolicyInitiatePort',
@@ -689,7 +679,6 @@ __all__ = [
     'PackageDownloadsSensor',
     'PackageDownloadsSensorFull',
     'PackageDownloadsSensorFullOvf',
-    'PackageDownloadsThreatIntelligence',
     'PathRecommendation',
     'Pricing',
     'PricingList',
@@ -705,6 +694,7 @@ __all__ = [
     'RegulatoryComplianceControl',
     'RegulatoryComplianceStandard',
     'Remediation',
+    'ResetPasswordInput',
     'Resource',
     'ResourceDetails',
     'ResourceIdentifier',
@@ -736,8 +726,6 @@ __all__ = [
     'SecuritySolutionsReferenceData',
     'SecuritySolutionsReferenceDataList',
     'SecuritySubAssessment',
-    'SecurityTask',
-    'SecurityTaskParameters',
     'SensitivityLabel',
     'Sensor',
     'ServerVulnerabilityAssessment',
@@ -745,7 +733,6 @@ __all__ = [
     'ServerVulnerabilityProperties',
     'ServicePrincipalProperties',
     'Setting',
-    'SettingResource',
     'Site',
     'SqlServerVulnerabilityProperties',
     'SubAssessmentStatus',
@@ -762,27 +749,20 @@ __all__ = [
     'TwinUpdatesNotInAllowedRange',
     'UnauthorizedOperationsNotInAllowedRange',
     'UpdateIotSecuritySolutionData',
+    'UpgradePackageDownloadInfo',
     'UserDefinedResourcesProperties',
     'UserRecommendation',
     'VaRule',
     'VendorReference',
     'VmRecommendation',
     'WorkspaceSetting',
-    'ComplianceResultPaged',
     'SettingPaged',
     'DeviceSecurityGroupPaged',
     'IoTSecuritySolutionModelPaged',
     'IoTSecurityAggregatedAlertPaged',
     'IoTSecurityAggregatedRecommendationPaged',
-    'IotAlertPaged',
-    'IotAlertModelPaged',
-    'IotRecommendationPaged',
-    'IotRecommendationModelPaged',
-    'AscLocationPaged',
     'OperationPaged',
-    'SecurityTaskPaged',
     'AutoProvisioningSettingPaged',
-    'CompliancePaged',
     'InformationProtectionPolicyPaged',
     'SecurityContactPaged',
     'WorkspaceSettingPaged',
@@ -806,8 +786,11 @@ __all__ = [
     'SecureScoreControlDefinitionItemPaged',
     'SecuritySolutionPaged',
     'ConnectorSettingPaged',
+    'IotAlertPaged',
+    'IotAlertModelPaged',
+    'IotRecommendationPaged',
+    'IotRecommendationModelPaged',
     'DevicePaged',
-    'ResourceStatus',
     'PricingTier',
     'ValueType',
     'SecuritySolutionStatus',
@@ -817,9 +800,6 @@ __all__ = [
     'RecommendationConfigStatus',
     'UnmaskedIpLoggingStatus',
     'ReportedSeverity',
-    'AlertSeverity',
-    'AlertIntent',
-    'RecommendationSeverity',
     'AutoProvision',
     'Rank',
     'AlertNotifications',
@@ -839,6 +819,7 @@ __all__ = [
     'AssessmentStatusCode',
     'Direction',
     'TransportProtocol',
+    'AlertSeverity',
     'Intent',
     'AlertStatus',
     'Protocol',
@@ -857,7 +838,11 @@ __all__ = [
     'RuleStatus',
     'RuleSeverity',
     'RuleType',
+    'AlertIntent',
+    'RecommendationSeverity',
     'VersionKind',
+    'SensorStatus',
+    'TiStatus',
     'MacSignificance',
     'RelationToIpStatus',
     'ManagementState',

@@ -25,7 +25,7 @@ class SecureScoresOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: API version for the operation. Constant value: "2020-01-01".
+    :ivar api_version: API version for the operation. Constant value: "2021-01-01-preview".
     """
 
     models = models
@@ -35,15 +35,19 @@ class SecureScoresOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-01-01"
+        self.api_version = "2021-01-01-preview"
 
         self.config = config
 
     def list(
-            self, custom_headers=None, raw=False, **operation_config):
+            self, scope, custom_headers=None, raw=False, **operation_config):
         """List secure scores for all your Security Center initiatives within your
         current scope.
 
+        :param scope: Scope of the query, can be subscription
+         (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management
+         group (/providers/Microsoft.Management/managementGroups/mgName).
+        :type scope: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -59,7 +63,7 @@ class SecureScoresOperations(object):
                 # Construct URL
                 url = self.list.metadata['url']
                 path_format_arguments = {
-                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', pattern=r'^[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}$')
+                    'scope': self._serialize.url("scope", scope, 'str', skip_quote=True)
                 }
                 url = self._client.format_url(url, **path_format_arguments)
 
@@ -104,13 +108,17 @@ class SecureScoresOperations(object):
         deserialized = models.SecureScoreItemPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Security/secureScores'}
+    list.metadata = {'url': '/{scope}/providers/Microsoft.Security/secureScores'}
 
     def get(
-            self, secure_score_name, custom_headers=None, raw=False, **operation_config):
+            self, scope, secure_score_name, custom_headers=None, raw=False, **operation_config):
         """Get secure score for a specific Security Center initiative within your
         current scope. For the ASC Default initiative, use 'ascScore'.
 
+        :param scope: Scope of the query, can be subscription
+         (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management
+         group (/providers/Microsoft.Management/managementGroups/mgName).
+        :type scope: str
         :param secure_score_name: The initiative name. For the ASC Default
          initiative, use 'ascScore' as in the sample request below.
         :type secure_score_name: str
@@ -127,7 +135,7 @@ class SecureScoresOperations(object):
         # Construct URL
         url = self.get.metadata['url']
         path_format_arguments = {
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', pattern=r'^[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}$'),
+            'scope': self._serialize.url("scope", scope, 'str', skip_quote=True),
             'secureScoreName': self._serialize.url("secure_score_name", secure_score_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -164,4 +172,4 @@ class SecureScoresOperations(object):
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Security/secureScores/{secureScoreName}'}
+    get.metadata = {'url': '/{scope}/providers/Microsoft.Security/secureScores/{secureScoreName}'}

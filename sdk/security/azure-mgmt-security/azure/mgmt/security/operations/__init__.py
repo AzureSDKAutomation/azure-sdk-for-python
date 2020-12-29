@@ -9,7 +9,6 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from ._compliance_results_operations import ComplianceResultsOperations
 from ._pricings_operations import PricingsOperations
 from ._settings_operations import SettingsOperations
 from ._advanced_threat_protection_operations import AdvancedThreatProtectionOperations
@@ -18,15 +17,8 @@ from ._iot_security_solution_operations import IotSecuritySolutionOperations
 from ._iot_security_solution_analytics_operations import IotSecuritySolutionAnalyticsOperations
 from ._iot_security_solutions_analytics_aggregated_alert_operations import IotSecuritySolutionsAnalyticsAggregatedAlertOperations
 from ._iot_security_solutions_analytics_recommendation_operations import IotSecuritySolutionsAnalyticsRecommendationOperations
-from ._iot_alert_types_operations import IotAlertTypesOperations
-from ._iot_alerts_operations import IotAlertsOperations
-from ._iot_recommendation_types_operations import IotRecommendationTypesOperations
-from ._iot_recommendations_operations import IotRecommendationsOperations
-from ._locations_operations import LocationsOperations
 from ._operations import Operations
-from ._tasks_operations import TasksOperations
 from ._auto_provisioning_settings_operations import AutoProvisioningSettingsOperations
-from ._compliances_operations import CompliancesOperations
 from ._information_protection_policies_operations import InformationProtectionPoliciesOperations
 from ._security_contacts_operations import SecurityContactsOperations
 from ._workspace_settings_operations import WorkspaceSettingsOperations
@@ -56,15 +48,19 @@ from ._connectors_operations import ConnectorsOperations
 from ._sql_vulnerability_assessment_scans_operations import SqlVulnerabilityAssessmentScansOperations
 from ._sql_vulnerability_assessment_scan_results_operations import SqlVulnerabilityAssessmentScanResultsOperations
 from ._sql_vulnerability_assessment_baseline_rules_operations import SqlVulnerabilityAssessmentBaselineRulesOperations
+from ._iot_alert_types_operations import IotAlertTypesOperations
+from ._iot_alerts_operations import IotAlertsOperations
+from ._iot_recommendation_types_operations import IotRecommendationTypesOperations
+from ._iot_recommendations_operations import IotRecommendationsOperations
 from ._iot_defender_settings_operations import IotDefenderSettingsOperations
 from ._iot_sensors_operations import IotSensorsOperations
 from ._devices_for_subscription_operations import DevicesForSubscriptionOperations
 from ._devices_for_hub_operations import DevicesForHubOperations
 from ._device_operations import DeviceOperations
 from ._on_premise_iot_sensors_operations import OnPremiseIotSensorsOperations
+from ._iot_sites_operations import IotSitesOperations
 
 __all__ = [
-    'ComplianceResultsOperations',
     'PricingsOperations',
     'SettingsOperations',
     'AdvancedThreatProtectionOperations',
@@ -73,15 +69,8 @@ __all__ = [
     'IotSecuritySolutionAnalyticsOperations',
     'IotSecuritySolutionsAnalyticsAggregatedAlertOperations',
     'IotSecuritySolutionsAnalyticsRecommendationOperations',
-    'IotAlertTypesOperations',
-    'IotAlertsOperations',
-    'IotRecommendationTypesOperations',
-    'IotRecommendationsOperations',
-    'LocationsOperations',
     'Operations',
-    'TasksOperations',
     'AutoProvisioningSettingsOperations',
-    'CompliancesOperations',
     'InformationProtectionPoliciesOperations',
     'SecurityContactsOperations',
     'WorkspaceSettingsOperations',
@@ -111,10 +100,15 @@ __all__ = [
     'SqlVulnerabilityAssessmentScansOperations',
     'SqlVulnerabilityAssessmentScanResultsOperations',
     'SqlVulnerabilityAssessmentBaselineRulesOperations',
+    'IotAlertTypesOperations',
+    'IotAlertsOperations',
+    'IotRecommendationTypesOperations',
+    'IotRecommendationsOperations',
     'IotDefenderSettingsOperations',
     'IotSensorsOperations',
     'DevicesForSubscriptionOperations',
     'DevicesForHubOperations',
     'DeviceOperations',
     'OnPremiseIotSensorsOperations',
+    'IotSitesOperations',
 ]

@@ -12,14 +12,6 @@
 from enum import Enum
 
 
-class ResourceStatus(str, Enum):
-
-    healthy = "Healthy"  #: This assessment on the resource is healthy
-    not_applicable = "NotApplicable"  #: This assessment is not applicable to this resource
-    off_by_policy = "OffByPolicy"  #: This assessment is turned off by policy on this subscription
-    not_healthy = "NotHealthy"  #: This assessment on the resource is not healthy
-
-
 class PricingTier(str, Enum):
 
     free = "Free"  #: Get free Azure security center experience with basic security features
@@ -88,45 +80,6 @@ class ReportedSeverity(str, Enum):
     high = "High"
 
 
-class AlertSeverity(str, Enum):
-
-    informational = "Informational"
-    low = "Low"
-    medium = "Medium"
-    high = "High"
-
-
-class AlertIntent(str, Enum):
-
-    unknown = "Unknown"
-    pre_attack = "PreAttack"
-    initial_access = "InitialAccess"
-    persistence = "Persistence"
-    privilege_escalation = "PrivilegeEscalation"
-    defense_evasion = "DefenseEvasion"
-    credential_access = "CredentialAccess"
-    discovery = "Discovery"
-    lateral_movement = "LateralMovement"
-    execution = "Execution"
-    collection = "Collection"
-    exfiltration = "Exfiltration"
-    command_and_control = "CommandAndControl"
-    impact = "Impact"
-    probing = "Probing"
-    exploitation = "Exploitation"
-
-
-class RecommendationSeverity(str, Enum):
-
-    unknown = "Unknown"
-    not_applicable = "NotApplicable"
-    healthy = "Healthy"
-    off_by_policy = "OffByPolicy"
-    low = "Low"
-    medium = "Medium"
-    high = "High"
-
-
 class AutoProvision(str, Enum):
 
     on = "On"  #: Install missing security agent on VMs automatically
@@ -181,6 +134,9 @@ class EventSource(str, Enum):
     assessments = "Assessments"
     sub_assessments = "SubAssessments"
     alerts = "Alerts"
+    secure_scores = "SecureScores"
+    secure_score_controls = "SecureScoreControls"
+    regulatory_compliance_assessment = "RegulatoryComplianceAssessment"
 
 
 class PropertyType(str, Enum):
@@ -271,6 +227,14 @@ class TransportProtocol(str, Enum):
 
     tcp = "TCP"
     udp = "UDP"
+
+
+class AlertSeverity(str, Enum):
+
+    informational = "Informational"  #: Informational
+    low = "Low"  #: Low
+    medium = "Medium"  #: Medium
+    high = "High"  #: High
 
 
 class Intent(str, Enum):
@@ -416,11 +380,57 @@ class RuleType(str, Enum):
     negative_list = "NegativeList"  #: NegativeList
 
 
+class AlertIntent(str, Enum):
+
+    unknown = "Unknown"
+    pre_attack = "PreAttack"
+    initial_access = "InitialAccess"
+    persistence = "Persistence"
+    privilege_escalation = "PrivilegeEscalation"
+    defense_evasion = "DefenseEvasion"
+    credential_access = "CredentialAccess"
+    discovery = "Discovery"
+    lateral_movement = "LateralMovement"
+    execution = "Execution"
+    collection = "Collection"
+    exfiltration = "Exfiltration"
+    command_and_control = "CommandAndControl"
+    impact = "Impact"
+    probing = "Probing"
+    exploitation = "Exploitation"
+
+
+class RecommendationSeverity(str, Enum):
+
+    unknown = "Unknown"
+    not_applicable = "NotApplicable"
+    healthy = "Healthy"
+    off_by_policy = "OffByPolicy"
+    low = "Low"
+    medium = "Medium"
+    high = "High"
+
+
 class VersionKind(str, Enum):
 
     latest = "Latest"
     previous = "Previous"
     preview = "Preview"
+
+
+class SensorStatus(str, Enum):
+
+    ok = "Ok"
+    disconnected = "Disconnected"
+    unavailable = "Unavailable"
+
+
+class TiStatus(str, Enum):
+
+    ok = "Ok"
+    failed = "Failed"
+    in_progress = "InProgress"
+    update_available = "UpdateAvailable"
 
 
 class MacSignificance(str, Enum):
