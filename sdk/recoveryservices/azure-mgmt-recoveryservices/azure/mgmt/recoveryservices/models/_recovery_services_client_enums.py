@@ -45,6 +45,8 @@ class ResourceIdentityType(str, Enum):
 
     system_assigned = "SystemAssigned"
     none = "None"
+    user_assigned = "UserAssigned"
+    system_assigned_user_assigned = "SystemAssigned, UserAssigned"
 
 
 class ProvisioningState(str, Enum):
@@ -67,6 +69,18 @@ class VaultPrivateEndpointState(str, Enum):
 
     none = "None"
     enabled = "Enabled"
+
+
+class CmkIdentityType(str, Enum):
+
+    system_assigned = "SystemAssigned"
+    user_assigned = "UserAssigned"
+
+
+class InfrastructureEncryptionState(str, Enum):
+
+    enabled = "Enabled"
+    disabled = "Disabled"
 
 
 class UsagesUnit(str, Enum):

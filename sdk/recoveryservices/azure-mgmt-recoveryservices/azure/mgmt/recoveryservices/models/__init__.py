@@ -18,10 +18,14 @@ try:
     from ._models_py3 import ClientDiscoveryForProperties
     from ._models_py3 import ClientDiscoveryForServiceSpecification
     from ._models_py3 import ClientDiscoveryValueForSingleApi
+    from ._models_py3 import CmkKekIdentity
+    from ._models_py3 import CmkKeyVaultProperties
+    from ._models_py3 import Error
     from ._models_py3 import IdentityData
     from ._models_py3 import JobsSummary
     from ._models_py3 import MonitoringSummary
     from ._models_py3 import NameInfo
+    from ._models_py3 import OperationResource
     from ._models_py3 import PatchTrackedResource
     from ._models_py3 import PatchVault
     from ._models_py3 import PrivateEndpoint
@@ -38,10 +42,12 @@ try:
     from ._models_py3 import Sku
     from ._models_py3 import TrackedResource
     from ._models_py3 import UpgradeDetails
+    from ._models_py3 import UserIdentity
     from ._models_py3 import Vault
     from ._models_py3 import VaultCertificateResponse
     from ._models_py3 import VaultExtendedInfoResource
     from ._models_py3 import VaultProperties
+    from ._models_py3 import VaultPropertiesEncryption
     from ._models_py3 import VaultUsage
 except (SyntaxError, ImportError):
     from ._models import CertificateRequest
@@ -52,10 +58,14 @@ except (SyntaxError, ImportError):
     from ._models import ClientDiscoveryForProperties
     from ._models import ClientDiscoveryForServiceSpecification
     from ._models import ClientDiscoveryValueForSingleApi
+    from ._models import CmkKekIdentity
+    from ._models import CmkKeyVaultProperties
+    from ._models import Error
     from ._models import IdentityData
     from ._models import JobsSummary
     from ._models import MonitoringSummary
     from ._models import NameInfo
+    from ._models import OperationResource
     from ._models import PatchTrackedResource
     from ._models import PatchVault
     from ._models import PrivateEndpoint
@@ -72,10 +82,12 @@ except (SyntaxError, ImportError):
     from ._models import Sku
     from ._models import TrackedResource
     from ._models import UpgradeDetails
+    from ._models import UserIdentity
     from ._models import Vault
     from ._models import VaultCertificateResponse
     from ._models import VaultExtendedInfoResource
     from ._models import VaultProperties
+    from ._models import VaultPropertiesEncryption
     from ._models import VaultUsage
 from ._paged_models import ClientDiscoveryValueForSingleApiPaged
 from ._paged_models import PrivateLinkResourcePaged
@@ -91,6 +103,8 @@ from ._recovery_services_client_enums import (
     ProvisioningState,
     PrivateEndpointConnectionStatus,
     VaultPrivateEndpointState,
+    CmkIdentityType,
+    InfrastructureEncryptionState,
     UsagesUnit,
 )
 
@@ -103,10 +117,14 @@ __all__ = [
     'ClientDiscoveryForProperties',
     'ClientDiscoveryForServiceSpecification',
     'ClientDiscoveryValueForSingleApi',
+    'CmkKekIdentity',
+    'CmkKeyVaultProperties',
+    'Error',
     'IdentityData',
     'JobsSummary',
     'MonitoringSummary',
     'NameInfo',
+    'OperationResource',
     'PatchTrackedResource',
     'PatchVault',
     'PrivateEndpoint',
@@ -123,10 +141,12 @@ __all__ = [
     'Sku',
     'TrackedResource',
     'UpgradeDetails',
+    'UserIdentity',
     'Vault',
     'VaultCertificateResponse',
     'VaultExtendedInfoResource',
     'VaultProperties',
+    'VaultPropertiesEncryption',
     'VaultUsage',
     'ReplicationUsagePaged',
     'PrivateLinkResourcePaged',
@@ -141,5 +161,7 @@ __all__ = [
     'ProvisioningState',
     'PrivateEndpointConnectionStatus',
     'VaultPrivateEndpointState',
+    'CmkIdentityType',
+    'InfrastructureEncryptionState',
     'UsagesUnit',
 ]

@@ -201,6 +201,72 @@ class CloudError(Model):
     }
 
 
+class CmkKekIdentity(Model):
+    """The details of the identity used for CMK.
+
+    :param type: The type of managed identity used. Possible values include:
+     'SystemAssigned', 'UserAssigned'
+    :type type: str or ~azure.mgmt.recoveryservices.models.CmkIdentityType
+    :param user_assigned_identity: The user assigned identity to be used to
+     grant permissions in case the type of identity used is UserAssigned
+    :type user_assigned_identity: str
+    """
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'user_assigned_identity': {'key': 'userAssignedIdentity', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CmkKekIdentity, self).__init__(**kwargs)
+        self.type = kwargs.get('type', None)
+        self.user_assigned_identity = kwargs.get('user_assigned_identity', None)
+
+
+class CmkKeyVaultProperties(Model):
+    """The properties of the Key Vault which hosts CMK.
+
+    :param key_uri: The key uri of the Customer Managed Key
+    :type key_uri: str
+    """
+
+    _attribute_map = {
+        'key_uri': {'key': 'keyUri', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CmkKeyVaultProperties, self).__init__(**kwargs)
+        self.key_uri = kwargs.get('key_uri', None)
+
+
+class Error(Model):
+    """The resource management error response.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar code: The error code.
+    :vartype code: str
+    :ivar message: The error message.
+    :vartype message: str
+    """
+
+    _validation = {
+        'code': {'readonly': True},
+        'message': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'code': {'key': 'code', 'type': 'str'},
+        'message': {'key': 'message', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(Error, self).__init__(**kwargs)
+        self.code = None
+        self.message = None
+
+
 class IdentityData(Model):
     """Identity for the resource.
 
@@ -213,10 +279,19 @@ class IdentityData(Model):
     :vartype principal_id: str
     :ivar tenant_id: The tenant ID of resource.
     :vartype tenant_id: str
-    :param type: Required. The identity type. Possible values include:
-     'SystemAssigned', 'None'
+    :param type: Required. The type of managed identity used. The type
+     'SystemAssigned, UserAssigned' includes both an implicitly created
+     identity and a set of user-assigned identities. The type 'None' will
+     remove any identities. Possible values include: 'SystemAssigned', 'None',
+     'UserAssigned', 'SystemAssigned, UserAssigned'
     :type type: str or
      ~azure.mgmt.recoveryservices.models.ResourceIdentityType
+    :param user_assigned_identities: The list of user-assigned identities
+     associated with the resource. The user-assigned identity dictionary keys
+     will be ARM resource ids in the form:
+     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
+    :type user_assigned_identities: dict[str,
+     ~azure.mgmt.recoveryservices.models.UserIdentity]
     """
 
     _validation = {
@@ -229,6 +304,7 @@ class IdentityData(Model):
         'principal_id': {'key': 'principalId', 'type': 'str'},
         'tenant_id': {'key': 'tenantId', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
+        'user_assigned_identities': {'key': 'userAssignedIdentities', 'type': '{UserIdentity}'},
     }
 
     def __init__(self, **kwargs):
@@ -236,6 +312,7 @@ class IdentityData(Model):
         self.principal_id = None
         self.tenant_id = None
         self.type = kwargs.get('type', None)
+        self.user_assigned_identities = kwargs.get('user_assigned_identities', None)
 
 
 class JobsSummary(Model):
@@ -320,6 +397,46 @@ class NameInfo(Model):
         super(NameInfo, self).__init__(**kwargs)
         self.value = kwargs.get('value', None)
         self.localized_value = kwargs.get('localized_value', None)
+
+
+class OperationResource(Model):
+    """Operation Resource.
+
+    :param end_time: End time of the operation
+    :type end_time: datetime
+    :param error: Required if status == failed or status == canceled. This is
+     the OData v4 error format, used by the RPC and will go into the v2.2 Azure
+     REST API guidelines.
+    :type error: ~azure.mgmt.recoveryservices.models.Error
+    :param id: It should match what is used to GET the operation result
+    :type id: str
+    :param name: It must match the last segment of the "id" field, and will
+     typically be a GUID / system generated value
+    :type name: str
+    :param status: The status of the operation.
+     (InProgress/Success/Failed/Cancelled)
+    :type status: str
+    :param start_time: Start time of the operation
+    :type start_time: datetime
+    """
+
+    _attribute_map = {
+        'end_time': {'key': 'endTime', 'type': 'iso-8601'},
+        'error': {'key': 'error', 'type': 'Error'},
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'status': {'key': 'status', 'type': 'str'},
+        'start_time': {'key': 'startTime', 'type': 'iso-8601'},
+    }
+
+    def __init__(self, **kwargs):
+        super(OperationResource, self).__init__(**kwargs)
+        self.end_time = kwargs.get('end_time', None)
+        self.error = kwargs.get('error', None)
+        self.id = kwargs.get('id', None)
+        self.name = kwargs.get('name', None)
+        self.status = kwargs.get('status', None)
+        self.start_time = kwargs.get('start_time', None)
 
 
 class Resource(Model):
@@ -1029,6 +1146,34 @@ class UpgradeDetails(Model):
         self.previous_resource_id = None
 
 
+class UserIdentity(Model):
+    """A resource identity that is managed by the user of the service.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar principal_id: The principal ID of the user-assigned identity.
+    :vartype principal_id: str
+    :ivar client_id: The client ID of the user-assigned identity.
+    :vartype client_id: str
+    """
+
+    _validation = {
+        'principal_id': {'readonly': True},
+        'client_id': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'principal_id': {'key': 'principalId', 'type': 'str'},
+        'client_id': {'key': 'clientId', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(UserIdentity, self).__init__(**kwargs)
+        self.principal_id = None
+        self.client_id = None
+
+
 class Vault(TrackedResource):
     """Resource information, as returned by the resource provider.
 
@@ -1195,6 +1340,9 @@ class VaultProperties(Model):
      site recovery. Possible values include: 'None', 'Enabled'
     :vartype private_endpoint_state_for_site_recovery: str or
      ~azure.mgmt.recoveryservices.models.VaultPrivateEndpointState
+    :param encryption: Customer Managed Key details of the resource.
+    :type encryption:
+     ~azure.mgmt.recoveryservices.models.VaultPropertiesEncryption
     """
 
     _validation = {
@@ -1210,6 +1358,7 @@ class VaultProperties(Model):
         'private_endpoint_connections': {'key': 'privateEndpointConnections', 'type': '[PrivateEndpointConnectionVaultProperties]'},
         'private_endpoint_state_for_backup': {'key': 'privateEndpointStateForBackup', 'type': 'str'},
         'private_endpoint_state_for_site_recovery': {'key': 'privateEndpointStateForSiteRecovery', 'type': 'str'},
+        'encryption': {'key': 'encryption', 'type': 'VaultPropertiesEncryption'},
     }
 
     def __init__(self, **kwargs):
@@ -1219,6 +1368,34 @@ class VaultProperties(Model):
         self.private_endpoint_connections = None
         self.private_endpoint_state_for_backup = None
         self.private_endpoint_state_for_site_recovery = None
+        self.encryption = kwargs.get('encryption', None)
+
+
+class VaultPropertiesEncryption(Model):
+    """Customer Managed Key details of the resource.
+
+    :param key_vault_properties:
+    :type key_vault_properties:
+     ~azure.mgmt.recoveryservices.models.CmkKeyVaultProperties
+    :param kek_identity:
+    :type kek_identity: ~azure.mgmt.recoveryservices.models.CmkKekIdentity
+    :param infrastructure_encryption: Enabling/Disabling the Double Encryption
+     state. Possible values include: 'Enabled', 'Disabled'
+    :type infrastructure_encryption: str or
+     ~azure.mgmt.recoveryservices.models.InfrastructureEncryptionState
+    """
+
+    _attribute_map = {
+        'key_vault_properties': {'key': 'keyVaultProperties', 'type': 'CmkKeyVaultProperties'},
+        'kek_identity': {'key': 'kekIdentity', 'type': 'CmkKekIdentity'},
+        'infrastructure_encryption': {'key': 'infrastructureEncryption', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(VaultPropertiesEncryption, self).__init__(**kwargs)
+        self.key_vault_properties = kwargs.get('key_vault_properties', None)
+        self.kek_identity = kwargs.get('kek_identity', None)
+        self.infrastructure_encryption = kwargs.get('infrastructure_encryption', None)
 
 
 class VaultUsage(Model):

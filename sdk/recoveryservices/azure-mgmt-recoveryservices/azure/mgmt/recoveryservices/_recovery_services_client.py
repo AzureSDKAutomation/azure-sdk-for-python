@@ -13,6 +13,7 @@ from msrest.service_client import SDKClient
 from msrest import Serializer, Deserializer
 
 from ._configuration import RecoveryServicesClientConfiguration
+from .operations import RecoveryServicesClientOperationsMixin
 from .operations import VaultCertificatesOperations
 from .operations import RegisteredIdentitiesOperations
 from .operations import ReplicationUsagesOperations
@@ -25,7 +26,7 @@ from .operations import UsagesOperations
 from . import models
 
 
-class RecoveryServicesClient(SDKClient):
+class RecoveryServicesClient(RecoveryServicesClientOperationsMixin, SDKClient):
     """Recovery Services Client
 
     :ivar config: Configuration for client.
