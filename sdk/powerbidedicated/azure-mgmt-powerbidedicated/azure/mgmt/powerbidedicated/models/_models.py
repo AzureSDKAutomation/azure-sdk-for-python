@@ -91,6 +91,9 @@ class Resource(Model):
     :param tags: Key-value pairs of additional resource provisioning
      properties.
     :type tags: dict[str, str]
+    :param system_data: Metadata pertaining to creation and last modification
+     of the resource.
+    :type system_data: ~azure.mgmt.powerbidedicated.models.SystemData
     """
 
     _validation = {
@@ -108,6 +111,7 @@ class Resource(Model):
         'location': {'key': 'location', 'type': 'str'},
         'sku': {'key': 'sku', 'type': 'ResourceSku'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
     }
 
     def __init__(self, **kwargs):
@@ -118,6 +122,7 @@ class Resource(Model):
         self.location = kwargs.get('location', None)
         self.sku = kwargs.get('sku', None)
         self.tags = kwargs.get('tags', None)
+        self.system_data = kwargs.get('system_data', None)
 
 
 class DedicatedCapacity(Resource):
@@ -141,6 +146,9 @@ class DedicatedCapacity(Resource):
     :param tags: Key-value pairs of additional resource provisioning
      properties.
     :type tags: dict[str, str]
+    :param system_data: Metadata pertaining to creation and last modification
+     of the resource.
+    :type system_data: ~azure.mgmt.powerbidedicated.models.SystemData
     :param administration: A collection of Dedicated capacity administrators
     :type administration:
      ~azure.mgmt.powerbidedicated.models.DedicatedCapacityAdministrators
@@ -176,6 +184,7 @@ class DedicatedCapacity(Resource):
         'location': {'key': 'location', 'type': 'str'},
         'sku': {'key': 'sku', 'type': 'ResourceSku'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
         'administration': {'key': 'properties.administration', 'type': 'DedicatedCapacityAdministrators'},
         'state': {'key': 'properties.state', 'type': 'str'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
@@ -232,21 +241,17 @@ class DedicatedCapacityUpdateParameters(Model):
 class ErrorResponse(Model):
     """Describes the format of Error response.
 
-    :param code: Error code
-    :type code: str
-    :param message: Error message indicating why the operation failed.
-    :type message: str
+    :param error: The error object
+    :type error: ~azure.mgmt.powerbidedicated.models.ErrorResponseError
     """
 
     _attribute_map = {
-        'code': {'key': 'code', 'type': 'str'},
-        'message': {'key': 'message', 'type': 'str'},
+        'error': {'key': 'error', 'type': 'ErrorResponseError'},
     }
 
     def __init__(self, **kwargs):
         super(ErrorResponse, self).__init__(**kwargs)
-        self.code = kwargs.get('code', None)
-        self.message = kwargs.get('message', None)
+        self.error = kwargs.get('error', None)
 
 
 class ErrorResponseException(HttpOperationError):
@@ -259,6 +264,26 @@ class ErrorResponseException(HttpOperationError):
     def __init__(self, deserialize, response, *args):
 
         super(ErrorResponseException, self).__init__(deserialize, response, 'ErrorResponse', *args)
+
+
+class ErrorResponseError(Model):
+    """The error object.
+
+    :param code: Error code
+    :type code: str
+    :param message: Error message indicating why the operation failed.
+    :type message: str
+    """
+
+    _attribute_map = {
+        'code': {'key': 'code', 'type': 'str'},
+        'message': {'key': 'message', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ErrorResponseError, self).__init__(**kwargs)
+        self.code = kwargs.get('code', None)
+        self.message = kwargs.get('message', None)
 
 
 class Operation(Model):
@@ -331,7 +356,7 @@ class ResourceSku(Model):
     :param name: Required. Name of the SKU level.
     :type name: str
     :param tier: The name of the Azure pricing tier to which the SKU applies.
-     Possible values include: 'PBIE_Azure'
+     Possible values include: 'PBIE_Azure', 'Premium', 'AutoPremiumHost'
     :type tier: str or ~azure.mgmt.powerbidedicated.models.SkuTier
     """
 
@@ -397,3 +422,46 @@ class SkuEnumerationForNewResourceResult(Model):
     def __init__(self, **kwargs):
         super(SkuEnumerationForNewResourceResult, self).__init__(**kwargs)
         self.value = kwargs.get('value', None)
+
+
+class SystemData(Model):
+    """Metadata pertaining to creation and last modification of the resource.
+
+    :param created_by: An identifier for the identity that created the
+     resource
+    :type created_by: str
+    :param created_by_type: The type of identity that created the resource.
+     Possible values include: 'User', 'Application', 'ManagedIdentity', 'Key'
+    :type created_by_type: str or
+     ~azure.mgmt.powerbidedicated.models.IdentityType
+    :param created_at: The timestamp of resource creation (UTC)
+    :type created_at: datetime
+    :param last_modified_by: An identifier for the identity that last modified
+     the resource
+    :type last_modified_by: str
+    :param last_modified_by_type: The type of identity that last modified the
+     resource. Possible values include: 'User', 'Application',
+     'ManagedIdentity', 'Key'
+    :type last_modified_by_type: str or
+     ~azure.mgmt.powerbidedicated.models.IdentityType
+    :param last_modified_at: The timestamp of resource last modification (UTC)
+    :type last_modified_at: datetime
+    """
+
+    _attribute_map = {
+        'created_by': {'key': 'createdBy', 'type': 'str'},
+        'created_by_type': {'key': 'createdByType', 'type': 'str'},
+        'created_at': {'key': 'createdAt', 'type': 'iso-8601'},
+        'last_modified_by': {'key': 'lastModifiedBy', 'type': 'str'},
+        'last_modified_by_type': {'key': 'lastModifiedByType', 'type': 'str'},
+        'last_modified_at': {'key': 'lastModifiedAt', 'type': 'iso-8601'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SystemData, self).__init__(**kwargs)
+        self.created_by = kwargs.get('created_by', None)
+        self.created_by_type = kwargs.get('created_by_type', None)
+        self.created_at = kwargs.get('created_at', None)
+        self.last_modified_by = kwargs.get('last_modified_by', None)
+        self.last_modified_by_type = kwargs.get('last_modified_by_type', None)
+        self.last_modified_at = kwargs.get('last_modified_at', None)

@@ -15,6 +15,16 @@ from enum import Enum
 class SkuTier(str, Enum):
 
     pbie_azure = "PBIE_Azure"
+    premium = "Premium"
+    auto_premium_host = "AutoPremiumHost"
+
+
+class IdentityType(str, Enum):
+
+    user = "User"
+    application = "Application"
+    managed_identity = "ManagedIdentity"
+    key = "Key"
 
 
 class State(str, Enum):
