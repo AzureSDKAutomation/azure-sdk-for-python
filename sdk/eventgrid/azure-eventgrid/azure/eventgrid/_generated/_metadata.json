@@ -1,0 +1,72 @@
+{
+    "chosen_version": "2018-01-01",
+    "total_api_version_list": ["2018-01-01"],
+    "client": {
+        "name": "EventGridClient",
+        "filename": "_event_grid_client",
+        "description": "EventGrid Client.",
+        "base_url": null,
+        "custom_base_url": "\u0027https://{topicHostname}\u0027",
+        "azure_arm": false,
+        "has_lro_operations": false,
+        "client_side_validation": true
+    },
+    "global_parameters": {
+        "sync": {
+        },
+        "async": {
+        },
+        "constant": {
+        },
+        "call": ""
+    },
+    "config": {
+        "credential": false,
+        "credential_scopes": null,
+        "credential_default_policy_type": "BearerTokenCredentialPolicy",
+        "credential_default_policy_type_has_async_version": true,
+        "credential_key_header_name": null
+    },
+    "operation_groups": {
+    },
+    "operation_mixins": {
+        "publish_events" : {
+            "sync": {
+                "signature": "def publish_events(\n    self,\n    topic_hostname,  # type: str\n    events,  # type: List[\"_models.EventGridEvent\"]\n    **kwargs  # type: Any\n):\n",
+                "doc": "\"\"\"Publishes a batch of events to an Azure Event Grid topic.\n\n:param topic_hostname: The host name of the topic, e.g. topic1.westus2-1.eventgrid.azure.net.\n:type topic_hostname: str\n:param events: An array of events to be published to Event Grid.\n:type events: list[~azure.eventgrid.models.EventGridEvent]\n:keyword callable cls: A custom type or function that will be passed the direct response\n:return: None, or the result of cls(response)\n:rtype: None\n:raises: ~azure.core.exceptions.HttpResponseError\n\"\"\""
+            },
+            "async": {
+                "coroutine": true,
+                "signature": "async def publish_events(\n    self,\n    topic_hostname: str,\n    events: List[\"_models.EventGridEvent\"],\n    **kwargs\n) -\u003e None:\n",
+                "doc": "\"\"\"Publishes a batch of events to an Azure Event Grid topic.\n\n:param topic_hostname: The host name of the topic, e.g. topic1.westus2-1.eventgrid.azure.net.\n:type topic_hostname: str\n:param events: An array of events to be published to Event Grid.\n:type events: list[~azure.eventgrid.models.EventGridEvent]\n:keyword callable cls: A custom type or function that will be passed the direct response\n:return: None, or the result of cls(response)\n:rtype: None\n:raises: ~azure.core.exceptions.HttpResponseError\n\"\"\""
+            },
+            "call": "topic_hostname, events"
+        },
+        "publish_cloud_event_events" : {
+            "sync": {
+                "signature": "def publish_cloud_event_events(\n    self,\n    topic_hostname,  # type: str\n    events,  # type: List[\"_models.CloudEvent\"]\n    **kwargs  # type: Any\n):\n",
+                "doc": "\"\"\"Publishes a batch of events to an Azure Event Grid topic.\n\n:param topic_hostname: The host name of the topic, e.g. topic1.westus2-1.eventgrid.azure.net.\n:type topic_hostname: str\n:param events: An array of events to be published to Event Grid.\n:type events: list[~azure.eventgrid.models.CloudEvent]\n:keyword callable cls: A custom type or function that will be passed the direct response\n:return: None, or the result of cls(response)\n:rtype: None\n:raises: ~azure.core.exceptions.HttpResponseError\n\"\"\""
+            },
+            "async": {
+                "coroutine": true,
+                "signature": "async def publish_cloud_event_events(\n    self,\n    topic_hostname: str,\n    events: List[\"_models.CloudEvent\"],\n    **kwargs\n) -\u003e None:\n",
+                "doc": "\"\"\"Publishes a batch of events to an Azure Event Grid topic.\n\n:param topic_hostname: The host name of the topic, e.g. topic1.westus2-1.eventgrid.azure.net.\n:type topic_hostname: str\n:param events: An array of events to be published to Event Grid.\n:type events: list[~azure.eventgrid.models.CloudEvent]\n:keyword callable cls: A custom type or function that will be passed the direct response\n:return: None, or the result of cls(response)\n:rtype: None\n:raises: ~azure.core.exceptions.HttpResponseError\n\"\"\""
+            },
+            "call": "topic_hostname, events"
+        },
+        "publish_custom_event_events" : {
+            "sync": {
+                "signature": "def publish_custom_event_events(\n    self,\n    topic_hostname,  # type: str\n    events,  # type: List[object]\n    **kwargs  # type: Any\n):\n",
+                "doc": "\"\"\"Publishes a batch of events to an Azure Event Grid topic.\n\n:param topic_hostname: The host name of the topic, e.g. topic1.westus2-1.eventgrid.azure.net.\n:type topic_hostname: str\n:param events: An array of events to be published to Event Grid.\n:type events: list[object]\n:keyword callable cls: A custom type or function that will be passed the direct response\n:return: None, or the result of cls(response)\n:rtype: None\n:raises: ~azure.core.exceptions.HttpResponseError\n\"\"\""
+            },
+            "async": {
+                "coroutine": true,
+                "signature": "async def publish_custom_event_events(\n    self,\n    topic_hostname: str,\n    events: List[object],\n    **kwargs\n) -\u003e None:\n",
+                "doc": "\"\"\"Publishes a batch of events to an Azure Event Grid topic.\n\n:param topic_hostname: The host name of the topic, e.g. topic1.westus2-1.eventgrid.azure.net.\n:type topic_hostname: str\n:param events: An array of events to be published to Event Grid.\n:type events: list[object]\n:keyword callable cls: A custom type or function that will be passed the direct response\n:return: None, or the result of cls(response)\n:rtype: None\n:raises: ~azure.core.exceptions.HttpResponseError\n\"\"\""
+            },
+            "call": "topic_hostname, events"
+        }
+    },
+    "sync_imports": "{\"regular\": {\"azurecore\": {\"azure.core.exceptions\": [\"ClientAuthenticationError\", \"HttpResponseError\", \"ResourceExistsError\", \"ResourceNotFoundError\", \"map_error\"], \"azure.core.pipeline\": [\"PipelineResponse\"], \"azure.core.pipeline.transport\": [\"HttpRequest\", \"HttpResponse\"]}, \"stdlib\": {\"warnings\": [null]}}, \"conditional\": {\"stdlib\": {\"typing\": [\"Any\", \"Callable\", \"Dict\", \"Generic\", \"List\", \"Optional\", \"TypeVar\"]}}}",
+    "async_imports": "{\"regular\": {\"azurecore\": {\"azure.core.exceptions\": [\"ClientAuthenticationError\", \"HttpResponseError\", \"ResourceExistsError\", \"ResourceNotFoundError\", \"map_error\"], \"azure.core.pipeline\": [\"PipelineResponse\"], \"azure.core.pipeline.transport\": [\"AsyncHttpResponse\", \"HttpRequest\"]}, \"stdlib\": {\"warnings\": [null]}}, \"conditional\": {\"stdlib\": {\"typing\": [\"Any\", \"Callable\", \"Dict\", \"Generic\", \"List\", \"Optional\", \"TypeVar\"]}}}"
+}

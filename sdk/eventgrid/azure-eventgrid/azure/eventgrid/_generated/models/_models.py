@@ -48,7 +48,7 @@ class ACSChatThreadEventBaseProperties(ACSChatEventBaseProperties):
     :param create_time: The original creation time of the thread.
     :type create_time: ~datetime.datetime
     :param version: The version of the thread.
-    :type version: int
+    :type version: long
     """
 
     _attribute_map = {
@@ -56,7 +56,7 @@ class ACSChatThreadEventBaseProperties(ACSChatEventBaseProperties):
         'transaction_id': {'key': 'transactionId', 'type': 'str'},
         'thread_id': {'key': 'threadId', 'type': 'str'},
         'create_time': {'key': 'createTime', 'type': 'iso-8601'},
-        'version': {'key': 'version', 'type': 'int'},
+        'version': {'key': 'version', 'type': 'long'},
     }
 
     def __init__(
@@ -80,13 +80,13 @@ class ACSChatMemberAddedToThreadWithUserEventData(ACSChatThreadEventBaseProperti
     :param create_time: The original creation time of the thread.
     :type create_time: ~datetime.datetime
     :param version: The version of the thread.
-    :type version: int
+    :type version: long
     :param time: The time at which the user was added to the thread.
     :type time: ~datetime.datetime
     :param added_by: The MRI of the user who added the user.
     :type added_by: str
     :param member_added: The details of the user who was added.
-    :type member_added: ~event_grid_publisher_client.models.ACSChatThreadMemberProperties
+    :type member_added: ~azure.eventgrid.models.ACSChatThreadMemberProperties
     """
 
     _attribute_map = {
@@ -94,7 +94,7 @@ class ACSChatMemberAddedToThreadWithUserEventData(ACSChatThreadEventBaseProperti
         'transaction_id': {'key': 'transactionId', 'type': 'str'},
         'thread_id': {'key': 'threadId', 'type': 'str'},
         'create_time': {'key': 'createTime', 'type': 'iso-8601'},
-        'version': {'key': 'version', 'type': 'int'},
+        'version': {'key': 'version', 'type': 'long'},
         'time': {'key': 'time', 'type': 'iso-8601'},
         'added_by': {'key': 'addedBy', 'type': 'str'},
         'member_added': {'key': 'memberAdded', 'type': 'ACSChatThreadMemberProperties'},
@@ -122,13 +122,13 @@ class ACSChatMemberRemovedFromThreadWithUserEventData(ACSChatThreadEventBaseProp
     :param create_time: The original creation time of the thread.
     :type create_time: ~datetime.datetime
     :param version: The version of the thread.
-    :type version: int
+    :type version: long
     :param time: The time at which the user was removed to the thread.
     :type time: ~datetime.datetime
     :param removed_by: The MRI of the user who removed the user.
     :type removed_by: str
     :param member_removed: The details of the user who was removed.
-    :type member_removed: ~event_grid_publisher_client.models.ACSChatThreadMemberProperties
+    :type member_removed: ~azure.eventgrid.models.ACSChatThreadMemberProperties
     """
 
     _attribute_map = {
@@ -136,7 +136,7 @@ class ACSChatMemberRemovedFromThreadWithUserEventData(ACSChatThreadEventBaseProp
         'transaction_id': {'key': 'transactionId', 'type': 'str'},
         'thread_id': {'key': 'threadId', 'type': 'str'},
         'create_time': {'key': 'createTime', 'type': 'iso-8601'},
-        'version': {'key': 'version', 'type': 'int'},
+        'version': {'key': 'version', 'type': 'long'},
         'time': {'key': 'time', 'type': 'iso-8601'},
         'removed_by': {'key': 'removedBy', 'type': 'str'},
         'member_removed': {'key': 'memberRemoved', 'type': 'ACSChatThreadMemberProperties'},
@@ -172,7 +172,7 @@ class ACSChatMessageEventBaseProperties(ACSChatEventBaseProperties):
     :param type: The type of the message.
     :type type: str
     :param version: The version of the message.
-    :type version: int
+    :type version: long
     """
 
     _attribute_map = {
@@ -184,7 +184,7 @@ class ACSChatMessageEventBaseProperties(ACSChatEventBaseProperties):
         'sender_display_name': {'key': 'senderDisplayName', 'type': 'str'},
         'compose_time': {'key': 'composeTime', 'type': 'iso-8601'},
         'type': {'key': 'type', 'type': 'str'},
-        'version': {'key': 'version', 'type': 'int'},
+        'version': {'key': 'version', 'type': 'long'},
     }
 
     def __init__(
@@ -220,7 +220,7 @@ class ACSChatMessageDeletedEventData(ACSChatMessageEventBaseProperties):
     :param type: The type of the message.
     :type type: str
     :param version: The version of the message.
-    :type version: int
+    :type version: long
     :param delete_time: The time at which the message was deleted.
     :type delete_time: ~datetime.datetime
     """
@@ -234,7 +234,7 @@ class ACSChatMessageDeletedEventData(ACSChatMessageEventBaseProperties):
         'sender_display_name': {'key': 'senderDisplayName', 'type': 'str'},
         'compose_time': {'key': 'composeTime', 'type': 'iso-8601'},
         'type': {'key': 'type', 'type': 'str'},
-        'version': {'key': 'version', 'type': 'int'},
+        'version': {'key': 'version', 'type': 'long'},
         'delete_time': {'key': 'deleteTime', 'type': 'iso-8601'},
     }
 
@@ -266,7 +266,7 @@ class ACSChatMessageEditedEventData(ACSChatMessageEventBaseProperties):
     :param type: The type of the message.
     :type type: str
     :param version: The version of the message.
-    :type version: int
+    :type version: long
     :param message_body: The body of the chat message.
     :type message_body: str
     :param edit_time: The time at which the message was edited.
@@ -282,7 +282,7 @@ class ACSChatMessageEditedEventData(ACSChatMessageEventBaseProperties):
         'sender_display_name': {'key': 'senderDisplayName', 'type': 'str'},
         'compose_time': {'key': 'composeTime', 'type': 'iso-8601'},
         'type': {'key': 'type', 'type': 'str'},
-        'version': {'key': 'version', 'type': 'int'},
+        'version': {'key': 'version', 'type': 'long'},
         'message_body': {'key': 'messageBody', 'type': 'str'},
         'edit_time': {'key': 'editTime', 'type': 'iso-8601'},
     }
@@ -316,7 +316,7 @@ class ACSChatMessageReceivedEventData(ACSChatMessageEventBaseProperties):
     :param type: The type of the message.
     :type type: str
     :param version: The version of the message.
-    :type version: int
+    :type version: long
     :param message_body: The body of the chat message.
     :type message_body: str
     """
@@ -330,7 +330,7 @@ class ACSChatMessageReceivedEventData(ACSChatMessageEventBaseProperties):
         'sender_display_name': {'key': 'senderDisplayName', 'type': 'str'},
         'compose_time': {'key': 'composeTime', 'type': 'iso-8601'},
         'type': {'key': 'type', 'type': 'str'},
-        'version': {'key': 'version', 'type': 'int'},
+        'version': {'key': 'version', 'type': 'long'},
         'message_body': {'key': 'messageBody', 'type': 'str'},
     }
 
@@ -354,13 +354,13 @@ class ACSChatThreadCreatedWithUserEventData(ACSChatThreadEventBaseProperties):
     :param create_time: The original creation time of the thread.
     :type create_time: ~datetime.datetime
     :param version: The version of the thread.
-    :type version: int
+    :type version: long
     :param created_by: The MRI of the creator of the thread.
     :type created_by: str
     :param properties: The thread properties.
     :type properties: dict[str, object]
     :param members: The list of properties of users who are part of the thread.
-    :type members: list[~event_grid_publisher_client.models.ACSChatThreadMemberProperties]
+    :type members: list[~azure.eventgrid.models.ACSChatThreadMemberProperties]
     """
 
     _attribute_map = {
@@ -368,7 +368,7 @@ class ACSChatThreadCreatedWithUserEventData(ACSChatThreadEventBaseProperties):
         'transaction_id': {'key': 'transactionId', 'type': 'str'},
         'thread_id': {'key': 'threadId', 'type': 'str'},
         'create_time': {'key': 'createTime', 'type': 'iso-8601'},
-        'version': {'key': 'version', 'type': 'int'},
+        'version': {'key': 'version', 'type': 'long'},
         'created_by': {'key': 'createdBy', 'type': 'str'},
         'properties': {'key': 'properties', 'type': '{object}'},
         'members': {'key': 'members', 'type': '[ACSChatThreadMemberProperties]'},
@@ -419,7 +419,7 @@ class ACSChatThreadPropertiesUpdatedPerUserEventData(ACSChatThreadEventBasePrope
     :param create_time: The original creation time of the thread.
     :type create_time: ~datetime.datetime
     :param version: The version of the thread.
-    :type version: int
+    :type version: long
     :param edited_by: The MRI of the user who updated the thread properties.
     :type edited_by: str
     :param edit_time: The time at which the properties of the thread were updated.
@@ -433,7 +433,7 @@ class ACSChatThreadPropertiesUpdatedPerUserEventData(ACSChatThreadEventBasePrope
         'transaction_id': {'key': 'transactionId', 'type': 'str'},
         'thread_id': {'key': 'threadId', 'type': 'str'},
         'create_time': {'key': 'createTime', 'type': 'iso-8601'},
-        'version': {'key': 'version', 'type': 'int'},
+        'version': {'key': 'version', 'type': 'long'},
         'edited_by': {'key': 'editedBy', 'type': 'str'},
         'edit_time': {'key': 'editTime', 'type': 'iso-8601'},
         'properties': {'key': 'properties', 'type': '{object}'},
@@ -461,7 +461,7 @@ class ACSChatThreadWithUserDeletedEventData(ACSChatThreadEventBaseProperties):
     :param create_time: The original creation time of the thread.
     :type create_time: ~datetime.datetime
     :param version: The version of the thread.
-    :type version: int
+    :type version: long
     :param deleted_by: The MRI of the user who deleted the thread.
     :type deleted_by: str
     :param delete_time: The deletion time of the thread.
@@ -473,7 +473,7 @@ class ACSChatThreadWithUserDeletedEventData(ACSChatThreadEventBaseProperties):
         'transaction_id': {'key': 'transactionId', 'type': 'str'},
         'thread_id': {'key': 'threadId', 'type': 'str'},
         'create_time': {'key': 'createTime', 'type': 'iso-8601'},
-        'version': {'key': 'version', 'type': 'int'},
+        'version': {'key': 'version', 'type': 'long'},
         'deleted_by': {'key': 'deletedBy', 'type': 'str'},
         'delete_time': {'key': 'deleteTime', 'type': 'iso-8601'},
     }
@@ -487,7 +487,7 @@ class ACSChatThreadWithUserDeletedEventData(ACSChatThreadEventBaseProperties):
         self.delete_time = kwargs.get('delete_time', None)
 
 
-class ACSSMSDeliveryAttemptProperties(msrest.serialization.Model):
+class AcsSmsDeliveryAttemptProperties(msrest.serialization.Model):
     """Schema for details of a delivery attempt.
 
     :param timestamp: TimeStamp when delivery was attempted.
@@ -508,13 +508,13 @@ class ACSSMSDeliveryAttemptProperties(msrest.serialization.Model):
         self,
         **kwargs
     ):
-        super(ACSSMSDeliveryAttemptProperties, self).__init__(**kwargs)
+        super(AcsSmsDeliveryAttemptProperties, self).__init__(**kwargs)
         self.timestamp = kwargs.get('timestamp', None)
         self.segments_succeeded = kwargs.get('segments_succeeded', None)
         self.segments_failed = kwargs.get('segments_failed', None)
 
 
-class ACSSMSEventBaseProperties(msrest.serialization.Model):
+class AcsSmsEventBaseProperties(msrest.serialization.Model):
     """Schema of common properties of all SMS events.
 
     :param message_id: The identity of the SMS message.
@@ -535,13 +535,13 @@ class ACSSMSEventBaseProperties(msrest.serialization.Model):
         self,
         **kwargs
     ):
-        super(ACSSMSEventBaseProperties, self).__init__(**kwargs)
+        super(AcsSmsEventBaseProperties, self).__init__(**kwargs)
         self.message_id = kwargs.get('message_id', None)
         self.from_property = kwargs.get('from_property', None)
         self.to = kwargs.get('to', None)
 
 
-class ACSSMSDeliveryReportReceivedEventData(ACSSMSEventBaseProperties):
+class AcsSmsDeliveryReportReceivedEventData(AcsSmsEventBaseProperties):
     """Schema of the Data property of an EventGridEvent for an Microsoft.Communication.SMSDeliveryReportReceived event.
 
     :param message_id: The identity of the SMS message.
@@ -555,8 +555,7 @@ class ACSSMSDeliveryReportReceivedEventData(ACSSMSEventBaseProperties):
     :param delivery_status_details: Details about Delivery Status.
     :type delivery_status_details: str
     :param delivery_attempts: List of details of delivery attempts made.
-    :type delivery_attempts:
-     list[~event_grid_publisher_client.models.ACSSMSDeliveryAttemptProperties]
+    :type delivery_attempts: list[~azure.eventgrid.models.AcsSmsDeliveryAttemptProperties]
     :param received_timestamp: The time at which the SMS delivery report was received.
     :type received_timestamp: ~datetime.datetime
     """
@@ -567,7 +566,7 @@ class ACSSMSDeliveryReportReceivedEventData(ACSSMSEventBaseProperties):
         'to': {'key': 'to', 'type': 'str'},
         'delivery_status': {'key': 'deliveryStatus', 'type': 'str'},
         'delivery_status_details': {'key': 'deliveryStatusDetails', 'type': 'str'},
-        'delivery_attempts': {'key': 'deliveryAttempts', 'type': '[ACSSMSDeliveryAttemptProperties]'},
+        'delivery_attempts': {'key': 'deliveryAttempts', 'type': '[AcsSmsDeliveryAttemptProperties]'},
         'received_timestamp': {'key': 'receivedTimestamp', 'type': 'iso-8601'},
     }
 
@@ -575,14 +574,14 @@ class ACSSMSDeliveryReportReceivedEventData(ACSSMSEventBaseProperties):
         self,
         **kwargs
     ):
-        super(ACSSMSDeliveryReportReceivedEventData, self).__init__(**kwargs)
+        super(AcsSmsDeliveryReportReceivedEventData, self).__init__(**kwargs)
         self.delivery_status = kwargs.get('delivery_status', None)
         self.delivery_status_details = kwargs.get('delivery_status_details', None)
         self.delivery_attempts = kwargs.get('delivery_attempts', None)
         self.received_timestamp = kwargs.get('received_timestamp', None)
 
 
-class ACSSMSReceivedEventData(ACSSMSEventBaseProperties):
+class AcsSmsReceivedEventData(AcsSmsEventBaseProperties):
     """Schema of the Data property of an EventGridEvent for an Microsoft.Communication.SMSReceived event.
 
     :param message_id: The identity of the SMS message.
@@ -609,7 +608,7 @@ class ACSSMSReceivedEventData(ACSSMSEventBaseProperties):
         self,
         **kwargs
     ):
-        super(ACSSMSReceivedEventData, self).__init__(**kwargs)
+        super(AcsSmsReceivedEventData, self).__init__(**kwargs)
         self.message = kwargs.get('message', None)
         self.received_timestamp = kwargs.get('received_timestamp', None)
 
@@ -623,12 +622,15 @@ class AppConfigurationKeyValueDeletedEventData(msrest.serialization.Model):
     :type label: str
     :param etag: The etag representing the key-value that was deleted.
     :type etag: str
+    :param sync_token: The sync token representing the server state after the event.
+    :type sync_token: str
     """
 
     _attribute_map = {
         'key': {'key': 'key', 'type': 'str'},
         'label': {'key': 'label', 'type': 'str'},
         'etag': {'key': 'etag', 'type': 'str'},
+        'sync_token': {'key': 'syncToken', 'type': 'str'},
     }
 
     def __init__(
@@ -639,6 +641,7 @@ class AppConfigurationKeyValueDeletedEventData(msrest.serialization.Model):
         self.key = kwargs.get('key', None)
         self.label = kwargs.get('label', None)
         self.etag = kwargs.get('etag', None)
+        self.sync_token = kwargs.get('sync_token', None)
 
 
 class AppConfigurationKeyValueModifiedEventData(msrest.serialization.Model):
@@ -650,12 +653,15 @@ class AppConfigurationKeyValueModifiedEventData(msrest.serialization.Model):
     :type label: str
     :param etag: The etag representing the new state of the key-value.
     :type etag: str
+    :param sync_token: The sync token representing the server state after the event.
+    :type sync_token: str
     """
 
     _attribute_map = {
         'key': {'key': 'key', 'type': 'str'},
         'label': {'key': 'label', 'type': 'str'},
         'etag': {'key': 'etag', 'type': 'str'},
+        'sync_token': {'key': 'syncToken', 'type': 'str'},
     }
 
     def __init__(
@@ -666,6 +672,7 @@ class AppConfigurationKeyValueModifiedEventData(msrest.serialization.Model):
         self.key = kwargs.get('key', None)
         self.label = kwargs.get('label', None)
         self.etag = kwargs.get('etag', None)
+        self.sync_token = kwargs.get('sync_token', None)
 
 
 class AppEventTypeDetail(msrest.serialization.Model):
@@ -673,7 +680,7 @@ class AppEventTypeDetail(msrest.serialization.Model):
 
     :param action: Type of action of the operation. Possible values include: "Restarted",
      "Stopped", "ChangedAppSettings", "Started", "Completed", "Failed".
-    :type action: str or ~event_grid_publisher_client.models.AppAction
+    :type action: str or ~azure.eventgrid.models.AppAction
     """
 
     _attribute_map = {
@@ -693,12 +700,12 @@ class AppServicePlanEventTypeDetail(msrest.serialization.Model):
 
     :param stamp_kind: Kind of environment where app service plan is. Possible values include:
      "Public", "AseV1", "AseV2".
-    :type stamp_kind: str or ~event_grid_publisher_client.models.StampKind
+    :type stamp_kind: str or ~azure.eventgrid.models.StampKind
     :param action: Type of action on the app service plan. Possible values include: "Updated".
-    :type action: str or ~event_grid_publisher_client.models.AppServicePlanAction
+    :type action: str or ~azure.eventgrid.models.AppServicePlanAction
     :param status: Asynchronous operation status of the operation on the app service plan. Possible
      values include: "Started", "Completed", "Failed".
-    :type status: str or ~event_grid_publisher_client.models.AsyncStatus
+    :type status: str or ~azure.eventgrid.models.AsyncStatus
     """
 
     _attribute_map = {
@@ -800,7 +807,7 @@ class ContainerRegistryArtifactEventData(msrest.serialization.Model):
     :param action: The action that encompasses the provided event.
     :type action: str
     :param target: The target of the event.
-    :type target: ~event_grid_publisher_client.models.ContainerRegistryArtifactEventTarget
+    :type target: ~azure.eventgrid.models.ContainerRegistryArtifactEventTarget
     """
 
     _attribute_map = {
@@ -874,7 +881,7 @@ class ContainerRegistryChartDeletedEventData(ContainerRegistryArtifactEventData)
     :param action: The action that encompasses the provided event.
     :type action: str
     :param target: The target of the event.
-    :type target: ~event_grid_publisher_client.models.ContainerRegistryArtifactEventTarget
+    :type target: ~azure.eventgrid.models.ContainerRegistryArtifactEventTarget
     """
 
     _attribute_map = {
@@ -901,7 +908,7 @@ class ContainerRegistryChartPushedEventData(ContainerRegistryArtifactEventData):
     :param action: The action that encompasses the provided event.
     :type action: str
     :param target: The target of the event.
-    :type target: ~event_grid_publisher_client.models.ContainerRegistryArtifactEventTarget
+    :type target: ~azure.eventgrid.models.ContainerRegistryArtifactEventTarget
     """
 
     _attribute_map = {
@@ -948,15 +955,15 @@ class ContainerRegistryEventData(msrest.serialization.Model):
     :param action: The action that encompasses the provided event.
     :type action: str
     :param target: The target of the event.
-    :type target: ~event_grid_publisher_client.models.ContainerRegistryEventTarget
+    :type target: ~azure.eventgrid.models.ContainerRegistryEventTarget
     :param request: The request that generated the event.
-    :type request: ~event_grid_publisher_client.models.ContainerRegistryEventRequest
+    :type request: ~azure.eventgrid.models.ContainerRegistryEventRequest
     :param actor: The agent that initiated the event. For most situations, this could be from the
      authorization context of the request.
-    :type actor: ~event_grid_publisher_client.models.ContainerRegistryEventActor
+    :type actor: ~azure.eventgrid.models.ContainerRegistryEventActor
     :param source: The registry node that generated the event. Put differently, while the actor
      initiates the event, the source generates it.
-    :type source: ~event_grid_publisher_client.models.ContainerRegistryEventSource
+    :type source: ~azure.eventgrid.models.ContainerRegistryEventSource
     """
 
     _attribute_map = {
@@ -1097,15 +1104,15 @@ class ContainerRegistryImageDeletedEventData(ContainerRegistryEventData):
     :param action: The action that encompasses the provided event.
     :type action: str
     :param target: The target of the event.
-    :type target: ~event_grid_publisher_client.models.ContainerRegistryEventTarget
+    :type target: ~azure.eventgrid.models.ContainerRegistryEventTarget
     :param request: The request that generated the event.
-    :type request: ~event_grid_publisher_client.models.ContainerRegistryEventRequest
+    :type request: ~azure.eventgrid.models.ContainerRegistryEventRequest
     :param actor: The agent that initiated the event. For most situations, this could be from the
      authorization context of the request.
-    :type actor: ~event_grid_publisher_client.models.ContainerRegistryEventActor
+    :type actor: ~azure.eventgrid.models.ContainerRegistryEventActor
     :param source: The registry node that generated the event. Put differently, while the actor
      initiates the event, the source generates it.
-    :type source: ~event_grid_publisher_client.models.ContainerRegistryEventSource
+    :type source: ~azure.eventgrid.models.ContainerRegistryEventSource
     """
 
     _attribute_map = {
@@ -1135,15 +1142,15 @@ class ContainerRegistryImagePushedEventData(ContainerRegistryEventData):
     :param action: The action that encompasses the provided event.
     :type action: str
     :param target: The target of the event.
-    :type target: ~event_grid_publisher_client.models.ContainerRegistryEventTarget
+    :type target: ~azure.eventgrid.models.ContainerRegistryEventTarget
     :param request: The request that generated the event.
-    :type request: ~event_grid_publisher_client.models.ContainerRegistryEventRequest
+    :type request: ~azure.eventgrid.models.ContainerRegistryEventRequest
     :param actor: The agent that initiated the event. For most situations, this could be from the
      authorization context of the request.
-    :type actor: ~event_grid_publisher_client.models.ContainerRegistryEventActor
+    :type actor: ~azure.eventgrid.models.ContainerRegistryEventActor
     :param source: The registry node that generated the event. Put differently, while the actor
      initiates the event, the source generates it.
-    :type source: ~event_grid_publisher_client.models.ContainerRegistryEventSource
+    :type source: ~azure.eventgrid.models.ContainerRegistryEventSource
     """
 
     _attribute_map = {
@@ -1200,7 +1207,7 @@ class DeviceConnectionStateEventProperties(msrest.serialization.Model):
     :type hub_name: str
     :param device_connection_state_event_info: Information about the device connection state event.
     :type device_connection_state_event_info:
-     ~event_grid_publisher_client.models.DeviceConnectionStateEventInfo
+     ~azure.eventgrid.models.DeviceConnectionStateEventInfo
     """
 
     _attribute_map = {
@@ -1232,7 +1239,7 @@ class DeviceLifeCycleEventProperties(msrest.serialization.Model):
     :type hub_name: str
     :param twin: Information about the device twin, which is the cloud representation of
      application device metadata.
-    :type twin: ~event_grid_publisher_client.models.DeviceTwinInfo
+    :type twin: ~azure.eventgrid.models.DeviceTwinInfo
     """
 
     _attribute_map = {
@@ -1297,7 +1304,7 @@ class DeviceTwinInfo(msrest.serialization.Model):
     :param last_activity_time: The ISO8601 timestamp of the last activity.
     :type last_activity_time: str
     :param properties: Properties JSON element.
-    :type properties: ~event_grid_publisher_client.models.DeviceTwinInfoProperties
+    :type properties: ~azure.eventgrid.models.DeviceTwinInfoProperties
     :param status: Whether the device twin is enabled or disabled.
     :type status: str
     :param status_update_time: The ISO8601 timestamp of the last device twin status update.
@@ -1307,7 +1314,7 @@ class DeviceTwinInfo(msrest.serialization.Model):
     :param x509_thumbprint: The thumbprint is a unique value for the x509 certificate, commonly
      used to find a particular certificate in a certificate store. The thumbprint is dynamically
      generated using the SHA1 algorithm, and does not physically exist in the certificate.
-    :type x509_thumbprint: ~event_grid_publisher_client.models.DeviceTwinInfoX509Thumbprint
+    :type x509_thumbprint: ~azure.eventgrid.models.DeviceTwinInfoX509Thumbprint
     """
 
     _attribute_map = {
@@ -1347,10 +1354,10 @@ class DeviceTwinInfoProperties(msrest.serialization.Model):
 
     :param desired: A portion of the properties that can be written only by the application back-
      end, and read by the device.
-    :type desired: ~event_grid_publisher_client.models.DeviceTwinProperties
+    :type desired: ~azure.eventgrid.models.DeviceTwinProperties
     :param reported: A portion of the properties that can be written only by the device, and read
      by the application back-end.
-    :type reported: ~event_grid_publisher_client.models.DeviceTwinProperties
+    :type reported: ~azure.eventgrid.models.DeviceTwinProperties
     """
 
     _attribute_map = {
@@ -1413,7 +1420,7 @@ class DeviceTwinProperties(msrest.serialization.Model):
     """A portion of the properties that can be written only by the application back-end, and read by the device.
 
     :param metadata: Metadata information for the properties JSON document.
-    :type metadata: ~event_grid_publisher_client.models.DeviceTwinMetadata
+    :type metadata: ~azure.eventgrid.models.DeviceTwinMetadata
     :param version: Version of device twin properties.
     :type version: float
     """
@@ -1559,7 +1566,7 @@ class IotHubDeviceConnectedEventData(DeviceConnectionStateEventProperties):
     :type hub_name: str
     :param device_connection_state_event_info: Information about the device connection state event.
     :type device_connection_state_event_info:
-     ~event_grid_publisher_client.models.DeviceConnectionStateEventInfo
+     ~azure.eventgrid.models.DeviceConnectionStateEventInfo
     """
 
     _attribute_map = {
@@ -1587,7 +1594,7 @@ class IotHubDeviceCreatedEventData(DeviceLifeCycleEventProperties):
     :type hub_name: str
     :param twin: Information about the device twin, which is the cloud representation of
      application device metadata.
-    :type twin: ~event_grid_publisher_client.models.DeviceTwinInfo
+    :type twin: ~azure.eventgrid.models.DeviceTwinInfo
     """
 
     _attribute_map = {
@@ -1614,7 +1621,7 @@ class IotHubDeviceDeletedEventData(DeviceLifeCycleEventProperties):
     :type hub_name: str
     :param twin: Information about the device twin, which is the cloud representation of
      application device metadata.
-    :type twin: ~event_grid_publisher_client.models.DeviceTwinInfo
+    :type twin: ~azure.eventgrid.models.DeviceTwinInfo
     """
 
     _attribute_map = {
@@ -1645,7 +1652,7 @@ class IotHubDeviceDisconnectedEventData(DeviceConnectionStateEventProperties):
     :type hub_name: str
     :param device_connection_state_event_info: Information about the device connection state event.
     :type device_connection_state_event_info:
-     ~event_grid_publisher_client.models.DeviceConnectionStateEventInfo
+     ~azure.eventgrid.models.DeviceConnectionStateEventInfo
     """
 
     _attribute_map = {
@@ -2323,7 +2330,7 @@ class MapsGeofenceEventProperties(msrest.serialization.Model):
     :type expired_geofence_geometry_id: list[str]
     :param geometries: Lists the fence geometries that either fully contain the coordinate position
      or have an overlap with the searchBuffer around the fence.
-    :type geometries: list[~event_grid_publisher_client.models.MapsGeofenceGeometry]
+    :type geometries: list[~azure.eventgrid.models.MapsGeofenceGeometry]
     :param invalid_period_geofence_geometry_id: Lists of the geometry ID of the geofence which is
      in invalid period relative to the user time in the request.
     :type invalid_period_geofence_geometry_id: list[str]
@@ -2358,7 +2365,7 @@ class MapsGeofenceEnteredEventData(MapsGeofenceEventProperties):
     :type expired_geofence_geometry_id: list[str]
     :param geometries: Lists the fence geometries that either fully contain the coordinate position
      or have an overlap with the searchBuffer around the fence.
-    :type geometries: list[~event_grid_publisher_client.models.MapsGeofenceGeometry]
+    :type geometries: list[~azure.eventgrid.models.MapsGeofenceGeometry]
     :param invalid_period_geofence_geometry_id: Lists of the geometry ID of the geofence which is
      in invalid period relative to the user time in the request.
     :type invalid_period_geofence_geometry_id: list[str]
@@ -2389,7 +2396,7 @@ class MapsGeofenceExitedEventData(MapsGeofenceEventProperties):
     :type expired_geofence_geometry_id: list[str]
     :param geometries: Lists the fence geometries that either fully contain the coordinate position
      or have an overlap with the searchBuffer around the fence.
-    :type geometries: list[~event_grid_publisher_client.models.MapsGeofenceGeometry]
+    :type geometries: list[~azure.eventgrid.models.MapsGeofenceGeometry]
     :param invalid_period_geofence_geometry_id: Lists of the geometry ID of the geofence which is
      in invalid period relative to the user time in the request.
     :type invalid_period_geofence_geometry_id: list[str]
@@ -2467,7 +2474,7 @@ class MapsGeofenceResultEventData(MapsGeofenceEventProperties):
     :type expired_geofence_geometry_id: list[str]
     :param geometries: Lists the fence geometries that either fully contain the coordinate position
      or have an overlap with the searchBuffer around the fence.
-    :type geometries: list[~event_grid_publisher_client.models.MapsGeofenceGeometry]
+    :type geometries: list[~azure.eventgrid.models.MapsGeofenceGeometry]
     :param invalid_period_geofence_geometry_id: Lists of the geometry ID of the geofence which is
      in invalid period relative to the user time in the request.
     :type invalid_period_geofence_geometry_id: list[str]
@@ -2497,10 +2504,10 @@ class MediaJobStateChangeEventData(msrest.serialization.Model):
 
     :ivar previous_state: The previous state of the Job. Possible values include: "Canceled",
      "Canceling", "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype previous_state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype previous_state: str or ~azure.eventgrid.models.MediaJobState
     :ivar state: The new state of the Job. Possible values include: "Canceled", "Canceling",
      "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype state: str or ~azure.eventgrid.models.MediaJobState
     :param correlation_data: Gets the Job correlation data.
     :type correlation_data: dict[str, str]
     """
@@ -2533,14 +2540,14 @@ class MediaJobCanceledEventData(MediaJobStateChangeEventData):
 
     :ivar previous_state: The previous state of the Job. Possible values include: "Canceled",
      "Canceling", "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype previous_state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype previous_state: str or ~azure.eventgrid.models.MediaJobState
     :ivar state: The new state of the Job. Possible values include: "Canceled", "Canceling",
      "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype state: str or ~azure.eventgrid.models.MediaJobState
     :param correlation_data: Gets the Job correlation data.
     :type correlation_data: dict[str, str]
     :param outputs: Gets the Job outputs.
-    :type outputs: list[~event_grid_publisher_client.models.MediaJobOutput]
+    :type outputs: list[~azure.eventgrid.models.MediaJobOutput]
     """
 
     _validation = {
@@ -2570,10 +2577,10 @@ class MediaJobCancelingEventData(MediaJobStateChangeEventData):
 
     :ivar previous_state: The previous state of the Job. Possible values include: "Canceled",
      "Canceling", "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype previous_state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype previous_state: str or ~azure.eventgrid.models.MediaJobState
     :ivar state: The new state of the Job. Possible values include: "Canceled", "Canceling",
      "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype state: str or ~azure.eventgrid.models.MediaJobState
     :param correlation_data: Gets the Job correlation data.
     :type correlation_data: dict[str, str]
     """
@@ -2605,18 +2612,18 @@ class MediaJobError(msrest.serialization.Model):
      "ServiceTransientError", "DownloadNotAccessible", "DownloadTransientError",
      "UploadNotAccessible", "UploadTransientError", "ConfigurationUnsupported", "ContentMalformed",
      "ContentUnsupported".
-    :vartype code: str or ~event_grid_publisher_client.models.MediaJobErrorCode
+    :vartype code: str or ~azure.eventgrid.models.MediaJobErrorCode
     :ivar message: A human-readable language-dependent representation of the error.
     :vartype message: str
     :ivar category: Helps with categorization of errors. Possible values include: "Service",
      "Download", "Upload", "Configuration", "Content".
-    :vartype category: str or ~event_grid_publisher_client.models.MediaJobErrorCategory
+    :vartype category: str or ~azure.eventgrid.models.MediaJobErrorCategory
     :ivar retry: Indicates that it may be possible to retry the Job. If retry is unsuccessful,
      please contact Azure support via Azure Portal. Possible values include: "DoNotRetry",
      "MayRetry".
-    :vartype retry: str or ~event_grid_publisher_client.models.MediaJobRetry
+    :vartype retry: str or ~azure.eventgrid.models.MediaJobRetry
     :ivar details: An array of details about specific errors that led to this reported error.
-    :vartype details: list[~event_grid_publisher_client.models.MediaJobErrorDetail]
+    :vartype details: list[~azure.eventgrid.models.MediaJobErrorDetail]
     """
 
     _validation = {
@@ -2684,14 +2691,14 @@ class MediaJobErroredEventData(MediaJobStateChangeEventData):
 
     :ivar previous_state: The previous state of the Job. Possible values include: "Canceled",
      "Canceling", "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype previous_state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype previous_state: str or ~azure.eventgrid.models.MediaJobState
     :ivar state: The new state of the Job. Possible values include: "Canceled", "Canceling",
      "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype state: str or ~azure.eventgrid.models.MediaJobState
     :param correlation_data: Gets the Job correlation data.
     :type correlation_data: dict[str, str]
     :param outputs: Gets the Job outputs.
-    :type outputs: list[~event_grid_publisher_client.models.MediaJobOutput]
+    :type outputs: list[~azure.eventgrid.models.MediaJobOutput]
     """
 
     _validation = {
@@ -2721,14 +2728,14 @@ class MediaJobFinishedEventData(MediaJobStateChangeEventData):
 
     :ivar previous_state: The previous state of the Job. Possible values include: "Canceled",
      "Canceling", "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype previous_state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype previous_state: str or ~azure.eventgrid.models.MediaJobState
     :ivar state: The new state of the Job. Possible values include: "Canceled", "Canceling",
      "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype state: str or ~azure.eventgrid.models.MediaJobState
     :param correlation_data: Gets the Job correlation data.
     :type correlation_data: dict[str, str]
     :param outputs: Gets the Job outputs.
-    :type outputs: list[~event_grid_publisher_client.models.MediaJobOutput]
+    :type outputs: list[~azure.eventgrid.models.MediaJobOutput]
     """
 
     _validation = {
@@ -2762,14 +2769,14 @@ class MediaJobOutput(msrest.serialization.Model):
     :param odata_type: The discriminator for derived types.Constant filled by server.
     :type odata_type: str
     :param error: Gets the Job output error.
-    :type error: ~event_grid_publisher_client.models.MediaJobError
+    :type error: ~azure.eventgrid.models.MediaJobError
     :param label: Gets the Job output label.
     :type label: str
     :param progress: Required. Gets the Job output progress.
     :type progress: long
     :param state: Required. Gets the Job output state. Possible values include: "Canceled",
      "Canceling", "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :type state: str or ~event_grid_publisher_client.models.MediaJobState
+    :type state: str or ~azure.eventgrid.models.MediaJobState
     """
 
     _validation = {
@@ -2809,14 +2816,14 @@ class MediaJobOutputAsset(MediaJobOutput):
     :param odata_type: The discriminator for derived types.Constant filled by server.
     :type odata_type: str
     :param error: Gets the Job output error.
-    :type error: ~event_grid_publisher_client.models.MediaJobError
+    :type error: ~azure.eventgrid.models.MediaJobError
     :param label: Gets the Job output label.
     :type label: str
     :param progress: Required. Gets the Job output progress.
     :type progress: long
     :param state: Required. Gets the Job output state. Possible values include: "Canceled",
      "Canceling", "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :type state: str or ~event_grid_publisher_client.models.MediaJobState
+    :type state: str or ~azure.eventgrid.models.MediaJobState
     :param asset_name: Gets the Job output asset name.
     :type asset_name: str
     """
@@ -2851,9 +2858,9 @@ class MediaJobOutputStateChangeEventData(msrest.serialization.Model):
 
     :ivar previous_state: The previous state of the Job. Possible values include: "Canceled",
      "Canceling", "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype previous_state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype previous_state: str or ~azure.eventgrid.models.MediaJobState
     :param output: Gets the output.
-    :type output: ~event_grid_publisher_client.models.MediaJobOutput
+    :type output: ~azure.eventgrid.models.MediaJobOutput
     :param job_correlation_data: Gets the Job correlation data.
     :type job_correlation_data: dict[str, str]
     """
@@ -2885,9 +2892,9 @@ class MediaJobOutputCanceledEventData(MediaJobOutputStateChangeEventData):
 
     :ivar previous_state: The previous state of the Job. Possible values include: "Canceled",
      "Canceling", "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype previous_state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype previous_state: str or ~azure.eventgrid.models.MediaJobState
     :param output: Gets the output.
-    :type output: ~event_grid_publisher_client.models.MediaJobOutput
+    :type output: ~azure.eventgrid.models.MediaJobOutput
     :param job_correlation_data: Gets the Job correlation data.
     :type job_correlation_data: dict[str, str]
     """
@@ -2916,9 +2923,9 @@ class MediaJobOutputCancelingEventData(MediaJobOutputStateChangeEventData):
 
     :ivar previous_state: The previous state of the Job. Possible values include: "Canceled",
      "Canceling", "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype previous_state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype previous_state: str or ~azure.eventgrid.models.MediaJobState
     :param output: Gets the output.
-    :type output: ~event_grid_publisher_client.models.MediaJobOutput
+    :type output: ~azure.eventgrid.models.MediaJobOutput
     :param job_correlation_data: Gets the Job correlation data.
     :type job_correlation_data: dict[str, str]
     """
@@ -2947,9 +2954,9 @@ class MediaJobOutputErroredEventData(MediaJobOutputStateChangeEventData):
 
     :ivar previous_state: The previous state of the Job. Possible values include: "Canceled",
      "Canceling", "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype previous_state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype previous_state: str or ~azure.eventgrid.models.MediaJobState
     :param output: Gets the output.
-    :type output: ~event_grid_publisher_client.models.MediaJobOutput
+    :type output: ~azure.eventgrid.models.MediaJobOutput
     :param job_correlation_data: Gets the Job correlation data.
     :type job_correlation_data: dict[str, str]
     """
@@ -2978,9 +2985,9 @@ class MediaJobOutputFinishedEventData(MediaJobOutputStateChangeEventData):
 
     :ivar previous_state: The previous state of the Job. Possible values include: "Canceled",
      "Canceling", "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype previous_state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype previous_state: str or ~azure.eventgrid.models.MediaJobState
     :param output: Gets the output.
-    :type output: ~event_grid_publisher_client.models.MediaJobOutput
+    :type output: ~azure.eventgrid.models.MediaJobOutput
     :param job_correlation_data: Gets the Job correlation data.
     :type job_correlation_data: dict[str, str]
     """
@@ -3009,9 +3016,9 @@ class MediaJobOutputProcessingEventData(MediaJobOutputStateChangeEventData):
 
     :ivar previous_state: The previous state of the Job. Possible values include: "Canceled",
      "Canceling", "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype previous_state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype previous_state: str or ~azure.eventgrid.models.MediaJobState
     :param output: Gets the output.
-    :type output: ~event_grid_publisher_client.models.MediaJobOutput
+    :type output: ~azure.eventgrid.models.MediaJobOutput
     :param job_correlation_data: Gets the Job correlation data.
     :type job_correlation_data: dict[str, str]
     """
@@ -3067,9 +3074,9 @@ class MediaJobOutputScheduledEventData(MediaJobOutputStateChangeEventData):
 
     :ivar previous_state: The previous state of the Job. Possible values include: "Canceled",
      "Canceling", "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype previous_state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype previous_state: str or ~azure.eventgrid.models.MediaJobState
     :param output: Gets the output.
-    :type output: ~event_grid_publisher_client.models.MediaJobOutput
+    :type output: ~azure.eventgrid.models.MediaJobOutput
     :param job_correlation_data: Gets the Job correlation data.
     :type job_correlation_data: dict[str, str]
     """
@@ -3098,10 +3105,10 @@ class MediaJobProcessingEventData(MediaJobStateChangeEventData):
 
     :ivar previous_state: The previous state of the Job. Possible values include: "Canceled",
      "Canceling", "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype previous_state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype previous_state: str or ~azure.eventgrid.models.MediaJobState
     :ivar state: The new state of the Job. Possible values include: "Canceled", "Canceling",
      "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype state: str or ~azure.eventgrid.models.MediaJobState
     :param correlation_data: Gets the Job correlation data.
     :type correlation_data: dict[str, str]
     """
@@ -3131,10 +3138,10 @@ class MediaJobScheduledEventData(MediaJobStateChangeEventData):
 
     :ivar previous_state: The previous state of the Job. Possible values include: "Canceled",
      "Canceling", "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype previous_state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype previous_state: str or ~azure.eventgrid.models.MediaJobState
     :ivar state: The new state of the Job. Possible values include: "Canceled", "Canceling",
      "Error", "Finished", "Processing", "Queued", "Scheduled".
-    :vartype state: str or ~event_grid_publisher_client.models.MediaJobState
+    :vartype state: str or ~azure.eventgrid.models.MediaJobState
     :param correlation_data: Gets the Job correlation data.
     :type correlation_data: dict[str, str]
     """
@@ -4276,6 +4283,49 @@ class ResourceWriteSuccessData(msrest.serialization.Model):
         self.http_request = kwargs.get('http_request', None)
 
 
+class ServiceBusActiveMessagesAvailablePeriodicNotificationsEventData(msrest.serialization.Model):
+    """Schema of the Data property of an EventGridEvent for a Microsoft.ServiceBus.ActiveMessagesAvailablePeriodicNotifications event.
+
+    :param namespace_name: The namespace name of the Microsoft.ServiceBus resource.
+    :type namespace_name: str
+    :param request_uri: The endpoint of the Microsoft.ServiceBus resource.
+    :type request_uri: str
+    :param entity_type: The entity type of the Microsoft.ServiceBus resource. Could be one of
+     'queue' or 'subscriber'.
+    :type entity_type: str
+    :param queue_name: The name of the Microsoft.ServiceBus queue. If the entity type is of type
+     'subscriber', then this value will be null.
+    :type queue_name: str
+    :param topic_name: The name of the Microsoft.ServiceBus topic. If the entity type is of type
+     'queue', then this value will be null.
+    :type topic_name: str
+    :param subscription_name: The name of the Microsoft.ServiceBus topic's subscription. If the
+     entity type is of type 'queue', then this value will be null.
+    :type subscription_name: str
+    """
+
+    _attribute_map = {
+        'namespace_name': {'key': 'namespaceName', 'type': 'str'},
+        'request_uri': {'key': 'requestUri', 'type': 'str'},
+        'entity_type': {'key': 'entityType', 'type': 'str'},
+        'queue_name': {'key': 'queueName', 'type': 'str'},
+        'topic_name': {'key': 'topicName', 'type': 'str'},
+        'subscription_name': {'key': 'subscriptionName', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(ServiceBusActiveMessagesAvailablePeriodicNotificationsEventData, self).__init__(**kwargs)
+        self.namespace_name = kwargs.get('namespace_name', None)
+        self.request_uri = kwargs.get('request_uri', None)
+        self.entity_type = kwargs.get('entity_type', None)
+        self.queue_name = kwargs.get('queue_name', None)
+        self.topic_name = kwargs.get('topic_name', None)
+        self.subscription_name = kwargs.get('subscription_name', None)
+
+
 class ServiceBusActiveMessagesAvailableWithNoListenersEventData(msrest.serialization.Model):
     """Schema of the Data property of an EventGridEvent for a Microsoft.ServiceBus.ActiveMessagesAvailableWithNoListeners event.
 
@@ -4311,6 +4361,49 @@ class ServiceBusActiveMessagesAvailableWithNoListenersEventData(msrest.serializa
         **kwargs
     ):
         super(ServiceBusActiveMessagesAvailableWithNoListenersEventData, self).__init__(**kwargs)
+        self.namespace_name = kwargs.get('namespace_name', None)
+        self.request_uri = kwargs.get('request_uri', None)
+        self.entity_type = kwargs.get('entity_type', None)
+        self.queue_name = kwargs.get('queue_name', None)
+        self.topic_name = kwargs.get('topic_name', None)
+        self.subscription_name = kwargs.get('subscription_name', None)
+
+
+class ServiceBusDeadletterMessagesAvailablePeriodicNotificationsEventData(msrest.serialization.Model):
+    """Schema of the Data property of an EventGridEvent for a Microsoft.ServiceBus.DeadletterMessagesAvailablePeriodicNotifications event.
+
+    :param namespace_name: The namespace name of the Microsoft.ServiceBus resource.
+    :type namespace_name: str
+    :param request_uri: The endpoint of the Microsoft.ServiceBus resource.
+    :type request_uri: str
+    :param entity_type: The entity type of the Microsoft.ServiceBus resource. Could be one of
+     'queue' or 'subscriber'.
+    :type entity_type: str
+    :param queue_name: The name of the Microsoft.ServiceBus queue. If the entity type is of type
+     'subscriber', then this value will be null.
+    :type queue_name: str
+    :param topic_name: The name of the Microsoft.ServiceBus topic. If the entity type is of type
+     'queue', then this value will be null.
+    :type topic_name: str
+    :param subscription_name: The name of the Microsoft.ServiceBus topic's subscription. If the
+     entity type is of type 'queue', then this value will be null.
+    :type subscription_name: str
+    """
+
+    _attribute_map = {
+        'namespace_name': {'key': 'namespaceName', 'type': 'str'},
+        'request_uri': {'key': 'requestUri', 'type': 'str'},
+        'entity_type': {'key': 'entityType', 'type': 'str'},
+        'queue_name': {'key': 'queueName', 'type': 'str'},
+        'topic_name': {'key': 'topicName', 'type': 'str'},
+        'subscription_name': {'key': 'subscriptionName', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(ServiceBusDeadletterMessagesAvailablePeriodicNotificationsEventData, self).__init__(**kwargs)
         self.namespace_name = kwargs.get('namespace_name', None)
         self.request_uri = kwargs.get('request_uri', None)
         self.entity_type = kwargs.get('entity_type', None)
@@ -4797,16 +4890,14 @@ class StorageLifecyclePolicyCompletedEventData(msrest.serialization.Model):
     :type schedule_time: str
     :param delete_summary: Execution statistics of a specific policy action in a Blob Management
      cycle.
-    :type delete_summary:
-     ~event_grid_publisher_client.models.StorageLifecyclePolicyActionSummaryDetail
+    :type delete_summary: ~azure.eventgrid.models.StorageLifecyclePolicyActionSummaryDetail
     :param tier_to_cool_summary: Execution statistics of a specific policy action in a Blob
      Management cycle.
-    :type tier_to_cool_summary:
-     ~event_grid_publisher_client.models.StorageLifecyclePolicyActionSummaryDetail
+    :type tier_to_cool_summary: ~azure.eventgrid.models.StorageLifecyclePolicyActionSummaryDetail
     :param tier_to_archive_summary: Execution statistics of a specific policy action in a Blob
      Management cycle.
     :type tier_to_archive_summary:
-     ~event_grid_publisher_client.models.StorageLifecyclePolicyActionSummaryDetail
+     ~azure.eventgrid.models.StorageLifecyclePolicyActionSummaryDetail
     """
 
     _attribute_map = {
@@ -4912,10 +5003,9 @@ class WebAppServicePlanUpdatedEventData(msrest.serialization.Model):
     """Schema of the Data property of an EventGridEvent for an Microsoft.Web.AppServicePlanUpdated event.
 
     :param app_service_plan_event_type_detail: Detail of action on the app service plan.
-    :type app_service_plan_event_type_detail:
-     ~event_grid_publisher_client.models.AppServicePlanEventTypeDetail
+    :type app_service_plan_event_type_detail: ~azure.eventgrid.models.AppServicePlanEventTypeDetail
     :param sku: sku of app service plan.
-    :type sku: ~event_grid_publisher_client.models.WebAppServicePlanUpdatedEventDataSku
+    :type sku: ~azure.eventgrid.models.WebAppServicePlanUpdatedEventDataSku
     :param name: name of the app service plan that had this event.
     :type name: str
     :param client_request_id: The client request id generated by the app service for the app
@@ -4998,7 +5088,7 @@ class WebAppUpdatedEventData(msrest.serialization.Model):
     """Schema of the Data property of an EventGridEvent for an Microsoft.Web.AppUpdated event.
 
     :param app_event_type_detail: Detail of action on the app.
-    :type app_event_type_detail: ~event_grid_publisher_client.models.AppEventTypeDetail
+    :type app_event_type_detail: ~azure.eventgrid.models.AppEventTypeDetail
     :param name: name of the web site that had this event.
     :type name: str
     :param client_request_id: The client request id generated by the app service for the site API
@@ -5044,7 +5134,7 @@ class WebBackupOperationCompletedEventData(msrest.serialization.Model):
     """Schema of the Data property of an EventGridEvent for an Microsoft.Web.BackupOperationCompleted event.
 
     :param app_event_type_detail: Detail of action on the app.
-    :type app_event_type_detail: ~event_grid_publisher_client.models.AppEventTypeDetail
+    :type app_event_type_detail: ~azure.eventgrid.models.AppEventTypeDetail
     :param name: name of the web site that had this event.
     :type name: str
     :param client_request_id: The client request id generated by the app service for the site API
@@ -5090,7 +5180,7 @@ class WebBackupOperationFailedEventData(msrest.serialization.Model):
     """Schema of the Data property of an EventGridEvent for an Microsoft.Web.BackupOperationFailed event.
 
     :param app_event_type_detail: Detail of action on the app.
-    :type app_event_type_detail: ~event_grid_publisher_client.models.AppEventTypeDetail
+    :type app_event_type_detail: ~azure.eventgrid.models.AppEventTypeDetail
     :param name: name of the web site that had this event.
     :type name: str
     :param client_request_id: The client request id generated by the app service for the site API
@@ -5136,7 +5226,7 @@ class WebBackupOperationStartedEventData(msrest.serialization.Model):
     """Schema of the Data property of an EventGridEvent for an Microsoft.Web.BackupOperationStarted event.
 
     :param app_event_type_detail: Detail of action on the app.
-    :type app_event_type_detail: ~event_grid_publisher_client.models.AppEventTypeDetail
+    :type app_event_type_detail: ~azure.eventgrid.models.AppEventTypeDetail
     :param name: name of the web site that had this event.
     :type name: str
     :param client_request_id: The client request id generated by the app service for the site API
@@ -5182,7 +5272,7 @@ class WebRestoreOperationCompletedEventData(msrest.serialization.Model):
     """Schema of the Data property of an EventGridEvent for an Microsoft.Web.RestoreOperationCompleted event.
 
     :param app_event_type_detail: Detail of action on the app.
-    :type app_event_type_detail: ~event_grid_publisher_client.models.AppEventTypeDetail
+    :type app_event_type_detail: ~azure.eventgrid.models.AppEventTypeDetail
     :param name: name of the web site that had this event.
     :type name: str
     :param client_request_id: The client request id generated by the app service for the site API
@@ -5228,7 +5318,7 @@ class WebRestoreOperationFailedEventData(msrest.serialization.Model):
     """Schema of the Data property of an EventGridEvent for an Microsoft.Web.RestoreOperationFailed event.
 
     :param app_event_type_detail: Detail of action on the app.
-    :type app_event_type_detail: ~event_grid_publisher_client.models.AppEventTypeDetail
+    :type app_event_type_detail: ~azure.eventgrid.models.AppEventTypeDetail
     :param name: name of the web site that had this event.
     :type name: str
     :param client_request_id: The client request id generated by the app service for the site API
@@ -5274,7 +5364,7 @@ class WebRestoreOperationStartedEventData(msrest.serialization.Model):
     """Schema of the Data property of an EventGridEvent for an Microsoft.Web.RestoreOperationStarted event.
 
     :param app_event_type_detail: Detail of action on the app.
-    :type app_event_type_detail: ~event_grid_publisher_client.models.AppEventTypeDetail
+    :type app_event_type_detail: ~azure.eventgrid.models.AppEventTypeDetail
     :param name: name of the web site that had this event.
     :type name: str
     :param client_request_id: The client request id generated by the app service for the site API
@@ -5320,7 +5410,7 @@ class WebSlotSwapCompletedEventData(msrest.serialization.Model):
     """Schema of the Data property of an EventGridEvent for an Microsoft.Web.SlotSwapCompleted event.
 
     :param app_event_type_detail: Detail of action on the app.
-    :type app_event_type_detail: ~event_grid_publisher_client.models.AppEventTypeDetail
+    :type app_event_type_detail: ~azure.eventgrid.models.AppEventTypeDetail
     :param name: name of the web site that had this event.
     :type name: str
     :param client_request_id: The client request id generated by the app service for the site API
@@ -5366,7 +5456,7 @@ class WebSlotSwapFailedEventData(msrest.serialization.Model):
     """Schema of the Data property of an EventGridEvent for an Microsoft.Web.SlotSwapFailed event.
 
     :param app_event_type_detail: Detail of action on the app.
-    :type app_event_type_detail: ~event_grid_publisher_client.models.AppEventTypeDetail
+    :type app_event_type_detail: ~azure.eventgrid.models.AppEventTypeDetail
     :param name: name of the web site that had this event.
     :type name: str
     :param client_request_id: The client request id generated by the app service for the site API
@@ -5412,7 +5502,7 @@ class WebSlotSwapStartedEventData(msrest.serialization.Model):
     """Schema of the Data property of an EventGridEvent for an Microsoft.Web.SlotSwapStarted event.
 
     :param app_event_type_detail: Detail of action on the app.
-    :type app_event_type_detail: ~event_grid_publisher_client.models.AppEventTypeDetail
+    :type app_event_type_detail: ~azure.eventgrid.models.AppEventTypeDetail
     :param name: name of the web site that had this event.
     :type name: str
     :param client_request_id: The client request id generated by the app service for the site API
@@ -5458,7 +5548,7 @@ class WebSlotSwapWithPreviewCancelledEventData(msrest.serialization.Model):
     """Schema of the Data property of an EventGridEvent for an Microsoft.Web.SlotSwapWithPreviewCancelled event.
 
     :param app_event_type_detail: Detail of action on the app.
-    :type app_event_type_detail: ~event_grid_publisher_client.models.AppEventTypeDetail
+    :type app_event_type_detail: ~azure.eventgrid.models.AppEventTypeDetail
     :param name: name of the web site that had this event.
     :type name: str
     :param client_request_id: The client request id generated by the app service for the site API
@@ -5504,7 +5594,7 @@ class WebSlotSwapWithPreviewStartedEventData(msrest.serialization.Model):
     """Schema of the Data property of an EventGridEvent for an Microsoft.Web.SlotSwapWithPreviewStarted event.
 
     :param app_event_type_detail: Detail of action on the app.
-    :type app_event_type_detail: ~event_grid_publisher_client.models.AppEventTypeDetail
+    :type app_event_type_detail: ~azure.eventgrid.models.AppEventTypeDetail
     :param name: name of the web site that had this event.
     :type name: str
     :param client_request_id: The client request id generated by the app service for the site API

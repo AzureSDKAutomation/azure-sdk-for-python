@@ -21,7 +21,7 @@ from . import models
 
 
 class EventGridClient(EventGridClientOperationsMixin):
-    """EventGrid Python Publisher Client.
+    """EventGrid Client.
 
     """
 
