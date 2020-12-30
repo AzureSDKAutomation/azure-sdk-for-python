@@ -55,10 +55,9 @@ from ._paged_models import OperationPaged
 from ._paged_models import RemoteRenderingAccountPaged
 from ._paged_models import SpatialAnchorsAccountPaged
 from ._mixed_reality_client_enums import (
-    NameAvailability,
     NameUnavailableReason,
-    SkuTier,
     ResourceIdentityType,
+    SkuTier,
 )
 
 __all__ = [
@@ -85,8 +84,7 @@ __all__ = [
     'OperationPaged',
     'SpatialAnchorsAccountPaged',
     'RemoteRenderingAccountPaged',
-    'NameAvailability',
     'NameUnavailableReason',
-    'SkuTier',
     'ResourceIdentityType',
+    'SkuTier',
 ]

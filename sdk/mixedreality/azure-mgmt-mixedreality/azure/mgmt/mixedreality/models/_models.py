@@ -60,16 +60,19 @@ class AccountKeys(Model):
 class Resource(Model):
     """Resource.
 
+    Common fields that are returned in the response for all Azure Resource
+    Manager resources.
+
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     """
 
@@ -93,19 +96,21 @@ class Resource(Model):
 
 
 class AzureEntityResource(Resource):
-    """The resource model definition for a Azure Resource Manager resource with an
-    etag.
+    """Entity Resource.
+
+    The resource model definition for an Azure Resource Manager resource with
+    an etag.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -163,10 +168,8 @@ class CheckNameAvailabilityResponse(Model):
 
     All required parameters must be populated in order to send to Azure.
 
-    :param name_available: Required. if name Available. Possible values
-     include: 'true', 'false'
-    :type name_available: str or
-     ~azure.mgmt.mixedreality.models.NameAvailability
+    :param name_available: Required. if name Available
+    :type name_available: bool
     :param reason: Resource Name To Verify. Possible values include:
      'Invalid', 'AlreadyExists'
     :type reason: str or ~azure.mgmt.mixedreality.models.NameUnavailableReason
@@ -179,7 +182,7 @@ class CheckNameAvailabilityResponse(Model):
     }
 
     _attribute_map = {
-        'name_available': {'key': 'nameAvailable', 'type': 'str'},
+        'name_available': {'key': 'nameAvailable', 'type': 'bool'},
         'reason': {'key': 'reason', 'type': 'str'},
         'message': {'key': 'message', 'type': 'str'},
     }
@@ -289,17 +292,21 @@ class Operation(Model):
     :type name: str
     :param display: The object that represents the operation.
     :type display: ~azure.mgmt.mixedreality.models.OperationDisplay
+    :param is_data_action: Whether or not this is a data plane operation
+    :type is_data_action: bool
     """
 
     _attribute_map = {
         'name': {'key': 'name', 'type': 'str'},
         'display': {'key': 'display', 'type': 'OperationDisplay'},
+        'is_data_action': {'key': 'isDataAction', 'type': 'bool'},
     }
 
     def __init__(self, **kwargs):
         super(Operation, self).__init__(**kwargs)
         self.name = kwargs.get('name', None)
         self.display = kwargs.get('display', None)
+        self.is_data_action = kwargs.get('is_data_action', None)
 
 
 class OperationDisplay(Model):
@@ -386,19 +393,21 @@ class Plan(Model):
 
 
 class ProxyResource(Resource):
-    """The resource model definition for a ARM proxy resource. It will have
-    everything other than required location and tags.
+    """Proxy Resource.
+
+    The resource model definition for a Azure Resource Manager proxy resource.
+    It will not have tags and a location.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     """
 
@@ -419,20 +428,23 @@ class ProxyResource(Resource):
 
 
 class TrackedResource(Resource):
-    """The resource model definition for a ARM tracked top level resource.
+    """Tracked Resource.
+
+    The resource model definition for an Azure Resource Manager tracked top
+    level resource which has 'tags' and a 'location'.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -469,13 +481,13 @@ class RemoteRenderingAccount(TrackedResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -555,19 +567,19 @@ class ResourceModelWithAllowedPropertySet(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts..
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param location: The geo-location where the resource lives
     :type location: str
-    :param managed_by: The  fully qualified resource ID of the resource that
+    :param managed_by: The fully qualified resource ID of the resource that
      manages this resource. Indicates if this resource is managed by another
-     azure resource. If this is present, complete mode deployment will not
+     Azure resource. If this is present, complete mode deployment will not
      delete the resource if it is removed from the template since it is managed
      by another resource.
     :type managed_by: str
@@ -795,13 +807,13 @@ class SpatialAnchorsAccount(TrackedResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -812,6 +824,8 @@ class SpatialAnchorsAccount(TrackedResource):
     :ivar account_domain: Correspond domain name of certain Spatial Anchors
      Account
     :vartype account_domain: str
+    :param identity: The identity associated with this account
+    :type identity: ~azure.mgmt.mixedreality.models.Identity
     """
 
     _validation = {
@@ -831,9 +845,11 @@ class SpatialAnchorsAccount(TrackedResource):
         'location': {'key': 'location', 'type': 'str'},
         'account_id': {'key': 'properties.accountId', 'type': 'str'},
         'account_domain': {'key': 'properties.accountDomain', 'type': 'str'},
+        'identity': {'key': 'identity', 'type': 'Identity'},
     }
 
     def __init__(self, **kwargs):
         super(SpatialAnchorsAccount, self).__init__(**kwargs)
         self.account_id = None
         self.account_domain = None
+        self.identity = kwargs.get('identity', None)
