@@ -11,13 +11,13 @@ from typing import Any
 from azure.core import AsyncPipelineClient
 from msrest import Deserializer, Serializer
 
-from ._configuration_async import EventGridClientConfiguration
-from .operations_async import EventGridClientOperationsMixin
+from ._configuration import EventGridClientConfiguration
+from .operations import EventGridClientOperationsMixin
 from .. import models
 
 
 class EventGridClient(EventGridClientOperationsMixin):
-    """EventGrid Python Publisher Client.
+    """EventGrid Client.
 
     """
 

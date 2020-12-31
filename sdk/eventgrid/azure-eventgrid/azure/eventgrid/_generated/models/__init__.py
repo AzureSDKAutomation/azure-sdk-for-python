@@ -19,10 +19,10 @@ try:
     from ._models_py3 import ACSChatThreadMemberProperties
     from ._models_py3 import ACSChatThreadPropertiesUpdatedPerUserEventData
     from ._models_py3 import ACSChatThreadWithUserDeletedEventData
-    from ._models_py3 import ACSSMSDeliveryAttemptProperties
-    from ._models_py3 import ACSSMSDeliveryReportReceivedEventData
-    from ._models_py3 import ACSSMSEventBaseProperties
-    from ._models_py3 import ACSSMSReceivedEventData
+    from ._models_py3 import AcsSmsDeliveryAttemptProperties
+    from ._models_py3 import AcsSmsDeliveryReportReceivedEventData
+    from ._models_py3 import AcsSmsEventBaseProperties
+    from ._models_py3 import AcsSmsReceivedEventData
     from ._models_py3 import AppConfigurationKeyValueDeletedEventData
     from ._models_py3 import AppConfigurationKeyValueModifiedEventData
     from ._models_py3 import AppEventTypeDetail
@@ -116,7 +116,9 @@ try:
     from ._models_py3 import ResourceWriteCancelData
     from ._models_py3 import ResourceWriteFailureData
     from ._models_py3 import ResourceWriteSuccessData
+    from ._models_py3 import ServiceBusActiveMessagesAvailablePeriodicNotificationsEventData
     from ._models_py3 import ServiceBusActiveMessagesAvailableWithNoListenersEventData
+    from ._models_py3 import ServiceBusDeadletterMessagesAvailablePeriodicNotificationsEventData
     from ._models_py3 import ServiceBusDeadletterMessagesAvailableWithNoListenersEventData
     from ._models_py3 import SignalRServiceClientConnectionConnectedEventData
     from ._models_py3 import SignalRServiceClientConnectionDisconnectedEventData
@@ -158,10 +160,10 @@ except (SyntaxError, ImportError):
     from ._models import ACSChatThreadMemberProperties  # type: ignore
     from ._models import ACSChatThreadPropertiesUpdatedPerUserEventData  # type: ignore
     from ._models import ACSChatThreadWithUserDeletedEventData  # type: ignore
-    from ._models import ACSSMSDeliveryAttemptProperties  # type: ignore
-    from ._models import ACSSMSDeliveryReportReceivedEventData  # type: ignore
-    from ._models import ACSSMSEventBaseProperties  # type: ignore
-    from ._models import ACSSMSReceivedEventData  # type: ignore
+    from ._models import AcsSmsDeliveryAttemptProperties  # type: ignore
+    from ._models import AcsSmsDeliveryReportReceivedEventData  # type: ignore
+    from ._models import AcsSmsEventBaseProperties  # type: ignore
+    from ._models import AcsSmsReceivedEventData  # type: ignore
     from ._models import AppConfigurationKeyValueDeletedEventData  # type: ignore
     from ._models import AppConfigurationKeyValueModifiedEventData  # type: ignore
     from ._models import AppEventTypeDetail  # type: ignore
@@ -255,7 +257,9 @@ except (SyntaxError, ImportError):
     from ._models import ResourceWriteCancelData  # type: ignore
     from ._models import ResourceWriteFailureData  # type: ignore
     from ._models import ResourceWriteSuccessData  # type: ignore
+    from ._models import ServiceBusActiveMessagesAvailablePeriodicNotificationsEventData  # type: ignore
     from ._models import ServiceBusActiveMessagesAvailableWithNoListenersEventData  # type: ignore
+    from ._models import ServiceBusDeadletterMessagesAvailablePeriodicNotificationsEventData  # type: ignore
     from ._models import ServiceBusDeadletterMessagesAvailableWithNoListenersEventData  # type: ignore
     from ._models import SignalRServiceClientConnectionConnectedEventData  # type: ignore
     from ._models import SignalRServiceClientConnectionDisconnectedEventData  # type: ignore
@@ -285,7 +289,7 @@ except (SyntaxError, ImportError):
     from ._models import WebSlotSwapWithPreviewCancelledEventData  # type: ignore
     from ._models import WebSlotSwapWithPreviewStartedEventData  # type: ignore
 
-from ._event_grid_publisher_client_enums import (
+from ._event_grid_client_enums import (
     AppAction,
     AppServicePlanAction,
     AsyncStatus,
@@ -309,10 +313,10 @@ __all__ = [
     'ACSChatThreadMemberProperties',
     'ACSChatThreadPropertiesUpdatedPerUserEventData',
     'ACSChatThreadWithUserDeletedEventData',
-    'ACSSMSDeliveryAttemptProperties',
-    'ACSSMSDeliveryReportReceivedEventData',
-    'ACSSMSEventBaseProperties',
-    'ACSSMSReceivedEventData',
+    'AcsSmsDeliveryAttemptProperties',
+    'AcsSmsDeliveryReportReceivedEventData',
+    'AcsSmsEventBaseProperties',
+    'AcsSmsReceivedEventData',
     'AppConfigurationKeyValueDeletedEventData',
     'AppConfigurationKeyValueModifiedEventData',
     'AppEventTypeDetail',
@@ -406,7 +410,9 @@ __all__ = [
     'ResourceWriteCancelData',
     'ResourceWriteFailureData',
     'ResourceWriteSuccessData',
+    'ServiceBusActiveMessagesAvailablePeriodicNotificationsEventData',
     'ServiceBusActiveMessagesAvailableWithNoListenersEventData',
+    'ServiceBusDeadletterMessagesAvailablePeriodicNotificationsEventData',
     'ServiceBusDeadletterMessagesAvailableWithNoListenersEventData',
     'SignalRServiceClientConnectionConnectedEventData',
     'SignalRServiceClientConnectionDisconnectedEventData',
