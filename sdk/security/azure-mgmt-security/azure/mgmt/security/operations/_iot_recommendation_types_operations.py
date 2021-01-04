@@ -168,7 +168,7 @@ class IotRecommendationTypesOperations(object):
         return deserialized
     get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/iotSecuritySolutions/{solutionName}/iotRecommendationTypes/{iotRecommendationTypeName}'}
 
-    def list1(
+    def list_at_subscription_scope(
             self, custom_headers=None, raw=False, **operation_config):
         """List IoT recommendation types.
 
@@ -185,7 +185,7 @@ class IotRecommendationTypesOperations(object):
         api_version = "2020-08-06-preview"
 
         # Construct URL
-        url = self.list1.metadata['url']
+        url = self.list_at_subscription_scope.metadata['url']
         path_format_arguments = {
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', pattern=r'^[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}$')
         }
@@ -223,9 +223,9 @@ class IotRecommendationTypesOperations(object):
             return client_raw_response
 
         return deserialized
-    list1.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Security/iotRecommendationTypes'}
+    list_at_subscription_scope.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Security/iotRecommendationTypes'}
 
-    def get1(
+    def get_at_subscription_scope(
             self, iot_recommendation_type_name, custom_headers=None, raw=False, **operation_config):
         """Get IoT recommendation type.
 
@@ -244,7 +244,7 @@ class IotRecommendationTypesOperations(object):
         api_version = "2020-08-06-preview"
 
         # Construct URL
-        url = self.get1.metadata['url']
+        url = self.get_at_subscription_scope.metadata['url']
         path_format_arguments = {
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', pattern=r'^[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}$'),
             'iotRecommendationTypeName': self._serialize.url("iot_recommendation_type_name", iot_recommendation_type_name, 'str')
@@ -283,4 +283,4 @@ class IotRecommendationTypesOperations(object):
             return client_raw_response
 
         return deserialized
-    get1.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Security/iotRecommendationTypes/{iotRecommendationTypeName}'}
+    get_at_subscription_scope.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Security/iotRecommendationTypes/{iotRecommendationTypeName}'}

@@ -80,6 +80,25 @@ class UnmaskedIpLoggingStatus(str, Enum):
     enabled = "Enabled"  #: Unmasked IP logging is enabled
 
 
+class AdditionalWorkspaceType(str, Enum):
+
+    sentinel = "Sentinel"
+
+
+class AdditionalWorkspaceDataType(str, Enum):
+
+    alerts = "Alerts"
+    raw_events = "RawEvents"
+
+
+class CreatedByType(str, Enum):
+
+    user = "User"
+    application = "Application"
+    managed_identity = "ManagedIdentity"
+    key = "Key"
+
+
 class ReportedSeverity(str, Enum):
 
     informational = "Informational"
@@ -181,6 +200,9 @@ class EventSource(str, Enum):
     assessments = "Assessments"
     sub_assessments = "SubAssessments"
     alerts = "Alerts"
+    secure_scores = "SecureScores"
+    secure_score_controls = "SecureScoreControls"
+    regulatory_compliance_assessment = "RegulatoryComplianceAssessment"
 
 
 class PropertyType(str, Enum):
@@ -421,6 +443,21 @@ class VersionKind(str, Enum):
     latest = "Latest"
     previous = "Previous"
     preview = "Preview"
+
+
+class SensorStatus(str, Enum):
+
+    ok = "Ok"
+    disconnected = "Disconnected"
+    unavailable = "Unavailable"
+
+
+class TiStatus(str, Enum):
+
+    ok = "Ok"
+    failed = "Failed"
+    in_progress = "InProgress"
+    update_available = "UpdateAvailable"
 
 
 class MacSignificance(str, Enum):

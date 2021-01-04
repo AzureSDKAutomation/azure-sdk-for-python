@@ -195,7 +195,7 @@ class IotRecommendationsOperations(object):
         return deserialized
     get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/iotSecuritySolutions/{solutionName}/iotRecommendations/{iotRecommendationId}'}
 
-    def list1(
+    def list_at_scope(
             self, scope, recommendation_type=None, device_id=None, limit=None, skip_token=None, custom_headers=None, raw=False, **operation_config):
         """List IoT recommendations.
 
@@ -226,7 +226,7 @@ class IotRecommendationsOperations(object):
         def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
-                url = self.list1.metadata['url']
+                url = self.list_at_scope.metadata['url']
                 path_format_arguments = {
                     'scope': self._serialize.url("scope", scope, 'str', skip_quote=True)
                 }
@@ -281,9 +281,9 @@ class IotRecommendationsOperations(object):
         deserialized = models.IotRecommendationModelPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list1.metadata = {'url': '/{scope}/providers/Microsoft.Security/iotRecommendations'}
+    list_at_scope.metadata = {'url': '/{scope}/providers/Microsoft.Security/iotRecommendations'}
 
-    def get1(
+    def get_at_scope(
             self, scope, iot_recommendation_id, custom_headers=None, raw=False, **operation_config):
         """Get IoT recommendation.
 
@@ -306,7 +306,7 @@ class IotRecommendationsOperations(object):
         api_version = "2020-08-06-preview"
 
         # Construct URL
-        url = self.get1.metadata['url']
+        url = self.get_at_scope.metadata['url']
         path_format_arguments = {
             'scope': self._serialize.url("scope", scope, 'str', skip_quote=True),
             'iotRecommendationId': self._serialize.url("iot_recommendation_id", iot_recommendation_id, 'str')
@@ -345,4 +345,4 @@ class IotRecommendationsOperations(object):
             return client_raw_response
 
         return deserialized
-    get1.metadata = {'url': '/{scope}/providers/Microsoft.Security/iotRecommendations/{iotRecommendationId}'}
+    get_at_scope.metadata = {'url': '/{scope}/providers/Microsoft.Security/iotRecommendations/{iotRecommendationId}'}

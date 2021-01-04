@@ -205,7 +205,7 @@ class IotAlertsOperations(object):
         return deserialized
     get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/iotSecuritySolutions/{solutionName}/iotAlerts/{iotAlertId}'}
 
-    def list1(
+    def list_at_scope(
             self, scope, min_start_time_utc=None, max_start_time_utc=None, alert_type=None, device_management_type=None, compromised_entity=None, limit=None, skip_token=None, custom_headers=None, raw=False, **operation_config):
         """List IoT alerts.
 
@@ -246,7 +246,7 @@ class IotAlertsOperations(object):
         def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
-                url = self.list1.metadata['url']
+                url = self.list_at_scope.metadata['url']
                 path_format_arguments = {
                     'scope': self._serialize.url("scope", scope, 'str', skip_quote=True)
                 }
@@ -307,9 +307,9 @@ class IotAlertsOperations(object):
         deserialized = models.IotAlertModelPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list1.metadata = {'url': '/{scope}/providers/Microsoft.Security/iotAlerts'}
+    list_at_scope.metadata = {'url': '/{scope}/providers/Microsoft.Security/iotAlerts'}
 
-    def get1(
+    def get_at_scope(
             self, scope, iot_alert_id, custom_headers=None, raw=False, **operation_config):
         """Get IoT alert.
 
@@ -332,7 +332,7 @@ class IotAlertsOperations(object):
         api_version = "2020-08-06-preview"
 
         # Construct URL
-        url = self.get1.metadata['url']
+        url = self.get_at_scope.metadata['url']
         path_format_arguments = {
             'scope': self._serialize.url("scope", scope, 'str', skip_quote=True),
             'iotAlertId': self._serialize.url("iot_alert_id", iot_alert_id, 'str')
@@ -371,4 +371,4 @@ class IotAlertsOperations(object):
             return client_raw_response
 
         return deserialized
-    get1.metadata = {'url': '/{scope}/providers/Microsoft.Security/iotAlerts/{iotAlertId}'}
+    get_at_scope.metadata = {'url': '/{scope}/providers/Microsoft.Security/iotAlerts/{iotAlertId}'}
