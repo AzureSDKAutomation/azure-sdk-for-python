@@ -242,7 +242,7 @@ class TasksOperations:
     async def update_subscription_level_task_state(
         self,
         task_name: str,
-        task_update_action_type: Union[str, "_models.Enum15"],
+        task_update_action_type: Union[str, "_models.Enum18"],
         **kwargs
     ) -> None:
         """Recommended tasks that will help improve the security of the subscription proactively.
@@ -250,7 +250,7 @@ class TasksOperations:
         :param task_name: Name of the task object, will be a GUID.
         :type task_name: str
         :param task_update_action_type: Type of the action to do on the task.
-        :type task_update_action_type: str or ~azure.mgmt.security.models.Enum15
+        :type task_update_action_type: str or ~azure.mgmt.security.models.Enum18
         :keyword callable cls: A custom type or function that will be passed the direct response
         :return: None, or the result of cls(response)
         :rtype: None
@@ -436,7 +436,7 @@ class TasksOperations:
         self,
         resource_group_name: str,
         task_name: str,
-        task_update_action_type: Union[str, "_models.Enum15"],
+        task_update_action_type: Union[str, "_models.Enum18"],
         **kwargs
     ) -> None:
         """Recommended tasks that will help improve the security of the subscription proactively.
@@ -447,7 +447,7 @@ class TasksOperations:
         :param task_name: Name of the task object, will be a GUID.
         :type task_name: str
         :param task_update_action_type: Type of the action to do on the task.
-        :type task_update_action_type: str or ~azure.mgmt.security.models.Enum15
+        :type task_update_action_type: str or ~azure.mgmt.security.models.Enum18
         :keyword callable cls: A custom type or function that will be passed the direct response
         :return: None, or the result of cls(response)
         :rtype: None

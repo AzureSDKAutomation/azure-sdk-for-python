@@ -46,17 +46,17 @@ class AdaptiveApplicationControlsOperations(object):
 
     def list(
         self,
-        include_path_recommendations=None,  # type: Optional[Union[bool, "_models.Enum37"]]
-        summary=None,  # type: Optional[Union[bool, "_models.Enum38"]]
+        include_path_recommendations=None,  # type: Optional[Union[bool, "_models.Enum40"]]
+        summary=None,  # type: Optional[Union[bool, "_models.Enum41"]]
         **kwargs  # type: Any
     ):
         # type: (...) -> "_models.AdaptiveApplicationControlGroups"
         """Gets a list of application control machine groups for the subscription.
 
         :param include_path_recommendations: Include the policy rules.
-        :type include_path_recommendations: str or ~azure.mgmt.security.models.Enum37
+        :type include_path_recommendations: str or ~azure.mgmt.security.models.Enum40
         :param summary: Return output in a summarized form.
-        :type summary: str or ~azure.mgmt.security.models.Enum38
+        :type summary: str or ~azure.mgmt.security.models.Enum41
         :keyword callable cls: A custom type or function that will be passed the direct response
         :return: AdaptiveApplicationControlGroups, or the result of cls(response)
         :rtype: ~azure.mgmt.security.models.AdaptiveApplicationControlGroups

@@ -44,7 +44,7 @@ class InformationProtectionPoliciesOperations:
     async def get(
         self,
         scope: str,
-        information_protection_policy_name: Union[str, "_models.Enum17"],
+        information_protection_policy_name: Union[str, "_models.Enum20"],
         **kwargs
     ) -> "_models.InformationProtectionPolicy":
         """Details of the information protection policy.
@@ -54,7 +54,7 @@ class InformationProtectionPoliciesOperations:
          (/providers/Microsoft.Management/managementGroups/mgName).
         :type scope: str
         :param information_protection_policy_name: Name of the information protection policy.
-        :type information_protection_policy_name: str or ~azure.mgmt.security.models.Enum17
+        :type information_protection_policy_name: str or ~azure.mgmt.security.models.Enum20
         :keyword callable cls: A custom type or function that will be passed the direct response
         :return: InformationProtectionPolicy, or the result of cls(response)
         :rtype: ~azure.mgmt.security.models.InformationProtectionPolicy
@@ -103,7 +103,7 @@ class InformationProtectionPoliciesOperations:
     async def create_or_update(
         self,
         scope: str,
-        information_protection_policy_name: Union[str, "_models.Enum17"],
+        information_protection_policy_name: Union[str, "_models.Enum20"],
         information_protection_policy: "_models.InformationProtectionPolicy",
         **kwargs
     ) -> "_models.InformationProtectionPolicy":
@@ -114,7 +114,7 @@ class InformationProtectionPoliciesOperations:
          (/providers/Microsoft.Management/managementGroups/mgName).
         :type scope: str
         :param information_protection_policy_name: Name of the information protection policy.
-        :type information_protection_policy_name: str or ~azure.mgmt.security.models.Enum17
+        :type information_protection_policy_name: str or ~azure.mgmt.security.models.Enum20
         :param information_protection_policy: Information protection policy.
         :type information_protection_policy: ~azure.mgmt.security.models.InformationProtectionPolicy
         :keyword callable cls: A custom type or function that will be passed the direct response

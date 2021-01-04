@@ -18,6 +18,7 @@ try:
     from ._models_py3 import AdaptiveNetworkHardeningEnforceRequest
     from ._models_py3 import AdaptiveNetworkHardeningsList
     from ._models_py3 import AdditionalData
+    from ._models_py3 import AdditionalWorkspacesProperties
     from ._models_py3 import AdvancedThreatProtectionSetting
     from ._models_py3 import Alert
     from ._models_py3 import AlertEntity
@@ -63,6 +64,7 @@ try:
     from ._models_py3 import CVSS
     from ._models_py3 import CefExternalSecuritySolution
     from ._models_py3 import CefSolutionProperties
+    from ._models_py3 import CloudErrorBody
     from ._models_py3 import Compliance
     from ._models_py3 import ComplianceList
     from ._models_py3 import ComplianceResult
@@ -71,6 +73,7 @@ try:
     from ._models_py3 import ConnectableResource
     from ._models_py3 import ConnectedResource
     from ._models_py3 import ConnectedWorkspace
+    from ._models_py3 import ConnectionFromIpNotAllowed
     from ._models_py3 import ConnectionToIpNotAllowed
     from ._models_py3 import ConnectorSetting
     from ._models_py3 import ConnectorSettingList
@@ -87,6 +90,7 @@ try:
     from ._models_py3 import DiscoveredSecuritySolutionList
     from ._models_py3 import ETag
     from ._models_py3 import EffectiveNetworkSecurityGroups
+    from ._models_py3 import ErrorAdditionalInfo
     from ._models_py3 import ExternalSecuritySolution
     from ._models_py3 import ExternalSecuritySolutionKind
     from ._models_py3 import ExternalSecuritySolutionList
@@ -244,6 +248,7 @@ try:
     from ._models_py3 import SqlServerVulnerabilityProperties
     from ._models_py3 import SubAssessmentStatus
     from ._models_py3 import SuppressionAlertsScope
+    from ._models_py3 import SystemData
     from ._models_py3 import Tags
     from ._models_py3 import TagsResource
     from ._models_py3 import ThresholdCustomAlertRule
@@ -277,6 +282,7 @@ except (SyntaxError, ImportError):
     from ._models import AdaptiveNetworkHardeningEnforceRequest  # type: ignore
     from ._models import AdaptiveNetworkHardeningsList  # type: ignore
     from ._models import AdditionalData  # type: ignore
+    from ._models import AdditionalWorkspacesProperties  # type: ignore
     from ._models import AdvancedThreatProtectionSetting  # type: ignore
     from ._models import Alert  # type: ignore
     from ._models import AlertEntity  # type: ignore
@@ -322,6 +328,7 @@ except (SyntaxError, ImportError):
     from ._models import CVSS  # type: ignore
     from ._models import CefExternalSecuritySolution  # type: ignore
     from ._models import CefSolutionProperties  # type: ignore
+    from ._models import CloudErrorBody  # type: ignore
     from ._models import Compliance  # type: ignore
     from ._models import ComplianceList  # type: ignore
     from ._models import ComplianceResult  # type: ignore
@@ -330,6 +337,7 @@ except (SyntaxError, ImportError):
     from ._models import ConnectableResource  # type: ignore
     from ._models import ConnectedResource  # type: ignore
     from ._models import ConnectedWorkspace  # type: ignore
+    from ._models import ConnectionFromIpNotAllowed  # type: ignore
     from ._models import ConnectionToIpNotAllowed  # type: ignore
     from ._models import ConnectorSetting  # type: ignore
     from ._models import ConnectorSettingList  # type: ignore
@@ -346,6 +354,7 @@ except (SyntaxError, ImportError):
     from ._models import DiscoveredSecuritySolutionList  # type: ignore
     from ._models import ETag  # type: ignore
     from ._models import EffectiveNetworkSecurityGroups  # type: ignore
+    from ._models import ErrorAdditionalInfo  # type: ignore
     from ._models import ExternalSecuritySolution  # type: ignore
     from ._models import ExternalSecuritySolutionKind  # type: ignore
     from ._models import ExternalSecuritySolutionList  # type: ignore
@@ -503,6 +512,7 @@ except (SyntaxError, ImportError):
     from ._models import SqlServerVulnerabilityProperties  # type: ignore
     from ._models import SubAssessmentStatus  # type: ignore
     from ._models import SuppressionAlertsScope  # type: ignore
+    from ._models import SystemData  # type: ignore
     from ._models import Tags  # type: ignore
     from ._models import TagsResource  # type: ignore
     from ._models import ThresholdCustomAlertRule  # type: ignore
@@ -529,6 +539,8 @@ from ._security_center_enums import (
     AadConnectivityStateEnum,
     ActionType,
     AdaptiveApplicationControlIssue,
+    AdditionalWorkspaceDataType,
+    AdditionalWorkspaceType,
     AlertIntent,
     AlertNotifications,
     AlertSeverity,
@@ -545,15 +557,18 @@ from ._security_center_enums import (
     ConfigurationStatus,
     ConnectionType,
     ControlType,
+    CreatedByType,
     DataSource,
     DeviceCriticality,
     DeviceStatus,
     Direction,
     EnforcementMode,
     EnforcementSupport,
-    Enum15,
-    Enum17,
+    Enum18,
+    Enum20,
     Enum3,
+    Enum40,
+    Enum41,
     EventSource,
     ExpandControlsEnum,
     ExpandEnum,
@@ -623,6 +638,7 @@ __all__ = [
     'AdaptiveNetworkHardeningEnforceRequest',
     'AdaptiveNetworkHardeningsList',
     'AdditionalData',
+    'AdditionalWorkspacesProperties',
     'AdvancedThreatProtectionSetting',
     'Alert',
     'AlertEntity',
@@ -668,6 +684,7 @@ __all__ = [
     'CVSS',
     'CefExternalSecuritySolution',
     'CefSolutionProperties',
+    'CloudErrorBody',
     'Compliance',
     'ComplianceList',
     'ComplianceResult',
@@ -676,6 +693,7 @@ __all__ = [
     'ConnectableResource',
     'ConnectedResource',
     'ConnectedWorkspace',
+    'ConnectionFromIpNotAllowed',
     'ConnectionToIpNotAllowed',
     'ConnectorSetting',
     'ConnectorSettingList',
@@ -692,6 +710,7 @@ __all__ = [
     'DiscoveredSecuritySolutionList',
     'ETag',
     'EffectiveNetworkSecurityGroups',
+    'ErrorAdditionalInfo',
     'ExternalSecuritySolution',
     'ExternalSecuritySolutionKind',
     'ExternalSecuritySolutionList',
@@ -849,6 +868,7 @@ __all__ = [
     'SqlServerVulnerabilityProperties',
     'SubAssessmentStatus',
     'SuppressionAlertsScope',
+    'SystemData',
     'Tags',
     'TagsResource',
     'ThresholdCustomAlertRule',
@@ -873,6 +893,8 @@ __all__ = [
     'AadConnectivityStateEnum',
     'ActionType',
     'AdaptiveApplicationControlIssue',
+    'AdditionalWorkspaceDataType',
+    'AdditionalWorkspaceType',
     'AlertIntent',
     'AlertNotifications',
     'AlertSeverity',
@@ -889,15 +911,18 @@ __all__ = [
     'ConfigurationStatus',
     'ConnectionType',
     'ControlType',
+    'CreatedByType',
     'DataSource',
     'DeviceCriticality',
     'DeviceStatus',
     'Direction',
     'EnforcementMode',
     'EnforcementSupport',
-    'Enum15',
-    'Enum17',
+    'Enum18',
+    'Enum20',
     'Enum3',
+    'Enum40',
+    'Enum41',
     'EventSource',
     'ExpandControlsEnum',
     'ExpandEnum',

@@ -53,6 +53,19 @@ class AdaptiveApplicationControlIssue(with_metaclass(_CaseInsensitiveEnumMeta, s
     EXECUTABLE_VIOLATIONS_AUDITED = "ExecutableViolationsAudited"
     RULES_VIOLATED_MANUALLY = "RulesViolatedManually"
 
+class AdditionalWorkspaceDataType(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
+    """Data types sent to workspace.
+    """
+
+    ALERTS = "Alerts"
+    RAW_EVENTS = "RawEvents"
+
+class AdditionalWorkspaceType(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
+    """Workspace type.
+    """
+
+    SENTINEL = "Sentinel"
+
 class AlertIntent(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
     """Kill chain related intent behind the alert. Could contain multiple enum values (separated by
     commas)
@@ -196,6 +209,15 @@ class ControlType(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
     BUILT_IN = "BuiltIn"  #: Azure Security Center managed assessments.
     CUSTOM = "Custom"  #: Non Azure Security Center managed assessments.
 
+class CreatedByType(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
+    """The type of identity that created the resource.
+    """
+
+    USER = "User"
+    APPLICATION = "Application"
+    MANAGED_IDENTITY = "ManagedIdentity"
+    KEY = "Key"
+
 class DataSource(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
 
     TWIN_DATA = "TwinData"  #: Devices twin data.
@@ -237,7 +259,7 @@ class EnforcementSupport(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
     NOT_SUPPORTED = "NotSupported"
     UNKNOWN = "Unknown"
 
-class Enum15(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
+class Enum18(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
 
     ACTIVATE = "Activate"
     DISMISS = "Dismiss"
@@ -245,7 +267,7 @@ class Enum15(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
     RESOLVE = "Resolve"
     CLOSE = "Close"
 
-class Enum17(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
+class Enum20(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
 
     EFFECTIVE = "effective"
     CUSTOM = "custom"
@@ -254,6 +276,16 @@ class Enum3(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
 
     MCAS = "MCAS"
     WDATP = "WDATP"
+
+class Enum40(with_metaclass(_CaseInsensitiveEnumMeta, bool, Enum)):
+
+    FALSE = False
+    TRUE = True
+
+class Enum41(with_metaclass(_CaseInsensitiveEnumMeta, bool, Enum)):
+
+    FALSE = False
+    TRUE = True
 
 class EventSource(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
     """A valid event source type.
@@ -264,6 +296,7 @@ class EventSource(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
     ALERTS = "Alerts"
     SECURE_SCORES = "SecureScores"
     SECURE_SCORE_CONTROLS = "SecureScoreControls"
+    REGULATORY_COMPLIANCE_ASSESSMENT = "RegulatoryComplianceAssessment"
 
 class ExpandControlsEnum(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
 
