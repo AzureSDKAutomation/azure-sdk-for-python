@@ -12,6 +12,7 @@
 try:
     from ._models_py3 import AzureEntityResource
     from ._models_py3 import Configuration
+    from ._models_py3 import ConfigurationListResult
     from ._models_py3 import Database
     from ._models_py3 import ErrorAdditionalInfo
     from ._models_py3 import ErrorResponse
@@ -30,6 +31,7 @@ try:
     from ._models_py3 import PrivateLinkResourceProperties
     from ._models_py3 import PrivateLinkServiceConnectionStateProperty
     from ._models_py3 import ProxyResource
+    from ._models_py3 import RecoverableServerResource
     from ._models_py3 import Resource
     from ._models_py3 import ResourceIdentity
     from ._models_py3 import Server
@@ -54,6 +56,7 @@ try:
 except (SyntaxError, ImportError):
     from ._models import AzureEntityResource
     from ._models import Configuration
+    from ._models import ConfigurationListResult
     from ._models import Database
     from ._models import ErrorAdditionalInfo
     from ._models import ErrorResponse
@@ -72,6 +75,7 @@ except (SyntaxError, ImportError):
     from ._models import PrivateLinkResourceProperties
     from ._models import PrivateLinkServiceConnectionStateProperty
     from ._models import ProxyResource
+    from ._models import RecoverableServerResource
     from ._models import Resource
     from ._models import ResourceIdentity
     from ._models import Server
@@ -126,6 +130,7 @@ from ._postgre_sql_management_client_enums import (
 __all__ = [
     'AzureEntityResource',
     'Configuration',
+    'ConfigurationListResult',
     'Database',
     'ErrorAdditionalInfo',
     'ErrorResponse',
@@ -144,6 +149,7 @@ __all__ = [
     'PrivateLinkResourceProperties',
     'PrivateLinkServiceConnectionStateProperty',
     'ProxyResource',
+    'RecoverableServerResource',
     'Resource',
     'ResourceIdentity',
     'Server',
