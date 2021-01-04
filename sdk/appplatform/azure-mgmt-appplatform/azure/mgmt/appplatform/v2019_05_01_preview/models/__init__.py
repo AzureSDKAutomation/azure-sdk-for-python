@@ -12,6 +12,7 @@
 try:
     from ._models_py3 import AppResource
     from ._models_py3 import AppResourceProperties
+    from ._models_py3 import AvailableRuntimeVersions
     from ._models_py3 import BindingResource
     from ._models_py3 import BindingResourceProperties
     from ._models_py3 import CertificateProperties
@@ -38,12 +39,14 @@ try:
     from ._models_py3 import NameAvailability
     from ._models_py3 import NameAvailabilityParameters
     from ._models_py3 import NetworkProfile
+    from ._models_py3 import NetworkProfileOutboundIPs
     from ._models_py3 import OperationDetail
     from ._models_py3 import OperationDisplay
     from ._models_py3 import OperationProperties
     from ._models_py3 import PersistentDisk
     from ._models_py3 import ProxyResource
     from ._models_py3 import RegenerateTestKeyRequestPayload
+    from ._models_py3 import RequiredTraffic
     from ._models_py3 import Resource
     from ._models_py3 import ResourceSku
     from ._models_py3 import ResourceSkuCapabilities
@@ -56,6 +59,7 @@ try:
     from ._models_py3 import ServiceSpecification
     from ._models_py3 import Sku
     from ._models_py3 import SkuCapacity
+    from ._models_py3 import SupportedRuntimeVersion
     from ._models_py3 import TemporaryDisk
     from ._models_py3 import TestKeys
     from ._models_py3 import TraceProperties
@@ -64,6 +68,7 @@ try:
 except (SyntaxError, ImportError):
     from ._models import AppResource
     from ._models import AppResourceProperties
+    from ._models import AvailableRuntimeVersions
     from ._models import BindingResource
     from ._models import BindingResourceProperties
     from ._models import CertificateProperties
@@ -90,12 +95,14 @@ except (SyntaxError, ImportError):
     from ._models import NameAvailability
     from ._models import NameAvailabilityParameters
     from ._models import NetworkProfile
+    from ._models import NetworkProfileOutboundIPs
     from ._models import OperationDetail
     from ._models import OperationDisplay
     from ._models import OperationProperties
     from ._models import PersistentDisk
     from ._models import ProxyResource
     from ._models import RegenerateTestKeyRequestPayload
+    from ._models import RequiredTraffic
     from ._models import Resource
     from ._models import ResourceSku
     from ._models import ResourceSkuCapabilities
@@ -108,6 +115,7 @@ except (SyntaxError, ImportError):
     from ._models import ServiceSpecification
     from ._models import Sku
     from ._models import SkuCapacity
+    from ._models import SupportedRuntimeVersion
     from ._models import TemporaryDisk
     from ._models import TestKeys
     from ._models import TraceProperties
@@ -125,6 +133,7 @@ from ._app_platform_management_client_enums import (
     ProvisioningState,
     ConfigServerState,
     TraceProxyState,
+    TrafficDirection,
     ManagedIdentityType,
     TestKeyType,
     AppResourceProvisioningState,
@@ -135,11 +144,14 @@ from ._app_platform_management_client_enums import (
     SkuScaleType,
     ResourceSkuRestrictionsType,
     ResourceSkuRestrictionsReasonCode,
+    SupportedRuntimeValue,
+    SupportedRuntimePlatform,
 )
 
 __all__ = [
     'AppResource',
     'AppResourceProperties',
+    'AvailableRuntimeVersions',
     'BindingResource',
     'BindingResourceProperties',
     'CertificateProperties',
@@ -166,12 +178,14 @@ __all__ = [
     'NameAvailability',
     'NameAvailabilityParameters',
     'NetworkProfile',
+    'NetworkProfileOutboundIPs',
     'OperationDetail',
     'OperationDisplay',
     'OperationProperties',
     'PersistentDisk',
     'ProxyResource',
     'RegenerateTestKeyRequestPayload',
+    'RequiredTraffic',
     'Resource',
     'ResourceSku',
     'ResourceSkuCapabilities',
@@ -184,6 +198,7 @@ __all__ = [
     'ServiceSpecification',
     'Sku',
     'SkuCapacity',
+    'SupportedRuntimeVersion',
     'TemporaryDisk',
     'TestKeys',
     'TraceProperties',
@@ -200,6 +215,7 @@ __all__ = [
     'ProvisioningState',
     'ConfigServerState',
     'TraceProxyState',
+    'TrafficDirection',
     'ManagedIdentityType',
     'TestKeyType',
     'AppResourceProvisioningState',
@@ -210,4 +226,6 @@ __all__ = [
     'SkuScaleType',
     'ResourceSkuRestrictionsType',
     'ResourceSkuRestrictionsReasonCode',
+    'SupportedRuntimeValue',
+    'SupportedRuntimePlatform',
 ]

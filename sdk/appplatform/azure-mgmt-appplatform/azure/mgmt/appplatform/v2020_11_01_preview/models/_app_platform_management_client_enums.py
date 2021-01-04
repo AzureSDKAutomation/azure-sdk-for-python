@@ -25,23 +25,6 @@ class ProvisioningState(str, Enum):
     move_failed = "MoveFailed"
 
 
-class ConfigServerState(str, Enum):
-
-    not_available = "NotAvailable"
-    deleted = "Deleted"
-    failed = "Failed"
-    succeeded = "Succeeded"
-    updating = "Updating"
-
-
-class TraceProxyState(str, Enum):
-
-    not_available = "NotAvailable"
-    failed = "Failed"
-    succeeded = "Succeeded"
-    updating = "Updating"
-
-
 class TrafficDirection(str, Enum):
 
     inbound = "Inbound"
@@ -56,6 +39,23 @@ class ManagedIdentityType(str, Enum):
     system_assigned_user_assigned = "SystemAssigned,UserAssigned"
 
 
+class ConfigServerState(str, Enum):
+
+    not_available = "NotAvailable"
+    deleted = "Deleted"
+    failed = "Failed"
+    succeeded = "Succeeded"
+    updating = "Updating"
+
+
+class MonitoringSettingState(str, Enum):
+
+    not_available = "NotAvailable"
+    failed = "Failed"
+    succeeded = "Succeeded"
+    updating = "Updating"
+
+
 class TestKeyType(str, Enum):
 
     primary = "Primary"
@@ -68,7 +68,6 @@ class AppResourceProvisioningState(str, Enum):
     failed = "Failed"
     creating = "Creating"
     updating = "Updating"
-    deleting = "Deleting"
 
 
 class UserSourceType(str, Enum):
@@ -91,7 +90,6 @@ class DeploymentResourceProvisioningState(str, Enum):
     updating = "Updating"
     succeeded = "Succeeded"
     failed = "Failed"
-    deleting = "Deleting"
 
 
 class DeploymentResourceStatus(str, Enum):
