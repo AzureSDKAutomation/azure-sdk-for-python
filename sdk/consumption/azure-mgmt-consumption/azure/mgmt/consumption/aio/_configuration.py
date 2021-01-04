@@ -27,25 +27,19 @@ class ConsumptionManagementClientConfiguration(Configuration):
 
     :param credential: Credential needed for the client to connect to Azure.
     :type credential: ~azure.core.credentials_async.AsyncTokenCredential
-    :param subscription_id: Azure Subscription ID.
-    :type subscription_id: str
     """
 
     def __init__(
         self,
         credential: "AsyncTokenCredential",
-        subscription_id: str,
         **kwargs: Any
     ) -> None:
         if credential is None:
             raise ValueError("Parameter 'credential' must not be None.")
-        if subscription_id is None:
-            raise ValueError("Parameter 'subscription_id' must not be None.")
         super(ConsumptionManagementClientConfiguration, self).__init__(**kwargs)
 
         self.credential = credential
-        self.subscription_id = subscription_id
-        self.api_version = "2019-10-01"
+        self.api_version = "2019-11-01"
         self.credential_scopes = kwargs.pop('credential_scopes', ['https://management.azure.com/.default'])
         kwargs.setdefault('sdk_moniker', 'mgmt-consumption/{}'.format(VERSION))
         self._configure(**kwargs)
