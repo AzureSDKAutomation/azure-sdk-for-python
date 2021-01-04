@@ -10,22 +10,47 @@
 # --------------------------------------------------------------------------
 
 try:
-    from .serial_console_get_result_py3 import SerialConsoleGetResult
-    from .get_disabled_result_py3 import GetDisabledResult
-    from .set_disabled_result_py3 import SetDisabledResult
-    from .deployment_validate_result_py3 import DeploymentValidateResult, DeploymentValidateResultException
-    from .serial_console_operations_py3 import SerialConsoleOperations
+    from ._models_py3 import DisableSerialConsoleResult
+    from ._models_py3 import EnableSerialConsoleResult
+    from ._models_py3 import GetSerialConsoleSubscriptionNotFound
+    from ._models_py3 import ProxyResource
+    from ._models_py3 import Resource
+    from ._models_py3 import SerialConsoleOperations
+    from ._models_py3 import SerialConsoleOperationsValueItem
+    from ._models_py3 import SerialConsoleOperationsValueItemDisplay
+    from ._models_py3 import SerialConsoleStatus
+    from ._models_py3 import SerialPort
+    from ._models_py3 import SerialPortConnectResult
+    from ._models_py3 import SerialPortListResult
 except (SyntaxError, ImportError):
-    from .serial_console_get_result import SerialConsoleGetResult
-    from .get_disabled_result import GetDisabledResult
-    from .set_disabled_result import SetDisabledResult
-    from .deployment_validate_result import DeploymentValidateResult, DeploymentValidateResultException
-    from .serial_console_operations import SerialConsoleOperations
+    from ._models import DisableSerialConsoleResult
+    from ._models import EnableSerialConsoleResult
+    from ._models import GetSerialConsoleSubscriptionNotFound
+    from ._models import ProxyResource
+    from ._models import Resource
+    from ._models import SerialConsoleOperations
+    from ._models import SerialConsoleOperationsValueItem
+    from ._models import SerialConsoleOperationsValueItemDisplay
+    from ._models import SerialConsoleStatus
+    from ._models import SerialPort
+    from ._models import SerialPortConnectResult
+    from ._models import SerialPortListResult
+from ._microsoft_serial_console_client_enums import (
+    SerialPortState,
+)
 
 __all__ = [
-    'SerialConsoleGetResult',
-    'GetDisabledResult',
-    'SetDisabledResult',
-    'DeploymentValidateResult', 'DeploymentValidateResultException',
+    'DisableSerialConsoleResult',
+    'EnableSerialConsoleResult',
+    'GetSerialConsoleSubscriptionNotFound',
+    'ProxyResource',
+    'Resource',
     'SerialConsoleOperations',
+    'SerialConsoleOperationsValueItem',
+    'SerialConsoleOperationsValueItemDisplay',
+    'SerialConsoleStatus',
+    'SerialPort',
+    'SerialPortConnectResult',
+    'SerialPortListResult',
+    'SerialPortState',
 ]

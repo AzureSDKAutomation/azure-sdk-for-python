@@ -9,22 +9,10 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from msrest.serialization import Model
+from enum import Enum
 
 
-class SerialConsoleOperations(Model):
-    """Serial Console operations.
+class SerialPortState(str, Enum):
 
-    Serial Console operations.
-
-    :param value: Serial Console operations
-    :type value: str
-    """
-
-    _attribute_map = {
-        'value': {'key': 'value', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(SerialConsoleOperations, self).__init__(**kwargs)
-        self.value = kwargs.get('value', None)
+    enabled = "enabled"
+    disabled = "disabled"
