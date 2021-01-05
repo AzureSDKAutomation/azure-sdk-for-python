@@ -12,14 +12,6 @@
 from enum import Enum
 
 
-class CreatedByType(str, Enum):
-
-    user = "User"
-    application = "Application"
-    managed_identity = "ManagedIdentity"
-    key = "Key"
-
-
 class AttestationServiceStatus(str, Enum):
 
     ready = "Ready"

@@ -25,7 +25,7 @@ class AttestationProvidersOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client API version. Current version is 2020-10-01. Constant value: "2020-10-01".
+    :ivar api_version: Client API version. Constant value: "2018-09-01-preview".
     """
 
     models = models
@@ -35,7 +35,7 @@ class AttestationProvidersOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-10-01"
+        self.api_version = "2018-09-01-preview"
 
         self.config = config
 
@@ -103,7 +103,7 @@ class AttestationProvidersOperations(object):
 
     def create(
             self, resource_group_name, provider_name, creation_params, custom_headers=None, raw=False, **operation_config):
-        """Creates a new Attestation Provider instance.
+        """Creates or updates the Attestation Provider.
 
         :param resource_group_name: The name of the resource group. The name
          is case insensitive.
