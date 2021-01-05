@@ -19,17 +19,9 @@ try:
     from ._models_py3 import MachineExtension
     from ._models_py3 import MachineExtensionInstanceView
     from ._models_py3 import MachineExtensionInstanceViewStatus
-    from ._models_py3 import MachineExtensionPropertiesInstanceView
-    from ._models_py3 import MachineExtensionPropertiesModel
     from ._models_py3 import MachineExtensionUpdate
-    from ._models_py3 import MachineExtensionUpdatePropertiesModel
-    from ._models_py3 import MachineIdentity
-    from ._models_py3 import MachineProperties
-    from ._models_py3 import MachinePropertiesOsProfile
     from ._models_py3 import MachineUpdate
-    from ._models_py3 import MachineUpdateProperties
     from ._models_py3 import OperationValue
-    from ._models_py3 import OperationValueDisplayModel
     from ._models_py3 import OSProfile
     from ._models_py3 import ProxyResource
     from ._models_py3 import Resource
@@ -45,17 +37,9 @@ except (SyntaxError, ImportError):
     from ._models import MachineExtension
     from ._models import MachineExtensionInstanceView
     from ._models import MachineExtensionInstanceViewStatus
-    from ._models import MachineExtensionPropertiesInstanceView
-    from ._models import MachineExtensionPropertiesModel
     from ._models import MachineExtensionUpdate
-    from ._models import MachineExtensionUpdatePropertiesModel
-    from ._models import MachineIdentity
-    from ._models import MachineProperties
-    from ._models import MachinePropertiesOsProfile
     from ._models import MachineUpdate
-    from ._models import MachineUpdateProperties
     from ._models import OperationValue
-    from ._models import OperationValueDisplayModel
     from ._models import OSProfile
     from ._models import ProxyResource
     from ._models import Resource
@@ -80,17 +64,9 @@ __all__ = [
     'MachineExtension',
     'MachineExtensionInstanceView',
     'MachineExtensionInstanceViewStatus',
-    'MachineExtensionPropertiesInstanceView',
-    'MachineExtensionPropertiesModel',
     'MachineExtensionUpdate',
-    'MachineExtensionUpdatePropertiesModel',
-    'MachineIdentity',
-    'MachineProperties',
-    'MachinePropertiesOsProfile',
     'MachineUpdate',
-    'MachineUpdateProperties',
     'OperationValue',
-    'OperationValueDisplayModel',
     'OSProfile',
     'ProxyResource',
     'Resource',

@@ -16,16 +16,19 @@ from msrest.exceptions import HttpOperationError
 class Resource(Model):
     """Resource.
 
+    Common fields that are returned in the response for all Azure Resource
+    Manager resources.
+
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     """
 
@@ -49,19 +52,21 @@ class Resource(Model):
 
 
 class AzureEntityResource(Resource):
-    """The resource model definition for a Azure Resource Manager resource with an
-    etag.
+    """Entity Resource.
+
+    The resource model definition for an Azure Resource Manager resource with
+    an etag.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -236,20 +241,23 @@ class LocationData(Model):
 
 
 class TrackedResource(Resource):
-    """The resource model definition for a ARM tracked top level resource.
+    """Tracked Resource.
+
+    The resource model definition for an Azure Resource Manager tracked top
+    level resource which has 'tags' and a 'location'.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -286,13 +294,13 @@ class Machine(TrackedResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -302,8 +310,7 @@ class Machine(TrackedResource):
     :type location_data: ~azure.mgmt.hybridcompute.models.LocationData
     :param os_profile: Specifies the operating system settings for the hybrid
      machine.
-    :type os_profile:
-     ~azure.mgmt.hybridcompute.models.MachinePropertiesOsProfile
+    :type os_profile: ~azure.mgmt.hybridcompute.models.OSProfile
     :ivar provisioning_state: The provisioning state, which only appears in
      the response.
     :vartype provisioning_state: str
@@ -344,7 +351,7 @@ class Machine(TrackedResource):
     :ivar dns_fqdn: Specifies the DNS fully qualified display name.
     :vartype dns_fqdn: str
     :param identity:
-    :type identity: ~azure.mgmt.hybridcompute.models.MachineIdentity
+    :type identity: ~azure.mgmt.hybridcompute.models.Identity
     """
 
     _validation = {
@@ -376,7 +383,7 @@ class Machine(TrackedResource):
         'tags': {'key': 'tags', 'type': '{str}'},
         'location': {'key': 'location', 'type': 'str'},
         'location_data': {'key': 'properties.locationData', 'type': 'LocationData'},
-        'os_profile': {'key': 'properties.osProfile', 'type': 'MachinePropertiesOsProfile'},
+        'os_profile': {'key': 'properties.osProfile', 'type': 'OSProfile'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'status': {'key': 'properties.status', 'type': 'str'},
         'last_status_change': {'key': 'properties.lastStatusChange', 'type': 'iso-8601'},
@@ -394,7 +401,7 @@ class Machine(TrackedResource):
         'domain_name': {'key': 'properties.domainName', 'type': 'str'},
         'ad_fqdn': {'key': 'properties.adFqdn', 'type': 'str'},
         'dns_fqdn': {'key': 'properties.dnsFqdn', 'type': 'str'},
-        'identity': {'key': 'identity', 'type': 'MachineIdentity'},
+        'identity': {'key': 'identity', 'type': 'Identity'},
     }
 
     def __init__(self, **kwargs):
@@ -429,13 +436,13 @@ class MachineExtension(TrackedResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -467,7 +474,7 @@ class MachineExtension(TrackedResource):
     :vartype provisioning_state: str
     :param instance_view: The machine extension instance view.
     :type instance_view:
-     ~azure.mgmt.hybridcompute.models.MachineExtensionPropertiesInstanceView
+     ~azure.mgmt.hybridcompute.models.MachineExtensionInstanceView
     """
 
     _validation = {
@@ -492,7 +499,7 @@ class MachineExtension(TrackedResource):
         'settings': {'key': 'properties.settings', 'type': 'object'},
         'protected_settings': {'key': 'properties.protectedSettings', 'type': 'object'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
-        'instance_view': {'key': 'properties.instanceView', 'type': 'MachineExtensionPropertiesInstanceView'},
+        'instance_view': {'key': 'properties.instanceView', 'type': 'MachineExtensionInstanceView'},
     }
 
     def __init__(self, **kwargs):
@@ -592,105 +599,6 @@ class MachineExtensionInstanceViewStatus(Model):
         self.time = None
 
 
-class MachineExtensionPropertiesInstanceView(MachineExtensionInstanceView):
-    """The machine extension instance view.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar name: The machine extension name.
-    :vartype name: str
-    :ivar type: Specifies the type of the extension; an example is
-     "CustomScriptExtension".
-    :vartype type: str
-    :ivar type_handler_version: Specifies the version of the script handler.
-    :vartype type_handler_version: str
-    :param status: Instance view status.
-    :type status:
-     ~azure.mgmt.hybridcompute.models.MachineExtensionInstanceViewStatus
-    """
-
-    _validation = {
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'type_handler_version': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'type_handler_version': {'key': 'typeHandlerVersion', 'type': 'str'},
-        'status': {'key': 'status', 'type': 'MachineExtensionInstanceViewStatus'},
-    }
-
-    def __init__(self, **kwargs):
-        super(MachineExtensionPropertiesInstanceView, self).__init__(**kwargs)
-
-
-class MachineExtensionPropertiesModel(Model):
-    """Describes the properties of a Machine Extension.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :param force_update_tag: How the extension handler should be forced to
-     update even if the extension configuration has not changed.
-    :type force_update_tag: str
-    :param publisher: The name of the extension handler publisher.
-    :type publisher: str
-    :param type: Specifies the type of the extension; an example is
-     "CustomScriptExtension".
-    :type type: str
-    :param type_handler_version: Specifies the version of the script handler.
-    :type type_handler_version: str
-    :param auto_upgrade_minor_version: Indicates whether the extension should
-     use a newer minor version if one is available at deployment time. Once
-     deployed, however, the extension will not upgrade minor versions unless
-     redeployed, even with this property set to true.
-    :type auto_upgrade_minor_version: bool
-    :param settings: Json formatted public settings for the extension.
-    :type settings: object
-    :param protected_settings: The extension can contain either
-     protectedSettings or protectedSettingsFromKeyVault or no protected
-     settings at all.
-    :type protected_settings: object
-    :ivar provisioning_state: The provisioning state, which only appears in
-     the response.
-    :vartype provisioning_state: str
-    :param instance_view: The machine extension instance view.
-    :type instance_view:
-     ~azure.mgmt.hybridcompute.models.MachineExtensionPropertiesInstanceView
-    """
-
-    _validation = {
-        'provisioning_state': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'force_update_tag': {'key': 'forceUpdateTag', 'type': 'str'},
-        'publisher': {'key': 'publisher', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'type_handler_version': {'key': 'typeHandlerVersion', 'type': 'str'},
-        'auto_upgrade_minor_version': {'key': 'autoUpgradeMinorVersion', 'type': 'bool'},
-        'settings': {'key': 'settings', 'type': 'object'},
-        'protected_settings': {'key': 'protectedSettings', 'type': 'object'},
-        'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
-        'instance_view': {'key': 'instanceView', 'type': 'MachineExtensionPropertiesInstanceView'},
-    }
-
-    def __init__(self, **kwargs):
-        super(MachineExtensionPropertiesModel, self).__init__(**kwargs)
-        self.force_update_tag = kwargs.get('force_update_tag', None)
-        self.publisher = kwargs.get('publisher', None)
-        self.type = kwargs.get('type', None)
-        self.type_handler_version = kwargs.get('type_handler_version', None)
-        self.auto_upgrade_minor_version = kwargs.get('auto_upgrade_minor_version', None)
-        self.settings = kwargs.get('settings', None)
-        self.protected_settings = kwargs.get('protected_settings', None)
-        self.provisioning_state = None
-        self.instance_view = kwargs.get('instance_view', None)
-
-
 class UpdateResource(Model):
     """The Update Resource model definition.
 
@@ -757,243 +665,6 @@ class MachineExtensionUpdate(UpdateResource):
         self.protected_settings = kwargs.get('protected_settings', None)
 
 
-class MachineExtensionUpdatePropertiesModel(Model):
-    """Describes the properties of a Machine Extension.
-
-    :param force_update_tag: How the extension handler should be forced to
-     update even if the extension configuration has not changed.
-    :type force_update_tag: str
-    :param publisher: The name of the extension handler publisher.
-    :type publisher: str
-    :param type: Specifies the type of the extension; an example is
-     "CustomScriptExtension".
-    :type type: str
-    :param type_handler_version: Specifies the version of the script handler.
-    :type type_handler_version: str
-    :param auto_upgrade_minor_version: Indicates whether the extension should
-     use a newer minor version if one is available at deployment time. Once
-     deployed, however, the extension will not upgrade minor versions unless
-     redeployed, even with this property set to true.
-    :type auto_upgrade_minor_version: bool
-    :param settings: Json formatted public settings for the extension.
-    :type settings: object
-    :param protected_settings: The extension can contain either
-     protectedSettings or protectedSettingsFromKeyVault or no protected
-     settings at all.
-    :type protected_settings: object
-    """
-
-    _attribute_map = {
-        'force_update_tag': {'key': 'forceUpdateTag', 'type': 'str'},
-        'publisher': {'key': 'publisher', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'type_handler_version': {'key': 'typeHandlerVersion', 'type': 'str'},
-        'auto_upgrade_minor_version': {'key': 'autoUpgradeMinorVersion', 'type': 'bool'},
-        'settings': {'key': 'settings', 'type': 'object'},
-        'protected_settings': {'key': 'protectedSettings', 'type': 'object'},
-    }
-
-    def __init__(self, **kwargs):
-        super(MachineExtensionUpdatePropertiesModel, self).__init__(**kwargs)
-        self.force_update_tag = kwargs.get('force_update_tag', None)
-        self.publisher = kwargs.get('publisher', None)
-        self.type = kwargs.get('type', None)
-        self.type_handler_version = kwargs.get('type_handler_version', None)
-        self.auto_upgrade_minor_version = kwargs.get('auto_upgrade_minor_version', None)
-        self.settings = kwargs.get('settings', None)
-        self.protected_settings = kwargs.get('protected_settings', None)
-
-
-class MachineIdentity(Identity):
-    """MachineIdentity.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :param type: The identity type.
-    :type type: str
-    :ivar principal_id: The identity's principal id.
-    :vartype principal_id: str
-    :ivar tenant_id: The identity's tenant id.
-    :vartype tenant_id: str
-    """
-
-    _validation = {
-        'principal_id': {'readonly': True},
-        'tenant_id': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'type': {'key': 'type', 'type': 'str'},
-        'principal_id': {'key': 'principalId', 'type': 'str'},
-        'tenant_id': {'key': 'tenantId', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(MachineIdentity, self).__init__(**kwargs)
-
-
-class MachineProperties(Model):
-    """Describes the properties of a hybrid machine.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :param location_data:
-    :type location_data: ~azure.mgmt.hybridcompute.models.LocationData
-    :param os_profile: Specifies the operating system settings for the hybrid
-     machine.
-    :type os_profile:
-     ~azure.mgmt.hybridcompute.models.MachinePropertiesOsProfile
-    :ivar provisioning_state: The provisioning state, which only appears in
-     the response.
-    :vartype provisioning_state: str
-    :ivar status: The status of the hybrid machine agent. Possible values
-     include: 'Connected', 'Disconnected', 'Error'
-    :vartype status: str or ~azure.mgmt.hybridcompute.models.StatusTypes
-    :ivar last_status_change: The time of the last status change.
-    :vartype last_status_change: datetime
-    :ivar error_details: Details about the error state.
-    :vartype error_details: list[~azure.mgmt.hybridcompute.models.ErrorDetail]
-    :ivar agent_version: The hybrid machine agent full version.
-    :vartype agent_version: str
-    :param vm_id: Specifies the hybrid machine unique ID.
-    :type vm_id: str
-    :ivar display_name: Specifies the hybrid machine display name.
-    :vartype display_name: str
-    :ivar machine_fqdn: Specifies the hybrid machine FQDN.
-    :vartype machine_fqdn: str
-    :param client_public_key: Public Key that the client provides to be used
-     during initial resource onboarding
-    :type client_public_key: str
-    :ivar os_name: The Operating System running on the hybrid machine.
-    :vartype os_name: str
-    :ivar os_version: The version of Operating System running on the hybrid
-     machine.
-    :vartype os_version: str
-    :ivar vm_uuid: Specifies the Arc Machine's unique SMBIOS ID
-    :vartype vm_uuid: str
-    :ivar extensions: Machine Extensions information
-    :vartype extensions:
-     list[~azure.mgmt.hybridcompute.models.MachineExtensionInstanceView]
-    :ivar os_sku: Specifies the Operating System product SKU.
-    :vartype os_sku: str
-    :ivar domain_name: Specifies the Windows domain name.
-    :vartype domain_name: str
-    :ivar ad_fqdn: Specifies the AD fully qualified display name.
-    :vartype ad_fqdn: str
-    :ivar dns_fqdn: Specifies the DNS fully qualified display name.
-    :vartype dns_fqdn: str
-    """
-
-    _validation = {
-        'provisioning_state': {'readonly': True},
-        'status': {'readonly': True},
-        'last_status_change': {'readonly': True},
-        'error_details': {'readonly': True},
-        'agent_version': {'readonly': True},
-        'display_name': {'readonly': True},
-        'machine_fqdn': {'readonly': True},
-        'os_name': {'readonly': True},
-        'os_version': {'readonly': True},
-        'vm_uuid': {'readonly': True},
-        'extensions': {'readonly': True},
-        'os_sku': {'readonly': True},
-        'domain_name': {'readonly': True},
-        'ad_fqdn': {'readonly': True},
-        'dns_fqdn': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'location_data': {'key': 'locationData', 'type': 'LocationData'},
-        'os_profile': {'key': 'osProfile', 'type': 'MachinePropertiesOsProfile'},
-        'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
-        'status': {'key': 'status', 'type': 'str'},
-        'last_status_change': {'key': 'lastStatusChange', 'type': 'iso-8601'},
-        'error_details': {'key': 'errorDetails', 'type': '[ErrorDetail]'},
-        'agent_version': {'key': 'agentVersion', 'type': 'str'},
-        'vm_id': {'key': 'vmId', 'type': 'str'},
-        'display_name': {'key': 'displayName', 'type': 'str'},
-        'machine_fqdn': {'key': 'machineFqdn', 'type': 'str'},
-        'client_public_key': {'key': 'clientPublicKey', 'type': 'str'},
-        'os_name': {'key': 'osName', 'type': 'str'},
-        'os_version': {'key': 'osVersion', 'type': 'str'},
-        'vm_uuid': {'key': 'vmUuid', 'type': 'str'},
-        'extensions': {'key': 'extensions', 'type': '[MachineExtensionInstanceView]'},
-        'os_sku': {'key': 'osSku', 'type': 'str'},
-        'domain_name': {'key': 'domainName', 'type': 'str'},
-        'ad_fqdn': {'key': 'adFqdn', 'type': 'str'},
-        'dns_fqdn': {'key': 'dnsFqdn', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(MachineProperties, self).__init__(**kwargs)
-        self.location_data = kwargs.get('location_data', None)
-        self.os_profile = kwargs.get('os_profile', None)
-        self.provisioning_state = None
-        self.status = None
-        self.last_status_change = None
-        self.error_details = None
-        self.agent_version = None
-        self.vm_id = kwargs.get('vm_id', None)
-        self.display_name = None
-        self.machine_fqdn = None
-        self.client_public_key = kwargs.get('client_public_key', None)
-        self.os_name = None
-        self.os_version = None
-        self.vm_uuid = None
-        self.extensions = None
-        self.os_sku = None
-        self.domain_name = None
-        self.ad_fqdn = None
-        self.dns_fqdn = None
-
-
-class OSProfile(Model):
-    """Specifies the operating system settings for the hybrid machine.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar computer_name: Specifies the host OS name of the hybrid machine.
-    :vartype computer_name: str
-    """
-
-    _validation = {
-        'computer_name': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'computer_name': {'key': 'computerName', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(OSProfile, self).__init__(**kwargs)
-        self.computer_name = None
-
-
-class MachinePropertiesOsProfile(OSProfile):
-    """Specifies the operating system settings for the hybrid machine.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar computer_name: Specifies the host OS name of the hybrid machine.
-    :vartype computer_name: str
-    """
-
-    _validation = {
-        'computer_name': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'computer_name': {'key': 'computerName', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(MachinePropertiesOsProfile, self).__init__(**kwargs)
-
-
 class MachineUpdate(UpdateResource):
     """Describes a hybrid machine Update.
 
@@ -1030,22 +701,6 @@ class MachineUpdate(UpdateResource):
         self.type = kwargs.get('type', None)
         self.principal_id = None
         self.tenant_id = None
-        self.location_data = kwargs.get('location_data', None)
-
-
-class MachineUpdateProperties(Model):
-    """Describes the ARM updatable properties of a hybrid machine.
-
-    :param location_data:
-    :type location_data: ~azure.mgmt.hybridcompute.models.LocationData
-    """
-
-    _attribute_map = {
-        'location_data': {'key': 'locationData', 'type': 'LocationData'},
-    }
-
-    def __init__(self, **kwargs):
-        super(MachineUpdateProperties, self).__init__(**kwargs)
         self.location_data = kwargs.get('location_data', None)
 
 
@@ -1097,58 +752,45 @@ class OperationValue(Model):
         self.provider = None
 
 
-class OperationValueDisplayModel(Model):
-    """Describes the properties of a Hybrid Compute Operation Value Display.
+class OSProfile(Model):
+    """Specifies the operating system settings for the hybrid machine.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar operation: The display name of the compute operation.
-    :vartype operation: str
-    :ivar resource: The display name of the resource the operation applies to.
-    :vartype resource: str
-    :ivar description: The description of the operation.
-    :vartype description: str
-    :ivar provider: The resource provider for the operation.
-    :vartype provider: str
+    :ivar computer_name: Specifies the host OS name of the hybrid machine.
+    :vartype computer_name: str
     """
 
     _validation = {
-        'operation': {'readonly': True},
-        'resource': {'readonly': True},
-        'description': {'readonly': True},
-        'provider': {'readonly': True},
+        'computer_name': {'readonly': True},
     }
 
     _attribute_map = {
-        'operation': {'key': 'operation', 'type': 'str'},
-        'resource': {'key': 'resource', 'type': 'str'},
-        'description': {'key': 'description', 'type': 'str'},
-        'provider': {'key': 'provider', 'type': 'str'},
+        'computer_name': {'key': 'computerName', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
-        super(OperationValueDisplayModel, self).__init__(**kwargs)
-        self.operation = None
-        self.resource = None
-        self.description = None
-        self.provider = None
+        super(OSProfile, self).__init__(**kwargs)
+        self.computer_name = None
 
 
 class ProxyResource(Resource):
-    """The resource model definition for a ARM proxy resource. It will have
-    everything other than required location and tags.
+    """Proxy Resource.
+
+    The resource model definition for a Azure Resource Manager proxy resource.
+    It will not have tags and a location.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     """
 
