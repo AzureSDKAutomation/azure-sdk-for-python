@@ -98,11 +98,13 @@ from ._server_azure_ad_administrators_operations import ServerAzureADAdministrat
 from ._sync_groups_operations import SyncGroupsOperations
 from ._sync_members_operations import SyncMembersOperations
 from ._managed_databases_operations import ManagedDatabasesOperations
+from ._managed_database_restore_details_operations import ManagedDatabaseRestoreDetailsOperations
 from ._server_azure_ad_only_authentications_operations import ServerAzureADOnlyAuthenticationsOperations
 from ._managed_instances_operations import ManagedInstancesOperations
 from ._managed_instance_azure_ad_only_authentications_operations import ManagedInstanceAzureADOnlyAuthenticationsOperations
 from ._server_trust_groups_operations import ServerTrustGroupsOperations
 from ._server_dev_ops_audit_settings_operations import ServerDevOpsAuditSettingsOperations
+from ._hybrid_certificate_operations import HybridCertificateOperations
 
 __all__ = [
     'RecoverableDatabasesOperations',
@@ -194,9 +196,11 @@ __all__ = [
     'SyncGroupsOperations',
     'SyncMembersOperations',
     'ManagedDatabasesOperations',
+    'ManagedDatabaseRestoreDetailsOperations',
     'ServerAzureADOnlyAuthenticationsOperations',
     'ManagedInstancesOperations',
     'ManagedInstanceAzureADOnlyAuthenticationsOperations',
     'ServerTrustGroupsOperations',
     'ServerDevOpsAuditSettingsOperations',
+    'HybridCertificateOperations',
 ]

@@ -102,11 +102,13 @@ from .operations import ServerAzureADAdministratorsOperations
 from .operations import SyncGroupsOperations
 from .operations import SyncMembersOperations
 from .operations import ManagedDatabasesOperations
+from .operations import ManagedDatabaseRestoreDetailsOperations
 from .operations import ServerAzureADOnlyAuthenticationsOperations
 from .operations import ManagedInstancesOperations
 from .operations import ManagedInstanceAzureADOnlyAuthenticationsOperations
 from .operations import ServerTrustGroupsOperations
 from .operations import ServerDevOpsAuditSettingsOperations
+from .operations import HybridCertificateOperations
 from . import models
 
 
@@ -294,6 +296,8 @@ class SqlManagementClient(SDKClient):
     :vartype sync_members: azure.mgmt.sql.operations.SyncMembersOperations
     :ivar managed_databases: ManagedDatabases operations
     :vartype managed_databases: azure.mgmt.sql.operations.ManagedDatabasesOperations
+    :ivar managed_database_restore_details: ManagedDatabaseRestoreDetails operations
+    :vartype managed_database_restore_details: azure.mgmt.sql.operations.ManagedDatabaseRestoreDetailsOperations
     :ivar server_azure_ad_only_authentications: ServerAzureADOnlyAuthentications operations
     :vartype server_azure_ad_only_authentications: azure.mgmt.sql.operations.ServerAzureADOnlyAuthenticationsOperations
     :ivar managed_instances: ManagedInstances operations
@@ -304,6 +308,8 @@ class SqlManagementClient(SDKClient):
     :vartype server_trust_groups: azure.mgmt.sql.operations.ServerTrustGroupsOperations
     :ivar server_dev_ops_audit_settings: ServerDevOpsAuditSettings operations
     :vartype server_dev_ops_audit_settings: azure.mgmt.sql.operations.ServerDevOpsAuditSettingsOperations
+    :ivar hybrid_certificate: HybridCertificate operations
+    :vartype hybrid_certificate: azure.mgmt.sql.operations.HybridCertificateOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -502,6 +508,8 @@ class SqlManagementClient(SDKClient):
             self._client, self.config, self._serialize, self._deserialize)
         self.managed_databases = ManagedDatabasesOperations(
             self._client, self.config, self._serialize, self._deserialize)
+        self.managed_database_restore_details = ManagedDatabaseRestoreDetailsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
         self.server_azure_ad_only_authentications = ServerAzureADOnlyAuthenticationsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.managed_instances = ManagedInstancesOperations(
@@ -511,4 +519,6 @@ class SqlManagementClient(SDKClient):
         self.server_trust_groups = ServerTrustGroupsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.server_dev_ops_audit_settings = ServerDevOpsAuditSettingsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.hybrid_certificate = HybridCertificateOperations(
             self._client, self.config, self._serialize, self._deserialize)
