@@ -138,4 +138,4 @@ class BaselineOperations(object):
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/{resourceUri}/providers/microsoft.insights/baseline'}
+    get.metadata = {'url': '/{resourceUri}/providers/Microsoft.Insights/baseline'}

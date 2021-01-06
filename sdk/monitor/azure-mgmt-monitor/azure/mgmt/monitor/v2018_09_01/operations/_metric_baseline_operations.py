@@ -137,7 +137,7 @@ class MetricBaselineOperations(object):
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/{resourceUri}/providers/microsoft.insights/baseline/{metricName}'}
+    get.metadata = {'url': '/{resourceUri}/providers/Microsoft.Insights/baseline/{metricName}'}
 
     def calculate_baseline(
             self, resource_uri, time_series_information, custom_headers=None, raw=False, **operation_config):
@@ -206,4 +206,4 @@ class MetricBaselineOperations(object):
             return client_raw_response
 
         return deserialized
-    calculate_baseline.metadata = {'url': '/{resourceUri}/providers/microsoft.insights/calculatebaseline'}
+    calculate_baseline.metadata = {'url': '/{resourceUri}/providers/Microsoft.Insights/calculatebaseline'}
