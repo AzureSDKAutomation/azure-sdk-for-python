@@ -138,6 +138,64 @@ class LogSpecification(Model):
         self.display_name = kwargs.get('display_name', None)
 
 
+class ManagedIdentity(Model):
+    """A class represent managed identities used for request and response.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param type: Represent the identity type: systemAssigned, userAssigned,
+     None. Possible values include: 'None', 'SystemAssigned', 'UserAssigned'
+    :type type: str or ~azure.mgmt.signalr.models.ManagedIdentityType
+    :param user_assigned_identities: Get or set the user assigned identities
+    :type user_assigned_identities: dict[str,
+     ~azure.mgmt.signalr.models.UserAssignedIdentityProperty]
+    :ivar principal_id: Get the principal id for the system assigned identity.
+     Only be used in response.
+    :vartype principal_id: str
+    :ivar tenant_id: Get the tenant id for the system assigned identity.
+     Only be used in response
+    :vartype tenant_id: str
+    """
+
+    _validation = {
+        'principal_id': {'readonly': True},
+        'tenant_id': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'user_assigned_identities': {'key': 'userAssignedIdentities', 'type': '{UserAssignedIdentityProperty}'},
+        'principal_id': {'key': 'principalId', 'type': 'str'},
+        'tenant_id': {'key': 'tenantId', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ManagedIdentity, self).__init__(**kwargs)
+        self.type = kwargs.get('type', None)
+        self.user_assigned_identities = kwargs.get('user_assigned_identities', None)
+        self.principal_id = None
+        self.tenant_id = None
+
+
+class ManagedIdentitySettings(Model):
+    """Managed identity settings for upstream.
+
+    :param resource: The Resource indicating the App ID URI of the target
+     resource.
+     It also appears in the aud (audience) claim of the issued token.
+    :type resource: str
+    """
+
+    _attribute_map = {
+        'resource': {'key': 'resource', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ManagedIdentitySettings, self).__init__(**kwargs)
+        self.resource = kwargs.get('resource', None)
+
+
 class MetricSpecification(Model):
     """Specifications of the Metrics for Azure Monitoring.
 
@@ -599,6 +657,9 @@ class RegenerateKeyParameters(Model):
 class ResourceSku(Model):
     """The billing information of the SignalR resource.
 
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
     All required parameters must be populated in order to send to Azure.
 
     :param name: Required. The name of the SKU. Required.
@@ -608,10 +669,10 @@ class ResourceSku(Model):
      `Basic` is deprecated, use `Standard` instead. Possible values include:
      'Free', 'Basic', 'Standard', 'Premium'
     :type tier: str or ~azure.mgmt.signalr.models.SignalRSkuTier
-    :param size: Optional string. For future use.
-    :type size: str
-    :param family: Optional string. For future use.
-    :type family: str
+    :ivar size: Not used. Retained for future use.
+    :vartype size: str
+    :ivar family: Not used. Retained for future use.
+    :vartype family: str
     :param capacity: Optional, integer. The unit count of SignalR resource. 1
      by default.
      If present, following values are allowed:
@@ -622,6 +683,8 @@ class ResourceSku(Model):
 
     _validation = {
         'name': {'required': True},
+        'size': {'readonly': True},
+        'family': {'readonly': True},
     }
 
     _attribute_map = {
@@ -636,8 +699,8 @@ class ResourceSku(Model):
         super(ResourceSku, self).__init__(**kwargs)
         self.name = kwargs.get('name', None)
         self.tier = kwargs.get('tier', None)
-        self.size = kwargs.get('size', None)
-        self.family = kwargs.get('family', None)
+        self.size = None
+        self.family = None
         self.capacity = kwargs.get('capacity', None)
 
 
@@ -705,11 +768,6 @@ class SignalRCorsSettings(Model):
 class SignalRCreateOrUpdateProperties(Model):
     """Settings used to provision or configure the resource.
 
-    :param host_name_prefix: Prefix for the hostName of the SignalR service.
-     Retained for future use.
-     The hostname will be of format:
-     &lt;hostNamePrefix&gt;.service.signalr.net.
-    :type host_name_prefix: str
     :param features: List of SignalR featureFlags. e.g. ServiceMode.
      FeatureFlags that are not included in the parameters for the update
      operation will not be modified.
@@ -729,7 +787,6 @@ class SignalRCreateOrUpdateProperties(Model):
     """
 
     _attribute_map = {
-        'host_name_prefix': {'key': 'hostNamePrefix', 'type': 'str'},
         'features': {'key': 'features', 'type': '[SignalRFeature]'},
         'cors': {'key': 'cors', 'type': 'SignalRCorsSettings'},
         'upstream': {'key': 'upstream', 'type': 'ServerlessUpstreamSettings'},
@@ -738,7 +795,6 @@ class SignalRCreateOrUpdateProperties(Model):
 
     def __init__(self, **kwargs):
         super(SignalRCreateOrUpdateProperties, self).__init__(**kwargs)
-        self.host_name_prefix = kwargs.get('host_name_prefix', None)
         self.features = kwargs.get('features', None)
         self.cors = kwargs.get('cors', None)
         self.upstream = kwargs.get('upstream', None)
@@ -905,11 +961,6 @@ class SignalRResource(TrackedResource):
     :type tags: dict[str, str]
     :param sku: The billing information of the resource.(e.g. Free, Standard)
     :type sku: ~azure.mgmt.signalr.models.ResourceSku
-    :param host_name_prefix: Prefix for the hostName of the SignalR service.
-     Retained for future use.
-     The hostname will be of format:
-     &lt;hostNamePrefix&gt;.service.signalr.net.
-    :type host_name_prefix: str
     :param features: List of SignalR featureFlags. e.g. ServiceMode.
      FeatureFlags that are not included in the parameters for the update
      operation will not be modified.
@@ -949,10 +1000,14 @@ class SignalRResource(TrackedResource):
      SignalR resource.
     :vartype private_endpoint_connections:
      list[~azure.mgmt.signalr.models.PrivateEndpointConnection]
+    :param tls: TLS settings.
+    :type tls: ~azure.mgmt.signalr.models.SignalRTlsSettings
     :param kind: The kind of the service - e.g. "SignalR", or "RawWebSockets"
      for "Microsoft.SignalRService/SignalR". Possible values include:
      'SignalR', 'RawWebSockets'
     :type kind: str or ~azure.mgmt.signalr.models.ServiceKind
+    :param identity: The managed identity response
+    :type identity: ~azure.mgmt.signalr.models.ManagedIdentity
     """
 
     _validation = {
@@ -975,7 +1030,6 @@ class SignalRResource(TrackedResource):
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
         'sku': {'key': 'sku', 'type': 'ResourceSku'},
-        'host_name_prefix': {'key': 'properties.hostNamePrefix', 'type': 'str'},
         'features': {'key': 'properties.features', 'type': '[SignalRFeature]'},
         'cors': {'key': 'properties.cors', 'type': 'SignalRCorsSettings'},
         'upstream': {'key': 'properties.upstream', 'type': 'ServerlessUpstreamSettings'},
@@ -987,13 +1041,14 @@ class SignalRResource(TrackedResource):
         'server_port': {'key': 'properties.serverPort', 'type': 'int'},
         'version': {'key': 'properties.version', 'type': 'str'},
         'private_endpoint_connections': {'key': 'properties.privateEndpointConnections', 'type': '[PrivateEndpointConnection]'},
+        'tls': {'key': 'properties.tls', 'type': 'SignalRTlsSettings'},
         'kind': {'key': 'kind', 'type': 'str'},
+        'identity': {'key': 'identity', 'type': 'ManagedIdentity'},
     }
 
     def __init__(self, **kwargs):
         super(SignalRResource, self).__init__(**kwargs)
         self.sku = kwargs.get('sku', None)
-        self.host_name_prefix = kwargs.get('host_name_prefix', None)
         self.features = kwargs.get('features', None)
         self.cors = kwargs.get('cors', None)
         self.upstream = kwargs.get('upstream', None)
@@ -1005,7 +1060,26 @@ class SignalRResource(TrackedResource):
         self.server_port = None
         self.version = None
         self.private_endpoint_connections = None
+        self.tls = kwargs.get('tls', None)
         self.kind = kwargs.get('kind', None)
+        self.identity = kwargs.get('identity', None)
+
+
+class SignalRTlsSettings(Model):
+    """TLS settings for SignalR.
+
+    :param client_cert_enabled: Request client certificate during TLS
+     handshake if enabled
+    :type client_cert_enabled: bool
+    """
+
+    _attribute_map = {
+        'client_cert_enabled': {'key': 'clientCertEnabled', 'type': 'bool'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SignalRTlsSettings, self).__init__(**kwargs)
+        self.client_cert_enabled = kwargs.get('client_cert_enabled', None)
 
 
 class SignalRUsage(Model):
@@ -1063,6 +1137,28 @@ class SignalRUsageName(Model):
         self.localized_value = kwargs.get('localized_value', None)
 
 
+class UpstreamAuthSettings(Model):
+    """Upstream auth settings.
+
+    :param type: Gets or sets the type of auth. None or ManagedIdentity is
+     supported now. Possible values include: 'None', 'ManagedIdentity'
+    :type type: str or ~azure.mgmt.signalr.models.UpstreamAuthType
+    :param managed_identity: Gets or sets the managed identity settings. It's
+     required if the auth type is set to ManagedIdentity.
+    :type managed_identity: ~azure.mgmt.signalr.models.ManagedIdentitySettings
+    """
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'managed_identity': {'key': 'managedIdentity', 'type': 'ManagedIdentitySettings'},
+    }
+
+    def __init__(self, **kwargs):
+        super(UpstreamAuthSettings, self).__init__(**kwargs)
+        self.type = kwargs.get('type', None)
+        self.managed_identity = kwargs.get('managed_identity', None)
+
+
 class UpstreamTemplate(Model):
     """Upstream template item settings. It defines the Upstream URL of the
     incoming requests.
@@ -1104,6 +1200,9 @@ class UpstreamTemplate(Model):
      with a client request from hub `chat` connects, it will first POST to this
      URL: `http://example.com/chat/api/connect`.
     :type url_template: str
+    :param auth: Gets or sets the auth settings for an upstream. If not set,
+     no auth is used for upstream messages.
+    :type auth: ~azure.mgmt.signalr.models.UpstreamAuthSettings
     """
 
     _validation = {
@@ -1115,6 +1214,7 @@ class UpstreamTemplate(Model):
         'event_pattern': {'key': 'eventPattern', 'type': 'str'},
         'category_pattern': {'key': 'categoryPattern', 'type': 'str'},
         'url_template': {'key': 'urlTemplate', 'type': 'str'},
+        'auth': {'key': 'auth', 'type': 'UpstreamAuthSettings'},
     }
 
     def __init__(self, **kwargs):
@@ -1123,3 +1223,32 @@ class UpstreamTemplate(Model):
         self.event_pattern = kwargs.get('event_pattern', None)
         self.category_pattern = kwargs.get('category_pattern', None)
         self.url_template = kwargs.get('url_template', None)
+        self.auth = kwargs.get('auth', None)
+
+
+class UserAssignedIdentityProperty(Model):
+    """Properties of user assigned identity.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar principal_id: Get the principal id for the user assigned identity
+    :vartype principal_id: str
+    :ivar client_id: Get the client id for the user assigned identity
+    :vartype client_id: str
+    """
+
+    _validation = {
+        'principal_id': {'readonly': True},
+        'client_id': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'principal_id': {'key': 'principalId', 'type': 'str'},
+        'client_id': {'key': 'clientId', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(UserAssignedIdentityProperty, self).__init__(**kwargs)
+        self.principal_id = None
+        self.client_id = None
