@@ -2,8 +2,8 @@
     "chosen_version": "2020-12-08",
     "total_api_version_list": ["2020-12-08"],
     "client": {
-        "name": "Healthbot",
-        "filename": "_healthbot",
+        "name": "HealthbotClient",
+        "filename": "_healthbot_client",
         "description": "Microsoft Healthcare Bot is a cloud platform that empowers developers in Healthcare organizations to build and deploy their compliant, AI-powered virtual health assistants and health bots, that help them improve processes and reduce costs.",
         "base_url": "\u0027https://management.azure.com\u0027",
         "custom_base_url": null,

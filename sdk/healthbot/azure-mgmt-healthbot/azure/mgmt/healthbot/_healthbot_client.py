@@ -17,13 +17,13 @@ if TYPE_CHECKING:
 
     from azure.core.credentials import TokenCredential
 
-from ._configuration import HealthbotConfiguration
+from ._configuration import HealthbotClientConfiguration
 from .operations import BotsOperations
 from .operations import Operations
 from . import models
 
 
-class Healthbot(object):
+class HealthbotClient(object):
     """Microsoft Healthcare Bot is a cloud platform that empowers developers in Healthcare organizations to build and deploy their compliant, AI-powered virtual health assistants and health bots, that help them improve processes and reduce costs.
 
     :ivar bots: BotsOperations operations
@@ -48,7 +48,7 @@ class Healthbot(object):
         # type: (...) -> None
         if not base_url:
             base_url = 'https://management.azure.com'
-        self._config = HealthbotConfiguration(credential, subscription_id, **kwargs)
+        self._config = HealthbotClientConfiguration(credential, subscription_id, **kwargs)
         self._client = ARMPipelineClient(base_url=base_url, config=self._config, **kwargs)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
@@ -65,7 +65,7 @@ class Healthbot(object):
         self._client.close()
 
     def __enter__(self):
-        # type: () -> Healthbot
+        # type: () -> HealthbotClient
         self._client.__enter__()
         return self
 
