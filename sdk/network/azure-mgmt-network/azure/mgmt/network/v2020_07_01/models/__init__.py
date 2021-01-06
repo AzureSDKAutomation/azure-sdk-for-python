@@ -250,6 +250,7 @@ try:
     from ._models_py3 import FirewallPolicyRuleCollection
     from ._models_py3 import FirewallPolicyRuleCollectionGroup
     from ._models_py3 import FirewallPolicyRuleCollectionGroupListResult
+    from ._models_py3 import FirewallPolicySNAT
     from ._models_py3 import FirewallPolicySku
     from ._models_py3 import FirewallPolicyThreatIntelWhitelist
     from ._models_py3 import FirewallPolicyTransportSecurity
@@ -801,6 +802,7 @@ except (SyntaxError, ImportError):
     from ._models import FirewallPolicyRuleCollection  # type: ignore
     from ._models import FirewallPolicyRuleCollectionGroup  # type: ignore
     from ._models import FirewallPolicyRuleCollectionGroupListResult  # type: ignore
+    from ._models import FirewallPolicySNAT  # type: ignore
     from ._models import FirewallPolicySku  # type: ignore
     from ._models import FirewallPolicyThreatIntelWhitelist  # type: ignore
     from ._models import FirewallPolicyTransportSecurity  # type: ignore
@@ -1505,6 +1507,7 @@ __all__ = [
     'FirewallPolicyRuleCollection',
     'FirewallPolicyRuleCollectionGroup',
     'FirewallPolicyRuleCollectionGroupListResult',
+    'FirewallPolicySNAT',
     'FirewallPolicySku',
     'FirewallPolicyThreatIntelWhitelist',
     'FirewallPolicyTransportSecurity',

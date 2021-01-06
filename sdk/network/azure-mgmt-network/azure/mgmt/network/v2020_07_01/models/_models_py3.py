@@ -10466,6 +10466,8 @@ class FirewallPolicy(Resource):
     :param threat_intel_whitelist: ThreatIntel Whitelist for Firewall Policy.
     :type threat_intel_whitelist:
      ~azure.mgmt.network.v2020_07_01.models.FirewallPolicyThreatIntelWhitelist
+    :param snat: The private IP ranges to which traffic will not be SNAT.
+    :type snat: ~azure.mgmt.network.v2020_07_01.models.FirewallPolicySNAT
     :param dns_settings: DNS Proxy Settings definition.
     :type dns_settings: ~azure.mgmt.network.v2020_07_01.models.DnsSettings
     :param intrusion_detection: The configuration for Intrusion detection.
@@ -10503,6 +10505,7 @@ class FirewallPolicy(Resource):
         'child_policies': {'key': 'properties.childPolicies', 'type': '[SubResource]'},
         'threat_intel_mode': {'key': 'properties.threatIntelMode', 'type': 'str'},
         'threat_intel_whitelist': {'key': 'properties.threatIntelWhitelist', 'type': 'FirewallPolicyThreatIntelWhitelist'},
+        'snat': {'key': 'properties.snat', 'type': 'FirewallPolicySNAT'},
         'dns_settings': {'key': 'properties.dnsSettings', 'type': 'DnsSettings'},
         'intrusion_detection': {'key': 'properties.intrusionDetection', 'type': 'FirewallPolicyIntrusionDetection'},
         'transport_security': {'key': 'properties.transportSecurity', 'type': 'FirewallPolicyTransportSecurity'},
@@ -10519,6 +10522,7 @@ class FirewallPolicy(Resource):
         base_policy: Optional["SubResource"] = None,
         threat_intel_mode: Optional[Union[str, "AzureFirewallThreatIntelMode"]] = None,
         threat_intel_whitelist: Optional["FirewallPolicyThreatIntelWhitelist"] = None,
+        snat: Optional["FirewallPolicySNAT"] = None,
         dns_settings: Optional["DnsSettings"] = None,
         intrusion_detection: Optional["FirewallPolicyIntrusionDetection"] = None,
         transport_security: Optional["FirewallPolicyTransportSecurity"] = None,
@@ -10535,6 +10539,7 @@ class FirewallPolicy(Resource):
         self.child_policies = None
         self.threat_intel_mode = threat_intel_mode
         self.threat_intel_whitelist = threat_intel_whitelist
+        self.snat = snat
         self.dns_settings = dns_settings
         self.intrusion_detection = intrusion_detection
         self.transport_security = transport_security
@@ -11058,6 +11063,27 @@ class FirewallPolicySku(msrest.serialization.Model):
     ):
         super(FirewallPolicySku, self).__init__(**kwargs)
         self.tier = tier
+
+
+class FirewallPolicySNAT(msrest.serialization.Model):
+    """The private IP ranges to which traffic will not be SNAT.
+
+    :param private_ranges: List of private IP addresses/IP address ranges to not be SNAT.
+    :type private_ranges: list[str]
+    """
+
+    _attribute_map = {
+        'private_ranges': {'key': 'privateRanges', 'type': '[str]'},
+    }
+
+    def __init__(
+        self,
+        *,
+        private_ranges: Optional[List[str]] = None,
+        **kwargs
+    ):
+        super(FirewallPolicySNAT, self).__init__(**kwargs)
+        self.private_ranges = private_ranges
 
 
 class FirewallPolicyThreatIntelWhitelist(msrest.serialization.Model):
