@@ -9,12 +9,14 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from .operations import Operations
-from .dps_certificate_operations import DpsCertificateOperations
-from .iot_dps_resource_operations import IotDpsResourceOperations
+from ._operations import Operations
+from ._dps_certificate_operations import DpsCertificateOperations
+from ._dps_certificate_authority_operations import DpsCertificateAuthorityOperations
+from ._iot_dps_resource_operations import IotDpsResourceOperations
 
 __all__ = [
     'Operations',
     'DpsCertificateOperations',
+    'DpsCertificateAuthorityOperations',
     'IotDpsResourceOperations',
 ]
