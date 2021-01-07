@@ -12,16 +12,16 @@
 from msrest.paging import Paged
 
 
-class ProfilePaged(Paged):
+class ProfileResultPaged(Paged):
     """
-    A paging container for iterating over a list of :class:`Profile <azure.mgmt.trafficmanager.models.Profile>` object
+    A paging container for iterating over a list of :class:`ProfileResult <azure.mgmt.trafficmanager.models.ProfileResult>` object
     """
 
     _attribute_map = {
         'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[Profile]'}
+        'current_page': {'key': 'value', 'type': '[ProfileResult]'}
     }
 
     def __init__(self, *args, **kwargs):
 
-        super(ProfilePaged, self).__init__(*args, **kwargs)
+        super(ProfileResultPaged, self).__init__(*args, **kwargs)

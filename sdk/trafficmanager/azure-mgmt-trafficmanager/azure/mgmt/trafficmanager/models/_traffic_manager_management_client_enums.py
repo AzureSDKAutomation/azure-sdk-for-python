@@ -64,3 +64,11 @@ class TrafficViewEnrollmentStatus(str, Enum):
 
     enabled = "Enabled"
     disabled = "Disabled"
+
+
+class IdentityType(str, Enum):
+
+    user = "User"
+    application = "Application"
+    managed_identity = "ManagedIdentity"
+    key = "Key"

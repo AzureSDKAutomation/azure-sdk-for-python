@@ -19,11 +19,13 @@ from .. import models
 class ProfilesOperations(object):
     """ProfilesOperations operations.
 
+    You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
+
     :param client: Client for service requests.
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client Api Version. Constant value: "2018-04-01".
+    :ivar api_version: Client Api Version. Constant value: "2020-12-01".
     """
 
     models = models
@@ -33,7 +35,7 @@ class ProfilesOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2018-04-01"
+        self.api_version = "2020-12-01"
 
         self.config = config
 
@@ -90,7 +92,6 @@ class ProfilesOperations(object):
             raise exp
 
         deserialized = None
-
         if response.status_code == 200:
             deserialized = self._deserialize('TrafficManagerNameAvailability', response)
 
@@ -113,13 +114,12 @@ class ProfilesOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of Profile
+        :return: An iterator like instance of ProfileResult
         :rtype:
-         ~azure.mgmt.trafficmanager.models.ProfilePaged[~azure.mgmt.trafficmanager.models.Profile]
+         ~azure.mgmt.trafficmanager.models.ProfileResultPaged[~azure.mgmt.trafficmanager.models.ProfileResult]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        def internal_paging(next_link=None, raw=False):
-
+        def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
                 url = self.list_by_resource_group.metadata['url']
@@ -149,6 +149,11 @@ class ProfilesOperations(object):
 
             # Construct and send request
             request = self._client.get(url, query_parameters, header_parameters)
+            return request
+
+        def internal_paging(next_link=None):
+            request = prepare_request(next_link)
+
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
@@ -159,12 +164,10 @@ class ProfilesOperations(object):
             return response
 
         # Deserialize response
-        deserialized = models.ProfilePaged(internal_paging, self._deserialize.dependencies)
-
+        header_dict = None
         if raw:
             header_dict = {}
-            client_raw_response = models.ProfilePaged(internal_paging, self._deserialize.dependencies, header_dict)
-            return client_raw_response
+        deserialized = models.ProfileResultPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
     list_by_resource_group.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/trafficmanagerprofiles'}
@@ -178,13 +181,12 @@ class ProfilesOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of Profile
+        :return: An iterator like instance of ProfileResult
         :rtype:
-         ~azure.mgmt.trafficmanager.models.ProfilePaged[~azure.mgmt.trafficmanager.models.Profile]
+         ~azure.mgmt.trafficmanager.models.ProfileResultPaged[~azure.mgmt.trafficmanager.models.ProfileResult]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        def internal_paging(next_link=None, raw=False):
-
+        def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
                 url = self.list_by_subscription.metadata['url']
@@ -213,6 +215,11 @@ class ProfilesOperations(object):
 
             # Construct and send request
             request = self._client.get(url, query_parameters, header_parameters)
+            return request
+
+        def internal_paging(next_link=None):
+            request = prepare_request(next_link)
+
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
@@ -223,12 +230,10 @@ class ProfilesOperations(object):
             return response
 
         # Deserialize response
-        deserialized = models.ProfilePaged(internal_paging, self._deserialize.dependencies)
-
+        header_dict = None
         if raw:
             header_dict = {}
-            client_raw_response = models.ProfilePaged(internal_paging, self._deserialize.dependencies, header_dict)
-            return client_raw_response
+        deserialized = models.ProfileResultPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
     list_by_subscription.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Network/trafficmanagerprofiles'}
@@ -247,8 +252,8 @@ class ProfilesOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: Profile or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.trafficmanager.models.Profile or
+        :return: ProfileResult or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.trafficmanager.models.ProfileResult or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -285,9 +290,8 @@ class ProfilesOperations(object):
             raise exp
 
         deserialized = None
-
         if response.status_code == 200:
-            deserialized = self._deserialize('Profile', response)
+            deserialized = self._deserialize('ProfileResult', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
@@ -313,8 +317,8 @@ class ProfilesOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: Profile or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.trafficmanager.models.Profile or
+        :return: ProfileResult or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.trafficmanager.models.ProfileResult or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -355,11 +359,10 @@ class ProfilesOperations(object):
             raise exp
 
         deserialized = None
-
         if response.status_code == 200:
-            deserialized = self._deserialize('Profile', response)
+            deserialized = self._deserialize('ProfileResult', response)
         if response.status_code == 201:
-            deserialized = self._deserialize('Profile', response)
+            deserialized = self._deserialize('ProfileResult', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
@@ -421,7 +424,6 @@ class ProfilesOperations(object):
             raise exp
 
         deserialized = None
-
         if response.status_code == 200:
             deserialized = self._deserialize('DeleteOperationResult', response)
 
@@ -449,8 +451,8 @@ class ProfilesOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: Profile or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.trafficmanager.models.Profile or
+        :return: ProfileResult or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.trafficmanager.models.ProfileResult or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -491,9 +493,8 @@ class ProfilesOperations(object):
             raise exp
 
         deserialized = None
-
         if response.status_code == 200:
-            deserialized = self._deserialize('Profile', response)
+            deserialized = self._deserialize('ProfileResult', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
