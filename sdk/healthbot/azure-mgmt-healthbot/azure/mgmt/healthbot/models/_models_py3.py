@@ -12,7 +12,7 @@ from typing import Dict, List, Optional, Union
 from azure.core.exceptions import HttpResponseError
 import msrest.serialization
 
-from ._healthbot_enums import *
+from ._healthbot_client_enums import *
 
 
 class AvailableOperations(msrest.serialization.Model):

@@ -39,7 +39,7 @@ except (SyntaxError, ImportError):
     from ._models import TrackedResource  # type: ignore
     from ._models import ValidationResult  # type: ignore
 
-from ._healthbot_enums import (
+from ._healthbot_client_enums import (
     IdentityType,
     SkuName,
 )
