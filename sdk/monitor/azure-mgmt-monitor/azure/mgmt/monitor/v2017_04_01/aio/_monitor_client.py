@@ -30,7 +30,7 @@ class MonitorClient(object):
     :vartype activity_log_alerts: $(python-base-namespace).v2017_04_01.aio.operations.ActivityLogAlertsOperations
     :param credential: Credential needed for the client to connect to Azure.
     :type credential: ~azure.core.credentials_async.AsyncTokenCredential
-    :param subscription_id: The Azure subscription Id.
+    :param subscription_id: The ID of the target subscription.
     :type subscription_id: str
     :param str base_url: Service URL
     """
@@ -49,7 +49,6 @@ class MonitorClient(object):
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
         self._serialize = Serializer(client_models)
-        self._serialize.client_side_validation = False
         self._deserialize = Deserializer(client_models)
 
         self.action_groups = ActionGroupsOperations(

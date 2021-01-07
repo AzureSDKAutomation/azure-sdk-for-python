@@ -365,6 +365,8 @@ class Baseline(msrest.serialization.Model):
     :type low_thresholds: list[float]
     :param high_thresholds: Required. The high thresholds of the baseline.
     :type high_thresholds: list[float]
+    :param timestamps: the array of timestamps of the baselines.
+    :type timestamps: list[~datetime.datetime]
     """
 
     _validation = {
@@ -377,6 +379,7 @@ class Baseline(msrest.serialization.Model):
         'sensitivity': {'key': 'sensitivity', 'type': 'str'},
         'low_thresholds': {'key': 'lowThresholds', 'type': '[float]'},
         'high_thresholds': {'key': 'highThresholds', 'type': '[float]'},
+        'timestamps': {'key': 'timestamps', 'type': '[iso-8601]'},
     }
 
     def __init__(
@@ -387,6 +390,7 @@ class Baseline(msrest.serialization.Model):
         self.sensitivity = kwargs['sensitivity']
         self.low_thresholds = kwargs['low_thresholds']
         self.high_thresholds = kwargs['high_thresholds']
+        self.timestamps = kwargs.get('timestamps', None)
 
 
 class BaselineMetadataValue(msrest.serialization.Model):
@@ -486,6 +490,9 @@ class CalculateBaselineResponse(msrest.serialization.Model):
     :type timestamps: list[~datetime.datetime]
     :param baseline: Required. The baseline values for each sensitivity.
     :type baseline: list[~$(python-base-namespace).v2018_09_01.models.Baseline]
+    :param statistics: The statistics.
+    :type statistics: ~$(python-base-
+     namespace).v2018_09_01.models.CalculateBaselineResponseStatistics
     """
 
     _validation = {
@@ -497,6 +504,7 @@ class CalculateBaselineResponse(msrest.serialization.Model):
         'type': {'key': 'type', 'type': 'str'},
         'timestamps': {'key': 'timestamps', 'type': '[iso-8601]'},
         'baseline': {'key': 'baseline', 'type': '[Baseline]'},
+        'statistics': {'key': 'statistics', 'type': 'CalculateBaselineResponseStatistics'},
     }
 
     def __init__(
@@ -507,6 +515,34 @@ class CalculateBaselineResponse(msrest.serialization.Model):
         self.type = kwargs['type']
         self.timestamps = kwargs.get('timestamps', None)
         self.baseline = kwargs['baseline']
+        self.statistics = kwargs.get('statistics', None)
+
+
+class CalculateBaselineResponseStatistics(msrest.serialization.Model):
+    """The statistics.
+
+    :param is_eligible: is series eligible for dynamic threshold analysis.
+    :type is_eligible: str
+    :param status: The list of extended status for calculating the baseline.
+    :type status: list[str]
+    :param seasonality_period: The seasonality period for calculating the baseline.
+    :type seasonality_period: int
+    """
+
+    _attribute_map = {
+        'is_eligible': {'key': 'isEligible', 'type': 'str'},
+        'status': {'key': 'status', 'type': '[str]'},
+        'seasonality_period': {'key': 'seasonalityPeriod', 'type': 'int'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(CalculateBaselineResponseStatistics, self).__init__(**kwargs)
+        self.is_eligible = kwargs.get('is_eligible', None)
+        self.status = kwargs.get('status', None)
+        self.seasonality_period = kwargs.get('seasonality_period', None)
 
 
 class EmailReceiver(msrest.serialization.Model):

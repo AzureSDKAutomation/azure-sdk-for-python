@@ -18,6 +18,7 @@ try:
     from ._models_py3 import BaselineMetadataValue
     from ._models_py3 import BaselineResponse
     from ._models_py3 import CalculateBaselineResponse
+    from ._models_py3 import CalculateBaselineResponseStatistics
     from ._models_py3 import EmailReceiver
     from ._models_py3 import EnableRequest
     from ._models_py3 import ErrorResponse
@@ -41,6 +42,7 @@ except (SyntaxError, ImportError):
     from ._models import BaselineMetadataValue  # type: ignore
     from ._models import BaselineResponse  # type: ignore
     from ._models import CalculateBaselineResponse  # type: ignore
+    from ._models import CalculateBaselineResponseStatistics  # type: ignore
     from ._models import EmailReceiver  # type: ignore
     from ._models import EnableRequest  # type: ignore
     from ._models import ErrorResponse  # type: ignore
@@ -71,6 +73,7 @@ __all__ = [
     'BaselineMetadataValue',
     'BaselineResponse',
     'CalculateBaselineResponse',
+    'CalculateBaselineResponseStatistics',
     'EmailReceiver',
     'EnableRequest',
     'ErrorResponse',
