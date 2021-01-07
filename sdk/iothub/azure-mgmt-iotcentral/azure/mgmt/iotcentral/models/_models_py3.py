@@ -434,7 +434,7 @@ class OperationInputs(Model):
      check.
     :type name: str
     :param type: The type of the IoT Central resource to query. Default value:
-     "IoTApps" .
+     "iotApps" .
     :type type: str
     """
 
@@ -447,7 +447,7 @@ class OperationInputs(Model):
         'type': {'key': 'type', 'type': 'str'},
     }
 
-    def __init__(self, *, name: str, type: str="IoTApps", **kwargs) -> None:
+    def __init__(self, *, name: str, type: str="iotApps", **kwargs) -> None:
         super(OperationInputs, self).__init__(**kwargs)
         self.name = name
         self.type = type
