@@ -474,7 +474,7 @@ class VirtualMachinesOperations(object):
         :param vm_name: The name of the virtual machine.
         :type vm_name: str
         :param force_deletion: Optional parameter to force delete virtual
-         machines.
+         machines.(Feature in Preview)
         :type force_deletion: bool
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
