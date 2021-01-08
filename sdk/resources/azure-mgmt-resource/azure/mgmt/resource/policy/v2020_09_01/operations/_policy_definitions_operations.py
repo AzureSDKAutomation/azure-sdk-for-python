@@ -11,7 +11,6 @@
 
 import uuid
 from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
 
 from .. import models
 
@@ -61,7 +60,8 @@ class PolicyDefinitionsOperations(object):
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.PolicyDefinition or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.create_or_update.metadata['url']
@@ -94,9 +94,7 @@ class PolicyDefinitionsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [201]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 201:
@@ -126,7 +124,8 @@ class PolicyDefinitionsOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: None or ClientRawResponse if raw=true
         :rtype: None or ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.delete.metadata['url']
@@ -154,9 +153,7 @@ class PolicyDefinitionsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200, 204]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseException(self._deserialize, response)
 
         if raw:
             client_raw_response = ClientRawResponse(None, response)
@@ -182,7 +179,8 @@ class PolicyDefinitionsOperations(object):
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.PolicyDefinition or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.get.metadata['url']
@@ -211,9 +209,7 @@ class PolicyDefinitionsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -245,7 +241,8 @@ class PolicyDefinitionsOperations(object):
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.PolicyDefinition or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.get_built_in.metadata['url']
@@ -273,9 +270,7 @@ class PolicyDefinitionsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -312,7 +307,8 @@ class PolicyDefinitionsOperations(object):
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.PolicyDefinition or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.create_or_update_at_management_group.metadata['url']
@@ -345,9 +341,7 @@ class PolicyDefinitionsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [201]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 201:
@@ -379,7 +373,8 @@ class PolicyDefinitionsOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: None or ClientRawResponse if raw=true
         :rtype: None or ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.delete_at_management_group.metadata['url']
@@ -407,9 +402,7 @@ class PolicyDefinitionsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200, 204]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseException(self._deserialize, response)
 
         if raw:
             client_raw_response = ClientRawResponse(None, response)
@@ -437,7 +430,8 @@ class PolicyDefinitionsOperations(object):
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.PolicyDefinition or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.get_at_management_group.metadata['url']
@@ -466,9 +460,7 @@ class PolicyDefinitionsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -522,7 +514,8 @@ class PolicyDefinitionsOperations(object):
         :return: An iterator like instance of PolicyDefinition
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.PolicyDefinitionPaged[~azure.mgmt.resource.policy.v2020_09_01.models.PolicyDefinition]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
@@ -565,9 +558,7 @@ class PolicyDefinitionsOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
+                raise models.ErrorResponseException(self._deserialize, response)
 
             return response
 
@@ -615,7 +606,8 @@ class PolicyDefinitionsOperations(object):
         :return: An iterator like instance of PolicyDefinition
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.PolicyDefinitionPaged[~azure.mgmt.resource.policy.v2020_09_01.models.PolicyDefinition]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
@@ -654,9 +646,7 @@ class PolicyDefinitionsOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
+                raise models.ErrorResponseException(self._deserialize, response)
 
             return response
 
@@ -712,7 +702,8 @@ class PolicyDefinitionsOperations(object):
         :return: An iterator like instance of PolicyDefinition
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.PolicyDefinitionPaged[~azure.mgmt.resource.policy.v2020_09_01.models.PolicyDefinition]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
@@ -755,9 +746,7 @@ class PolicyDefinitionsOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
+                raise models.ErrorResponseException(self._deserialize, response)
 
             return response
 
