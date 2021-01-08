@@ -20370,6 +20370,9 @@ class ManagedIntegrationRuntime(IntegrationRuntime):
     :param ssis_properties: SSIS properties for managed integration runtime.
     :type ssis_properties:
      ~azure.mgmt.datafactory.models.IntegrationRuntimeSsisProperties
+    :param managed_virtual_network: Managed Virtual Network reference.
+    :type managed_virtual_network:
+     ~azure.mgmt.datafactory.models.ManagedVirtualNetworkReference
     """
 
     _validation = {
@@ -20384,6 +20387,7 @@ class ManagedIntegrationRuntime(IntegrationRuntime):
         'state': {'key': 'state', 'type': 'str'},
         'compute_properties': {'key': 'typeProperties.computeProperties', 'type': 'IntegrationRuntimeComputeProperties'},
         'ssis_properties': {'key': 'typeProperties.ssisProperties', 'type': 'IntegrationRuntimeSsisProperties'},
+        'managed_virtual_network': {'key': 'managedVirtualNetwork', 'type': 'ManagedVirtualNetworkReference'},
     }
 
     def __init__(self, **kwargs):
@@ -20391,6 +20395,7 @@ class ManagedIntegrationRuntime(IntegrationRuntime):
         self.state = None
         self.compute_properties = kwargs.get('compute_properties', None)
         self.ssis_properties = kwargs.get('ssis_properties', None)
+        self.managed_virtual_network = kwargs.get('managed_virtual_network', None)
         self.type = 'Managed'
 
 
@@ -20721,6 +20726,38 @@ class ManagedVirtualNetwork(Model):
         self.additional_properties = kwargs.get('additional_properties', None)
         self.v_net_id = None
         self.alias = None
+
+
+class ManagedVirtualNetworkReference(Model):
+    """Managed Virtual Network reference type.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar type: Required. Managed Virtual Network reference type. Default
+     value: "ManagedVirtualNetworkReference" .
+    :vartype type: str
+    :param reference_name: Required. Reference ManagedVirtualNetwork name.
+    :type reference_name: str
+    """
+
+    _validation = {
+        'type': {'required': True, 'constant': True},
+        'reference_name': {'required': True},
+    }
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'reference_name': {'key': 'referenceName', 'type': 'str'},
+    }
+
+    type = "ManagedVirtualNetworkReference"
+
+    def __init__(self, **kwargs):
+        super(ManagedVirtualNetworkReference, self).__init__(**kwargs)
+        self.reference_name = kwargs.get('reference_name', None)
 
 
 class ManagedVirtualNetworkResource(SubResource):

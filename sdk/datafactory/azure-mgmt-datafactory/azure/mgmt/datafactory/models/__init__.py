@@ -371,6 +371,7 @@ try:
     from ._models_py3 import ManagedPrivateEndpoint
     from ._models_py3 import ManagedPrivateEndpointResource
     from ._models_py3 import ManagedVirtualNetwork
+    from ._models_py3 import ManagedVirtualNetworkReference
     from ._models_py3 import ManagedVirtualNetworkResource
     from ._models_py3 import MappingDataFlow
     from ._models_py3 import MariaDBLinkedService
@@ -1003,6 +1004,7 @@ except (SyntaxError, ImportError):
     from ._models import ManagedPrivateEndpoint
     from ._models import ManagedPrivateEndpointResource
     from ._models import ManagedVirtualNetwork
+    from ._models import ManagedVirtualNetworkReference
     from ._models import ManagedVirtualNetworkResource
     from ._models import MappingDataFlow
     from ._models import MariaDBLinkedService
@@ -1730,6 +1732,7 @@ __all__ = [
     'ManagedPrivateEndpoint',
     'ManagedPrivateEndpointResource',
     'ManagedVirtualNetwork',
+    'ManagedVirtualNetworkReference',
     'ManagedVirtualNetworkResource',
     'MappingDataFlow',
     'MariaDBLinkedService',
