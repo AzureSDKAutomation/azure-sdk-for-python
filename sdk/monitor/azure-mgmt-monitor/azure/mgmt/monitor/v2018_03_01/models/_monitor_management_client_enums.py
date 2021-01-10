@@ -29,6 +29,15 @@ class Operator(str, Enum):
     less_than_or_equal = "LessThanOrEqual"
 
 
+class AggregationTypeEnum(str, Enum):
+
+    average = "Average"
+    count = "Count"
+    minimum = "Minimum"
+    maximum = "Maximum"
+    total = "Total"
+
+
 class DynamicThresholdOperator(str, Enum):
 
     greater_than = "GreaterThan"

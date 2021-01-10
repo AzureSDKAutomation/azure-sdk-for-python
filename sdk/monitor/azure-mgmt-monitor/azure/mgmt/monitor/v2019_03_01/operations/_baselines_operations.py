@@ -24,7 +24,7 @@ class BaselinesOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client Api Version. Constant value: "2019-03-01".
+    :ivar api_version: The API version to use for this operation. Constant value: "2019-03-01".
     """
 
     models = models
@@ -115,7 +115,7 @@ class BaselinesOperations(object):
                     query_parameters['$filter'] = self._serialize.query("filter", filter, 'str')
                 if result_type is not None:
                     query_parameters['resultType'] = self._serialize.query("result_type", result_type, 'ResultType')
-                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str', min_length=1)
 
             else:
                 url = next_link
@@ -152,4 +152,4 @@ class BaselinesOperations(object):
         deserialized = models.SingleMetricBaselinePaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/{resourceUri}/providers/microsoft.insights/metricBaselines'}
+    list.metadata = {'url': '/{resourceUri}/providers/Microsoft.Insights/metricBaselines'}

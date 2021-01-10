@@ -328,7 +328,9 @@ class MultiMetricCriteria(Model):
     :param metric_namespace: Namespace of the metric.
     :type metric_namespace: str
     :param time_aggregation: Required. the criteria time aggregation types.
-    :type time_aggregation: object
+     Possible values include: 'Average', 'Count', 'Minimum', 'Maximum', 'Total'
+    :type time_aggregation: str or
+     ~azure.mgmt.monitor.v2018_03_01.models.AggregationTypeEnum
     :param dimensions: List of dimension conditions.
     :type dimensions:
      list[~azure.mgmt.monitor.v2018_03_01.models.MetricDimension]
@@ -352,7 +354,7 @@ class MultiMetricCriteria(Model):
         'name': {'key': 'name', 'type': 'str'},
         'metric_name': {'key': 'metricName', 'type': 'str'},
         'metric_namespace': {'key': 'metricNamespace', 'type': 'str'},
-        'time_aggregation': {'key': 'timeAggregation', 'type': 'object'},
+        'time_aggregation': {'key': 'timeAggregation', 'type': 'str'},
         'dimensions': {'key': 'dimensions', 'type': '[MetricDimension]'},
         'skip_metric_validation': {'key': 'skipMetricValidation', 'type': 'bool'},
         'criterion_type': {'key': 'criterionType', 'type': 'str'},
@@ -389,7 +391,9 @@ class DynamicMetricCriteria(MultiMetricCriteria):
     :param metric_namespace: Namespace of the metric.
     :type metric_namespace: str
     :param time_aggregation: Required. the criteria time aggregation types.
-    :type time_aggregation: object
+     Possible values include: 'Average', 'Count', 'Minimum', 'Maximum', 'Total'
+    :type time_aggregation: str or
+     ~azure.mgmt.monitor.v2018_03_01.models.AggregationTypeEnum
     :param dimensions: List of dimension conditions.
     :type dimensions:
      list[~azure.mgmt.monitor.v2018_03_01.models.MetricDimension]
@@ -435,7 +439,7 @@ class DynamicMetricCriteria(MultiMetricCriteria):
         'name': {'key': 'name', 'type': 'str'},
         'metric_name': {'key': 'metricName', 'type': 'str'},
         'metric_namespace': {'key': 'metricNamespace', 'type': 'str'},
-        'time_aggregation': {'key': 'timeAggregation', 'type': 'object'},
+        'time_aggregation': {'key': 'timeAggregation', 'type': 'str'},
         'dimensions': {'key': 'dimensions', 'type': '[MetricDimension]'},
         'skip_metric_validation': {'key': 'skipMetricValidation', 'type': 'bool'},
         'criterion_type': {'key': 'criterionType', 'type': 'str'},
@@ -767,8 +771,8 @@ class MetricAlertResource(Resource):
     :type location: str
     :param tags: Resource tags
     :type tags: dict[str, str]
-    :param description: Required. the description of the metric alert that
-     will be included in the alert email.
+    :param description: the description of the metric alert that will be
+     included in the alert email.
     :type description: str
     :param severity: Required. Alert severity {0, 1, 2, 3, 4}
     :type severity: int
@@ -811,7 +815,6 @@ class MetricAlertResource(Resource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'location': {'required': True},
-        'description': {'required': True},
         'severity': {'required': True},
         'enabled': {'required': True},
         'evaluation_frequency': {'required': True},
@@ -866,8 +869,8 @@ class MetricAlertResourcePatch(Model):
 
     :param tags: Resource tags
     :type tags: dict[str, str]
-    :param description: Required. the description of the metric alert that
-     will be included in the alert email.
+    :param description: the description of the metric alert that will be
+     included in the alert email.
     :type description: str
     :param severity: Required. Alert severity {0, 1, 2, 3, 4}
     :type severity: int
@@ -906,7 +909,6 @@ class MetricAlertResourcePatch(Model):
     """
 
     _validation = {
-        'description': {'required': True},
         'severity': {'required': True},
         'enabled': {'required': True},
         'evaluation_frequency': {'required': True},
@@ -1064,7 +1066,9 @@ class MetricCriteria(MultiMetricCriteria):
     :param metric_namespace: Namespace of the metric.
     :type metric_namespace: str
     :param time_aggregation: Required. the criteria time aggregation types.
-    :type time_aggregation: object
+     Possible values include: 'Average', 'Count', 'Minimum', 'Maximum', 'Total'
+    :type time_aggregation: str or
+     ~azure.mgmt.monitor.v2018_03_01.models.AggregationTypeEnum
     :param dimensions: List of dimension conditions.
     :type dimensions:
      list[~azure.mgmt.monitor.v2018_03_01.models.MetricDimension]
@@ -1097,7 +1101,7 @@ class MetricCriteria(MultiMetricCriteria):
         'name': {'key': 'name', 'type': 'str'},
         'metric_name': {'key': 'metricName', 'type': 'str'},
         'metric_namespace': {'key': 'metricNamespace', 'type': 'str'},
-        'time_aggregation': {'key': 'timeAggregation', 'type': 'object'},
+        'time_aggregation': {'key': 'timeAggregation', 'type': 'str'},
         'dimensions': {'key': 'dimensions', 'type': '[MetricDimension]'},
         'skip_metric_validation': {'key': 'skipMetricValidation', 'type': 'bool'},
         'criterion_type': {'key': 'criterionType', 'type': 'str'},
