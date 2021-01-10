@@ -110,7 +110,7 @@ class VaultsOperations(object):
         :type vault_name: str
         :param parameters: Parameters to create or update the vault
         :type parameters:
-         ~azure.mgmt.keyvault.v2019_09_01.models.VaultCreateOrUpdateParameters
+         ~azure.mgmt.keyvault.v2020_04_01_preview.models.VaultCreateOrUpdateParameters
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response
@@ -162,7 +162,7 @@ class VaultsOperations(object):
         :type tags: dict[str, str]
         :param properties: Properties of the vault
         :type properties:
-         ~azure.mgmt.keyvault.v2019_09_01.models.VaultPatchProperties
+         ~azure.mgmt.keyvault.v2020_04_01_preview.models.VaultPatchProperties
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -244,7 +244,7 @@ class VaultsOperations(object):
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
         :return: CloudError or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.keyvault.v2019_09_01.models.CloudError or
+        :rtype: ~azure.mgmt.keyvault.v2020_04_01_preview.models.CloudError or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -308,7 +308,7 @@ class VaultsOperations(object):
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
         :return: Vault or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.keyvault.v2019_09_01.models.Vault or
+        :rtype: ~azure.mgmt.keyvault.v2020_04_01_preview.models.Vault or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -369,10 +369,10 @@ class VaultsOperations(object):
         :param operation_kind: Name of the operation. Possible values include:
          'add', 'replace', 'remove'
         :type operation_kind: str or
-         ~azure.mgmt.keyvault.v2019_09_01.models.AccessPolicyUpdateKind
+         ~azure.mgmt.keyvault.v2020_04_01_preview.models.AccessPolicyUpdateKind
         :param properties: Properties of the access policy
         :type properties:
-         ~azure.mgmt.keyvault.v2019_09_01.models.VaultAccessPolicyProperties
+         ~azure.mgmt.keyvault.v2020_04_01_preview.models.VaultAccessPolicyProperties
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -459,7 +459,7 @@ class VaultsOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: An iterator like instance of Vault
         :rtype:
-         ~azure.mgmt.keyvault.v2019_09_01.models.VaultPaged[~azure.mgmt.keyvault.v2019_09_01.models.Vault]
+         ~azure.mgmt.keyvault.v2020_04_01_preview.models.VaultPaged[~azure.mgmt.keyvault.v2020_04_01_preview.models.Vault]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         api_version = "2019-09-01"
@@ -533,7 +533,7 @@ class VaultsOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: An iterator like instance of Vault
         :rtype:
-         ~azure.mgmt.keyvault.v2019_09_01.models.VaultPaged[~azure.mgmt.keyvault.v2019_09_01.models.Vault]
+         ~azure.mgmt.keyvault.v2020_04_01_preview.models.VaultPaged[~azure.mgmt.keyvault.v2020_04_01_preview.models.Vault]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         api_version = "2019-09-01"
@@ -603,7 +603,7 @@ class VaultsOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: An iterator like instance of DeletedVault
         :rtype:
-         ~azure.mgmt.keyvault.v2019_09_01.models.DeletedVaultPaged[~azure.mgmt.keyvault.v2019_09_01.models.DeletedVault]
+         ~azure.mgmt.keyvault.v2020_04_01_preview.models.DeletedVaultPaged[~azure.mgmt.keyvault.v2020_04_01_preview.models.DeletedVault]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         api_version = "2019-09-01"
@@ -674,8 +674,8 @@ class VaultsOperations(object):
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
         :return: DeletedVault or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.keyvault.v2019_09_01.models.DeletedVault or
-         ~msrest.pipeline.ClientRawResponse
+        :rtype: ~azure.mgmt.keyvault.v2020_04_01_preview.models.DeletedVault
+         or ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         api_version = "2019-09-01"
@@ -790,9 +790,9 @@ class VaultsOperations(object):
         :return: An instance of LROPoller that returns CloudError or
          ClientRawResponse<CloudError> if raw==True
         :rtype:
-         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.keyvault.v2019_09_01.models.CloudError]
+         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.keyvault.v2020_04_01_preview.models.CloudError]
          or
-         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.keyvault.v2019_09_01.models.CloudError]]
+         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.keyvault.v2020_04_01_preview.models.CloudError]]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._purge_deleted_initial(
@@ -835,7 +835,7 @@ class VaultsOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: An iterator like instance of Resource
         :rtype:
-         ~azure.mgmt.keyvault.v2019_09_01.models.ResourcePaged[~azure.mgmt.keyvault.v2019_09_01.models.Resource]
+         ~azure.mgmt.keyvault.v2020_04_01_preview.models.ResourcePaged[~azure.mgmt.keyvault.v2020_04_01_preview.models.Resource]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         api_version = "2015-11-01"
@@ -908,8 +908,8 @@ class VaultsOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: CheckNameAvailabilityResult or ClientRawResponse if raw=true
         :rtype:
-         ~azure.mgmt.keyvault.v2019_09_01.models.CheckNameAvailabilityResult or
-         ~msrest.pipeline.ClientRawResponse
+         ~azure.mgmt.keyvault.v2020_04_01_preview.models.CheckNameAvailabilityResult
+         or ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         vault_name = models.VaultCheckNameAvailabilityParameters(name=name)
