@@ -496,8 +496,8 @@ class ManagedHsmProperties(msrest.serialization.Model):
     :param initial_admin_object_ids: Array of initial administrators object ids for this managed
      hsm pool.
     :type initial_admin_object_ids: list[str]
-    :param hsm_uri: The URI of the managed hsm pool for performing operations on keys.
-    :type hsm_uri: str
+    :ivar hsm_uri: The URI of the managed hsm pool for performing operations on keys.
+    :vartype hsm_uri: str
     :param enable_soft_delete: Property to specify whether the 'soft delete' functionality is
      enabled for this managed HSM pool. If it's not set to any value(true or false) when creating
      new managed HSM pool, it will be set to true by default. Once set to true, it cannot be
@@ -524,6 +524,7 @@ class ManagedHsmProperties(msrest.serialization.Model):
     """
 
     _validation = {
+        'hsm_uri': {'readonly': True},
         'status_message': {'readonly': True},
         'provisioning_state': {'readonly': True},
     }
@@ -545,17 +546,16 @@ class ManagedHsmProperties(msrest.serialization.Model):
         *,
         tenant_id: Optional[str] = None,
         initial_admin_object_ids: Optional[List[str]] = None,
-        hsm_uri: Optional[str] = None,
         enable_soft_delete: Optional[bool] = True,
         soft_delete_retention_in_days: Optional[int] = 90,
-        enable_purge_protection: Optional[bool] = None,
+        enable_purge_protection: Optional[bool] = True,
         create_mode: Optional[Union[str, "CreateMode"]] = None,
         **kwargs
     ):
         super(ManagedHsmProperties, self).__init__(**kwargs)
         self.tenant_id = tenant_id
         self.initial_admin_object_ids = initial_admin_object_ids
-        self.hsm_uri = hsm_uri
+        self.hsm_uri = None
         self.enable_soft_delete = enable_soft_delete
         self.soft_delete_retention_in_days = soft_delete_retention_in_days
         self.enable_purge_protection = enable_purge_protection
@@ -589,7 +589,7 @@ class ManagedHsmSku(msrest.serialization.Model):
     def __init__(
         self,
         *,
-        family: Union[str, "ManagedHsmSkuFamily"],
+        family: Union[str, "ManagedHsmSkuFamily"] = "B",
         name: Union[str, "ManagedHsmSkuName"],
         **kwargs
     ):
@@ -1127,7 +1127,7 @@ class Sku(msrest.serialization.Model):
     def __init__(
         self,
         *,
-        family: Union[str, "SkuFamily"],
+        family: Union[str, "SkuFamily"] = "A",
         name: Union[str, "SkuName"],
         **kwargs
     ):
@@ -1503,7 +1503,8 @@ class VaultProperties(msrest.serialization.Model):
      ``createMode`` is set to ``recover``\ , access policies are not required. Otherwise, access
      policies are required.
     :type access_policies: list[~azure.mgmt.keyvault.v2020_04_01_preview.models.AccessPolicyEntry]
-    :param vault_uri: The URI of the vault for performing operations on keys and secrets.
+    :param vault_uri: The URI of the vault for performing operations on keys and secrets. This
+     property is readonly.
     :type vault_uri: str
     :param enabled_for_deployment: Property to specify whether Azure Virtual Machines are permitted
      to retrieve certificates stored as secrets from the key vault.
