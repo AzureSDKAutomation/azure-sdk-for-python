@@ -7815,8 +7815,8 @@ class ExpressRouteLinkMacSecConfig(Model):
     :param cak_secret_identifier: Keyvault Secret Identifier URL containing
      Mac security CAK key.
     :type cak_secret_identifier: str
-    :param cipher: Mac security cipher. Possible values include:
-     'gcm-aes-128', 'gcm-aes-256'
+    :param cipher: Mac security cipher. Possible values include: 'GcmAes256',
+     'GcmAes128'
     :type cipher: str or
      ~azure.mgmt.network.v2020_05_01.models.ExpressRouteLinkMacSecCipher
     """

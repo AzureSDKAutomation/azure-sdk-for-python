@@ -352,8 +352,8 @@ class ServiceProviderProvisioningState(str, Enum):
 
 class ExpressRouteLinkMacSecCipher(str, Enum):
 
-    gcm_aes_128 = "gcm-aes-128"
-    gcm_aes_256 = "gcm-aes-256"
+    gcm_aes256 = "GcmAes256"
+    gcm_aes128 = "GcmAes128"
 
 
 class ExpressRouteLinkConnectorType(str, Enum):
