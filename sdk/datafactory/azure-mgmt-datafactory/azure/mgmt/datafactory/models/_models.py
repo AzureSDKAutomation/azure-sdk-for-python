@@ -18982,6 +18982,9 @@ class IntegrationRuntimeSsisCatalogInfo(Model):
      values include: 'Basic', 'Standard', 'Premium', 'PremiumRS'
     :type catalog_pricing_tier: str or
      ~azure.mgmt.datafactory.models.IntegrationRuntimeSsisCatalogPricingTier
+    :param dual_standby_pair_name: The dual standby pair name of Azure-SSIS
+     Integration Runtimes to support SSISDB failover.
+    :type dual_standby_pair_name: str
     """
 
     _validation = {
@@ -18994,6 +18997,7 @@ class IntegrationRuntimeSsisCatalogInfo(Model):
         'catalog_admin_user_name': {'key': 'catalogAdminUserName', 'type': 'str'},
         'catalog_admin_password': {'key': 'catalogAdminPassword', 'type': 'SecureString'},
         'catalog_pricing_tier': {'key': 'catalogPricingTier', 'type': 'str'},
+        'dual_standby_pair_name': {'key': 'dualStandbyPairName', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -19003,6 +19007,7 @@ class IntegrationRuntimeSsisCatalogInfo(Model):
         self.catalog_admin_user_name = kwargs.get('catalog_admin_user_name', None)
         self.catalog_admin_password = kwargs.get('catalog_admin_password', None)
         self.catalog_pricing_tier = kwargs.get('catalog_pricing_tier', None)
+        self.dual_standby_pair_name = kwargs.get('dual_standby_pair_name', None)
 
 
 class IntegrationRuntimeSsisProperties(Model):

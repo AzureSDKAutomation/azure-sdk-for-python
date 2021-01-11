@@ -18982,6 +18982,9 @@ class IntegrationRuntimeSsisCatalogInfo(Model):
      values include: 'Basic', 'Standard', 'Premium', 'PremiumRS'
     :type catalog_pricing_tier: str or
      ~azure.mgmt.datafactory.models.IntegrationRuntimeSsisCatalogPricingTier
+    :param dual_standby_pair_name: The dual standby pair name of Azure-SSIS
+     Integration Runtimes to support SSISDB failover.
+    :type dual_standby_pair_name: str
     """
 
     _validation = {
@@ -18994,15 +18997,17 @@ class IntegrationRuntimeSsisCatalogInfo(Model):
         'catalog_admin_user_name': {'key': 'catalogAdminUserName', 'type': 'str'},
         'catalog_admin_password': {'key': 'catalogAdminPassword', 'type': 'SecureString'},
         'catalog_pricing_tier': {'key': 'catalogPricingTier', 'type': 'str'},
+        'dual_standby_pair_name': {'key': 'dualStandbyPairName', 'type': 'str'},
     }
 
-    def __init__(self, *, additional_properties=None, catalog_server_endpoint: str=None, catalog_admin_user_name: str=None, catalog_admin_password=None, catalog_pricing_tier=None, **kwargs) -> None:
+    def __init__(self, *, additional_properties=None, catalog_server_endpoint: str=None, catalog_admin_user_name: str=None, catalog_admin_password=None, catalog_pricing_tier=None, dual_standby_pair_name: str=None, **kwargs) -> None:
         super(IntegrationRuntimeSsisCatalogInfo, self).__init__(**kwargs)
         self.additional_properties = additional_properties
         self.catalog_server_endpoint = catalog_server_endpoint
         self.catalog_admin_user_name = catalog_admin_user_name
         self.catalog_admin_password = catalog_admin_password
         self.catalog_pricing_tier = catalog_pricing_tier
+        self.dual_standby_pair_name = dual_standby_pair_name
 
 
 class IntegrationRuntimeSsisProperties(Model):
