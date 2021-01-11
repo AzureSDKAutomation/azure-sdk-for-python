@@ -24,7 +24,7 @@ class TenantActivityLogsOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client Api Version. Constant value: "2015-04-01".
+    :ivar api_version: The API version to use for this operation. Constant value: "2015-04-01".
     """
 
     models = models
@@ -94,7 +94,7 @@ class TenantActivityLogsOperations(object):
 
                 # Construct parameters
                 query_parameters = {}
-                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str', min_length=1)
                 if filter is not None:
                     query_parameters['$filter'] = self._serialize.query("filter", filter, 'str')
                 if select is not None:

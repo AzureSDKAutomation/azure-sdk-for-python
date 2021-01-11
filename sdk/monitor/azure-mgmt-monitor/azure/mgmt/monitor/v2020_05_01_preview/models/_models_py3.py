@@ -467,8 +467,22 @@ class ScheduledQueryRuleResource(TrackedResource):
     :type tags: dict[str, str]
     :param location: Required. The geo-location where the resource lives
     :type location: str
+    :ivar kind: Metadata used by portal/tooling/etc to render different UX
+     experiences for resources of the same type; e.g. ApiApps are a kind of
+     Microsoft.Web/sites type.  If supported, the resource provider must
+     validate and persist this value.
+    :vartype kind: str
+    :ivar etag: The etag field is *not* required. If it is provided in the
+     response body, it must also be provided as a header per the normal etag
+     convention.  Entity tags are used for comparing two or more entities from
+     the same requested resource. HTTP/1.1 uses entity tags in the etag
+     (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26),
+     and If-Range (section 14.27) header fields.
+    :vartype etag: str
     :param description: The description of the scheduled query rule.
     :type description: str
+    :param display_name: The display name of the alert rule
+    :type display_name: str
     :param severity: Severity of the alert. Should be an integer between
      [0-4]. Value of 0 is severest
     :type severity: float
@@ -484,6 +498,9 @@ class ScheduledQueryRuleResource(TrackedResource):
     :param window_size: The period of time (in ISO 8601 duration format) on
      which the Alert query will be executed (bin size).
     :type window_size: timedelta
+    :param override_query_time_range: If specified then overrides the query
+     time range (default is WindowSize*NumberOfEvaluationPeriods)
+    :type override_query_time_range: timedelta
     :param target_resource_types: List of resource type of the target
      resource(s) on which the alert is created/updated. For example if the
      scope is a resource group and targetResourceTypes is
@@ -507,6 +524,8 @@ class ScheduledQueryRuleResource(TrackedResource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'location': {'required': True},
+        'kind': {'readonly': True},
+        'etag': {'readonly': True},
     }
 
     _attribute_map = {
@@ -515,26 +534,34 @@ class ScheduledQueryRuleResource(TrackedResource):
         'type': {'key': 'type', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
         'location': {'key': 'location', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
         'description': {'key': 'properties.description', 'type': 'str'},
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
         'severity': {'key': 'properties.severity', 'type': 'float'},
         'enabled': {'key': 'properties.enabled', 'type': 'bool'},
         'scopes': {'key': 'properties.scopes', 'type': '[str]'},
         'evaluation_frequency': {'key': 'properties.evaluationFrequency', 'type': 'duration'},
         'window_size': {'key': 'properties.windowSize', 'type': 'duration'},
+        'override_query_time_range': {'key': 'properties.OverrideQueryTimeRange', 'type': 'duration'},
         'target_resource_types': {'key': 'properties.targetResourceTypes', 'type': '[str]'},
         'criteria': {'key': 'properties.criteria', 'type': 'ScheduledQueryRuleCriteria'},
         'mute_actions_duration': {'key': 'properties.muteActionsDuration', 'type': 'duration'},
         'actions': {'key': 'properties.actions', 'type': '[Action]'},
     }
 
-    def __init__(self, *, location: str, tags=None, description: str=None, severity: float=None, enabled: bool=None, scopes=None, evaluation_frequency=None, window_size=None, target_resource_types=None, criteria=None, mute_actions_duration=None, actions=None, **kwargs) -> None:
+    def __init__(self, *, location: str, tags=None, description: str=None, display_name: str=None, severity: float=None, enabled: bool=None, scopes=None, evaluation_frequency=None, window_size=None, override_query_time_range=None, target_resource_types=None, criteria=None, mute_actions_duration=None, actions=None, **kwargs) -> None:
         super(ScheduledQueryRuleResource, self).__init__(tags=tags, location=location, **kwargs)
+        self.kind = None
+        self.etag = None
         self.description = description
+        self.display_name = display_name
         self.severity = severity
         self.enabled = enabled
         self.scopes = scopes
         self.evaluation_frequency = evaluation_frequency
         self.window_size = window_size
+        self.override_query_time_range = override_query_time_range
         self.target_resource_types = target_resource_types
         self.criteria = criteria
         self.mute_actions_duration = mute_actions_duration
@@ -548,6 +575,8 @@ class ScheduledQueryRuleResourcePatch(Model):
     :type tags: dict[str, str]
     :param description: The description of the scheduled query rule.
     :type description: str
+    :param display_name: The display name of the alert rule
+    :type display_name: str
     :param severity: Severity of the alert. Should be an integer between
      [0-4]. Value of 0 is severest
     :type severity: float
@@ -563,6 +592,9 @@ class ScheduledQueryRuleResourcePatch(Model):
     :param window_size: The period of time (in ISO 8601 duration format) on
      which the Alert query will be executed (bin size).
     :type window_size: timedelta
+    :param override_query_time_range: If specified then overrides the query
+     time range (default is WindowSize*NumberOfEvaluationPeriods)
+    :type override_query_time_range: timedelta
     :param target_resource_types: List of resource type of the target
      resource(s) on which the alert is created/updated. For example if the
      scope is a resource group and targetResourceTypes is
@@ -584,26 +616,30 @@ class ScheduledQueryRuleResourcePatch(Model):
     _attribute_map = {
         'tags': {'key': 'tags', 'type': '{str}'},
         'description': {'key': 'properties.description', 'type': 'str'},
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
         'severity': {'key': 'properties.severity', 'type': 'float'},
         'enabled': {'key': 'properties.enabled', 'type': 'bool'},
         'scopes': {'key': 'properties.scopes', 'type': '[str]'},
         'evaluation_frequency': {'key': 'properties.evaluationFrequency', 'type': 'duration'},
         'window_size': {'key': 'properties.windowSize', 'type': 'duration'},
+        'override_query_time_range': {'key': 'properties.OverrideQueryTimeRange', 'type': 'duration'},
         'target_resource_types': {'key': 'properties.targetResourceTypes', 'type': '[str]'},
         'criteria': {'key': 'properties.criteria', 'type': 'ScheduledQueryRuleCriteria'},
         'mute_actions_duration': {'key': 'properties.muteActionsDuration', 'type': 'duration'},
         'actions': {'key': 'properties.actions', 'type': '[Action]'},
     }
 
-    def __init__(self, *, tags=None, description: str=None, severity: float=None, enabled: bool=None, scopes=None, evaluation_frequency=None, window_size=None, target_resource_types=None, criteria=None, mute_actions_duration=None, actions=None, **kwargs) -> None:
+    def __init__(self, *, tags=None, description: str=None, display_name: str=None, severity: float=None, enabled: bool=None, scopes=None, evaluation_frequency=None, window_size=None, override_query_time_range=None, target_resource_types=None, criteria=None, mute_actions_duration=None, actions=None, **kwargs) -> None:
         super(ScheduledQueryRuleResourcePatch, self).__init__(**kwargs)
         self.tags = tags
         self.description = description
+        self.display_name = display_name
         self.severity = severity
         self.enabled = enabled
         self.scopes = scopes
         self.evaluation_frequency = evaluation_frequency
         self.window_size = window_size
+        self.override_query_time_range = override_query_time_range
         self.target_resource_types = target_resource_types
         self.criteria = criteria
         self.mute_actions_duration = mute_actions_duration
