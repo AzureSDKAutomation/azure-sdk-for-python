@@ -207,7 +207,8 @@ class LogMetricTrigger(msrest.serialization.Model):
     """A log metrics trigger descriptor.
 
     :param threshold_operator: Evaluation operation for Metric -'GreaterThan' or 'LessThan' or
-     'Equal'. Possible values include: "GreaterThan", "LessThan", "Equal".
+     'Equal'. Possible values include: "GreaterThanOrEqual", "LessThanOrEqual", "GreaterThan",
+     "LessThan", "Equal".
     :type threshold_operator: str or ~$(python-base-
      namespace).v2018_04_16.models.ConditionalOperator
     :param threshold: The threshold of the metric trigger.
@@ -255,6 +256,16 @@ class Resource(msrest.serialization.Model):
     :type location: str
     :param tags: A set of tags. Resource tags.
     :type tags: dict[str, str]
+    :ivar kind: Metadata used by portal/tooling/etc to render different UX experiences for
+     resources of the same type; e.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported,
+     the resource provider must validate and persist this value.
+    :vartype kind: str
+    :ivar etag: The etag field is *not* required. If it is provided in the response body, it must
+     also be provided as a header per the normal etag convention.  Entity tags are used for
+     comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in
+     the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range
+     (section 14.27) header fields.
+    :vartype etag: str
     """
 
     _validation = {
@@ -262,6 +273,8 @@ class Resource(msrest.serialization.Model):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'location': {'required': True},
+        'kind': {'readonly': True},
+        'etag': {'readonly': True},
     }
 
     _attribute_map = {
@@ -270,6 +283,8 @@ class Resource(msrest.serialization.Model):
         'type': {'key': 'type', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
     }
 
     def __init__(
@@ -282,6 +297,8 @@ class Resource(msrest.serialization.Model):
         self.type = None
         self.location = kwargs['location']
         self.tags = kwargs.get('tags', None)
+        self.kind = None
+        self.etag = None
 
 
 class LogSearchRuleResource(Resource):
@@ -301,8 +318,20 @@ class LogSearchRuleResource(Resource):
     :type location: str
     :param tags: A set of tags. Resource tags.
     :type tags: dict[str, str]
+    :ivar kind: Metadata used by portal/tooling/etc to render different UX experiences for
+     resources of the same type; e.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported,
+     the resource provider must validate and persist this value.
+    :vartype kind: str
+    :ivar etag: The etag field is *not* required. If it is provided in the response body, it must
+     also be provided as a header per the normal etag convention.  Entity tags are used for
+     comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in
+     the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range
+     (section 14.27) header fields.
+    :vartype etag: str
     :param description: The description of the Log Search rule.
     :type description: str
+    :param display_name: The display name of the alert rule.
+    :type display_name: str
     :param enabled: The flag which indicates whether the Log Search rule is enabled. Value should
      be true or false. Possible values include: "true", "false".
     :type enabled: str or ~$(python-base-namespace).v2018_04_16.models.Enabled
@@ -326,6 +355,8 @@ class LogSearchRuleResource(Resource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'location': {'required': True},
+        'kind': {'readonly': True},
+        'etag': {'readonly': True},
         'last_updated_time': {'readonly': True},
         'provisioning_state': {'readonly': True},
         'source': {'required': True},
@@ -338,7 +369,10 @@ class LogSearchRuleResource(Resource):
         'type': {'key': 'type', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
         'description': {'key': 'properties.description', 'type': 'str'},
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
         'enabled': {'key': 'properties.enabled', 'type': 'str'},
         'last_updated_time': {'key': 'properties.lastUpdatedTime', 'type': 'iso-8601'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
@@ -353,6 +387,7 @@ class LogSearchRuleResource(Resource):
     ):
         super(LogSearchRuleResource, self).__init__(**kwargs)
         self.description = kwargs.get('description', None)
+        self.display_name = kwargs.get('display_name', None)
         self.enabled = kwargs.get('enabled', None)
         self.last_updated_time = None
         self.provisioning_state = None
@@ -510,7 +545,8 @@ class TriggerCondition(msrest.serialization.Model):
     All required parameters must be populated in order to send to Azure.
 
     :param threshold_operator: Required. Evaluation operation for rule - 'GreaterThan' or
-     'LessThan. Possible values include: "GreaterThan", "LessThan", "Equal".
+     'LessThan. Possible values include: "GreaterThanOrEqual", "LessThanOrEqual", "GreaterThan",
+     "LessThan", "Equal".
     :type threshold_operator: str or ~$(python-base-
      namespace).v2018_04_16.models.ConditionalOperator
     :param threshold: Required. Result or count threshold based on which rule should be triggered.

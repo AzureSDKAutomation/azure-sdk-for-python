@@ -14,7 +14,7 @@ from azure.core.pipeline import PipelineResponse
 from azure.core.pipeline.transport import AsyncHttpResponse, HttpRequest
 from azure.mgmt.core.exceptions import ARMErrorFormat
 
-from ... import models
+from ... import models as _models
 
 T = TypeVar('T')
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, AsyncHttpResponse], T, Dict[str, Any]], Any]]
@@ -33,7 +33,7 @@ class PrivateLinkResourcesOperations:
     :param deserializer: An object model deserializer.
     """
 
-    models = models
+    models = _models
 
     def __init__(self, client, config, serializer, deserializer) -> None:
         self._client = client
@@ -46,7 +46,7 @@ class PrivateLinkResourcesOperations:
         resource_group_name: str,
         scope_name: str,
         **kwargs
-    ) -> AsyncIterable["models.PrivateLinkResourceListResult"]:
+    ) -> AsyncIterable["_models.PrivateLinkResourceListResult"]:
         """Gets the private link resources that need to be created for a Azure Monitor PrivateLinkScope.
 
         :param resource_group_name: The name of the resource group.
@@ -58,7 +58,7 @@ class PrivateLinkResourcesOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~$(python-base-namespace).v2019_10_17.models.PrivateLinkResourceListResult]
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.PrivateLinkResourceListResult"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.PrivateLinkResourceListResult"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -75,7 +75,7 @@ class PrivateLinkResourcesOperations:
                 # Construct URL
                 url = self.list_by_private_link_scope.metadata['url']  # type: ignore
                 path_format_arguments = {
-                    'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
+                    'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str', min_length=1),
                     'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
                     'scopeName': self._serialize.url("scope_name", scope_name, 'str'),
                 }
@@ -121,7 +121,7 @@ class PrivateLinkResourcesOperations:
         scope_name: str,
         group_name: str,
         **kwargs
-    ) -> "models.PrivateLinkResource":
+    ) -> "_models.PrivateLinkResource":
         """Gets the private link resources that need to be created for a Azure Monitor PrivateLinkScope.
 
         :param resource_group_name: The name of the resource group.
@@ -135,7 +135,7 @@ class PrivateLinkResourcesOperations:
         :rtype: ~$(python-base-namespace).v2019_10_17.models.PrivateLinkResource
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.PrivateLinkResource"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.PrivateLinkResource"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -146,7 +146,7 @@ class PrivateLinkResourcesOperations:
         # Construct URL
         url = self.get.metadata['url']  # type: ignore
         path_format_arguments = {
-            'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
+            'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str', min_length=1),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'scopeName': self._serialize.url("scope_name", scope_name, 'str'),
             'groupName': self._serialize.url("group_name", group_name, 'str'),
