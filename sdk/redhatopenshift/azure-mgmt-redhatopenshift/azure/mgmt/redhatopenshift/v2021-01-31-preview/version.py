@@ -9,11 +9,5 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from ._configuration import AzureRedHatOpenShift4ClientConfiguration
-from ._azure_red_hat_open_shift4_client import AzureRedHatOpenShift4Client
-__all__ = ['AzureRedHatOpenShift4Client', 'AzureRedHatOpenShift4ClientConfiguration']
-
-from .version import VERSION
-
-__version__ = VERSION
+VERSION = "2021-01-31-preview"
 

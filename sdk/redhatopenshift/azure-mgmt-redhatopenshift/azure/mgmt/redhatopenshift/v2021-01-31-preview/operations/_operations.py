@@ -25,7 +25,7 @@ class Operations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The API version to use for this operation. Constant value: "2020-04-30".
+    :ivar api_version: The API version to use for this operation. Constant value: "2021-01-31-preview".
     """
 
     models = models
@@ -35,7 +35,7 @@ class Operations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-04-30"
+        self.api_version = "2021-01-31-preview"
 
         self.config = config
 
@@ -52,7 +52,7 @@ class Operations(object):
          overrides<msrest:optionsforoperations>`.
         :return: An iterator like instance of Operation
         :rtype:
-         ~azure.mgmt.redhatopenshift.v2020_04_30.models.OperationPaged[~azure.mgmt.redhatopenshift.v2020_04_30.models.Operation]
+         ~azure.mgmt.redhatopenshift.v2021-01-31-preview.models.OperationPaged[~azure.mgmt.redhatopenshift.v2021-01-31-preview.models.Operation]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         def prepare_request(next_link=None):
