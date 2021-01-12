@@ -16,8 +16,10 @@ from msrestazure.azure_exceptions import CloudError
 from .. import models
 
 
-class VirtualNetworkRulesOperations(object):
-    """VirtualNetworkRulesOperations operations.
+class TrustedIdProvidersOperations(object):
+    """TrustedIdProvidersOperations operations.
+
+    You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
     :param client: Client for service requests.
     :param config: Configuration of service client.
@@ -39,8 +41,8 @@ class VirtualNetworkRulesOperations(object):
 
     def list_by_account(
             self, resource_group_name, account_name, custom_headers=None, raw=False, **operation_config):
-        """Lists the Data Lake Store virtual network rules within the specified
-        Data Lake Store account.
+        """Lists the Data Lake Store trusted identity providers within the
+        specified Data Lake Store account.
 
         :param resource_group_name: The name of the Azure resource group.
         :type resource_group_name: str
@@ -51,13 +53,12 @@ class VirtualNetworkRulesOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of VirtualNetworkRule
+        :return: An iterator like instance of TrustedIdProvider
         :rtype:
-         ~azure.mgmt.datalake.store.models.VirtualNetworkRulePaged[~azure.mgmt.datalake.store.models.VirtualNetworkRule]
+         ~azure.mgmt.datalake.store.models.TrustedIdProviderPaged[~azure.mgmt.datalake.store.models.TrustedIdProvider]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        def internal_paging(next_link=None, raw=False):
-
+        def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
                 url = self.list_by_account.metadata['url']
@@ -78,7 +79,7 @@ class VirtualNetworkRulesOperations(object):
 
             # Construct headers
             header_parameters = {}
-            header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+            header_parameters['Accept'] = 'application/json'
             if self.config.generate_client_request_id:
                 header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
             if custom_headers:
@@ -87,9 +88,13 @@ class VirtualNetworkRulesOperations(object):
                 header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
             # Construct and send request
-            request = self._client.get(url, query_parameters)
-            response = self._client.send(
-                request, header_parameters, stream=False, **operation_config)
+            request = self._client.get(url, query_parameters, header_parameters)
+            return request
+
+        def internal_paging(next_link=None):
+            request = prepare_request(next_link)
+
+            response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
                 exp = CloudError(response)
@@ -99,42 +104,41 @@ class VirtualNetworkRulesOperations(object):
             return response
 
         # Deserialize response
-        deserialized = models.VirtualNetworkRulePaged(internal_paging, self._deserialize.dependencies)
-
+        header_dict = None
         if raw:
             header_dict = {}
-            client_raw_response = models.VirtualNetworkRulePaged(internal_paging, self._deserialize.dependencies, header_dict)
-            return client_raw_response
+        deserialized = models.TrustedIdProviderPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list_by_account.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeStore/accounts/{accountName}/virtualNetworkRules'}
+    list_by_account.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeStore/accounts/{accountName}/trustedIdProviders'}
 
     def create_or_update(
-            self, resource_group_name, account_name, virtual_network_rule_name, subnet_id, custom_headers=None, raw=False, **operation_config):
-        """Creates or updates the specified virtual network rule. During update,
-        the virtual network rule with the specified name will be replaced with
-        this new virtual network rule.
+            self, resource_group_name, account_name, trusted_id_provider_name, id_provider, custom_headers=None, raw=False, **operation_config):
+        """Creates or updates the specified trusted identity provider. During
+        update, the trusted identity provider with the specified name will be
+        replaced with this new provider.
 
         :param resource_group_name: The name of the Azure resource group.
         :type resource_group_name: str
         :param account_name: The name of the Data Lake Store account.
         :type account_name: str
-        :param virtual_network_rule_name: The name of the virtual network rule
-         to create or update.
-        :type virtual_network_rule_name: str
-        :param subnet_id: The resource identifier for the subnet.
-        :type subnet_id: str
+        :param trusted_id_provider_name: The name of the trusted identity
+         provider. This is used for differentiation of providers in the
+         account.
+        :type trusted_id_provider_name: str
+        :param id_provider: The URL of this trusted identity provider.
+        :type id_provider: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: VirtualNetworkRule or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.datalake.store.models.VirtualNetworkRule or
+        :return: TrustedIdProvider or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.datalake.store.models.TrustedIdProvider or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        parameters = models.CreateOrUpdateVirtualNetworkRuleParameters(subnet_id=subnet_id)
+        parameters = models.CreateOrUpdateTrustedIdProviderParameters(id_provider=id_provider)
 
         # Construct URL
         url = self.create_or_update.metadata['url']
@@ -142,7 +146,7 @@ class VirtualNetworkRulesOperations(object):
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'accountName': self._serialize.url("account_name", account_name, 'str'),
-            'virtualNetworkRuleName': self._serialize.url("virtual_network_rule_name", virtual_network_rule_name, 'str')
+            'trustedIdProviderName': self._serialize.url("trusted_id_provider_name", trusted_id_provider_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -152,6 +156,7 @@ class VirtualNetworkRulesOperations(object):
 
         # Construct headers
         header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
         header_parameters['Content-Type'] = 'application/json; charset=utf-8'
         if self.config.generate_client_request_id:
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
@@ -161,12 +166,11 @@ class VirtualNetworkRulesOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct body
-        body_content = self._serialize.body(parameters, 'CreateOrUpdateVirtualNetworkRuleParameters')
+        body_content = self._serialize.body(parameters, 'CreateOrUpdateTrustedIdProviderParameters')
 
         # Construct and send request
-        request = self._client.put(url, query_parameters)
-        response = self._client.send(
-            request, header_parameters, body_content, stream=False, **operation_config)
+        request = self._client.put(url, query_parameters, header_parameters, body_content)
+        response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
             exp = CloudError(response)
@@ -174,35 +178,34 @@ class VirtualNetworkRulesOperations(object):
             raise exp
 
         deserialized = None
-
         if response.status_code == 200:
-            deserialized = self._deserialize('VirtualNetworkRule', response)
+            deserialized = self._deserialize('TrustedIdProvider', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeStore/accounts/{accountName}/virtualNetworkRules/{virtualNetworkRuleName}'}
+    create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeStore/accounts/{accountName}/trustedIdProviders/{trustedIdProviderName}'}
 
     def get(
-            self, resource_group_name, account_name, virtual_network_rule_name, custom_headers=None, raw=False, **operation_config):
-        """Gets the specified Data Lake Store virtual network rule.
+            self, resource_group_name, account_name, trusted_id_provider_name, custom_headers=None, raw=False, **operation_config):
+        """Gets the specified Data Lake Store trusted identity provider.
 
         :param resource_group_name: The name of the Azure resource group.
         :type resource_group_name: str
         :param account_name: The name of the Data Lake Store account.
         :type account_name: str
-        :param virtual_network_rule_name: The name of the virtual network rule
-         to retrieve.
-        :type virtual_network_rule_name: str
+        :param trusted_id_provider_name: The name of the trusted identity
+         provider to retrieve.
+        :type trusted_id_provider_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: VirtualNetworkRule or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.datalake.store.models.VirtualNetworkRule or
+        :return: TrustedIdProvider or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.datalake.store.models.TrustedIdProvider or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -212,7 +215,7 @@ class VirtualNetworkRulesOperations(object):
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'accountName': self._serialize.url("account_name", account_name, 'str'),
-            'virtualNetworkRuleName': self._serialize.url("virtual_network_rule_name", virtual_network_rule_name, 'str')
+            'trustedIdProviderName': self._serialize.url("trusted_id_provider_name", trusted_id_provider_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -222,7 +225,7 @@ class VirtualNetworkRulesOperations(object):
 
         # Construct headers
         header_parameters = {}
-        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
+        header_parameters['Accept'] = 'application/json'
         if self.config.generate_client_request_id:
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
         if custom_headers:
@@ -231,8 +234,8 @@ class VirtualNetworkRulesOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct and send request
-        request = self._client.get(url, query_parameters)
-        response = self._client.send(request, header_parameters, stream=False, **operation_config)
+        request = self._client.get(url, query_parameters, header_parameters)
+        response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
             exp = CloudError(response)
@@ -240,43 +243,43 @@ class VirtualNetworkRulesOperations(object):
             raise exp
 
         deserialized = None
-
         if response.status_code == 200:
-            deserialized = self._deserialize('VirtualNetworkRule', response)
+            deserialized = self._deserialize('TrustedIdProvider', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeStore/accounts/{accountName}/virtualNetworkRules/{virtualNetworkRuleName}'}
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeStore/accounts/{accountName}/trustedIdProviders/{trustedIdProviderName}'}
 
     def update(
-            self, resource_group_name, account_name, virtual_network_rule_name, subnet_id=None, custom_headers=None, raw=False, **operation_config):
-        """Updates the specified virtual network rule.
+            self, resource_group_name, account_name, trusted_id_provider_name, id_provider=None, custom_headers=None, raw=False, **operation_config):
+        """Updates the specified trusted identity provider.
 
         :param resource_group_name: The name of the Azure resource group.
         :type resource_group_name: str
         :param account_name: The name of the Data Lake Store account.
         :type account_name: str
-        :param virtual_network_rule_name: The name of the virtual network rule
-         to update.
-        :type virtual_network_rule_name: str
-        :param subnet_id: The resource identifier for the subnet.
-        :type subnet_id: str
+        :param trusted_id_provider_name: The name of the trusted identity
+         provider. This is used for differentiation of providers in the
+         account.
+        :type trusted_id_provider_name: str
+        :param id_provider: The URL of this trusted identity provider.
+        :type id_provider: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: VirtualNetworkRule or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.datalake.store.models.VirtualNetworkRule or
+        :return: TrustedIdProvider or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.datalake.store.models.TrustedIdProvider or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         parameters = None
-        if subnet_id is not None:
-            parameters = models.UpdateVirtualNetworkRuleParameters(subnet_id=subnet_id)
+        if id_provider is not None:
+            parameters = models.UpdateTrustedIdProviderParameters(id_provider=id_provider)
 
         # Construct URL
         url = self.update.metadata['url']
@@ -284,7 +287,7 @@ class VirtualNetworkRulesOperations(object):
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'accountName': self._serialize.url("account_name", account_name, 'str'),
-            'virtualNetworkRuleName': self._serialize.url("virtual_network_rule_name", virtual_network_rule_name, 'str')
+            'trustedIdProviderName': self._serialize.url("trusted_id_provider_name", trusted_id_provider_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -294,6 +297,7 @@ class VirtualNetworkRulesOperations(object):
 
         # Construct headers
         header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
         header_parameters['Content-Type'] = 'application/json; charset=utf-8'
         if self.config.generate_client_request_id:
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
@@ -304,14 +308,13 @@ class VirtualNetworkRulesOperations(object):
 
         # Construct body
         if parameters is not None:
-            body_content = self._serialize.body(parameters, 'UpdateVirtualNetworkRuleParameters')
+            body_content = self._serialize.body(parameters, 'UpdateTrustedIdProviderParameters')
         else:
             body_content = None
 
         # Construct and send request
-        request = self._client.patch(url, query_parameters)
-        response = self._client.send(
-            request, header_parameters, body_content, stream=False, **operation_config)
+        request = self._client.patch(url, query_parameters, header_parameters, body_content)
+        response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
             exp = CloudError(response)
@@ -319,29 +322,28 @@ class VirtualNetworkRulesOperations(object):
             raise exp
 
         deserialized = None
-
         if response.status_code == 200:
-            deserialized = self._deserialize('VirtualNetworkRule', response)
+            deserialized = self._deserialize('TrustedIdProvider', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeStore/accounts/{accountName}/virtualNetworkRules/{virtualNetworkRuleName}'}
+    update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeStore/accounts/{accountName}/trustedIdProviders/{trustedIdProviderName}'}
 
     def delete(
-            self, resource_group_name, account_name, virtual_network_rule_name, custom_headers=None, raw=False, **operation_config):
-        """Deletes the specified virtual network rule from the specified Data Lake
-        Store account.
+            self, resource_group_name, account_name, trusted_id_provider_name, custom_headers=None, raw=False, **operation_config):
+        """Deletes the specified trusted identity provider from the specified Data
+        Lake Store account.
 
         :param resource_group_name: The name of the Azure resource group.
         :type resource_group_name: str
         :param account_name: The name of the Data Lake Store account.
         :type account_name: str
-        :param virtual_network_rule_name: The name of the virtual network rule
-         to delete.
-        :type virtual_network_rule_name: str
+        :param trusted_id_provider_name: The name of the trusted identity
+         provider to delete.
+        :type trusted_id_provider_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -357,7 +359,7 @@ class VirtualNetworkRulesOperations(object):
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'accountName': self._serialize.url("account_name", account_name, 'str'),
-            'virtualNetworkRuleName': self._serialize.url("virtual_network_rule_name", virtual_network_rule_name, 'str')
+            'trustedIdProviderName': self._serialize.url("trusted_id_provider_name", trusted_id_provider_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -367,7 +369,6 @@ class VirtualNetworkRulesOperations(object):
 
         # Construct headers
         header_parameters = {}
-        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
         if self.config.generate_client_request_id:
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
         if custom_headers:
@@ -376,8 +377,8 @@ class VirtualNetworkRulesOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct and send request
-        request = self._client.delete(url, query_parameters)
-        response = self._client.send(request, header_parameters, stream=False, **operation_config)
+        request = self._client.delete(url, query_parameters, header_parameters)
+        response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200, 204]:
             exp = CloudError(response)
@@ -387,4 +388,4 @@ class VirtualNetworkRulesOperations(object):
         if raw:
             client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-    delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeStore/accounts/{accountName}/virtualNetworkRules/{virtualNetworkRuleName}'}
+    delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeStore/accounts/{accountName}/trustedIdProviders/{trustedIdProviderName}'}

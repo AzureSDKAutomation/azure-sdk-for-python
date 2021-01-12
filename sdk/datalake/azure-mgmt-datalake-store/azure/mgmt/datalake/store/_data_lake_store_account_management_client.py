@@ -11,49 +11,16 @@
 
 from msrest.service_client import SDKClient
 from msrest import Serializer, Deserializer
-from msrestazure import AzureConfiguration
-from .version import VERSION
-from .operations.accounts_operations import AccountsOperations
-from .operations.firewall_rules_operations import FirewallRulesOperations
-from .operations.virtual_network_rules_operations import VirtualNetworkRulesOperations
-from .operations.trusted_id_providers_operations import TrustedIdProvidersOperations
-from .operations.operations import Operations
-from .operations.locations_operations import LocationsOperations
+
+from ._configuration import DataLakeStoreAccountManagementClientConfiguration
+from .operations import AccountsOperations
+from .operations import FirewallRulesOperations
+from .operations import VirtualNetworkOrSubnetsOperations
+from .operations import VirtualNetworkRulesOperations
+from .operations import TrustedIdProvidersOperations
+from .operations import Operations
+from .operations import LocationsOperations
 from . import models
-
-
-class DataLakeStoreAccountManagementClientConfiguration(AzureConfiguration):
-    """Configuration for DataLakeStoreAccountManagementClient
-    Note that all parameters used to create this instance are saved as instance
-    attributes.
-
-    :param credentials: Credentials needed for the client to connect to Azure.
-    :type credentials: :mod:`A msrestazure Credentials
-     object<msrestazure.azure_active_directory>`
-    :param subscription_id: Gets subscription credentials which uniquely
-     identify Microsoft Azure subscription. The subscription ID forms part of
-     the URI for every service call.
-    :type subscription_id: str
-    :param str base_url: Service URL
-    """
-
-    def __init__(
-            self, credentials, subscription_id, base_url=None):
-
-        if credentials is None:
-            raise ValueError("Parameter 'credentials' must not be None.")
-        if subscription_id is None:
-            raise ValueError("Parameter 'subscription_id' must not be None.")
-        if not base_url:
-            base_url = 'https://management.azure.com'
-
-        super(DataLakeStoreAccountManagementClientConfiguration, self).__init__(base_url)
-
-        self.add_user_agent('azure-mgmt-datalake-store/{}'.format(VERSION))
-        self.add_user_agent('Azure-SDK-For-Python')
-
-        self.credentials = credentials
-        self.subscription_id = subscription_id
 
 
 class DataLakeStoreAccountManagementClient(SDKClient):
@@ -66,6 +33,8 @@ class DataLakeStoreAccountManagementClient(SDKClient):
     :vartype accounts: azure.mgmt.datalake.store.operations.AccountsOperations
     :ivar firewall_rules: FirewallRules operations
     :vartype firewall_rules: azure.mgmt.datalake.store.operations.FirewallRulesOperations
+    :ivar virtual_network_or_subnets: VirtualNetworkOrSubnets operations
+    :vartype virtual_network_or_subnets: azure.mgmt.datalake.store.operations.VirtualNetworkOrSubnetsOperations
     :ivar virtual_network_rules: VirtualNetworkRules operations
     :vartype virtual_network_rules: azure.mgmt.datalake.store.operations.VirtualNetworkRulesOperations
     :ivar trusted_id_providers: TrustedIdProviders operations
@@ -99,6 +68,8 @@ class DataLakeStoreAccountManagementClient(SDKClient):
         self.accounts = AccountsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.firewall_rules = FirewallRulesOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.virtual_network_or_subnets = VirtualNetworkOrSubnetsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.virtual_network_rules = VirtualNetworkRulesOperations(
             self._client, self.config, self._serialize, self._deserialize)

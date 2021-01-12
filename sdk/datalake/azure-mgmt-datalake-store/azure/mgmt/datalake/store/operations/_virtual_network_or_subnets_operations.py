@@ -11,13 +11,14 @@
 
 import uuid
 from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
 
 from .. import models
 
 
-class LocationsOperations(object):
-    """LocationsOperations operations.
+class VirtualNetworkOrSubnetsOperations(object):
+    """VirtualNetworkOrSubnetsOperations operations.
+
+    You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
     :param client: Client for service requests.
     :param config: Configuration of service client.
@@ -37,25 +38,28 @@ class LocationsOperations(object):
 
         self.config = config
 
-    def get_capability(
-            self, location, custom_headers=None, raw=False, **operation_config):
-        """Gets subscription-level properties and limits for Data Lake Store
-        specified by resource location.
+    def delete_by_id(
+            self, location, parameters, custom_headers=None, raw=False, **operation_config):
+        """Delete virtual network or subnets.
 
         :param location: The resource location without whitespace.
         :type location: str
+        :param parameters: Parameters supplied to
+         DeleteVirtualNetworkOrSubnets.
+        :type parameters:
+         ~azure.mgmt.datalake.store.models.DeleteVirtualNetworkOrSubnetsParameters
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: CapabilityInformation or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.datalake.store.models.CapabilityInformation or
-         ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :return: None or ClientRawResponse if raw=true
+        :rtype: None or ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.datalake.store.models.ErrorResponseException>`
         """
         # Construct URL
-        url = self.get_capability.metadata['url']
+        url = self.delete_by_id.metadata['url']
         path_format_arguments = {
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
             'location': self._serialize.url("location", location, 'str')
@@ -76,23 +80,17 @@ class LocationsOperations(object):
         if self.config.accept_language is not None:
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
+        # Construct body
+        body_content = self._serialize.body(parameters, 'DeleteVirtualNetworkOrSubnetsParameters')
+
         # Construct and send request
-        request = self._client.get(url, query_parameters)
-        response = self._client.send(request, header_parameters, stream=False, **operation_config)
+        request = self._client.post(url, query_parameters, header_parameters, body_content)
+        response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200, 404]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
-
-        deserialized = None
-
-        if response.status_code == 200:
-            deserialized = self._deserialize('CapabilityInformation', response)
+        if response.status_code not in [200]:
+            raise models.ErrorResponseException(self._deserialize, response)
 
         if raw:
-            client_raw_response = ClientRawResponse(deserialized, response)
+            client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-
-        return deserialized
-    get_capability.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.DataLakeStore/locations/{location}/capability'}
+    delete_by_id.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.DataLakeStore/locations/{location}/deleteVirtualNetworkOrSubnets'}

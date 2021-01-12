@@ -94,3 +94,13 @@ class SubscriptionState(str, Enum):
     deleted = "Deleted"
     unregistered = "Unregistered"
     warned = "Warned"
+
+
+class UsageUnit(str, Enum):
+
+    count = "Count"
+    bytes = "Bytes"
+    seconds = "Seconds"
+    percent = "Percent"
+    counts_per_second = "CountsPerSecond"
+    bytes_per_second = "BytesPerSecond"
