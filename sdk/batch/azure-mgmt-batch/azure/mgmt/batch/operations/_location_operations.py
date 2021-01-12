@@ -25,7 +25,7 @@ class LocationOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The API version to use for the request. Constant value: "2020-05-01".
+    :ivar api_version: The API version to be used with the HTTP request. Constant value: "2021-01-01".
     """
 
     models = models
@@ -35,7 +35,7 @@ class LocationOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-05-01"
+        self.api_version = "2021-01-01"
 
         self.config = config
 
@@ -98,6 +98,168 @@ class LocationOperations(object):
 
         return deserialized
     get_quotas.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Batch/locations/{locationName}/quotas'}
+
+    def list_supported_virtual_machine_skus(
+            self, location_name, maxresults=None, filter=None, custom_headers=None, raw=False, **operation_config):
+        """Gets the list of Batch supported Virtual Machine VM sizes available at
+        the given location.
+
+        :param location_name: The region for which to retrieve Batch service
+         supported SKUs.
+        :type location_name: str
+        :param maxresults: The maximum number of items to return in the
+         response.
+        :type maxresults: int
+        :param filter: OData filter expression. Valid properties for filtering
+         are "familyName".
+        :type filter: str
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: An iterator like instance of SupportedSku
+        :rtype:
+         ~azure.mgmt.batch.models.SupportedSkuPaged[~azure.mgmt.batch.models.SupportedSku]
+        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        """
+        def prepare_request(next_link=None):
+            if not next_link:
+                # Construct URL
+                url = self.list_supported_virtual_machine_skus.metadata['url']
+                path_format_arguments = {
+                    'locationName': self._serialize.url("location_name", location_name, 'str'),
+                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
+                }
+                url = self._client.format_url(url, **path_format_arguments)
+
+                # Construct parameters
+                query_parameters = {}
+                if maxresults is not None:
+                    query_parameters['maxresults'] = self._serialize.query("maxresults", maxresults, 'int')
+                if filter is not None:
+                    query_parameters['$filter'] = self._serialize.query("filter", filter, 'str')
+                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+
+            else:
+                url = next_link
+                query_parameters = {}
+
+            # Construct headers
+            header_parameters = {}
+            header_parameters['Accept'] = 'application/json'
+            if self.config.generate_client_request_id:
+                header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+            if custom_headers:
+                header_parameters.update(custom_headers)
+            if self.config.accept_language is not None:
+                header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+            # Construct and send request
+            request = self._client.get(url, query_parameters, header_parameters)
+            return request
+
+        def internal_paging(next_link=None):
+            request = prepare_request(next_link)
+
+            response = self._client.send(request, stream=False, **operation_config)
+
+            if response.status_code not in [200]:
+                exp = CloudError(response)
+                exp.request_id = response.headers.get('x-ms-request-id')
+                raise exp
+
+            return response
+
+        # Deserialize response
+        header_dict = None
+        if raw:
+            header_dict = {}
+        deserialized = models.SupportedSkuPaged(internal_paging, self._deserialize.dependencies, header_dict)
+
+        return deserialized
+    list_supported_virtual_machine_skus.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Batch/locations/{locationName}/virtualMachineSkus'}
+
+    def list_supported_cloud_service_skus(
+            self, location_name, maxresults=None, filter=None, custom_headers=None, raw=False, **operation_config):
+        """Gets the list of Batch supported Cloud Service VM sizes available at
+        the given location.
+
+        :param location_name: The region for which to retrieve Batch service
+         supported SKUs.
+        :type location_name: str
+        :param maxresults: The maximum number of items to return in the
+         response.
+        :type maxresults: int
+        :param filter: OData filter expression. Valid properties for filtering
+         are "familyName".
+        :type filter: str
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: An iterator like instance of SupportedSku
+        :rtype:
+         ~azure.mgmt.batch.models.SupportedSkuPaged[~azure.mgmt.batch.models.SupportedSku]
+        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        """
+        def prepare_request(next_link=None):
+            if not next_link:
+                # Construct URL
+                url = self.list_supported_cloud_service_skus.metadata['url']
+                path_format_arguments = {
+                    'locationName': self._serialize.url("location_name", location_name, 'str'),
+                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
+                }
+                url = self._client.format_url(url, **path_format_arguments)
+
+                # Construct parameters
+                query_parameters = {}
+                if maxresults is not None:
+                    query_parameters['maxresults'] = self._serialize.query("maxresults", maxresults, 'int')
+                if filter is not None:
+                    query_parameters['$filter'] = self._serialize.query("filter", filter, 'str')
+                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+
+            else:
+                url = next_link
+                query_parameters = {}
+
+            # Construct headers
+            header_parameters = {}
+            header_parameters['Accept'] = 'application/json'
+            if self.config.generate_client_request_id:
+                header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+            if custom_headers:
+                header_parameters.update(custom_headers)
+            if self.config.accept_language is not None:
+                header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+            # Construct and send request
+            request = self._client.get(url, query_parameters, header_parameters)
+            return request
+
+        def internal_paging(next_link=None):
+            request = prepare_request(next_link)
+
+            response = self._client.send(request, stream=False, **operation_config)
+
+            if response.status_code not in [200]:
+                exp = CloudError(response)
+                exp.request_id = response.headers.get('x-ms-request-id')
+                raise exp
+
+            return response
+
+        # Deserialize response
+        header_dict = None
+        if raw:
+            header_dict = {}
+        deserialized = models.SupportedSkuPaged(internal_paging, self._deserialize.dependencies, header_dict)
+
+        return deserialized
+    list_supported_cloud_service_skus.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Batch/locations/{locationName}/cloudServiceSkus'}
 
     def check_name_availability(
             self, location_name, name, custom_headers=None, raw=False, **operation_config):
