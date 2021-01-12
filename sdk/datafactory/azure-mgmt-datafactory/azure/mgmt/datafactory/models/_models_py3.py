@@ -18982,6 +18982,9 @@ class IntegrationRuntimeSsisCatalogInfo(Model):
      values include: 'Basic', 'Standard', 'Premium', 'PremiumRS'
     :type catalog_pricing_tier: str or
      ~azure.mgmt.datafactory.models.IntegrationRuntimeSsisCatalogPricingTier
+    :param dual_standby_pair_name: The dual standby pair name of Azure-SSIS
+     Integration Runtimes to support SSISDB failover.
+    :type dual_standby_pair_name: str
     """
 
     _validation = {
@@ -18994,15 +18997,17 @@ class IntegrationRuntimeSsisCatalogInfo(Model):
         'catalog_admin_user_name': {'key': 'catalogAdminUserName', 'type': 'str'},
         'catalog_admin_password': {'key': 'catalogAdminPassword', 'type': 'SecureString'},
         'catalog_pricing_tier': {'key': 'catalogPricingTier', 'type': 'str'},
+        'dual_standby_pair_name': {'key': 'dualStandbyPairName', 'type': 'str'},
     }
 
-    def __init__(self, *, additional_properties=None, catalog_server_endpoint: str=None, catalog_admin_user_name: str=None, catalog_admin_password=None, catalog_pricing_tier=None, **kwargs) -> None:
+    def __init__(self, *, additional_properties=None, catalog_server_endpoint: str=None, catalog_admin_user_name: str=None, catalog_admin_password=None, catalog_pricing_tier=None, dual_standby_pair_name: str=None, **kwargs) -> None:
         super(IntegrationRuntimeSsisCatalogInfo, self).__init__(**kwargs)
         self.additional_properties = additional_properties
         self.catalog_server_endpoint = catalog_server_endpoint
         self.catalog_admin_user_name = catalog_admin_user_name
         self.catalog_admin_password = catalog_admin_password
         self.catalog_pricing_tier = catalog_pricing_tier
+        self.dual_standby_pair_name = dual_standby_pair_name
 
 
 class IntegrationRuntimeSsisProperties(Model):
@@ -20370,6 +20375,9 @@ class ManagedIntegrationRuntime(IntegrationRuntime):
     :param ssis_properties: SSIS properties for managed integration runtime.
     :type ssis_properties:
      ~azure.mgmt.datafactory.models.IntegrationRuntimeSsisProperties
+    :param managed_virtual_network: Managed Virtual Network reference.
+    :type managed_virtual_network:
+     ~azure.mgmt.datafactory.models.ManagedVirtualNetworkReference
     """
 
     _validation = {
@@ -20384,13 +20392,15 @@ class ManagedIntegrationRuntime(IntegrationRuntime):
         'state': {'key': 'state', 'type': 'str'},
         'compute_properties': {'key': 'typeProperties.computeProperties', 'type': 'IntegrationRuntimeComputeProperties'},
         'ssis_properties': {'key': 'typeProperties.ssisProperties', 'type': 'IntegrationRuntimeSsisProperties'},
+        'managed_virtual_network': {'key': 'managedVirtualNetwork', 'type': 'ManagedVirtualNetworkReference'},
     }
 
-    def __init__(self, *, additional_properties=None, description: str=None, compute_properties=None, ssis_properties=None, **kwargs) -> None:
+    def __init__(self, *, additional_properties=None, description: str=None, compute_properties=None, ssis_properties=None, managed_virtual_network=None, **kwargs) -> None:
         super(ManagedIntegrationRuntime, self).__init__(additional_properties=additional_properties, description=description, **kwargs)
         self.state = None
         self.compute_properties = compute_properties
         self.ssis_properties = ssis_properties
+        self.managed_virtual_network = managed_virtual_network
         self.type = 'Managed'
 
 
@@ -20721,6 +20731,38 @@ class ManagedVirtualNetwork(Model):
         self.additional_properties = additional_properties
         self.v_net_id = None
         self.alias = None
+
+
+class ManagedVirtualNetworkReference(Model):
+    """Managed Virtual Network reference type.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar type: Required. Managed Virtual Network reference type. Default
+     value: "ManagedVirtualNetworkReference" .
+    :vartype type: str
+    :param reference_name: Required. Reference ManagedVirtualNetwork name.
+    :type reference_name: str
+    """
+
+    _validation = {
+        'type': {'required': True, 'constant': True},
+        'reference_name': {'required': True},
+    }
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'reference_name': {'key': 'referenceName', 'type': 'str'},
+    }
+
+    type = "ManagedVirtualNetworkReference"
+
+    def __init__(self, *, reference_name: str, **kwargs) -> None:
+        super(ManagedVirtualNetworkReference, self).__init__(**kwargs)
+        self.reference_name = reference_name
 
 
 class ManagedVirtualNetworkResource(SubResource):
@@ -34533,13 +34575,14 @@ class WebActivityAuthentication(Model):
     :param pfx: Base64-encoded contents of a PFX file.
     :type pfx: ~azure.mgmt.datafactory.models.SecretBase
     :param username: Web activity authentication user name for basic
-     authentication.
-    :type username: str
+     authentication. Type: string (or Expression with resultType string).
+    :type username: object
     :param password: Password for the PFX file or basic authentication.
     :type password: ~azure.mgmt.datafactory.models.SecretBase
     :param resource: Resource for which Azure Auth token will be requested
-     when using MSI Authentication.
-    :type resource: str
+     when using MSI Authentication. Type: string (or Expression with resultType
+     string).
+    :type resource: object
     """
 
     _validation = {
@@ -34549,12 +34592,12 @@ class WebActivityAuthentication(Model):
     _attribute_map = {
         'type': {'key': 'type', 'type': 'str'},
         'pfx': {'key': 'pfx', 'type': 'SecretBase'},
-        'username': {'key': 'username', 'type': 'str'},
+        'username': {'key': 'username', 'type': 'object'},
         'password': {'key': 'password', 'type': 'SecretBase'},
-        'resource': {'key': 'resource', 'type': 'str'},
+        'resource': {'key': 'resource', 'type': 'object'},
     }
 
-    def __init__(self, *, type: str, pfx=None, username: str=None, password=None, resource: str=None, **kwargs) -> None:
+    def __init__(self, *, type: str, pfx=None, username=None, password=None, resource=None, **kwargs) -> None:
         super(WebActivityAuthentication, self).__init__(**kwargs)
         self.type = type
         self.pfx = pfx
