@@ -16,8 +16,8 @@ from msrestazure.azure_exceptions import CloudError
 from .. import models
 
 
-class ReplicasOperations(object):
-    """ReplicasOperations operations.
+class ServerBasedPerformanceTierOperations(object):
+    """ServerBasedPerformanceTierOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -25,7 +25,7 @@ class ReplicasOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The API version to use for this operation. Constant value: "2017-12-01".
+    :ivar api_version: The API version to use for this operation. Constant value: "2018-06-01".
     """
 
     models = models
@@ -35,13 +35,13 @@ class ReplicasOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2017-12-01"
+        self.api_version = "2018-06-01"
 
         self.config = config
 
-    def list_by_server(
+    def list(
             self, resource_group_name, server_name, custom_headers=None, raw=False, **operation_config):
-        """List all the replicas for a given server.
+        """List all the performance tiers for a MariaDB server.
 
         :param resource_group_name: The name of the resource group. The name
          is case insensitive.
@@ -53,15 +53,15 @@ class ReplicasOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of Server
+        :return: An iterator like instance of PerformanceTierProperties
         :rtype:
-         ~azure.mgmt.rdbms.postgresql.models.ServerPaged[~azure.mgmt.rdbms.postgresql.models.Server]
+         ~azure.mgmt.rdbms.mariadb.models.PerformanceTierPropertiesPaged[~azure.mgmt.rdbms.mariadb.models.PerformanceTierProperties]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
-                url = self.list_by_server.metadata['url']
+                url = self.list.metadata['url']
                 path_format_arguments = {
                     'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', min_length=1),
                     'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str', max_length=90, min_length=1, pattern=r'^[-\w\._\(\)]+$'),
@@ -107,7 +107,7 @@ class ReplicasOperations(object):
         header_dict = None
         if raw:
             header_dict = {}
-        deserialized = models.ServerPaged(internal_paging, self._deserialize.dependencies, header_dict)
+        deserialized = models.PerformanceTierPropertiesPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list_by_server.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBForPostgreSQL/servers/{serverName}/replicas'}
+    list.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBForMariaDB/servers/{serverName}/performanceTiers'}

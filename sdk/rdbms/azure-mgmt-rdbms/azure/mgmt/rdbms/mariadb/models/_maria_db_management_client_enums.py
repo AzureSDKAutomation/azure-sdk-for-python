@@ -94,6 +94,12 @@ class OperationOrigin(str, Enum):
     system = "system"
 
 
+class QueryPerformanceInsightResetDataResultState(str, Enum):
+
+    succeeded = "Succeeded"
+    failed = "Failed"
+
+
 class ServerSecurityAlertPolicyState(str, Enum):
 
     enabled = "Enabled"

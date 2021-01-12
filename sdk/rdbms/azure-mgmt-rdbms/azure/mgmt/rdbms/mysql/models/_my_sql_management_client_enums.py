@@ -119,3 +119,9 @@ class ServerSecurityAlertPolicyState(str, Enum):
 
     enabled = "Enabled"
     disabled = "Disabled"
+
+
+class QueryPerformanceInsightResetDataResultState(str, Enum):
+
+    succeeded = "Succeeded"
+    failed = "Failed"
