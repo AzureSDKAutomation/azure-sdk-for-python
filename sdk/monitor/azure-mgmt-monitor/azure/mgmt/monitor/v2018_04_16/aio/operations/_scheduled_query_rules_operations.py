@@ -14,7 +14,7 @@ from azure.core.pipeline import PipelineResponse
 from azure.core.pipeline.transport import AsyncHttpResponse, HttpRequest
 from azure.mgmt.core.exceptions import ARMErrorFormat
 
-from ... import models
+from ... import models as _models
 
 T = TypeVar('T')
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, AsyncHttpResponse], T, Dict[str, Any]], Any]]
@@ -33,7 +33,7 @@ class ScheduledQueryRulesOperations:
     :param deserializer: An object model deserializer.
     """
 
-    models = models
+    models = _models
 
     def __init__(self, client, config, serializer, deserializer) -> None:
         self._client = client
@@ -45,9 +45,9 @@ class ScheduledQueryRulesOperations:
         self,
         resource_group_name: str,
         rule_name: str,
-        parameters: "models.LogSearchRuleResource",
+        parameters: "_models.LogSearchRuleResource",
         **kwargs
-    ) -> "models.LogSearchRuleResource":
+    ) -> "_models.LogSearchRuleResource":
         """Creates or updates an log search rule.
 
         :param resource_group_name: The name of the resource group.
@@ -61,7 +61,7 @@ class ScheduledQueryRulesOperations:
         :rtype: ~$(python-base-namespace).v2018_04_16.models.LogSearchRuleResource
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.LogSearchRuleResource"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.LogSearchRuleResource"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -73,7 +73,7 @@ class ScheduledQueryRulesOperations:
         # Construct URL
         url = self.create_or_update.metadata['url']  # type: ignore
         path_format_arguments = {
-            'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
+            'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str', min_length=1),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'ruleName': self._serialize.url("rule_name", rule_name, 'str'),
         }
@@ -97,7 +97,7 @@ class ScheduledQueryRulesOperations:
 
         if response.status_code not in [200, 201]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         if response.status_code == 200:
@@ -117,7 +117,7 @@ class ScheduledQueryRulesOperations:
         resource_group_name: str,
         rule_name: str,
         **kwargs
-    ) -> "models.LogSearchRuleResource":
+    ) -> "_models.LogSearchRuleResource":
         """Gets an Log Search rule.
 
         :param resource_group_name: The name of the resource group.
@@ -129,7 +129,7 @@ class ScheduledQueryRulesOperations:
         :rtype: ~$(python-base-namespace).v2018_04_16.models.LogSearchRuleResource
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.LogSearchRuleResource"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.LogSearchRuleResource"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -142,7 +142,7 @@ class ScheduledQueryRulesOperations:
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'ruleName': self._serialize.url("rule_name", rule_name, 'str'),
-            'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
+            'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str', min_length=1),
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -160,7 +160,7 @@ class ScheduledQueryRulesOperations:
 
         if response.status_code not in [200]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         deserialized = self._deserialize('LogSearchRuleResource', pipeline_response)
@@ -175,9 +175,9 @@ class ScheduledQueryRulesOperations:
         self,
         resource_group_name: str,
         rule_name: str,
-        parameters: "models.LogSearchRuleResourcePatch",
+        parameters: "_models.LogSearchRuleResourcePatch",
         **kwargs
-    ) -> "models.LogSearchRuleResource":
+    ) -> "_models.LogSearchRuleResource":
         """Update log search Rule.
 
         :param resource_group_name: The name of the resource group.
@@ -191,7 +191,7 @@ class ScheduledQueryRulesOperations:
         :rtype: ~$(python-base-namespace).v2018_04_16.models.LogSearchRuleResource
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.LogSearchRuleResource"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.LogSearchRuleResource"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -203,7 +203,7 @@ class ScheduledQueryRulesOperations:
         # Construct URL
         url = self.update.metadata['url']  # type: ignore
         path_format_arguments = {
-            'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
+            'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str', min_length=1),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'ruleName': self._serialize.url("rule_name", rule_name, 'str'),
         }
@@ -227,7 +227,7 @@ class ScheduledQueryRulesOperations:
 
         if response.status_code not in [200]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         deserialized = self._deserialize('LogSearchRuleResource', pipeline_response)
@@ -268,7 +268,7 @@ class ScheduledQueryRulesOperations:
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'ruleName': self._serialize.url("rule_name", rule_name, 'str'),
-            'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
+            'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str', min_length=1),
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -286,7 +286,7 @@ class ScheduledQueryRulesOperations:
 
         if response.status_code not in [200, 204]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = self._deserialize(models.ErrorResponse, response)
+            error = self._deserialize(_models.ErrorResponse, response)
             raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
         if cls:
@@ -298,7 +298,7 @@ class ScheduledQueryRulesOperations:
         self,
         filter: Optional[str] = None,
         **kwargs
-    ) -> AsyncIterable["models.LogSearchRuleResourceCollection"]:
+    ) -> AsyncIterable["_models.LogSearchRuleResourceCollection"]:
         """List the Log Search rules within a subscription group.
 
         :param filter: The filter to apply on the operation. For more information please see
@@ -309,7 +309,7 @@ class ScheduledQueryRulesOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~$(python-base-namespace).v2018_04_16.models.LogSearchRuleResourceCollection]
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.LogSearchRuleResourceCollection"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.LogSearchRuleResourceCollection"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -326,7 +326,7 @@ class ScheduledQueryRulesOperations:
                 # Construct URL
                 url = self.list_by_subscription.metadata['url']  # type: ignore
                 path_format_arguments = {
-                    'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
+                    'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str', min_length=1),
                 }
                 url = self._client.format_url(url, **path_format_arguments)
                 # Construct parameters
@@ -356,7 +356,7 @@ class ScheduledQueryRulesOperations:
             response = pipeline_response.http_response
 
             if response.status_code not in [200]:
-                error = self._deserialize(models.ErrorResponse, response)
+                error = self._deserialize(_models.ErrorResponse, response)
                 map_error(status_code=response.status_code, response=response, error_map=error_map)
                 raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 
@@ -372,7 +372,7 @@ class ScheduledQueryRulesOperations:
         resource_group_name: str,
         filter: Optional[str] = None,
         **kwargs
-    ) -> AsyncIterable["models.LogSearchRuleResourceCollection"]:
+    ) -> AsyncIterable["_models.LogSearchRuleResourceCollection"]:
         """List the Log Search rules within a resource group.
 
         :param resource_group_name: The name of the resource group.
@@ -385,7 +385,7 @@ class ScheduledQueryRulesOperations:
         :rtype: ~azure.core.async_paging.AsyncItemPaged[~$(python-base-namespace).v2018_04_16.models.LogSearchRuleResourceCollection]
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.LogSearchRuleResourceCollection"]
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.LogSearchRuleResourceCollection"]
         error_map = {
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
@@ -403,7 +403,7 @@ class ScheduledQueryRulesOperations:
                 url = self.list_by_resource_group.metadata['url']  # type: ignore
                 path_format_arguments = {
                     'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-                    'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
+                    'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str', min_length=1),
                 }
                 url = self._client.format_url(url, **path_format_arguments)
                 # Construct parameters
@@ -433,7 +433,7 @@ class ScheduledQueryRulesOperations:
             response = pipeline_response.http_response
 
             if response.status_code not in [200]:
-                error = self._deserialize(models.ErrorResponse, response)
+                error = self._deserialize(_models.ErrorResponse, response)
                 map_error(status_code=response.status_code, response=response, error_map=error_map)
                 raise HttpResponseError(response=response, model=error, error_format=ARMErrorFormat)
 

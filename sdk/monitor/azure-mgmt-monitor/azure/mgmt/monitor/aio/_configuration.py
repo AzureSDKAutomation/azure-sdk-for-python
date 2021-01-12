@@ -25,7 +25,7 @@ class MonitorClientConfiguration(Configuration):
 
     :param credential: Credential needed for the client to connect to Azure.
     :type credential: ~azure.core.credentials_async.AsyncTokenCredential
-    :param subscription_id: The Azure subscription Id.
+    :param subscription_id: The ID of the target subscription.
     :type subscription_id: str
     """
 
@@ -44,7 +44,7 @@ class MonitorClientConfiguration(Configuration):
         self.credential = credential
         self.subscription_id = subscription_id
         self.credential_scopes = kwargs.pop('credential_scopes', ['https://management.azure.com/.default'])
-        kwargs.setdefault('sdk_moniker', 'azure-mgmt-eventhub/{}'.format(VERSION))
+        kwargs.setdefault('sdk_moniker', 'azure-mgmt-monitor/{}'.format(VERSION))
         self._configure(**kwargs)
 
     def _configure(
