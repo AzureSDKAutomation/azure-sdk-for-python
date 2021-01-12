@@ -21,15 +21,25 @@ try:
     from ._models_py3 import DataLakeStoreAccountListResult
     from ._models_py3 import DataLakeStoreAccountProperties
     from ._models_py3 import DataLakeStoreAccountPropertiesBasic
+    from ._models_py3 import DeleteVirtualNetworkOrSubnetsParameters
+    from ._models_py3 import DeleteVirtualNetworkOrSubnetsResource
     from ._models_py3 import EncryptionConfig
     from ._models_py3 import EncryptionIdentity
+    from ._models_py3 import Error
+    from ._models_py3 import ErrorResponse
     from ._models_py3 import FirewallRule
     from ._models_py3 import FirewallRuleListResult
+    from ._models_py3 import InnerError
     from ._models_py3 import KeyVaultMetaInfo
     from ._models_py3 import NameAvailabilityInformation
     from ._models_py3 import Operation
     from ._models_py3 import OperationDisplay
     from ._models_py3 import OperationListResult
+    from ._models_py3 import OperationMetaLogSpecification
+    from ._models_py3 import OperationMetaMetricAvailabilitiesSpecification
+    from ._models_py3 import OperationMetaMetricSpecification
+    from ._models_py3 import OperationMetaServiceSpecification
+    from ._models_py3 import OperationProperties
     from ._models_py3 import Resource
     from ._models_py3 import SubResource
     from ._models_py3 import TrustedIdProvider
@@ -63,15 +73,25 @@ except (SyntaxError, ImportError):
     from ._models import DataLakeStoreAccountListResult  # type: ignore
     from ._models import DataLakeStoreAccountProperties  # type: ignore
     from ._models import DataLakeStoreAccountPropertiesBasic  # type: ignore
+    from ._models import DeleteVirtualNetworkOrSubnetsParameters  # type: ignore
+    from ._models import DeleteVirtualNetworkOrSubnetsResource  # type: ignore
     from ._models import EncryptionConfig  # type: ignore
     from ._models import EncryptionIdentity  # type: ignore
+    from ._models import Error  # type: ignore
+    from ._models import ErrorResponse  # type: ignore
     from ._models import FirewallRule  # type: ignore
     from ._models import FirewallRuleListResult  # type: ignore
+    from ._models import InnerError  # type: ignore
     from ._models import KeyVaultMetaInfo  # type: ignore
     from ._models import NameAvailabilityInformation  # type: ignore
     from ._models import Operation  # type: ignore
     from ._models import OperationDisplay  # type: ignore
     from ._models import OperationListResult  # type: ignore
+    from ._models import OperationMetaLogSpecification  # type: ignore
+    from ._models import OperationMetaMetricAvailabilitiesSpecification  # type: ignore
+    from ._models import OperationMetaMetricSpecification  # type: ignore
+    from ._models import OperationMetaServiceSpecification  # type: ignore
+    from ._models import OperationProperties  # type: ignore
     from ._models import Resource  # type: ignore
     from ._models import SubResource  # type: ignore
     from ._models import TrustedIdProvider  # type: ignore
@@ -121,15 +141,25 @@ __all__ = [
     'DataLakeStoreAccountListResult',
     'DataLakeStoreAccountProperties',
     'DataLakeStoreAccountPropertiesBasic',
+    'DeleteVirtualNetworkOrSubnetsParameters',
+    'DeleteVirtualNetworkOrSubnetsResource',
     'EncryptionConfig',
     'EncryptionIdentity',
+    'Error',
+    'ErrorResponse',
     'FirewallRule',
     'FirewallRuleListResult',
+    'InnerError',
     'KeyVaultMetaInfo',
     'NameAvailabilityInformation',
     'Operation',
     'OperationDisplay',
     'OperationListResult',
+    'OperationMetaLogSpecification',
+    'OperationMetaMetricAvailabilitiesSpecification',
+    'OperationMetaMetricSpecification',
+    'OperationMetaServiceSpecification',
+    'OperationProperties',
     'Resource',
     'SubResource',
     'TrustedIdProvider',

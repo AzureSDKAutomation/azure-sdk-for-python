@@ -20,6 +20,7 @@ if TYPE_CHECKING:
 from ._configuration import DataLakeStoreAccountManagementClientConfiguration
 from .operations import AccountsOperations
 from .operations import FirewallRulesOperations
+from .operations import VirtualNetworkOrSubnetsOperations
 from .operations import VirtualNetworkRulesOperations
 from .operations import TrustedIdProvidersOperations
 from .operations import Operations
@@ -34,6 +35,8 @@ class DataLakeStoreAccountManagementClient(object):
     :vartype accounts: azure.mgmt.datalake.store.operations.AccountsOperations
     :ivar firewall_rules: FirewallRulesOperations operations
     :vartype firewall_rules: azure.mgmt.datalake.store.operations.FirewallRulesOperations
+    :ivar virtual_network_or_subnets: VirtualNetworkOrSubnetsOperations operations
+    :vartype virtual_network_or_subnets: azure.mgmt.datalake.store.operations.VirtualNetworkOrSubnetsOperations
     :ivar virtual_network_rules: VirtualNetworkRulesOperations operations
     :vartype virtual_network_rules: azure.mgmt.datalake.store.operations.VirtualNetworkRulesOperations
     :ivar trusted_id_providers: TrustedIdProvidersOperations operations
@@ -65,12 +68,13 @@ class DataLakeStoreAccountManagementClient(object):
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
         self._serialize = Serializer(client_models)
-        self._serialize.client_side_validation = False
         self._deserialize = Deserializer(client_models)
 
         self.accounts = AccountsOperations(
             self._client, self._config, self._serialize, self._deserialize)
         self.firewall_rules = FirewallRulesOperations(
+            self._client, self._config, self._serialize, self._deserialize)
+        self.virtual_network_or_subnets = VirtualNetworkOrSubnetsOperations(
             self._client, self._config, self._serialize, self._deserialize)
         self.virtual_network_rules = VirtualNetworkRulesOperations(
             self._client, self._config, self._serialize, self._deserialize)

@@ -8,6 +8,7 @@
 
 from ._accounts_operations import AccountsOperations
 from ._firewall_rules_operations import FirewallRulesOperations
+from ._virtual_network_or_subnets_operations import VirtualNetworkOrSubnetsOperations
 from ._virtual_network_rules_operations import VirtualNetworkRulesOperations
 from ._trusted_id_providers_operations import TrustedIdProvidersOperations
 from ._operations import Operations
@@ -16,6 +17,7 @@ from ._locations_operations import LocationsOperations
 __all__ = [
     'AccountsOperations',
     'FirewallRulesOperations',
+    'VirtualNetworkOrSubnetsOperations',
     'VirtualNetworkRulesOperations',
     'TrustedIdProvidersOperations',
     'Operations',

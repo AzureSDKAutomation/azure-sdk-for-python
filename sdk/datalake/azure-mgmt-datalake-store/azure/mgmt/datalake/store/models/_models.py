@@ -6,6 +6,7 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------
 
+from azure.core.exceptions import HttpResponseError
 import msrest.serialization
 
 
@@ -438,6 +439,9 @@ class DataLakeStoreAccount(Resource):
     :ivar default_group: The default owner group for all new folders and files created in the Data
      Lake Store account.
     :vartype default_group: str
+    :ivar initial_user: The default user for all new folders and files created in the Data Lake
+     Store account.
+    :vartype initial_user: str
     :ivar encryption_config: The Key Vault encryption configuration.
     :vartype encryption_config: ~azure.mgmt.datalake.store.models.EncryptionConfig
     :ivar encryption_state: The current state of encryption for this Data Lake Store account.
@@ -460,6 +464,9 @@ class DataLakeStoreAccount(Resource):
      values include: "Enabled", "Disabled".
     :vartype firewall_allow_azure_ips: str or
      ~azure.mgmt.datalake.store.models.FirewallAllowAzureIpsState
+    :ivar firewall_allow_data_lake_analytics: The current state of allowing datalakeanalytics
+     through the firewall. If the firewall is disabled, this is not enforced.
+    :vartype firewall_allow_data_lake_analytics: str
     :ivar trusted_id_providers: The list of trusted identity providers associated with this Data
      Lake Store account.
     :vartype trusted_id_providers: list[~azure.mgmt.datalake.store.models.TrustedIdProvider]
@@ -475,6 +482,8 @@ class DataLakeStoreAccount(Resource):
      "Consumption", "Commitment_1TB", "Commitment_10TB", "Commitment_100TB", "Commitment_500TB",
      "Commitment_1PB", "Commitment_5PB".
     :vartype current_tier: str or ~azure.mgmt.datalake.store.models.TierType
+    :ivar data_lake_performance_tier_state: dataLake Performance Tier State.
+    :vartype data_lake_performance_tier_state: str
     """
 
     _validation = {
@@ -491,6 +500,7 @@ class DataLakeStoreAccount(Resource):
         'last_modified_time': {'readonly': True},
         'endpoint': {'readonly': True},
         'default_group': {'readonly': True},
+        'initial_user': {'readonly': True},
         'encryption_config': {'readonly': True},
         'encryption_state': {'readonly': True},
         'encryption_provisioning_state': {'readonly': True},
@@ -498,10 +508,12 @@ class DataLakeStoreAccount(Resource):
         'virtual_network_rules': {'readonly': True},
         'firewall_state': {'readonly': True},
         'firewall_allow_azure_ips': {'readonly': True},
+        'firewall_allow_data_lake_analytics': {'readonly': True},
         'trusted_id_providers': {'readonly': True},
         'trusted_id_provider_state': {'readonly': True},
         'new_tier': {'readonly': True},
         'current_tier': {'readonly': True},
+        'data_lake_performance_tier_state': {'readonly': True},
     }
 
     _attribute_map = {
@@ -518,6 +530,7 @@ class DataLakeStoreAccount(Resource):
         'last_modified_time': {'key': 'properties.lastModifiedTime', 'type': 'iso-8601'},
         'endpoint': {'key': 'properties.endpoint', 'type': 'str'},
         'default_group': {'key': 'properties.defaultGroup', 'type': 'str'},
+        'initial_user': {'key': 'properties.initialUser', 'type': 'str'},
         'encryption_config': {'key': 'properties.encryptionConfig', 'type': 'EncryptionConfig'},
         'encryption_state': {'key': 'properties.encryptionState', 'type': 'str'},
         'encryption_provisioning_state': {'key': 'properties.encryptionProvisioningState', 'type': 'str'},
@@ -525,10 +538,12 @@ class DataLakeStoreAccount(Resource):
         'virtual_network_rules': {'key': 'properties.virtualNetworkRules', 'type': '[VirtualNetworkRule]'},
         'firewall_state': {'key': 'properties.firewallState', 'type': 'str'},
         'firewall_allow_azure_ips': {'key': 'properties.firewallAllowAzureIps', 'type': 'str'},
+        'firewall_allow_data_lake_analytics': {'key': 'properties.firewallAllowDataLakeAnalytics', 'type': 'str'},
         'trusted_id_providers': {'key': 'properties.trustedIdProviders', 'type': '[TrustedIdProvider]'},
         'trusted_id_provider_state': {'key': 'properties.trustedIdProviderState', 'type': 'str'},
         'new_tier': {'key': 'properties.newTier', 'type': 'str'},
         'current_tier': {'key': 'properties.currentTier', 'type': 'str'},
+        'data_lake_performance_tier_state': {'key': 'properties.dataLakePerformanceTierState', 'type': 'str'},
     }
 
     def __init__(
@@ -544,6 +559,7 @@ class DataLakeStoreAccount(Resource):
         self.last_modified_time = None
         self.endpoint = None
         self.default_group = None
+        self.initial_user = None
         self.encryption_config = None
         self.encryption_state = None
         self.encryption_provisioning_state = None
@@ -551,10 +567,12 @@ class DataLakeStoreAccount(Resource):
         self.virtual_network_rules = None
         self.firewall_state = None
         self.firewall_allow_azure_ips = None
+        self.firewall_allow_data_lake_analytics = None
         self.trusted_id_providers = None
         self.trusted_id_provider_state = None
         self.new_tier = None
         self.current_tier = None
+        self.data_lake_performance_tier_state = None
 
 
 class DataLakeStoreAccountBasic(Resource):
@@ -739,6 +757,9 @@ class DataLakeStoreAccountProperties(DataLakeStoreAccountPropertiesBasic):
     :ivar default_group: The default owner group for all new folders and files created in the Data
      Lake Store account.
     :vartype default_group: str
+    :ivar initial_user: The default user for all new folders and files created in the Data Lake
+     Store account.
+    :vartype initial_user: str
     :ivar encryption_config: The Key Vault encryption configuration.
     :vartype encryption_config: ~azure.mgmt.datalake.store.models.EncryptionConfig
     :ivar encryption_state: The current state of encryption for this Data Lake Store account.
@@ -761,6 +782,9 @@ class DataLakeStoreAccountProperties(DataLakeStoreAccountPropertiesBasic):
      values include: "Enabled", "Disabled".
     :vartype firewall_allow_azure_ips: str or
      ~azure.mgmt.datalake.store.models.FirewallAllowAzureIpsState
+    :ivar firewall_allow_data_lake_analytics: The current state of allowing datalakeanalytics
+     through the firewall. If the firewall is disabled, this is not enforced.
+    :vartype firewall_allow_data_lake_analytics: str
     :ivar trusted_id_providers: The list of trusted identity providers associated with this Data
      Lake Store account.
     :vartype trusted_id_providers: list[~azure.mgmt.datalake.store.models.TrustedIdProvider]
@@ -776,6 +800,8 @@ class DataLakeStoreAccountProperties(DataLakeStoreAccountPropertiesBasic):
      "Consumption", "Commitment_1TB", "Commitment_10TB", "Commitment_100TB", "Commitment_500TB",
      "Commitment_1PB", "Commitment_5PB".
     :vartype current_tier: str or ~azure.mgmt.datalake.store.models.TierType
+    :ivar data_lake_performance_tier_state: dataLake Performance Tier State.
+    :vartype data_lake_performance_tier_state: str
     """
 
     _validation = {
@@ -786,6 +812,7 @@ class DataLakeStoreAccountProperties(DataLakeStoreAccountPropertiesBasic):
         'last_modified_time': {'readonly': True},
         'endpoint': {'readonly': True},
         'default_group': {'readonly': True},
+        'initial_user': {'readonly': True},
         'encryption_config': {'readonly': True},
         'encryption_state': {'readonly': True},
         'encryption_provisioning_state': {'readonly': True},
@@ -793,10 +820,12 @@ class DataLakeStoreAccountProperties(DataLakeStoreAccountPropertiesBasic):
         'virtual_network_rules': {'readonly': True},
         'firewall_state': {'readonly': True},
         'firewall_allow_azure_ips': {'readonly': True},
+        'firewall_allow_data_lake_analytics': {'readonly': True},
         'trusted_id_providers': {'readonly': True},
         'trusted_id_provider_state': {'readonly': True},
         'new_tier': {'readonly': True},
         'current_tier': {'readonly': True},
+        'data_lake_performance_tier_state': {'readonly': True},
     }
 
     _attribute_map = {
@@ -807,6 +836,7 @@ class DataLakeStoreAccountProperties(DataLakeStoreAccountPropertiesBasic):
         'last_modified_time': {'key': 'lastModifiedTime', 'type': 'iso-8601'},
         'endpoint': {'key': 'endpoint', 'type': 'str'},
         'default_group': {'key': 'defaultGroup', 'type': 'str'},
+        'initial_user': {'key': 'initialUser', 'type': 'str'},
         'encryption_config': {'key': 'encryptionConfig', 'type': 'EncryptionConfig'},
         'encryption_state': {'key': 'encryptionState', 'type': 'str'},
         'encryption_provisioning_state': {'key': 'encryptionProvisioningState', 'type': 'str'},
@@ -814,10 +844,12 @@ class DataLakeStoreAccountProperties(DataLakeStoreAccountPropertiesBasic):
         'virtual_network_rules': {'key': 'virtualNetworkRules', 'type': '[VirtualNetworkRule]'},
         'firewall_state': {'key': 'firewallState', 'type': 'str'},
         'firewall_allow_azure_ips': {'key': 'firewallAllowAzureIps', 'type': 'str'},
+        'firewall_allow_data_lake_analytics': {'key': 'firewallAllowDataLakeAnalytics', 'type': 'str'},
         'trusted_id_providers': {'key': 'trustedIdProviders', 'type': '[TrustedIdProvider]'},
         'trusted_id_provider_state': {'key': 'trustedIdProviderState', 'type': 'str'},
         'new_tier': {'key': 'newTier', 'type': 'str'},
         'current_tier': {'key': 'currentTier', 'type': 'str'},
+        'data_lake_performance_tier_state': {'key': 'dataLakePerformanceTierState', 'type': 'str'},
     }
 
     def __init__(
@@ -826,6 +858,7 @@ class DataLakeStoreAccountProperties(DataLakeStoreAccountPropertiesBasic):
     ):
         super(DataLakeStoreAccountProperties, self).__init__(**kwargs)
         self.default_group = None
+        self.initial_user = None
         self.encryption_config = None
         self.encryption_state = None
         self.encryption_provisioning_state = None
@@ -833,29 +866,83 @@ class DataLakeStoreAccountProperties(DataLakeStoreAccountPropertiesBasic):
         self.virtual_network_rules = None
         self.firewall_state = None
         self.firewall_allow_azure_ips = None
+        self.firewall_allow_data_lake_analytics = None
         self.trusted_id_providers = None
         self.trusted_id_provider_state = None
         self.new_tier = None
         self.current_tier = None
+        self.data_lake_performance_tier_state = None
+
+
+class DeleteVirtualNetworkOrSubnetsParameters(msrest.serialization.Model):
+    """The parameters used to delete virtual network.
+
+    :param virtual_network_resource_guid: virtual Network Resource Guid.
+    :type virtual_network_resource_guid: str
+    :param virtual_network_location: virtual Network Location.
+    :type virtual_network_location: str
+    :param acled_subscriptions: Acl subscription.
+    :type acled_subscriptions: list[str]
+    :param resources: Resources to delete.
+    :type resources: list[~azure.mgmt.datalake.store.models.DeleteVirtualNetworkOrSubnetsResource]
+    """
+
+    _attribute_map = {
+        'virtual_network_resource_guid': {'key': 'virtualNetworkResourceGuid', 'type': 'str'},
+        'virtual_network_location': {'key': 'virtualNetworkLocation', 'type': 'str'},
+        'acled_subscriptions': {'key': 'acledSubscriptions', 'type': '[str]'},
+        'resources': {'key': 'resources', 'type': '[DeleteVirtualNetworkOrSubnetsResource]'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(DeleteVirtualNetworkOrSubnetsParameters, self).__init__(**kwargs)
+        self.virtual_network_resource_guid = kwargs.get('virtual_network_resource_guid', None)
+        self.virtual_network_location = kwargs.get('virtual_network_location', None)
+        self.acled_subscriptions = kwargs.get('acled_subscriptions', None)
+        self.resources = kwargs.get('resources', None)
+
+
+class DeleteVirtualNetworkOrSubnetsResource(msrest.serialization.Model):
+    """Delete VirtualNetwork Or Subnets Resource.
+
+    :param id: The resource identifier.
+    :type id: str
+    :param name: The resource name.
+    :type name: str
+    :param type: The resource type.
+    :type type: str
+    """
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(DeleteVirtualNetworkOrSubnetsResource, self).__init__(**kwargs)
+        self.id = kwargs.get('id', None)
+        self.name = kwargs.get('name', None)
+        self.type = kwargs.get('type', None)
 
 
 class EncryptionConfig(msrest.serialization.Model):
     """The encryption configuration for the account.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param type: Required. The type of encryption configuration being used. Currently the only
-     supported types are 'UserManaged' and 'ServiceManaged'. Possible values include: "UserManaged",
+    :param type: The type of encryption configuration being used. Currently the only supported
+     types are 'UserManaged' and 'ServiceManaged'. Possible values include: "UserManaged",
      "ServiceManaged".
     :type type: str or ~azure.mgmt.datalake.store.models.EncryptionConfigType
     :param key_vault_meta_info: The Key Vault information for connecting to user managed encryption
      keys.
     :type key_vault_meta_info: ~azure.mgmt.datalake.store.models.KeyVaultMetaInfo
     """
-
-    _validation = {
-        'type': {'required': True},
-    }
 
     _attribute_map = {
         'type': {'key': 'type', 'type': 'str'},
@@ -867,7 +954,7 @@ class EncryptionConfig(msrest.serialization.Model):
         **kwargs
     ):
         super(EncryptionConfig, self).__init__(**kwargs)
-        self.type = kwargs['type']
+        self.type = kwargs.get('type', None)
         self.key_vault_meta_info = kwargs.get('key_vault_meta_info', None)
 
 
@@ -908,6 +995,70 @@ class EncryptionIdentity(msrest.serialization.Model):
         super(EncryptionIdentity, self).__init__(**kwargs)
         self.principal_id = None
         self.tenant_id = None
+
+
+class Error(msrest.serialization.Model):
+    """Data Lake Store error information.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar code: the HTTP status code or error code associated with this error.
+    :vartype code: str
+    :ivar message: the error message to display.
+    :vartype message: str
+    :ivar target: the target of the error.
+    :vartype target: str
+    :ivar details: the list of error details.
+    :vartype details: list[~azure.mgmt.datalake.store.models.Error]
+    :ivar additional_info: the inner exceptions or errors, if any.
+    :vartype additional_info: list[~azure.mgmt.datalake.store.models.InnerError]
+    """
+
+    _validation = {
+        'code': {'readonly': True},
+        'message': {'readonly': True},
+        'target': {'readonly': True},
+        'details': {'readonly': True},
+        'additional_info': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'code': {'key': 'code', 'type': 'str'},
+        'message': {'key': 'message', 'type': 'str'},
+        'target': {'key': 'target', 'type': 'str'},
+        'details': {'key': 'details', 'type': '[Error]'},
+        'additional_info': {'key': 'additionalInfo', 'type': '[InnerError]'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(Error, self).__init__(**kwargs)
+        self.code = None
+        self.message = None
+        self.target = None
+        self.details = None
+        self.additional_info = None
+
+
+class ErrorResponse(msrest.serialization.Model):
+    """Common error response.
+
+    :param error: The error object.
+    :type error: ~azure.mgmt.datalake.store.models.Error
+    """
+
+    _attribute_map = {
+        'error': {'key': 'error', 'type': 'Error'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(ErrorResponse, self).__init__(**kwargs)
+        self.error = kwargs.get('error', None)
 
 
 class SubResource(msrest.serialization.Model):
@@ -1019,6 +1170,36 @@ class FirewallRuleListResult(msrest.serialization.Model):
         self.next_link = None
 
 
+class InnerError(msrest.serialization.Model):
+    """Data Lake Store inner error information.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar trace: the stack trace for the error.
+    :vartype trace: str
+    :ivar context: the context for the error message.
+    :vartype context: str
+    """
+
+    _validation = {
+        'trace': {'readonly': True},
+        'context': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'trace': {'key': 'trace', 'type': 'str'},
+        'context': {'key': 'context', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(InnerError, self).__init__(**kwargs)
+        self.trace = None
+        self.context = None
+
+
 class KeyVaultMetaInfo(msrest.serialization.Model):
     """Metadata information used by account encryption.
 
@@ -1105,6 +1286,8 @@ class Operation(msrest.serialization.Model):
     :ivar origin: The intended executor of the operation. Possible values include: "user",
      "system", "user,system".
     :vartype origin: str or ~azure.mgmt.datalake.store.models.OperationOrigin
+    :param properties: Operation properties.
+    :type properties: ~azure.mgmt.datalake.store.models.OperationProperties
     """
 
     _validation = {
@@ -1116,6 +1299,7 @@ class Operation(msrest.serialization.Model):
         'name': {'key': 'name', 'type': 'str'},
         'display': {'key': 'display', 'type': 'OperationDisplay'},
         'origin': {'key': 'origin', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'OperationProperties'},
     }
 
     def __init__(
@@ -1126,6 +1310,7 @@ class Operation(msrest.serialization.Model):
         self.name = None
         self.display = kwargs.get('display', None)
         self.origin = None
+        self.properties = kwargs.get('properties', None)
 
 
 class OperationDisplay(msrest.serialization.Model):
@@ -1196,6 +1381,205 @@ class OperationListResult(msrest.serialization.Model):
         super(OperationListResult, self).__init__(**kwargs)
         self.value = None
         self.next_link = None
+
+
+class OperationMetaLogSpecification(msrest.serialization.Model):
+    """OperationMetaLogSpecification.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar name: name of specification.
+    :vartype name: str
+    :ivar display_name: display Name.
+    :vartype display_name: str
+    :ivar blob_duration: blob Duration.
+    :vartype blob_duration: str
+    """
+
+    _validation = {
+        'name': {'readonly': True},
+        'display_name': {'readonly': True},
+        'blob_duration': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'blob_duration': {'key': 'blobDuration', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(OperationMetaLogSpecification, self).__init__(**kwargs)
+        self.name = None
+        self.display_name = None
+        self.blob_duration = None
+
+
+class OperationMetaMetricAvailabilitiesSpecification(msrest.serialization.Model):
+    """OperationMetaMetricAvailabilitiesSpecification.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar time_grain: time Grain.
+    :vartype time_grain: str
+    :ivar blob_duration: blob Duration.
+    :vartype blob_duration: str
+    """
+
+    _validation = {
+        'time_grain': {'readonly': True},
+        'blob_duration': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'time_grain': {'key': 'timeGrain', 'type': 'str'},
+        'blob_duration': {'key': 'blobDuration', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(OperationMetaMetricAvailabilitiesSpecification, self).__init__(**kwargs)
+        self.time_grain = None
+        self.blob_duration = None
+
+
+class OperationMetaMetricSpecification(msrest.serialization.Model):
+    """OperationMetaMetricSpecification.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar name: name of specification.
+    :vartype name: str
+    :ivar display_name: display Name.
+    :vartype display_name: str
+    :ivar display_description: display Description.
+    :vartype display_description: str
+    :ivar unit: unit of specification.
+    :vartype unit: str
+    :ivar aggregation_type: aggregation Type.
+    :vartype aggregation_type: str
+    :ivar supports_instance_level_aggregation: Whether supports InstanceLevel Aggregation.
+    :vartype supports_instance_level_aggregation: bool
+    :ivar enable_regional_mdm_account: enable Regional MdmAccount.
+    :vartype enable_regional_mdm_account: bool
+    :ivar source_mdm_account: source MdmAccount.
+    :vartype source_mdm_account: str
+    :ivar source_mdm_namespace: source MdmNamespace.
+    :vartype source_mdm_namespace: str
+    :ivar availabilities: Operation Metric Availabilities Specification.
+    :vartype availabilities:
+     list[~azure.mgmt.datalake.store.models.OperationMetaMetricAvailabilitiesSpecification]
+    :ivar metric_filter_pattern: metric Filter Pattern.
+    :vartype metric_filter_pattern: str
+    """
+
+    _validation = {
+        'name': {'readonly': True},
+        'display_name': {'readonly': True},
+        'display_description': {'readonly': True},
+        'unit': {'readonly': True},
+        'aggregation_type': {'readonly': True},
+        'supports_instance_level_aggregation': {'readonly': True},
+        'enable_regional_mdm_account': {'readonly': True},
+        'source_mdm_account': {'readonly': True},
+        'source_mdm_namespace': {'readonly': True},
+        'availabilities': {'readonly': True},
+        'metric_filter_pattern': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'display_description': {'key': 'displayDescription', 'type': 'str'},
+        'unit': {'key': 'unit', 'type': 'str'},
+        'aggregation_type': {'key': 'aggregationType', 'type': 'str'},
+        'supports_instance_level_aggregation': {'key': 'supportsInstanceLevelAggregation', 'type': 'bool'},
+        'enable_regional_mdm_account': {'key': 'enableRegionalMdmAccount', 'type': 'bool'},
+        'source_mdm_account': {'key': 'sourceMdmAccount', 'type': 'str'},
+        'source_mdm_namespace': {'key': 'sourceMdmNamespace', 'type': 'str'},
+        'availabilities': {'key': 'availabilities', 'type': '[OperationMetaMetricAvailabilitiesSpecification]'},
+        'metric_filter_pattern': {'key': 'metricFilterPattern', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(OperationMetaMetricSpecification, self).__init__(**kwargs)
+        self.name = None
+        self.display_name = None
+        self.display_description = None
+        self.unit = None
+        self.aggregation_type = None
+        self.supports_instance_level_aggregation = None
+        self.enable_regional_mdm_account = None
+        self.source_mdm_account = None
+        self.source_mdm_namespace = None
+        self.availabilities = None
+        self.metric_filter_pattern = None
+
+
+class OperationMetaServiceSpecification(msrest.serialization.Model):
+    """OperationMetaServiceSpecification.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar metric_specifications: metric Specifications.
+    :vartype metric_specifications:
+     list[~azure.mgmt.datalake.store.models.OperationMetaMetricSpecification]
+    :ivar log_specifications: log Specifications.
+    :vartype log_specifications:
+     list[~azure.mgmt.datalake.store.models.OperationMetaLogSpecification]
+    """
+
+    _validation = {
+        'metric_specifications': {'readonly': True},
+        'log_specifications': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'metric_specifications': {'key': 'metricSpecifications', 'type': '[OperationMetaMetricSpecification]'},
+        'log_specifications': {'key': 'logSpecifications', 'type': '[OperationMetaLogSpecification]'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(OperationMetaServiceSpecification, self).__init__(**kwargs)
+        self.metric_specifications = None
+        self.log_specifications = None
+
+
+class OperationProperties(msrest.serialization.Model):
+    """OperationProperties.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar service_specification: service Specification.
+    :vartype service_specification:
+     ~azure.mgmt.datalake.store.models.OperationMetaServiceSpecification
+    """
+
+    _validation = {
+        'service_specification': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'service_specification': {'key': 'serviceSpecification', 'type': 'OperationMetaServiceSpecification'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(OperationProperties, self).__init__(**kwargs)
+        self.service_specification = None
 
 
 class TrustedIdProvider(SubResource):
@@ -1641,6 +2025,8 @@ class VirtualNetworkRule(SubResource):
     :vartype type: str
     :ivar subnet_id: The resource identifier for the subnet.
     :vartype subnet_id: str
+    :ivar state: The state for the subnet.
+    :vartype state: str
     """
 
     _validation = {
@@ -1648,6 +2034,7 @@ class VirtualNetworkRule(SubResource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'subnet_id': {'readonly': True},
+        'state': {'readonly': True},
     }
 
     _attribute_map = {
@@ -1655,6 +2042,7 @@ class VirtualNetworkRule(SubResource):
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
         'subnet_id': {'key': 'properties.subnetId', 'type': 'str'},
+        'state': {'key': 'properties.state', 'type': 'str'},
     }
 
     def __init__(
@@ -1663,6 +2051,7 @@ class VirtualNetworkRule(SubResource):
     ):
         super(VirtualNetworkRule, self).__init__(**kwargs)
         self.subnet_id = None
+        self.state = None
 
 
 class VirtualNetworkRuleListResult(msrest.serialization.Model):
