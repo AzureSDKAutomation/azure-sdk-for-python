@@ -3333,10 +3333,17 @@ class AzureDatabricksLinkedService(LinkedService):
      Databricks deployment. Type: string (or Expression with resultType
      string).
     :type domain: object
-    :param access_token: Required. Access token for databricks REST API. Refer
-     to https://docs.azuredatabricks.net/api/latest/authentication.html. Type:
+    :param access_token: Access token for databricks REST API. Refer to
+     https://docs.azuredatabricks.net/api/latest/authentication.html. Type:
      string (or Expression with resultType string).
     :type access_token: ~azure.mgmt.datafactory.models.SecretBase
+    :param authentication: Required to specify MSI, if using Workspace
+     resource id for databricks REST API. Type: string (or Expression with
+     resultType string).
+    :type authentication: object
+    :param workspace_resource_id: Workspace resource id for databricks REST
+     API. Type: string (or Expression with resultType string).
+    :type workspace_resource_id: object
     :param existing_cluster_id: The id of an existing interactive cluster that
      will be used for all runs of this activity. Type: string (or Expression
      with resultType string).
@@ -3399,7 +3406,6 @@ class AzureDatabricksLinkedService(LinkedService):
     _validation = {
         'type': {'required': True},
         'domain': {'required': True},
-        'access_token': {'required': True},
     }
 
     _attribute_map = {
@@ -3411,6 +3417,8 @@ class AzureDatabricksLinkedService(LinkedService):
         'type': {'key': 'type', 'type': 'str'},
         'domain': {'key': 'typeProperties.domain', 'type': 'object'},
         'access_token': {'key': 'typeProperties.accessToken', 'type': 'SecretBase'},
+        'authentication': {'key': 'typeProperties.authentication', 'type': 'object'},
+        'workspace_resource_id': {'key': 'typeProperties.workspaceResourceId', 'type': 'object'},
         'existing_cluster_id': {'key': 'typeProperties.existingClusterId', 'type': 'object'},
         'instance_pool_id': {'key': 'typeProperties.instancePoolId', 'type': 'object'},
         'new_cluster_version': {'key': 'typeProperties.newClusterVersion', 'type': 'object'},
@@ -3426,10 +3434,12 @@ class AzureDatabricksLinkedService(LinkedService):
         'encrypted_credential': {'key': 'typeProperties.encryptedCredential', 'type': 'object'},
     }
 
-    def __init__(self, *, domain, access_token, additional_properties=None, connect_via=None, description: str=None, parameters=None, annotations=None, existing_cluster_id=None, instance_pool_id=None, new_cluster_version=None, new_cluster_num_of_worker=None, new_cluster_node_type=None, new_cluster_spark_conf=None, new_cluster_spark_env_vars=None, new_cluster_custom_tags=None, new_cluster_log_destination=None, new_cluster_driver_node_type=None, new_cluster_init_scripts=None, new_cluster_enable_elastic_disk=None, encrypted_credential=None, **kwargs) -> None:
+    def __init__(self, *, domain, additional_properties=None, connect_via=None, description: str=None, parameters=None, annotations=None, access_token=None, authentication=None, workspace_resource_id=None, existing_cluster_id=None, instance_pool_id=None, new_cluster_version=None, new_cluster_num_of_worker=None, new_cluster_node_type=None, new_cluster_spark_conf=None, new_cluster_spark_env_vars=None, new_cluster_custom_tags=None, new_cluster_log_destination=None, new_cluster_driver_node_type=None, new_cluster_init_scripts=None, new_cluster_enable_elastic_disk=None, encrypted_credential=None, **kwargs) -> None:
         super(AzureDatabricksLinkedService, self).__init__(additional_properties=additional_properties, connect_via=connect_via, description=description, parameters=parameters, annotations=annotations, **kwargs)
         self.domain = domain
         self.access_token = access_token
+        self.authentication = authentication
+        self.workspace_resource_id = workspace_resource_id
         self.existing_cluster_id = existing_cluster_id
         self.instance_pool_id = instance_pool_id
         self.new_cluster_version = new_cluster_version
@@ -18982,6 +18992,9 @@ class IntegrationRuntimeSsisCatalogInfo(Model):
      values include: 'Basic', 'Standard', 'Premium', 'PremiumRS'
     :type catalog_pricing_tier: str or
      ~azure.mgmt.datafactory.models.IntegrationRuntimeSsisCatalogPricingTier
+    :param dual_standby_pair_name: The dual standby pair name of Azure-SSIS
+     Integration Runtimes to support SSISDB failover.
+    :type dual_standby_pair_name: str
     """
 
     _validation = {
@@ -18994,15 +19007,17 @@ class IntegrationRuntimeSsisCatalogInfo(Model):
         'catalog_admin_user_name': {'key': 'catalogAdminUserName', 'type': 'str'},
         'catalog_admin_password': {'key': 'catalogAdminPassword', 'type': 'SecureString'},
         'catalog_pricing_tier': {'key': 'catalogPricingTier', 'type': 'str'},
+        'dual_standby_pair_name': {'key': 'dualStandbyPairName', 'type': 'str'},
     }
 
-    def __init__(self, *, additional_properties=None, catalog_server_endpoint: str=None, catalog_admin_user_name: str=None, catalog_admin_password=None, catalog_pricing_tier=None, **kwargs) -> None:
+    def __init__(self, *, additional_properties=None, catalog_server_endpoint: str=None, catalog_admin_user_name: str=None, catalog_admin_password=None, catalog_pricing_tier=None, dual_standby_pair_name: str=None, **kwargs) -> None:
         super(IntegrationRuntimeSsisCatalogInfo, self).__init__(**kwargs)
         self.additional_properties = additional_properties
         self.catalog_server_endpoint = catalog_server_endpoint
         self.catalog_admin_user_name = catalog_admin_user_name
         self.catalog_admin_password = catalog_admin_password
         self.catalog_pricing_tier = catalog_pricing_tier
+        self.dual_standby_pair_name = dual_standby_pair_name
 
 
 class IntegrationRuntimeSsisProperties(Model):
@@ -20370,6 +20385,9 @@ class ManagedIntegrationRuntime(IntegrationRuntime):
     :param ssis_properties: SSIS properties for managed integration runtime.
     :type ssis_properties:
      ~azure.mgmt.datafactory.models.IntegrationRuntimeSsisProperties
+    :param managed_virtual_network: Managed Virtual Network reference.
+    :type managed_virtual_network:
+     ~azure.mgmt.datafactory.models.ManagedVirtualNetworkReference
     """
 
     _validation = {
@@ -20384,13 +20402,15 @@ class ManagedIntegrationRuntime(IntegrationRuntime):
         'state': {'key': 'state', 'type': 'str'},
         'compute_properties': {'key': 'typeProperties.computeProperties', 'type': 'IntegrationRuntimeComputeProperties'},
         'ssis_properties': {'key': 'typeProperties.ssisProperties', 'type': 'IntegrationRuntimeSsisProperties'},
+        'managed_virtual_network': {'key': 'managedVirtualNetwork', 'type': 'ManagedVirtualNetworkReference'},
     }
 
-    def __init__(self, *, additional_properties=None, description: str=None, compute_properties=None, ssis_properties=None, **kwargs) -> None:
+    def __init__(self, *, additional_properties=None, description: str=None, compute_properties=None, ssis_properties=None, managed_virtual_network=None, **kwargs) -> None:
         super(ManagedIntegrationRuntime, self).__init__(additional_properties=additional_properties, description=description, **kwargs)
         self.state = None
         self.compute_properties = compute_properties
         self.ssis_properties = ssis_properties
+        self.managed_virtual_network = managed_virtual_network
         self.type = 'Managed'
 
 
@@ -20721,6 +20741,38 @@ class ManagedVirtualNetwork(Model):
         self.additional_properties = additional_properties
         self.v_net_id = None
         self.alias = None
+
+
+class ManagedVirtualNetworkReference(Model):
+    """Managed Virtual Network reference type.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar type: Required. Managed Virtual Network reference type. Default
+     value: "ManagedVirtualNetworkReference" .
+    :vartype type: str
+    :param reference_name: Required. Reference ManagedVirtualNetwork name.
+    :type reference_name: str
+    """
+
+    _validation = {
+        'type': {'required': True, 'constant': True},
+        'reference_name': {'required': True},
+    }
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'reference_name': {'key': 'referenceName', 'type': 'str'},
+    }
+
+    type = "ManagedVirtualNetworkReference"
+
+    def __init__(self, *, reference_name: str, **kwargs) -> None:
+        super(ManagedVirtualNetworkReference, self).__init__(**kwargs)
+        self.reference_name = reference_name
 
 
 class ManagedVirtualNetworkResource(SubResource):
