@@ -15,7 +15,10 @@ from ._firewall_rules_operations import FirewallRulesOperations
 from ._virtual_network_rules_operations import VirtualNetworkRulesOperations
 from ._databases_operations import DatabasesOperations
 from ._configurations_operations import ConfigurationsOperations
+from ._server_parameters_operations import ServerParametersOperations
 from ._log_files_operations import LogFilesOperations
+from ._recoverable_servers_operations import RecoverableServersOperations
+from ._server_based_performance_tier_operations import ServerBasedPerformanceTierOperations
 from ._location_based_performance_tier_operations import LocationBasedPerformanceTierOperations
 from ._check_name_availability_operations import CheckNameAvailabilityOperations
 from ._operations import Operations
@@ -38,7 +41,10 @@ __all__ = [
     'VirtualNetworkRulesOperations',
     'DatabasesOperations',
     'ConfigurationsOperations',
+    'ServerParametersOperations',
     'LogFilesOperations',
+    'RecoverableServersOperations',
+    'ServerBasedPerformanceTierOperations',
     'LocationBasedPerformanceTierOperations',
     'CheckNameAvailabilityOperations',
     'Operations',
