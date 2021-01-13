@@ -27,7 +27,7 @@ class PrivateEndpointConnectionOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The API version to use for the request. Constant value: "2020-05-01".
+    :ivar api_version: The API version to be used with the HTTP request. Constant value: "2021-01-01".
     """
 
     models = models
@@ -37,7 +37,7 @@ class PrivateEndpointConnectionOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-05-01"
+        self.api_version = "2021-01-01"
 
         self.config = config
 
@@ -230,18 +230,12 @@ class PrivateEndpointConnectionOperations(object):
             raise exp
 
         deserialized = None
-        header_dict = {}
 
         if response.status_code == 200:
             deserialized = self._deserialize('PrivateEndpointConnection', response)
-            header_dict = {
-                'Location': 'str',
-                'Retry-After': 'int',
-            }
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
-            client_raw_response.add_headers(header_dict)
             return client_raw_response
 
         return deserialized
@@ -296,15 +290,10 @@ class PrivateEndpointConnectionOperations(object):
         )
 
         def get_long_running_output(response):
-            header_dict = {
-                'Location': 'str',
-                'Retry-After': 'int',
-            }
             deserialized = self._deserialize('PrivateEndpointConnection', response)
 
             if raw:
                 client_raw_response = ClientRawResponse(deserialized, response)
-                client_raw_response.add_headers(header_dict)
                 return client_raw_response
 
             return deserialized
