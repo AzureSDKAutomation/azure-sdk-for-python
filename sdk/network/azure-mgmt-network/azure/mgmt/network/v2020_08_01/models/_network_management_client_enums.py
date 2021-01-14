@@ -993,6 +993,25 @@ class VpnConnectionStatus(str, Enum):
     not_connected = "NotConnected"
 
 
+class VpnLinkConnectionMode(str, Enum):
+
+    default = "Default"
+    responder_only = "ResponderOnly"
+    initiator_only = "InitiatorOnly"
+
+
+class VpnNatRuleType(str, Enum):
+
+    static = "Static"
+    dynamic = "Dynamic"
+
+
+class VpnNatRuleMode(str, Enum):
+
+    egress_snat = "EgressSnat"
+    ingress_snat = "IngressSnat"
+
+
 class VirtualWanSecurityProviderType(str, Enum):
 
     external = "External"
