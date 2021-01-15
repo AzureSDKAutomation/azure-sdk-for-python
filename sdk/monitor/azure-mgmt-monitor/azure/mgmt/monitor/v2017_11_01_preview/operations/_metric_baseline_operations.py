@@ -24,7 +24,7 @@ class MetricBaselineOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client Api Version. Constant value: "2017-11-01-preview".
+    :ivar api_version: The API version to use for this operation. Constant value: "2017-11-01-preview".
     """
 
     models = models
@@ -99,7 +99,7 @@ class MetricBaselineOperations(object):
             query_parameters['sensitivities'] = self._serialize.query("sensitivities", sensitivities, 'str')
         if result_type is not None:
             query_parameters['resultType'] = self._serialize.query("result_type", result_type, 'ResultType')
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str', min_length=1)
 
         # Construct headers
         header_parameters = {}
@@ -127,7 +127,7 @@ class MetricBaselineOperations(object):
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/{resourceUri}/providers/microsoft.insights/baseline/{metricName}'}
+    get.metadata = {'url': '/{resourceUri}/providers/Microsoft.Insights/baseline/{metricName}'}
 
     def calculate_baseline(
             self, resource_uri, time_series_information, custom_headers=None, raw=False, **operation_config):
@@ -164,7 +164,7 @@ class MetricBaselineOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str', min_length=1)
 
         # Construct headers
         header_parameters = {}

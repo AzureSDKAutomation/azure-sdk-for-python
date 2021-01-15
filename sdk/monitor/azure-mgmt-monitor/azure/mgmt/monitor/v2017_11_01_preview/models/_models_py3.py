@@ -26,6 +26,8 @@ class Baseline(Model):
     :type low_thresholds: list[float]
     :param high_thresholds: Required. The high thresholds of the baseline.
     :type high_thresholds: list[float]
+    :param timestamps: the array of timestamps of the baselines.
+    :type timestamps: list[datetime]
     """
 
     _validation = {
@@ -38,13 +40,15 @@ class Baseline(Model):
         'sensitivity': {'key': 'sensitivity', 'type': 'Sensitivity'},
         'low_thresholds': {'key': 'lowThresholds', 'type': '[float]'},
         'high_thresholds': {'key': 'highThresholds', 'type': '[float]'},
+        'timestamps': {'key': 'timestamps', 'type': '[iso-8601]'},
     }
 
-    def __init__(self, *, sensitivity, low_thresholds, high_thresholds, **kwargs) -> None:
+    def __init__(self, *, sensitivity, low_thresholds, high_thresholds, timestamps=None, **kwargs) -> None:
         super(Baseline, self).__init__(**kwargs)
         self.sensitivity = sensitivity
         self.low_thresholds = low_thresholds
         self.high_thresholds = high_thresholds
+        self.timestamps = timestamps
 
 
 class BaselineMetadataValue(Model):
