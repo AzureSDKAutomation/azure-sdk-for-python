@@ -350,6 +350,8 @@ class Baseline(Model):
     :type low_thresholds: list[float]
     :param high_thresholds: Required. The high thresholds of the baseline.
     :type high_thresholds: list[float]
+    :param timestamps: the array of timestamps of the baselines.
+    :type timestamps: list[datetime]
     """
 
     _validation = {
@@ -362,6 +364,7 @@ class Baseline(Model):
         'sensitivity': {'key': 'sensitivity', 'type': 'Sensitivity'},
         'low_thresholds': {'key': 'lowThresholds', 'type': '[float]'},
         'high_thresholds': {'key': 'highThresholds', 'type': '[float]'},
+        'timestamps': {'key': 'timestamps', 'type': '[iso-8601]'},
     }
 
     def __init__(self, **kwargs):
@@ -369,6 +372,7 @@ class Baseline(Model):
         self.sensitivity = kwargs.get('sensitivity', None)
         self.low_thresholds = kwargs.get('low_thresholds', None)
         self.high_thresholds = kwargs.get('high_thresholds', None)
+        self.timestamps = kwargs.get('timestamps', None)
 
 
 class BaselineMetadataValue(Model):
@@ -459,6 +463,9 @@ class BaselineResponse(Model):
 class CalculateBaselineResponse(Model):
     """The response to a calculate baseline call.
 
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
     All required parameters must be populated in order to send to Azure.
 
     :param type: Required. The resource type of the baseline resource.
@@ -467,17 +474,25 @@ class CalculateBaselineResponse(Model):
     :type timestamps: list[datetime]
     :param baseline: Required. The baseline values for each sensitivity.
     :type baseline: list[~azure.mgmt.monitor.v2018_09_01.models.Baseline]
+    :param statistics: The statistics
+    :type statistics:
+     ~azure.mgmt.monitor.v2018_09_01.models.CalculateBaselineResponseStatistics
+    :ivar internal_operation_id: internal operation id
+    :vartype internal_operation_id: str
     """
 
     _validation = {
         'type': {'required': True},
         'baseline': {'required': True},
+        'internal_operation_id': {'readonly': True},
     }
 
     _attribute_map = {
         'type': {'key': 'type', 'type': 'str'},
         'timestamps': {'key': 'timestamps', 'type': '[iso-8601]'},
         'baseline': {'key': 'baseline', 'type': '[Baseline]'},
+        'statistics': {'key': 'statistics', 'type': 'CalculateBaselineResponseStatistics'},
+        'internal_operation_id': {'key': 'internalOperationId', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -485,6 +500,33 @@ class CalculateBaselineResponse(Model):
         self.type = kwargs.get('type', None)
         self.timestamps = kwargs.get('timestamps', None)
         self.baseline = kwargs.get('baseline', None)
+        self.statistics = kwargs.get('statistics', None)
+        self.internal_operation_id = None
+
+
+class CalculateBaselineResponseStatistics(Model):
+    """The statistics.
+
+    :param is_eligible: is series eligible for dynamic threshold analysis
+    :type is_eligible: bool
+    :param status: The list of extended status for calculating the baseline.
+    :type status: list[str]
+    :param seasonality_period: The seasonality period for calculating the
+     baseline.
+    :type seasonality_period: int
+    """
+
+    _attribute_map = {
+        'is_eligible': {'key': 'isEligible', 'type': 'bool'},
+        'status': {'key': 'status', 'type': '[str]'},
+        'seasonality_period': {'key': 'seasonalityPeriod', 'type': 'int'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CalculateBaselineResponseStatistics, self).__init__(**kwargs)
+        self.is_eligible = kwargs.get('is_eligible', None)
+        self.status = kwargs.get('status', None)
+        self.seasonality_period = kwargs.get('seasonality_period', None)
 
 
 class CloudError(Model):
