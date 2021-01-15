@@ -108,6 +108,17 @@ class ReplicationState(str, Enum):
     suspended = "SUSPENDED"
 
 
+class DayOfWeek(str, Enum):
+
+    sunday = "Sunday"
+    monday = "Monday"
+    tuesday = "Tuesday"
+    wednesday = "Wednesday"
+    thursday = "Thursday"
+    friday = "Friday"
+    saturday = "Saturday"
+
+
 class TransparentDataEncryptionStatus(str, Enum):
 
     enabled = "Enabled"
@@ -128,6 +139,15 @@ class ManagementOperationState(str, Enum):
     failed = "Failed"
     cancel_in_progress = "CancelInProgress"
     cancelled = "Cancelled"
+
+
+class SensitivityLabelRank(str, Enum):
+
+    none = "None"
+    low = "Low"
+    medium = "Medium"
+    high = "High"
+    critical = "Critical"
 
 
 class ColumnDataType(str, Enum):
@@ -209,6 +229,18 @@ class DataMaskingFunction(str, Enum):
     number = "Number"
     ssn = "SSN"
     text = "Text"
+
+
+class SensitivityLabelUpdateKind(str, Enum):
+
+    set = "set"
+    remove = "remove"
+
+
+class RecommendedSensitivityLabelUpdateKind(str, Enum):
+
+    enable = "enable"
+    disable = "disable"
 
 
 class ResourceIdentityType(str, Enum):

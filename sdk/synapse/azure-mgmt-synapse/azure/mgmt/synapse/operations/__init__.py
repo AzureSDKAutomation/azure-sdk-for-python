@@ -19,11 +19,14 @@ from ._sql_pool_geo_backup_policies_operations import SqlPoolGeoBackupPoliciesOp
 from ._sql_pool_data_warehouse_user_activities_operations import SqlPoolDataWarehouseUserActivitiesOperations
 from ._sql_pool_restore_points_operations import SqlPoolRestorePointsOperations
 from ._sql_pool_replication_links_operations import SqlPoolReplicationLinksOperations
+from ._sql_pool_maintenance_windows_operations import SqlPoolMaintenanceWindowsOperations
+from ._sql_pool_maintenance_window_options_operations import SqlPoolMaintenanceWindowOptionsOperations
 from ._sql_pool_transparent_data_encryptions_operations import SqlPoolTransparentDataEncryptionsOperations
 from ._sql_pool_blob_auditing_policies_operations import SqlPoolBlobAuditingPoliciesOperations
 from ._sql_pool_operations import SqlPoolOperations
 from ._sql_pool_usages_operations import SqlPoolUsagesOperations
 from ._sql_pool_sensitivity_labels_operations import SqlPoolSensitivityLabelsOperations
+from ._sql_pool_recommended_sensitivity_labels_operations import SqlPoolRecommendedSensitivityLabelsOperations
 from ._sql_pool_schemas_operations import SqlPoolSchemasOperations
 from ._sql_pool_tables_operations import SqlPoolTablesOperations
 from ._sql_pool_table_columns_operations import SqlPoolTableColumnsOperations
@@ -53,6 +56,7 @@ from ._integration_runtime_auth_keys_operations import IntegrationRuntimeAuthKey
 from ._integration_runtime_monitoring_data_operations import IntegrationRuntimeMonitoringDataOperations
 from ._integration_runtime_status_operations import IntegrationRuntimeStatusOperations
 from ._private_link_resources_operations import PrivateLinkResourcesOperations
+from ._private_link_hub_private_link_resources_operations import PrivateLinkHubPrivateLinkResourcesOperations
 from ._private_endpoint_connections_operations import PrivateEndpointConnectionsOperations
 from ._private_link_hubs_operations import PrivateLinkHubsOperations
 from ._private_endpoint_connections_private_link_hub_operations import PrivateEndpointConnectionsPrivateLinkHubOperations
@@ -75,11 +79,14 @@ __all__ = [
     'SqlPoolDataWarehouseUserActivitiesOperations',
     'SqlPoolRestorePointsOperations',
     'SqlPoolReplicationLinksOperations',
+    'SqlPoolMaintenanceWindowsOperations',
+    'SqlPoolMaintenanceWindowOptionsOperations',
     'SqlPoolTransparentDataEncryptionsOperations',
     'SqlPoolBlobAuditingPoliciesOperations',
     'SqlPoolOperations',
     'SqlPoolUsagesOperations',
     'SqlPoolSensitivityLabelsOperations',
+    'SqlPoolRecommendedSensitivityLabelsOperations',
     'SqlPoolSchemasOperations',
     'SqlPoolTablesOperations',
     'SqlPoolTableColumnsOperations',
@@ -109,6 +116,7 @@ __all__ = [
     'IntegrationRuntimeMonitoringDataOperations',
     'IntegrationRuntimeStatusOperations',
     'PrivateLinkResourcesOperations',
+    'PrivateLinkHubPrivateLinkResourcesOperations',
     'PrivateEndpointConnectionsOperations',
     'PrivateLinkHubsOperations',
     'PrivateEndpointConnectionsPrivateLinkHubOperations',
