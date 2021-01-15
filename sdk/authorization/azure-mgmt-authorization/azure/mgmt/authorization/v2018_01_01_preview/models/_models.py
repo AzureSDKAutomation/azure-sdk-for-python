@@ -10,6 +10,7 @@
 # --------------------------------------------------------------------------
 
 from msrest.serialization import Model
+from msrest.exceptions import HttpOperationError
 
 
 class CloudError(Model):
@@ -18,6 +19,112 @@ class CloudError(Model):
 
     _attribute_map = {
     }
+
+
+class ErrorAdditionalInfo(Model):
+    """The resource management error additional info.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar type: The additional info type.
+    :vartype type: str
+    :ivar info: The additional info.
+    :vartype info: object
+    """
+
+    _validation = {
+        'type': {'readonly': True},
+        'info': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'info': {'key': 'info', 'type': 'object'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ErrorAdditionalInfo, self).__init__(**kwargs)
+        self.type = None
+        self.info = None
+
+
+class ErrorDetail(Model):
+    """The error detail.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar code: The error code.
+    :vartype code: str
+    :ivar message: The error message.
+    :vartype message: str
+    :ivar target: The error target.
+    :vartype target: str
+    :ivar details: The error details.
+    :vartype details:
+     list[~azure.mgmt.authorization.v2018_01_01_preview.models.ErrorDetail]
+    :ivar additional_info: The error additional info.
+    :vartype additional_info:
+     list[~azure.mgmt.authorization.v2018_01_01_preview.models.ErrorAdditionalInfo]
+    """
+
+    _validation = {
+        'code': {'readonly': True},
+        'message': {'readonly': True},
+        'target': {'readonly': True},
+        'details': {'readonly': True},
+        'additional_info': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'code': {'key': 'code', 'type': 'str'},
+        'message': {'key': 'message', 'type': 'str'},
+        'target': {'key': 'target', 'type': 'str'},
+        'details': {'key': 'details', 'type': '[ErrorDetail]'},
+        'additional_info': {'key': 'additionalInfo', 'type': '[ErrorAdditionalInfo]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ErrorDetail, self).__init__(**kwargs)
+        self.code = None
+        self.message = None
+        self.target = None
+        self.details = None
+        self.additional_info = None
+
+
+class ErrorResponse(Model):
+    """Error response.
+
+    Common error response for all Azure Resource Manager APIs to return error
+    details for failed operations. (This also follows the OData error response
+    format.).
+
+    :param error: The error object.
+    :type error:
+     ~azure.mgmt.authorization.v2018_01_01_preview.models.ErrorDetail
+    """
+
+    _attribute_map = {
+        'error': {'key': 'error', 'type': 'ErrorDetail'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ErrorResponse, self).__init__(**kwargs)
+        self.error = kwargs.get('error', None)
+
+
+class ErrorResponseException(HttpOperationError):
+    """Server responsed with exception of type: 'ErrorResponse'.
+
+    :param deserialize: A deserializer
+    :param response: Server response to be deserialized.
+    """
+
+    def __init__(self, deserialize, response, *args):
+
+        super(ErrorResponseException, self).__init__(deserialize, response, 'ErrorResponse', *args)
 
 
 class Permission(Model):
@@ -167,6 +274,20 @@ class RoleAssignment(Model):
     :type principal_id: str
     :param can_delegate: The Delegation flag for the role assignment
     :type can_delegate: bool
+    :param created_on: Time it was created
+    :type created_on: datetime
+    :param updated_on: Time it was updated
+    :type updated_on: datetime
+    :param created_by: Id of the user who created the assignment
+    :type created_by: str
+    :param updated_by: Id of the user who updated the assignment
+    :type updated_by: str
+    :param principal_type: The principal type of the assigned principal ID.
+     Possible values include: 'User', 'Group', 'ServicePrincipal', 'Unknown',
+     'DirectoryRoleTemplate', 'ForeignGroup', 'Application', 'MSI',
+     'DirectoryObjectOrGroup', 'Everyone'
+    :type principal_type: str or
+     ~azure.mgmt.authorization.v2018_01_01_preview.models.PrincipalType
     """
 
     _validation = {
@@ -183,6 +304,11 @@ class RoleAssignment(Model):
         'role_definition_id': {'key': 'properties.roleDefinitionId', 'type': 'str'},
         'principal_id': {'key': 'properties.principalId', 'type': 'str'},
         'can_delegate': {'key': 'properties.canDelegate', 'type': 'bool'},
+        'created_on': {'key': 'properties.createdOn', 'type': 'iso-8601'},
+        'updated_on': {'key': 'properties.updatedOn', 'type': 'iso-8601'},
+        'created_by': {'key': 'properties.createdBy', 'type': 'str'},
+        'updated_by': {'key': 'properties.updatedBy', 'type': 'str'},
+        'principal_type': {'key': 'properties.principalType', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -194,6 +320,11 @@ class RoleAssignment(Model):
         self.role_definition_id = kwargs.get('role_definition_id', None)
         self.principal_id = kwargs.get('principal_id', None)
         self.can_delegate = kwargs.get('can_delegate', None)
+        self.created_on = kwargs.get('created_on', None)
+        self.updated_on = kwargs.get('updated_on', None)
+        self.created_by = kwargs.get('created_by', None)
+        self.updated_by = kwargs.get('updated_by', None)
+        self.principal_type = kwargs.get('principal_type', None)
 
 
 class RoleAssignmentCreateParameters(Model):
@@ -274,6 +405,14 @@ class RoleDefinition(Model):
      list[~azure.mgmt.authorization.v2018_01_01_preview.models.Permission]
     :param assignable_scopes: Role definition assignable scopes.
     :type assignable_scopes: list[str]
+    :param created_on: Time it was created
+    :type created_on: datetime
+    :param updated_on: Time it was updated
+    :type updated_on: datetime
+    :param created_by: Id of the user who created the assignment
+    :type created_by: str
+    :param updated_by: Id of the user who updated the assignment
+    :type updated_by: str
     """
 
     _validation = {
@@ -291,6 +430,10 @@ class RoleDefinition(Model):
         'role_type': {'key': 'properties.type', 'type': 'str'},
         'permissions': {'key': 'properties.permissions', 'type': '[Permission]'},
         'assignable_scopes': {'key': 'properties.assignableScopes', 'type': '[str]'},
+        'created_on': {'key': 'properties.createdOn', 'type': 'iso-8601'},
+        'updated_on': {'key': 'properties.updatedOn', 'type': 'iso-8601'},
+        'created_by': {'key': 'properties.createdBy', 'type': 'str'},
+        'updated_by': {'key': 'properties.updatedBy', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -303,6 +446,10 @@ class RoleDefinition(Model):
         self.role_type = kwargs.get('role_type', None)
         self.permissions = kwargs.get('permissions', None)
         self.assignable_scopes = kwargs.get('assignable_scopes', None)
+        self.created_on = kwargs.get('created_on', None)
+        self.updated_on = kwargs.get('updated_on', None)
+        self.created_by = kwargs.get('created_by', None)
+        self.updated_by = kwargs.get('updated_by', None)
 
 
 class RoleDefinitionFilter(Model):

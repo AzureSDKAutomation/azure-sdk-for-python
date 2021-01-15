@@ -56,6 +56,14 @@ class DenyAssignment(Model):
     :param is_system_protected: Specifies whether this deny assignment was
      created by Azure and cannot be edited or deleted.
     :type is_system_protected: bool
+    :param created_on: Time it was created
+    :type created_on: datetime
+    :param updated_on: Time it was updated
+    :type updated_on: datetime
+    :param created_by: Id of the user who created the assignment
+    :type created_by: str
+    :param updated_by: Id of the user who updated the assignment
+    :type updated_by: str
     """
 
     _validation = {
@@ -76,9 +84,13 @@ class DenyAssignment(Model):
         'principals': {'key': 'properties.principals', 'type': '[Principal]'},
         'exclude_principals': {'key': 'properties.excludePrincipals', 'type': '[Principal]'},
         'is_system_protected': {'key': 'properties.isSystemProtected', 'type': 'bool'},
+        'created_on': {'key': 'properties.createdOn', 'type': 'iso-8601'},
+        'updated_on': {'key': 'properties.updatedOn', 'type': 'iso-8601'},
+        'created_by': {'key': 'properties.createdBy', 'type': 'str'},
+        'updated_by': {'key': 'properties.updatedBy', 'type': 'str'},
     }
 
-    def __init__(self, *, deny_assignment_name: str=None, description: str=None, permissions=None, scope: str=None, do_not_apply_to_child_scopes: bool=None, principals=None, exclude_principals=None, is_system_protected: bool=None, **kwargs) -> None:
+    def __init__(self, *, deny_assignment_name: str=None, description: str=None, permissions=None, scope: str=None, do_not_apply_to_child_scopes: bool=None, principals=None, exclude_principals=None, is_system_protected: bool=None, created_on=None, updated_on=None, created_by: str=None, updated_by: str=None, **kwargs) -> None:
         super(DenyAssignment, self).__init__(**kwargs)
         self.id = None
         self.name = None
@@ -91,6 +103,10 @@ class DenyAssignment(Model):
         self.principals = principals
         self.exclude_principals = exclude_principals
         self.is_system_protected = is_system_protected
+        self.created_on = created_on
+        self.updated_on = updated_on
+        self.created_by = created_by
+        self.updated_by = updated_by
 
 
 class DenyAssignmentFilter(Model):

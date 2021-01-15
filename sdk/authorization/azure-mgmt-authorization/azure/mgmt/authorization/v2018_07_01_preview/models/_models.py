@@ -56,6 +56,14 @@ class DenyAssignment(Model):
     :param is_system_protected: Specifies whether this deny assignment was
      created by Azure and cannot be edited or deleted.
     :type is_system_protected: bool
+    :param created_on: Time it was created
+    :type created_on: datetime
+    :param updated_on: Time it was updated
+    :type updated_on: datetime
+    :param created_by: Id of the user who created the assignment
+    :type created_by: str
+    :param updated_by: Id of the user who updated the assignment
+    :type updated_by: str
     """
 
     _validation = {
@@ -76,6 +84,10 @@ class DenyAssignment(Model):
         'principals': {'key': 'properties.principals', 'type': '[Principal]'},
         'exclude_principals': {'key': 'properties.excludePrincipals', 'type': '[Principal]'},
         'is_system_protected': {'key': 'properties.isSystemProtected', 'type': 'bool'},
+        'created_on': {'key': 'properties.createdOn', 'type': 'iso-8601'},
+        'updated_on': {'key': 'properties.updatedOn', 'type': 'iso-8601'},
+        'created_by': {'key': 'properties.createdBy', 'type': 'str'},
+        'updated_by': {'key': 'properties.updatedBy', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -91,6 +103,10 @@ class DenyAssignment(Model):
         self.principals = kwargs.get('principals', None)
         self.exclude_principals = kwargs.get('exclude_principals', None)
         self.is_system_protected = kwargs.get('is_system_protected', None)
+        self.created_on = kwargs.get('created_on', None)
+        self.updated_on = kwargs.get('updated_on', None)
+        self.created_by = kwargs.get('created_by', None)
+        self.updated_by = kwargs.get('updated_by', None)
 
 
 class DenyAssignmentFilter(Model):

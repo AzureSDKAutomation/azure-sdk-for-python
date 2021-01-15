@@ -10,6 +10,9 @@
 # --------------------------------------------------------------------------
 
 try:
+    from ._models_py3 import ErrorAdditionalInfo
+    from ._models_py3 import ErrorDetail
+    from ._models_py3 import ErrorResponse, ErrorResponseException
     from ._models_py3 import Permission
     from ._models_py3 import ProviderOperation
     from ._models_py3 import ProviderOperationsMetadata
@@ -20,6 +23,9 @@ try:
     from ._models_py3 import RoleDefinition
     from ._models_py3 import RoleDefinitionFilter
 except (SyntaxError, ImportError):
+    from ._models import ErrorAdditionalInfo
+    from ._models import ErrorDetail
+    from ._models import ErrorResponse, ErrorResponseException
     from ._models import Permission
     from ._models import ProviderOperation
     from ._models import ProviderOperationsMetadata
@@ -33,8 +39,14 @@ from ._paged_models import PermissionPaged
 from ._paged_models import ProviderOperationsMetadataPaged
 from ._paged_models import RoleAssignmentPaged
 from ._paged_models import RoleDefinitionPaged
+from ._authorization_management_client_enums import (
+    PrincipalType,
+)
 
 __all__ = [
+    'ErrorAdditionalInfo',
+    'ErrorDetail',
+    'ErrorResponse', 'ErrorResponseException',
     'Permission',
     'ProviderOperation',
     'ProviderOperationsMetadata',
@@ -48,4 +60,5 @@ __all__ = [
     'RoleAssignmentPaged',
     'PermissionPaged',
     'RoleDefinitionPaged',
+    'PrincipalType',
 ]

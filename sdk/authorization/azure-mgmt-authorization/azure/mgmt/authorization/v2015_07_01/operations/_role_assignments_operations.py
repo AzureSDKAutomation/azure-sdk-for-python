@@ -222,7 +222,8 @@ class RoleAssignmentsOperations(object):
         :return: RoleAssignment or ClientRawResponse if raw=true
         :rtype: ~azure.mgmt.authorization.v2015_07_01.models.RoleAssignment or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.authorization.v2015_07_01.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.delete.metadata['url']
@@ -250,10 +251,8 @@ class RoleAssignmentsOperations(object):
         request = self._client.delete(url, query_parameters, header_parameters)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+        if response.status_code not in [200, 204]:
+            raise models.ErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -358,7 +357,8 @@ class RoleAssignmentsOperations(object):
         :return: RoleAssignment or ClientRawResponse if raw=true
         :rtype: ~azure.mgmt.authorization.v2015_07_01.models.RoleAssignment or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.authorization.v2015_07_01.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.get.metadata['url']
@@ -387,9 +387,7 @@ class RoleAssignmentsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:

@@ -15,8 +15,8 @@ from msrest.pipeline import ClientRawResponse
 from .. import models
 
 
-class ClassicAdministratorsOperations(object):
-    """ClassicAdministratorsOperations operations.
+class AccessReviewScheduleDefinitionsAssignedForMyApprovalOperations(object):
+    """AccessReviewScheduleDefinitionsAssignedForMyApprovalOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -24,7 +24,7 @@ class ClassicAdministratorsOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The API version to use for this operation. Constant value: "2015-06-01".
+    :ivar api_version: The API version to be used with the HTTP request. Constant value: "2018-05-01-preview".
     """
 
     models = models
@@ -34,34 +34,29 @@ class ClassicAdministratorsOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2015-06-01"
+        self.api_version = "2018-05-01-preview"
 
         self.config = config
 
     def list(
             self, custom_headers=None, raw=False, **operation_config):
-        """Gets service administrator, account administrator, and
-        co-administrators for the subscription.
+        """Get access review instances assigned for my approval.
 
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of ClassicAdministrator
+        :return: An iterator like instance of AccessReviewScheduleDefinition
         :rtype:
-         ~azure.mgmt.authorization.v2015_06_01.models.ClassicAdministratorPaged[~azure.mgmt.authorization.v2015_06_01.models.ClassicAdministrator]
+         ~azure.mgmt.authorization.v2018_05_01_preview.models.AccessReviewScheduleDefinitionPaged[~azure.mgmt.authorization.v2018_05_01_preview.models.AccessReviewScheduleDefinition]
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.authorization.v2015_06_01.models.ErrorResponseException>`
+         :class:`ErrorDefinitionException<azure.mgmt.authorization.v2018_05_01_preview.models.ErrorDefinitionException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
                 url = self.list.metadata['url']
-                path_format_arguments = {
-                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
-                }
-                url = self._client.format_url(url, **path_format_arguments)
 
                 # Construct parameters
                 query_parameters = {}
@@ -91,7 +86,7 @@ class ClassicAdministratorsOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                raise models.ErrorResponseException(self._deserialize, response)
+                raise models.ErrorDefinitionException(self._deserialize, response)
 
             return response
 
@@ -99,7 +94,7 @@ class ClassicAdministratorsOperations(object):
         header_dict = None
         if raw:
             header_dict = {}
-        deserialized = models.ClassicAdministratorPaged(internal_paging, self._deserialize.dependencies, header_dict)
+        deserialized = models.AccessReviewScheduleDefinitionPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/classicAdministrators'}
+    list.metadata = {'url': '/providers/Microsoft.Authorization/accessReviewScheduleDefinitions'}
