@@ -12,7 +12,7 @@ from typing import Dict, List, Optional, Union
 from azure.core.exceptions import HttpResponseError
 import msrest.serialization
 
-from ._monitor_management_client_enums import *
+from ._monitor_client_enums import *
 
 
 class ActionGroupList(msrest.serialization.Model):
@@ -382,7 +382,7 @@ class MultiMetricCriteria(msrest.serialization.Model):
     :type metric_namespace: str
     :param time_aggregation: Required. the criteria time aggregation types. Possible values
      include: "Average", "Count", "Minimum", "Maximum", "Total".
-    :type time_aggregation: str or ~$(python-base-namespace).v2018_03_01.models.AggregationType
+    :type time_aggregation: str or ~$(python-base-namespace).v2018_03_01.models.AggregationTypeEnum
     :param dimensions: List of dimension conditions.
     :type dimensions: list[~$(python-base-namespace).v2018_03_01.models.MetricDimension]
     :param skip_metric_validation: Allows creating an alert rule on a custom metric that isn't yet
@@ -417,7 +417,7 @@ class MultiMetricCriteria(msrest.serialization.Model):
         *,
         name: str,
         metric_name: str,
-        time_aggregation: Union[str, "AggregationType"],
+        time_aggregation: Union[str, "AggregationTypeEnum"],
         additional_properties: Optional[Dict[str, object]] = None,
         metric_namespace: Optional[str] = None,
         dimensions: Optional[List["MetricDimension"]] = None,
@@ -454,7 +454,7 @@ class DynamicMetricCriteria(MultiMetricCriteria):
     :type metric_namespace: str
     :param time_aggregation: Required. the criteria time aggregation types. Possible values
      include: "Average", "Count", "Minimum", "Maximum", "Total".
-    :type time_aggregation: str or ~$(python-base-namespace).v2018_03_01.models.AggregationType
+    :type time_aggregation: str or ~$(python-base-namespace).v2018_03_01.models.AggregationTypeEnum
     :param dimensions: List of dimension conditions.
     :type dimensions: list[~$(python-base-namespace).v2018_03_01.models.MetricDimension]
     :param skip_metric_validation: Allows creating an alert rule on a custom metric that isn't yet
@@ -507,7 +507,7 @@ class DynamicMetricCriteria(MultiMetricCriteria):
         *,
         name: str,
         metric_name: str,
-        time_aggregation: Union[str, "AggregationType"],
+        time_aggregation: Union[str, "AggregationTypeEnum"],
         operator: Union[str, "DynamicThresholdOperator"],
         alert_sensitivity: Union[str, "DynamicThresholdSensitivity"],
         failing_periods: "DynamicThresholdFailingPeriods",
@@ -878,8 +878,8 @@ class MetricAlertResource(Resource):
     :type location: str
     :param tags: A set of tags. Resource tags.
     :type tags: dict[str, str]
-    :param description: Required. the description of the metric alert that will be included in the
-     alert email.
+    :param description: the description of the metric alert that will be included in the alert
+     email.
     :type description: str
     :param severity: Required. Alert severity {0, 1, 2, 3, 4}.
     :type severity: int
@@ -916,7 +916,6 @@ class MetricAlertResource(Resource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'location': {'required': True},
-        'description': {'required': True},
         'severity': {'required': True},
         'enabled': {'required': True},
         'evaluation_frequency': {'required': True},
@@ -949,13 +948,13 @@ class MetricAlertResource(Resource):
         self,
         *,
         location: str,
-        description: str,
         severity: int,
         enabled: bool,
         evaluation_frequency: datetime.timedelta,
         window_size: datetime.timedelta,
         criteria: "MetricAlertCriteria",
         tags: Optional[Dict[str, str]] = None,
+        description: Optional[str] = None,
         scopes: Optional[List[str]] = None,
         target_resource_type: Optional[str] = None,
         target_resource_region: Optional[str] = None,
@@ -1239,7 +1238,7 @@ class MetricCriteria(MultiMetricCriteria):
     :type metric_namespace: str
     :param time_aggregation: Required. the criteria time aggregation types. Possible values
      include: "Average", "Count", "Minimum", "Maximum", "Total".
-    :type time_aggregation: str or ~$(python-base-namespace).v2018_03_01.models.AggregationType
+    :type time_aggregation: str or ~$(python-base-namespace).v2018_03_01.models.AggregationTypeEnum
     :param dimensions: List of dimension conditions.
     :type dimensions: list[~$(python-base-namespace).v2018_03_01.models.MetricDimension]
     :param skip_metric_validation: Allows creating an alert rule on a custom metric that isn't yet
@@ -1279,7 +1278,7 @@ class MetricCriteria(MultiMetricCriteria):
         *,
         name: str,
         metric_name: str,
-        time_aggregation: Union[str, "AggregationType"],
+        time_aggregation: Union[str, "AggregationTypeEnum"],
         operator: Union[str, "Operator"],
         threshold: float,
         additional_properties: Optional[Dict[str, object]] = None,

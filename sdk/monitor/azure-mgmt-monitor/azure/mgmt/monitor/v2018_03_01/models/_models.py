@@ -339,7 +339,7 @@ class MultiMetricCriteria(msrest.serialization.Model):
     :type metric_namespace: str
     :param time_aggregation: Required. the criteria time aggregation types. Possible values
      include: "Average", "Count", "Minimum", "Maximum", "Total".
-    :type time_aggregation: str or ~$(python-base-namespace).v2018_03_01.models.AggregationType
+    :type time_aggregation: str or ~$(python-base-namespace).v2018_03_01.models.AggregationTypeEnum
     :param dimensions: List of dimension conditions.
     :type dimensions: list[~$(python-base-namespace).v2018_03_01.models.MetricDimension]
     :param skip_metric_validation: Allows creating an alert rule on a custom metric that isn't yet
@@ -403,7 +403,7 @@ class DynamicMetricCriteria(MultiMetricCriteria):
     :type metric_namespace: str
     :param time_aggregation: Required. the criteria time aggregation types. Possible values
      include: "Average", "Count", "Minimum", "Maximum", "Total".
-    :type time_aggregation: str or ~$(python-base-namespace).v2018_03_01.models.AggregationType
+    :type time_aggregation: str or ~$(python-base-namespace).v2018_03_01.models.AggregationTypeEnum
     :param dimensions: List of dimension conditions.
     :type dimensions: list[~$(python-base-namespace).v2018_03_01.models.MetricDimension]
     :param skip_metric_validation: Allows creating an alert rule on a custom metric that isn't yet
@@ -786,8 +786,8 @@ class MetricAlertResource(Resource):
     :type location: str
     :param tags: A set of tags. Resource tags.
     :type tags: dict[str, str]
-    :param description: Required. the description of the metric alert that will be included in the
-     alert email.
+    :param description: the description of the metric alert that will be included in the alert
+     email.
     :type description: str
     :param severity: Required. Alert severity {0, 1, 2, 3, 4}.
     :type severity: int
@@ -824,7 +824,6 @@ class MetricAlertResource(Resource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'location': {'required': True},
-        'description': {'required': True},
         'severity': {'required': True},
         'enabled': {'required': True},
         'evaluation_frequency': {'required': True},
@@ -858,7 +857,7 @@ class MetricAlertResource(Resource):
         **kwargs
     ):
         super(MetricAlertResource, self).__init__(**kwargs)
-        self.description = kwargs['description']
+        self.description = kwargs.get('description', None)
         self.severity = kwargs['severity']
         self.enabled = kwargs['enabled']
         self.scopes = kwargs.get('scopes', None)
@@ -1104,7 +1103,7 @@ class MetricCriteria(MultiMetricCriteria):
     :type metric_namespace: str
     :param time_aggregation: Required. the criteria time aggregation types. Possible values
      include: "Average", "Count", "Minimum", "Maximum", "Total".
-    :type time_aggregation: str or ~$(python-base-namespace).v2018_03_01.models.AggregationType
+    :type time_aggregation: str or ~$(python-base-namespace).v2018_03_01.models.AggregationTypeEnum
     :param dimensions: List of dimension conditions.
     :type dimensions: list[~$(python-base-namespace).v2018_03_01.models.MetricDimension]
     :param skip_metric_validation: Allows creating an alert rule on a custom metric that isn't yet
