@@ -301,9 +301,6 @@ class BigDataPoolResourceInfo(TrackedResource):
     :param is_compute_isolation_enabled: Whether compute isolation is required
      or not.
     :type is_compute_isolation_enabled: bool
-    :param have_library_requirements_changed: Whether library requirements
-     changed.
-    :type have_library_requirements_changed: bool
     :param session_level_packages_enabled: Whether session level packages
      enabled.
     :type session_level_packages_enabled: bool
@@ -329,6 +326,9 @@ class BigDataPoolResourceInfo(TrackedResource):
     :param node_size_family: The kind of nodes that the Big Data pool
      provides. Possible values include: 'None', 'MemoryOptimized'
     :type node_size_family: str or ~azure.mgmt.synapse.models.NodeSizeFamily
+    :param last_succeeded_timestamp: The time when the Big Data pool was
+     updated successfully.
+    :type last_succeeded_timestamp: datetime
     """
 
     _validation = {
@@ -349,7 +349,6 @@ class BigDataPoolResourceInfo(TrackedResource):
         'creation_date': {'key': 'properties.creationDate', 'type': 'iso-8601'},
         'auto_pause': {'key': 'properties.autoPause', 'type': 'AutoPauseProperties'},
         'is_compute_isolation_enabled': {'key': 'properties.isComputeIsolationEnabled', 'type': 'bool'},
-        'have_library_requirements_changed': {'key': 'properties.haveLibraryRequirementsChanged', 'type': 'bool'},
         'session_level_packages_enabled': {'key': 'properties.sessionLevelPackagesEnabled', 'type': 'bool'},
         'spark_events_folder': {'key': 'properties.sparkEventsFolder', 'type': 'str'},
         'node_count': {'key': 'properties.nodeCount', 'type': 'int'},
@@ -359,6 +358,7 @@ class BigDataPoolResourceInfo(TrackedResource):
         'default_spark_log_folder': {'key': 'properties.defaultSparkLogFolder', 'type': 'str'},
         'node_size': {'key': 'properties.nodeSize', 'type': 'str'},
         'node_size_family': {'key': 'properties.nodeSizeFamily', 'type': 'str'},
+        'last_succeeded_timestamp': {'key': 'properties.lastSucceededTimestamp', 'type': 'iso-8601'},
     }
 
     def __init__(self, **kwargs):
@@ -368,7 +368,6 @@ class BigDataPoolResourceInfo(TrackedResource):
         self.creation_date = kwargs.get('creation_date', None)
         self.auto_pause = kwargs.get('auto_pause', None)
         self.is_compute_isolation_enabled = kwargs.get('is_compute_isolation_enabled', None)
-        self.have_library_requirements_changed = kwargs.get('have_library_requirements_changed', None)
         self.session_level_packages_enabled = kwargs.get('session_level_packages_enabled', None)
         self.spark_events_folder = kwargs.get('spark_events_folder', None)
         self.node_count = kwargs.get('node_count', None)
@@ -378,6 +377,7 @@ class BigDataPoolResourceInfo(TrackedResource):
         self.default_spark_log_folder = kwargs.get('default_spark_log_folder', None)
         self.node_size = kwargs.get('node_size', None)
         self.node_size_family = kwargs.get('node_size_family', None)
+        self.last_succeeded_timestamp = kwargs.get('last_succeeded_timestamp', None)
 
 
 class CheckNameAvailabilityRequest(Model):
