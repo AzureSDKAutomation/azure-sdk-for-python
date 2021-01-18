@@ -11,6 +11,7 @@ try:
     from ._models_py3 import AutomaticResolutionProperties
     from ._models_py3 import AvailabilitySetResourceSettings
     from ._models_py3 import AzureResourceReference
+    from ._models_py3 import BulkRemoveRequest
     from ._models_py3 import CloudErrorBody
     from ._models_py3 import CommitRequest
     from ._models_py3 import DiscardRequest
@@ -25,6 +26,7 @@ try:
     from ._models_py3 import ManualResolutionProperties
     from ._models_py3 import MoveCollection
     from ._models_py3 import MoveCollectionProperties
+    from ._models_py3 import MoveCollectionPropertiesErrors
     from ._models_py3 import MoveCollectionResultList
     from ._models_py3 import MoveErrorInfo
     from ._models_py3 import MoveResource
@@ -38,7 +40,6 @@ try:
     from ._models_py3 import MoveResourceProperties
     from ._models_py3 import MoveResourcePropertiesErrors
     from ._models_py3 import MoveResourcePropertiesMoveStatus
-    from ._models_py3 import MoveResourcePropertiesSourceResourceSettings
     from ._models_py3 import MoveResourceStatus
     from ._models_py3 import NetworkInterfaceResourceSettings
     from ._models_py3 import NetworkSecurityGroupResourceSettings
@@ -60,6 +61,8 @@ try:
     from ._models_py3 import SqlServerResourceSettings
     from ._models_py3 import SubnetReference
     from ._models_py3 import SubnetResourceSettings
+    from ._models_py3 import Summary
+    from ._models_py3 import SummaryCollection
     from ._models_py3 import UnresolvedDependency
     from ._models_py3 import UnresolvedDependencyCollection
     from ._models_py3 import UpdateMoveCollectionRequest
@@ -70,6 +73,7 @@ except (SyntaxError, ImportError):
     from ._models import AutomaticResolutionProperties  # type: ignore
     from ._models import AvailabilitySetResourceSettings  # type: ignore
     from ._models import AzureResourceReference  # type: ignore
+    from ._models import BulkRemoveRequest  # type: ignore
     from ._models import CloudErrorBody  # type: ignore
     from ._models import CommitRequest  # type: ignore
     from ._models import DiscardRequest  # type: ignore
@@ -84,6 +88,7 @@ except (SyntaxError, ImportError):
     from ._models import ManualResolutionProperties  # type: ignore
     from ._models import MoveCollection  # type: ignore
     from ._models import MoveCollectionProperties  # type: ignore
+    from ._models import MoveCollectionPropertiesErrors  # type: ignore
     from ._models import MoveCollectionResultList  # type: ignore
     from ._models import MoveErrorInfo  # type: ignore
     from ._models import MoveResource  # type: ignore
@@ -97,7 +102,6 @@ except (SyntaxError, ImportError):
     from ._models import MoveResourceProperties  # type: ignore
     from ._models import MoveResourcePropertiesErrors  # type: ignore
     from ._models import MoveResourcePropertiesMoveStatus  # type: ignore
-    from ._models import MoveResourcePropertiesSourceResourceSettings  # type: ignore
     from ._models import MoveResourceStatus  # type: ignore
     from ._models import NetworkInterfaceResourceSettings  # type: ignore
     from ._models import NetworkSecurityGroupResourceSettings  # type: ignore
@@ -119,6 +123,8 @@ except (SyntaxError, ImportError):
     from ._models import SqlServerResourceSettings  # type: ignore
     from ._models import SubnetReference  # type: ignore
     from ._models import SubnetResourceSettings  # type: ignore
+    from ._models import Summary  # type: ignore
+    from ._models import SummaryCollection  # type: ignore
     from ._models import UnresolvedDependency  # type: ignore
     from ._models import UnresolvedDependencyCollection  # type: ignore
     from ._models import UpdateMoveCollectionRequest  # type: ignore
@@ -127,6 +133,7 @@ except (SyntaxError, ImportError):
 
 from ._resource_mover_service_api_enums import (
     DependencyType,
+    JobName,
     MoveResourceInputType,
     MoveState,
     ProvisioningState,
@@ -141,6 +148,7 @@ __all__ = [
     'AutomaticResolutionProperties',
     'AvailabilitySetResourceSettings',
     'AzureResourceReference',
+    'BulkRemoveRequest',
     'CloudErrorBody',
     'CommitRequest',
     'DiscardRequest',
@@ -155,6 +163,7 @@ __all__ = [
     'ManualResolutionProperties',
     'MoveCollection',
     'MoveCollectionProperties',
+    'MoveCollectionPropertiesErrors',
     'MoveCollectionResultList',
     'MoveErrorInfo',
     'MoveResource',
@@ -168,7 +177,6 @@ __all__ = [
     'MoveResourceProperties',
     'MoveResourcePropertiesErrors',
     'MoveResourcePropertiesMoveStatus',
-    'MoveResourcePropertiesSourceResourceSettings',
     'MoveResourceStatus',
     'NetworkInterfaceResourceSettings',
     'NetworkSecurityGroupResourceSettings',
@@ -190,12 +198,15 @@ __all__ = [
     'SqlServerResourceSettings',
     'SubnetReference',
     'SubnetResourceSettings',
+    'Summary',
+    'SummaryCollection',
     'UnresolvedDependency',
     'UnresolvedDependencyCollection',
     'UpdateMoveCollectionRequest',
     'VirtualMachineResourceSettings',
     'VirtualNetworkResourceSettings',
     'DependencyType',
+    'JobName',
     'MoveResourceInputType',
     'MoveState',
     'ProvisioningState',
