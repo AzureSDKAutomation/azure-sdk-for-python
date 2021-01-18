@@ -42,7 +42,7 @@ class NetworkInterfacesOperations(object):
 
     def _delete_initial(
             self, resource_group_name, network_interface_name, custom_headers=None, raw=False, **operation_config):
-        api_version = "2020-07-01"
+        api_version = "2020-08-01"
 
         # Construct URL
         url = self.delete.metadata['url']
@@ -136,11 +136,11 @@ class NetworkInterfacesOperations(object):
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
         :return: NetworkInterface or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.network.v2020_07_01.models.NetworkInterface or
+        :rtype: ~azure.mgmt.network.v2020_08_01.models.NetworkInterface or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        api_version = "2020-07-01"
+        api_version = "2020-08-01"
 
         # Construct URL
         url = self.get.metadata['url']
@@ -190,7 +190,7 @@ class NetworkInterfacesOperations(object):
 
     def _create_or_update_initial(
             self, resource_group_name, network_interface_name, parameters, custom_headers=None, raw=False, **operation_config):
-        api_version = "2020-07-01"
+        api_version = "2020-08-01"
 
         # Construct URL
         url = self.create_or_update.metadata['url']
@@ -252,7 +252,7 @@ class NetworkInterfacesOperations(object):
         :param parameters: Parameters supplied to the create or update network
          interface operation.
         :type parameters:
-         ~azure.mgmt.network.v2020_07_01.models.NetworkInterface
+         ~azure.mgmt.network.v2020_08_01.models.NetworkInterface
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response
@@ -261,9 +261,9 @@ class NetworkInterfacesOperations(object):
         :return: An instance of LROPoller that returns NetworkInterface or
          ClientRawResponse<NetworkInterface> if raw==True
         :rtype:
-         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.network.v2020_07_01.models.NetworkInterface]
+         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.network.v2020_08_01.models.NetworkInterface]
          or
-         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.network.v2020_07_01.models.NetworkInterface]]
+         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.network.v2020_08_01.models.NetworkInterface]]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._create_or_update_initial(
@@ -309,13 +309,13 @@ class NetworkInterfacesOperations(object):
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
         :return: NetworkInterface or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.network.v2020_07_01.models.NetworkInterface or
+        :rtype: ~azure.mgmt.network.v2020_08_01.models.NetworkInterface or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         parameters = models.TagsObject(tags=tags)
 
-        api_version = "2020-07-01"
+        api_version = "2020-08-01"
 
         # Construct URL
         url = self.update_tags.metadata['url']
@@ -375,10 +375,10 @@ class NetworkInterfacesOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: An iterator like instance of NetworkInterface
         :rtype:
-         ~azure.mgmt.network.v2020_07_01.models.NetworkInterfacePaged[~azure.mgmt.network.v2020_07_01.models.NetworkInterface]
+         ~azure.mgmt.network.v2020_08_01.models.NetworkInterfacePaged[~azure.mgmt.network.v2020_08_01.models.NetworkInterface]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        api_version = "2020-07-01"
+        api_version = "2020-08-01"
 
         def prepare_request(next_link=None):
             if not next_link:
@@ -445,10 +445,10 @@ class NetworkInterfacesOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: An iterator like instance of NetworkInterface
         :rtype:
-         ~azure.mgmt.network.v2020_07_01.models.NetworkInterfacePaged[~azure.mgmt.network.v2020_07_01.models.NetworkInterface]
+         ~azure.mgmt.network.v2020_08_01.models.NetworkInterfacePaged[~azure.mgmt.network.v2020_08_01.models.NetworkInterface]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        api_version = "2020-07-01"
+        api_version = "2020-08-01"
 
         def prepare_request(next_link=None):
             if not next_link:
@@ -506,7 +506,7 @@ class NetworkInterfacesOperations(object):
 
     def _get_effective_route_table_initial(
             self, resource_group_name, network_interface_name, custom_headers=None, raw=False, **operation_config):
-        api_version = "2020-07-01"
+        api_version = "2020-08-01"
 
         # Construct URL
         url = self.get_effective_route_table.metadata['url']
@@ -568,9 +568,9 @@ class NetworkInterfacesOperations(object):
          EffectiveRouteListResult or
          ClientRawResponse<EffectiveRouteListResult> if raw==True
         :rtype:
-         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.network.v2020_07_01.models.EffectiveRouteListResult]
+         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.network.v2020_08_01.models.EffectiveRouteListResult]
          or
-         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.network.v2020_07_01.models.EffectiveRouteListResult]]
+         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.network.v2020_08_01.models.EffectiveRouteListResult]]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._get_effective_route_table_initial(
@@ -602,7 +602,7 @@ class NetworkInterfacesOperations(object):
 
     def _list_effective_network_security_groups_initial(
             self, resource_group_name, network_interface_name, custom_headers=None, raw=False, **operation_config):
-        api_version = "2020-07-01"
+        api_version = "2020-08-01"
 
         # Construct URL
         url = self.list_effective_network_security_groups.metadata['url']
@@ -665,9 +665,9 @@ class NetworkInterfacesOperations(object):
          ClientRawResponse<EffectiveNetworkSecurityGroupListResult> if
          raw==True
         :rtype:
-         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.network.v2020_07_01.models.EffectiveNetworkSecurityGroupListResult]
+         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.network.v2020_08_01.models.EffectiveNetworkSecurityGroupListResult]
          or
-         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.network.v2020_07_01.models.EffectiveNetworkSecurityGroupListResult]]
+         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.network.v2020_08_01.models.EffectiveNetworkSecurityGroupListResult]]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._list_effective_network_security_groups_initial(
@@ -715,7 +715,7 @@ class NetworkInterfacesOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: An iterator like instance of NetworkInterface
         :rtype:
-         ~azure.mgmt.network.v2020_07_01.models.NetworkInterfacePaged[~azure.mgmt.network.v2020_07_01.models.NetworkInterface]
+         ~azure.mgmt.network.v2020_08_01.models.NetworkInterfacePaged[~azure.mgmt.network.v2020_08_01.models.NetworkInterface]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         api_version = "2018-10-01"
@@ -791,7 +791,7 @@ class NetworkInterfacesOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: An iterator like instance of NetworkInterface
         :rtype:
-         ~azure.mgmt.network.v2020_07_01.models.NetworkInterfacePaged[~azure.mgmt.network.v2020_07_01.models.NetworkInterface]
+         ~azure.mgmt.network.v2020_08_01.models.NetworkInterfacePaged[~azure.mgmt.network.v2020_08_01.models.NetworkInterface]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         api_version = "2018-10-01"
@@ -871,7 +871,7 @@ class NetworkInterfacesOperations(object):
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
         :return: NetworkInterface or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.network.v2020_07_01.models.NetworkInterface or
+        :rtype: ~azure.mgmt.network.v2020_08_01.models.NetworkInterface or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -947,7 +947,7 @@ class NetworkInterfacesOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: An iterator like instance of NetworkInterfaceIPConfiguration
         :rtype:
-         ~azure.mgmt.network.v2020_07_01.models.NetworkInterfaceIPConfigurationPaged[~azure.mgmt.network.v2020_07_01.models.NetworkInterfaceIPConfiguration]
+         ~azure.mgmt.network.v2020_08_01.models.NetworkInterfaceIPConfigurationPaged[~azure.mgmt.network.v2020_08_01.models.NetworkInterfaceIPConfiguration]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         api_version = "2018-10-01"
@@ -1036,7 +1036,7 @@ class NetworkInterfacesOperations(object):
         :return: NetworkInterfaceIPConfiguration or ClientRawResponse if
          raw=true
         :rtype:
-         ~azure.mgmt.network.v2020_07_01.models.NetworkInterfaceIPConfiguration
+         ~azure.mgmt.network.v2020_08_01.models.NetworkInterfaceIPConfiguration
          or ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -1108,10 +1108,10 @@ class NetworkInterfacesOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: An iterator like instance of NetworkInterface
         :rtype:
-         ~azure.mgmt.network.v2020_07_01.models.NetworkInterfacePaged[~azure.mgmt.network.v2020_07_01.models.NetworkInterface]
+         ~azure.mgmt.network.v2020_08_01.models.NetworkInterfacePaged[~azure.mgmt.network.v2020_08_01.models.NetworkInterface]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        api_version = "2020-07-01"
+        api_version = "2020-08-01"
 
         def prepare_request(next_link=None):
             if not next_link:
@@ -1183,10 +1183,10 @@ class NetworkInterfacesOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: An iterator like instance of NetworkInterface
         :rtype:
-         ~azure.mgmt.network.v2020_07_01.models.NetworkInterfacePaged[~azure.mgmt.network.v2020_07_01.models.NetworkInterface]
+         ~azure.mgmt.network.v2020_08_01.models.NetworkInterfacePaged[~azure.mgmt.network.v2020_08_01.models.NetworkInterface]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        api_version = "2020-07-01"
+        api_version = "2020-08-01"
 
         def prepare_request(next_link=None):
             if not next_link:
@@ -1250,7 +1250,7 @@ class NetworkInterfacesOperations(object):
         :type resource_group_name: str
         :param cloud_service_name: The name of the cloud service.
         :type cloud_service_name: str
-        :param role_instance_name: The name of role instance
+        :param role_instance_name: The name of role instance.
         :type role_instance_name: str
         :param network_interface_name: The name of the network interface.
         :type network_interface_name: str
@@ -1262,11 +1262,11 @@ class NetworkInterfacesOperations(object):
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
         :return: NetworkInterface or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.network.v2020_07_01.models.NetworkInterface or
+        :rtype: ~azure.mgmt.network.v2020_08_01.models.NetworkInterface or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        api_version = "2020-07-01"
+        api_version = "2020-08-01"
 
         # Construct URL
         url = self.get_cloud_service_network_interface.metadata['url']
