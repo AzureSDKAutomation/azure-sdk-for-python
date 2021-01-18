@@ -8,18 +8,18 @@
 from typing import Any, Callable, Dict, Generic, Optional, TypeVar
 import warnings
 
-from azure.core.exceptions import HttpResponseError, ResourceExistsError, ResourceNotFoundError, map_error
+from azure.core.exceptions import ClientAuthenticationError, HttpResponseError, ResourceExistsError, ResourceNotFoundError, map_error
 from azure.core.pipeline import PipelineResponse
 from azure.core.pipeline.transport import AsyncHttpResponse, HttpRequest
 from azure.mgmt.core.exceptions import ARMErrorFormat
 
-from ... import models
+from ... import models as _models
 
 T = TypeVar('T')
 ClsType = Optional[Callable[[PipelineResponse[HttpRequest, AsyncHttpResponse], T, Dict[str, Any]], Any]]
 
-class UnresolvedDependenciesOperations:
-    """UnresolvedDependenciesOperations async operations.
+class OperationsDiscoveryOperations:
+    """OperationsDiscoveryOperations async operations.
 
     You should not instantiate this class directly. Instead, you should create a Client instance that
     instantiates it for you and attaches it as an attribute.
@@ -32,7 +32,7 @@ class UnresolvedDependenciesOperations:
     :param deserializer: An object model deserializer.
     """
 
-    models = models
+    models = _models
 
     def __init__(self, client, config, serializer, deserializer) -> None:
         self._client = client
@@ -42,34 +42,25 @@ class UnresolvedDependenciesOperations:
 
     async def get(
         self,
-        resource_group_name: str,
-        move_collection_name: str,
         **kwargs
-    ) -> "models.UnresolvedDependencyCollection":
-        """Gets a list of unresolved dependencies.
+    ) -> "_models.OperationsDiscoveryCollection":
+        """get.
 
-        :param resource_group_name: The Resource Group Name.
-        :type resource_group_name: str
-        :param move_collection_name: The Move Collection Name.
-        :type move_collection_name: str
         :keyword callable cls: A custom type or function that will be passed the direct response
-        :return: UnresolvedDependencyCollection, or the result of cls(response)
-        :rtype: ~resource_mover_service_api.models.UnresolvedDependencyCollection
+        :return: OperationsDiscoveryCollection, or the result of cls(response)
+        :rtype: ~resource_mover_service_api.models.OperationsDiscoveryCollection
         :raises: ~azure.core.exceptions.HttpResponseError
         """
-        cls = kwargs.pop('cls', None)  # type: ClsType["models.UnresolvedDependencyCollection"]
-        error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
+        cls = kwargs.pop('cls', None)  # type: ClsType["_models.OperationsDiscoveryCollection"]
+        error_map = {
+            401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
+        }
         error_map.update(kwargs.pop('error_map', {}))
         api_version = "2019-10-01-preview"
+        accept = "application/json"
 
         # Construct URL
         url = self.get.metadata['url']  # type: ignore
-        path_format_arguments = {
-            'subscriptionId': self._serialize.url("self._config.subscription_id", self._config.subscription_id, 'str'),
-            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-            'moveCollectionName': self._serialize.url("move_collection_name", move_collection_name, 'str'),
-        }
-        url = self._client.format_url(url, **path_format_arguments)
 
         # Construct parameters
         query_parameters = {}  # type: Dict[str, Any]
@@ -77,7 +68,7 @@ class UnresolvedDependenciesOperations:
 
         # Construct headers
         header_parameters = {}  # type: Dict[str, Any]
-        header_parameters['Accept'] = 'application/json'
+        header_parameters['Accept'] = self._serialize.header("accept", accept, 'str')
 
         request = self._client.get(url, query_parameters, header_parameters)
         pipeline_response = await self._client._pipeline.run(request, stream=False, **kwargs)
@@ -87,10 +78,10 @@ class UnresolvedDependenciesOperations:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
             raise HttpResponseError(response=response, error_format=ARMErrorFormat)
 
-        deserialized = self._deserialize('UnresolvedDependencyCollection', pipeline_response)
+        deserialized = self._deserialize('OperationsDiscoveryCollection', pipeline_response)
 
         if cls:
             return cls(pipeline_response, deserialized, {})
 
         return deserialized
-    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/moveCollections/{moveCollectionName}/unresolvedDependencies'}  # type: ignore
+    get.metadata = {'url': '/providers/Microsoft.Migrate/operations'}  # type: ignore
