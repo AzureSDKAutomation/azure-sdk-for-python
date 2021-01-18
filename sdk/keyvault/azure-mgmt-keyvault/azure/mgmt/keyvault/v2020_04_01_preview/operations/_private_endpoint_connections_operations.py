@@ -61,8 +61,8 @@ class PrivateEndpointConnectionsOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: PrivateEndpointConnection or ClientRawResponse if raw=true
         :rtype:
-         ~azure.mgmt.keyvault.v2019_09_01.models.PrivateEndpointConnection or
-         ~msrest.pipeline.ClientRawResponse
+         ~azure.mgmt.keyvault.v2020_04_01_preview.models.PrivateEndpointConnection
+         or ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         # Construct URL
@@ -124,7 +124,7 @@ class PrivateEndpointConnectionsOperations(object):
         :type private_endpoint_connection_name: str
         :param properties: The intended state of private endpoint connection.
         :type properties:
-         ~azure.mgmt.keyvault.v2019_09_01.models.PrivateEndpointConnection
+         ~azure.mgmt.keyvault.v2020_04_01_preview.models.PrivateEndpointConnection
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -132,8 +132,8 @@ class PrivateEndpointConnectionsOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: PrivateEndpointConnection or ClientRawResponse if raw=true
         :rtype:
-         ~azure.mgmt.keyvault.v2019_09_01.models.PrivateEndpointConnection or
-         ~msrest.pipeline.ClientRawResponse
+         ~azure.mgmt.keyvault.v2020_04_01_preview.models.PrivateEndpointConnection
+         or ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         # Construct URL
@@ -265,9 +265,9 @@ class PrivateEndpointConnectionsOperations(object):
          PrivateEndpointConnection or
          ClientRawResponse<PrivateEndpointConnection> if raw==True
         :rtype:
-         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.keyvault.v2019_09_01.models.PrivateEndpointConnection]
+         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.keyvault.v2020_04_01_preview.models.PrivateEndpointConnection]
          or
-         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.keyvault.v2019_09_01.models.PrivateEndpointConnection]]
+         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.keyvault.v2020_04_01_preview.models.PrivateEndpointConnection]]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._delete_initial(
