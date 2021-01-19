@@ -74,6 +74,7 @@ from ._paged_models import MetricAlertResourcePaged
 from ._monitor_management_client_enums import (
     ReceiverStatus,
     Operator,
+    AggregationTypeEnum,
     DynamicThresholdOperator,
     DynamicThresholdSensitivity,
 )
@@ -112,6 +113,7 @@ __all__ = [
     'MetricAlertResourcePaged',
     'ReceiverStatus',
     'Operator',
+    'AggregationTypeEnum',
     'DynamicThresholdOperator',
     'DynamicThresholdSensitivity',
 ]
