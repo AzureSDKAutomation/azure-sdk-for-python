@@ -10,12 +10,27 @@
 # --------------------------------------------------------------------------
 
 try:
+    from ._models_py3 import AccessUri
     from ._models_py3 import ApiError
     from ._models_py3 import ApiErrorBase
+    from ._models_py3 import CreationData
     from ._models_py3 import DataDiskImageEncryption
     from ._models_py3 import Disallowed
+    from ._models_py3 import Disk
+    from ._models_py3 import DiskAccess
+    from ._models_py3 import DiskAccessUpdate
+    from ._models_py3 import DiskEncryptionSet
+    from ._models_py3 import DiskEncryptionSetUpdate
     from ._models_py3 import DiskImageEncryption
+    from ._models_py3 import DiskRestorePoint
+    from ._models_py3 import DiskSku
+    from ._models_py3 import DiskUpdate
+    from ._models_py3 import Encryption
     from ._models_py3 import EncryptionImages
+    from ._models_py3 import EncryptionSetIdentity
+    from ._models_py3 import EncryptionSettingsCollection
+    from ._models_py3 import EncryptionSettingsElement
+    from ._models_py3 import ExtendedLocation
     from ._models_py3 import Gallery
     from ._models_py3 import GalleryApplication
     from ._models_py3 import GalleryApplicationUpdate
@@ -38,12 +53,24 @@ try:
     from ._models_py3 import GalleryImageVersionUpdate
     from ._models_py3 import GalleryOSDiskImage
     from ._models_py3 import GalleryUpdate
+    from ._models_py3 import GrantAccessData
+    from ._models_py3 import ImageDiskReference
     from ._models_py3 import ImagePurchasePlan
     from ._models_py3 import InnerError
+    from ._models_py3 import KeyForDiskEncryptionSet
+    from ._models_py3 import KeyVaultAndKeyReference
+    from ._models_py3 import KeyVaultAndSecretReference
     from ._models_py3 import ManagedArtifact
     from ._models_py3 import OSDiskImageEncryption
     from ._models_py3 import PirResource
     from ._models_py3 import PirSharedGalleryResource
+    from ._models_py3 import PrivateEndpoint
+    from ._models_py3 import PrivateEndpointConnection
+    from ._models_py3 import PrivateLinkResource
+    from ._models_py3 import PrivateLinkResourceListResult
+    from ._models_py3 import PrivateLinkServiceConnectionState
+    from ._models_py3 import ProxyOnlyResource
+    from ._models_py3 import PurchasePlan
     from ._models_py3 import RecommendedMachineConfiguration
     from ._models_py3 import RegionalReplicationStatus
     from ._models_py3 import ReplicationStatus
@@ -52,19 +79,40 @@ try:
     from ._models_py3 import SharedGallery
     from ._models_py3 import SharedGalleryImage
     from ._models_py3 import SharedGalleryImageVersion
+    from ._models_py3 import ShareInfoElement
     from ._models_py3 import SharingProfile
     from ._models_py3 import SharingProfileGroup
     from ._models_py3 import SharingUpdate
+    from ._models_py3 import Snapshot
+    from ._models_py3 import SnapshotSku
+    from ._models_py3 import SnapshotUpdate
+    from ._models_py3 import SourceVault
     from ._models_py3 import TargetRegion
     from ._models_py3 import UpdateResourceDefinition
+    from ._models_py3 import UserArtifactManage
     from ._models_py3 import UserArtifactSource
 except (SyntaxError, ImportError):
+    from ._models import AccessUri
     from ._models import ApiError
     from ._models import ApiErrorBase
+    from ._models import CreationData
     from ._models import DataDiskImageEncryption
     from ._models import Disallowed
+    from ._models import Disk
+    from ._models import DiskAccess
+    from ._models import DiskAccessUpdate
+    from ._models import DiskEncryptionSet
+    from ._models import DiskEncryptionSetUpdate
     from ._models import DiskImageEncryption
+    from ._models import DiskRestorePoint
+    from ._models import DiskSku
+    from ._models import DiskUpdate
+    from ._models import Encryption
     from ._models import EncryptionImages
+    from ._models import EncryptionSetIdentity
+    from ._models import EncryptionSettingsCollection
+    from ._models import EncryptionSettingsElement
+    from ._models import ExtendedLocation
     from ._models import Gallery
     from ._models import GalleryApplication
     from ._models import GalleryApplicationUpdate
@@ -87,12 +135,24 @@ except (SyntaxError, ImportError):
     from ._models import GalleryImageVersionUpdate
     from ._models import GalleryOSDiskImage
     from ._models import GalleryUpdate
+    from ._models import GrantAccessData
+    from ._models import ImageDiskReference
     from ._models import ImagePurchasePlan
     from ._models import InnerError
+    from ._models import KeyForDiskEncryptionSet
+    from ._models import KeyVaultAndKeyReference
+    from ._models import KeyVaultAndSecretReference
     from ._models import ManagedArtifact
     from ._models import OSDiskImageEncryption
     from ._models import PirResource
     from ._models import PirSharedGalleryResource
+    from ._models import PrivateEndpoint
+    from ._models import PrivateEndpointConnection
+    from ._models import PrivateLinkResource
+    from ._models import PrivateLinkResourceListResult
+    from ._models import PrivateLinkServiceConnectionState
+    from ._models import ProxyOnlyResource
+    from ._models import PurchasePlan
     from ._models import RecommendedMachineConfiguration
     from ._models import RegionalReplicationStatus
     from ._models import ReplicationStatus
@@ -101,43 +161,83 @@ except (SyntaxError, ImportError):
     from ._models import SharedGallery
     from ._models import SharedGalleryImage
     from ._models import SharedGalleryImageVersion
+    from ._models import ShareInfoElement
     from ._models import SharingProfile
     from ._models import SharingProfileGroup
     from ._models import SharingUpdate
+    from ._models import Snapshot
+    from ._models import SnapshotSku
+    from ._models import SnapshotUpdate
+    from ._models import SourceVault
     from ._models import TargetRegion
     from ._models import UpdateResourceDefinition
+    from ._models import UserArtifactManage
     from ._models import UserArtifactSource
+from ._paged_models import DiskAccessPaged
+from ._paged_models import DiskEncryptionSetPaged
+from ._paged_models import DiskPaged
+from ._paged_models import DiskRestorePointPaged
 from ._paged_models import GalleryApplicationPaged
 from ._paged_models import GalleryApplicationVersionPaged
 from ._paged_models import GalleryImagePaged
 from ._paged_models import GalleryImageVersionPaged
 from ._paged_models import GalleryPaged
+from ._paged_models import PrivateEndpointConnectionPaged
 from ._paged_models import SharedGalleryImagePaged
 from ._paged_models import SharedGalleryImageVersionPaged
 from ._paged_models import SharedGalleryPaged
+from ._paged_models import SnapshotPaged
+from ._paged_models import StrPaged
 from ._compute_management_client_enums import (
+    DiskStorageAccountTypes,
+    ExtendedLocationTypes,
+    OperatingSystemTypes,
+    HyperVGeneration,
+    DiskCreateOption,
+    DiskState,
+    EncryptionType,
+    NetworkAccessPolicy,
+    SnapshotStorageAccountTypes,
+    DiskEncryptionSetType,
+    AccessLevel,
+    DiskEncryptionSetIdentityType,
+    PrivateEndpointServiceConnectionStatus,
+    PrivateEndpointConnectionProvisioningState,
     GallerySharingPermissionTypes,
     SharingProfileGroupTypes,
-    OperatingSystemTypes,
     AggregatedReplicationState,
     ReplicationState,
     OperatingSystemStateTypes,
-    HyperVGeneration,
     StorageAccountType,
     HostCaching,
     SharingUpdateOperationTypes,
-    Permissions,
+    SelectPermissions,
     ReplicationStatusTypes,
     SharedToValues,
 )
 
 __all__ = [
+    'AccessUri',
     'ApiError',
     'ApiErrorBase',
+    'CreationData',
     'DataDiskImageEncryption',
     'Disallowed',
+    'Disk',
+    'DiskAccess',
+    'DiskAccessUpdate',
+    'DiskEncryptionSet',
+    'DiskEncryptionSetUpdate',
     'DiskImageEncryption',
+    'DiskRestorePoint',
+    'DiskSku',
+    'DiskUpdate',
+    'Encryption',
     'EncryptionImages',
+    'EncryptionSetIdentity',
+    'EncryptionSettingsCollection',
+    'EncryptionSettingsElement',
+    'ExtendedLocation',
     'Gallery',
     'GalleryApplication',
     'GalleryApplicationUpdate',
@@ -160,12 +260,24 @@ __all__ = [
     'GalleryImageVersionUpdate',
     'GalleryOSDiskImage',
     'GalleryUpdate',
+    'GrantAccessData',
+    'ImageDiskReference',
     'ImagePurchasePlan',
     'InnerError',
+    'KeyForDiskEncryptionSet',
+    'KeyVaultAndKeyReference',
+    'KeyVaultAndSecretReference',
     'ManagedArtifact',
     'OSDiskImageEncryption',
     'PirResource',
     'PirSharedGalleryResource',
+    'PrivateEndpoint',
+    'PrivateEndpointConnection',
+    'PrivateLinkResource',
+    'PrivateLinkResourceListResult',
+    'PrivateLinkServiceConnectionState',
+    'ProxyOnlyResource',
+    'PurchasePlan',
     'RecommendedMachineConfiguration',
     'RegionalReplicationStatus',
     'ReplicationStatus',
@@ -174,12 +286,25 @@ __all__ = [
     'SharedGallery',
     'SharedGalleryImage',
     'SharedGalleryImageVersion',
+    'ShareInfoElement',
     'SharingProfile',
     'SharingProfileGroup',
     'SharingUpdate',
+    'Snapshot',
+    'SnapshotSku',
+    'SnapshotUpdate',
+    'SourceVault',
     'TargetRegion',
     'UpdateResourceDefinition',
+    'UserArtifactManage',
     'UserArtifactSource',
+    'DiskPaged',
+    'SnapshotPaged',
+    'DiskEncryptionSetPaged',
+    'StrPaged',
+    'DiskAccessPaged',
+    'PrivateEndpointConnectionPaged',
+    'DiskRestorePointPaged',
     'GalleryPaged',
     'GalleryImagePaged',
     'GalleryImageVersionPaged',
@@ -188,17 +313,29 @@ __all__ = [
     'SharedGalleryPaged',
     'SharedGalleryImagePaged',
     'SharedGalleryImageVersionPaged',
+    'DiskStorageAccountTypes',
+    'ExtendedLocationTypes',
+    'OperatingSystemTypes',
+    'HyperVGeneration',
+    'DiskCreateOption',
+    'DiskState',
+    'EncryptionType',
+    'NetworkAccessPolicy',
+    'SnapshotStorageAccountTypes',
+    'DiskEncryptionSetType',
+    'AccessLevel',
+    'DiskEncryptionSetIdentityType',
+    'PrivateEndpointServiceConnectionStatus',
+    'PrivateEndpointConnectionProvisioningState',
     'GallerySharingPermissionTypes',
     'SharingProfileGroupTypes',
-    'OperatingSystemTypes',
     'AggregatedReplicationState',
     'ReplicationState',
     'OperatingSystemStateTypes',
-    'HyperVGeneration',
     'StorageAccountType',
     'HostCaching',
     'SharingUpdateOperationTypes',
-    'Permissions',
+    'SelectPermissions',
     'ReplicationStatusTypes',
     'SharedToValues',
 ]
