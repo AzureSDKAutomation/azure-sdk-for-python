@@ -18,7 +18,8 @@ class ActiveDirectory(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :param active_directory_id: Id of the Active Directory
+    :param active_directory_id: Id of the Active Directory. Default value:
+     "guid id" .
     :type active_directory_id: str
     :param username: Username of Active Directory domain administrator
     :type username: str
@@ -40,7 +41,7 @@ class ActiveDirectory(Model):
      registered as a computer account in the AD and used to mount volumes
     :type smb_server_name: str
     :param organizational_unit: The Organizational Unit (OU) within the
-     Windows Active Directory
+     Windows Active Directory. Default value: "CN=Computers" .
     :type organizational_unit: str
     :param site: The Active Directory site the service will limit Domain
      Controller discovery to
@@ -103,7 +104,7 @@ class ActiveDirectory(Model):
 
     def __init__(self, **kwargs):
         super(ActiveDirectory, self).__init__(**kwargs)
-        self.active_directory_id = kwargs.get('active_directory_id', None)
+        self.active_directory_id = kwargs.get('active_directory_id', "guid id")
         self.username = kwargs.get('username', None)
         self.password = kwargs.get('password', None)
         self.domain = kwargs.get('domain', None)
@@ -111,7 +112,7 @@ class ActiveDirectory(Model):
         self.status = None
         self.status_details = None
         self.smb_server_name = kwargs.get('smb_server_name', None)
-        self.organizational_unit = kwargs.get('organizational_unit', None)
+        self.organizational_unit = kwargs.get('organizational_unit', "CN=Computers")
         self.site = kwargs.get('site', None)
         self.backup_operators = kwargs.get('backup_operators', None)
         self.kdc_ip = kwargs.get('kdc_ip', None)
@@ -785,7 +786,7 @@ class ExportPolicyRule(Model):
     :param kerberos5p_read_write: Kerberos5p Read and write access. To be use
      with swagger version 2020-05-01 or later. Default value: False .
     :type kerberos5p_read_write: bool
-    :param cifs: Allows CIFS protocol
+    :param cifs: Allows CIFS protocol. Default value: False .
     :type cifs: bool
     :param nfsv3: Allows NFSv3 protocol. Enable only for NFSv3 type volumes
     :type nfsv3: bool
@@ -827,7 +828,7 @@ class ExportPolicyRule(Model):
         self.kerberos5i_read_write = kwargs.get('kerberos5i_read_write', False)
         self.kerberos5p_read_only = kwargs.get('kerberos5p_read_only', False)
         self.kerberos5p_read_write = kwargs.get('kerberos5p_read_write', False)
-        self.cifs = kwargs.get('cifs', None)
+        self.cifs = kwargs.get('cifs', False)
         self.nfsv3 = kwargs.get('nfsv3', None)
         self.nfsv41 = kwargs.get('nfsv41', None)
         self.allowed_clients = kwargs.get('allowed_clients', None)
@@ -1758,6 +1759,8 @@ class Volume(Model):
     :type tags: dict[str, str]
     :ivar file_system_id: FileSystem ID. Unique FileSystem Identifier.
     :vartype file_system_id: str
+    :ivar name1: Resource name
+    :vartype name1: str
     :param creation_token: Required. Creation Token or File Path. A unique
      file path for the volume. Used when creating mount targets
     :type creation_token: str
@@ -1773,7 +1776,8 @@ class Volume(Model):
     :param export_policy: exportPolicy. Set of export policy rules
     :type export_policy:
      ~azure.mgmt.netapp.models.VolumePropertiesExportPolicy
-    :param protocol_types: protocolTypes. Set of protocol types
+    :param protocol_types: protocolTypes. Set of protocol types, default
+     NFSv3, CIFS for SMB protocol
     :type protocol_types: list[str]
     :ivar provisioning_state: Azure lifecycle management
     :vartype provisioning_state: str
@@ -1789,8 +1793,9 @@ class Volume(Model):
     :param subnet_id: Required. The Azure Resource URI for a delegated subnet.
      Must have the delegation Microsoft.NetApp/volumes
     :type subnet_id: str
-    :param mount_targets: mountTargets. List of mount targets
-    :type mount_targets: list[~azure.mgmt.netapp.models.MountTargetProperties]
+    :ivar mount_targets: mountTargets. List of mount targets
+    :vartype mount_targets:
+     list[~azure.mgmt.netapp.models.MountTargetProperties]
     :param volume_type: What type of volume is this
     :type volume_type: str
     :param data_protection: DataProtection. DataProtection type volumes
@@ -1801,13 +1806,14 @@ class Volume(Model):
     :type is_restoring: bool
     :param snapshot_directory_visible: If enabled (true) the volume will
      contain a read-only .snapshot directory which provides access to each of
-     the volume's snapshots (default to true).
+     the volume's snapshots (default to true). Default value: True .
     :type snapshot_directory_visible: bool
     :param kerberos_enabled: Describe if a volume is KerberosEnabled. To be
      use with swagger version 2020-05-01 or later. Default value: False .
     :type kerberos_enabled: bool
-    :param security_style: The security style of volume. Possible values
-     include: 'ntfs', 'unix'
+    :param security_style: The security style of volume, default unix, ntfs
+     for dual protocol or CIFS protocol. Possible values include: 'ntfs',
+     'unix'. Default value: "unix" .
     :type security_style: str or ~azure.mgmt.netapp.models.SecurityStyle
     :param smb_encryption: Enables encryption for in-flight smb3 data. Only
      applicable for SMB/DualProtocol volume. To be used with swagger version
@@ -1818,7 +1824,7 @@ class Volume(Model):
      False .
     :type smb_continuously_available: bool
     :param throughput_mibps: Maximum throughput in Mibps that can be achieved
-     by this volume.
+     by this volume.  Default value: 0 .
     :type throughput_mibps: float
     """
 
@@ -1828,6 +1834,7 @@ class Volume(Model):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'file_system_id': {'readonly': True, 'max_length': 36, 'min_length': 36, 'pattern': r'^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$'},
+        'name1': {'readonly': True},
         'creation_token': {'required': True, 'max_length': 80, 'min_length': 1, 'pattern': r'^[a-zA-Z][a-zA-Z0-9\-]{0,79}$'},
         'usage_threshold': {'required': True, 'maximum': 109951162777600, 'minimum': 107374182400},
         'provisioning_state': {'readonly': True},
@@ -1835,7 +1842,8 @@ class Volume(Model):
         'backup_id': {'max_length': 36, 'min_length': 36, 'pattern': r'^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}|(\\?([^\/]*[\/])*)([^\/]+)$'},
         'baremetal_tenant_id': {'readonly': True},
         'subnet_id': {'required': True},
-        'throughput_mibps': {'maximum': 4500, 'minimum': 1, 'multiple': 0.001},
+        'mount_targets': {'readonly': True},
+        'throughput_mibps': {'maximum': 4500, 'minimum': 0, 'multiple': 0.001},
     }
 
     _attribute_map = {
@@ -1845,6 +1853,7 @@ class Volume(Model):
         'type': {'key': 'type', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
         'file_system_id': {'key': 'properties.fileSystemId', 'type': 'str'},
+        'name1': {'key': 'properties.name', 'type': 'str'},
         'creation_token': {'key': 'properties.creationToken', 'type': 'str'},
         'service_level': {'key': 'properties.serviceLevel', 'type': 'str'},
         'usage_threshold': {'key': 'properties.usageThreshold', 'type': 'long'},
@@ -1875,6 +1884,7 @@ class Volume(Model):
         self.type = None
         self.tags = kwargs.get('tags', None)
         self.file_system_id = None
+        self.name1 = None
         self.creation_token = kwargs.get('creation_token', None)
         self.service_level = kwargs.get('service_level', "Premium")
         self.usage_threshold = kwargs.get('usage_threshold', 107374182400)
@@ -1885,16 +1895,16 @@ class Volume(Model):
         self.backup_id = kwargs.get('backup_id', None)
         self.baremetal_tenant_id = None
         self.subnet_id = kwargs.get('subnet_id', None)
-        self.mount_targets = kwargs.get('mount_targets', None)
+        self.mount_targets = None
         self.volume_type = kwargs.get('volume_type', None)
         self.data_protection = kwargs.get('data_protection', None)
         self.is_restoring = kwargs.get('is_restoring', None)
-        self.snapshot_directory_visible = kwargs.get('snapshot_directory_visible', None)
+        self.snapshot_directory_visible = kwargs.get('snapshot_directory_visible', True)
         self.kerberos_enabled = kwargs.get('kerberos_enabled', False)
-        self.security_style = kwargs.get('security_style', None)
+        self.security_style = kwargs.get('security_style', "unix")
         self.smb_encryption = kwargs.get('smb_encryption', False)
         self.smb_continuously_available = kwargs.get('smb_continuously_available', False)
-        self.throughput_mibps = kwargs.get('throughput_mibps', None)
+        self.throughput_mibps = kwargs.get('throughput_mibps', 0)
 
 
 class VolumeBackupProperties(Model):
