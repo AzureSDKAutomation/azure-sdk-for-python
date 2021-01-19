@@ -18,8 +18,8 @@ from msrestazure.polling.arm_polling import ARMPolling
 from .. import models
 
 
-class GalleriesOperations(object):
-    """GalleriesOperations operations.
+class DiskEncryptionSetsOperations(object):
+    """DiskEncryptionSetsOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -43,13 +43,13 @@ class GalleriesOperations(object):
 
 
     def _create_or_update_initial(
-            self, resource_group_name, gallery_name, gallery, custom_headers=None, raw=False, **operation_config):
+            self, resource_group_name, disk_encryption_set_name, disk_encryption_set, custom_headers=None, raw=False, **operation_config):
         # Construct URL
         url = self.create_or_update.metadata['url']
         path_format_arguments = {
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-            'galleryName': self._serialize.url("gallery_name", gallery_name, 'str')
+            'diskEncryptionSetName': self._serialize.url("disk_encryption_set_name", disk_encryption_set_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -69,13 +69,13 @@ class GalleriesOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct body
-        body_content = self._serialize.body(gallery, 'Gallery')
+        body_content = self._serialize.body(disk_encryption_set, 'DiskEncryptionSet')
 
         # Construct and send request
         request = self._client.put(url, query_parameters, header_parameters, body_content)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200, 201, 202]:
+        if response.status_code not in [200, 202]:
             exp = CloudError(response)
             exp.request_id = response.headers.get('x-ms-request-id')
             raise exp
@@ -83,11 +83,9 @@ class GalleriesOperations(object):
         deserialized = None
 
         if response.status_code == 200:
-            deserialized = self._deserialize('Gallery', response)
-        if response.status_code == 201:
-            deserialized = self._deserialize('Gallery', response)
+            deserialized = self._deserialize('DiskEncryptionSet', response)
         if response.status_code == 202:
-            deserialized = self._deserialize('Gallery', response)
+            deserialized = self._deserialize('DiskEncryptionSet', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
@@ -96,42 +94,44 @@ class GalleriesOperations(object):
         return deserialized
 
     def create_or_update(
-            self, resource_group_name, gallery_name, gallery, custom_headers=None, raw=False, polling=True, **operation_config):
-        """Create or update a Shared Image Gallery.
+            self, resource_group_name, disk_encryption_set_name, disk_encryption_set, custom_headers=None, raw=False, polling=True, **operation_config):
+        """Creates or updates a disk encryption set.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
-        :param gallery_name: The name of the Shared Image Gallery. The allowed
-         characters are alphabets and numbers with dots and periods allowed in
-         the middle. The maximum length is 80 characters.
-        :type gallery_name: str
-        :param gallery: Parameters supplied to the create or update Shared
-         Image Gallery operation.
-        :type gallery: ~azure.mgmt.compute.v2020_09_30.models.Gallery
+        :param disk_encryption_set_name: The name of the disk encryption set
+         that is being created. The name can't be changed after the disk
+         encryption set is created. Supported characters for the name are a-z,
+         A-Z, 0-9 and _. The maximum name length is 80 characters.
+        :type disk_encryption_set_name: str
+        :param disk_encryption_set: disk encryption set object supplied in the
+         body of the Put disk encryption set operation.
+        :type disk_encryption_set:
+         ~azure.mgmt.compute.v2020_09_30.models.DiskEncryptionSet
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response
         :param polling: True for ARMPolling, False for no polling, or a
          polling object for personal polling strategy
-        :return: An instance of LROPoller that returns Gallery or
-         ClientRawResponse<Gallery> if raw==True
+        :return: An instance of LROPoller that returns DiskEncryptionSet or
+         ClientRawResponse<DiskEncryptionSet> if raw==True
         :rtype:
-         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.compute.v2020_09_30.models.Gallery]
+         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.compute.v2020_09_30.models.DiskEncryptionSet]
          or
-         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.compute.v2020_09_30.models.Gallery]]
+         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.compute.v2020_09_30.models.DiskEncryptionSet]]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._create_or_update_initial(
             resource_group_name=resource_group_name,
-            gallery_name=gallery_name,
-            gallery=gallery,
+            disk_encryption_set_name=disk_encryption_set_name,
+            disk_encryption_set=disk_encryption_set,
             custom_headers=custom_headers,
             raw=True,
             **operation_config
         )
 
         def get_long_running_output(response):
-            deserialized = self._deserialize('Gallery', response)
+            deserialized = self._deserialize('DiskEncryptionSet', response)
 
             if raw:
                 client_raw_response = ClientRawResponse(deserialized, response)
@@ -146,17 +146,17 @@ class GalleriesOperations(object):
         elif polling is False: polling_method = NoPolling()
         else: polling_method = polling
         return LROPoller(self._client, raw_result, get_long_running_output, polling_method)
-    create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}'}
+    create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/diskEncryptionSets/{diskEncryptionSetName}'}
 
 
     def _update_initial(
-            self, resource_group_name, gallery_name, gallery, custom_headers=None, raw=False, **operation_config):
+            self, resource_group_name, disk_encryption_set_name, disk_encryption_set, custom_headers=None, raw=False, **operation_config):
         # Construct URL
         url = self.update.metadata['url']
         path_format_arguments = {
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-            'galleryName': self._serialize.url("gallery_name", gallery_name, 'str')
+            'diskEncryptionSetName': self._serialize.url("disk_encryption_set_name", disk_encryption_set_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -176,13 +176,13 @@ class GalleriesOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct body
-        body_content = self._serialize.body(gallery, 'GalleryUpdate')
+        body_content = self._serialize.body(disk_encryption_set, 'DiskEncryptionSetUpdate')
 
         # Construct and send request
         request = self._client.patch(url, query_parameters, header_parameters, body_content)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200]:
+        if response.status_code not in [200, 202]:
             exp = CloudError(response)
             exp.request_id = response.headers.get('x-ms-request-id')
             raise exp
@@ -190,7 +190,9 @@ class GalleriesOperations(object):
         deserialized = None
 
         if response.status_code == 200:
-            deserialized = self._deserialize('Gallery', response)
+            deserialized = self._deserialize('DiskEncryptionSet', response)
+        if response.status_code == 202:
+            deserialized = self._deserialize('DiskEncryptionSet', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
@@ -199,42 +201,44 @@ class GalleriesOperations(object):
         return deserialized
 
     def update(
-            self, resource_group_name, gallery_name, gallery, custom_headers=None, raw=False, polling=True, **operation_config):
-        """Update a Shared Image Gallery.
+            self, resource_group_name, disk_encryption_set_name, disk_encryption_set, custom_headers=None, raw=False, polling=True, **operation_config):
+        """Updates (patches) a disk encryption set.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
-        :param gallery_name: The name of the Shared Image Gallery. The allowed
-         characters are alphabets and numbers with dots and periods allowed in
-         the middle. The maximum length is 80 characters.
-        :type gallery_name: str
-        :param gallery: Parameters supplied to the update Shared Image Gallery
-         operation.
-        :type gallery: ~azure.mgmt.compute.v2020_09_30.models.GalleryUpdate
+        :param disk_encryption_set_name: The name of the disk encryption set
+         that is being created. The name can't be changed after the disk
+         encryption set is created. Supported characters for the name are a-z,
+         A-Z, 0-9 and _. The maximum name length is 80 characters.
+        :type disk_encryption_set_name: str
+        :param disk_encryption_set: disk encryption set object supplied in the
+         body of the Patch disk encryption set operation.
+        :type disk_encryption_set:
+         ~azure.mgmt.compute.v2020_09_30.models.DiskEncryptionSetUpdate
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response
         :param polling: True for ARMPolling, False for no polling, or a
          polling object for personal polling strategy
-        :return: An instance of LROPoller that returns Gallery or
-         ClientRawResponse<Gallery> if raw==True
+        :return: An instance of LROPoller that returns DiskEncryptionSet or
+         ClientRawResponse<DiskEncryptionSet> if raw==True
         :rtype:
-         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.compute.v2020_09_30.models.Gallery]
+         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.compute.v2020_09_30.models.DiskEncryptionSet]
          or
-         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.compute.v2020_09_30.models.Gallery]]
+         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.compute.v2020_09_30.models.DiskEncryptionSet]]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         raw_result = self._update_initial(
             resource_group_name=resource_group_name,
-            gallery_name=gallery_name,
-            gallery=gallery,
+            disk_encryption_set_name=disk_encryption_set_name,
+            disk_encryption_set=disk_encryption_set,
             custom_headers=custom_headers,
             raw=True,
             **operation_config
         )
 
         def get_long_running_output(response):
-            deserialized = self._deserialize('Gallery', response)
+            deserialized = self._deserialize('DiskEncryptionSet', response)
 
             if raw:
                 client_raw_response = ClientRawResponse(deserialized, response)
@@ -249,27 +253,26 @@ class GalleriesOperations(object):
         elif polling is False: polling_method = NoPolling()
         else: polling_method = polling
         return LROPoller(self._client, raw_result, get_long_running_output, polling_method)
-    update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}'}
+    update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/diskEncryptionSets/{diskEncryptionSetName}'}
 
     def get(
-            self, resource_group_name, gallery_name, select=None, custom_headers=None, raw=False, **operation_config):
-        """Retrieves information about a Shared Image Gallery.
+            self, resource_group_name, disk_encryption_set_name, custom_headers=None, raw=False, **operation_config):
+        """Gets information about a disk encryption set.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
-        :param gallery_name: The name of the Shared Image Gallery.
-        :type gallery_name: str
-        :param select: The select expression to apply on the operation.
-         Possible values include: 'Permissions'
-        :type select: str or
-         ~azure.mgmt.compute.v2020_09_30.models.SelectPermissions
+        :param disk_encryption_set_name: The name of the disk encryption set
+         that is being created. The name can't be changed after the disk
+         encryption set is created. Supported characters for the name are a-z,
+         A-Z, 0-9 and _. The maximum name length is 80 characters.
+        :type disk_encryption_set_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: Gallery or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.compute.v2020_09_30.models.Gallery or
+        :return: DiskEncryptionSet or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.compute.v2020_09_30.models.DiskEncryptionSet or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
@@ -278,15 +281,13 @@ class GalleriesOperations(object):
         path_format_arguments = {
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-            'galleryName': self._serialize.url("gallery_name", gallery_name, 'str')
+            'diskEncryptionSetName': self._serialize.url("disk_encryption_set_name", disk_encryption_set_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
         # Construct parameters
         query_parameters = {}
         query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
-        if select is not None:
-            query_parameters['$select'] = self._serialize.query("select", select, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -309,24 +310,24 @@ class GalleriesOperations(object):
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('Gallery', response)
+            deserialized = self._deserialize('DiskEncryptionSet', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}'}
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/diskEncryptionSets/{diskEncryptionSetName}'}
 
 
     def _delete_initial(
-            self, resource_group_name, gallery_name, custom_headers=None, raw=False, **operation_config):
+            self, resource_group_name, disk_encryption_set_name, custom_headers=None, raw=False, **operation_config):
         # Construct URL
         url = self.delete.metadata['url']
         path_format_arguments = {
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-            'galleryName': self._serialize.url("gallery_name", gallery_name, 'str')
+            'diskEncryptionSetName': self._serialize.url("disk_encryption_set_name", disk_encryption_set_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -357,14 +358,16 @@ class GalleriesOperations(object):
             return client_raw_response
 
     def delete(
-            self, resource_group_name, gallery_name, custom_headers=None, raw=False, polling=True, **operation_config):
-        """Delete a Shared Image Gallery.
+            self, resource_group_name, disk_encryption_set_name, custom_headers=None, raw=False, polling=True, **operation_config):
+        """Deletes a disk encryption set.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
-        :param gallery_name: The name of the Shared Image Gallery to be
-         deleted.
-        :type gallery_name: str
+        :param disk_encryption_set_name: The name of the disk encryption set
+         that is being created. The name can't be changed after the disk
+         encryption set is created. Supported characters for the name are a-z,
+         A-Z, 0-9 and _. The maximum name length is 80 characters.
+        :type disk_encryption_set_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response
@@ -378,7 +381,7 @@ class GalleriesOperations(object):
         """
         raw_result = self._delete_initial(
             resource_group_name=resource_group_name,
-            gallery_name=gallery_name,
+            disk_encryption_set_name=disk_encryption_set_name,
             custom_headers=custom_headers,
             raw=True,
             **operation_config
@@ -396,11 +399,11 @@ class GalleriesOperations(object):
         elif polling is False: polling_method = NoPolling()
         else: polling_method = polling
         return LROPoller(self._client, raw_result, get_long_running_output, polling_method)
-    delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}'}
+    delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/diskEncryptionSets/{diskEncryptionSetName}'}
 
     def list_by_resource_group(
             self, resource_group_name, custom_headers=None, raw=False, **operation_config):
-        """List galleries under a resource group.
+        """Lists all the disk encryption sets under a resource group.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
@@ -409,9 +412,9 @@ class GalleriesOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of Gallery
+        :return: An iterator like instance of DiskEncryptionSet
         :rtype:
-         ~azure.mgmt.compute.v2020_09_30.models.GalleryPaged[~azure.mgmt.compute.v2020_09_30.models.Gallery]
+         ~azure.mgmt.compute.v2020_09_30.models.DiskEncryptionSetPaged[~azure.mgmt.compute.v2020_09_30.models.DiskEncryptionSet]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         def prepare_request(next_link=None):
@@ -462,23 +465,23 @@ class GalleriesOperations(object):
         header_dict = None
         if raw:
             header_dict = {}
-        deserialized = models.GalleryPaged(internal_paging, self._deserialize.dependencies, header_dict)
+        deserialized = models.DiskEncryptionSetPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list_by_resource_group.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries'}
+    list_by_resource_group.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/diskEncryptionSets'}
 
     def list(
             self, custom_headers=None, raw=False, **operation_config):
-        """List galleries under a subscription.
+        """Lists all the disk encryption sets under a subscription.
 
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of Gallery
+        :return: An iterator like instance of DiskEncryptionSet
         :rtype:
-         ~azure.mgmt.compute.v2020_09_30.models.GalleryPaged[~azure.mgmt.compute.v2020_09_30.models.Gallery]
+         ~azure.mgmt.compute.v2020_09_30.models.DiskEncryptionSetPaged[~azure.mgmt.compute.v2020_09_30.models.DiskEncryptionSet]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         def prepare_request(next_link=None):
@@ -528,7 +531,81 @@ class GalleriesOperations(object):
         header_dict = None
         if raw:
             header_dict = {}
-        deserialized = models.GalleryPaged(internal_paging, self._deserialize.dependencies, header_dict)
+        deserialized = models.DiskEncryptionSetPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Compute/galleries'}
+    list.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Compute/diskEncryptionSets'}
+
+    def list_associated_resources(
+            self, resource_group_name, disk_encryption_set_name, custom_headers=None, raw=False, **operation_config):
+        """Lists all resources that are encrypted with this disk encryption set.
+
+        :param resource_group_name: The name of the resource group.
+        :type resource_group_name: str
+        :param disk_encryption_set_name: The name of the disk encryption set
+         that is being created. The name can't be changed after the disk
+         encryption set is created. Supported characters for the name are a-z,
+         A-Z, 0-9 and _. The maximum name length is 80 characters.
+        :type disk_encryption_set_name: str
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: An iterator like instance of str
+        :rtype: ~azure.mgmt.compute.v2020_09_30.models.StrPaged[str]
+        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        """
+        def prepare_request(next_link=None):
+            if not next_link:
+                # Construct URL
+                url = self.list_associated_resources.metadata['url']
+                path_format_arguments = {
+                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
+                    'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
+                    'diskEncryptionSetName': self._serialize.url("disk_encryption_set_name", disk_encryption_set_name, 'str')
+                }
+                url = self._client.format_url(url, **path_format_arguments)
+
+                # Construct parameters
+                query_parameters = {}
+                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+
+            else:
+                url = next_link
+                query_parameters = {}
+
+            # Construct headers
+            header_parameters = {}
+            header_parameters['Accept'] = 'application/json'
+            if self.config.generate_client_request_id:
+                header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+            if custom_headers:
+                header_parameters.update(custom_headers)
+            if self.config.accept_language is not None:
+                header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+            # Construct and send request
+            request = self._client.get(url, query_parameters, header_parameters)
+            return request
+
+        def internal_paging(next_link=None):
+            request = prepare_request(next_link)
+
+            response = self._client.send(request, stream=False, **operation_config)
+
+            if response.status_code not in [200]:
+                exp = CloudError(response)
+                exp.request_id = response.headers.get('x-ms-request-id')
+                raise exp
+
+            return response
+
+        # Deserialize response
+        header_dict = None
+        if raw:
+            header_dict = {}
+        deserialized = models.StrPaged(internal_paging, self._deserialize.dependencies, header_dict)
+
+        return deserialized
+    list_associated_resources.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/diskEncryptionSets/{diskEncryptionSetName}/associatedResources'}
