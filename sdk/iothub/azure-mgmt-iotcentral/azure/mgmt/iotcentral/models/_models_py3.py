@@ -370,21 +370,31 @@ class Operation(Model):
     :vartype name: str
     :param display: The object that represents the operation.
     :type display: ~azure.mgmt.iotcentral.models.OperationDisplay
+    :ivar origin: The intended executor of the operation.
+    :vartype origin: str
+    :ivar properties: Additional descriptions for the operation.
+    :vartype properties: object
     """
 
     _validation = {
         'name': {'readonly': True},
+        'origin': {'readonly': True},
+        'properties': {'readonly': True},
     }
 
     _attribute_map = {
         'name': {'key': 'name', 'type': 'str'},
         'display': {'key': 'display', 'type': 'OperationDisplay'},
+        'origin': {'key': 'origin', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'object'},
     }
 
     def __init__(self, *, display=None, **kwargs) -> None:
         super(Operation, self).__init__(**kwargs)
         self.name = None
         self.display = display
+        self.origin = None
+        self.properties = None
 
 
 class OperationDisplay(Model):
