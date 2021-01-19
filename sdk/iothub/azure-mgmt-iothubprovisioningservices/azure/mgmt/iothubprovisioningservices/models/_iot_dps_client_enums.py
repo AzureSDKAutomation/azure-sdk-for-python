@@ -33,6 +33,33 @@ class State(str, Enum):
     failover_failed = "FailoverFailed"
 
 
+class PublicNetworkAccess(str, Enum):
+
+    enabled = "Enabled"
+    disabled = "Disabled"
+
+
+class IpFilterActionType(str, Enum):
+
+    accept = "Accept"
+    reject = "Reject"
+
+
+class IpFilterTargetType(str, Enum):
+
+    all = "all"
+    service_api = "serviceApi"
+    device_api = "deviceApi"
+
+
+class PrivateLinkServiceConnectionStatus(str, Enum):
+
+    pending = "Pending"
+    approved = "Approved"
+    rejected = "Rejected"
+    disconnected = "Disconnected"
+
+
 class AllocationPolicy(str, Enum):
 
     hashed = "Hashed"
@@ -48,6 +75,12 @@ class AccessRightsDescription(str, Enum):
     device_connect = "DeviceConnect"
     registration_status_read = "RegistrationStatusRead"
     registration_status_write = "RegistrationStatusWrite"
+
+
+class IotDpsVersion(str, Enum):
+
+    v1 = "V1"
+    v2 = "V2"
 
 
 class NameUnavailabilityReason(str, Enum):
