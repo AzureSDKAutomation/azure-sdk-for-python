@@ -12,7 +12,7 @@ from typing import Dict, List, Optional, Union
 from azure.core.exceptions import HttpResponseError
 import msrest.serialization
 
-from ._monitor_management_client_enums import *
+from ._monitor_client_enums import *
 
 
 class ActionGroupList(msrest.serialization.Model):
@@ -382,7 +382,7 @@ class MultiMetricCriteria(msrest.serialization.Model):
     :type metric_namespace: str
     :param time_aggregation: Required. the criteria time aggregation types. Possible values
      include: "Average", "Count", "Minimum", "Maximum", "Total".
-    :type time_aggregation: str or ~$(python-base-namespace).v2018_03_01.models.AggregationType
+    :type time_aggregation: str or ~$(python-base-namespace).v2018_03_01.models.AggregationTypeEnum
     :param dimensions: List of dimension conditions.
     :type dimensions: list[~$(python-base-namespace).v2018_03_01.models.MetricDimension]
     :param skip_metric_validation: Allows creating an alert rule on a custom metric that isn't yet
@@ -417,7 +417,7 @@ class MultiMetricCriteria(msrest.serialization.Model):
         *,
         name: str,
         metric_name: str,
-        time_aggregation: Union[str, "AggregationType"],
+        time_aggregation: Union[str, "AggregationTypeEnum"],
         additional_properties: Optional[Dict[str, object]] = None,
         metric_namespace: Optional[str] = None,
         dimensions: Optional[List["MetricDimension"]] = None,
@@ -454,7 +454,7 @@ class DynamicMetricCriteria(MultiMetricCriteria):
     :type metric_namespace: str
     :param time_aggregation: Required. the criteria time aggregation types. Possible values
      include: "Average", "Count", "Minimum", "Maximum", "Total".
-    :type time_aggregation: str or ~$(python-base-namespace).v2018_03_01.models.AggregationType
+    :type time_aggregation: str or ~$(python-base-namespace).v2018_03_01.models.AggregationTypeEnum
     :param dimensions: List of dimension conditions.
     :type dimensions: list[~$(python-base-namespace).v2018_03_01.models.MetricDimension]
     :param skip_metric_validation: Allows creating an alert rule on a custom metric that isn't yet
@@ -507,7 +507,7 @@ class DynamicMetricCriteria(MultiMetricCriteria):
         *,
         name: str,
         metric_name: str,
-        time_aggregation: Union[str, "AggregationType"],
+        time_aggregation: Union[str, "AggregationTypeEnum"],
         operator: Union[str, "DynamicThresholdOperator"],
         alert_sensitivity: Union[str, "DynamicThresholdSensitivity"],
         failing_periods: "DynamicThresholdFailingPeriods",
@@ -629,6 +629,109 @@ class EnableRequest(msrest.serialization.Model):
     ):
         super(EnableRequest, self).__init__(**kwargs)
         self.receiver_name = receiver_name
+
+
+class Error(msrest.serialization.Model):
+    """Error.
+
+    :param code:
+    :type code: str
+    :param message:
+    :type message: str
+    :param target:
+    :type target: str
+    :param details:
+    :type details: list[~$(python-base-namespace).v2018_03_01.models.ErrorDetails]
+    :param additional_info:
+    :type additional_info: list[dict[str, str]]
+    """
+
+    _attribute_map = {
+        'code': {'key': 'code', 'type': 'str'},
+        'message': {'key': 'message', 'type': 'str'},
+        'target': {'key': 'target', 'type': 'str'},
+        'details': {'key': 'details', 'type': '[ErrorDetails]'},
+        'additional_info': {'key': 'additionalInfo', 'type': '[{str}]'},
+    }
+
+    def __init__(
+        self,
+        *,
+        code: Optional[str] = None,
+        message: Optional[str] = None,
+        target: Optional[str] = None,
+        details: Optional[List["ErrorDetails"]] = None,
+        additional_info: Optional[List[Dict[str, str]]] = None,
+        **kwargs
+    ):
+        super(Error, self).__init__(**kwargs)
+        self.code = code
+        self.message = message
+        self.target = target
+        self.details = details
+        self.additional_info = additional_info
+
+
+class ErrorDetails(msrest.serialization.Model):
+    """ErrorDetails.
+
+    :param code:
+    :type code: str
+    :param target:
+    :type target: str
+    :param message:
+    :type message: str
+    :param additional_info:
+    :type additional_info: list[~$(python-base-namespace).v2018_03_01.models.ErrorInfo]
+    """
+
+    _attribute_map = {
+        'code': {'key': 'code', 'type': 'str'},
+        'target': {'key': 'target', 'type': 'str'},
+        'message': {'key': 'message', 'type': 'str'},
+        'additional_info': {'key': 'additionalInfo', 'type': '[ErrorInfo]'},
+    }
+
+    def __init__(
+        self,
+        *,
+        code: Optional[str] = None,
+        target: Optional[str] = None,
+        message: Optional[str] = None,
+        additional_info: Optional[List["ErrorInfo"]] = None,
+        **kwargs
+    ):
+        super(ErrorDetails, self).__init__(**kwargs)
+        self.code = code
+        self.target = target
+        self.message = message
+        self.additional_info = additional_info
+
+
+class ErrorInfo(msrest.serialization.Model):
+    """ErrorInfo.
+
+    :param type:
+    :type type: str
+    :param info: An object describing the additional information of the error.
+    :type info: dict[str, str]
+    """
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'info': {'key': 'info', 'type': '{str}'},
+    }
+
+    def __init__(
+        self,
+        *,
+        type: Optional[str] = None,
+        info: Optional[Dict[str, str]] = None,
+        **kwargs
+    ):
+        super(ErrorInfo, self).__init__(**kwargs)
+        self.type = type
+        self.info = info
 
 
 class ErrorResponse(msrest.serialization.Model):
@@ -757,7 +860,8 @@ class MetricAlertAction(msrest.serialization.Model):
 
     :param action_group_id: the id of the action group to use.
     :type action_group_id: str
-    :param web_hook_properties: The properties of a webhook object.
+    :param web_hook_properties: This field allows specifying custom properties, which would be
+     appended to the alert payload sent as input to the webhook.
     :type web_hook_properties: dict[str, str]
     """
 
@@ -861,31 +965,164 @@ class MetricAlertMultipleResourceMultipleMetricCriteria(MetricAlertCriteria):
         self.all_of = all_of
 
 
-class MetricAlertResource(Resource):
+class ResourceAutoGenerated2(msrest.serialization.Model):
+    """Common fields that are returned in the response for all Azure Resource Manager resources.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar id: Fully qualified resource ID for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+    :vartype id: str
+    :ivar name: The name of the resource.
+    :vartype name: str
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
+    :vartype type: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(ResourceAutoGenerated2, self).__init__(**kwargs)
+        self.id = None
+        self.name = None
+        self.type = None
+
+
+class TrackedResource(ResourceAutoGenerated2):
+    """The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Fully qualified resource ID for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+    :vartype id: str
+    :ivar name: The name of the resource.
+    :vartype name: str
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
+    :vartype type: str
+    :param tags: A set of tags. Resource tags.
+    :type tags: dict[str, str]
+    :param location: Required. The geo-location where the resource lives.
+    :type location: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'location': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'location': {'key': 'location', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        *,
+        location: str,
+        tags: Optional[Dict[str, str]] = None,
+        **kwargs
+    ):
+        super(TrackedResource, self).__init__(**kwargs)
+        self.tags = tags
+        self.location = location
+
+
+class ResourceAutoGenerated(TrackedResource):
+    """An azure resource object.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Fully qualified resource ID for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+    :vartype id: str
+    :ivar name: The name of the resource.
+    :vartype name: str
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
+    :vartype type: str
+    :param tags: A set of tags. Resource tags.
+    :type tags: dict[str, str]
+    :param location: Required. The geo-location where the resource lives.
+    :type location: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'location': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'location': {'key': 'location', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        *,
+        location: str,
+        tags: Optional[Dict[str, str]] = None,
+        **kwargs
+    ):
+        super(ResourceAutoGenerated, self).__init__(tags=tags, location=location, **kwargs)
+
+
+class MetricAlertResource(ResourceAutoGenerated):
     """The metric alert resource.
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Azure resource Id.
+    :ivar id: Fully qualified resource ID for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
-    :ivar name: Azure resource name.
+    :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: Azure resource type.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
-    :param location: Required. Resource location.
-    :type location: str
     :param tags: A set of tags. Resource tags.
     :type tags: dict[str, str]
-    :param description: Required. the description of the metric alert that will be included in the
-     alert email.
+    :param location: Required. The geo-location where the resource lives.
+    :type location: str
+    :param description: the description of the metric alert that will be included in the alert
+     email.
     :type description: str
     :param severity: Required. Alert severity {0, 1, 2, 3, 4}.
     :type severity: int
     :param enabled: Required. the flag that indicates whether the metric alert is enabled.
     :type enabled: bool
-    :param scopes: the list of resource id's that this metric alert is scoped to.
+    :param scopes: Required. the list of resource id's that this metric alert is scoped to.
     :type scopes: list[str]
     :param evaluation_frequency: Required. how often the metric alert is evaluated represented in
      ISO 8601 duration format.
@@ -894,10 +1131,12 @@ class MetricAlertResource(Resource):
      monitor alert activity based on the threshold.
     :type window_size: ~datetime.timedelta
     :param target_resource_type: the resource type of the target resource(s) on which the alert is
-     created/updated. Mandatory for MultipleResourceMultipleMetricCriteria.
+     created/updated. Mandatory if the scope contains a subscription, resource group, or more than
+     one resource.
     :type target_resource_type: str
     :param target_resource_region: the region of the target resource(s) on which the alert is
-     created/updated. Mandatory for MultipleResourceMultipleMetricCriteria.
+     created/updated. Mandatory if the scope contains a subscription, resource group, or more than
+     one resource.
     :type target_resource_region: str
     :param criteria: Required. defines the specific alert criteria information.
     :type criteria: ~$(python-base-namespace).v2018_03_01.models.MetricAlertCriteria
@@ -909,6 +1148,8 @@ class MetricAlertResource(Resource):
     :type actions: list[~$(python-base-namespace).v2018_03_01.models.MetricAlertAction]
     :ivar last_updated_time: Last time the rule was updated in ISO8601 format.
     :vartype last_updated_time: ~datetime.datetime
+    :ivar is_migrated: the value indicating whether this alert rule is migrated.
+    :vartype is_migrated: str
     """
 
     _validation = {
@@ -916,21 +1157,22 @@ class MetricAlertResource(Resource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'location': {'required': True},
-        'description': {'required': True},
         'severity': {'required': True},
         'enabled': {'required': True},
+        'scopes': {'required': True},
         'evaluation_frequency': {'required': True},
         'window_size': {'required': True},
         'criteria': {'required': True},
         'last_updated_time': {'readonly': True},
+        'is_migrated': {'readonly': True},
     }
 
     _attribute_map = {
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
-        'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'location': {'key': 'location', 'type': 'str'},
         'description': {'key': 'properties.description', 'type': 'str'},
         'severity': {'key': 'properties.severity', 'type': 'int'},
         'enabled': {'key': 'properties.enabled', 'type': 'bool'},
@@ -943,27 +1185,28 @@ class MetricAlertResource(Resource):
         'auto_mitigate': {'key': 'properties.autoMitigate', 'type': 'bool'},
         'actions': {'key': 'properties.actions', 'type': '[MetricAlertAction]'},
         'last_updated_time': {'key': 'properties.lastUpdatedTime', 'type': 'iso-8601'},
+        'is_migrated': {'key': 'properties.isMigrated', 'type': 'str'},
     }
 
     def __init__(
         self,
         *,
         location: str,
-        description: str,
         severity: int,
         enabled: bool,
+        scopes: List[str],
         evaluation_frequency: datetime.timedelta,
         window_size: datetime.timedelta,
         criteria: "MetricAlertCriteria",
         tags: Optional[Dict[str, str]] = None,
-        scopes: Optional[List[str]] = None,
+        description: Optional[str] = None,
         target_resource_type: Optional[str] = None,
         target_resource_region: Optional[str] = None,
         auto_mitigate: Optional[bool] = None,
         actions: Optional[List["MetricAlertAction"]] = None,
         **kwargs
     ):
-        super(MetricAlertResource, self).__init__(location=location, tags=tags, **kwargs)
+        super(MetricAlertResource, self).__init__(tags=tags, location=location, **kwargs)
         self.description = description
         self.severity = severity
         self.enabled = enabled
@@ -976,6 +1219,7 @@ class MetricAlertResource(Resource):
         self.auto_mitigate = auto_mitigate
         self.actions = actions
         self.last_updated_time = None
+        self.is_migrated = None
 
 
 class MetricAlertResourceCollection(msrest.serialization.Model):
@@ -1037,10 +1281,13 @@ class MetricAlertResourcePatch(msrest.serialization.Model):
     :type actions: list[~$(python-base-namespace).v2018_03_01.models.MetricAlertAction]
     :ivar last_updated_time: Last time the rule was updated in ISO8601 format.
     :vartype last_updated_time: ~datetime.datetime
+    :ivar is_migrated: the value indicating whether this alert rule is migrated.
+    :vartype is_migrated: str
     """
 
     _validation = {
         'last_updated_time': {'readonly': True},
+        'is_migrated': {'readonly': True},
     }
 
     _attribute_map = {
@@ -1057,6 +1304,7 @@ class MetricAlertResourcePatch(msrest.serialization.Model):
         'auto_mitigate': {'key': 'properties.autoMitigate', 'type': 'bool'},
         'actions': {'key': 'properties.actions', 'type': '[MetricAlertAction]'},
         'last_updated_time': {'key': 'properties.lastUpdatedTime', 'type': 'iso-8601'},
+        'is_migrated': {'key': 'properties.isMigrated', 'type': 'str'},
     }
 
     def __init__(
@@ -1090,6 +1338,7 @@ class MetricAlertResourcePatch(msrest.serialization.Model):
         self.auto_mitigate = auto_mitigate
         self.actions = actions
         self.last_updated_time = None
+        self.is_migrated = None
 
 
 class MetricAlertSingleResourceMultipleMetricCriteria(MetricAlertCriteria):
@@ -1239,7 +1488,7 @@ class MetricCriteria(MultiMetricCriteria):
     :type metric_namespace: str
     :param time_aggregation: Required. the criteria time aggregation types. Possible values
      include: "Average", "Count", "Minimum", "Maximum", "Total".
-    :type time_aggregation: str or ~$(python-base-namespace).v2018_03_01.models.AggregationType
+    :type time_aggregation: str or ~$(python-base-namespace).v2018_03_01.models.AggregationTypeEnum
     :param dimensions: List of dimension conditions.
     :type dimensions: list[~$(python-base-namespace).v2018_03_01.models.MetricDimension]
     :param skip_metric_validation: Allows creating an alert rule on a custom metric that isn't yet
@@ -1279,7 +1528,7 @@ class MetricCriteria(MultiMetricCriteria):
         *,
         name: str,
         metric_name: str,
-        time_aggregation: Union[str, "AggregationType"],
+        time_aggregation: Union[str, "AggregationTypeEnum"],
         operator: Union[str, "Operator"],
         threshold: float,
         additional_properties: Optional[Dict[str, object]] = None,
