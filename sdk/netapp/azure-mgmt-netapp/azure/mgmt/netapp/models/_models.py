@@ -56,6 +56,10 @@ class ActiveDirectory(msrest.serialization.Model):
     :type aes_encryption: bool
     :param ldap_signing: Specifies whether or not the LDAP traffic needs to be signed.
     :type ldap_signing: bool
+    :param security_operators: Domain Users in the Active directory to be given SeSecurityPrivilege
+     privilege (Needed for SMB Continuously available shares for SQL). A list of unique usernames
+     without domain specifier.
+    :type security_operators: list[str]
     """
 
     _validation = {
@@ -84,6 +88,7 @@ class ActiveDirectory(msrest.serialization.Model):
         'server_root_ca_certificate': {'key': 'serverRootCACertificate', 'type': 'str'},
         'aes_encryption': {'key': 'aesEncryption', 'type': 'bool'},
         'ldap_signing': {'key': 'ldapSigning', 'type': 'bool'},
+        'security_operators': {'key': 'securityOperators', 'type': '[str]'},
     }
 
     def __init__(
@@ -91,7 +96,7 @@ class ActiveDirectory(msrest.serialization.Model):
         **kwargs
     ):
         super(ActiveDirectory, self).__init__(**kwargs)
-        self.active_directory_id = kwargs.get('active_directory_id', None)
+        self.active_directory_id = kwargs.get('active_directory_id', "guid id")
         self.username = kwargs.get('username', None)
         self.password = kwargs.get('password', None)
         self.domain = kwargs.get('domain', None)
@@ -99,7 +104,7 @@ class ActiveDirectory(msrest.serialization.Model):
         self.status = None
         self.status_details = None
         self.smb_server_name = kwargs.get('smb_server_name', None)
-        self.organizational_unit = kwargs.get('organizational_unit', None)
+        self.organizational_unit = kwargs.get('organizational_unit', "CN=Computers")
         self.site = kwargs.get('site', None)
         self.backup_operators = kwargs.get('backup_operators', None)
         self.kdc_ip = kwargs.get('kdc_ip', None)
@@ -107,6 +112,7 @@ class ActiveDirectory(msrest.serialization.Model):
         self.server_root_ca_certificate = kwargs.get('server_root_ca_certificate', None)
         self.aes_encryption = kwargs.get('aes_encryption', None)
         self.ldap_signing = kwargs.get('ldap_signing', None)
+        self.security_operators = kwargs.get('security_operators', None)
 
 
 class AuthorizeRequest(msrest.serialization.Model):
@@ -869,7 +875,7 @@ class ExportPolicyRule(msrest.serialization.Model):
         self.kerberos5_i_read_write = kwargs.get('kerberos5_i_read_write', False)
         self.kerberos5_p_read_only = kwargs.get('kerberos5_p_read_only', False)
         self.kerberos5_p_read_write = kwargs.get('kerberos5_p_read_write', False)
-        self.cifs = kwargs.get('cifs', None)
+        self.cifs = kwargs.get('cifs', False)
         self.nfsv3 = kwargs.get('nfsv3', None)
         self.nfsv41 = kwargs.get('nfsv41', None)
         self.allowed_clients = kwargs.get('allowed_clients', None)
@@ -1924,6 +1930,8 @@ class Volume(msrest.serialization.Model):
     :type tags: dict[str, str]
     :ivar file_system_id: Unique FileSystem Identifier.
     :vartype file_system_id: str
+    :ivar name_properties_name: Resource name.
+    :vartype name_properties_name: str
     :param creation_token: Required. A unique file path for the volume. Used when creating mount
      targets.
     :type creation_token: str
@@ -1936,7 +1944,7 @@ class Volume(msrest.serialization.Model):
     :type usage_threshold: long
     :param export_policy: Set of export policy rules.
     :type export_policy: ~azure.mgmt.netapp.models.VolumePropertiesExportPolicy
-    :param protocol_types: Set of protocol types.
+    :param protocol_types: Set of protocol types, default NFSv3, CIFS for SMB protocol.
     :type protocol_types: list[str]
     :ivar provisioning_state: Azure lifecycle management.
     :vartype provisioning_state: str
@@ -1949,8 +1957,8 @@ class Volume(msrest.serialization.Model):
     :param subnet_id: Required. The Azure Resource URI for a delegated subnet. Must have the
      delegation Microsoft.NetApp/volumes.
     :type subnet_id: str
-    :param mount_targets: List of mount targets.
-    :type mount_targets: list[~azure.mgmt.netapp.models.MountTargetProperties]
+    :ivar mount_targets: List of mount targets.
+    :vartype mount_targets: list[~azure.mgmt.netapp.models.MountTargetProperties]
     :param volume_type: What type of volume is this.
     :type volume_type: str
     :param data_protection: DataProtection type volumes include an object containing details of the
@@ -1964,8 +1972,15 @@ class Volume(msrest.serialization.Model):
     :param kerberos_enabled: Describe if a volume is KerberosEnabled. To be use with swagger
      version 2020-05-01 or later.
     :type kerberos_enabled: bool
-    :param security_style: The security style of volume. Possible values include: "ntfs", "unix".
+    :param security_style: The security style of volume, default unix, ntfs for dual protocol or
+     CIFS protocol. Possible values include: "ntfs", "unix". Default value: "unix".
     :type security_style: str or ~azure.mgmt.netapp.models.SecurityStyle
+    :param smb_encryption: Enables encryption for in-flight smb3 data. Only applicable for
+     SMB/DualProtocol volume. To be used with swagger version 2020-08-01 or later.
+    :type smb_encryption: bool
+    :param smb_continuously_available: Enables continuously available share property for smb
+     volume. Only applicable for SMB volume.
+    :type smb_continuously_available: bool
     :param throughput_mibps: Maximum throughput in Mibps that can be achieved by this volume.
     :type throughput_mibps: float
     """
@@ -1976,6 +1991,7 @@ class Volume(msrest.serialization.Model):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'file_system_id': {'readonly': True, 'max_length': 36, 'min_length': 36, 'pattern': r'^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$'},
+        'name_properties_name': {'readonly': True},
         'creation_token': {'required': True, 'max_length': 80, 'min_length': 1, 'pattern': r'^[a-zA-Z][a-zA-Z0-9\-]{0,79}$'},
         'usage_threshold': {'required': True, 'maximum': 109951162777600, 'minimum': 107374182400},
         'provisioning_state': {'readonly': True},
@@ -1983,7 +1999,8 @@ class Volume(msrest.serialization.Model):
         'backup_id': {'max_length': 36, 'min_length': 36, 'pattern': r'^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}|(\\?([^\/]*[\/])*)([^\/]+)$'},
         'baremetal_tenant_id': {'readonly': True},
         'subnet_id': {'required': True},
-        'throughput_mibps': {'maximum': 4500, 'minimum': 1, 'multiple': 0.001},
+        'mount_targets': {'readonly': True},
+        'throughput_mibps': {'maximum': 4500, 'minimum': 0, 'multiple': 0.001},
     }
 
     _attribute_map = {
@@ -1993,6 +2010,7 @@ class Volume(msrest.serialization.Model):
         'type': {'key': 'type', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
         'file_system_id': {'key': 'properties.fileSystemId', 'type': 'str'},
+        'name_properties_name': {'key': 'properties.name', 'type': 'str'},
         'creation_token': {'key': 'properties.creationToken', 'type': 'str'},
         'service_level': {'key': 'properties.serviceLevel', 'type': 'str'},
         'usage_threshold': {'key': 'properties.usageThreshold', 'type': 'long'},
@@ -2010,6 +2028,8 @@ class Volume(msrest.serialization.Model):
         'snapshot_directory_visible': {'key': 'properties.snapshotDirectoryVisible', 'type': 'bool'},
         'kerberos_enabled': {'key': 'properties.kerberosEnabled', 'type': 'bool'},
         'security_style': {'key': 'properties.securityStyle', 'type': 'str'},
+        'smb_encryption': {'key': 'properties.smbEncryption', 'type': 'bool'},
+        'smb_continuously_available': {'key': 'properties.smbContinuouslyAvailable', 'type': 'bool'},
         'throughput_mibps': {'key': 'properties.throughputMibps', 'type': 'float'},
     }
 
@@ -2024,6 +2044,7 @@ class Volume(msrest.serialization.Model):
         self.type = None
         self.tags = kwargs.get('tags', None)
         self.file_system_id = None
+        self.name_properties_name = None
         self.creation_token = kwargs['creation_token']
         self.service_level = kwargs.get('service_level', None)
         self.usage_threshold = kwargs.get('usage_threshold', 107374182400)
@@ -2034,14 +2055,16 @@ class Volume(msrest.serialization.Model):
         self.backup_id = kwargs.get('backup_id', None)
         self.baremetal_tenant_id = None
         self.subnet_id = kwargs['subnet_id']
-        self.mount_targets = kwargs.get('mount_targets', None)
+        self.mount_targets = None
         self.volume_type = kwargs.get('volume_type', None)
         self.data_protection = kwargs.get('data_protection', None)
         self.is_restoring = kwargs.get('is_restoring', None)
-        self.snapshot_directory_visible = kwargs.get('snapshot_directory_visible', None)
+        self.snapshot_directory_visible = kwargs.get('snapshot_directory_visible', True)
         self.kerberos_enabled = kwargs.get('kerberos_enabled', False)
-        self.security_style = kwargs.get('security_style', None)
-        self.throughput_mibps = kwargs.get('throughput_mibps', None)
+        self.security_style = kwargs.get('security_style', "unix")
+        self.smb_encryption = kwargs.get('smb_encryption', False)
+        self.smb_continuously_available = kwargs.get('smb_continuously_available', False)
+        self.throughput_mibps = kwargs.get('throughput_mibps', 0)
 
 
 class VolumeBackupProperties(msrest.serialization.Model):
@@ -2107,10 +2130,13 @@ class VolumeList(msrest.serialization.Model):
 
     :param value: List of volumes.
     :type value: list[~azure.mgmt.netapp.models.Volume]
+    :param next_link: URL to get the next set of results.
+    :type next_link: str
     """
 
     _attribute_map = {
         'value': {'key': 'value', 'type': '[Volume]'},
+        'next_link': {'key': 'nextLink', 'type': 'str'},
     }
 
     def __init__(
@@ -2119,6 +2145,7 @@ class VolumeList(msrest.serialization.Model):
     ):
         super(VolumeList, self).__init__(**kwargs)
         self.value = kwargs.get('value', None)
+        self.next_link = kwargs.get('next_link', None)
 
 
 class VolumePatch(msrest.serialization.Model):

@@ -101,7 +101,7 @@ class ReplicationSchedule(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
     DAILY = "daily"
 
 class SecurityStyle(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
-    """The security style of volume
+    """The security style of volume, default unix, ntfs for dual protocol or CIFS protocol
     """
 
     NTFS = "ntfs"
