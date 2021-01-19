@@ -113,7 +113,7 @@ class SynchronizationSettingsOperations(object):
             self, resource_group_name, account_name, share_name, synchronization_setting_name, synchronization_setting, custom_headers=None, raw=False, **operation_config):
         """Adds a new synchronization setting to an existing share.
 
-        Create or update a synchronizationSetting .
+        Create a synchronizationSetting.
 
         :param resource_group_name: The resource group name.
         :type resource_group_name: str
