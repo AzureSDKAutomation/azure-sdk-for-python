@@ -301,12 +301,14 @@ class BigDataPoolResourceInfo(TrackedResource):
     :param is_compute_isolation_enabled: Whether compute isolation is required
      or not.
     :type is_compute_isolation_enabled: bool
-    :param have_library_requirements_changed: Whether library requirements
-     changed.
-    :type have_library_requirements_changed: bool
     :param session_level_packages_enabled: Whether session level packages
      enabled.
     :type session_level_packages_enabled: bool
+    :param cache_size: The cache size
+    :type cache_size: int
+    :param dynamic_executor_allocation: Dynamic Executor Allocation
+    :type dynamic_executor_allocation:
+     ~azure.mgmt.synapse.models.DynamicExecutorAllocation
     :param spark_events_folder: The Spark events folder
     :type spark_events_folder: str
     :param node_count: The number of nodes in the Big Data pool.
@@ -349,8 +351,9 @@ class BigDataPoolResourceInfo(TrackedResource):
         'creation_date': {'key': 'properties.creationDate', 'type': 'iso-8601'},
         'auto_pause': {'key': 'properties.autoPause', 'type': 'AutoPauseProperties'},
         'is_compute_isolation_enabled': {'key': 'properties.isComputeIsolationEnabled', 'type': 'bool'},
-        'have_library_requirements_changed': {'key': 'properties.haveLibraryRequirementsChanged', 'type': 'bool'},
         'session_level_packages_enabled': {'key': 'properties.sessionLevelPackagesEnabled', 'type': 'bool'},
+        'cache_size': {'key': 'properties.cacheSize', 'type': 'int'},
+        'dynamic_executor_allocation': {'key': 'properties.dynamicExecutorAllocation', 'type': 'DynamicExecutorAllocation'},
         'spark_events_folder': {'key': 'properties.sparkEventsFolder', 'type': 'str'},
         'node_count': {'key': 'properties.nodeCount', 'type': 'int'},
         'library_requirements': {'key': 'properties.libraryRequirements', 'type': 'LibraryRequirements'},
@@ -361,15 +364,16 @@ class BigDataPoolResourceInfo(TrackedResource):
         'node_size_family': {'key': 'properties.nodeSizeFamily', 'type': 'str'},
     }
 
-    def __init__(self, *, location: str, tags=None, provisioning_state: str=None, auto_scale=None, creation_date=None, auto_pause=None, is_compute_isolation_enabled: bool=None, have_library_requirements_changed: bool=None, session_level_packages_enabled: bool=None, spark_events_folder: str=None, node_count: int=None, library_requirements=None, spark_config_properties=None, spark_version: str=None, default_spark_log_folder: str=None, node_size=None, node_size_family=None, **kwargs) -> None:
+    def __init__(self, *, location: str, tags=None, provisioning_state: str=None, auto_scale=None, creation_date=None, auto_pause=None, is_compute_isolation_enabled: bool=None, session_level_packages_enabled: bool=None, cache_size: int=None, dynamic_executor_allocation=None, spark_events_folder: str=None, node_count: int=None, library_requirements=None, spark_config_properties=None, spark_version: str=None, default_spark_log_folder: str=None, node_size=None, node_size_family=None, **kwargs) -> None:
         super(BigDataPoolResourceInfo, self).__init__(tags=tags, location=location, **kwargs)
         self.provisioning_state = provisioning_state
         self.auto_scale = auto_scale
         self.creation_date = creation_date
         self.auto_pause = auto_pause
         self.is_compute_isolation_enabled = is_compute_isolation_enabled
-        self.have_library_requirements_changed = have_library_requirements_changed
         self.session_level_packages_enabled = session_level_packages_enabled
+        self.cache_size = cache_size
+        self.dynamic_executor_allocation = dynamic_executor_allocation
         self.spark_events_folder = spark_events_folder
         self.node_count = node_count
         self.library_requirements = library_requirements
@@ -912,6 +916,23 @@ class DataWarehouseUserActivities(ProxyResource):
     def __init__(self, **kwargs) -> None:
         super(DataWarehouseUserActivities, self).__init__(**kwargs)
         self.active_queries_count = None
+
+
+class DynamicExecutorAllocation(Model):
+    """Dynamic Executor Allocation Properties.
+
+    :param enabled: Indicates whether Dynamic Executor Allocation is enabled
+     or not.
+    :type enabled: bool
+    """
+
+    _attribute_map = {
+        'enabled': {'key': 'enabled', 'type': 'bool'},
+    }
+
+    def __init__(self, *, enabled: bool=None, **kwargs) -> None:
+        super(DynamicExecutorAllocation, self).__init__(**kwargs)
+        self.enabled = enabled
 
 
 class EncryptionDetails(Model):
@@ -2497,6 +2518,136 @@ class LinkedIntegrationRuntimeRbacAuthorization(LinkedIntegrationRuntimeType):
         self.authorization_type = 'RBAC'
 
 
+class MaintenanceWindowOptions(ProxyResource):
+    """Maintenance window options.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Fully qualified resource ID for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+    :vartype type: str
+    :param is_enabled: Whether maintenance windows are enabled for the
+     database.
+    :type is_enabled: bool
+    :param maintenance_window_cycles: Available maintenance cycles e.g.
+     {Saturday, 0, 48*60}, {Wednesday, 0, 24*60}.
+    :type maintenance_window_cycles:
+     list[~azure.mgmt.synapse.models.MaintenanceWindowTimeRange]
+    :param min_duration_in_minutes: Minimum duration of maintenance window.
+    :type min_duration_in_minutes: int
+    :param default_duration_in_minutes: Default duration for maintenance
+     window.
+    :type default_duration_in_minutes: int
+    :param min_cycles: Minimum number of maintenance windows cycles to be set
+     on the database.
+    :type min_cycles: int
+    :param time_granularity_in_minutes: Time granularity in minutes for
+     maintenance windows.
+    :type time_granularity_in_minutes: int
+    :param allow_multiple_maintenance_windows_per_cycle: Whether we allow
+     multiple maintenance windows per cycle.
+    :type allow_multiple_maintenance_windows_per_cycle: bool
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'is_enabled': {'key': 'properties.isEnabled', 'type': 'bool'},
+        'maintenance_window_cycles': {'key': 'properties.maintenanceWindowCycles', 'type': '[MaintenanceWindowTimeRange]'},
+        'min_duration_in_minutes': {'key': 'properties.minDurationInMinutes', 'type': 'int'},
+        'default_duration_in_minutes': {'key': 'properties.defaultDurationInMinutes', 'type': 'int'},
+        'min_cycles': {'key': 'properties.minCycles', 'type': 'int'},
+        'time_granularity_in_minutes': {'key': 'properties.timeGranularityInMinutes', 'type': 'int'},
+        'allow_multiple_maintenance_windows_per_cycle': {'key': 'properties.allowMultipleMaintenanceWindowsPerCycle', 'type': 'bool'},
+    }
+
+    def __init__(self, *, is_enabled: bool=None, maintenance_window_cycles=None, min_duration_in_minutes: int=None, default_duration_in_minutes: int=None, min_cycles: int=None, time_granularity_in_minutes: int=None, allow_multiple_maintenance_windows_per_cycle: bool=None, **kwargs) -> None:
+        super(MaintenanceWindowOptions, self).__init__(**kwargs)
+        self.is_enabled = is_enabled
+        self.maintenance_window_cycles = maintenance_window_cycles
+        self.min_duration_in_minutes = min_duration_in_minutes
+        self.default_duration_in_minutes = default_duration_in_minutes
+        self.min_cycles = min_cycles
+        self.time_granularity_in_minutes = time_granularity_in_minutes
+        self.allow_multiple_maintenance_windows_per_cycle = allow_multiple_maintenance_windows_per_cycle
+
+
+class MaintenanceWindows(ProxyResource):
+    """Maintenance windows.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Fully qualified resource ID for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+    :vartype type: str
+    :param time_ranges:
+    :type time_ranges:
+     list[~azure.mgmt.synapse.models.MaintenanceWindowTimeRange]
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'time_ranges': {'key': 'properties.timeRanges', 'type': '[MaintenanceWindowTimeRange]'},
+    }
+
+    def __init__(self, *, time_ranges=None, **kwargs) -> None:
+        super(MaintenanceWindows, self).__init__(**kwargs)
+        self.time_ranges = time_ranges
+
+
+class MaintenanceWindowTimeRange(Model):
+    """Maintenance window time range.
+
+    :param day_of_week: Day of maintenance window. Possible values include:
+     'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
+     'Saturday'
+    :type day_of_week: str or ~azure.mgmt.synapse.models.DayOfWeek
+    :param start_time: Start time minutes offset from 12am.
+    :type start_time: str
+    :param duration: Duration of maintenance window in minutes.
+    :type duration: str
+    """
+
+    _attribute_map = {
+        'day_of_week': {'key': 'dayOfWeek', 'type': 'str'},
+        'start_time': {'key': 'startTime', 'type': 'str'},
+        'duration': {'key': 'duration', 'type': 'str'},
+    }
+
+    def __init__(self, *, day_of_week=None, start_time: str=None, duration: str=None, **kwargs) -> None:
+        super(MaintenanceWindowTimeRange, self).__init__(**kwargs)
+        self.day_of_week = day_of_week
+        self.start_time = start_time
+        self.duration = duration
+
+
 class ManagedIdentity(Model):
     """The workspace managed identity.
 
@@ -3540,6 +3691,78 @@ class QueryStatistic(Model):
         self.intervals = None
 
 
+class RecommendedSensitivityLabelUpdate(ProxyResource):
+    """A recommended sensitivity label update operation.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Fully qualified resource ID for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+    :vartype type: str
+    :param op: Required. Possible values include: 'enable', 'disable'
+    :type op: str or
+     ~azure.mgmt.synapse.models.RecommendedSensitivityLabelUpdateKind
+    :param schema: Required. Schema name of the column to update.
+    :type schema: str
+    :param table: Required. Table name of the column to update.
+    :type table: str
+    :param column: Required. Column name to update.
+    :type column: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'op': {'required': True},
+        'schema': {'required': True},
+        'table': {'required': True},
+        'column': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'op': {'key': 'properties.op', 'type': 'RecommendedSensitivityLabelUpdateKind'},
+        'schema': {'key': 'properties.schema', 'type': 'str'},
+        'table': {'key': 'properties.table', 'type': 'str'},
+        'column': {'key': 'properties.column', 'type': 'str'},
+    }
+
+    def __init__(self, *, op, schema: str, table: str, column: str, **kwargs) -> None:
+        super(RecommendedSensitivityLabelUpdate, self).__init__(**kwargs)
+        self.op = op
+        self.schema = schema
+        self.table = table
+        self.column = column
+
+
+class RecommendedSensitivityLabelUpdateList(Model):
+    """A list of recommended sensitivity label update operations.
+
+    :param operations:
+    :type operations:
+     list[~azure.mgmt.synapse.models.RecommendedSensitivityLabelUpdate]
+    """
+
+    _attribute_map = {
+        'operations': {'key': 'operations', 'type': '[RecommendedSensitivityLabelUpdate]'},
+    }
+
+    def __init__(self, *, operations=None, **kwargs) -> None:
+        super(RecommendedSensitivityLabelUpdateList, self).__init__(**kwargs)
+        self.operations = operations
+
+
 class RecoverableSqlPool(ProxyResource):
     """A recoverable sql pool.
 
@@ -4234,6 +4457,12 @@ class SensitivityLabel(ProxyResource):
     :ivar type: The type of the resource. E.g.
      "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
+    :ivar schema_name: The schema name.
+    :vartype schema_name: str
+    :ivar table_name: The table name.
+    :vartype table_name: str
+    :ivar column_name: The column name.
+    :vartype column_name: str
     :param label_name: The label name.
     :type label_name: str
     :param label_id: The label ID.
@@ -4246,33 +4475,127 @@ class SensitivityLabel(ProxyResource):
      recommended sensitivity label only. Specifies whether the sensitivity
      recommendation on this column is disabled (dismissed) or not.
     :vartype is_disabled: bool
+    :param rank: Possible values include: 'None', 'Low', 'Medium', 'High',
+     'Critical'
+    :type rank: str or ~azure.mgmt.synapse.models.SensitivityLabelRank
+    :ivar managed_by: managed by
+    :vartype managed_by: str
     """
 
     _validation = {
         'id': {'readonly': True},
         'name': {'readonly': True},
         'type': {'readonly': True},
+        'schema_name': {'readonly': True},
+        'table_name': {'readonly': True},
+        'column_name': {'readonly': True},
         'is_disabled': {'readonly': True},
+        'managed_by': {'readonly': True},
     }
 
     _attribute_map = {
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
+        'schema_name': {'key': 'properties.schemaName', 'type': 'str'},
+        'table_name': {'key': 'properties.tableName', 'type': 'str'},
+        'column_name': {'key': 'properties.columnName', 'type': 'str'},
         'label_name': {'key': 'properties.labelName', 'type': 'str'},
         'label_id': {'key': 'properties.labelId', 'type': 'str'},
         'information_type': {'key': 'properties.informationType', 'type': 'str'},
         'information_type_id': {'key': 'properties.informationTypeId', 'type': 'str'},
         'is_disabled': {'key': 'properties.isDisabled', 'type': 'bool'},
+        'rank': {'key': 'properties.rank', 'type': 'SensitivityLabelRank'},
+        'managed_by': {'key': 'managedBy', 'type': 'str'},
     }
 
-    def __init__(self, *, label_name: str=None, label_id: str=None, information_type: str=None, information_type_id: str=None, **kwargs) -> None:
+    def __init__(self, *, label_name: str=None, label_id: str=None, information_type: str=None, information_type_id: str=None, rank=None, **kwargs) -> None:
         super(SensitivityLabel, self).__init__(**kwargs)
+        self.schema_name = None
+        self.table_name = None
+        self.column_name = None
         self.label_name = label_name
         self.label_id = label_id
         self.information_type = information_type
         self.information_type_id = information_type_id
         self.is_disabled = None
+        self.rank = rank
+        self.managed_by = None
+
+
+class SensitivityLabelUpdate(ProxyResource):
+    """A sensitivity label update operation.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Fully qualified resource ID for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+    :vartype type: str
+    :param op: Required. Possible values include: 'set', 'remove'
+    :type op: str or ~azure.mgmt.synapse.models.SensitivityLabelUpdateKind
+    :param schema: Required. Schema name of the column to update.
+    :type schema: str
+    :param table: Required. Table name of the column to update.
+    :type table: str
+    :param column: Required. Column name to update.
+    :type column: str
+    :param sensitivity_label: The sensitivity label information to apply on a
+     column.
+    :type sensitivity_label: ~azure.mgmt.synapse.models.SensitivityLabel
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'op': {'required': True},
+        'schema': {'required': True},
+        'table': {'required': True},
+        'column': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'op': {'key': 'properties.op', 'type': 'SensitivityLabelUpdateKind'},
+        'schema': {'key': 'properties.schema', 'type': 'str'},
+        'table': {'key': 'properties.table', 'type': 'str'},
+        'column': {'key': 'properties.column', 'type': 'str'},
+        'sensitivity_label': {'key': 'properties.sensitivityLabel', 'type': 'SensitivityLabel'},
+    }
+
+    def __init__(self, *, op, schema: str, table: str, column: str, sensitivity_label=None, **kwargs) -> None:
+        super(SensitivityLabelUpdate, self).__init__(**kwargs)
+        self.op = op
+        self.schema = schema
+        self.table = table
+        self.column = column
+        self.sensitivity_label = sensitivity_label
+
+
+class SensitivityLabelUpdateList(Model):
+    """A list of sensitivity label update operations.
+
+    :param operations:
+    :type operations: list[~azure.mgmt.synapse.models.SensitivityLabelUpdate]
+    """
+
+    _attribute_map = {
+        'operations': {'key': 'operations', 'type': '[SensitivityLabelUpdate]'},
+    }
+
+    def __init__(self, *, operations=None, **kwargs) -> None:
+        super(SensitivityLabelUpdateList, self).__init__(**kwargs)
+        self.operations = operations
 
 
 class ServerBlobAuditingPolicy(ProxyResource):
@@ -4921,12 +5244,15 @@ class SqlPoolColumn(ProxyResource):
      'varbinary', 'varchar', 'binary', 'char', 'timestamp', 'nvarchar',
      'nchar', 'xml', 'sysname'
     :type column_type: str or ~azure.mgmt.synapse.models.ColumnDataType
+    :ivar is_computed: Indicates whether column value is computed or not
+    :vartype is_computed: bool
     """
 
     _validation = {
         'id': {'readonly': True},
         'name': {'readonly': True},
         'type': {'readonly': True},
+        'is_computed': {'readonly': True},
     }
 
     _attribute_map = {
@@ -4934,11 +5260,13 @@ class SqlPoolColumn(ProxyResource):
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
         'column_type': {'key': 'properties.columnType', 'type': 'str'},
+        'is_computed': {'key': 'properties.isComputed', 'type': 'bool'},
     }
 
     def __init__(self, *, column_type=None, **kwargs) -> None:
         super(SqlPoolColumn, self).__init__(**kwargs)
         self.column_type = column_type
+        self.is_computed = None
 
 
 class SqlPoolConnectionPolicy(ProxyResource):
@@ -6437,6 +6765,8 @@ class Workspace(TrackedResource):
     :param purview_configuration: Purview Configuration
     :type purview_configuration:
      ~azure.mgmt.synapse.models.PurviewConfiguration
+    :ivar adla_resource_id: The ADLA resource ID.
+    :vartype adla_resource_id: str
     :param identity: Identity of the workspace
     :type identity: ~azure.mgmt.synapse.models.ManagedIdentity
     """
@@ -6449,6 +6779,7 @@ class Workspace(TrackedResource):
         'provisioning_state': {'readonly': True},
         'workspace_uid': {'readonly': True},
         'extra_properties': {'readonly': True},
+        'adla_resource_id': {'readonly': True},
     }
 
     _attribute_map = {
@@ -6472,6 +6803,7 @@ class Workspace(TrackedResource):
         'managed_virtual_network_settings': {'key': 'properties.managedVirtualNetworkSettings', 'type': 'ManagedVirtualNetworkSettings'},
         'workspace_repository_configuration': {'key': 'properties.workspaceRepositoryConfiguration', 'type': 'WorkspaceRepositoryConfiguration'},
         'purview_configuration': {'key': 'properties.purviewConfiguration', 'type': 'PurviewConfiguration'},
+        'adla_resource_id': {'key': 'properties.adlaResourceId', 'type': 'str'},
         'identity': {'key': 'identity', 'type': 'ManagedIdentity'},
     }
 
@@ -6492,6 +6824,7 @@ class Workspace(TrackedResource):
         self.managed_virtual_network_settings = managed_virtual_network_settings
         self.workspace_repository_configuration = workspace_repository_configuration
         self.purview_configuration = purview_configuration
+        self.adla_resource_id = None
         self.identity = identity
 
 
@@ -6637,6 +6970,10 @@ class WorkspaceRepositoryConfiguration(Model):
     :type collaboration_branch: str
     :param root_folder: Root folder to use in the repository
     :type root_folder: str
+    :param last_commit_id: The last commit ID
+    :type last_commit_id: str
+    :param tenant_id: The VSTS tenant ID
+    :type tenant_id: str
     """
 
     _attribute_map = {
@@ -6647,9 +6984,11 @@ class WorkspaceRepositoryConfiguration(Model):
         'repository_name': {'key': 'repositoryName', 'type': 'str'},
         'collaboration_branch': {'key': 'collaborationBranch', 'type': 'str'},
         'root_folder': {'key': 'rootFolder', 'type': 'str'},
+        'last_commit_id': {'key': 'lastCommitId', 'type': 'str'},
+        'tenant_id': {'key': 'tenantId', 'type': 'str'},
     }
 
-    def __init__(self, *, type: str=None, host_name: str=None, account_name: str=None, project_name: str=None, repository_name: str=None, collaboration_branch: str=None, root_folder: str=None, **kwargs) -> None:
+    def __init__(self, *, type: str=None, host_name: str=None, account_name: str=None, project_name: str=None, repository_name: str=None, collaboration_branch: str=None, root_folder: str=None, last_commit_id: str=None, tenant_id: str=None, **kwargs) -> None:
         super(WorkspaceRepositoryConfiguration, self).__init__(**kwargs)
         self.type = type
         self.host_name = host_name
@@ -6658,3 +6997,5 @@ class WorkspaceRepositoryConfiguration(Model):
         self.repository_name = repository_name
         self.collaboration_branch = collaboration_branch
         self.root_folder = root_folder
+        self.last_commit_id = last_commit_id
+        self.tenant_id = tenant_id

@@ -28,6 +28,7 @@ try:
     from ._models_py3 import DataMaskingPolicy
     from ._models_py3 import DataMaskingRule
     from ._models_py3 import DataWarehouseUserActivities
+    from ._models_py3 import DynamicExecutorAllocation
     from ._models_py3 import EncryptionDetails
     from ._models_py3 import EntityReference
     from ._models_py3 import EnvironmentVariableSetup
@@ -64,6 +65,9 @@ try:
     from ._models_py3 import LinkedIntegrationRuntimeKeyAuthorization
     from ._models_py3 import LinkedIntegrationRuntimeRbacAuthorization
     from ._models_py3 import LinkedIntegrationRuntimeType
+    from ._models_py3 import MaintenanceWindowOptions
+    from ._models_py3 import MaintenanceWindows
+    from ._models_py3 import MaintenanceWindowTimeRange
     from ._models_py3 import ManagedIdentity
     from ._models_py3 import ManagedIdentitySqlControlSettingsModel
     from ._models_py3 import ManagedIdentitySqlControlSettingsModelPropertiesGrantSqlControlToManagedIdentity
@@ -93,6 +97,8 @@ try:
     from ._models_py3 import QueryInterval
     from ._models_py3 import QueryMetric
     from ._models_py3 import QueryStatistic
+    from ._models_py3 import RecommendedSensitivityLabelUpdate
+    from ._models_py3 import RecommendedSensitivityLabelUpdateList
     from ._models_py3 import RecoverableSqlPool
     from ._models_py3 import ReplaceAllFirewallRulesOperationResponse
     from ._models_py3 import ReplaceAllIpFirewallRulesRequest
@@ -106,6 +112,8 @@ try:
     from ._models_py3 import SelfHostedIntegrationRuntimeNode
     from ._models_py3 import SelfHostedIntegrationRuntimeStatus
     from ._models_py3 import SensitivityLabel
+    from ._models_py3 import SensitivityLabelUpdate
+    from ._models_py3 import SensitivityLabelUpdateList
     from ._models_py3 import ServerBlobAuditingPolicy
     from ._models_py3 import ServerSecurityAlertPolicy
     from ._models_py3 import ServerUsage
@@ -172,6 +180,7 @@ except (SyntaxError, ImportError):
     from ._models import DataMaskingPolicy
     from ._models import DataMaskingRule
     from ._models import DataWarehouseUserActivities
+    from ._models import DynamicExecutorAllocation
     from ._models import EncryptionDetails
     from ._models import EntityReference
     from ._models import EnvironmentVariableSetup
@@ -208,6 +217,9 @@ except (SyntaxError, ImportError):
     from ._models import LinkedIntegrationRuntimeKeyAuthorization
     from ._models import LinkedIntegrationRuntimeRbacAuthorization
     from ._models import LinkedIntegrationRuntimeType
+    from ._models import MaintenanceWindowOptions
+    from ._models import MaintenanceWindows
+    from ._models import MaintenanceWindowTimeRange
     from ._models import ManagedIdentity
     from ._models import ManagedIdentitySqlControlSettingsModel
     from ._models import ManagedIdentitySqlControlSettingsModelPropertiesGrantSqlControlToManagedIdentity
@@ -237,6 +249,8 @@ except (SyntaxError, ImportError):
     from ._models import QueryInterval
     from ._models import QueryMetric
     from ._models import QueryStatistic
+    from ._models import RecommendedSensitivityLabelUpdate
+    from ._models import RecommendedSensitivityLabelUpdateList
     from ._models import RecoverableSqlPool
     from ._models import ReplaceAllFirewallRulesOperationResponse
     from ._models import ReplaceAllIpFirewallRulesRequest
@@ -250,6 +264,8 @@ except (SyntaxError, ImportError):
     from ._models import SelfHostedIntegrationRuntimeNode
     from ._models import SelfHostedIntegrationRuntimeStatus
     from ._models import SensitivityLabel
+    from ._models import SensitivityLabelUpdate
+    from ._models import SensitivityLabelUpdateList
     from ._models import ServerBlobAuditingPolicy
     from ._models import ServerSecurityAlertPolicy
     from ._models import ServerUsage
@@ -345,9 +361,11 @@ from ._synapse_management_client_enums import (
     RestorePointType,
     ReplicationRole,
     ReplicationState,
+    DayOfWeek,
     TransparentDataEncryptionStatus,
     BlobAuditingPolicyState,
     ManagementOperationState,
+    SensitivityLabelRank,
     ColumnDataType,
     VulnerabilityAssessmentScanTriggerType,
     VulnerabilityAssessmentScanState,
@@ -355,6 +373,8 @@ from ._synapse_management_client_enums import (
     DataMaskingState,
     DataMaskingRuleState,
     DataMaskingFunction,
+    SensitivityLabelUpdateKind,
+    RecommendedSensitivityLabelUpdateKind,
     ResourceIdentityType,
     IntegrationRuntimeType,
     IntegrationRuntimeState,
@@ -393,6 +413,7 @@ __all__ = [
     'DataMaskingPolicy',
     'DataMaskingRule',
     'DataWarehouseUserActivities',
+    'DynamicExecutorAllocation',
     'EncryptionDetails',
     'EntityReference',
     'EnvironmentVariableSetup',
@@ -429,6 +450,9 @@ __all__ = [
     'LinkedIntegrationRuntimeKeyAuthorization',
     'LinkedIntegrationRuntimeRbacAuthorization',
     'LinkedIntegrationRuntimeType',
+    'MaintenanceWindowOptions',
+    'MaintenanceWindows',
+    'MaintenanceWindowTimeRange',
     'ManagedIdentity',
     'ManagedIdentitySqlControlSettingsModel',
     'ManagedIdentitySqlControlSettingsModelPropertiesGrantSqlControlToManagedIdentity',
@@ -458,6 +482,8 @@ __all__ = [
     'QueryInterval',
     'QueryMetric',
     'QueryStatistic',
+    'RecommendedSensitivityLabelUpdate',
+    'RecommendedSensitivityLabelUpdateList',
     'RecoverableSqlPool',
     'ReplaceAllFirewallRulesOperationResponse',
     'ReplaceAllIpFirewallRulesRequest',
@@ -471,6 +497,8 @@ __all__ = [
     'SelfHostedIntegrationRuntimeNode',
     'SelfHostedIntegrationRuntimeStatus',
     'SensitivityLabel',
+    'SensitivityLabelUpdate',
+    'SensitivityLabelUpdateList',
     'ServerBlobAuditingPolicy',
     'ServerSecurityAlertPolicy',
     'ServerUsage',
@@ -565,9 +593,11 @@ __all__ = [
     'RestorePointType',
     'ReplicationRole',
     'ReplicationState',
+    'DayOfWeek',
     'TransparentDataEncryptionStatus',
     'BlobAuditingPolicyState',
     'ManagementOperationState',
+    'SensitivityLabelRank',
     'ColumnDataType',
     'VulnerabilityAssessmentScanTriggerType',
     'VulnerabilityAssessmentScanState',
@@ -575,6 +605,8 @@ __all__ = [
     'DataMaskingState',
     'DataMaskingRuleState',
     'DataMaskingFunction',
+    'SensitivityLabelUpdateKind',
+    'RecommendedSensitivityLabelUpdateKind',
     'ResourceIdentityType',
     'IntegrationRuntimeType',
     'IntegrationRuntimeState',
