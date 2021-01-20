@@ -66,6 +66,8 @@ from .operations import DevicesForSubscriptionOperations
 from .operations import DevicesForHubOperations
 from .operations import DeviceOperations
 from .operations import OnPremiseIotSensorsOperations
+from .operations import InsightsOperations
+from .operations import IotSitesOperations
 from . import models
 
 
@@ -181,6 +183,10 @@ class SecurityCenter(SDKClient):
     :vartype device: azure.mgmt.security.operations.DeviceOperations
     :ivar on_premise_iot_sensors: OnPremiseIotSensors operations
     :vartype on_premise_iot_sensors: azure.mgmt.security.operations.OnPremiseIotSensorsOperations
+    :ivar insights: Insights operations
+    :vartype insights: azure.mgmt.security.operations.InsightsOperations
+    :ivar iot_sites: IotSites operations
+    :vartype iot_sites: azure.mgmt.security.operations.IotSitesOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -308,4 +314,8 @@ class SecurityCenter(SDKClient):
         self.device = DeviceOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.on_premise_iot_sensors = OnPremiseIotSensorsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.insights = InsightsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.iot_sites = IotSitesOperations(
             self._client, self.config, self._serialize, self._deserialize)

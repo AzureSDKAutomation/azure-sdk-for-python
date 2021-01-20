@@ -519,3 +519,16 @@ class DevicePaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(DevicePaged, self).__init__(*args, **kwargs)
+class InsightsModelPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`InsightsModel <azure.mgmt.security.models.InsightsModel>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[InsightsModel]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(InsightsModelPaged, self).__init__(*args, **kwargs)
