@@ -16,16 +16,19 @@ from msrest.exceptions import HttpOperationError
 class Resource(Model):
     """Resource.
 
+    Common fields that are returned in the response for all Azure Resource
+    Manager resources.
+
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     """
 
@@ -49,19 +52,21 @@ class Resource(Model):
 
 
 class AzureEntityResource(Resource):
-    """The resource model definition for a Azure Resource Manager resource with an
-    etag.
+    """Entity Resource.
+
+    The resource model definition for an Azure Resource Manager resource with
+    an etag.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -330,13 +335,13 @@ class PrivateEndpointConnection(Resource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param private_endpoint: The resource of private end point.
     :type private_endpoint: ~azure.mgmt.healthcareapis.models.PrivateEndpoint
@@ -375,19 +380,73 @@ class PrivateEndpointConnection(Resource):
         self.provisioning_state = provisioning_state
 
 
+class PrivateEndpointConnectionDescription(PrivateEndpointConnection):
+    """The Private Endpoint Connection resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Fully qualified resource ID for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+    :vartype type: str
+    :param private_endpoint: The resource of private end point.
+    :type private_endpoint: ~azure.mgmt.healthcareapis.models.PrivateEndpoint
+    :param private_link_service_connection_state: Required. A collection of
+     information about the state of the connection between service consumer and
+     provider.
+    :type private_link_service_connection_state:
+     ~azure.mgmt.healthcareapis.models.PrivateLinkServiceConnectionState
+    :param provisioning_state: The provisioning state of the private endpoint
+     connection resource. Possible values include: 'Succeeded', 'Creating',
+     'Deleting', 'Failed'
+    :type provisioning_state: str or
+     ~azure.mgmt.healthcareapis.models.PrivateEndpointConnectionProvisioningState
+    :param system_data: System metadata for this resource.
+    :type system_data: ~azure.mgmt.healthcareapis.models.SystemData
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'private_link_service_connection_state': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'private_endpoint': {'key': 'properties.privateEndpoint', 'type': 'PrivateEndpoint'},
+        'private_link_service_connection_state': {'key': 'properties.privateLinkServiceConnectionState', 'type': 'PrivateLinkServiceConnectionState'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
+    }
+
+    def __init__(self, *, private_link_service_connection_state, private_endpoint=None, provisioning_state=None, system_data=None, **kwargs) -> None:
+        super(PrivateEndpointConnectionDescription, self).__init__(private_endpoint=private_endpoint, private_link_service_connection_state=private_link_service_connection_state, provisioning_state=provisioning_state, **kwargs)
+        self.system_data = system_data
+
+
 class PrivateLinkResource(Resource):
     """A private link resource.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :ivar group_id: The private link resource group id.
     :vartype group_id: str
@@ -422,19 +481,68 @@ class PrivateLinkResource(Resource):
         self.required_zone_names = required_zone_names
 
 
-class PrivateLinkResourceListResult(Model):
+class PrivateLinkResourceDescription(PrivateLinkResource):
+    """The Private Endpoint Connection resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Fully qualified resource ID for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+    :vartype type: str
+    :ivar group_id: The private link resource group id.
+    :vartype group_id: str
+    :ivar required_members: The private link resource required member names.
+    :vartype required_members: list[str]
+    :param required_zone_names: The private link resource Private link DNS
+     zone name.
+    :type required_zone_names: list[str]
+    :param system_data: System metadata for this resource.
+    :type system_data: ~azure.mgmt.healthcareapis.models.SystemData
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'group_id': {'readonly': True},
+        'required_members': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'group_id': {'key': 'properties.groupId', 'type': 'str'},
+        'required_members': {'key': 'properties.requiredMembers', 'type': '[str]'},
+        'required_zone_names': {'key': 'properties.requiredZoneNames', 'type': '[str]'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
+    }
+
+    def __init__(self, *, required_zone_names=None, system_data=None, **kwargs) -> None:
+        super(PrivateLinkResourceDescription, self).__init__(required_zone_names=required_zone_names, **kwargs)
+        self.system_data = system_data
+
+
+class PrivateLinkResourceListResultDescription(Model):
     """A list of private link resources.
 
     :param value: Array of private link resources
-    :type value: list[~azure.mgmt.healthcareapis.models.PrivateLinkResource]
+    :type value:
+     list[~azure.mgmt.healthcareapis.models.PrivateLinkResourceDescription]
     """
 
     _attribute_map = {
-        'value': {'key': 'value', 'type': '[PrivateLinkResource]'},
+        'value': {'key': 'value', 'type': '[PrivateLinkResourceDescription]'},
     }
 
     def __init__(self, *, value=None, **kwargs) -> None:
-        super(PrivateLinkResourceListResult, self).__init__(**kwargs)
+        super(PrivateLinkResourceListResultDescription, self).__init__(**kwargs)
         self.value = value
 
 
@@ -468,19 +576,21 @@ class PrivateLinkServiceConnectionState(Model):
 
 
 class ProxyResource(Resource):
-    """The resource model definition for a ARM proxy resource. It will have
-    everything other than required location and tags.
+    """Proxy Resource.
+
+    The resource model definition for a Azure Resource Manager proxy resource.
+    It will not have tags and a location.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     """
 
@@ -521,6 +631,22 @@ class ServiceAccessPolicyEntry(Model):
     def __init__(self, *, object_id: str, **kwargs) -> None:
         super(ServiceAccessPolicyEntry, self).__init__(**kwargs)
         self.object_id = object_id
+
+
+class ServiceAcrConfigurationInfo(Model):
+    """Azure container registry configuration information.
+
+    :param login_servers: The list of the ACR login servers.
+    :type login_servers: list[str]
+    """
+
+    _attribute_map = {
+        'login_servers': {'key': 'loginServers', 'type': '[str]'},
+    }
+
+    def __init__(self, *, login_servers=None, **kwargs) -> None:
+        super(ServiceAcrConfigurationInfo, self).__init__(**kwargs)
+        self.login_servers = login_servers
 
 
 class ServiceAuthenticationConfigurationInfo(Model):
@@ -715,6 +841,8 @@ class ServicesDescription(ServicesResource):
     :type identity: ~azure.mgmt.healthcareapis.models.ServicesResourceIdentity
     :param properties: The common properties of a service.
     :type properties: ~azure.mgmt.healthcareapis.models.ServicesProperties
+    :param system_data:
+    :type system_data: ~azure.mgmt.healthcareapis.models.SystemData
     """
 
     _validation = {
@@ -735,11 +863,13 @@ class ServicesDescription(ServicesResource):
         'etag': {'key': 'etag', 'type': 'str'},
         'identity': {'key': 'identity', 'type': 'ServicesResourceIdentity'},
         'properties': {'key': 'properties', 'type': 'ServicesProperties'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
     }
 
-    def __init__(self, *, kind, location: str, tags=None, etag: str=None, identity=None, properties=None, **kwargs) -> None:
+    def __init__(self, *, kind, location: str, tags=None, etag: str=None, identity=None, properties=None, system_data=None, **kwargs) -> None:
         super(ServicesDescription, self).__init__(kind=kind, location=location, tags=tags, etag=etag, identity=identity, **kwargs)
         self.properties = properties
+        self.system_data = system_data
 
 
 class ServicesNameAvailabilityInfo(Model):
@@ -830,6 +960,10 @@ class ServicesProperties(Model):
      service instance.
     :type export_configuration:
      ~azure.mgmt.healthcareapis.models.ServiceExportConfigurationInfo
+    :param acr_configuration: The azure container registry settings used for
+     convert data operation of the service instance.
+    :type acr_configuration:
+     ~azure.mgmt.healthcareapis.models.ServiceAcrConfigurationInfo
     :param private_endpoint_connections: The list of private endpoint
      connections that are set up for this resource.
     :type private_endpoint_connections:
@@ -852,11 +986,12 @@ class ServicesProperties(Model):
         'authentication_configuration': {'key': 'authenticationConfiguration', 'type': 'ServiceAuthenticationConfigurationInfo'},
         'cors_configuration': {'key': 'corsConfiguration', 'type': 'ServiceCorsConfigurationInfo'},
         'export_configuration': {'key': 'exportConfiguration', 'type': 'ServiceExportConfigurationInfo'},
+        'acr_configuration': {'key': 'acrConfiguration', 'type': 'ServiceAcrConfigurationInfo'},
         'private_endpoint_connections': {'key': 'privateEndpointConnections', 'type': '[PrivateEndpointConnection]'},
         'public_network_access': {'key': 'publicNetworkAccess', 'type': 'str'},
     }
 
-    def __init__(self, *, access_policies=None, cosmos_db_configuration=None, authentication_configuration=None, cors_configuration=None, export_configuration=None, private_endpoint_connections=None, public_network_access=None, **kwargs) -> None:
+    def __init__(self, *, access_policies=None, cosmos_db_configuration=None, authentication_configuration=None, cors_configuration=None, export_configuration=None, acr_configuration=None, private_endpoint_connections=None, public_network_access=None, **kwargs) -> None:
         super(ServicesProperties, self).__init__(**kwargs)
         self.provisioning_state = None
         self.access_policies = access_policies
@@ -864,6 +999,7 @@ class ServicesProperties(Model):
         self.authentication_configuration = authentication_configuration
         self.cors_configuration = cors_configuration
         self.export_configuration = export_configuration
+        self.acr_configuration = acr_configuration
         self.private_endpoint_connections = private_endpoint_connections
         self.public_network_access = public_network_access
 
@@ -903,21 +1039,66 @@ class ServicesResourceIdentity(Model):
         self.type = type
 
 
+class SystemData(Model):
+    """Metadata pertaining to creation and last modification of the resource.
+
+    :param created_by: The identity that created the resource.
+    :type created_by: str
+    :param created_by_type: The type of identity that created the resource.
+     Possible values include: 'User', 'Application', 'ManagedIdentity', 'Key'
+    :type created_by_type: str or
+     ~azure.mgmt.healthcareapis.models.CreatedByType
+    :param created_at: The timestamp of resource creation (UTC).
+    :type created_at: datetime
+    :param last_modified_by: The identity that last modified the resource.
+    :type last_modified_by: str
+    :param last_modified_by_type: The type of identity that last modified the
+     resource. Possible values include: 'User', 'Application',
+     'ManagedIdentity', 'Key'
+    :type last_modified_by_type: str or
+     ~azure.mgmt.healthcareapis.models.CreatedByType
+    :param last_modified_at: The type of identity that last modified the
+     resource.
+    :type last_modified_at: datetime
+    """
+
+    _attribute_map = {
+        'created_by': {'key': 'createdBy', 'type': 'str'},
+        'created_by_type': {'key': 'createdByType', 'type': 'str'},
+        'created_at': {'key': 'createdAt', 'type': 'iso-8601'},
+        'last_modified_by': {'key': 'lastModifiedBy', 'type': 'str'},
+        'last_modified_by_type': {'key': 'lastModifiedByType', 'type': 'str'},
+        'last_modified_at': {'key': 'lastModifiedAt', 'type': 'iso-8601'},
+    }
+
+    def __init__(self, *, created_by: str=None, created_by_type=None, created_at=None, last_modified_by: str=None, last_modified_by_type=None, last_modified_at=None, **kwargs) -> None:
+        super(SystemData, self).__init__(**kwargs)
+        self.created_by = created_by
+        self.created_by_type = created_by_type
+        self.created_at = created_at
+        self.last_modified_by = last_modified_by
+        self.last_modified_by_type = last_modified_by_type
+        self.last_modified_at = last_modified_at
+
+
 class TrackedResource(Resource):
-    """The resource model definition for a ARM tracked top level resource.
+    """Tracked Resource.
+
+    The resource model definition for an Azure Resource Manager tracked top
+    level resource which has 'tags' and a 'location'.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
