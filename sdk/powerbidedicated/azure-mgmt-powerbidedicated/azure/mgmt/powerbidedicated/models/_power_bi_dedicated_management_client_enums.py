@@ -12,11 +12,6 @@
 from enum import Enum
 
 
-class SkuTier(str, Enum):
-
-    pbie_azure = "PBIE_Azure"
-
-
 class State(str, Enum):
 
     deleting = "Deleting"
@@ -47,3 +42,18 @@ class ProvisioningState(str, Enum):
     resuming = "Resuming"
     preparing = "Preparing"
     scaling = "Scaling"
+
+
+class SkuTier(str, Enum):
+
+    pbie_azure = "PBIE_Azure"
+    premium = "Premium"
+    auto_premium_host = "AutoPremiumHost"
+
+
+class IdentityType(str, Enum):
+
+    user = "User"
+    application = "Application"
+    managed_identity = "ManagedIdentity"
+    key = "Key"

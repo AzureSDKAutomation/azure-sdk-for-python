@@ -91,6 +91,9 @@ class Resource(Model):
     :param tags: Key-value pairs of additional resource provisioning
      properties.
     :type tags: dict[str, str]
+    :param system_data: Metadata pertaining to creation and last modification
+     of the resource.
+    :type system_data: ~azure.mgmt.powerbidedicated.models.SystemData
     """
 
     _validation = {
@@ -108,9 +111,10 @@ class Resource(Model):
         'location': {'key': 'location', 'type': 'str'},
         'sku': {'key': 'sku', 'type': 'ResourceSku'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
     }
 
-    def __init__(self, *, location: str, sku, tags=None, **kwargs) -> None:
+    def __init__(self, *, location: str, sku, tags=None, system_data=None, **kwargs) -> None:
         super(Resource, self).__init__(**kwargs)
         self.id = None
         self.name = None
@@ -118,6 +122,7 @@ class Resource(Model):
         self.location = location
         self.sku = sku
         self.tags = tags
+        self.system_data = system_data
 
 
 class DedicatedCapacity(Resource):
@@ -141,6 +146,9 @@ class DedicatedCapacity(Resource):
     :param tags: Key-value pairs of additional resource provisioning
      properties.
     :type tags: dict[str, str]
+    :param system_data: Metadata pertaining to creation and last modification
+     of the resource.
+    :type system_data: ~azure.mgmt.powerbidedicated.models.SystemData
     :param administration: A collection of Dedicated capacity administrators
     :type administration:
      ~azure.mgmt.powerbidedicated.models.DedicatedCapacityAdministrators
@@ -176,13 +184,14 @@ class DedicatedCapacity(Resource):
         'location': {'key': 'location', 'type': 'str'},
         'sku': {'key': 'sku', 'type': 'ResourceSku'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
         'administration': {'key': 'properties.administration', 'type': 'DedicatedCapacityAdministrators'},
         'state': {'key': 'properties.state', 'type': 'str'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
     }
 
-    def __init__(self, *, location: str, sku, tags=None, administration=None, **kwargs) -> None:
-        super(DedicatedCapacity, self).__init__(location=location, sku=sku, tags=tags, **kwargs)
+    def __init__(self, *, location: str, sku, tags=None, system_data=None, administration=None, **kwargs) -> None:
+        super(DedicatedCapacity, self).__init__(location=location, sku=sku, tags=tags, system_data=system_data, **kwargs)
         self.administration = administration
         self.state = None
         self.provisioning_state = None
@@ -229,24 +238,96 @@ class DedicatedCapacityUpdateParameters(Model):
         self.administration = administration
 
 
-class ErrorResponse(Model):
-    """Describes the format of Error response.
+class ErrorAdditionalInfo(Model):
+    """The resource management error additional info.
 
-    :param code: Error code
-    :type code: str
-    :param message: Error message indicating why the operation failed.
-    :type message: str
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar type: The additional info type.
+    :vartype type: str
+    :ivar info: The additional info.
+    :vartype info: object
     """
+
+    _validation = {
+        'type': {'readonly': True},
+        'info': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'info': {'key': 'info', 'type': 'object'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(ErrorAdditionalInfo, self).__init__(**kwargs)
+        self.type = None
+        self.info = None
+
+
+class ErrorDetail(Model):
+    """The error detail.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar code: The error code.
+    :vartype code: str
+    :ivar message: The error message.
+    :vartype message: str
+    :ivar target: The error target.
+    :vartype target: str
+    :ivar details: The error details.
+    :vartype details: list[~azure.mgmt.powerbidedicated.models.ErrorDetail]
+    :ivar additional_info: The error additional info.
+    :vartype additional_info:
+     list[~azure.mgmt.powerbidedicated.models.ErrorAdditionalInfo]
+    """
+
+    _validation = {
+        'code': {'readonly': True},
+        'message': {'readonly': True},
+        'target': {'readonly': True},
+        'details': {'readonly': True},
+        'additional_info': {'readonly': True},
+    }
 
     _attribute_map = {
         'code': {'key': 'code', 'type': 'str'},
         'message': {'key': 'message', 'type': 'str'},
+        'target': {'key': 'target', 'type': 'str'},
+        'details': {'key': 'details', 'type': '[ErrorDetail]'},
+        'additional_info': {'key': 'additionalInfo', 'type': '[ErrorAdditionalInfo]'},
     }
 
-    def __init__(self, *, code: str=None, message: str=None, **kwargs) -> None:
+    def __init__(self, **kwargs) -> None:
+        super(ErrorDetail, self).__init__(**kwargs)
+        self.code = None
+        self.message = None
+        self.target = None
+        self.details = None
+        self.additional_info = None
+
+
+class ErrorResponse(Model):
+    """Error response.
+
+    Common error response for all Azure Resource Manager APIs to return error
+    details for failed operations. (This also follows the OData error response
+    format.).
+
+    :param error: The error object.
+    :type error: ~azure.mgmt.powerbidedicated.models.ErrorDetail
+    """
+
+    _attribute_map = {
+        'error': {'key': 'error', 'type': 'ErrorDetail'},
+    }
+
+    def __init__(self, *, error=None, **kwargs) -> None:
         super(ErrorResponse, self).__init__(**kwargs)
-        self.code = code
-        self.message = message
+        self.error = error
 
 
 class ErrorResponseException(HttpOperationError):
@@ -331,7 +412,7 @@ class ResourceSku(Model):
     :param name: Required. Name of the SKU level.
     :type name: str
     :param tier: The name of the Azure pricing tier to which the SKU applies.
-     Possible values include: 'PBIE_Azure'
+     Possible values include: 'PBIE_Azure', 'Premium', 'AutoPremiumHost'
     :type tier: str or ~azure.mgmt.powerbidedicated.models.SkuTier
     """
 
@@ -397,3 +478,46 @@ class SkuEnumerationForNewResourceResult(Model):
     def __init__(self, *, value=None, **kwargs) -> None:
         super(SkuEnumerationForNewResourceResult, self).__init__(**kwargs)
         self.value = value
+
+
+class SystemData(Model):
+    """Metadata pertaining to creation and last modification of the resource.
+
+    :param created_by: An identifier for the identity that created the
+     resource
+    :type created_by: str
+    :param created_by_type: The type of identity that created the resource.
+     Possible values include: 'User', 'Application', 'ManagedIdentity', 'Key'
+    :type created_by_type: str or
+     ~azure.mgmt.powerbidedicated.models.IdentityType
+    :param created_at: The timestamp of resource creation (UTC)
+    :type created_at: datetime
+    :param last_modified_by: An identifier for the identity that last modified
+     the resource
+    :type last_modified_by: str
+    :param last_modified_by_type: The type of identity that last modified the
+     resource. Possible values include: 'User', 'Application',
+     'ManagedIdentity', 'Key'
+    :type last_modified_by_type: str or
+     ~azure.mgmt.powerbidedicated.models.IdentityType
+    :param last_modified_at: The timestamp of resource last modification (UTC)
+    :type last_modified_at: datetime
+    """
+
+    _attribute_map = {
+        'created_by': {'key': 'createdBy', 'type': 'str'},
+        'created_by_type': {'key': 'createdByType', 'type': 'str'},
+        'created_at': {'key': 'createdAt', 'type': 'iso-8601'},
+        'last_modified_by': {'key': 'lastModifiedBy', 'type': 'str'},
+        'last_modified_by_type': {'key': 'lastModifiedByType', 'type': 'str'},
+        'last_modified_at': {'key': 'lastModifiedAt', 'type': 'iso-8601'},
+    }
+
+    def __init__(self, *, created_by: str=None, created_by_type=None, created_at=None, last_modified_by: str=None, last_modified_by_type=None, last_modified_at=None, **kwargs) -> None:
+        super(SystemData, self).__init__(**kwargs)
+        self.created_by = created_by
+        self.created_by_type = created_by_type
+        self.created_at = created_at
+        self.last_modified_by = last_modified_by
+        self.last_modified_by_type = last_modified_by_type
+        self.last_modified_at = last_modified_at

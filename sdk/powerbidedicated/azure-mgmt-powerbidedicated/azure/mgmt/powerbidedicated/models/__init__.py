@@ -15,6 +15,8 @@ try:
     from ._models_py3 import DedicatedCapacity
     from ._models_py3 import DedicatedCapacityAdministrators
     from ._models_py3 import DedicatedCapacityUpdateParameters
+    from ._models_py3 import ErrorAdditionalInfo
+    from ._models_py3 import ErrorDetail
     from ._models_py3 import ErrorResponse, ErrorResponseException
     from ._models_py3 import Operation
     from ._models_py3 import OperationDisplay
@@ -23,12 +25,15 @@ try:
     from ._models_py3 import SkuDetailsForExistingResource
     from ._models_py3 import SkuEnumerationForExistingResourceResult
     from ._models_py3 import SkuEnumerationForNewResourceResult
+    from ._models_py3 import SystemData
 except (SyntaxError, ImportError):
     from ._models import CheckCapacityNameAvailabilityParameters
     from ._models import CheckCapacityNameAvailabilityResult
     from ._models import DedicatedCapacity
     from ._models import DedicatedCapacityAdministrators
     from ._models import DedicatedCapacityUpdateParameters
+    from ._models import ErrorAdditionalInfo
+    from ._models import ErrorDetail
     from ._models import ErrorResponse, ErrorResponseException
     from ._models import Operation
     from ._models import OperationDisplay
@@ -37,12 +42,14 @@ except (SyntaxError, ImportError):
     from ._models import SkuDetailsForExistingResource
     from ._models import SkuEnumerationForExistingResourceResult
     from ._models import SkuEnumerationForNewResourceResult
+    from ._models import SystemData
 from ._paged_models import DedicatedCapacityPaged
 from ._paged_models import OperationPaged
 from ._power_bi_dedicated_management_client_enums import (
-    SkuTier,
     State,
     ProvisioningState,
+    SkuTier,
+    IdentityType,
 )
 
 __all__ = [
@@ -51,6 +58,8 @@ __all__ = [
     'DedicatedCapacity',
     'DedicatedCapacityAdministrators',
     'DedicatedCapacityUpdateParameters',
+    'ErrorAdditionalInfo',
+    'ErrorDetail',
     'ErrorResponse', 'ErrorResponseException',
     'Operation',
     'OperationDisplay',
@@ -59,9 +68,11 @@ __all__ = [
     'SkuDetailsForExistingResource',
     'SkuEnumerationForExistingResourceResult',
     'SkuEnumerationForNewResourceResult',
+    'SystemData',
     'DedicatedCapacityPaged',
     'OperationPaged',
-    'SkuTier',
     'State',
     'ProvisioningState',
+    'SkuTier',
+    'IdentityType',
 ]
