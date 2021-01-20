@@ -65,7 +65,7 @@ class ServicesOperations:
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-03-30"
+        api_version = "2021-01-11"
         accept = "application/json"
 
         # Construct URL
@@ -114,7 +114,7 @@ class ServicesOperations:
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-03-30"
+        api_version = "2021-01-11"
         content_type = kwargs.pop("content_type", "application/json")
         accept = "application/json"
 
@@ -243,7 +243,7 @@ class ServicesOperations:
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-03-30"
+        api_version = "2021-01-11"
         content_type = kwargs.pop("content_type", "application/json")
         accept = "application/json"
 
@@ -367,7 +367,7 @@ class ServicesOperations:
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-03-30"
+        api_version = "2021-01-11"
         accept = "application/json"
 
         # Construct URL
@@ -481,7 +481,7 @@ class ServicesOperations:
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-03-30"
+        api_version = "2021-01-11"
         accept = "application/json"
 
         def prepare_request(next_link=None):
@@ -551,7 +551,7 @@ class ServicesOperations:
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-03-30"
+        api_version = "2021-01-11"
         accept = "application/json"
 
         def prepare_request(next_link=None):
@@ -623,7 +623,7 @@ class ServicesOperations:
             401: ClientAuthenticationError, 404: ResourceNotFoundError, 409: ResourceExistsError
         }
         error_map.update(kwargs.pop('error_map', {}))
-        api_version = "2020-03-30"
+        api_version = "2021-01-11"
         content_type = kwargs.pop("content_type", "application/json")
         accept = "application/json"
 
