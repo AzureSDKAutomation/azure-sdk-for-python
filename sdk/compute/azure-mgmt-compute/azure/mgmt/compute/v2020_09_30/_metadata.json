@@ -52,11 +52,6 @@
         "credential_key_header_name": null
     },
     "operation_groups": {
-        "disks": "DisksOperations",
-        "snapshots": "SnapshotsOperations",
-        "disk_encryption_sets": "DiskEncryptionSetsOperations",
-        "disk_accesses": "DiskAccessesOperations",
-        "disk_restore_point": "DiskRestorePointOperations",
         "galleries": "GalleriesOperations",
         "gallery_images": "GalleryImagesOperations",
         "gallery_image_versions": "GalleryImageVersionsOperations",

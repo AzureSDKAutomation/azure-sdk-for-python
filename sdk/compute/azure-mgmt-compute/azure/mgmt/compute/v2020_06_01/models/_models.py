@@ -983,8 +983,8 @@ class DedicatedHostGroup(Resource):
     :param support_automatic_placement: Specifies whether virtual machines or virtual machine scale
      sets can be placed automatically on the dedicated host group. Automatic placement means
      resources are allocated on dedicated hosts, that are chosen by Azure, under the dedicated host
-     group. The value is defaulted to 'false' when not provided. :code:`<br>`:code:`<br>`Minimum
-     api-version: 2020-06-01.
+     group. The value is defaulted to 'true' when not provided. :code:`<br>`:code:`<br>`Minimum api-
+     version: 2020-06-01.
     :type support_automatic_placement: bool
     """
 
@@ -1093,8 +1093,8 @@ class DedicatedHostGroupUpdate(UpdateResource):
     :param support_automatic_placement: Specifies whether virtual machines or virtual machine scale
      sets can be placed automatically on the dedicated host group. Automatic placement means
      resources are allocated on dedicated hosts, that are chosen by Azure, under the dedicated host
-     group. The value is defaulted to 'false' when not provided. :code:`<br>`:code:`<br>`Minimum
-     api-version: 2020-06-01.
+     group. The value is defaulted to 'true' when not provided. :code:`<br>`:code:`<br>`Minimum api-
+     version: 2020-06-01.
     :type support_automatic_placement: bool
     """
 
@@ -1462,29 +1462,26 @@ class HardwareProfile(msrest.serialization.Model):
     """Specifies the hardware settings for the virtual machine.
 
     :param vm_size: Specifies the size of the virtual machine. For more information about virtual
-     machine sizes, see `Sizes for virtual machines <https://docs.microsoft.com/en-us/azure/virtual-
-     machines/sizes>`_. :code:`<br>`:code:`<br>` The available VM sizes depend on region and
-     availability set. For a list of available sizes use these APIs:  :code:`<br>`:code:`<br>` `List
-     all available virtual machine sizes in an availability set
+     machine sizes, see `Sizes for virtual machines <https://docs.microsoft.com/azure/virtual-
+     machines/virtual-machines-windows-sizes?toc=%2fazure%2fvirtual-
+     machines%2fwindows%2ftoc.json>`_. :code:`<br>`:code:`<br>` The available VM sizes depend on
+     region and availability set. For a list of available sizes use these APIs:
+     :code:`<br>`:code:`<br>` `List all available virtual machine sizes in an availability set
      <https://docs.microsoft.com/rest/api/compute/availabilitysets/listavailablesizes>`_
      :code:`<br>`:code:`<br>` `List all available virtual machine sizes in a region
-     <https://docs.microsoft.com/en-us/rest/api/compute/resourceskus/list>`_
+     <https://docs.microsoft.com/rest/api/compute/virtualmachinesizes/list>`_
      :code:`<br>`:code:`<br>` `List all available virtual machine sizes for resizing
-     <https://docs.microsoft.com/rest/api/compute/virtualmachines/listavailablesizes>`_.
-     :code:`<br>`:code:`<br>` This list of sizes is no longer updated and the
-     **VirtualMachineSizeTypes** string constants will be removed from the subsequent REST API
-     specification. Use `List all available virtual machine sizes in a region
-     <https://docs.microsoft.com/en-us/rest/api/compute/resourceskus/list>`_ to get the latest
-     sizes. Possible values include: "Basic_A0", "Basic_A1", "Basic_A2", "Basic_A3", "Basic_A4",
-     "Standard_A0", "Standard_A1", "Standard_A2", "Standard_A3", "Standard_A4", "Standard_A5",
-     "Standard_A6", "Standard_A7", "Standard_A8", "Standard_A9", "Standard_A10", "Standard_A11",
-     "Standard_A1_v2", "Standard_A2_v2", "Standard_A4_v2", "Standard_A8_v2", "Standard_A2m_v2",
-     "Standard_A4m_v2", "Standard_A8m_v2", "Standard_B1s", "Standard_B1ms", "Standard_B2s",
-     "Standard_B2ms", "Standard_B4ms", "Standard_B8ms", "Standard_D1", "Standard_D2", "Standard_D3",
-     "Standard_D4", "Standard_D11", "Standard_D12", "Standard_D13", "Standard_D14",
-     "Standard_D1_v2", "Standard_D2_v2", "Standard_D3_v2", "Standard_D4_v2", "Standard_D5_v2",
-     "Standard_D2_v3", "Standard_D4_v3", "Standard_D8_v3", "Standard_D16_v3", "Standard_D32_v3",
-     "Standard_D64_v3", "Standard_D2s_v3", "Standard_D4s_v3", "Standard_D8s_v3", "Standard_D16s_v3",
+     <https://docs.microsoft.com/rest/api/compute/virtualmachines/listavailablesizes>`_. Possible
+     values include: "Basic_A0", "Basic_A1", "Basic_A2", "Basic_A3", "Basic_A4", "Standard_A0",
+     "Standard_A1", "Standard_A2", "Standard_A3", "Standard_A4", "Standard_A5", "Standard_A6",
+     "Standard_A7", "Standard_A8", "Standard_A9", "Standard_A10", "Standard_A11", "Standard_A1_v2",
+     "Standard_A2_v2", "Standard_A4_v2", "Standard_A8_v2", "Standard_A2m_v2", "Standard_A4m_v2",
+     "Standard_A8m_v2", "Standard_B1s", "Standard_B1ms", "Standard_B2s", "Standard_B2ms",
+     "Standard_B4ms", "Standard_B8ms", "Standard_D1", "Standard_D2", "Standard_D3", "Standard_D4",
+     "Standard_D11", "Standard_D12", "Standard_D13", "Standard_D14", "Standard_D1_v2",
+     "Standard_D2_v2", "Standard_D3_v2", "Standard_D4_v2", "Standard_D5_v2", "Standard_D2_v3",
+     "Standard_D4_v3", "Standard_D8_v3", "Standard_D16_v3", "Standard_D32_v3", "Standard_D64_v3",
+     "Standard_D2s_v3", "Standard_D4s_v3", "Standard_D8s_v3", "Standard_D16s_v3",
      "Standard_D32s_v3", "Standard_D64s_v3", "Standard_D11_v2", "Standard_D12_v2",
      "Standard_D13_v2", "Standard_D14_v2", "Standard_D15_v2", "Standard_DS1", "Standard_DS2",
      "Standard_DS3", "Standard_DS4", "Standard_DS11", "Standard_DS12", "Standard_DS13",
@@ -2209,10 +2206,6 @@ class LogAnalyticsInputBase(msrest.serialization.Model):
     :type group_by_operation_name: bool
     :param group_by_resource_name: Group query result by Resource Name.
     :type group_by_resource_name: bool
-    :param group_by_client_application_id: Group query result by Client Application ID.
-    :type group_by_client_application_id: bool
-    :param group_by_user_agent: Group query result by User Agent.
-    :type group_by_user_agent: bool
     """
 
     _validation = {
@@ -2228,8 +2221,6 @@ class LogAnalyticsInputBase(msrest.serialization.Model):
         'group_by_throttle_policy': {'key': 'groupByThrottlePolicy', 'type': 'bool'},
         'group_by_operation_name': {'key': 'groupByOperationName', 'type': 'bool'},
         'group_by_resource_name': {'key': 'groupByResourceName', 'type': 'bool'},
-        'group_by_client_application_id': {'key': 'groupByClientApplicationId', 'type': 'bool'},
-        'group_by_user_agent': {'key': 'groupByUserAgent', 'type': 'bool'},
     }
 
     def __init__(
@@ -2243,8 +2234,6 @@ class LogAnalyticsInputBase(msrest.serialization.Model):
         self.group_by_throttle_policy = kwargs.get('group_by_throttle_policy', None)
         self.group_by_operation_name = kwargs.get('group_by_operation_name', None)
         self.group_by_resource_name = kwargs.get('group_by_resource_name', None)
-        self.group_by_client_application_id = kwargs.get('group_by_client_application_id', None)
-        self.group_by_user_agent = kwargs.get('group_by_user_agent', None)
 
 
 class LogAnalyticsOperationResult(msrest.serialization.Model):
@@ -2967,10 +2956,6 @@ class RequestRateByIntervalInput(LogAnalyticsInputBase):
     :type group_by_operation_name: bool
     :param group_by_resource_name: Group query result by Resource Name.
     :type group_by_resource_name: bool
-    :param group_by_client_application_id: Group query result by Client Application ID.
-    :type group_by_client_application_id: bool
-    :param group_by_user_agent: Group query result by User Agent.
-    :type group_by_user_agent: bool
     :param interval_length: Required. Interval value in minutes used to create LogAnalytics call
      rate logs. Possible values include: "ThreeMins", "FiveMins", "ThirtyMins", "SixtyMins".
     :type interval_length: str or ~azure.mgmt.compute.v2020_06_01.models.IntervalInMins
@@ -2990,8 +2975,6 @@ class RequestRateByIntervalInput(LogAnalyticsInputBase):
         'group_by_throttle_policy': {'key': 'groupByThrottlePolicy', 'type': 'bool'},
         'group_by_operation_name': {'key': 'groupByOperationName', 'type': 'bool'},
         'group_by_resource_name': {'key': 'groupByResourceName', 'type': 'bool'},
-        'group_by_client_application_id': {'key': 'groupByClientApplicationId', 'type': 'bool'},
-        'group_by_user_agent': {'key': 'groupByUserAgent', 'type': 'bool'},
         'interval_length': {'key': 'intervalLength', 'type': 'str'},
     }
 
@@ -3934,10 +3917,6 @@ class ThrottledRequestsInput(LogAnalyticsInputBase):
     :type group_by_operation_name: bool
     :param group_by_resource_name: Group query result by Resource Name.
     :type group_by_resource_name: bool
-    :param group_by_client_application_id: Group query result by Client Application ID.
-    :type group_by_client_application_id: bool
-    :param group_by_user_agent: Group query result by User Agent.
-    :type group_by_user_agent: bool
     """
 
     _validation = {
@@ -3953,8 +3932,6 @@ class ThrottledRequestsInput(LogAnalyticsInputBase):
         'group_by_throttle_policy': {'key': 'groupByThrottlePolicy', 'type': 'bool'},
         'group_by_operation_name': {'key': 'groupByOperationName', 'type': 'bool'},
         'group_by_resource_name': {'key': 'groupByResourceName', 'type': 'bool'},
-        'group_by_client_application_id': {'key': 'groupByClientApplicationId', 'type': 'bool'},
-        'group_by_user_agent': {'key': 'groupByUserAgent', 'type': 'bool'},
     }
 
     def __init__(
@@ -4397,15 +4374,14 @@ class VirtualMachine(Resource):
     :ivar instance_view: The virtual machine instance view.
     :vartype instance_view: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineInstanceView
     :param license_type: Specifies that the image or disk that is being used was licensed on-
-     premises. :code:`<br>`:code:`<br>` Possible values for Windows Server operating system are:
-     :code:`<br>`:code:`<br>` Windows_Client :code:`<br>`:code:`<br>` Windows_Server
-     :code:`<br>`:code:`<br>` Possible values for Linux Server operating system are:
-     :code:`<br>`:code:`<br>` RHEL_BYOS (for RHEL) :code:`<br>`:code:`<br>` SLES_BYOS (for SUSE)
+     premises. This element is only used for images that contain the Windows Server operating
+     system. :code:`<br>`:code:`<br>` Possible values are: :code:`<br>`:code:`<br>` Windows_Client
+     :code:`<br>`:code:`<br>` Windows_Server :code:`<br>`:code:`<br>` If this element is included in
+     a request for an update, the value must match the initial value. This value cannot be updated.
      :code:`<br>`:code:`<br>` For more information, see `Azure Hybrid Use Benefit for Windows Server
-     <https://docs.microsoft.com/azure/virtual-machines/windows/hybrid-use-benefit-licensing>`_
-     :code:`<br>`:code:`<br>` `Azure Hybrid Use Benefit for Linux Server
-     <https://docs.microsoft.com/azure/virtual-machines/linux/azure-hybrid-benefit-linux>`_
-     :code:`<br>`:code:`<br>` Minimum api-version: 2015-06-15.
+     <https://docs.microsoft.com/azure/virtual-machines/virtual-machines-windows-hybrid-use-benefit-
+     licensing?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json>`_ :code:`<br>`:code:`<br>`
+     Minimum api-version: 2015-06-15.
     :type license_type: str
     :ivar vm_id: Specifies the VM unique ID which is a 128-bits identifier that is encoded and
      stored in all Azure IaaS VMs SMBIOS and can be read using platform BIOS commands.
@@ -6401,8 +6377,6 @@ class VirtualMachineScaleSetNetworkConfiguration(SubResource):
     :param enable_accelerated_networking: Specifies whether the network interface is accelerated
      networking-enabled.
     :type enable_accelerated_networking: bool
-    :param enable_fpga: Specifies whether the network interface is FPGA networking-enabled.
-    :type enable_fpga: bool
     :param network_security_group: The network security group.
     :type network_security_group: ~azure.mgmt.compute.v2020_06_01.models.SubResource
     :param dns_settings: The dns settings to be applied on the network interfaces.
@@ -6424,7 +6398,6 @@ class VirtualMachineScaleSetNetworkConfiguration(SubResource):
         'name': {'key': 'name', 'type': 'str'},
         'primary': {'key': 'properties.primary', 'type': 'bool'},
         'enable_accelerated_networking': {'key': 'properties.enableAcceleratedNetworking', 'type': 'bool'},
-        'enable_fpga': {'key': 'properties.enableFpga', 'type': 'bool'},
         'network_security_group': {'key': 'properties.networkSecurityGroup', 'type': 'SubResource'},
         'dns_settings': {'key': 'properties.dnsSettings', 'type': 'VirtualMachineScaleSetNetworkConfigurationDnsSettings'},
         'ip_configurations': {'key': 'properties.ipConfigurations', 'type': '[VirtualMachineScaleSetIPConfiguration]'},
@@ -6439,7 +6412,6 @@ class VirtualMachineScaleSetNetworkConfiguration(SubResource):
         self.name = kwargs['name']
         self.primary = kwargs.get('primary', None)
         self.enable_accelerated_networking = kwargs.get('enable_accelerated_networking', None)
-        self.enable_fpga = kwargs.get('enable_fpga', None)
         self.network_security_group = kwargs.get('network_security_group', None)
         self.dns_settings = kwargs.get('dns_settings', None)
         self.ip_configurations = kwargs.get('ip_configurations', None)
@@ -7024,8 +6996,6 @@ class VirtualMachineScaleSetUpdateNetworkConfiguration(SubResource):
     :param enable_accelerated_networking: Specifies whether the network interface is accelerated
      networking-enabled.
     :type enable_accelerated_networking: bool
-    :param enable_fpga: Specifies whether the network interface is FPGA networking-enabled.
-    :type enable_fpga: bool
     :param network_security_group: The network security group.
     :type network_security_group: ~azure.mgmt.compute.v2020_06_01.models.SubResource
     :param dns_settings: The dns settings to be applied on the network interfaces.
@@ -7043,7 +7013,6 @@ class VirtualMachineScaleSetUpdateNetworkConfiguration(SubResource):
         'name': {'key': 'name', 'type': 'str'},
         'primary': {'key': 'properties.primary', 'type': 'bool'},
         'enable_accelerated_networking': {'key': 'properties.enableAcceleratedNetworking', 'type': 'bool'},
-        'enable_fpga': {'key': 'properties.enableFpga', 'type': 'bool'},
         'network_security_group': {'key': 'properties.networkSecurityGroup', 'type': 'SubResource'},
         'dns_settings': {'key': 'properties.dnsSettings', 'type': 'VirtualMachineScaleSetNetworkConfigurationDnsSettings'},
         'ip_configurations': {'key': 'properties.ipConfigurations', 'type': '[VirtualMachineScaleSetUpdateIPConfiguration]'},
@@ -7058,7 +7027,6 @@ class VirtualMachineScaleSetUpdateNetworkConfiguration(SubResource):
         self.name = kwargs.get('name', None)
         self.primary = kwargs.get('primary', None)
         self.enable_accelerated_networking = kwargs.get('enable_accelerated_networking', None)
-        self.enable_fpga = kwargs.get('enable_fpga', None)
         self.network_security_group = kwargs.get('network_security_group', None)
         self.dns_settings = kwargs.get('dns_settings', None)
         self.ip_configurations = kwargs.get('ip_configurations', None)
@@ -7353,15 +7321,14 @@ class VirtualMachineScaleSetVM(Resource):
     :ivar provisioning_state: The provisioning state, which only appears in the response.
     :vartype provisioning_state: str
     :param license_type: Specifies that the image or disk that is being used was licensed on-
-     premises. :code:`<br>`:code:`<br>` Possible values for Windows Server operating system are:
-     :code:`<br>`:code:`<br>` Windows_Client :code:`<br>`:code:`<br>` Windows_Server
-     :code:`<br>`:code:`<br>` Possible values for Linux Server operating system are:
-     :code:`<br>`:code:`<br>` RHEL_BYOS (for RHEL) :code:`<br>`:code:`<br>` SLES_BYOS (for SUSE)
+     premises. This element is only used for images that contain the Windows Server operating
+     system. :code:`<br>`:code:`<br>` Possible values are: :code:`<br>`:code:`<br>` Windows_Client
+     :code:`<br>`:code:`<br>` Windows_Server :code:`<br>`:code:`<br>` If this element is included in
+     a request for an update, the value must match the initial value. This value cannot be updated.
      :code:`<br>`:code:`<br>` For more information, see `Azure Hybrid Use Benefit for Windows Server
-     <https://docs.microsoft.com/azure/virtual-machines/windows/hybrid-use-benefit-licensing>`_
-     :code:`<br>`:code:`<br>` `Azure Hybrid Use Benefit for Linux Server
-     <https://docs.microsoft.com/azure/virtual-machines/linux/azure-hybrid-benefit-linux>`_
-     :code:`<br>`:code:`<br>` Minimum api-version: 2015-06-15.
+     <https://docs.microsoft.com/azure/virtual-machines/virtual-machines-windows-hybrid-use-benefit-
+     licensing?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json>`_ :code:`<br>`:code:`<br>`
+     Minimum api-version: 2015-06-15.
     :type license_type: str
     :ivar model_definition_applied: Specifies whether the model applied to the virtual machine is
      the model of the virtual machine scale set or the customized model for the virtual machine.
@@ -7444,106 +7411,6 @@ class VirtualMachineScaleSetVM(Resource):
         self.protection_policy = kwargs.get('protection_policy', None)
 
 
-class VirtualMachineScaleSetVMExtension(SubResourceReadOnly):
-    """Describes a VMSS VM Extension.
-
-    Variables are only populated by the server, and will be ignored when sending a request.
-
-    :ivar id: Resource Id.
-    :vartype id: str
-    :ivar name: The name of the extension.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :param force_update_tag: How the extension handler should be forced to update even if the
-     extension configuration has not changed.
-    :type force_update_tag: str
-    :param publisher: The name of the extension handler publisher.
-    :type publisher: str
-    :param type_properties_type: Specifies the type of the extension; an example is
-     "CustomScriptExtension".
-    :type type_properties_type: str
-    :param type_handler_version: Specifies the version of the script handler.
-    :type type_handler_version: str
-    :param auto_upgrade_minor_version: Indicates whether the extension should use a newer minor
-     version if one is available at deployment time. Once deployed, however, the extension will not
-     upgrade minor versions unless redeployed, even with this property set to true.
-    :type auto_upgrade_minor_version: bool
-    :param enable_automatic_upgrade: Indicates whether the extension should be automatically
-     upgraded by the platform if there is a newer version of the extension available.
-    :type enable_automatic_upgrade: bool
-    :param settings: Json formatted public settings for the extension.
-    :type settings: object
-    :param protected_settings: The extension can contain either protectedSettings or
-     protectedSettingsFromKeyVault or no protected settings at all.
-    :type protected_settings: object
-    :ivar provisioning_state: The provisioning state, which only appears in the response.
-    :vartype provisioning_state: str
-    :param instance_view: The virtual machine extension instance view.
-    :type instance_view: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineExtensionInstanceView
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'provisioning_state': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'force_update_tag': {'key': 'properties.forceUpdateTag', 'type': 'str'},
-        'publisher': {'key': 'properties.publisher', 'type': 'str'},
-        'type_properties_type': {'key': 'properties.type', 'type': 'str'},
-        'type_handler_version': {'key': 'properties.typeHandlerVersion', 'type': 'str'},
-        'auto_upgrade_minor_version': {'key': 'properties.autoUpgradeMinorVersion', 'type': 'bool'},
-        'enable_automatic_upgrade': {'key': 'properties.enableAutomaticUpgrade', 'type': 'bool'},
-        'settings': {'key': 'properties.settings', 'type': 'object'},
-        'protected_settings': {'key': 'properties.protectedSettings', 'type': 'object'},
-        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
-        'instance_view': {'key': 'properties.instanceView', 'type': 'VirtualMachineExtensionInstanceView'},
-    }
-
-    def __init__(
-        self,
-        **kwargs
-    ):
-        super(VirtualMachineScaleSetVMExtension, self).__init__(**kwargs)
-        self.name = None
-        self.type = None
-        self.force_update_tag = kwargs.get('force_update_tag', None)
-        self.publisher = kwargs.get('publisher', None)
-        self.type_properties_type = kwargs.get('type_properties_type', None)
-        self.type_handler_version = kwargs.get('type_handler_version', None)
-        self.auto_upgrade_minor_version = kwargs.get('auto_upgrade_minor_version', None)
-        self.enable_automatic_upgrade = kwargs.get('enable_automatic_upgrade', None)
-        self.settings = kwargs.get('settings', None)
-        self.protected_settings = kwargs.get('protected_settings', None)
-        self.provisioning_state = None
-        self.instance_view = kwargs.get('instance_view', None)
-
-
-class VirtualMachineScaleSetVMExtensionsListResult(msrest.serialization.Model):
-    """The List VMSS VM Extension operation response.
-
-    :param value: The list of VMSS VM extensions.
-    :type value: list[~azure.mgmt.compute.v2020_06_01.models.VirtualMachineScaleSetVMExtension]
-    """
-
-    _attribute_map = {
-        'value': {'key': 'value', 'type': '[VirtualMachineScaleSetVMExtension]'},
-    }
-
-    def __init__(
-        self,
-        **kwargs
-    ):
-        super(VirtualMachineScaleSetVMExtensionsListResult, self).__init__(**kwargs)
-        self.value = kwargs.get('value', None)
-
-
 class VirtualMachineScaleSetVMExtensionsSummary(msrest.serialization.Model):
     """Extensions summary for virtual machines of a virtual machine scale set.
 
@@ -7573,78 +7440,6 @@ class VirtualMachineScaleSetVMExtensionsSummary(msrest.serialization.Model):
         super(VirtualMachineScaleSetVMExtensionsSummary, self).__init__(**kwargs)
         self.name = None
         self.statuses_summary = None
-
-
-class VirtualMachineScaleSetVMExtensionUpdate(SubResourceReadOnly):
-    """Describes a VMSS VM Extension.
-
-    Variables are only populated by the server, and will be ignored when sending a request.
-
-    :ivar id: Resource Id.
-    :vartype id: str
-    :ivar name: The name of the extension.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :param force_update_tag: How the extension handler should be forced to update even if the
-     extension configuration has not changed.
-    :type force_update_tag: str
-    :param publisher: The name of the extension handler publisher.
-    :type publisher: str
-    :param type_properties_type: Specifies the type of the extension; an example is
-     "CustomScriptExtension".
-    :type type_properties_type: str
-    :param type_handler_version: Specifies the version of the script handler.
-    :type type_handler_version: str
-    :param auto_upgrade_minor_version: Indicates whether the extension should use a newer minor
-     version if one is available at deployment time. Once deployed, however, the extension will not
-     upgrade minor versions unless redeployed, even with this property set to true.
-    :type auto_upgrade_minor_version: bool
-    :param enable_automatic_upgrade: Indicates whether the extension should be automatically
-     upgraded by the platform if there is a newer version of the extension available.
-    :type enable_automatic_upgrade: bool
-    :param settings: Json formatted public settings for the extension.
-    :type settings: object
-    :param protected_settings: The extension can contain either protectedSettings or
-     protectedSettingsFromKeyVault or no protected settings at all.
-    :type protected_settings: object
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'force_update_tag': {'key': 'properties.forceUpdateTag', 'type': 'str'},
-        'publisher': {'key': 'properties.publisher', 'type': 'str'},
-        'type_properties_type': {'key': 'properties.type', 'type': 'str'},
-        'type_handler_version': {'key': 'properties.typeHandlerVersion', 'type': 'str'},
-        'auto_upgrade_minor_version': {'key': 'properties.autoUpgradeMinorVersion', 'type': 'bool'},
-        'enable_automatic_upgrade': {'key': 'properties.enableAutomaticUpgrade', 'type': 'bool'},
-        'settings': {'key': 'properties.settings', 'type': 'object'},
-        'protected_settings': {'key': 'properties.protectedSettings', 'type': 'object'},
-    }
-
-    def __init__(
-        self,
-        **kwargs
-    ):
-        super(VirtualMachineScaleSetVMExtensionUpdate, self).__init__(**kwargs)
-        self.name = None
-        self.type = None
-        self.force_update_tag = kwargs.get('force_update_tag', None)
-        self.publisher = kwargs.get('publisher', None)
-        self.type_properties_type = kwargs.get('type_properties_type', None)
-        self.type_handler_version = kwargs.get('type_handler_version', None)
-        self.auto_upgrade_minor_version = kwargs.get('auto_upgrade_minor_version', None)
-        self.enable_automatic_upgrade = kwargs.get('enable_automatic_upgrade', None)
-        self.settings = kwargs.get('settings', None)
-        self.protected_settings = kwargs.get('protected_settings', None)
 
 
 class VirtualMachineScaleSetVMInstanceIDs(msrest.serialization.Model):
@@ -7846,15 +7641,14 @@ class VirtualMachineScaleSetVMProfile(msrest.serialization.Model):
     :type extension_profile:
      ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineScaleSetExtensionProfile
     :param license_type: Specifies that the image or disk that is being used was licensed on-
-     premises. :code:`<br>`:code:`<br>` Possible values for Windows Server operating system are:
-     :code:`<br>`:code:`<br>` Windows_Client :code:`<br>`:code:`<br>` Windows_Server
-     :code:`<br>`:code:`<br>` Possible values for Linux Server operating system are:
-     :code:`<br>`:code:`<br>` RHEL_BYOS (for RHEL) :code:`<br>`:code:`<br>` SLES_BYOS (for SUSE)
+     premises. This element is only used for images that contain the Windows Server operating
+     system. :code:`<br>`:code:`<br>` Possible values are: :code:`<br>`:code:`<br>` Windows_Client
+     :code:`<br>`:code:`<br>` Windows_Server :code:`<br>`:code:`<br>` If this element is included in
+     a request for an update, the value must match the initial value. This value cannot be updated.
      :code:`<br>`:code:`<br>` For more information, see `Azure Hybrid Use Benefit for Windows Server
-     <https://docs.microsoft.com/azure/virtual-machines/windows/hybrid-use-benefit-licensing>`_
-     :code:`<br>`:code:`<br>` `Azure Hybrid Use Benefit for Linux Server
-     <https://docs.microsoft.com/azure/virtual-machines/linux/azure-hybrid-benefit-linux>`_
-     :code:`<br>`:code:`<br>` Minimum api-version: 2015-06-15.
+     <https://docs.microsoft.com/azure/virtual-machines/virtual-machines-windows-hybrid-use-benefit-
+     licensing?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json>`_ :code:`<br>`:code:`<br>`
+     Minimum api-version: 2015-06-15.
     :type license_type: str
     :param priority: Specifies the priority for the virtual machines in the scale set.
      :code:`<br>`:code:`<br>`Minimum api-version: 2017-10-30-preview. Possible values include:
@@ -8206,15 +8000,14 @@ class VirtualMachineUpdate(UpdateResource):
     :ivar instance_view: The virtual machine instance view.
     :vartype instance_view: ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineInstanceView
     :param license_type: Specifies that the image or disk that is being used was licensed on-
-     premises. :code:`<br>`:code:`<br>` Possible values for Windows Server operating system are:
-     :code:`<br>`:code:`<br>` Windows_Client :code:`<br>`:code:`<br>` Windows_Server
-     :code:`<br>`:code:`<br>` Possible values for Linux Server operating system are:
-     :code:`<br>`:code:`<br>` RHEL_BYOS (for RHEL) :code:`<br>`:code:`<br>` SLES_BYOS (for SUSE)
+     premises. This element is only used for images that contain the Windows Server operating
+     system. :code:`<br>`:code:`<br>` Possible values are: :code:`<br>`:code:`<br>` Windows_Client
+     :code:`<br>`:code:`<br>` Windows_Server :code:`<br>`:code:`<br>` If this element is included in
+     a request for an update, the value must match the initial value. This value cannot be updated.
      :code:`<br>`:code:`<br>` For more information, see `Azure Hybrid Use Benefit for Windows Server
-     <https://docs.microsoft.com/azure/virtual-machines/windows/hybrid-use-benefit-licensing>`_
-     :code:`<br>`:code:`<br>` `Azure Hybrid Use Benefit for Linux Server
-     <https://docs.microsoft.com/azure/virtual-machines/linux/azure-hybrid-benefit-linux>`_
-     :code:`<br>`:code:`<br>` Minimum api-version: 2015-06-15.
+     <https://docs.microsoft.com/azure/virtual-machines/virtual-machines-windows-hybrid-use-benefit-
+     licensing?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json>`_ :code:`<br>`:code:`<br>`
+     Minimum api-version: 2015-06-15.
     :type license_type: str
     :ivar vm_id: Specifies the VM unique ID which is a 128-bits identifier that is encoded and
      stored in all Azure IaaS VMs SMBIOS and can be read using platform BIOS commands.

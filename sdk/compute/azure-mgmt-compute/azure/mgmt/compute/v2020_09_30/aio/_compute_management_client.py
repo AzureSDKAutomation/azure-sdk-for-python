@@ -16,11 +16,6 @@ if TYPE_CHECKING:
     from azure.core.credentials_async import AsyncTokenCredential
 
 from ._configuration import ComputeManagementClientConfiguration
-from .operations import DisksOperations
-from .operations import SnapshotsOperations
-from .operations import DiskEncryptionSetsOperations
-from .operations import DiskAccessesOperations
-from .operations import DiskRestorePointOperations
 from .operations import GalleriesOperations
 from .operations import GalleryImagesOperations
 from .operations import GalleryImageVersionsOperations
@@ -36,16 +31,6 @@ from .. import models
 class ComputeManagementClient(object):
     """Compute Client.
 
-    :ivar disks: DisksOperations operations
-    :vartype disks: azure.mgmt.compute.v2020_09_30.aio.operations.DisksOperations
-    :ivar snapshots: SnapshotsOperations operations
-    :vartype snapshots: azure.mgmt.compute.v2020_09_30.aio.operations.SnapshotsOperations
-    :ivar disk_encryption_sets: DiskEncryptionSetsOperations operations
-    :vartype disk_encryption_sets: azure.mgmt.compute.v2020_09_30.aio.operations.DiskEncryptionSetsOperations
-    :ivar disk_accesses: DiskAccessesOperations operations
-    :vartype disk_accesses: azure.mgmt.compute.v2020_09_30.aio.operations.DiskAccessesOperations
-    :ivar disk_restore_point: DiskRestorePointOperations operations
-    :vartype disk_restore_point: azure.mgmt.compute.v2020_09_30.aio.operations.DiskRestorePointOperations
     :ivar galleries: GalleriesOperations operations
     :vartype galleries: azure.mgmt.compute.v2020_09_30.aio.operations.GalleriesOperations
     :ivar gallery_images: GalleryImagesOperations operations
@@ -88,16 +73,6 @@ class ComputeManagementClient(object):
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
-        self.disks = DisksOperations(
-            self._client, self._config, self._serialize, self._deserialize)
-        self.snapshots = SnapshotsOperations(
-            self._client, self._config, self._serialize, self._deserialize)
-        self.disk_encryption_sets = DiskEncryptionSetsOperations(
-            self._client, self._config, self._serialize, self._deserialize)
-        self.disk_accesses = DiskAccessesOperations(
-            self._client, self._config, self._serialize, self._deserialize)
-        self.disk_restore_point = DiskRestorePointOperations(
-            self._client, self._config, self._serialize, self._deserialize)
         self.galleries = GalleriesOperations(
             self._client, self._config, self._serialize, self._deserialize)
         self.gallery_images = GalleryImagesOperations(
