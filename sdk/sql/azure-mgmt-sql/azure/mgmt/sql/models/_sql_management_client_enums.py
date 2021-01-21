@@ -585,6 +585,12 @@ class SyncMemberState(str, Enum):
     un_reprovisioned = "UnReprovisioned"
 
 
+class StorageKeyType(str, Enum):
+
+    shared_access_key = "SharedAccessKey"
+    storage_access_key = "StorageAccessKey"
+
+
 class ManagedDatabaseStatus(str, Enum):
 
     online = "Online"
@@ -713,12 +719,6 @@ class SecondaryType(str, Enum):
 
     geo = "Geo"
     named = "Named"
-
-
-class StorageKeyType(str, Enum):
-
-    shared_access_key = "SharedAccessKey"
-    storage_access_key = "StorageAccessKey"
 
 
 class ElasticPoolState(str, Enum):
