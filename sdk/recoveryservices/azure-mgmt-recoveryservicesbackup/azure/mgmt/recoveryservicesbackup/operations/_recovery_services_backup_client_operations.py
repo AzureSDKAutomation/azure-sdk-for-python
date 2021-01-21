@@ -41,7 +41,7 @@ class RecoveryServicesBackupClientOperationsMixin(object):
         :raises:
          :class:`NewErrorResponseException<azure.mgmt.recoveryservicesbackup.models.NewErrorResponseException>`
         """
-        api_version = "2020-10-01"
+        api_version = "2020-12-01"
 
         # Construct URL
         url = self.get_operation_status.metadata['url']
@@ -85,10 +85,29 @@ class RecoveryServicesBackupClientOperationsMixin(object):
         return deserialized
     get_operation_status.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupstorageconfig/vaultstorageconfig/operationStatus/{operationId}'}
 
-
-    def _bms_prepare_data_move_initial(
+    def bms_prepare_data_move(
             self, vault_name, resource_group_name, parameters, custom_headers=None, raw=False, **operation_config):
-        api_version = "2020-10-01"
+        """Prepares source vault for Data Move operation.
+
+        :param vault_name: The name of the recovery services vault.
+        :type vault_name: str
+        :param resource_group_name: The name of the resource group where the
+         recovery services vault is present.
+        :type resource_group_name: str
+        :param parameters: Prepare data move request
+        :type parameters:
+         ~azure.mgmt.recoveryservicesbackup.models.PrepareDataMoveRequest
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: None or ClientRawResponse if raw=true
+        :rtype: None or ~msrest.pipeline.ClientRawResponse
+        :raises:
+         :class:`NewErrorResponseException<azure.mgmt.recoveryservicesbackup.models.NewErrorResponseException>`
+        """
+        api_version = "2020-12-01"
 
         # Construct URL
         url = self.bms_prepare_data_move.metadata['url']
@@ -126,58 +145,12 @@ class RecoveryServicesBackupClientOperationsMixin(object):
         if raw:
             client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-
-    def bms_prepare_data_move(
-            self, vault_name, resource_group_name, parameters, custom_headers=None, raw=False, polling=True, **operation_config):
-        """Prepares source vault for Data Move operation.
-
-        :param vault_name: The name of the recovery services vault.
-        :type vault_name: str
-        :param resource_group_name: The name of the resource group where the
-         recovery services vault is present.
-        :type resource_group_name: str
-        :param parameters: Prepare data move request
-        :type parameters:
-         ~azure.mgmt.recoveryservicesbackup.models.PrepareDataMoveRequest
-        :param dict custom_headers: headers that will be added to the request
-        :param bool raw: The poller return type is ClientRawResponse, the
-         direct response alongside the deserialized response
-        :param polling: True for ARMPolling, False for no polling, or a
-         polling object for personal polling strategy
-        :return: An instance of LROPoller that returns None or
-         ClientRawResponse<None> if raw==True
-        :rtype: ~msrestazure.azure_operation.AzureOperationPoller[None] or
-         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[None]]
-        :raises:
-         :class:`NewErrorResponseException<azure.mgmt.recoveryservicesbackup.models.NewErrorResponseException>`
-        """
-        raw_result = self._bms_prepare_data_move_initial(
-            vault_name=vault_name,
-            resource_group_name=resource_group_name,
-            parameters=parameters,
-            custom_headers=custom_headers,
-            raw=True,
-            **operation_config
-        )
-
-        def get_long_running_output(response):
-            if raw:
-                client_raw_response = ClientRawResponse(None, response)
-                return client_raw_response
-
-        lro_delay = operation_config.get(
-            'long_running_operation_timeout',
-            self.config.long_running_operation_timeout)
-        if polling is True: polling_method = ARMPolling(lro_delay, **operation_config)
-        elif polling is False: polling_method = NoPolling()
-        else: polling_method = polling
-        return LROPoller(self._client, raw_result, get_long_running_output, polling_method)
     bms_prepare_data_move.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupstorageconfig/vaultstorageconfig/prepareDataMove'}
 
 
     def _bms_trigger_data_move_initial(
             self, vault_name, resource_group_name, parameters, custom_headers=None, raw=False, **operation_config):
-        api_version = "2020-10-01"
+        api_version = "2020-12-01"
 
         # Construct URL
         url = self.bms_trigger_data_move.metadata['url']
