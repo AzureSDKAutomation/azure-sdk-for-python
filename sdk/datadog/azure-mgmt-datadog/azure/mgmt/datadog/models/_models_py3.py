@@ -540,14 +540,20 @@ class DatadogSetPasswordLink(msrest.serialization.Model):
 class DatadogSingleSignOnProperties(msrest.serialization.Model):
     """DatadogSingleSignOnProperties.
 
+    Variables are only populated by the server, and will be ignored when sending a request.
+
     :param single_sign_on_state: Various states of the SSO resource. Possible values include:
      "Initial", "Enable", "Disable", "Existing".
     :type single_sign_on_state: str or ~microsoft_datadog_client.models.SingleSignOnStates
     :param enterprise_app_id: The Id of the Enterprise App used for Single sign-on.
     :type enterprise_app_id: str
-    :param single_sign_on_url: The login URL specific to this Datadog Organization.
-    :type single_sign_on_url: str
+    :ivar single_sign_on_url: The login URL specific to this Datadog Organization.
+    :vartype single_sign_on_url: str
     """
+
+    _validation = {
+        'single_sign_on_url': {'readonly': True},
+    }
 
     _attribute_map = {
         'single_sign_on_state': {'key': 'singleSignOnState', 'type': 'str'},
@@ -560,13 +566,12 @@ class DatadogSingleSignOnProperties(msrest.serialization.Model):
         *,
         single_sign_on_state: Optional[Union[str, "SingleSignOnStates"]] = None,
         enterprise_app_id: Optional[str] = None,
-        single_sign_on_url: Optional[str] = None,
         **kwargs
     ):
         super(DatadogSingleSignOnProperties, self).__init__(**kwargs)
         self.single_sign_on_state = single_sign_on_state
         self.enterprise_app_id = enterprise_app_id
-        self.single_sign_on_url = single_sign_on_url
+        self.single_sign_on_url = None
 
 
 class DatadogSingleSignOnResource(msrest.serialization.Model):
@@ -1022,13 +1027,13 @@ class MonitorProperties(msrest.serialization.Model):
     :param provisioning_state:  Possible values include: "Accepted", "Creating", "Updating",
      "Deleting", "Succeeded", "Failed", "Canceled", "Deleted", "NotSpecified".
     :type provisioning_state: str or ~microsoft_datadog_client.models.ProvisioningState
-    :param monitoring_status: Flag specifying if the resource monitoring is enabled or disabled.
+    :ivar monitoring_status: Flag specifying if the resource monitoring is enabled or disabled.
      Possible values include: "Enabled", "Disabled".
-    :type monitoring_status: str or ~microsoft_datadog_client.models.MonitoringStatus
-    :param marketplace_subscription_status: Flag specifying the Marketplace Subscription Status of
+    :vartype monitoring_status: str or ~microsoft_datadog_client.models.MonitoringStatus
+    :ivar marketplace_subscription_status: Flag specifying the Marketplace Subscription Status of
      the resource. If payment is not made in time, the resource will go in Suspended state. Possible
      values include: "Active", "Suspended".
-    :type marketplace_subscription_status: str or
+    :vartype marketplace_subscription_status: str or
      ~microsoft_datadog_client.models.MarketplaceSubscriptionStatus
     :param datadog_organization_properties: Datadog organization properties.
     :type datadog_organization_properties:
@@ -1043,6 +1048,8 @@ class MonitorProperties(msrest.serialization.Model):
     """
 
     _validation = {
+        'monitoring_status': {'readonly': True},
+        'marketplace_subscription_status': {'readonly': True},
         'liftr_resource_category': {'readonly': True},
         'liftr_resource_preference': {'readonly': True},
     }
@@ -1061,16 +1068,14 @@ class MonitorProperties(msrest.serialization.Model):
         self,
         *,
         provisioning_state: Optional[Union[str, "ProvisioningState"]] = None,
-        monitoring_status: Optional[Union[str, "MonitoringStatus"]] = None,
-        marketplace_subscription_status: Optional[Union[str, "MarketplaceSubscriptionStatus"]] = None,
         datadog_organization_properties: Optional["DatadogOrganizationProperties"] = None,
         user_info: Optional["UserInfo"] = None,
         **kwargs
     ):
         super(MonitorProperties, self).__init__(**kwargs)
         self.provisioning_state = provisioning_state
-        self.monitoring_status = monitoring_status
-        self.marketplace_subscription_status = marketplace_subscription_status
+        self.monitoring_status = None
+        self.marketplace_subscription_status = None
         self.datadog_organization_properties = datadog_organization_properties
         self.user_info = user_info
         self.liftr_resource_category = None
@@ -1080,10 +1085,16 @@ class MonitorProperties(msrest.serialization.Model):
 class MonitorUpdateProperties(msrest.serialization.Model):
     """The set of properties that can be update in a PATCH request to a monitor resource.
 
-    :param monitoring_status: Flag specifying if the resource monitoring is enabled or disabled.
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar monitoring_status: Flag specifying if the resource monitoring is enabled or disabled.
      Possible values include: "Enabled", "Disabled".
-    :type monitoring_status: str or ~microsoft_datadog_client.models.MonitoringStatus
+    :vartype monitoring_status: str or ~microsoft_datadog_client.models.MonitoringStatus
     """
+
+    _validation = {
+        'monitoring_status': {'readonly': True},
+    }
 
     _attribute_map = {
         'monitoring_status': {'key': 'monitoringStatus', 'type': 'str'},
@@ -1091,12 +1102,10 @@ class MonitorUpdateProperties(msrest.serialization.Model):
 
     def __init__(
         self,
-        *,
-        monitoring_status: Optional[Union[str, "MonitoringStatus"]] = None,
         **kwargs
     ):
         super(MonitorUpdateProperties, self).__init__(**kwargs)
-        self.monitoring_status = monitoring_status
+        self.monitoring_status = None
 
 
 class OperationDisplay(msrest.serialization.Model):
