@@ -12,6 +12,99 @@
 from enum import Enum
 
 
+class RecoveryType(str, Enum):
+
+    invalid = "Invalid"
+    original_location = "OriginalLocation"
+    alternate_location = "AlternateLocation"
+    restore_disks = "RestoreDisks"
+    offline = "Offline"
+
+
+class CopyOptions(str, Enum):
+
+    invalid = "Invalid"
+    create_copy = "CreateCopy"
+    skip = "Skip"
+    overwrite = "Overwrite"
+    fail_on_conflict = "FailOnConflict"
+
+
+class RestoreRequestType(str, Enum):
+
+    invalid = "Invalid"
+    full_share_restore = "FullShareRestore"
+    item_level_restore = "ItemLevelRestore"
+
+
+class RestorePointType(str, Enum):
+
+    invalid = "Invalid"
+    full = "Full"
+    log = "Log"
+    differential = "Differential"
+    incremental = "Incremental"
+    snapshot_full = "SnapshotFull"
+
+
+class RecoveryPointTierType(str, Enum):
+
+    invalid = "Invalid"
+    instant_rp = "InstantRP"
+    hardened_rp = "HardenedRP"
+    archived_rp = "ArchivedRP"
+
+
+class RecoveryPointTierStatus(str, Enum):
+
+    invalid = "Invalid"
+    valid = "Valid"
+    disabled = "Disabled"
+    deleted = "Deleted"
+    rehydrated = "Rehydrated"
+
+
+class OverwriteOptions(str, Enum):
+
+    invalid = "Invalid"
+    fail_on_conflict = "FailOnConflict"
+    overwrite = "Overwrite"
+
+
+class RecoveryMode(str, Enum):
+
+    invalid = "Invalid"
+    file_recovery = "FileRecovery"
+    workload_recovery = "WorkloadRecovery"
+    snapshot_attach = "SnapshotAttach"
+    recovery_using_snapshot = "RecoveryUsingSnapshot"
+
+
+class RehydrationPriority(str, Enum):
+
+    standard = "Standard"
+    high = "High"
+
+
+class SQLDataDirectoryType(str, Enum):
+
+    invalid = "Invalid"
+    data = "Data"
+    log = "Log"
+
+
+class RestorePointQueryType(str, Enum):
+
+    invalid = "Invalid"
+    full = "Full"
+    log = "Log"
+    differential = "Differential"
+    full_and_differential = "FullAndDifferential"
+    all = "All"
+    incremental = "Incremental"
+    snapshot_full = "SnapshotFull"
+
+
 class EncryptionAtRestType(str, Enum):
 
     invalid = "Invalid"
@@ -72,39 +165,6 @@ class ResourceHealthStatus(str, Enum):
     invalid = "Invalid"
 
 
-class HealthStatus(str, Enum):
-
-    passed = "Passed"
-    action_required = "ActionRequired"
-    action_suggested = "ActionSuggested"
-    invalid = "Invalid"
-
-
-class RecoveryType(str, Enum):
-
-    invalid = "Invalid"
-    original_location = "OriginalLocation"
-    alternate_location = "AlternateLocation"
-    restore_disks = "RestoreDisks"
-    offline = "Offline"
-
-
-class CopyOptions(str, Enum):
-
-    invalid = "Invalid"
-    create_copy = "CreateCopy"
-    skip = "Skip"
-    overwrite = "Overwrite"
-    fail_on_conflict = "FailOnConflict"
-
-
-class RestoreRequestType(str, Enum):
-
-    invalid = "Invalid"
-    full_share_restore = "FullShareRestore"
-    item_level_restore = "ItemLevelRestore"
-
-
 class WorkloadType(str, Enum):
 
     invalid = "Invalid"
@@ -141,6 +201,14 @@ class JobSupportedAction(str, Enum):
     retriable = "Retriable"
 
 
+class HealthStatus(str, Enum):
+
+    passed = "Passed"
+    action_required = "ActionRequired"
+    action_suggested = "ActionSuggested"
+    invalid = "Invalid"
+
+
 class ProtectedItemState(str, Enum):
 
     invalid = "Invalid"
@@ -168,47 +236,6 @@ class ProtectedItemHealthStatus(str, Enum):
     ir_pending = "IRPending"
 
 
-class RestorePointType(str, Enum):
-
-    invalid = "Invalid"
-    full = "Full"
-    log = "Log"
-    differential = "Differential"
-    incremental = "Incremental"
-
-
-class OverwriteOptions(str, Enum):
-
-    invalid = "Invalid"
-    fail_on_conflict = "FailOnConflict"
-    overwrite = "Overwrite"
-
-
-class RecoveryMode(str, Enum):
-
-    invalid = "Invalid"
-    file_recovery = "FileRecovery"
-    workload_recovery = "WorkloadRecovery"
-
-
-class SQLDataDirectoryType(str, Enum):
-
-    invalid = "Invalid"
-    data = "Data"
-    log = "Log"
-
-
-class RestorePointQueryType(str, Enum):
-
-    invalid = "Invalid"
-    full = "Full"
-    log = "Log"
-    differential = "Differential"
-    full_and_differential = "FullAndDifferential"
-    all = "All"
-    incremental = "Incremental"
-
-
 class RetentionDurationType(str, Enum):
 
     invalid = "Invalid"
@@ -216,21 +243,6 @@ class RetentionDurationType(str, Enum):
     weeks = "Weeks"
     months = "Months"
     years = "Years"
-
-
-class RecoveryPointTierType(str, Enum):
-
-    invalid = "Invalid"
-    instant_rp = "InstantRP"
-    hardened_rp = "HardenedRP"
-
-
-class RecoveryPointTierStatus(str, Enum):
-
-    invalid = "Invalid"
-    valid = "Valid"
-    disabled = "Disabled"
-    deleted = "Deleted"
 
 
 class BackupManagementType(str, Enum):

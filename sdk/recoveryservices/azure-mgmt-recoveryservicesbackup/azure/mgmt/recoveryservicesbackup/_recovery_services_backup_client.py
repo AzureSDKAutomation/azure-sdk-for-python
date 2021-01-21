@@ -14,6 +14,9 @@ from msrest import Serializer, Deserializer
 
 from ._configuration import RecoveryServicesBackupClientConfiguration
 from .operations import RecoveryServicesBackupClientOperationsMixin
+from .operations import RecoveryPointsOperations
+from .operations import RestoresOperations
+from .operations import RecoveryPointsRecommendedForMoveOperations
 from .operations import BackupResourceVaultConfigsOperations
 from .operations import BackupResourceEncryptionConfigsOperations
 from .operations import PrivateEndpointConnectionOperations
@@ -21,8 +24,6 @@ from .operations import PrivateEndpointOperations
 from .operations import BMSPrepareDataMoveOperationResultOperations
 from .operations import ProtectedItemsOperations
 from .operations import ProtectedItemOperationResultsOperations
-from .operations import RecoveryPointsOperations
-from .operations import RestoresOperations
 from .operations import BackupPoliciesOperations
 from .operations import ProtectionPoliciesOperations
 from .operations import ProtectionPolicyOperationResultsOperations
@@ -73,6 +74,12 @@ class RecoveryServicesBackupClient(RecoveryServicesBackupClientOperationsMixin, 
     :ivar config: Configuration for client.
     :vartype config: RecoveryServicesBackupClientConfiguration
 
+    :ivar recovery_points: RecoveryPoints operations
+    :vartype recovery_points: azure.mgmt.recoveryservicesbackup.operations.RecoveryPointsOperations
+    :ivar restores: Restores operations
+    :vartype restores: azure.mgmt.recoveryservicesbackup.operations.RestoresOperations
+    :ivar recovery_points_recommended_for_move: RecoveryPointsRecommendedForMove operations
+    :vartype recovery_points_recommended_for_move: azure.mgmt.recoveryservicesbackup.operations.RecoveryPointsRecommendedForMoveOperations
     :ivar backup_resource_vault_configs: BackupResourceVaultConfigs operations
     :vartype backup_resource_vault_configs: azure.mgmt.recoveryservicesbackup.operations.BackupResourceVaultConfigsOperations
     :ivar backup_resource_encryption_configs: BackupResourceEncryptionConfigs operations
@@ -87,10 +94,6 @@ class RecoveryServicesBackupClient(RecoveryServicesBackupClientOperationsMixin, 
     :vartype protected_items: azure.mgmt.recoveryservicesbackup.operations.ProtectedItemsOperations
     :ivar protected_item_operation_results: ProtectedItemOperationResults operations
     :vartype protected_item_operation_results: azure.mgmt.recoveryservicesbackup.operations.ProtectedItemOperationResultsOperations
-    :ivar recovery_points: RecoveryPoints operations
-    :vartype recovery_points: azure.mgmt.recoveryservicesbackup.operations.RecoveryPointsOperations
-    :ivar restores: Restores operations
-    :vartype restores: azure.mgmt.recoveryservicesbackup.operations.RestoresOperations
     :ivar backup_policies: BackupPolicies operations
     :vartype backup_policies: azure.mgmt.recoveryservicesbackup.operations.BackupPoliciesOperations
     :ivar protection_policies: ProtectionPolicies operations
@@ -192,6 +195,12 @@ class RecoveryServicesBackupClient(RecoveryServicesBackupClientOperationsMixin, 
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
+        self.recovery_points = RecoveryPointsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.restores = RestoresOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.recovery_points_recommended_for_move = RecoveryPointsRecommendedForMoveOperations(
+            self._client, self.config, self._serialize, self._deserialize)
         self.backup_resource_vault_configs = BackupResourceVaultConfigsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.backup_resource_encryption_configs = BackupResourceEncryptionConfigsOperations(
@@ -205,10 +214,6 @@ class RecoveryServicesBackupClient(RecoveryServicesBackupClientOperationsMixin, 
         self.protected_items = ProtectedItemsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.protected_item_operation_results = ProtectedItemOperationResultsOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.recovery_points = RecoveryPointsOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.restores = RestoresOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.backup_policies = BackupPoliciesOperations(
             self._client, self.config, self._serialize, self._deserialize)

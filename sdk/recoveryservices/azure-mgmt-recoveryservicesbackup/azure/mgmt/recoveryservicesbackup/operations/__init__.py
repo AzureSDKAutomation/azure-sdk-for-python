@@ -9,6 +9,9 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
+from ._recovery_points_operations import RecoveryPointsOperations
+from ._restores_operations import RestoresOperations
+from ._recovery_points_recommended_for_move_operations import RecoveryPointsRecommendedForMoveOperations
 from ._backup_resource_vault_configs_operations import BackupResourceVaultConfigsOperations
 from ._backup_resource_encryption_configs_operations import BackupResourceEncryptionConfigsOperations
 from ._private_endpoint_connection_operations import PrivateEndpointConnectionOperations
@@ -16,8 +19,6 @@ from ._private_endpoint_operations import PrivateEndpointOperations
 from ._bms_prepare_data_move_operation_result_operations import BMSPrepareDataMoveOperationResultOperations
 from ._protected_items_operations import ProtectedItemsOperations
 from ._protected_item_operation_results_operations import ProtectedItemOperationResultsOperations
-from ._recovery_points_operations import RecoveryPointsOperations
-from ._restores_operations import RestoresOperations
 from ._backup_policies_operations import BackupPoliciesOperations
 from ._protection_policies_operations import ProtectionPoliciesOperations
 from ._protection_policy_operation_results_operations import ProtectionPolicyOperationResultsOperations
@@ -62,6 +63,9 @@ from ._operations import Operations
 from ._recovery_services_backup_client_operations import RecoveryServicesBackupClientOperationsMixin
 
 __all__ = [
+    'RecoveryPointsOperations',
+    'RestoresOperations',
+    'RecoveryPointsRecommendedForMoveOperations',
     'BackupResourceVaultConfigsOperations',
     'BackupResourceEncryptionConfigsOperations',
     'PrivateEndpointConnectionOperations',
@@ -69,8 +73,6 @@ __all__ = [
     'BMSPrepareDataMoveOperationResultOperations',
     'ProtectedItemsOperations',
     'ProtectedItemOperationResultsOperations',
-    'RecoveryPointsOperations',
-    'RestoresOperations',
     'BackupPoliciesOperations',
     'ProtectionPoliciesOperations',
     'ProtectionPolicyOperationResultsOperations',

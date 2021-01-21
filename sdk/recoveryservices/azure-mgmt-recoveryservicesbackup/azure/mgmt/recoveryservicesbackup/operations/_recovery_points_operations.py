@@ -25,6 +25,7 @@ class RecoveryPointsOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
+    :ivar api_version: Client Api Version. Constant value: "2021-01-01".
     """
 
     models = models
@@ -34,6 +35,7 @@ class RecoveryPointsOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
+        self.api_version = "2021-01-01"
 
         self.config = config
 
@@ -66,8 +68,6 @@ class RecoveryPointsOperations(object):
          ~azure.mgmt.recoveryservicesbackup.models.RecoveryPointResourcePaged[~azure.mgmt.recoveryservicesbackup.models.RecoveryPointResource]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        api_version = "2020-10-01"
-
         def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
@@ -84,7 +84,7 @@ class RecoveryPointsOperations(object):
 
                 # Construct parameters
                 query_parameters = {}
-                query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
                 if filter is not None:
                     query_parameters['$filter'] = self._serialize.query("filter", filter, 'str')
 
@@ -125,7 +125,7 @@ class RecoveryPointsOperations(object):
         deserialized = models.RecoveryPointResourcePaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/Subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}/protectedItems/{protectedItemName}/recoveryPoints'}
+    list.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}/protectedItems/{protectedItemName}/recoveryPoints'}
 
     def get(
             self, vault_name, resource_group_name, fabric_name, container_name, protected_item_name, recovery_point_id, custom_headers=None, raw=False, **operation_config):
@@ -160,8 +160,6 @@ class RecoveryPointsOperations(object):
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        api_version = "2020-10-01"
-
         # Construct URL
         url = self.get.metadata['url']
         path_format_arguments = {
@@ -177,7 +175,7 @@ class RecoveryPointsOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -207,7 +205,7 @@ class RecoveryPointsOperations(object):
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/Subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}/protectedItems/{protectedItemName}/recoveryPoints/{recoveryPointId}'}
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}/protectedItems/{protectedItemName}/recoveryPoints/{recoveryPointId}'}
 
     def get_access_token(
             self, vault_name, resource_group_name, fabric_name, container_name, protected_item_name, recovery_point_id, parameters, custom_headers=None, raw=False, **operation_config):
@@ -242,8 +240,6 @@ class RecoveryPointsOperations(object):
         :raises:
          :class:`NewErrorResponseException<azure.mgmt.recoveryservicesbackup.models.NewErrorResponseException>`
         """
-        api_version = "2018-12-20"
-
         # Construct URL
         url = self.get_access_token.metadata['url']
         path_format_arguments = {
@@ -259,7 +255,7 @@ class RecoveryPointsOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("api_version", api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
 
         # Construct headers
         header_parameters = {}
