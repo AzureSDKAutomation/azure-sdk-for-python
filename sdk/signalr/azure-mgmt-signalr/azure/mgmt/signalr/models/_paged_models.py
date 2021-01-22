@@ -38,19 +38,6 @@ class SignalRResourcePaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(SignalRResourcePaged, self).__init__(*args, **kwargs)
-class PrivateLinkResourcePaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`PrivateLinkResource <azure.mgmt.signalr.models.PrivateLinkResource>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[PrivateLinkResource]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(PrivateLinkResourcePaged, self).__init__(*args, **kwargs)
 class SignalRUsagePaged(Paged):
     """
     A paging container for iterating over a list of :class:`SignalRUsage <azure.mgmt.signalr.models.SignalRUsage>` object
@@ -64,3 +51,16 @@ class SignalRUsagePaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(SignalRUsagePaged, self).__init__(*args, **kwargs)
+class PrivateLinkResourcePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`PrivateLinkResource <azure.mgmt.signalr.models.PrivateLinkResource>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[PrivateLinkResource]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(PrivateLinkResourcePaged, self).__init__(*args, **kwargs)

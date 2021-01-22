@@ -12,12 +12,37 @@
 from enum import Enum
 
 
-class SignalRSkuTier(str, Enum):
+class ACLAction(str, Enum):
 
-    free = "Free"
-    basic = "Basic"
-    standard = "Standard"
-    premium = "Premium"
+    allow = "Allow"
+    deny = "Deny"
+
+
+class FeatureFlags(str, Enum):
+
+    service_mode = "ServiceMode"
+    enable_connectivity_logs = "EnableConnectivityLogs"
+    enable_messaging_logs = "EnableMessagingLogs"
+
+
+class KeyType(str, Enum):
+
+    primary = "Primary"
+    secondary = "Secondary"
+
+
+class ManagedIdentityType(str, Enum):
+
+    none = "None"
+    system_assigned = "SystemAssigned"
+    user_assigned = "UserAssigned"
+
+
+class SignalRRequestType(str, Enum):
+
+    client_connection = "ClientConnection"
+    server_connection = "ServerConnection"
+    restapi = "RESTAPI"
 
 
 class ProvisioningState(str, Enum):
@@ -41,33 +66,21 @@ class PrivateLinkServiceConnectionStatus(str, Enum):
     disconnected = "Disconnected"
 
 
+class SignalRSkuTier(str, Enum):
+
+    free = "Free"
+    basic = "Basic"
+    standard = "Standard"
+    premium = "Premium"
+
+
+class UpstreamAuthType(str, Enum):
+
+    none = "None"
+    managed_identity = "ManagedIdentity"
+
+
 class ServiceKind(str, Enum):
 
     signal_r = "SignalR"
     raw_web_sockets = "RawWebSockets"
-
-
-class FeatureFlags(str, Enum):
-
-    service_mode = "ServiceMode"
-    enable_connectivity_logs = "EnableConnectivityLogs"
-    enable_messaging_logs = "EnableMessagingLogs"
-
-
-class ACLAction(str, Enum):
-
-    allow = "Allow"
-    deny = "Deny"
-
-
-class SignalRRequestType(str, Enum):
-
-    client_connection = "ClientConnection"
-    server_connection = "ServerConnection"
-    restapi = "RESTAPI"
-
-
-class KeyType(str, Enum):
-
-    primary = "Primary"
-    secondary = "Secondary"
