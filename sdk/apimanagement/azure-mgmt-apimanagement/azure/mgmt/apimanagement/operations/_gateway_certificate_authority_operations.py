@@ -15,8 +15,8 @@ from msrest.pipeline import ClientRawResponse
 from .. import models
 
 
-class IdentityProviderOperations(object):
-    """IdentityProviderOperations operations.
+class GatewayCertificateAuthorityOperations(object):
+    """GatewayCertificateAuthorityOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -39,22 +39,35 @@ class IdentityProviderOperations(object):
         self.config = config
 
     def list_by_service(
-            self, resource_group_name, service_name, custom_headers=None, raw=False, **operation_config):
-        """Lists a collection of Identity Provider configured in the specified
-        service instance.
+            self, resource_group_name, service_name, gateway_id, filter=None, top=None, skip=None, custom_headers=None, raw=False, **operation_config):
+        """Lists the collection of Certificate Authorities for the specified
+        Gateway entity.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param service_name: The name of the API Management service.
         :type service_name: str
+        :param gateway_id: Gateway entity identifier. Must be unique in the
+         current API Management service instance. Must not have value 'managed'
+        :type gateway_id: str
+        :param filter: |     Field     |     Usage     |     Supported
+         operators     |     Supported functions
+         |</br>|-------------|-------------|-------------|-------------|</br>|
+         name | filter | eq, ne |  |</br>
+        :type filter: str
+        :param top: Number of records to return.
+        :type top: int
+        :param skip: Number of records to skip.
+        :type skip: int
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of IdentityProviderContract
+        :return: An iterator like instance of
+         GatewayCertificateAuthorityContract
         :rtype:
-         ~azure.mgmt.apimanagement.models.IdentityProviderContractPaged[~azure.mgmt.apimanagement.models.IdentityProviderContract]
+         ~azure.mgmt.apimanagement.models.GatewayCertificateAuthorityContractPaged[~azure.mgmt.apimanagement.models.GatewayCertificateAuthorityContract]
         :raises:
          :class:`ErrorResponseException<azure.mgmt.apimanagement.models.ErrorResponseException>`
         """
@@ -65,12 +78,19 @@ class IdentityProviderOperations(object):
                 path_format_arguments = {
                     'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
                     'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
+                    'gatewayId': self._serialize.url("gateway_id", gateway_id, 'str', max_length=80, min_length=1),
                     'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
                 }
                 url = self._client.format_url(url, **path_format_arguments)
 
                 # Construct parameters
                 query_parameters = {}
+                if filter is not None:
+                    query_parameters['$filter'] = self._serialize.query("filter", filter, 'str')
+                if top is not None:
+                    query_parameters['$top'] = self._serialize.query("top", top, 'int', minimum=1)
+                if skip is not None:
+                    query_parameters['$skip'] = self._serialize.query("skip", skip, 'int', minimum=0)
                 query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
 
             else:
@@ -105,25 +125,26 @@ class IdentityProviderOperations(object):
         header_dict = None
         if raw:
             header_dict = {}
-        deserialized = models.IdentityProviderContractPaged(internal_paging, self._deserialize.dependencies, header_dict)
+        deserialized = models.GatewayCertificateAuthorityContractPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list_by_service.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/identityProviders'}
+    list_by_service.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/certificateAuthorities'}
 
     def get_entity_tag(
-            self, resource_group_name, service_name, identity_provider_name, custom_headers=None, raw=False, **operation_config):
-        """Gets the entity state (Etag) version of the identityProvider specified
-        by its identifier.
+            self, resource_group_name, service_name, gateway_id, certificate_id, custom_headers=None, raw=False, **operation_config):
+        """Checks if Certificate entity is assigned to Gateway entity as
+        Certificate Authority.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param service_name: The name of the API Management service.
         :type service_name: str
-        :param identity_provider_name: Identity Provider Type identifier.
-         Possible values include: 'facebook', 'google', 'microsoft', 'twitter',
-         'aad', 'aadB2C'
-        :type identity_provider_name: str or
-         ~azure.mgmt.apimanagement.models.IdentityProviderType
+        :param gateway_id: Gateway entity identifier. Must be unique in the
+         current API Management service instance. Must not have value 'managed'
+        :type gateway_id: str
+        :param certificate_id: Identifier of the certificate entity. Must be
+         unique in the current API Management service instance.
+        :type certificate_id: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -139,7 +160,8 @@ class IdentityProviderOperations(object):
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
-            'identityProviderName': self._serialize.url("identity_provider_name", identity_provider_name, 'str'),
+            'gatewayId': self._serialize.url("gateway_id", gateway_id, 'str', max_length=80, min_length=1),
+            'certificateId': self._serialize.url("certificate_id", certificate_id, 'str', max_length=80, min_length=1, pattern=r'^[^*#&+:<>?]+$'),
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -170,30 +192,32 @@ class IdentityProviderOperations(object):
                 'ETag': 'str',
             })
             return client_raw_response
-    get_entity_tag.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/identityProviders/{identityProviderName}'}
+    get_entity_tag.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/certificateAuthorities/{certificateId}'}
 
     def get(
-            self, resource_group_name, service_name, identity_provider_name, custom_headers=None, raw=False, **operation_config):
-        """Gets the configuration details of the identity Provider configured in
-        specified service instance.
+            self, resource_group_name, service_name, gateway_id, certificate_id, custom_headers=None, raw=False, **operation_config):
+        """Get assigned Gateway Certificate Authority details.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param service_name: The name of the API Management service.
         :type service_name: str
-        :param identity_provider_name: Identity Provider Type identifier.
-         Possible values include: 'facebook', 'google', 'microsoft', 'twitter',
-         'aad', 'aadB2C'
-        :type identity_provider_name: str or
-         ~azure.mgmt.apimanagement.models.IdentityProviderType
+        :param gateway_id: Gateway entity identifier. Must be unique in the
+         current API Management service instance. Must not have value 'managed'
+        :type gateway_id: str
+        :param certificate_id: Identifier of the certificate entity. Must be
+         unique in the current API Management service instance.
+        :type certificate_id: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: IdentityProviderContract or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.apimanagement.models.IdentityProviderContract or
-         ~msrest.pipeline.ClientRawResponse
+        :return: GatewayCertificateAuthorityContract or ClientRawResponse if
+         raw=true
+        :rtype:
+         ~azure.mgmt.apimanagement.models.GatewayCertificateAuthorityContract
+         or ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`ErrorResponseException<azure.mgmt.apimanagement.models.ErrorResponseException>`
         """
@@ -202,7 +226,8 @@ class IdentityProviderOperations(object):
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
-            'identityProviderName': self._serialize.url("identity_provider_name", identity_provider_name, 'str'),
+            'gatewayId': self._serialize.url("gateway_id", gateway_id, 'str', max_length=80, min_length=1),
+            'certificateId': self._serialize.url("certificate_id", certificate_id, 'str', max_length=80, min_length=1, pattern=r'^[^*#&+:<>?]+$'),
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -231,7 +256,7 @@ class IdentityProviderOperations(object):
         header_dict = {}
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('IdentityProviderContract', response)
+            deserialized = self._deserialize('GatewayCertificateAuthorityContract', response)
             header_dict = {
                 'ETag': 'str',
             }
@@ -242,44 +267,50 @@ class IdentityProviderOperations(object):
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/identityProviders/{identityProviderName}'}
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/certificateAuthorities/{certificateId}'}
 
     def create_or_update(
-            self, resource_group_name, service_name, identity_provider_name, parameters, if_match=None, custom_headers=None, raw=False, **operation_config):
-        """Creates or Updates the IdentityProvider configuration.
+            self, resource_group_name, service_name, gateway_id, certificate_id, if_match=None, is_trusted=None, custom_headers=None, raw=False, **operation_config):
+        """Assign Certificate entity to Gateway entity as Certificate Authority.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param service_name: The name of the API Management service.
         :type service_name: str
-        :param identity_provider_name: Identity Provider Type identifier.
-         Possible values include: 'facebook', 'google', 'microsoft', 'twitter',
-         'aad', 'aadB2C'
-        :type identity_provider_name: str or
-         ~azure.mgmt.apimanagement.models.IdentityProviderType
-        :param parameters: Create parameters.
-        :type parameters:
-         ~azure.mgmt.apimanagement.models.IdentityProviderCreateContract
+        :param gateway_id: Gateway entity identifier. Must be unique in the
+         current API Management service instance. Must not have value 'managed'
+        :type gateway_id: str
+        :param certificate_id: Identifier of the certificate entity. Must be
+         unique in the current API Management service instance.
+        :type certificate_id: str
         :param if_match: ETag of the Entity. Not required when creating an
          entity, but required when updating an entity.
         :type if_match: str
+        :param is_trusted: Determines whether certificate authority is
+         trusted.
+        :type is_trusted: bool
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: IdentityProviderContract or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.apimanagement.models.IdentityProviderContract or
-         ~msrest.pipeline.ClientRawResponse
+        :return: GatewayCertificateAuthorityContract or ClientRawResponse if
+         raw=true
+        :rtype:
+         ~azure.mgmt.apimanagement.models.GatewayCertificateAuthorityContract
+         or ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`ErrorResponseException<azure.mgmt.apimanagement.models.ErrorResponseException>`
         """
+        parameters = models.GatewayCertificateAuthorityContract(is_trusted=is_trusted)
+
         # Construct URL
         url = self.create_or_update.metadata['url']
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
-            'identityProviderName': self._serialize.url("identity_provider_name", identity_provider_name, 'str'),
+            'gatewayId': self._serialize.url("gateway_id", gateway_id, 'str', max_length=80, min_length=1),
+            'certificateId': self._serialize.url("certificate_id", certificate_id, 'str', max_length=80, min_length=1, pattern=r'^[^*#&+:<>?]+$'),
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -302,7 +333,7 @@ class IdentityProviderOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct body
-        body_content = self._serialize.body(parameters, 'IdentityProviderCreateContract')
+        body_content = self._serialize.body(parameters, 'GatewayCertificateAuthorityContract')
 
         # Construct and send request
         request = self._client.put(url, query_parameters, header_parameters, body_content)
@@ -314,12 +345,12 @@ class IdentityProviderOperations(object):
         header_dict = {}
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('IdentityProviderContract', response)
+            deserialized = self._deserialize('GatewayCertificateAuthorityContract', response)
             header_dict = {
                 'ETag': 'str',
             }
         if response.status_code == 201:
-            deserialized = self._deserialize('IdentityProviderContract', response)
+            deserialized = self._deserialize('GatewayCertificateAuthorityContract', response)
             header_dict = {
                 'ETag': 'str',
             }
@@ -330,104 +361,22 @@ class IdentityProviderOperations(object):
             return client_raw_response
 
         return deserialized
-    create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/identityProviders/{identityProviderName}'}
-
-    def update(
-            self, resource_group_name, service_name, identity_provider_name, parameters, if_match, custom_headers=None, raw=False, **operation_config):
-        """Updates an existing IdentityProvider configuration.
-
-        :param resource_group_name: The name of the resource group.
-        :type resource_group_name: str
-        :param service_name: The name of the API Management service.
-        :type service_name: str
-        :param identity_provider_name: Identity Provider Type identifier.
-         Possible values include: 'facebook', 'google', 'microsoft', 'twitter',
-         'aad', 'aadB2C'
-        :type identity_provider_name: str or
-         ~azure.mgmt.apimanagement.models.IdentityProviderType
-        :param parameters: Update parameters.
-        :type parameters:
-         ~azure.mgmt.apimanagement.models.IdentityProviderUpdateParameters
-        :param if_match: ETag of the Entity. ETag should match the current
-         entity state from the header response of the GET request or it should
-         be * for unconditional update.
-        :type if_match: str
-        :param dict custom_headers: headers that will be added to the request
-        :param bool raw: returns the direct response alongside the
-         deserialized response
-        :param operation_config: :ref:`Operation configuration
-         overrides<msrest:optionsforoperations>`.
-        :return: IdentityProviderContract or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.apimanagement.models.IdentityProviderContract or
-         ~msrest.pipeline.ClientRawResponse
-        :raises:
-         :class:`ErrorResponseException<azure.mgmt.apimanagement.models.ErrorResponseException>`
-        """
-        # Construct URL
-        url = self.update.metadata['url']
-        path_format_arguments = {
-            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-            'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
-            'identityProviderName': self._serialize.url("identity_provider_name", identity_provider_name, 'str'),
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
-        }
-        url = self._client.format_url(url, **path_format_arguments)
-
-        # Construct parameters
-        query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
-
-        # Construct headers
-        header_parameters = {}
-        header_parameters['Accept'] = 'application/json'
-        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
-        if self.config.generate_client_request_id:
-            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
-        if custom_headers:
-            header_parameters.update(custom_headers)
-        header_parameters['If-Match'] = self._serialize.header("if_match", if_match, 'str')
-        if self.config.accept_language is not None:
-            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
-
-        # Construct body
-        body_content = self._serialize.body(parameters, 'IdentityProviderUpdateParameters')
-
-        # Construct and send request
-        request = self._client.patch(url, query_parameters, header_parameters, body_content)
-        response = self._client.send(request, stream=False, **operation_config)
-
-        if response.status_code not in [200]:
-            raise models.ErrorResponseException(self._deserialize, response)
-
-        header_dict = {}
-        deserialized = None
-        if response.status_code == 200:
-            deserialized = self._deserialize('IdentityProviderContract', response)
-            header_dict = {
-                'ETag': 'str',
-            }
-
-        if raw:
-            client_raw_response = ClientRawResponse(deserialized, response)
-            client_raw_response.add_headers(header_dict)
-            return client_raw_response
-
-        return deserialized
-    update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/identityProviders/{identityProviderName}'}
+    create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/certificateAuthorities/{certificateId}'}
 
     def delete(
-            self, resource_group_name, service_name, identity_provider_name, if_match, custom_headers=None, raw=False, **operation_config):
-        """Deletes the specified identity provider configuration.
+            self, resource_group_name, service_name, gateway_id, certificate_id, if_match, custom_headers=None, raw=False, **operation_config):
+        """Unassign Certificate Authority from Gateway entity.
 
         :param resource_group_name: The name of the resource group.
         :type resource_group_name: str
         :param service_name: The name of the API Management service.
         :type service_name: str
-        :param identity_provider_name: Identity Provider Type identifier.
-         Possible values include: 'facebook', 'google', 'microsoft', 'twitter',
-         'aad', 'aadB2C'
-        :type identity_provider_name: str or
-         ~azure.mgmt.apimanagement.models.IdentityProviderType
+        :param gateway_id: Gateway entity identifier. Must be unique in the
+         current API Management service instance. Must not have value 'managed'
+        :type gateway_id: str
+        :param certificate_id: Identifier of the certificate entity. Must be
+         unique in the current API Management service instance.
+        :type certificate_id: str
         :param if_match: ETag of the Entity. ETag should match the current
          entity state from the header response of the GET request or it should
          be * for unconditional update.
@@ -447,7 +396,8 @@ class IdentityProviderOperations(object):
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
-            'identityProviderName': self._serialize.url("identity_provider_name", identity_provider_name, 'str'),
+            'gatewayId': self._serialize.url("gateway_id", gateway_id, 'str', max_length=80, min_length=1),
+            'certificateId': self._serialize.url("certificate_id", certificate_id, 'str', max_length=80, min_length=1, pattern=r'^[^*#&+:<>?]+$'),
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
@@ -476,75 +426,4 @@ class IdentityProviderOperations(object):
         if raw:
             client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-    delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/identityProviders/{identityProviderName}'}
-
-    def list_secrets(
-            self, resource_group_name, service_name, identity_provider_name, custom_headers=None, raw=False, **operation_config):
-        """Gets the client secret details of the Identity Provider.
-
-        :param resource_group_name: The name of the resource group.
-        :type resource_group_name: str
-        :param service_name: The name of the API Management service.
-        :type service_name: str
-        :param identity_provider_name: Identity Provider Type identifier.
-         Possible values include: 'facebook', 'google', 'microsoft', 'twitter',
-         'aad', 'aadB2C'
-        :type identity_provider_name: str or
-         ~azure.mgmt.apimanagement.models.IdentityProviderType
-        :param dict custom_headers: headers that will be added to the request
-        :param bool raw: returns the direct response alongside the
-         deserialized response
-        :param operation_config: :ref:`Operation configuration
-         overrides<msrest:optionsforoperations>`.
-        :return: ClientSecretContract or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.apimanagement.models.ClientSecretContract or
-         ~msrest.pipeline.ClientRawResponse
-        :raises:
-         :class:`ErrorResponseException<azure.mgmt.apimanagement.models.ErrorResponseException>`
-        """
-        # Construct URL
-        url = self.list_secrets.metadata['url']
-        path_format_arguments = {
-            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-            'serviceName': self._serialize.url("service_name", service_name, 'str', max_length=50, min_length=1, pattern=r'^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$'),
-            'identityProviderName': self._serialize.url("identity_provider_name", identity_provider_name, 'str'),
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
-        }
-        url = self._client.format_url(url, **path_format_arguments)
-
-        # Construct parameters
-        query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
-
-        # Construct headers
-        header_parameters = {}
-        header_parameters['Accept'] = 'application/json'
-        if self.config.generate_client_request_id:
-            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
-        if custom_headers:
-            header_parameters.update(custom_headers)
-        if self.config.accept_language is not None:
-            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
-
-        # Construct and send request
-        request = self._client.post(url, query_parameters, header_parameters)
-        response = self._client.send(request, stream=False, **operation_config)
-
-        if response.status_code not in [200]:
-            raise models.ErrorResponseException(self._deserialize, response)
-
-        header_dict = {}
-        deserialized = None
-        if response.status_code == 200:
-            deserialized = self._deserialize('ClientSecretContract', response)
-            header_dict = {
-                'ETag': 'str',
-            }
-
-        if raw:
-            client_raw_response = ClientRawResponse(deserialized, response)
-            client_raw_response.add_headers(header_dict)
-            return client_raw_response
-
-        return deserialized
-    list_secrets.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/identityProviders/{identityProviderName}/listSecrets'}
+    delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/certificateAuthorities/{certificateId}'}
