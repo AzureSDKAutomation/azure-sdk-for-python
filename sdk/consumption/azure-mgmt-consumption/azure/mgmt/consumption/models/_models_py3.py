@@ -332,7 +332,7 @@ class Budget(ProxyResource):
      Future start date should not be more than twelve months. Past start date should  be selected
      within the timegrain period. There are no restrictions on the end date.
     :type time_period: ~azure.mgmt.consumption.models.BudgetTimePeriod
-    :param filter: May be used to filter budgets by resource group, resource, or meter.
+    :param filter: May be used to filter budgets by user-specified dimensions and/or tags.
     :type filter: ~azure.mgmt.consumption.models.BudgetFilter
     :ivar current_spend: The current amount of cost which is being tracked for a budget.
     :vartype current_spend: ~azure.mgmt.consumption.models.CurrentSpend
@@ -933,8 +933,10 @@ class Forecast(Resource):
     :vartype tags: dict[str, str]
     :ivar usage_date: The usage date of the forecast.
     :vartype usage_date: str
-    :param grain: The granularity of forecast. Possible values include: "Daily", "Monthly",
-     "Yearly".
+    :param grain: The granularity of forecast. Please note that Yearly is not currently supported
+     in this API. The API will provide responses in the Monthly grain if Yearly is selected. To get
+     yearly grain data, please use our newer Forecast API. Possible values include: "Daily",
+     "Monthly", "Yearly".
     :type grain: str or ~azure.mgmt.consumption.models.Grain
     :ivar charge: The amount of charge.
     :vartype charge: float
@@ -1251,7 +1253,7 @@ class LegacyReservationRecommendation(ReservationRecommendation):
     :ivar look_back_period: The number of days of usage to look back for recommendation.
     :vartype look_back_period: str
     :ivar instance_flexibility_ratio: The instance Flexibility Ratio.
-    :vartype instance_flexibility_ratio: int
+    :vartype instance_flexibility_ratio: float
     :ivar instance_flexibility_group: The instance Flexibility Group.
     :vartype instance_flexibility_group: str
     :ivar normalized_size: The normalized Size.
@@ -1311,7 +1313,7 @@ class LegacyReservationRecommendation(ReservationRecommendation):
         'tags': {'key': 'tags', 'type': '{str}'},
         'kind': {'key': 'kind', 'type': 'str'},
         'look_back_period': {'key': 'properties.lookBackPeriod', 'type': 'str'},
-        'instance_flexibility_ratio': {'key': 'properties.instanceFlexibilityRatio', 'type': 'int'},
+        'instance_flexibility_ratio': {'key': 'properties.instanceFlexibilityRatio', 'type': 'float'},
         'instance_flexibility_group': {'key': 'properties.instanceFlexibilityGroup', 'type': 'str'},
         'normalized_size': {'key': 'properties.normalizedSize', 'type': 'str'},
         'recommended_quantity_normalized': {'key': 'properties.recommendedQuantityNormalized', 'type': 'float'},
@@ -2591,7 +2593,7 @@ class ModernReservationRecommendation(ReservationRecommendation):
     :ivar look_back_period: The number of days of usage to look back for recommendation.
     :vartype look_back_period: str
     :ivar instance_flexibility_ratio: The instance Flexibility Ratio.
-    :vartype instance_flexibility_ratio: int
+    :vartype instance_flexibility_ratio: float
     :ivar instance_flexibility_group: The instance Flexibility Group.
     :vartype instance_flexibility_group: str
     :ivar normalized_size: The normalized Size.
@@ -2651,7 +2653,7 @@ class ModernReservationRecommendation(ReservationRecommendation):
         'tags': {'key': 'tags', 'type': '{str}'},
         'kind': {'key': 'kind', 'type': 'str'},
         'look_back_period': {'key': 'properties.lookBackPeriod', 'type': 'str'},
-        'instance_flexibility_ratio': {'key': 'properties.instanceFlexibilityRatio', 'type': 'int'},
+        'instance_flexibility_ratio': {'key': 'properties.instanceFlexibilityRatio', 'type': 'float'},
         'instance_flexibility_group': {'key': 'properties.instanceFlexibilityGroup', 'type': 'str'},
         'normalized_size': {'key': 'properties.normalizedSize', 'type': 'str'},
         'recommended_quantity_normalized': {'key': 'properties.recommendedQuantityNormalized', 'type': 'float'},
@@ -3011,7 +3013,7 @@ class ModernUsageDetail(UsageDetail):
     :vartype previous_invoice_id: str
     :ivar pricing_currency_code: Pricing Billing Currency.
     :vartype pricing_currency_code: str
-    :ivar product_identifier: Identifer for the product that has accrued charges by consumption or
+    :ivar product_identifier: Identifier for the product that has accrued charges by consumption or
      purchase . This is the concatenated key of productId and SKuId in partner center.
     :vartype product_identifier: str
     :ivar resource_location_normalized: Resource Location Normalized.
@@ -3287,15 +3289,19 @@ class Notification(msrest.serialization.Model):
      1000.
     :type threshold: float
     :param contact_emails: Required. Email addresses to send the budget notification to when the
-     threshold is exceeded.
+     threshold is exceeded. Must have at least one contact email or contact group specified at the
+     Subscription or Resource Group scopes. All other scopes must have at least one contact email
+     specified.
     :type contact_emails: list[str]
     :param contact_roles: Contact roles to send the budget notification to when the threshold is
      exceeded.
     :type contact_roles: list[str]
     :param contact_groups: Action groups to send the budget notification to when the threshold is
-     exceeded.
+     exceeded. Must be provided as a fully qualified Azure resource id. Only supported at
+     Subscription or Resource Group scopes.
     :type contact_groups: list[str]
-    :param threshold_type: The type of threshold. Possible values include: "Actual".
+    :param threshold_type: The type of threshold. Possible values include: "Actual". Default value:
+     "Actual".
     :type threshold_type: str or ~azure.mgmt.consumption.models.ThresholdType
     """
 
@@ -3303,7 +3309,7 @@ class Notification(msrest.serialization.Model):
         'enabled': {'required': True},
         'operator': {'required': True},
         'threshold': {'required': True},
-        'contact_emails': {'required': True, 'max_items': 50, 'min_items': 1},
+        'contact_emails': {'required': True, 'max_items': 50, 'min_items': 0},
         'contact_groups': {'max_items': 50, 'min_items': 0},
     }
 
@@ -3326,7 +3332,7 @@ class Notification(msrest.serialization.Model):
         contact_emails: List[str],
         contact_roles: Optional[List[str]] = None,
         contact_groups: Optional[List[str]] = None,
-        threshold_type: Optional[Union[str, "ThresholdType"]] = None,
+        threshold_type: Optional[Union[str, "ThresholdType"]] = "Actual",
         **kwargs
     ):
         super(Notification, self).__init__(**kwargs)
@@ -4248,12 +4254,18 @@ class TagsResult(ProxyResource):
     :type e_tag: str
     :param tags: A set of tags. A list of Tag.
     :type tags: list[~azure.mgmt.consumption.models.Tag]
+    :ivar next_link: The link (url) to the next page of results.
+    :vartype next_link: str
+    :ivar previous_link: The link (url) to the previous page of results.
+    :vartype previous_link: str
     """
 
     _validation = {
         'id': {'readonly': True},
         'name': {'readonly': True},
         'type': {'readonly': True},
+        'next_link': {'readonly': True},
+        'previous_link': {'readonly': True},
     }
 
     _attribute_map = {
@@ -4262,6 +4274,8 @@ class TagsResult(ProxyResource):
         'type': {'key': 'type', 'type': 'str'},
         'e_tag': {'key': 'eTag', 'type': 'str'},
         'tags': {'key': 'properties.tags', 'type': '[Tag]'},
+        'next_link': {'key': 'properties.nextLink', 'type': 'str'},
+        'previous_link': {'key': 'properties.previousLink', 'type': 'str'},
     }
 
     def __init__(
@@ -4273,6 +4287,8 @@ class TagsResult(ProxyResource):
     ):
         super(TagsResult, self).__init__(e_tag=e_tag, **kwargs)
         self.tags = tags
+        self.next_link = None
+        self.previous_link = None
 
 
 class UsageDetailsListResult(msrest.serialization.Model):
