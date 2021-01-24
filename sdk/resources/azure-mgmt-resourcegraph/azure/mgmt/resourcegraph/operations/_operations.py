@@ -11,7 +11,6 @@
 
 import uuid
 from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
 
 from .. import models
 
@@ -25,7 +24,7 @@ class Operations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: API version. Constant value: "2019-04-01".
+    :ivar api_version: Api Version. Constant value: "2020-04-01-preview".
     """
 
     models = models
@@ -35,7 +34,7 @@ class Operations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2019-04-01"
+        self.api_version = "2020-04-01-preview"
 
         self.config = config
 
@@ -51,7 +50,8 @@ class Operations(object):
         :return: An iterator like instance of Operation
         :rtype:
          ~azure.mgmt.resourcegraph.models.OperationPaged[~azure.mgmt.resourcegraph.models.Operation]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resourcegraph.models.ErrorResponseException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
@@ -86,9 +86,7 @@ class Operations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
+                raise models.ErrorResponseException(self._deserialize, response)
 
             return response
 
