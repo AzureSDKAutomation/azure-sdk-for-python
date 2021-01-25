@@ -105,8 +105,7 @@ class AgentPool(SubResource):
     :type vm_size: str or
      ~azure.mgmt.containerservice.v2019_02_01.models.ContainerServiceVMSizeTypes
     :param os_disk_size_gb: OS Disk Size in GB to be used to specify the disk size for every
-     machine in this master/agent pool. If you specify 0, it will apply the default osDisk size
-     according to the vmSize specified.
+     machine in this master/agent pool. Defaults to 128 if unspecified, zero, or negative.
     :type os_disk_size_gb: int
     :param vnet_subnet_id: VNet SubnetID specifies the VNet's subnet identifier.
     :type vnet_subnet_id: str
@@ -381,8 +380,7 @@ class ContainerServiceMasterProfile(msrest.serialization.Model):
     :type vm_size: str or
      ~azure.mgmt.containerservice.v2019_02_01.models.ContainerServiceVMSizeTypes
     :param os_disk_size_gb: OS Disk Size in GB to be used to specify the disk size for every
-     machine in this master/agent pool. If you specify 0, it will apply the default osDisk size
-     according to the vmSize specified.
+     machine in this master/agent pool. Defaults to 128 if unspecified, zero, or negative.
     :type os_disk_size_gb: int
     :param vnet_subnet_id: VNet SubnetID specifies the VNet's subnet identifier.
     :type vnet_subnet_id: str
@@ -1025,8 +1023,7 @@ class ManagedClusterAgentPoolProfileProperties(msrest.serialization.Model):
     :type vm_size: str or
      ~azure.mgmt.containerservice.v2019_02_01.models.ContainerServiceVMSizeTypes
     :param os_disk_size_gb: OS Disk Size in GB to be used to specify the disk size for every
-     machine in this master/agent pool. If you specify 0, it will apply the default osDisk size
-     according to the vmSize specified.
+     machine in this master/agent pool. Defaults to 128 if unspecified, zero, or negative.
     :type os_disk_size_gb: int
     :param vnet_subnet_id: VNet SubnetID specifies the VNet's subnet identifier.
     :type vnet_subnet_id: str
@@ -1162,8 +1159,7 @@ class ManagedClusterAgentPoolProfile(ManagedClusterAgentPoolProfileProperties):
     :type vm_size: str or
      ~azure.mgmt.containerservice.v2019_02_01.models.ContainerServiceVMSizeTypes
     :param os_disk_size_gb: OS Disk Size in GB to be used to specify the disk size for every
-     machine in this master/agent pool. If you specify 0, it will apply the default osDisk size
-     according to the vmSize specified.
+     machine in this master/agent pool. Defaults to 128 if unspecified, zero, or negative.
     :type os_disk_size_gb: int
     :param vnet_subnet_id: VNet SubnetID specifies the VNet's subnet identifier.
     :type vnet_subnet_id: str
