@@ -441,10 +441,12 @@ try:
     from ._models_py3 import VpnDeviceScriptParameters
     from ._models_py3 import VpnGateway
     from ._models_py3 import VpnGatewayIpConfiguration
+    from ._models_py3 import VpnGatewayNatRule
     from ._models_py3 import VpnGatewayPacketCaptureStartParameters
     from ._models_py3 import VpnGatewayPacketCaptureStopParameters
     from ._models_py3 import VpnLinkBgpSettings
     from ._models_py3 import VpnLinkProviderProperties
+    from ._models_py3 import VpnNatRuleMapping
     from ._models_py3 import VpnPacketCaptureStartParameters
     from ._models_py3 import VpnPacketCaptureStopParameters
     from ._models_py3 import VpnProfileResponse
@@ -892,10 +894,12 @@ except (SyntaxError, ImportError):
     from ._models import VpnDeviceScriptParameters
     from ._models import VpnGateway
     from ._models import VpnGatewayIpConfiguration
+    from ._models import VpnGatewayNatRule
     from ._models import VpnGatewayPacketCaptureStartParameters
     from ._models import VpnGatewayPacketCaptureStopParameters
     from ._models import VpnLinkBgpSettings
     from ._models import VpnLinkProviderProperties
+    from ._models import VpnNatRuleMapping
     from ._models import VpnPacketCaptureStartParameters
     from ._models import VpnPacketCaptureStopParameters
     from ._models import VpnProfileResponse
@@ -1002,6 +1006,7 @@ from ._paged_models import VirtualRouterPaged
 from ._paged_models import VirtualRouterPeeringPaged
 from ._paged_models import VirtualWANPaged
 from ._paged_models import VpnConnectionPaged
+from ._paged_models import VpnGatewayNatRulePaged
 from ._paged_models import VpnGatewayPaged
 from ._paged_models import VpnServerConfigurationPaged
 from ._paged_models import VpnSiteLinkConnectionPaged
@@ -1138,6 +1143,9 @@ from ._network_management_client_enums import (
     RoutingState,
     HubBgpConnectionStatus,
     VpnConnectionStatus,
+    VpnLinkConnectionMode,
+    VpnNatRuleType,
+    VpnNatRuleMode,
     VirtualWanSecurityProviderType,
     TunnelConnectionStatus,
     HubVirtualNetworkConnectionStatus,
@@ -1588,10 +1596,12 @@ __all__ = [
     'VpnDeviceScriptParameters',
     'VpnGateway',
     'VpnGatewayIpConfiguration',
+    'VpnGatewayNatRule',
     'VpnGatewayPacketCaptureStartParameters',
     'VpnGatewayPacketCaptureStopParameters',
     'VpnLinkBgpSettings',
     'VpnLinkProviderProperties',
+    'VpnNatRuleMapping',
     'VpnPacketCaptureStartParameters',
     'VpnPacketCaptureStopParameters',
     'VpnProfileResponse',
@@ -1698,6 +1708,7 @@ __all__ = [
     'VpnGatewayPaged',
     'VpnConnectionPaged',
     'VpnSiteLinkConnectionPaged',
+    'VpnGatewayNatRulePaged',
     'P2SVpnGatewayPaged',
     'VirtualHubRouteTableV2Paged',
     'BgpConnectionPaged',
@@ -1833,6 +1844,9 @@ __all__ = [
     'RoutingState',
     'HubBgpConnectionStatus',
     'VpnConnectionStatus',
+    'VpnLinkConnectionMode',
+    'VpnNatRuleType',
+    'VpnNatRuleMode',
     'VirtualWanSecurityProviderType',
     'TunnelConnectionStatus',
     'HubVirtualNetworkConnectionStatus',
