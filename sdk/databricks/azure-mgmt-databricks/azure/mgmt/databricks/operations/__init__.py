@@ -9,10 +9,16 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from .workspaces_operations import WorkspacesOperations
-from .operations import Operations
+from ._workspaces_operations import WorkspacesOperations
+from ._vnet_peering_operations import VNetPeeringOperations
+from ._operations import Operations
+from ._private_link_resources_operations import PrivateLinkResourcesOperations
+from ._private_endpoint_connections_operations import PrivateEndpointConnectionsOperations
 
 __all__ = [
     'WorkspacesOperations',
+    'VNetPeeringOperations',
     'Operations',
+    'PrivateLinkResourcesOperations',
+    'PrivateEndpointConnectionsOperations',
 ]
