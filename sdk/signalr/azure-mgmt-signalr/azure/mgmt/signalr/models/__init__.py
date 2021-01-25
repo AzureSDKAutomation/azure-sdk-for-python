@@ -14,6 +14,8 @@ try:
     from ._models_py3 import ErrorResponse, ErrorResponseException
     from ._models_py3 import ErrorResponseBody
     from ._models_py3 import LogSpecification
+    from ._models_py3 import ManagedIdentity
+    from ._models_py3 import ManagedIdentitySettings
     from ._models_py3 import MetricSpecification
     from ._models_py3 import NameAvailability
     from ._models_py3 import NameAvailabilityParameters
@@ -38,15 +40,20 @@ try:
     from ._models_py3 import SignalRKeys
     from ._models_py3 import SignalRNetworkACLs
     from ._models_py3 import SignalRResource
+    from ._models_py3 import SignalRTlsSettings
     from ._models_py3 import SignalRUsage
     from ._models_py3 import SignalRUsageName
     from ._models_py3 import TrackedResource
+    from ._models_py3 import UpstreamAuthSettings
     from ._models_py3 import UpstreamTemplate
+    from ._models_py3 import UserAssignedIdentityProperty
 except (SyntaxError, ImportError):
     from ._models import Dimension
     from ._models import ErrorResponse, ErrorResponseException
     from ._models import ErrorResponseBody
     from ._models import LogSpecification
+    from ._models import ManagedIdentity
+    from ._models import ManagedIdentitySettings
     from ._models import MetricSpecification
     from ._models import NameAvailability
     from ._models import NameAvailabilityParameters
@@ -71,23 +78,28 @@ except (SyntaxError, ImportError):
     from ._models import SignalRKeys
     from ._models import SignalRNetworkACLs
     from ._models import SignalRResource
+    from ._models import SignalRTlsSettings
     from ._models import SignalRUsage
     from ._models import SignalRUsageName
     from ._models import TrackedResource
+    from ._models import UpstreamAuthSettings
     from ._models import UpstreamTemplate
+    from ._models import UserAssignedIdentityProperty
 from ._paged_models import OperationPaged
 from ._paged_models import PrivateLinkResourcePaged
 from ._paged_models import SignalRResourcePaged
 from ._paged_models import SignalRUsagePaged
 from ._signal_rmanagement_client_enums import (
-    SignalRSkuTier,
+    ACLAction,
+    FeatureFlags,
+    KeyType,
+    ManagedIdentityType,
+    SignalRRequestType,
     ProvisioningState,
     PrivateLinkServiceConnectionStatus,
+    SignalRSkuTier,
+    UpstreamAuthType,
     ServiceKind,
-    FeatureFlags,
-    ACLAction,
-    SignalRRequestType,
-    KeyType,
 )
 
 __all__ = [
@@ -95,6 +107,8 @@ __all__ = [
     'ErrorResponse', 'ErrorResponseException',
     'ErrorResponseBody',
     'LogSpecification',
+    'ManagedIdentity',
+    'ManagedIdentitySettings',
     'MetricSpecification',
     'NameAvailability',
     'NameAvailabilityParameters',
@@ -119,20 +133,25 @@ __all__ = [
     'SignalRKeys',
     'SignalRNetworkACLs',
     'SignalRResource',
+    'SignalRTlsSettings',
     'SignalRUsage',
     'SignalRUsageName',
     'TrackedResource',
+    'UpstreamAuthSettings',
     'UpstreamTemplate',
+    'UserAssignedIdentityProperty',
     'OperationPaged',
     'SignalRResourcePaged',
-    'PrivateLinkResourcePaged',
     'SignalRUsagePaged',
-    'SignalRSkuTier',
+    'PrivateLinkResourcePaged',
+    'ACLAction',
+    'FeatureFlags',
+    'KeyType',
+    'ManagedIdentityType',
+    'SignalRRequestType',
     'ProvisioningState',
     'PrivateLinkServiceConnectionStatus',
+    'SignalRSkuTier',
+    'UpstreamAuthType',
     'ServiceKind',
-    'FeatureFlags',
-    'ACLAction',
-    'SignalRRequestType',
-    'KeyType',
 ]
