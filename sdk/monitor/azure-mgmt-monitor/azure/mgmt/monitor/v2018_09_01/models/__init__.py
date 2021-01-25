@@ -17,17 +17,23 @@ try:
     from ._models_py3 import AzureAppPushReceiver
     from ._models_py3 import AzureFunctionReceiver
     from ._models_py3 import Baseline
+    from ._models_py3 import BaselineMetadata
     from ._models_py3 import BaselineMetadataValue
     from ._models_py3 import BaselineResponse
     from ._models_py3 import CalculateBaselineResponse
+    from ._models_py3 import CalculateBaselineResponseStatistics
     from ._models_py3 import EmailReceiver
     from ._models_py3 import EnableRequest
     from ._models_py3 import ErrorResponse, ErrorResponseException
     from ._models_py3 import ItsmReceiver
     from ._models_py3 import LocalizableString
     from ._models_py3 import LogicAppReceiver
+    from ._models_py3 import MetricSingleDimension
     from ._models_py3 import Resource
+    from ._models_py3 import SingleBaseline
+    from ._models_py3 import SingleMetricBaseline
     from ._models_py3 import SmsReceiver
+    from ._models_py3 import TimeSeriesBaseline
     from ._models_py3 import TimeSeriesInformation
     from ._models_py3 import VoiceReceiver
     from ._models_py3 import WebhookReceiver
@@ -39,24 +45,32 @@ except (SyntaxError, ImportError):
     from ._models import AzureAppPushReceiver
     from ._models import AzureFunctionReceiver
     from ._models import Baseline
+    from ._models import BaselineMetadata
     from ._models import BaselineMetadataValue
     from ._models import BaselineResponse
     from ._models import CalculateBaselineResponse
+    from ._models import CalculateBaselineResponseStatistics
     from ._models import EmailReceiver
     from ._models import EnableRequest
     from ._models import ErrorResponse, ErrorResponseException
     from ._models import ItsmReceiver
     from ._models import LocalizableString
     from ._models import LogicAppReceiver
+    from ._models import MetricSingleDimension
     from ._models import Resource
+    from ._models import SingleBaseline
+    from ._models import SingleMetricBaseline
     from ._models import SmsReceiver
+    from ._models import TimeSeriesBaseline
     from ._models import TimeSeriesInformation
     from ._models import VoiceReceiver
     from ._models import WebhookReceiver
 from ._paged_models import ActionGroupResourcePaged
+from ._paged_models import SingleMetricBaselinePaged
 from ._monitor_management_client_enums import (
     ReceiverStatus,
     Sensitivity,
+    BaselineSensitivity,
     ResultType,
 )
 
@@ -68,22 +82,30 @@ __all__ = [
     'AzureAppPushReceiver',
     'AzureFunctionReceiver',
     'Baseline',
+    'BaselineMetadata',
     'BaselineMetadataValue',
     'BaselineResponse',
     'CalculateBaselineResponse',
+    'CalculateBaselineResponseStatistics',
     'EmailReceiver',
     'EnableRequest',
     'ErrorResponse', 'ErrorResponseException',
     'ItsmReceiver',
     'LocalizableString',
     'LogicAppReceiver',
+    'MetricSingleDimension',
     'Resource',
+    'SingleBaseline',
+    'SingleMetricBaseline',
     'SmsReceiver',
+    'TimeSeriesBaseline',
     'TimeSeriesInformation',
     'VoiceReceiver',
     'WebhookReceiver',
     'ActionGroupResourcePaged',
+    'SingleMetricBaselinePaged',
     'ReceiverStatus',
     'Sensitivity',
+    'BaselineSensitivity',
     'ResultType',
 ]

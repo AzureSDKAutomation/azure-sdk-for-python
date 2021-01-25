@@ -24,7 +24,7 @@ class ScheduledQueryRulesOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client Api Version. Constant value: "2018-04-16".
+    :ivar api_version: The API version to use for this operation. Constant value: "2018-04-16".
     """
 
     models = models
@@ -58,12 +58,12 @@ class ScheduledQueryRulesOperations(object):
         :rtype: ~azure.mgmt.monitor.v2018_04_16.models.LogSearchRuleResource
          or ~msrest.pipeline.ClientRawResponse
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.monitor.v2018_04_16.models.ErrorResponseException>`
+         :class:`ErrorContractException<azure.mgmt.monitor.v2018_04_16.models.ErrorContractException>`
         """
         # Construct URL
         url = self.create_or_update.metadata['url']
         path_format_arguments = {
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', min_length=1),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'ruleName': self._serialize.url("rule_name", rule_name, 'str')
         }
@@ -71,7 +71,7 @@ class ScheduledQueryRulesOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str', min_length=1)
 
         # Construct headers
         header_parameters = {}
@@ -92,7 +92,7 @@ class ScheduledQueryRulesOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200, 201]:
-            raise models.ErrorResponseException(self._deserialize, response)
+            raise models.ErrorContractException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -124,20 +124,20 @@ class ScheduledQueryRulesOperations(object):
         :rtype: ~azure.mgmt.monitor.v2018_04_16.models.LogSearchRuleResource
          or ~msrest.pipeline.ClientRawResponse
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.monitor.v2018_04_16.models.ErrorResponseException>`
+         :class:`ErrorContractException<azure.mgmt.monitor.v2018_04_16.models.ErrorContractException>`
         """
         # Construct URL
         url = self.get.metadata['url']
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'ruleName': self._serialize.url("rule_name", rule_name, 'str'),
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', min_length=1)
         }
         url = self._client.format_url(url, **path_format_arguments)
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str', min_length=1)
 
         # Construct headers
         header_parameters = {}
@@ -154,7 +154,7 @@ class ScheduledQueryRulesOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            raise models.ErrorResponseException(self._deserialize, response)
+            raise models.ErrorContractException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -190,14 +190,14 @@ class ScheduledQueryRulesOperations(object):
         :rtype: ~azure.mgmt.monitor.v2018_04_16.models.LogSearchRuleResource
          or ~msrest.pipeline.ClientRawResponse
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.monitor.v2018_04_16.models.ErrorResponseException>`
+         :class:`ErrorContractException<azure.mgmt.monitor.v2018_04_16.models.ErrorContractException>`
         """
         parameters = models.LogSearchRuleResourcePatch(tags=tags, enabled=enabled)
 
         # Construct URL
         url = self.update.metadata['url']
         path_format_arguments = {
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', min_length=1),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'ruleName': self._serialize.url("rule_name", rule_name, 'str')
         }
@@ -205,7 +205,7 @@ class ScheduledQueryRulesOperations(object):
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str', min_length=1)
 
         # Construct headers
         header_parameters = {}
@@ -226,7 +226,7 @@ class ScheduledQueryRulesOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            raise models.ErrorResponseException(self._deserialize, response)
+            raise models.ErrorContractException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -255,20 +255,20 @@ class ScheduledQueryRulesOperations(object):
         :return: None or ClientRawResponse if raw=true
         :rtype: None or ~msrest.pipeline.ClientRawResponse
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.monitor.v2018_04_16.models.ErrorResponseException>`
+         :class:`ErrorContractException<azure.mgmt.monitor.v2018_04_16.models.ErrorContractException>`
         """
         # Construct URL
         url = self.delete.metadata['url']
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'ruleName': self._serialize.url("rule_name", rule_name, 'str'),
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', min_length=1)
         }
         url = self._client.format_url(url, **path_format_arguments)
 
         # Construct parameters
         query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str', min_length=1)
 
         # Construct headers
         header_parameters = {}
@@ -284,7 +284,7 @@ class ScheduledQueryRulesOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200, 204]:
-            raise models.ErrorResponseException(self._deserialize, response)
+            raise models.ErrorContractException(self._deserialize, response)
 
         if raw:
             client_raw_response = ClientRawResponse(None, response)
@@ -308,20 +308,20 @@ class ScheduledQueryRulesOperations(object):
         :rtype:
          ~azure.mgmt.monitor.v2018_04_16.models.LogSearchRuleResourcePaged[~azure.mgmt.monitor.v2018_04_16.models.LogSearchRuleResource]
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.monitor.v2018_04_16.models.ErrorResponseException>`
+         :class:`ErrorContractException<azure.mgmt.monitor.v2018_04_16.models.ErrorContractException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
                 url = self.list_by_subscription.metadata['url']
                 path_format_arguments = {
-                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
+                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', min_length=1)
                 }
                 url = self._client.format_url(url, **path_format_arguments)
 
                 # Construct parameters
                 query_parameters = {}
-                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str', min_length=1)
                 if filter is not None:
                     query_parameters['$filter'] = self._serialize.query("filter", filter, 'str')
 
@@ -349,7 +349,7 @@ class ScheduledQueryRulesOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                raise models.ErrorResponseException(self._deserialize, response)
+                raise models.ErrorContractException(self._deserialize, response)
 
             return response
 
@@ -381,7 +381,7 @@ class ScheduledQueryRulesOperations(object):
         :rtype:
          ~azure.mgmt.monitor.v2018_04_16.models.LogSearchRuleResourcePaged[~azure.mgmt.monitor.v2018_04_16.models.LogSearchRuleResource]
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.monitor.v2018_04_16.models.ErrorResponseException>`
+         :class:`ErrorContractException<azure.mgmt.monitor.v2018_04_16.models.ErrorContractException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
@@ -389,13 +389,13 @@ class ScheduledQueryRulesOperations(object):
                 url = self.list_by_resource_group.metadata['url']
                 path_format_arguments = {
                     'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
+                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', min_length=1)
                 }
                 url = self._client.format_url(url, **path_format_arguments)
 
                 # Construct parameters
                 query_parameters = {}
-                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str', min_length=1)
                 if filter is not None:
                     query_parameters['$filter'] = self._serialize.query("filter", filter, 'str')
 
@@ -423,7 +423,7 @@ class ScheduledQueryRulesOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                raise models.ErrorResponseException(self._deserialize, response)
+                raise models.ErrorContractException(self._deserialize, response)
 
             return response
 

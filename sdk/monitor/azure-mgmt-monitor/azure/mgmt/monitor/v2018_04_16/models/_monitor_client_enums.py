@@ -33,6 +33,8 @@ class QueryType(str, Enum):
 
 class ConditionalOperator(str, Enum):
 
+    greater_than_or_equal = "GreaterThanOrEqual"
+    less_than_or_equal = "LessThanOrEqual"
     greater_than = "GreaterThan"
     less_than = "LessThan"
     equal = "Equal"

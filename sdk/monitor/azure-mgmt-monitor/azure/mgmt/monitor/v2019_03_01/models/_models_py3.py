@@ -754,8 +754,8 @@ class TimeSeriesBaseline(Model):
     :type timestamps: list[datetime]
     :param data: Required. The baseline values for each sensitivity.
     :type data: list[~azure.mgmt.monitor.v2019_03_01.models.SingleBaseline]
-    :param metadata: The baseline metadata values.
-    :type metadata:
+    :param metadata_values: The baseline metadata values.
+    :type metadata_values:
      list[~azure.mgmt.monitor.v2019_03_01.models.BaselineMetadata]
     """
 
@@ -770,16 +770,16 @@ class TimeSeriesBaseline(Model):
         'dimensions': {'key': 'dimensions', 'type': '[MetricSingleDimension]'},
         'timestamps': {'key': 'timestamps', 'type': '[iso-8601]'},
         'data': {'key': 'data', 'type': '[SingleBaseline]'},
-        'metadata': {'key': 'metadata', 'type': '[BaselineMetadata]'},
+        'metadata_values': {'key': 'metadataValues', 'type': '[BaselineMetadata]'},
     }
 
-    def __init__(self, *, aggregation: str, timestamps, data, dimensions=None, metadata=None, **kwargs) -> None:
+    def __init__(self, *, aggregation: str, timestamps, data, dimensions=None, metadata_values=None, **kwargs) -> None:
         super(TimeSeriesBaseline, self).__init__(**kwargs)
         self.aggregation = aggregation
         self.dimensions = dimensions
         self.timestamps = timestamps
         self.data = data
-        self.metadata = metadata
+        self.metadata_values = metadata_values
 
 
 class VoiceReceiver(Model):

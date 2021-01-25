@@ -183,6 +183,34 @@ class Dimension(Model):
         self.values = values
 
 
+class ErrorContract(Model):
+    """Describes the format of Error response.
+
+    :param error: The error details.
+    :type error: ~azure.mgmt.monitor.v2018_04_16.models.ErrorResponse
+    """
+
+    _attribute_map = {
+        'error': {'key': 'error', 'type': 'ErrorResponse'},
+    }
+
+    def __init__(self, *, error=None, **kwargs) -> None:
+        super(ErrorContract, self).__init__(**kwargs)
+        self.error = error
+
+
+class ErrorContractException(HttpOperationError):
+    """Server responsed with exception of type: 'ErrorContract'.
+
+    :param deserialize: A deserializer
+    :param response: Server response to be deserialized.
+    """
+
+    def __init__(self, deserialize, response, *args):
+
+        super(ErrorContractException, self).__init__(deserialize, response, 'ErrorContract', *args)
+
+
 class ErrorResponse(Model):
     """Describes the format of Error response.
 
@@ -203,30 +231,20 @@ class ErrorResponse(Model):
         self.message = message
 
 
-class ErrorResponseException(HttpOperationError):
-    """Server responsed with exception of type: 'ErrorResponse'.
-
-    :param deserialize: A deserializer
-    :param response: Server response to be deserialized.
-    """
-
-    def __init__(self, deserialize, response, *args):
-
-        super(ErrorResponseException, self).__init__(deserialize, response, 'ErrorResponse', *args)
-
-
 class LogMetricTrigger(Model):
     """A log metrics trigger descriptor.
 
     :param threshold_operator: Evaluation operation for Metric -'GreaterThan'
-     or 'LessThan' or 'Equal'. Possible values include: 'GreaterThan',
-     'LessThan', 'Equal'
+     or 'LessThan' or 'Equal'. Possible values include: 'GreaterThanOrEqual',
+     'LessThanOrEqual', 'GreaterThan', 'LessThan', 'Equal'. Default value:
+     "GreaterThanOrEqual" .
     :type threshold_operator: str or
      ~azure.mgmt.monitor.v2018_04_16.models.ConditionalOperator
     :param threshold: The threshold of the metric trigger.
     :type threshold: float
     :param metric_trigger_type: Metric Trigger Type - 'Consecutive' or
-     'Total'. Possible values include: 'Consecutive', 'Total'
+     'Total'. Possible values include: 'Consecutive', 'Total'. Default value:
+     "Consecutive" .
     :type metric_trigger_type: str or
      ~azure.mgmt.monitor.v2018_04_16.models.MetricTriggerType
     :param metric_column: Evaluation of metric on a particular column
@@ -240,7 +258,7 @@ class LogMetricTrigger(Model):
         'metric_column': {'key': 'metricColumn', 'type': 'str'},
     }
 
-    def __init__(self, *, threshold_operator=None, threshold: float=None, metric_trigger_type=None, metric_column: str=None, **kwargs) -> None:
+    def __init__(self, *, threshold_operator="GreaterThanOrEqual", threshold: float=None, metric_trigger_type="Consecutive", metric_column: str=None, **kwargs) -> None:
         super(LogMetricTrigger, self).__init__(**kwargs)
         self.threshold_operator = threshold_operator
         self.threshold = threshold
@@ -266,6 +284,18 @@ class Resource(Model):
     :type location: str
     :param tags: Resource tags
     :type tags: dict[str, str]
+    :ivar kind: Metadata used by portal/tooling/etc to render different UX
+     experiences for resources of the same type; e.g. ApiApps are a kind of
+     Microsoft.Web/sites type.  If supported, the resource provider must
+     validate and persist this value.
+    :vartype kind: str
+    :ivar etag: The etag field is *not* required. If it is provided in the
+     response body, it must also be provided as a header per the normal etag
+     convention.  Entity tags are used for comparing two or more entities from
+     the same requested resource. HTTP/1.1 uses entity tags in the etag
+     (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26),
+     and If-Range (section 14.27) header fields.
+    :vartype etag: str
     """
 
     _validation = {
@@ -273,6 +303,8 @@ class Resource(Model):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'location': {'required': True},
+        'kind': {'readonly': True},
+        'etag': {'readonly': True},
     }
 
     _attribute_map = {
@@ -281,6 +313,8 @@ class Resource(Model):
         'type': {'key': 'type', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
     }
 
     def __init__(self, *, location: str, tags=None, **kwargs) -> None:
@@ -290,6 +324,8 @@ class Resource(Model):
         self.type = None
         self.location = location
         self.tags = tags
+        self.kind = None
+        self.etag = None
 
 
 class LogSearchRuleResource(Resource):
@@ -310,8 +346,22 @@ class LogSearchRuleResource(Resource):
     :type location: str
     :param tags: Resource tags
     :type tags: dict[str, str]
+    :ivar kind: Metadata used by portal/tooling/etc to render different UX
+     experiences for resources of the same type; e.g. ApiApps are a kind of
+     Microsoft.Web/sites type.  If supported, the resource provider must
+     validate and persist this value.
+    :vartype kind: str
+    :ivar etag: The etag field is *not* required. If it is provided in the
+     response body, it must also be provided as a header per the normal etag
+     convention.  Entity tags are used for comparing two or more entities from
+     the same requested resource. HTTP/1.1 uses entity tags in the etag
+     (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26),
+     and If-Range (section 14.27) header fields.
+    :vartype etag: str
     :param description: The description of the Log Search rule.
     :type description: str
+    :param display_name: The display name of the alert rule
+    :type display_name: str
     :param enabled: The flag which indicates whether the Log Search rule is
      enabled. Value should be true or false. Possible values include: 'true',
      'false'
@@ -336,6 +386,8 @@ class LogSearchRuleResource(Resource):
         'name': {'readonly': True},
         'type': {'readonly': True},
         'location': {'required': True},
+        'kind': {'readonly': True},
+        'etag': {'readonly': True},
         'last_updated_time': {'readonly': True},
         'provisioning_state': {'readonly': True},
         'source': {'required': True},
@@ -348,7 +400,10 @@ class LogSearchRuleResource(Resource):
         'type': {'key': 'type', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
         'description': {'key': 'properties.description', 'type': 'str'},
+        'display_name': {'key': 'properties.displayName', 'type': 'str'},
         'enabled': {'key': 'properties.enabled', 'type': 'str'},
         'last_updated_time': {'key': 'properties.lastUpdatedTime', 'type': 'iso-8601'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
@@ -357,9 +412,10 @@ class LogSearchRuleResource(Resource):
         'action': {'key': 'properties.action', 'type': 'Action'},
     }
 
-    def __init__(self, *, location: str, source, action, tags=None, description: str=None, enabled=None, schedule=None, **kwargs) -> None:
+    def __init__(self, *, location: str, source, action, tags=None, description: str=None, display_name: str=None, enabled=None, schedule=None, **kwargs) -> None:
         super(LogSearchRuleResource, self).__init__(location=location, tags=tags, **kwargs)
         self.description = description
+        self.display_name = display_name
         self.enabled = enabled
         self.last_updated_time = None
         self.provisioning_state = None
@@ -489,8 +545,9 @@ class TriggerCondition(Model):
     All required parameters must be populated in order to send to Azure.
 
     :param threshold_operator: Required. Evaluation operation for rule -
-     'GreaterThan' or 'LessThan. Possible values include: 'GreaterThan',
-     'LessThan', 'Equal'
+     'GreaterThan' or 'LessThan. Possible values include: 'GreaterThanOrEqual',
+     'LessThanOrEqual', 'GreaterThan', 'LessThan', 'Equal'. Default value:
+     "GreaterThanOrEqual" .
     :type threshold_operator: str or
      ~azure.mgmt.monitor.v2018_04_16.models.ConditionalOperator
     :param threshold: Required. Result or count threshold based on which rule
@@ -512,7 +569,7 @@ class TriggerCondition(Model):
         'metric_trigger': {'key': 'metricTrigger', 'type': 'LogMetricTrigger'},
     }
 
-    def __init__(self, *, threshold_operator, threshold: float, metric_trigger=None, **kwargs) -> None:
+    def __init__(self, *, threshold: float, threshold_operator="GreaterThanOrEqual", metric_trigger=None, **kwargs) -> None:
         super(TriggerCondition, self).__init__(**kwargs)
         self.threshold_operator = threshold_operator
         self.threshold = threshold
