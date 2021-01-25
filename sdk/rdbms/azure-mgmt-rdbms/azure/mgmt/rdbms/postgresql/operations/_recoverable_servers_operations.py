@@ -16,8 +16,8 @@ from msrestazure.azure_exceptions import CloudError
 from .. import models
 
 
-class CheckNameAvailabilityOperations(object):
-    """CheckNameAvailabilityOperations operations.
+class RecoverableServersOperations(object):
+    """RecoverableServersOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -25,7 +25,7 @@ class CheckNameAvailabilityOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The API version to use for this operation. Constant value: "2020-07-01-preview".
+    :ivar api_version: The API version to use for this operation. Constant value: "2017-12-01".
     """
 
     models = models
@@ -35,35 +35,35 @@ class CheckNameAvailabilityOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-07-01-preview"
+        self.api_version = "2017-12-01"
 
         self.config = config
 
-    def execute(
-            self, name, type=None, custom_headers=None, raw=False, **operation_config):
-        """Check the availability of name for server.
+    def get(
+            self, resource_group_name, server_name, custom_headers=None, raw=False, **operation_config):
+        """Gets a recoverable PostgreSQL Server.
 
-        :param name: Resource name to verify.
-        :type name: str
-        :param type: Resource type used for verification.
-        :type type: str
+        :param resource_group_name: The name of the resource group. The name
+         is case insensitive.
+        :type resource_group_name: str
+        :param server_name: The name of the server.
+        :type server_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: NameAvailability or ClientRawResponse if raw=true
-        :rtype:
-         ~azure.mgmt.rdbms.mysql_flexibleservers.models.NameAvailability or
-         ~msrest.pipeline.ClientRawResponse
+        :return: RecoverableServerResource or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.rdbms.postgresql.models.RecoverableServerResource
+         or ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        name_availability_request = models.NameAvailabilityRequest(name=name, type=type)
-
         # Construct URL
-        url = self.execute.metadata['url']
+        url = self.get.metadata['url']
         path_format_arguments = {
-            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', min_length=1)
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', min_length=1),
+            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str', max_length=90, min_length=1, pattern=r'^[-\w\._\(\)]+$'),
+            'serverName': self._serialize.url("server_name", server_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -74,7 +74,6 @@ class CheckNameAvailabilityOperations(object):
         # Construct headers
         header_parameters = {}
         header_parameters['Accept'] = 'application/json'
-        header_parameters['Content-Type'] = 'application/json; charset=utf-8'
         if self.config.generate_client_request_id:
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
         if custom_headers:
@@ -82,11 +81,8 @@ class CheckNameAvailabilityOperations(object):
         if self.config.accept_language is not None:
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
-        # Construct body
-        body_content = self._serialize.body(name_availability_request, 'NameAvailabilityRequest')
-
         # Construct and send request
-        request = self._client.post(url, query_parameters, header_parameters, body_content)
+        request = self._client.get(url, query_parameters, header_parameters)
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
@@ -96,11 +92,11 @@ class CheckNameAvailabilityOperations(object):
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('NameAvailability', response)
+            deserialized = self._deserialize('RecoverableServerResource', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    execute.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.DBForMySql/checkNameAvailability'}
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBForPostgreSQL/servers/{serverName}/recoverableServers'}
