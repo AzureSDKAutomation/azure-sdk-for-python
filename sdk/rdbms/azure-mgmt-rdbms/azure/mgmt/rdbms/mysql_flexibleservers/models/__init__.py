@@ -13,6 +13,7 @@ try:
     from ._models_py3 import AzureEntityResource
     from ._models_py3 import CapabilityProperties
     from ._models_py3 import Configuration
+    from ._models_py3 import ConfigurationListResult
     from ._models_py3 import Database
     from ._models_py3 import DelegatedSubnetArguments
     from ._models_py3 import DelegatedSubnetUsage
@@ -50,6 +51,7 @@ except (SyntaxError, ImportError):
     from ._models import AzureEntityResource
     from ._models import CapabilityProperties
     from ._models import Configuration
+    from ._models import ConfigurationListResult
     from ._models import Database
     from ._models import DelegatedSubnetArguments
     from ._models import DelegatedSubnetUsage
@@ -111,6 +113,7 @@ __all__ = [
     'AzureEntityResource',
     'CapabilityProperties',
     'Configuration',
+    'ConfigurationListResult',
     'Database',
     'DelegatedSubnetArguments',
     'DelegatedSubnetUsage',

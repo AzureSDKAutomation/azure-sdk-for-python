@@ -16,16 +16,19 @@ from msrest.exceptions import HttpOperationError
 class Resource(Model):
     """Resource.
 
+    Common fields that are returned in the response for all Azure Resource
+    Manager resources.
+
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     """
 
@@ -49,19 +52,21 @@ class Resource(Model):
 
 
 class AzureEntityResource(Resource):
-    """The resource model definition for a Azure Resource Manager resource with an
-    etag.
+    """Entity Resource.
+
+    The resource model definition for an Azure Resource Manager resource with
+    an etag.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -98,22 +103,27 @@ class CapabilityProperties(Model):
      server editions.
     :vartype supported_flexible_server_editions:
      list[~azure.mgmt.rdbms.mysql_flexibleservers.models.ServerEditionCapability]
+    :ivar status: The status of the capability.
+    :vartype status: str
     """
 
     _validation = {
         'zone': {'readonly': True},
         'supported_flexible_server_editions': {'readonly': True},
+        'status': {'readonly': True},
     }
 
     _attribute_map = {
         'zone': {'key': 'zone', 'type': 'str'},
         'supported_flexible_server_editions': {'key': 'supportedFlexibleServerEditions', 'type': '[ServerEditionCapability]'},
+        'status': {'key': 'status', 'type': 'str'},
     }
 
     def __init__(self, **kwargs) -> None:
         super(CapabilityProperties, self).__init__(**kwargs)
         self.zone = None
         self.supported_flexible_server_editions = None
+        self.status = None
 
 
 class CloudError(Model):
@@ -145,19 +155,21 @@ class CloudErrorException(HttpOperationError):
 
 
 class ProxyResource(Resource):
-    """The resource model definition for a ARM proxy resource. It will have
-    everything other than required location and tags.
+    """Proxy Resource.
+
+    The resource model definition for a Azure Resource Manager proxy resource.
+    It will not have tags and a location.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     """
 
@@ -183,13 +195,13 @@ class Configuration(ProxyResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param value: Value of the configuration.
     :type value: str
@@ -258,19 +270,40 @@ class Configuration(ProxyResource):
         self.is_dynamic_config = None
 
 
+class ConfigurationListResult(Model):
+    """A list of server configurations.
+
+    :param value: The list of server configurations.
+    :type value:
+     list[~azure.mgmt.rdbms.mysql_flexibleservers.models.Configuration]
+    :param next_link: The link used to get the next page of operations.
+    :type next_link: str
+    """
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': '[Configuration]'},
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+    }
+
+    def __init__(self, *, value=None, next_link: str=None, **kwargs) -> None:
+        super(ConfigurationListResult, self).__init__(**kwargs)
+        self.value = value
+        self.next_link = next_link
+
+
 class Database(ProxyResource):
     """Represents a Database.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param charset: The charset of the database.
     :type charset: str
@@ -371,7 +404,11 @@ class ErrorAdditionalInfo(Model):
 
 
 class ErrorResponse(Model):
-    """The resource management error response.
+    """Error Response.
+
+    Common error response for all Azure Resource Manager APIs to return error
+    details for failed operations. (This also follows the OData error response
+    format.).
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
@@ -423,13 +460,13 @@ class FirewallRule(ProxyResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param start_ip_address: Required. The start IP address of the server
      firewall rule. Must be IPv4 format.
@@ -586,6 +623,8 @@ class Operation(Model):
      operation or action.
     :vartype display:
      ~azure.mgmt.rdbms.mysql_flexibleservers.models.OperationDisplay
+    :param is_data_action: Indicates whether the operation is a data action
+    :type is_data_action: bool
     :ivar origin: The intended executor of the operation. Possible values
      include: 'NotSpecified', 'user', 'system'
     :vartype origin: str or
@@ -604,14 +643,16 @@ class Operation(Model):
     _attribute_map = {
         'name': {'key': 'name', 'type': 'str'},
         'display': {'key': 'display', 'type': 'OperationDisplay'},
+        'is_data_action': {'key': 'isDataAction', 'type': 'bool'},
         'origin': {'key': 'origin', 'type': 'str'},
         'properties': {'key': 'properties', 'type': '{object}'},
     }
 
-    def __init__(self, **kwargs) -> None:
+    def __init__(self, *, is_data_action: bool=None, **kwargs) -> None:
         super(Operation, self).__init__(**kwargs)
         self.name = None
         self.display = None
+        self.is_data_action = is_data_action
         self.origin = None
         self.properties = None
 
@@ -657,18 +698,24 @@ class OperationDisplay(Model):
 class OperationListResult(Model):
     """A list of resource provider operations.
 
-    :param value: The list of resource provider operations.
+    :param value: Collection of available operation details
     :type value:
      list[~azure.mgmt.rdbms.mysql_flexibleservers.models.Operation]
+    :param next_link: URL client should use to fetch the next page (per server
+     side paging).
+     It's null for now, added for future use.
+    :type next_link: str
     """
 
     _attribute_map = {
         'value': {'key': 'value', 'type': '[Operation]'},
+        'next_link': {'key': 'nextLink', 'type': 'str'},
     }
 
-    def __init__(self, *, value=None, **kwargs) -> None:
+    def __init__(self, *, value=None, next_link: str=None, **kwargs) -> None:
         super(OperationListResult, self).__init__(**kwargs)
         self.value = value
+        self.next_link = next_link
 
 
 class Plan(Model):
@@ -724,19 +771,19 @@ class ResourceModelWithAllowedPropertySet(Model):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts..
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param location: The geo-location where the resource lives
     :type location: str
-    :param managed_by: The  fully qualified resource ID of the resource that
+    :param managed_by: The fully qualified resource ID of the resource that
      manages this resource. Indicates if this resource is managed by another
-     azure resource. If this is present, complete mode deployment will not
+     Azure resource. If this is present, complete mode deployment will not
      delete the resource if it is removed from the template since it is managed
      by another resource.
     :type managed_by: str
@@ -929,20 +976,23 @@ class ResourceModelWithAllowedPropertySetSku(Sku):
 
 
 class TrackedResource(Resource):
-    """The resource model definition for a ARM tracked top level resource.
+    """Tracked Resource.
+
+    The resource model definition for an Azure Resource Manager tracked top
+    level resource which has 'tags' and a 'location'.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -979,13 +1029,13 @@ class Server(TrackedResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -1165,18 +1215,22 @@ class ServerEditionCapability(Model):
     :ivar supported_server_versions: A list of supported server versions.
     :vartype supported_server_versions:
      list[~azure.mgmt.rdbms.mysql_flexibleservers.models.ServerVersionCapability]
+    :ivar status: The status of the capability.
+    :vartype status: str
     """
 
     _validation = {
         'name': {'readonly': True},
         'supported_storage_editions': {'readonly': True},
         'supported_server_versions': {'readonly': True},
+        'status': {'readonly': True},
     }
 
     _attribute_map = {
         'name': {'key': 'name', 'type': 'str'},
         'supported_storage_editions': {'key': 'supportedStorageEditions', 'type': '[StorageEditionCapability]'},
         'supported_server_versions': {'key': 'supportedServerVersions', 'type': '[ServerVersionCapability]'},
+        'status': {'key': 'status', 'type': 'str'},
     }
 
     def __init__(self, **kwargs) -> None:
@@ -1184,6 +1238,7 @@ class ServerEditionCapability(Model):
         self.name = None
         self.supported_storage_editions = None
         self.supported_server_versions = None
+        self.status = None
 
 
 class ServerForUpdate(Model):
@@ -1250,13 +1305,13 @@ class ServerKey(ProxyResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :ivar kind: Kind of encryption protector used to protect the key.
     :vartype kind: str
@@ -1308,22 +1363,27 @@ class ServerVersionCapability(Model):
     :ivar supported_vcores: A list of supported Vcores
     :vartype supported_vcores:
      list[~azure.mgmt.rdbms.mysql_flexibleservers.models.VcoreCapability]
+    :ivar status: The status of the capability.
+    :vartype status: str
     """
 
     _validation = {
         'name': {'readonly': True},
         'supported_vcores': {'readonly': True},
+        'status': {'readonly': True},
     }
 
     _attribute_map = {
         'name': {'key': 'name', 'type': 'str'},
         'supported_vcores': {'key': 'supportedVcores', 'type': '[VcoreCapability]'},
+        'status': {'key': 'status', 'type': 'str'},
     }
 
     def __init__(self, **kwargs) -> None:
         super(ServerVersionCapability, self).__init__(**kwargs)
         self.name = None
         self.supported_vcores = None
+        self.status = None
 
 
 class StorageEditionCapability(Model):
@@ -1344,6 +1404,8 @@ class StorageEditionCapability(Model):
     :vartype min_backup_retention_days: long
     :ivar max_backup_retention_days: Maximum backup retention days
     :vartype max_backup_retention_days: long
+    :ivar status: The status of the capability.
+    :vartype status: str
     """
 
     _validation = {
@@ -1352,6 +1414,7 @@ class StorageEditionCapability(Model):
         'max_storage_size': {'readonly': True},
         'min_backup_retention_days': {'readonly': True},
         'max_backup_retention_days': {'readonly': True},
+        'status': {'readonly': True},
     }
 
     _attribute_map = {
@@ -1360,6 +1423,7 @@ class StorageEditionCapability(Model):
         'max_storage_size': {'key': 'maxStorageSize', 'type': 'StorageMBCapability'},
         'min_backup_retention_days': {'key': 'minBackupRetentionDays', 'type': 'long'},
         'max_backup_retention_days': {'key': 'maxBackupRetentionDays', 'type': 'long'},
+        'status': {'key': 'status', 'type': 'str'},
     }
 
     def __init__(self, **kwargs) -> None:
@@ -1369,6 +1433,7 @@ class StorageEditionCapability(Model):
         self.max_storage_size = None
         self.min_backup_retention_days = None
         self.max_backup_retention_days = None
+        self.status = None
 
 
 class StorageMBCapability(Model):
@@ -1443,6 +1508,8 @@ class VcoreCapability(Model):
     :vartype supported_iops: long
     :ivar supported_memory_per_vcore_mb: supported memory per vCore in MB
     :vartype supported_memory_per_vcore_mb: long
+    :ivar status: The status of the capability.
+    :vartype status: str
     """
 
     _validation = {
@@ -1450,6 +1517,7 @@ class VcoreCapability(Model):
         'v_cores': {'readonly': True},
         'supported_iops': {'readonly': True},
         'supported_memory_per_vcore_mb': {'readonly': True},
+        'status': {'readonly': True},
     }
 
     _attribute_map = {
@@ -1457,6 +1525,7 @@ class VcoreCapability(Model):
         'v_cores': {'key': 'vCores', 'type': 'long'},
         'supported_iops': {'key': 'supportedIops', 'type': 'long'},
         'supported_memory_per_vcore_mb': {'key': 'supportedMemoryPerVcoreMB', 'type': 'long'},
+        'status': {'key': 'status', 'type': 'str'},
     }
 
     def __init__(self, **kwargs) -> None:
@@ -1465,6 +1534,7 @@ class VcoreCapability(Model):
         self.v_cores = None
         self.supported_iops = None
         self.supported_memory_per_vcore_mb = None
+        self.status = None
 
 
 class VirtualNetworkSubnetUsageParameter(Model):

@@ -116,6 +116,19 @@ class PerformanceTierPropertiesPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(PerformanceTierPropertiesPaged, self).__init__(*args, **kwargs)
+class ServerSecurityAlertPolicyPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`ServerSecurityAlertPolicy <azure.mgmt.rdbms.mysql.models.ServerSecurityAlertPolicy>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[ServerSecurityAlertPolicy]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(ServerSecurityAlertPolicyPaged, self).__init__(*args, **kwargs)
 class QueryTextPaged(Paged):
     """
     A paging container for iterating over a list of :class:`QueryText <azure.mgmt.rdbms.mysql.models.QueryText>` object
