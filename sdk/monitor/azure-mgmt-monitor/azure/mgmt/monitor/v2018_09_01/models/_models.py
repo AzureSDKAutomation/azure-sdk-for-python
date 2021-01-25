@@ -350,6 +350,8 @@ class Baseline(Model):
     :type low_thresholds: list[float]
     :param high_thresholds: Required. The high thresholds of the baseline.
     :type high_thresholds: list[float]
+    :param timestamps: the array of timestamps of the baselines.
+    :type timestamps: list[datetime]
     """
 
     _validation = {
@@ -362,6 +364,7 @@ class Baseline(Model):
         'sensitivity': {'key': 'sensitivity', 'type': 'Sensitivity'},
         'low_thresholds': {'key': 'lowThresholds', 'type': '[float]'},
         'high_thresholds': {'key': 'highThresholds', 'type': '[float]'},
+        'timestamps': {'key': 'timestamps', 'type': '[iso-8601]'},
     }
 
     def __init__(self, **kwargs):
@@ -369,6 +372,34 @@ class Baseline(Model):
         self.sensitivity = kwargs.get('sensitivity', None)
         self.low_thresholds = kwargs.get('low_thresholds', None)
         self.high_thresholds = kwargs.get('high_thresholds', None)
+        self.timestamps = kwargs.get('timestamps', None)
+
+
+class BaselineMetadata(Model):
+    """Represents a baseline metadata value.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. Name of the baseline metadata.
+    :type name: str
+    :param value: Required. Value of the baseline metadata.
+    :type value: str
+    """
+
+    _validation = {
+        'name': {'required': True},
+        'value': {'required': True},
+    }
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'value': {'key': 'value', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(BaselineMetadata, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+        self.value = kwargs.get('value', None)
 
 
 class BaselineMetadataValue(Model):
@@ -459,6 +490,9 @@ class BaselineResponse(Model):
 class CalculateBaselineResponse(Model):
     """The response to a calculate baseline call.
 
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
     All required parameters must be populated in order to send to Azure.
 
     :param type: Required. The resource type of the baseline resource.
@@ -467,17 +501,25 @@ class CalculateBaselineResponse(Model):
     :type timestamps: list[datetime]
     :param baseline: Required. The baseline values for each sensitivity.
     :type baseline: list[~azure.mgmt.monitor.v2018_09_01.models.Baseline]
+    :param statistics: The statistics
+    :type statistics:
+     ~azure.mgmt.monitor.v2018_09_01.models.CalculateBaselineResponseStatistics
+    :ivar internal_operation_id: internal operation id
+    :vartype internal_operation_id: str
     """
 
     _validation = {
         'type': {'required': True},
         'baseline': {'required': True},
+        'internal_operation_id': {'readonly': True},
     }
 
     _attribute_map = {
         'type': {'key': 'type', 'type': 'str'},
         'timestamps': {'key': 'timestamps', 'type': '[iso-8601]'},
         'baseline': {'key': 'baseline', 'type': '[Baseline]'},
+        'statistics': {'key': 'statistics', 'type': 'CalculateBaselineResponseStatistics'},
+        'internal_operation_id': {'key': 'internalOperationId', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -485,6 +527,33 @@ class CalculateBaselineResponse(Model):
         self.type = kwargs.get('type', None)
         self.timestamps = kwargs.get('timestamps', None)
         self.baseline = kwargs.get('baseline', None)
+        self.statistics = kwargs.get('statistics', None)
+        self.internal_operation_id = None
+
+
+class CalculateBaselineResponseStatistics(Model):
+    """The statistics.
+
+    :param is_eligible: is series eligible for dynamic threshold analysis
+    :type is_eligible: bool
+    :param status: The list of extended status for calculating the baseline.
+    :type status: list[str]
+    :param seasonality_period: The seasonality period for calculating the
+     baseline.
+    :type seasonality_period: int
+    """
+
+    _attribute_map = {
+        'is_eligible': {'key': 'isEligible', 'type': 'bool'},
+        'status': {'key': 'status', 'type': '[str]'},
+        'seasonality_period': {'key': 'seasonalityPeriod', 'type': 'int'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CalculateBaselineResponseStatistics, self).__init__(**kwargs)
+        self.is_eligible = kwargs.get('is_eligible', None)
+        self.status = kwargs.get('status', None)
+        self.seasonality_period = kwargs.get('seasonality_period', None)
 
 
 class CloudError(Model):
@@ -695,6 +764,107 @@ class LogicAppReceiver(Model):
         self.callback_url = kwargs.get('callback_url', None)
 
 
+class MetricSingleDimension(Model):
+    """The metric dimension name and value.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. Name of the dimension.
+    :type name: str
+    :param value: Required. Value of the dimension.
+    :type value: str
+    """
+
+    _validation = {
+        'name': {'required': True},
+        'value': {'required': True},
+    }
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'value': {'key': 'value', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(MetricSingleDimension, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+        self.value = kwargs.get('value', None)
+
+
+class SingleBaseline(Model):
+    """The baseline values for a single sensitivity value.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param sensitivity: Required. the sensitivity of the baseline. Possible
+     values include: 'Low', 'Medium', 'High'
+    :type sensitivity: str or
+     ~azure.mgmt.monitor.v2018_09_01.models.BaselineSensitivity
+    :param low_thresholds: Required. The low thresholds of the baseline.
+    :type low_thresholds: list[float]
+    :param high_thresholds: Required. The high thresholds of the baseline.
+    :type high_thresholds: list[float]
+    """
+
+    _validation = {
+        'sensitivity': {'required': True},
+        'low_thresholds': {'required': True},
+        'high_thresholds': {'required': True},
+    }
+
+    _attribute_map = {
+        'sensitivity': {'key': 'sensitivity', 'type': 'str'},
+        'low_thresholds': {'key': 'lowThresholds', 'type': '[float]'},
+        'high_thresholds': {'key': 'highThresholds', 'type': '[float]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SingleBaseline, self).__init__(**kwargs)
+        self.sensitivity = kwargs.get('sensitivity', None)
+        self.low_thresholds = kwargs.get('low_thresholds', None)
+        self.high_thresholds = kwargs.get('high_thresholds', None)
+
+
+class SingleMetricBaseline(Model):
+    """The baseline results of a single metric.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param id: Required. The metric baseline Id.
+    :type id: str
+    :param type: Required. The resource type of the metric baseline resource.
+    :type type: str
+    :param metric_name: Required. The name of the metric for which the
+     baselines were retrieved.
+    :type metric_name: str
+    :param baselines: Required. The baseline for each time series that was
+     queried.
+    :type baselines:
+     list[~azure.mgmt.monitor.v2018_09_01.models.TimeSeriesBaseline]
+    """
+
+    _validation = {
+        'id': {'required': True},
+        'type': {'required': True},
+        'metric_name': {'required': True},
+        'baselines': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'metric_name': {'key': 'metricName', 'type': 'str'},
+        'baselines': {'key': 'baselines', 'type': '[TimeSeriesBaseline]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SingleMetricBaseline, self).__init__(**kwargs)
+        self.id = kwargs.get('id', None)
+        self.type = kwargs.get('type', None)
+        self.metric_name = kwargs.get('metric_name', None)
+        self.baselines = kwargs.get('baselines', None)
+
+
 class SmsReceiver(Model):
     """An SMS receiver.
 
@@ -736,6 +906,48 @@ class SmsReceiver(Model):
         self.country_code = kwargs.get('country_code', None)
         self.phone_number = kwargs.get('phone_number', None)
         self.status = None
+
+
+class TimeSeriesBaseline(Model):
+    """The baseline values for a single time series.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param aggregation: Required. The aggregation type of the metric.
+    :type aggregation: str
+    :param dimensions: The dimensions of this time series.
+    :type dimensions:
+     list[~azure.mgmt.monitor.v2018_09_01.models.MetricSingleDimension]
+    :param timestamps: Required. The list of timestamps of the baselines.
+    :type timestamps: list[datetime]
+    :param data: Required. The baseline values for each sensitivity.
+    :type data: list[~azure.mgmt.monitor.v2018_09_01.models.SingleBaseline]
+    :param metadata_values: The baseline metadata values.
+    :type metadata_values:
+     list[~azure.mgmt.monitor.v2018_09_01.models.BaselineMetadata]
+    """
+
+    _validation = {
+        'aggregation': {'required': True},
+        'timestamps': {'required': True},
+        'data': {'required': True},
+    }
+
+    _attribute_map = {
+        'aggregation': {'key': 'aggregation', 'type': 'str'},
+        'dimensions': {'key': 'dimensions', 'type': '[MetricSingleDimension]'},
+        'timestamps': {'key': 'timestamps', 'type': '[iso-8601]'},
+        'data': {'key': 'data', 'type': '[SingleBaseline]'},
+        'metadata_values': {'key': 'metadataValues', 'type': '[BaselineMetadata]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(TimeSeriesBaseline, self).__init__(**kwargs)
+        self.aggregation = kwargs.get('aggregation', None)
+        self.dimensions = kwargs.get('dimensions', None)
+        self.timestamps = kwargs.get('timestamps', None)
+        self.data = kwargs.get('data', None)
+        self.metadata_values = kwargs.get('metadata_values', None)
 
 
 class TimeSeriesInformation(Model):

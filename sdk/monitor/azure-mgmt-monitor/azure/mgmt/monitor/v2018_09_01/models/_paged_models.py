@@ -25,3 +25,16 @@ class ActionGroupResourcePaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(ActionGroupResourcePaged, self).__init__(*args, **kwargs)
+class SingleMetricBaselinePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`SingleMetricBaseline <azure.mgmt.monitor.v2018_09_01.models.SingleMetricBaseline>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[SingleMetricBaseline]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(SingleMetricBaselinePaged, self).__init__(*args, **kwargs)
