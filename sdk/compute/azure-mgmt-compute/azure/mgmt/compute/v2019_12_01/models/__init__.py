@@ -136,6 +136,7 @@ try:
     from ._models_py3 import UpgradePolicy
     from ._models_py3 import Usage
     from ._models_py3 import UsageName
+    from ._models_py3 import UserArtifactManage
     from ._models_py3 import UserArtifactSource
     from ._models_py3 import VaultCertificate
     from ._models_py3 import VaultSecretGroup
@@ -332,6 +333,7 @@ except (SyntaxError, ImportError):
     from ._models import UpgradePolicy
     from ._models import Usage
     from ._models import UsageName
+    from ._models import UserArtifactManage
     from ._models import UserArtifactSource
     from ._models import VaultCertificate
     from ._models import VaultSecretGroup
@@ -593,6 +595,7 @@ __all__ = [
     'UpgradePolicy',
     'Usage',
     'UsageName',
+    'UserArtifactManage',
     'UserArtifactSource',
     'VaultCertificate',
     'VaultSecretGroup',
