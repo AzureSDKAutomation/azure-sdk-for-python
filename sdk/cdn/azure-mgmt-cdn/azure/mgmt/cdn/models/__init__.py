@@ -22,6 +22,7 @@ try:
     from ._models_py3 import AFDOriginUpdateParameters
     from ._models_py3 import AfdPurgeParameters
     from ._models_py3 import AFDStateProperties
+    from ._models_py3 import CacheConfiguration
     from ._models_py3 import CacheExpirationActionParameters
     from ._models_py3 import CacheKeyQueryStringActionParameters
     from ._models_py3 import CdnCertificateSourceParameters
@@ -145,6 +146,7 @@ try:
     from ._models_py3 import SecretProperties
     from ._models_py3 import SecurityPolicy
     from ._models_py3 import SecurityPolicyParameters
+    from ._models_py3 import SecurityPolicyProperties
     from ._models_py3 import SecurityPolicyWebApplicationFirewallAssociation
     from ._models_py3 import SecurityPolicyWebApplicationFirewallParameters
     from ._models_py3 import SharedPrivateLinkResourceProperties
@@ -195,6 +197,7 @@ except (SyntaxError, ImportError):
     from ._models import AFDOriginUpdateParameters
     from ._models import AfdPurgeParameters
     from ._models import AFDStateProperties
+    from ._models import CacheConfiguration
     from ._models import CacheExpirationActionParameters
     from ._models import CacheKeyQueryStringActionParameters
     from ._models import CdnCertificateSourceParameters
@@ -318,6 +321,7 @@ except (SyntaxError, ImportError):
     from ._models import SecretProperties
     from ._models import SecurityPolicy
     from ._models import SecurityPolicyParameters
+    from ._models import SecurityPolicyProperties
     from ._models import SecurityPolicyWebApplicationFirewallAssociation
     from ._models import SecurityPolicyWebApplicationFirewallParameters
     from ._models import SharedPrivateLinkResourceProperties
@@ -400,9 +404,12 @@ from ._cdn_management_client_enums import (
     DestinationProtocol,
     Algorithm,
     ParamIndicator,
+    RouteType,
+    ForwardingProtocol,
+    QueryStringBehavior,
+    DynamicCompressionEnabled,
     HeaderAction,
     CacheBehavior,
-    QueryStringBehavior,
     OriginResourceState,
     PrivateEndpointStatus,
     OriginGroupResourceState,
@@ -423,9 +430,8 @@ from ._cdn_management_client_enums import (
     DomainValidationState,
     EnabledState,
     AFDEndpointProtocols,
-    SecretType,
     SharedPrivateLinkResourceStatus,
-    ForwardingProtocol,
+    AfdQueryStringCachingBehavior,
     LinkToDefaultDomain,
     HttpsRedirect,
     MatchProcessingBehavior,
@@ -454,6 +460,7 @@ __all__ = [
     'AFDOriginUpdateParameters',
     'AfdPurgeParameters',
     'AFDStateProperties',
+    'CacheConfiguration',
     'CacheExpirationActionParameters',
     'CacheKeyQueryStringActionParameters',
     'CdnCertificateSourceParameters',
@@ -577,6 +584,7 @@ __all__ = [
     'SecretProperties',
     'SecurityPolicy',
     'SecurityPolicyParameters',
+    'SecurityPolicyProperties',
     'SecurityPolicyWebApplicationFirewallAssociation',
     'SecurityPolicyWebApplicationFirewallParameters',
     'SharedPrivateLinkResourceProperties',
@@ -658,9 +666,12 @@ __all__ = [
     'DestinationProtocol',
     'Algorithm',
     'ParamIndicator',
+    'RouteType',
+    'ForwardingProtocol',
+    'QueryStringBehavior',
+    'DynamicCompressionEnabled',
     'HeaderAction',
     'CacheBehavior',
-    'QueryStringBehavior',
     'OriginResourceState',
     'PrivateEndpointStatus',
     'OriginGroupResourceState',
@@ -681,9 +692,8 @@ __all__ = [
     'DomainValidationState',
     'EnabledState',
     'AFDEndpointProtocols',
-    'SecretType',
     'SharedPrivateLinkResourceStatus',
-    'ForwardingProtocol',
+    'AfdQueryStringCachingBehavior',
     'LinkToDefaultDomain',
     'HttpsRedirect',
     'MatchProcessingBehavior',

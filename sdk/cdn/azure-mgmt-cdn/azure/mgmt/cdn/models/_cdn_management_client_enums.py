@@ -259,6 +259,33 @@ class ParamIndicator(str, Enum):
     signature = "Signature"
 
 
+class RouteType(str, Enum):
+
+    forward = "Forward"
+    redirect = "Redirect"
+
+
+class ForwardingProtocol(str, Enum):
+
+    http_only = "HttpOnly"
+    https_only = "HttpsOnly"
+    match_request = "MatchRequest"
+
+
+class QueryStringBehavior(str, Enum):
+
+    include = "Include"
+    include_all = "IncludeAll"
+    exclude = "Exclude"
+    exclude_all = "ExcludeAll"
+
+
+class DynamicCompressionEnabled(str, Enum):
+
+    enabled = "Enabled"
+    disabled = "Disabled"
+
+
 class HeaderAction(str, Enum):
 
     append = "Append"
@@ -271,14 +298,6 @@ class CacheBehavior(str, Enum):
     bypass_cache = "BypassCache"
     override = "Override"
     set_if_missing = "SetIfMissing"
-
-
-class QueryStringBehavior(str, Enum):
-
-    include = "Include"
-    include_all = "IncludeAll"
-    exclude = "Exclude"
-    exclude_all = "ExcludeAll"
 
 
 class OriginResourceState(str, Enum):
@@ -432,13 +451,6 @@ class AFDEndpointProtocols(str, Enum):
     https = "Https"
 
 
-class SecretType(str, Enum):
-
-    url_signing_key = "UrlSigningKey"
-    customer_certificate = "CustomerCertificate"
-    managed_certificate = "ManagedCertificate"
-
-
 class SharedPrivateLinkResourceStatus(str, Enum):
 
     pending = "Pending"
@@ -448,11 +460,11 @@ class SharedPrivateLinkResourceStatus(str, Enum):
     timeout = "Timeout"
 
 
-class ForwardingProtocol(str, Enum):
+class AfdQueryStringCachingBehavior(str, Enum):
 
-    http_only = "HttpOnly"
-    https_only = "HttpsOnly"
-    match_request = "MatchRequest"
+    ignore_query_string = "IgnoreQueryString"
+    use_query_string = "UseQueryString"
+    not_set = "NotSet"
 
 
 class LinkToDefaultDomain(str, Enum):
