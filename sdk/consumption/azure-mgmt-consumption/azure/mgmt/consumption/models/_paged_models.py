@@ -12,6 +12,19 @@
 from msrest.paging import Paged
 
 
+class UsageDetailPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`UsageDetail <azure.mgmt.consumption.models.UsageDetail>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[UsageDetail]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(UsageDetailPaged, self).__init__(*args, **kwargs)
 class OperationPaged(Paged):
     """
     A paging container for iterating over a list of :class:`Operation <azure.mgmt.consumption.models.Operation>` object

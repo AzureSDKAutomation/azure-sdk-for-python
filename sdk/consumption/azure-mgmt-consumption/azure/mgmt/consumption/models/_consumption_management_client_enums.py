@@ -9,19 +9,17 @@
 # regenerated.
 # --------------------------------------------------------------------------
 
-from msrest.paging import Paged
+from enum import Enum
 
 
-class BudgetPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`Budget <azure.mgmt.consumption.models.Budget>` object
-    """
+class Metrictype(str, Enum):
 
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[Budget]'}
-    }
+    actual_cost_metric_type = "actualcost"  #: Actual cost data.
+    amortized_cost_metric_type = "amortizedcost"  #: Amortized cost data.
+    usage_metric_type = "usage"  #: Usage data.
 
-    def __init__(self, *args, **kwargs):
 
-        super(BudgetPaged, self).__init__(*args, **kwargs)
+class Scope2(str, Enum):
+
+    single = "Single"
+    shared = "Shared"

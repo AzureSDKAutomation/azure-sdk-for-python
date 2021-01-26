@@ -15,14 +15,16 @@ from msrest.pipeline import ClientRawResponse
 from .. import models
 
 
-class ChargesOperations(object):
-    """ChargesOperations operations.
+class TagsOperations(object):
+    """TagsOperations operations.
+
+    You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
     :param client: Client for service requests.
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Version of the API to be used with the client request. The current version is 2019-04-01-preview. Constant value: "2019-04-01-preview".
+    :ivar api_version: Version of the API to be used with the client request. The current version is 2019-11-01. Constant value: "2019-11-01".
     """
 
     models = models
@@ -32,44 +34,40 @@ class ChargesOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2019-04-01-preview"
+        self.api_version = "2019-11-01"
 
         self.config = config
 
-    def list_by_scope(
-            self, scope, filter=None, custom_headers=None, raw=False, **operation_config):
-        """Lists the charges based for the defined scope.
+    def get(
+            self, scope, custom_headers=None, raw=False, **operation_config):
+        """Get all available tag keys for the defined scope.
 
-        :param scope: The scope associated with usage details operations. This
-         includes
+        :param scope: The scope associated with tags operations. This includes
+         '/subscriptions/{subscriptionId}/' for subscription scope,
+         '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}'
+         for resourceGroup scope,
+         '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for
+         Billing Account scope,
          '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/departments/{departmentId}'
-         for Department scope and
+         for Department scope,
          '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}'
-         for EnrollmentAccount scope. For department and enrollment accounts,
-         you can also add billing period to the scope using
-         '/providers/Microsoft.Billing/billingPeriods/{billingPeriodName}'. For
-         e.g. to specify billing period at department scope use
-         '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/departments/{departmentId}/providers/Microsoft.Billing/billingPeriods/{billingPeriodName}'
+         for EnrollmentAccount scope and
+         '/providers/Microsoft.Management/managementGroups/{managementGroupId}'
+         for Management Group scope..
         :type scope: str
-        :param filter: May be used to filter charges by properties/usageEnd
-         (Utc time), properties/usageStart (Utc time). The filter supports
-         'eq', 'lt', 'gt', 'le', 'ge', and 'and'. It does not currently support
-         'ne', 'or', or 'not'. Tag filter is a key value pair string where key
-         and value is separated by a colon (:).
-        :type filter: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: ChargeSummary or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.consumption.models.ChargeSummary or
+        :return: TagsResult or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.consumption.models.TagsResult or
          ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`ErrorResponseException<azure.mgmt.consumption.models.ErrorResponseException>`
         """
         # Construct URL
-        url = self.list_by_scope.metadata['url']
+        url = self.get.metadata['url']
         path_format_arguments = {
             'scope': self._serialize.url("scope", scope, 'str', skip_quote=True)
         }
@@ -78,8 +76,6 @@ class ChargesOperations(object):
         # Construct parameters
         query_parameters = {}
         query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
-        if filter is not None:
-            query_parameters['$filter'] = self._serialize.query("filter", filter, 'str')
 
         # Construct headers
         header_parameters = {}
@@ -95,17 +91,16 @@ class ChargesOperations(object):
         request = self._client.get(url, query_parameters, header_parameters)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200]:
+        if response.status_code not in [200, 204]:
             raise models.ErrorResponseException(self._deserialize, response)
 
         deserialized = None
-
         if response.status_code == 200:
-            deserialized = self._deserialize('ChargeSummary', response)
+            deserialized = self._deserialize('TagsResult', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    list_by_scope.metadata = {'url': '/{scope}/providers/Microsoft.Consumption/charges'}
+    get.metadata = {'url': '/{scope}/providers/Microsoft.Consumption/tags'}
