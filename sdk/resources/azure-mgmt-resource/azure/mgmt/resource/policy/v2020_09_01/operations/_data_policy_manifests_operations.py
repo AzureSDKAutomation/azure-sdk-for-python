@@ -11,7 +11,6 @@
 
 import uuid
 from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
 
 from .. import models
 
@@ -58,7 +57,8 @@ class DataPolicyManifestsOperations(object):
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.DataPolicyManifest or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.get_by_policy_mode.metadata['url']
@@ -86,9 +86,7 @@ class DataPolicyManifestsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -127,7 +125,8 @@ class DataPolicyManifestsOperations(object):
         :return: An iterator like instance of DataPolicyManifest
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.DataPolicyManifestPaged[~azure.mgmt.resource.policy.v2020_09_01.models.DataPolicyManifest]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
@@ -164,9 +163,7 @@ class DataPolicyManifestsOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
+                raise models.ErrorResponseException(self._deserialize, response)
 
             return response
 
