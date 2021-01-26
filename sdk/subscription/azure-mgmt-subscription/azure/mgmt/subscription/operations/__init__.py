@@ -12,13 +12,13 @@
 from ._subscriptions_operations import SubscriptionsOperations
 from ._tenants_operations import TenantsOperations
 from ._subscription_operations import SubscriptionOperations
+from ._billing_account_operations import BillingAccountOperations
 from ._operations import Operations
-from ._alias_operations import AliasOperations
 
 __all__ = [
     'SubscriptionsOperations',
     'TenantsOperations',
     'SubscriptionOperations',
+    'BillingAccountOperations',
     'Operations',
-    'AliasOperations',
 ]

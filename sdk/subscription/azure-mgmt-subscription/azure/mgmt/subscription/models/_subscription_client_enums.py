@@ -28,6 +28,12 @@ class SpendingLimit(str, Enum):
     current_period_off = "CurrentPeriodOff"
 
 
+class OfferType(str, Enum):
+
+    ms_azr_0017_p = "MS-AZR-0017P"
+    ms_azr_0148_p = "MS-AZR-0148P"
+
+
 class Workload(str, Enum):
 
     production = "Production"
@@ -39,3 +45,9 @@ class ProvisioningState(str, Enum):
     accepted = "Accepted"
     succeeded = "Succeeded"
     failed = "Failed"
+
+
+class RedeemState(str, Enum):
+
+    pending = "Pending"
+    completed = "Completed"
