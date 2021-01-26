@@ -11,7 +11,6 @@
 
 import uuid
 from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
 
 from .. import models
 
@@ -191,7 +190,8 @@ class ProductsOperations(object):
         :return: ExtendedProduct or ClientRawResponse if raw=true
         :rtype: ~azure.mgmt.azurestack.models.ExtendedProduct or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.azurestack.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.list_details.metadata['url']
@@ -222,9 +222,7 @@ class ProductsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -238,13 +236,15 @@ class ProductsOperations(object):
     list_details.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.AzureStack/registrations/{registrationName}/products/{productName}/listDetails'}
 
     def get_products(
-            self, resource_group, registration_name, custom_headers=None, raw=False, **operation_config):
+            self, resource_group, registration_name, product_name, custom_headers=None, raw=False, **operation_config):
         """Returns a list of products.
 
         :param resource_group: Name of the resource group.
         :type resource_group: str
         :param registration_name: Name of the Azure Stack registration.
         :type registration_name: str
+        :param product_name: Name of the product.
+        :type product_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -263,7 +263,8 @@ class ProductsOperations(object):
         path_format_arguments = {
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
             'resourceGroup': self._serialize.url("resource_group", resource_group, 'str'),
-            'registrationName': self._serialize.url("registration_name", registration_name, 'str')
+            'registrationName': self._serialize.url("registration_name", registration_name, 'str'),
+            'productName': self._serialize.url("product_name", product_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -304,7 +305,7 @@ class ProductsOperations(object):
             return client_raw_response
 
         return deserialized
-    get_products.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.AzureStack/registrations/{registrationName}/products/_all/GetProducts'}
+    get_products.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.AzureStack/registrations/{registrationName}/products/{productName}/getProducts'}
 
     def get_product(
             self, resource_group, registration_name, product_name, custom_headers=None, raw=False, **operation_config):
@@ -376,7 +377,7 @@ class ProductsOperations(object):
             return client_raw_response
 
         return deserialized
-    get_product.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.AzureStack/registrations/{registrationName}/products/{productName}/GetProduct'}
+    get_product.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.AzureStack/registrations/{registrationName}/products/{productName}/getProduct'}
 
     def upload_log(
             self, resource_group, registration_name, product_name, custom_headers=None, raw=False, **operation_config):
