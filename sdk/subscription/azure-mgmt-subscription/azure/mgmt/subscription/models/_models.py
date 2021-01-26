@@ -13,6 +13,88 @@ from msrest.serialization import Model
 from msrest.exceptions import HttpOperationError
 
 
+class AdPrincipal(Model):
+    """Active Directory Principal who’ll get owner access on the new subscription.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param object_id: Required. Object id of the Principal
+    :type object_id: str
+    """
+
+    _validation = {
+        'object_id': {'required': True},
+    }
+
+    _attribute_map = {
+        'object_id': {'key': 'objectId', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AdPrincipal, self).__init__(**kwargs)
+        self.object_id = kwargs.get('object_id', None)
+
+
+class BillingAccountPoliciesResponse(Model):
+    """Billing account policies information.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Fully qualified ID for the policy.
+    :vartype id: str
+    :ivar name: Policy name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param properties: Billing account policies response properties.
+    :type properties:
+     ~azure.mgmt.subscription.models.BillingAccountPoliciesResponseProperties
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'BillingAccountPoliciesResponseProperties'},
+    }
+
+    def __init__(self, **kwargs):
+        super(BillingAccountPoliciesResponse, self).__init__(**kwargs)
+        self.id = None
+        self.name = None
+        self.type = None
+        self.properties = kwargs.get('properties', None)
+
+
+class BillingAccountPoliciesResponseProperties(Model):
+    """Put billing account policies response properties.
+
+    :param service_tenants: Service tenant for the billing account.
+    :type service_tenants:
+     list[~azure.mgmt.subscription.models.ServiceTenantResponse]
+    :param allow_transfers: Determine if the transfers are allowed for the
+     billing account
+    :type allow_transfers: bool
+    """
+
+    _attribute_map = {
+        'service_tenants': {'key': 'serviceTenants', 'type': '[ServiceTenantResponse]'},
+        'allow_transfers': {'key': 'allowTransfers', 'type': 'bool'},
+    }
+
+    def __init__(self, **kwargs):
+        super(BillingAccountPoliciesResponseProperties, self).__init__(**kwargs)
+        self.service_tenants = kwargs.get('service_tenants', None)
+        self.allow_transfers = kwargs.get('allow_transfers', None)
+
+
 class CanceledSubscriptionId(Model):
     """The ID of the canceled subscription.
 
@@ -87,18 +169,6 @@ class ErrorResponse(Model):
         self.message = kwargs.get('message', None)
 
 
-class ErrorResponseException(HttpOperationError):
-    """Server responsed with exception of type: 'ErrorResponse'.
-
-    :param deserialize: A deserializer
-    :param response: Server response to be deserialized.
-    """
-
-    def __init__(self, deserialize, response, *args):
-
-        super(ErrorResponseException, self).__init__(deserialize, response, 'ErrorResponse', *args)
-
-
 class ErrorResponseBody(Model):
     """Error response indicates that the service is not able to process the
     incoming request. The reason is provided in the error message.
@@ -126,6 +196,43 @@ class ErrorResponseBodyException(HttpOperationError):
     def __init__(self, deserialize, response, *args):
 
         super(ErrorResponseBodyException, self).__init__(deserialize, response, 'ErrorResponseBody', *args)
+
+
+class GetTenantPolicyResponse(Model):
+    """Tenant policy Information.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Policy Id.
+    :vartype id: str
+    :ivar name: Policy name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param properties: Tenant policy properties.
+    :type properties: ~azure.mgmt.subscription.models.TenantPolicy
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'TenantPolicy'},
+    }
+
+    def __init__(self, **kwargs):
+        super(GetTenantPolicyResponse, self).__init__(**kwargs)
+        self.id = None
+        self.name = None
+        self.type = None
+        self.properties = kwargs.get('properties', None)
 
 
 class Location(Model):
@@ -177,23 +284,112 @@ class Location(Model):
         self.longitude = None
 
 
+class ModernCspSubscriptionCreationParameters(Model):
+    """The parameters required to create a new CSP subscription.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param display_name: Required. The friendly name of the subscription.
+    :type display_name: str
+    :param sku_id: Required. The SKU ID of the Azure plan. Azure plan
+     determines the pricing and service-level agreement of the subscription.
+     Use 001 for Microsoft Azure Plan and 002 for Microsoft Azure Plan for
+     DevTest.
+    :type sku_id: str
+    :param reseller_id: Reseller ID, basically MPN Id.
+    :type reseller_id: str
+    """
+
+    _validation = {
+        'display_name': {'required': True},
+        'sku_id': {'required': True},
+    }
+
+    _attribute_map = {
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'sku_id': {'key': 'skuId', 'type': 'str'},
+        'reseller_id': {'key': 'resellerId', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ModernCspSubscriptionCreationParameters, self).__init__(**kwargs)
+        self.display_name = kwargs.get('display_name', None)
+        self.sku_id = kwargs.get('sku_id', None)
+        self.reseller_id = kwargs.get('reseller_id', None)
+
+
+class ModernSubscriptionCreationParameters(Model):
+    """The parameters required to create a new subscription.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param display_name: Required. The friendly name of the subscription.
+    :type display_name: str
+    :param sku_id: Required. The SKU ID of the Azure plan. Azure plan
+     determines the pricing and service-level agreement of the subscription.
+     Use 001 for Microsoft Azure Plan and 002 for Microsoft Azure Plan for
+     DevTest.
+    :type sku_id: str
+    :param cost_center: If set, the cost center will show up on the Azure
+     usage and charges file.
+    :type cost_center: str
+    :param owner: If specified, the AD principal will get owner access to the
+     subscription, along with the user who is performing the create
+     subscription operation
+    :type owner: ~azure.mgmt.subscription.models.AdPrincipal
+    :param management_group_id: The identifier of the management group to
+     which this subscription will be associated.
+    :type management_group_id: str
+    :param additional_parameters: Additional, untyped parameters to support
+     custom subscription creation scenarios.
+    :type additional_parameters: dict[str, object]
+    """
+
+    _validation = {
+        'display_name': {'required': True},
+        'sku_id': {'required': True},
+    }
+
+    _attribute_map = {
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'sku_id': {'key': 'skuId', 'type': 'str'},
+        'cost_center': {'key': 'costCenter', 'type': 'str'},
+        'owner': {'key': 'owner', 'type': 'AdPrincipal'},
+        'management_group_id': {'key': 'managementGroupId', 'type': 'str'},
+        'additional_parameters': {'key': 'additionalParameters', 'type': '{object}'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ModernSubscriptionCreationParameters, self).__init__(**kwargs)
+        self.display_name = kwargs.get('display_name', None)
+        self.sku_id = kwargs.get('sku_id', None)
+        self.cost_center = kwargs.get('cost_center', None)
+        self.owner = kwargs.get('owner', None)
+        self.management_group_id = kwargs.get('management_group_id', None)
+        self.additional_parameters = kwargs.get('additional_parameters', None)
+
+
 class Operation(Model):
     """REST API operation.
 
     :param name: Operation name: {provider}/{resource}/{operation}
     :type name: str
+    :param is_data_action: Indicates whether the operation is a data action
+    :type is_data_action: bool
     :param display: The object that represents the operation.
     :type display: ~azure.mgmt.subscription.models.OperationDisplay
     """
 
     _attribute_map = {
         'name': {'key': 'name', 'type': 'str'},
+        'is_data_action': {'key': 'isDataAction', 'type': 'bool'},
         'display': {'key': 'display', 'type': 'OperationDisplay'},
     }
 
     def __init__(self, **kwargs):
         super(Operation, self).__init__(**kwargs)
         self.name = kwargs.get('name', None)
+        self.is_data_action = kwargs.get('is_data_action', None)
         self.display = kwargs.get('display', None)
 
 
@@ -222,69 +418,13 @@ class OperationDisplay(Model):
         self.operation = kwargs.get('operation', None)
 
 
-class OperationListResult(Model):
-    """Result of the request to list operations. It contains a list of operations
-    and a URL link to get the next set of results.
-
-    :param value: List of operations.
-    :type value: list[~azure.mgmt.subscription.models.Operation]
-    :param next_link: URL to get the next set of operation list results if
-     there are any.
-    :type next_link: str
-    """
-
-    _attribute_map = {
-        'value': {'key': 'value', 'type': '[Operation]'},
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(OperationListResult, self).__init__(**kwargs)
-        self.value = kwargs.get('value', None)
-        self.next_link = kwargs.get('next_link', None)
-
-
-class PutAliasListResult(Model):
-    """The list of aliases.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar value: The list of alias.
-    :vartype value: list[~azure.mgmt.subscription.models.PutAliasResponse]
-    :ivar next_link: The link (url) to the next page of results.
-    :vartype next_link: str
-    """
-
-    _validation = {
-        'value': {'readonly': True},
-        'next_link': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'value': {'key': 'value', 'type': '[PutAliasResponse]'},
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(PutAliasListResult, self).__init__(**kwargs)
-        self.value = None
-        self.next_link = None
-
-
 class PutAliasRequest(Model):
     """The parameters required to create a new subscription.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param properties: Required. Put alias request properties.
+    :param properties: Put alias request properties.
     :type properties:
      ~azure.mgmt.subscription.models.PutAliasRequestProperties
     """
-
-    _validation = {
-        'properties': {'required': True},
-    }
 
     _attribute_map = {
         'properties': {'key': 'properties', 'type': 'PutAliasRequestProperties'},
@@ -295,23 +435,63 @@ class PutAliasRequest(Model):
         self.properties = kwargs.get('properties', None)
 
 
+class PutAliasRequestAdditionalProperties(Model):
+    """Put subscription additional properties.
+
+    :param management_group_id: Management group Id for the subscription.
+    :type management_group_id: str
+    :param subscription_tenant_id: Tenant Id of the subscription
+    :type subscription_tenant_id: str
+    :param subscription_owner_id: Owner Id of the subscription
+    :type subscription_owner_id: str
+    :param tags: tags for the subscription
+    :type tags: dict[str, str]
+    """
+
+    _attribute_map = {
+        'management_group_id': {'key': 'managementGroupId', 'type': 'str'},
+        'subscription_tenant_id': {'key': 'subscriptionTenantId', 'type': 'str'},
+        'subscription_owner_id': {'key': 'subscriptionOwnerId', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+    }
+
+    def __init__(self, **kwargs):
+        super(PutAliasRequestAdditionalProperties, self).__init__(**kwargs)
+        self.management_group_id = kwargs.get('management_group_id', None)
+        self.subscription_tenant_id = kwargs.get('subscription_tenant_id', None)
+        self.subscription_owner_id = kwargs.get('subscription_owner_id', None)
+        self.tags = kwargs.get('tags', None)
+
+
 class PutAliasRequestProperties(Model):
     """Put subscription properties.
 
-    :param display_name: The friendly name of the subscription.
+    All required parameters must be populated in order to send to Azure.
+
+    :param display_name: Required. The friendly name of the subscription.
     :type display_name: str
-    :param workload: The workload type of the subscription. It can be either
-     Production or DevTest. Possible values include: 'Production', 'DevTest'
+    :param workload: Required. The workload type of the subscription. It can
+     be either Production or DevTest. Possible values include: 'Production',
+     'DevTest'
     :type workload: str or ~azure.mgmt.subscription.models.Workload
-    :param billing_scope: Determines whether subscription is fieldLed,
-     partnerLed or LegacyEA
+    :param billing_scope: Required. Determines whether subscription is
+     fieldLed, partnerLed or LegacyEA
     :type billing_scope: str
     :param subscription_id: This parameter can be used to create alias for
      existing subscription Id
     :type subscription_id: str
-    :param reseller_id: Reseller ID, basically MPN Id
+    :param reseller_id: Reseller Id
     :type reseller_id: str
+    :param additional_properties: Put alias request additional properties.
+    :type additional_properties:
+     ~azure.mgmt.subscription.models.PutAliasRequestAdditionalProperties
     """
+
+    _validation = {
+        'display_name': {'required': True},
+        'workload': {'required': True},
+        'billing_scope': {'required': True},
+    }
 
     _attribute_map = {
         'display_name': {'key': 'displayName', 'type': 'str'},
@@ -319,6 +499,7 @@ class PutAliasRequestProperties(Model):
         'billing_scope': {'key': 'billingScope', 'type': 'str'},
         'subscription_id': {'key': 'subscriptionId', 'type': 'str'},
         'reseller_id': {'key': 'resellerId', 'type': 'str'},
+        'additional_properties': {'key': 'additionalProperties', 'type': 'PutAliasRequestAdditionalProperties'},
     }
 
     def __init__(self, **kwargs):
@@ -328,73 +509,71 @@ class PutAliasRequestProperties(Model):
         self.billing_scope = kwargs.get('billing_scope', None)
         self.subscription_id = kwargs.get('subscription_id', None)
         self.reseller_id = kwargs.get('reseller_id', None)
+        self.additional_properties = kwargs.get('additional_properties', None)
 
 
-class PutAliasResponse(Model):
-    """Subscription Information with the alias.
+class PutTenantPolicyRequestProperties(Model):
+    """Put tenant policy request properties.
 
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Fully qualified ID for the alias resource.
-    :vartype id: str
-    :ivar name: Alias ID.
-    :vartype name: str
-    :ivar type: Resource type, Microsoft.Subscription/aliases.
-    :vartype type: str
-    :param properties: Put Alias response properties.
-    :type properties:
-     ~azure.mgmt.subscription.models.PutAliasResponseProperties
+    :param block_subscriptions_leaving_tenant: Blocks the leaving of
+     subscriptions from user's tenant.
+    :type block_subscriptions_leaving_tenant: bool
+    :param block_subscriptions_into_tenant: Blocks the entering of
+     subscriptions into user's tenant.
+    :type block_subscriptions_into_tenant: bool
+    :param exempted_principals: List of user objectIds that are exempted from
+     the set subscription tenant policies for the user's tenant.
+    :type exempted_principals: list[str]
     """
 
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
     _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'properties': {'key': 'properties', 'type': 'PutAliasResponseProperties'},
+        'block_subscriptions_leaving_tenant': {'key': 'blockSubscriptionsLeavingTenant', 'type': 'bool'},
+        'block_subscriptions_into_tenant': {'key': 'blockSubscriptionsIntoTenant', 'type': 'bool'},
+        'exempted_principals': {'key': 'exemptedPrincipals', 'type': '[str]'},
     }
 
     def __init__(self, **kwargs):
-        super(PutAliasResponse, self).__init__(**kwargs)
-        self.id = None
-        self.name = None
-        self.type = None
+        super(PutTenantPolicyRequestProperties, self).__init__(**kwargs)
+        self.block_subscriptions_leaving_tenant = kwargs.get('block_subscriptions_leaving_tenant', None)
+        self.block_subscriptions_into_tenant = kwargs.get('block_subscriptions_into_tenant', None)
+        self.exempted_principals = kwargs.get('exempted_principals', None)
+
+
+class RedeemSubscriptionRequest(Model):
+    """The parameters required to redeem a new subscription.
+
+    :param properties: Redeem subscription request properties.
+    :type properties:
+     ~azure.mgmt.subscription.models.RedeemSubscriptionRequestProperties
+    """
+
+    _attribute_map = {
+        'properties': {'key': 'properties', 'type': 'RedeemSubscriptionRequestProperties'},
+    }
+
+    def __init__(self, **kwargs):
+        super(RedeemSubscriptionRequest, self).__init__(**kwargs)
         self.properties = kwargs.get('properties', None)
 
 
-class PutAliasResponseProperties(Model):
-    """Put subscription creation result properties.
+class RedeemSubscriptionRequestProperties(Model):
+    """Redeem subscription request properties.
 
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar subscription_id: Newly created subscription Id.
-    :vartype subscription_id: str
-    :param provisioning_state: The provisioning state of the resource.
-     Possible values include: 'Accepted', 'Succeeded', 'Failed'
-    :type provisioning_state: str or
-     ~azure.mgmt.subscription.models.ProvisioningState
+    :param management_group_id: Management group Id for the subscription.
+    :type management_group_id: str
+    :param tags: tags for the subscription
+    :type tags: dict[str, str]
     """
 
-    _validation = {
-        'subscription_id': {'readonly': True},
-    }
-
     _attribute_map = {
-        'subscription_id': {'key': 'subscriptionId', 'type': 'str'},
-        'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
+        'management_group_id': {'key': 'managementGroupId', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
     }
 
     def __init__(self, **kwargs):
-        super(PutAliasResponseProperties, self).__init__(**kwargs)
-        self.subscription_id = None
-        self.provisioning_state = kwargs.get('provisioning_state', None)
+        super(RedeemSubscriptionRequestProperties, self).__init__(**kwargs)
+        self.management_group_id = kwargs.get('management_group_id', None)
+        self.tags = kwargs.get('tags', None)
 
 
 class RenamedSubscriptionId(Model):
@@ -418,6 +597,26 @@ class RenamedSubscriptionId(Model):
     def __init__(self, **kwargs):
         super(RenamedSubscriptionId, self).__init__(**kwargs)
         self.value = None
+
+
+class ServiceTenantResponse(Model):
+    """Billing account service tenant.
+
+    :param tenant_id: Service tenant id.
+    :type tenant_id: str
+    :param tenant_name: Service tenant name.
+    :type tenant_name: str
+    """
+
+    _attribute_map = {
+        'tenant_id': {'key': 'tenantId', 'type': 'str'},
+        'tenant_name': {'key': 'tenantName', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ServiceTenantResponse, self).__init__(**kwargs)
+        self.tenant_id = kwargs.get('tenant_id', None)
+        self.tenant_name = kwargs.get('tenant_name', None)
 
 
 class Subscription(Model):
@@ -470,6 +669,170 @@ class Subscription(Model):
         self.state = None
         self.subscription_policies = kwargs.get('subscription_policies', None)
         self.authorization_source = kwargs.get('authorization_source', None)
+
+
+class SubscriptionAliasListResult(Model):
+    """The list of aliases.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar value: The list of alias.
+    :vartype value:
+     list[~azure.mgmt.subscription.models.SubscriptionAliasResponse]
+    :ivar next_link: The link (url) to the next page of results.
+    :vartype next_link: str
+    """
+
+    _validation = {
+        'value': {'readonly': True},
+        'next_link': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': '[SubscriptionAliasResponse]'},
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SubscriptionAliasListResult, self).__init__(**kwargs)
+        self.value = None
+        self.next_link = None
+
+
+class SubscriptionAliasResponse(Model):
+    """Subscription Information with the alias.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Fully qualified ID for the alias resource.
+    :vartype id: str
+    :ivar name: Alias ID.
+    :vartype name: str
+    :ivar type: Resource type, Microsoft.Subscription/aliases.
+    :vartype type: str
+    :param properties: Subscription Alias response properties.
+    :type properties:
+     ~azure.mgmt.subscription.models.SubscriptionAliasResponseProperties
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'SubscriptionAliasResponseProperties'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SubscriptionAliasResponse, self).__init__(**kwargs)
+        self.id = None
+        self.name = None
+        self.type = None
+        self.properties = kwargs.get('properties', None)
+
+
+class SubscriptionAliasResponseProperties(Model):
+    """Put subscription creation result properties.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar subscription_id: Newly created subscription Id.
+    :vartype subscription_id: str
+    :param provisioning_state: The provisioning state of the resource.
+     Possible values include: 'Accepted', 'Succeeded', 'Failed'
+    :type provisioning_state: str or
+     ~azure.mgmt.subscription.models.ProvisioningState
+    :ivar redeem_url: Redeem url.
+    :vartype redeem_url: str
+    :ivar redeem_state: The redeem state of the resource. Possible values
+     include: 'Pending', 'Completed'
+    :vartype redeem_state: str or ~azure.mgmt.subscription.models.RedeemState
+    """
+
+    _validation = {
+        'subscription_id': {'readonly': True},
+        'redeem_url': {'readonly': True},
+        'redeem_state': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'subscription_id': {'key': 'subscriptionId', 'type': 'str'},
+        'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
+        'redeem_url': {'key': 'redeemUrl', 'type': 'str'},
+        'redeem_state': {'key': 'redeemState', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SubscriptionAliasResponseProperties, self).__init__(**kwargs)
+        self.subscription_id = None
+        self.provisioning_state = kwargs.get('provisioning_state', None)
+        self.redeem_url = None
+        self.redeem_state = None
+
+
+class SubscriptionCreationParameters(Model):
+    """Subscription Creation Parameters required to create a new Azure
+    subscription.
+
+    :param display_name: The display name of the subscription.
+    :type display_name: str
+    :param management_group_id: The Management Group Id.
+    :type management_group_id: str
+    :param owners: The list of principals that should be granted Owner access
+     on the subscription. Principals should be of type User, Service Principal
+     or Security Group.
+    :type owners: list[~azure.mgmt.subscription.models.AdPrincipal]
+    :param offer_type: The offer type of the subscription. For example,
+     MS-AZR-0017P (EnterpriseAgreement) and MS-AZR-0148P (EnterpriseAgreement
+     devTest) are available. Only valid when creating a subscription in a
+     enrollment account scope. Possible values include: 'MS-AZR-0017P',
+     'MS-AZR-0148P'
+    :type offer_type: str or ~azure.mgmt.subscription.models.OfferType
+    :param additional_parameters: Additional, untyped parameters to support
+     custom subscription creation scenarios.
+    :type additional_parameters: dict[str, object]
+    """
+
+    _attribute_map = {
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'management_group_id': {'key': 'managementGroupId', 'type': 'str'},
+        'owners': {'key': 'owners', 'type': '[AdPrincipal]'},
+        'offer_type': {'key': 'offerType', 'type': 'str'},
+        'additional_parameters': {'key': 'additionalParameters', 'type': '{object}'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SubscriptionCreationParameters, self).__init__(**kwargs)
+        self.display_name = kwargs.get('display_name', None)
+        self.management_group_id = kwargs.get('management_group_id', None)
+        self.owners = kwargs.get('owners', None)
+        self.offer_type = kwargs.get('offer_type', None)
+        self.additional_parameters = kwargs.get('additional_parameters', None)
+
+
+class SubscriptionCreationResult(Model):
+    """The created subscription object.
+
+    :param subscription_link: The link to the new subscription. Use this link
+     to check the status of subscription creation operation.
+    :type subscription_link: str
+    """
+
+    _attribute_map = {
+        'subscription_link': {'key': 'subscriptionLink', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SubscriptionCreationResult, self).__init__(**kwargs)
+        self.subscription_link = kwargs.get('subscription_link', None)
 
 
 class SubscriptionName(Model):
@@ -554,3 +917,41 @@ class TenantIdDescription(Model):
         super(TenantIdDescription, self).__init__(**kwargs)
         self.id = None
         self.tenant_id = None
+
+
+class TenantPolicy(Model):
+    """Tenant policy.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar policy_id: Policy Id.
+    :vartype policy_id: str
+    :param block_subscriptions_leaving_tenant: Blocks the leaving of
+     subscriptions from user's tenant.
+    :type block_subscriptions_leaving_tenant: bool
+    :param block_subscriptions_into_tenant: Blocks the entering of
+     subscriptions into user's tenant.
+    :type block_subscriptions_into_tenant: bool
+    :param exempted_principals: List of user objectIds that are exempted from
+     the set subscription tenant policies for the user's tenant.
+    :type exempted_principals: list[str]
+    """
+
+    _validation = {
+        'policy_id': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'policy_id': {'key': 'policyId', 'type': 'str'},
+        'block_subscriptions_leaving_tenant': {'key': 'blockSubscriptionsLeavingTenant', 'type': 'bool'},
+        'block_subscriptions_into_tenant': {'key': 'blockSubscriptionsIntoTenant', 'type': 'bool'},
+        'exempted_principals': {'key': 'exemptedPrincipals', 'type': '[str]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(TenantPolicy, self).__init__(**kwargs)
+        self.policy_id = None
+        self.block_subscriptions_leaving_tenant = kwargs.get('block_subscriptions_leaving_tenant', None)
+        self.block_subscriptions_into_tenant = kwargs.get('block_subscriptions_into_tenant', None)
+        self.exempted_principals = kwargs.get('exempted_principals', None)

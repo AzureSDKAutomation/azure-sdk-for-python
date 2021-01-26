@@ -15,8 +15,8 @@ from msrest.pipeline import ClientRawResponse
 from .. import models
 
 
-class SubscriptionOperations(object):
-    """SubscriptionOperations operations.
+class SubscriptionPolicyOperations(object):
+    """SubscriptionPolicyOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -38,89 +38,26 @@ class SubscriptionOperations(object):
 
         self.config = config
 
-    def cancel(
-            self, subscription_id, custom_headers=None, raw=False, **operation_config):
-        """The operation to cancel a subscription.
+    def add_update_policy_for_tenant(
+            self, body, custom_headers=None, raw=False, **operation_config):
+        """Create or Update Subscription tenant policy for user's tenant.
 
-        :param subscription_id: Subscription Id.
-        :type subscription_id: str
+        :param body:
+        :type body:
+         ~azure.mgmt.subscription.models.PutTenantPolicyRequestProperties
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: CanceledSubscriptionId or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.subscription.models.CanceledSubscriptionId or
+        :return: GetTenantPolicyResponse or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.subscription.models.GetTenantPolicyResponse or
          ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`ErrorResponseBodyException<azure.mgmt.subscription.models.ErrorResponseBodyException>`
         """
         # Construct URL
-        url = self.cancel.metadata['url']
-        path_format_arguments = {
-            'subscriptionId': self._serialize.url("subscription_id", subscription_id, 'str')
-        }
-        url = self._client.format_url(url, **path_format_arguments)
-
-        # Construct parameters
-        query_parameters = {}
-        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
-
-        # Construct headers
-        header_parameters = {}
-        header_parameters['Accept'] = 'application/json'
-        if self.config.generate_client_request_id:
-            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
-        if custom_headers:
-            header_parameters.update(custom_headers)
-        if self.config.accept_language is not None:
-            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
-
-        # Construct and send request
-        request = self._client.post(url, query_parameters, header_parameters)
-        response = self._client.send(request, stream=False, **operation_config)
-
-        if response.status_code not in [200]:
-            raise models.ErrorResponseBodyException(self._deserialize, response)
-
-        deserialized = None
-        if response.status_code == 200:
-            deserialized = self._deserialize('CanceledSubscriptionId', response)
-
-        if raw:
-            client_raw_response = ClientRawResponse(deserialized, response)
-            return client_raw_response
-
-        return deserialized
-    cancel.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Subscription/cancel'}
-
-    def rename(
-            self, subscription_id, subscription_name=None, custom_headers=None, raw=False, **operation_config):
-        """The operation to rename a subscription.
-
-        :param subscription_id: Subscription Id.
-        :type subscription_id: str
-        :param subscription_name: New subscription name
-        :type subscription_name: str
-        :param dict custom_headers: headers that will be added to the request
-        :param bool raw: returns the direct response alongside the
-         deserialized response
-        :param operation_config: :ref:`Operation configuration
-         overrides<msrest:optionsforoperations>`.
-        :return: RenamedSubscriptionId or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.subscription.models.RenamedSubscriptionId or
-         ~msrest.pipeline.ClientRawResponse
-        :raises:
-         :class:`ErrorResponseBodyException<azure.mgmt.subscription.models.ErrorResponseBodyException>`
-        """
-        body = models.SubscriptionName(subscription_name=subscription_name)
-
-        # Construct URL
-        url = self.rename.metadata['url']
-        path_format_arguments = {
-            'subscriptionId': self._serialize.url("subscription_id", subscription_id, 'str')
-        }
-        url = self._client.format_url(url, **path_format_arguments)
+        url = self.add_update_policy_for_tenant.metadata['url']
 
         # Construct parameters
         query_parameters = {}
@@ -138,49 +75,43 @@ class SubscriptionOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct body
-        body_content = self._serialize.body(body, 'SubscriptionName')
+        body_content = self._serialize.body(body, 'PutTenantPolicyRequestProperties')
 
         # Construct and send request
-        request = self._client.post(url, query_parameters, header_parameters, body_content)
+        request = self._client.put(url, query_parameters, header_parameters, body_content)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200]:
+        if response.status_code not in [201]:
             raise models.ErrorResponseBodyException(self._deserialize, response)
 
         deserialized = None
-        if response.status_code == 200:
-            deserialized = self._deserialize('RenamedSubscriptionId', response)
+        if response.status_code == 201:
+            deserialized = self._deserialize('GetTenantPolicyResponse', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    rename.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Subscription/rename'}
+    add_update_policy_for_tenant.metadata = {'url': '/providers/Microsoft.Subscription/policies/default'}
 
-    def enable(
-            self, subscription_id, custom_headers=None, raw=False, **operation_config):
-        """The operation to enable a subscription.
+    def get_policy_for_tenant(
+            self, custom_headers=None, raw=False, **operation_config):
+        """Get the subscription tenant policy for the user's tenant.
 
-        :param subscription_id: Subscription Id.
-        :type subscription_id: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: EnabledSubscriptionId or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.subscription.models.EnabledSubscriptionId or
+        :return: GetTenantPolicyResponse or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.subscription.models.GetTenantPolicyResponse or
          ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`ErrorResponseBodyException<azure.mgmt.subscription.models.ErrorResponseBodyException>`
         """
         # Construct URL
-        url = self.enable.metadata['url']
-        path_format_arguments = {
-            'subscriptionId': self._serialize.url("subscription_id", subscription_id, 'str')
-        }
-        url = self._client.format_url(url, **path_format_arguments)
+        url = self.get_policy_for_tenant.metadata['url']
 
         # Construct parameters
         query_parameters = {}
@@ -197,7 +128,7 @@ class SubscriptionOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct and send request
-        request = self._client.post(url, query_parameters, header_parameters)
+        request = self._client.get(url, query_parameters, header_parameters)
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
@@ -205,11 +136,72 @@ class SubscriptionOperations(object):
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('EnabledSubscriptionId', response)
+            deserialized = self._deserialize('GetTenantPolicyResponse', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    enable.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Subscription/enable'}
+    get_policy_for_tenant.metadata = {'url': '/providers/Microsoft.Subscription/policies/default'}
+
+    def list_policy_for_tenant(
+            self, custom_headers=None, raw=False, **operation_config):
+        """Get the subscription tenant policy for the user's tenant.
+
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: returns the direct response alongside the
+         deserialized response
+        :param operation_config: :ref:`Operation configuration
+         overrides<msrest:optionsforoperations>`.
+        :return: An iterator like instance of GetTenantPolicyResponse
+        :rtype:
+         ~azure.mgmt.subscription.models.GetTenantPolicyResponsePaged[~azure.mgmt.subscription.models.GetTenantPolicyResponse]
+        :raises:
+         :class:`ErrorResponseBodyException<azure.mgmt.subscription.models.ErrorResponseBodyException>`
+        """
+        def prepare_request(next_link=None):
+            if not next_link:
+                # Construct URL
+                url = self.list_policy_for_tenant.metadata['url']
+
+                # Construct parameters
+                query_parameters = {}
+                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+
+            else:
+                url = next_link
+                query_parameters = {}
+
+            # Construct headers
+            header_parameters = {}
+            header_parameters['Accept'] = 'application/json'
+            if self.config.generate_client_request_id:
+                header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+            if custom_headers:
+                header_parameters.update(custom_headers)
+            if self.config.accept_language is not None:
+                header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+
+            # Construct and send request
+            request = self._client.get(url, query_parameters, header_parameters)
+            return request
+
+        def internal_paging(next_link=None):
+            request = prepare_request(next_link)
+
+            response = self._client.send(request, stream=False, **operation_config)
+
+            if response.status_code not in [200]:
+                raise models.ErrorResponseBodyException(self._deserialize, response)
+
+            return response
+
+        # Deserialize response
+        header_dict = None
+        if raw:
+            header_dict = {}
+        deserialized = models.GetTenantPolicyResponsePaged(internal_paging, self._deserialize.dependencies, header_dict)
+
+        return deserialized
+    list_policy_for_tenant.metadata = {'url': '/providers/Microsoft.Subscription/policies'}
