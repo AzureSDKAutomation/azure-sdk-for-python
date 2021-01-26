@@ -19,12 +19,15 @@ try:
     from ._models_py3 import OperationResultsDescription
     from ._models_py3 import PrivateEndpoint
     from ._models_py3 import PrivateEndpointConnection
+    from ._models_py3 import PrivateEndpointConnectionDescription
     from ._models_py3 import PrivateLinkResource
-    from ._models_py3 import PrivateLinkResourceListResult
+    from ._models_py3 import PrivateLinkResourceDescription
+    from ._models_py3 import PrivateLinkResourceListResultDescription
     from ._models_py3 import PrivateLinkServiceConnectionState
     from ._models_py3 import ProxyResource
     from ._models_py3 import Resource
     from ._models_py3 import ServiceAccessPolicyEntry
+    from ._models_py3 import ServiceAcrConfigurationInfo
     from ._models_py3 import ServiceAuthenticationConfigurationInfo
     from ._models_py3 import ServiceCorsConfigurationInfo
     from ._models_py3 import ServiceCosmosDbConfigurationInfo
@@ -35,6 +38,7 @@ try:
     from ._models_py3 import ServicesProperties
     from ._models_py3 import ServicesResource
     from ._models_py3 import ServicesResourceIdentity
+    from ._models_py3 import SystemData
     from ._models_py3 import TrackedResource
 except (SyntaxError, ImportError):
     from ._models import AzureEntityResource
@@ -46,12 +50,15 @@ except (SyntaxError, ImportError):
     from ._models import OperationResultsDescription
     from ._models import PrivateEndpoint
     from ._models import PrivateEndpointConnection
+    from ._models import PrivateEndpointConnectionDescription
     from ._models import PrivateLinkResource
-    from ._models import PrivateLinkResourceListResult
+    from ._models import PrivateLinkResourceDescription
+    from ._models import PrivateLinkResourceListResultDescription
     from ._models import PrivateLinkServiceConnectionState
     from ._models import ProxyResource
     from ._models import Resource
     from ._models import ServiceAccessPolicyEntry
+    from ._models import ServiceAcrConfigurationInfo
     from ._models import ServiceAuthenticationConfigurationInfo
     from ._models import ServiceCorsConfigurationInfo
     from ._models import ServiceCosmosDbConfigurationInfo
@@ -62,15 +69,17 @@ except (SyntaxError, ImportError):
     from ._models import ServicesProperties
     from ._models import ServicesResource
     from ._models import ServicesResourceIdentity
+    from ._models import SystemData
     from ._models import TrackedResource
 from ._paged_models import OperationPaged
-from ._paged_models import PrivateEndpointConnectionPaged
+from ._paged_models import PrivateEndpointConnectionDescriptionPaged
 from ._paged_models import ServicesDescriptionPaged
 from ._healthcare_apis_management_client_enums import (
     ProvisioningState,
     PrivateEndpointServiceConnectionStatus,
     PrivateEndpointConnectionProvisioningState,
     PublicNetworkAccess,
+    CreatedByType,
     Kind,
     ManagedServiceIdentityType,
     ServiceNameUnavailabilityReason,
@@ -87,12 +96,15 @@ __all__ = [
     'OperationResultsDescription',
     'PrivateEndpoint',
     'PrivateEndpointConnection',
+    'PrivateEndpointConnectionDescription',
     'PrivateLinkResource',
-    'PrivateLinkResourceListResult',
+    'PrivateLinkResourceDescription',
+    'PrivateLinkResourceListResultDescription',
     'PrivateLinkServiceConnectionState',
     'ProxyResource',
     'Resource',
     'ServiceAccessPolicyEntry',
+    'ServiceAcrConfigurationInfo',
     'ServiceAuthenticationConfigurationInfo',
     'ServiceCorsConfigurationInfo',
     'ServiceCosmosDbConfigurationInfo',
@@ -103,14 +115,16 @@ __all__ = [
     'ServicesProperties',
     'ServicesResource',
     'ServicesResourceIdentity',
+    'SystemData',
     'TrackedResource',
     'ServicesDescriptionPaged',
     'OperationPaged',
-    'PrivateEndpointConnectionPaged',
+    'PrivateEndpointConnectionDescriptionPaged',
     'ProvisioningState',
     'PrivateEndpointServiceConnectionStatus',
     'PrivateEndpointConnectionProvisioningState',
     'PublicNetworkAccess',
+    'CreatedByType',
     'Kind',
     'ManagedServiceIdentityType',
     'ServiceNameUnavailabilityReason',

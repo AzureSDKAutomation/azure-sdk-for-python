@@ -38,16 +38,16 @@ class OperationPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(OperationPaged, self).__init__(*args, **kwargs)
-class PrivateEndpointConnectionPaged(Paged):
+class PrivateEndpointConnectionDescriptionPaged(Paged):
     """
-    A paging container for iterating over a list of :class:`PrivateEndpointConnection <azure.mgmt.healthcareapis.models.PrivateEndpointConnection>` object
+    A paging container for iterating over a list of :class:`PrivateEndpointConnectionDescription <azure.mgmt.healthcareapis.models.PrivateEndpointConnectionDescription>` object
     """
 
     _attribute_map = {
         'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[PrivateEndpointConnection]'}
+        'current_page': {'key': 'value', 'type': '[PrivateEndpointConnectionDescription]'}
     }
 
     def __init__(self, *args, **kwargs):
 
-        super(PrivateEndpointConnectionPaged, self).__init__(*args, **kwargs)
+        super(PrivateEndpointConnectionDescriptionPaged, self).__init__(*args, **kwargs)
