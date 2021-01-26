@@ -3333,10 +3333,17 @@ class AzureDatabricksLinkedService(LinkedService):
      Databricks deployment. Type: string (or Expression with resultType
      string).
     :type domain: object
-    :param access_token: Required. Access token for databricks REST API. Refer
-     to https://docs.azuredatabricks.net/api/latest/authentication.html. Type:
+    :param access_token: Access token for databricks REST API. Refer to
+     https://docs.azuredatabricks.net/api/latest/authentication.html. Type:
      string (or Expression with resultType string).
     :type access_token: ~azure.mgmt.datafactory.models.SecretBase
+    :param authentication: Required to specify MSI, if using Workspace
+     resource id for databricks REST API. Type: string (or Expression with
+     resultType string).
+    :type authentication: object
+    :param workspace_resource_id: Workspace resource id for databricks REST
+     API. Type: string (or Expression with resultType string).
+    :type workspace_resource_id: object
     :param existing_cluster_id: The id of an existing interactive cluster that
      will be used for all runs of this activity. Type: string (or Expression
      with resultType string).
@@ -3394,12 +3401,15 @@ class AzureDatabricksLinkedService(LinkedService):
      authentication. Credentials are encrypted using the integration runtime
      credential manager. Type: string (or Expression with resultType string).
     :type encrypted_credential: object
+    :param policy_id: The policy id for limiting the ability to configure
+     clusters based on a user defined set of rules. Type: string (or Expression
+     with resultType string).
+    :type policy_id: object
     """
 
     _validation = {
         'type': {'required': True},
         'domain': {'required': True},
-        'access_token': {'required': True},
     }
 
     _attribute_map = {
@@ -3411,6 +3421,8 @@ class AzureDatabricksLinkedService(LinkedService):
         'type': {'key': 'type', 'type': 'str'},
         'domain': {'key': 'typeProperties.domain', 'type': 'object'},
         'access_token': {'key': 'typeProperties.accessToken', 'type': 'SecretBase'},
+        'authentication': {'key': 'typeProperties.authentication', 'type': 'object'},
+        'workspace_resource_id': {'key': 'typeProperties.workspaceResourceId', 'type': 'object'},
         'existing_cluster_id': {'key': 'typeProperties.existingClusterId', 'type': 'object'},
         'instance_pool_id': {'key': 'typeProperties.instancePoolId', 'type': 'object'},
         'new_cluster_version': {'key': 'typeProperties.newClusterVersion', 'type': 'object'},
@@ -3424,12 +3436,15 @@ class AzureDatabricksLinkedService(LinkedService):
         'new_cluster_init_scripts': {'key': 'typeProperties.newClusterInitScripts', 'type': 'object'},
         'new_cluster_enable_elastic_disk': {'key': 'typeProperties.newClusterEnableElasticDisk', 'type': 'object'},
         'encrypted_credential': {'key': 'typeProperties.encryptedCredential', 'type': 'object'},
+        'policy_id': {'key': 'typeProperties.policyId', 'type': 'object'},
     }
 
     def __init__(self, **kwargs):
         super(AzureDatabricksLinkedService, self).__init__(**kwargs)
         self.domain = kwargs.get('domain', None)
         self.access_token = kwargs.get('access_token', None)
+        self.authentication = kwargs.get('authentication', None)
+        self.workspace_resource_id = kwargs.get('workspace_resource_id', None)
         self.existing_cluster_id = kwargs.get('existing_cluster_id', None)
         self.instance_pool_id = kwargs.get('instance_pool_id', None)
         self.new_cluster_version = kwargs.get('new_cluster_version', None)
@@ -3443,6 +3458,7 @@ class AzureDatabricksLinkedService(LinkedService):
         self.new_cluster_init_scripts = kwargs.get('new_cluster_init_scripts', None)
         self.new_cluster_enable_elastic_disk = kwargs.get('new_cluster_enable_elastic_disk', None)
         self.encrypted_credential = kwargs.get('encrypted_credential', None)
+        self.policy_id = kwargs.get('policy_id', None)
         self.type = 'AzureDatabricks'
 
 
@@ -7388,7 +7404,8 @@ class MultiplePipelineTrigger(Trigger):
     pipeline.
 
     You probably want to use the sub-classes and not this class directly. Known
-    sub-classes are: BlobEventsTrigger, BlobTrigger, ScheduleTrigger
+    sub-classes are: CustomEventsTrigger, BlobEventsTrigger, BlobTrigger,
+    ScheduleTrigger
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
@@ -7430,7 +7447,7 @@ class MultiplePipelineTrigger(Trigger):
     }
 
     _subtype_map = {
-        'type': {'BlobEventsTrigger': 'BlobEventsTrigger', 'BlobTrigger': 'BlobTrigger', 'ScheduleTrigger': 'ScheduleTrigger'}
+        'type': {'CustomEventsTrigger': 'CustomEventsTrigger', 'BlobEventsTrigger': 'BlobEventsTrigger', 'BlobTrigger': 'BlobTrigger', 'ScheduleTrigger': 'ScheduleTrigger'}
     }
 
     def __init__(self, **kwargs):
@@ -9697,6 +9714,10 @@ class CustomActivity(ExecutionActivity):
     :param retention_time_in_days: The retention time for the files submitted
      for custom activity. Type: double (or Expression with resultType double).
     :type retention_time_in_days: object
+    :param auto_user_specification: Elevation level and scope for the user,
+     default is nonadmin task. Type: string (or Expression with resultType
+     double).
+    :type auto_user_specification: object
     """
 
     _validation = {
@@ -9720,6 +9741,7 @@ class CustomActivity(ExecutionActivity):
         'reference_objects': {'key': 'typeProperties.referenceObjects', 'type': 'CustomActivityReferenceObject'},
         'extended_properties': {'key': 'typeProperties.extendedProperties', 'type': '{object}'},
         'retention_time_in_days': {'key': 'typeProperties.retentionTimeInDays', 'type': 'object'},
+        'auto_user_specification': {'key': 'typeProperties.autoUserSpecification', 'type': 'object'},
     }
 
     def __init__(self, **kwargs):
@@ -9730,6 +9752,7 @@ class CustomActivity(ExecutionActivity):
         self.reference_objects = kwargs.get('reference_objects', None)
         self.extended_properties = kwargs.get('extended_properties', None)
         self.retention_time_in_days = kwargs.get('retention_time_in_days', None)
+        self.auto_user_specification = kwargs.get('auto_user_specification', None)
         self.type = 'Custom'
 
 
@@ -9857,6 +9880,76 @@ class CustomDataSourceLinkedService(LinkedService):
         super(CustomDataSourceLinkedService, self).__init__(**kwargs)
         self.type_properties = kwargs.get('type_properties', None)
         self.type = 'CustomDataSource'
+
+
+class CustomEventsTrigger(MultiplePipelineTrigger):
+    """Trigger that runs every time a custom event is received.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param additional_properties: Unmatched properties from the message are
+     deserialized this collection
+    :type additional_properties: dict[str, object]
+    :param description: Trigger description.
+    :type description: str
+    :ivar runtime_state: Indicates if trigger is running or not. Updated when
+     Start/Stop APIs are called on the Trigger. Possible values include:
+     'Started', 'Stopped', 'Disabled'
+    :vartype runtime_state: str or
+     ~azure.mgmt.datafactory.models.TriggerRuntimeState
+    :param annotations: List of tags that can be used for describing the
+     trigger.
+    :type annotations: list[object]
+    :param type: Required. Constant filled by server.
+    :type type: str
+    :param pipelines: Pipelines that need to be started.
+    :type pipelines:
+     list[~azure.mgmt.datafactory.models.TriggerPipelineReference]
+    :param subject_begins_with: The event subject must begin with the pattern
+     provided for trigger to fire. At least one of these must be provided:
+     subjectBeginsWith, subjectEndsWith.
+    :type subject_begins_with: str
+    :param subject_ends_with: The event subject must end with the pattern
+     provided for trigger to fire. At least one of these must be provided:
+     subjectBeginsWith, subjectEndsWith.
+    :type subject_ends_with: str
+    :param events: Required. The list of event types that cause this trigger
+     to fire.
+    :type events: list[object]
+    :param scope: Required. The ARM resource ID of the Azure Event Grid Topic.
+    :type scope: str
+    """
+
+    _validation = {
+        'runtime_state': {'readonly': True},
+        'type': {'required': True},
+        'events': {'required': True},
+        'scope': {'required': True},
+    }
+
+    _attribute_map = {
+        'additional_properties': {'key': '', 'type': '{object}'},
+        'description': {'key': 'description', 'type': 'str'},
+        'runtime_state': {'key': 'runtimeState', 'type': 'str'},
+        'annotations': {'key': 'annotations', 'type': '[object]'},
+        'type': {'key': 'type', 'type': 'str'},
+        'pipelines': {'key': 'pipelines', 'type': '[TriggerPipelineReference]'},
+        'subject_begins_with': {'key': 'typeProperties.subjectBeginsWith', 'type': 'str'},
+        'subject_ends_with': {'key': 'typeProperties.subjectEndsWith', 'type': 'str'},
+        'events': {'key': 'typeProperties.events', 'type': '[object]'},
+        'scope': {'key': 'typeProperties.scope', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CustomEventsTrigger, self).__init__(**kwargs)
+        self.subject_begins_with = kwargs.get('subject_begins_with', None)
+        self.subject_ends_with = kwargs.get('subject_ends_with', None)
+        self.events = kwargs.get('events', None)
+        self.scope = kwargs.get('scope', None)
+        self.type = 'CustomEventsTrigger'
 
 
 class DatabricksNotebookActivity(ExecutionActivity):
@@ -18982,6 +19075,9 @@ class IntegrationRuntimeSsisCatalogInfo(Model):
      values include: 'Basic', 'Standard', 'Premium', 'PremiumRS'
     :type catalog_pricing_tier: str or
      ~azure.mgmt.datafactory.models.IntegrationRuntimeSsisCatalogPricingTier
+    :param dual_standby_pair_name: The dual standby pair name of Azure-SSIS
+     Integration Runtimes to support SSISDB failover.
+    :type dual_standby_pair_name: str
     """
 
     _validation = {
@@ -18994,6 +19090,7 @@ class IntegrationRuntimeSsisCatalogInfo(Model):
         'catalog_admin_user_name': {'key': 'catalogAdminUserName', 'type': 'str'},
         'catalog_admin_password': {'key': 'catalogAdminPassword', 'type': 'SecureString'},
         'catalog_pricing_tier': {'key': 'catalogPricingTier', 'type': 'str'},
+        'dual_standby_pair_name': {'key': 'dualStandbyPairName', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -19003,6 +19100,7 @@ class IntegrationRuntimeSsisCatalogInfo(Model):
         self.catalog_admin_user_name = kwargs.get('catalog_admin_user_name', None)
         self.catalog_admin_password = kwargs.get('catalog_admin_password', None)
         self.catalog_pricing_tier = kwargs.get('catalog_pricing_tier', None)
+        self.dual_standby_pair_name = kwargs.get('dual_standby_pair_name', None)
 
 
 class IntegrationRuntimeSsisProperties(Model):
@@ -20370,6 +20468,9 @@ class ManagedIntegrationRuntime(IntegrationRuntime):
     :param ssis_properties: SSIS properties for managed integration runtime.
     :type ssis_properties:
      ~azure.mgmt.datafactory.models.IntegrationRuntimeSsisProperties
+    :param managed_virtual_network: Managed Virtual Network reference.
+    :type managed_virtual_network:
+     ~azure.mgmt.datafactory.models.ManagedVirtualNetworkReference
     """
 
     _validation = {
@@ -20384,6 +20485,7 @@ class ManagedIntegrationRuntime(IntegrationRuntime):
         'state': {'key': 'state', 'type': 'str'},
         'compute_properties': {'key': 'typeProperties.computeProperties', 'type': 'IntegrationRuntimeComputeProperties'},
         'ssis_properties': {'key': 'typeProperties.ssisProperties', 'type': 'IntegrationRuntimeSsisProperties'},
+        'managed_virtual_network': {'key': 'managedVirtualNetwork', 'type': 'ManagedVirtualNetworkReference'},
     }
 
     def __init__(self, **kwargs):
@@ -20391,6 +20493,7 @@ class ManagedIntegrationRuntime(IntegrationRuntime):
         self.state = None
         self.compute_properties = kwargs.get('compute_properties', None)
         self.ssis_properties = kwargs.get('ssis_properties', None)
+        self.managed_virtual_network = kwargs.get('managed_virtual_network', None)
         self.type = 'Managed'
 
 
@@ -20721,6 +20824,38 @@ class ManagedVirtualNetwork(Model):
         self.additional_properties = kwargs.get('additional_properties', None)
         self.v_net_id = None
         self.alias = None
+
+
+class ManagedVirtualNetworkReference(Model):
+    """Managed Virtual Network reference type.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar type: Required. Managed Virtual Network reference type. Default
+     value: "ManagedVirtualNetworkReference" .
+    :vartype type: str
+    :param reference_name: Required. Reference ManagedVirtualNetwork name.
+    :type reference_name: str
+    """
+
+    _validation = {
+        'type': {'required': True, 'constant': True},
+        'reference_name': {'required': True},
+    }
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'reference_name': {'key': 'referenceName', 'type': 'str'},
+    }
+
+    type = "ManagedVirtualNetworkReference"
+
+    def __init__(self, **kwargs):
+        super(ManagedVirtualNetworkReference, self).__init__(**kwargs)
+        self.reference_name = kwargs.get('reference_name', None)
 
 
 class ManagedVirtualNetworkResource(SubResource):
