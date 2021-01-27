@@ -961,7 +961,7 @@ class DedicatedHostGroup(Resource):
      virtual machine scale sets can be placed automatically on the dedicated
      host group. Automatic placement means resources are allocated on dedicated
      hosts, that are chosen by Azure, under the dedicated host group. The value
-     is defaulted to 'true' when not provided. <br><br>Minimum api-version:
+     is defaulted to 'false' when not provided. <br><br>Minimum api-version:
      2020-06-01.
     :type support_automatic_placement: bool
     :param zones: Availability Zone to use for this host group. Only single
@@ -1048,7 +1048,7 @@ class DedicatedHostGroupUpdate(UpdateResource):
      virtual machine scale sets can be placed automatically on the dedicated
      host group. Automatic placement means resources are allocated on dedicated
      hosts, that are chosen by Azure, under the dedicated host group. The value
-     is defaulted to 'true' when not provided. <br><br>Minimum api-version:
+     is defaulted to 'false' when not provided. <br><br>Minimum api-version:
      2020-06-01.
     :type support_automatic_placement: bool
     :param zones: Availability Zone to use for this host group. Only single
@@ -1396,61 +1396,66 @@ class HardwareProfile(Model):
 
     :param vm_size: Specifies the size of the virtual machine. For more
      information about virtual machine sizes, see [Sizes for virtual
-     machines](https://docs.microsoft.com/azure/virtual-machines/virtual-machines-windows-sizes?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json).
+     machines](https://docs.microsoft.com/en-us/azure/virtual-machines/sizes).
      <br><br> The available VM sizes depend on region and availability set. For
      a list of available sizes use these APIs:  <br><br> [List all available
      virtual machine sizes in an availability
      set](https://docs.microsoft.com/rest/api/compute/availabilitysets/listavailablesizes)
-     <br><br> [List all available virtual machine sizes in a
-     region](https://docs.microsoft.com/rest/api/compute/virtualmachinesizes/list)
+     <br><br> [List all available virtual machine sizes in a region](
+     https://docs.microsoft.com/en-us/rest/api/compute/resourceskus/list)
      <br><br> [List all available virtual machine sizes for
      resizing](https://docs.microsoft.com/rest/api/compute/virtualmachines/listavailablesizes).
-     Possible values include: 'Basic_A0', 'Basic_A1', 'Basic_A2', 'Basic_A3',
-     'Basic_A4', 'Standard_A0', 'Standard_A1', 'Standard_A2', 'Standard_A3',
-     'Standard_A4', 'Standard_A5', 'Standard_A6', 'Standard_A7', 'Standard_A8',
-     'Standard_A9', 'Standard_A10', 'Standard_A11', 'Standard_A1_v2',
-     'Standard_A2_v2', 'Standard_A4_v2', 'Standard_A8_v2', 'Standard_A2m_v2',
-     'Standard_A4m_v2', 'Standard_A8m_v2', 'Standard_B1s', 'Standard_B1ms',
-     'Standard_B2s', 'Standard_B2ms', 'Standard_B4ms', 'Standard_B8ms',
-     'Standard_D1', 'Standard_D2', 'Standard_D3', 'Standard_D4',
-     'Standard_D11', 'Standard_D12', 'Standard_D13', 'Standard_D14',
-     'Standard_D1_v2', 'Standard_D2_v2', 'Standard_D3_v2', 'Standard_D4_v2',
-     'Standard_D5_v2', 'Standard_D2_v3', 'Standard_D4_v3', 'Standard_D8_v3',
-     'Standard_D16_v3', 'Standard_D32_v3', 'Standard_D64_v3',
-     'Standard_D2s_v3', 'Standard_D4s_v3', 'Standard_D8s_v3',
-     'Standard_D16s_v3', 'Standard_D32s_v3', 'Standard_D64s_v3',
-     'Standard_D11_v2', 'Standard_D12_v2', 'Standard_D13_v2',
-     'Standard_D14_v2', 'Standard_D15_v2', 'Standard_DS1', 'Standard_DS2',
-     'Standard_DS3', 'Standard_DS4', 'Standard_DS11', 'Standard_DS12',
-     'Standard_DS13', 'Standard_DS14', 'Standard_DS1_v2', 'Standard_DS2_v2',
-     'Standard_DS3_v2', 'Standard_DS4_v2', 'Standard_DS5_v2',
-     'Standard_DS11_v2', 'Standard_DS12_v2', 'Standard_DS13_v2',
-     'Standard_DS14_v2', 'Standard_DS15_v2', 'Standard_DS13-4_v2',
-     'Standard_DS13-2_v2', 'Standard_DS14-8_v2', 'Standard_DS14-4_v2',
-     'Standard_E2_v3', 'Standard_E4_v3', 'Standard_E8_v3', 'Standard_E16_v3',
-     'Standard_E32_v3', 'Standard_E64_v3', 'Standard_E2s_v3',
-     'Standard_E4s_v3', 'Standard_E8s_v3', 'Standard_E16s_v3',
-     'Standard_E32s_v3', 'Standard_E64s_v3', 'Standard_E32-16_v3',
-     'Standard_E32-8s_v3', 'Standard_E64-32s_v3', 'Standard_E64-16s_v3',
-     'Standard_F1', 'Standard_F2', 'Standard_F4', 'Standard_F8',
-     'Standard_F16', 'Standard_F1s', 'Standard_F2s', 'Standard_F4s',
-     'Standard_F8s', 'Standard_F16s', 'Standard_F2s_v2', 'Standard_F4s_v2',
-     'Standard_F8s_v2', 'Standard_F16s_v2', 'Standard_F32s_v2',
-     'Standard_F64s_v2', 'Standard_F72s_v2', 'Standard_G1', 'Standard_G2',
-     'Standard_G3', 'Standard_G4', 'Standard_G5', 'Standard_GS1',
-     'Standard_GS2', 'Standard_GS3', 'Standard_GS4', 'Standard_GS5',
-     'Standard_GS4-8', 'Standard_GS4-4', 'Standard_GS5-16', 'Standard_GS5-8',
-     'Standard_H8', 'Standard_H16', 'Standard_H8m', 'Standard_H16m',
-     'Standard_H16r', 'Standard_H16mr', 'Standard_L4s', 'Standard_L8s',
-     'Standard_L16s', 'Standard_L32s', 'Standard_M64s', 'Standard_M64ms',
-     'Standard_M128s', 'Standard_M128ms', 'Standard_M64-32ms',
-     'Standard_M64-16ms', 'Standard_M128-64ms', 'Standard_M128-32ms',
-     'Standard_NC6', 'Standard_NC12', 'Standard_NC24', 'Standard_NC24r',
-     'Standard_NC6s_v2', 'Standard_NC12s_v2', 'Standard_NC24s_v2',
-     'Standard_NC24rs_v2', 'Standard_NC6s_v3', 'Standard_NC12s_v3',
-     'Standard_NC24s_v3', 'Standard_NC24rs_v3', 'Standard_ND6s',
-     'Standard_ND12s', 'Standard_ND24s', 'Standard_ND24rs', 'Standard_NV6',
-     'Standard_NV12', 'Standard_NV24'
+     <br><br> This list of sizes is no longer updated and the
+     **VirtualMachineSizeTypes** string constants will be removed from the
+     subsequent REST API specification. Use [List all available virtual machine
+     sizes in a region](
+     https://docs.microsoft.com/en-us/rest/api/compute/resourceskus/list) to
+     get the latest sizes. Possible values include: 'Basic_A0', 'Basic_A1',
+     'Basic_A2', 'Basic_A3', 'Basic_A4', 'Standard_A0', 'Standard_A1',
+     'Standard_A2', 'Standard_A3', 'Standard_A4', 'Standard_A5', 'Standard_A6',
+     'Standard_A7', 'Standard_A8', 'Standard_A9', 'Standard_A10',
+     'Standard_A11', 'Standard_A1_v2', 'Standard_A2_v2', 'Standard_A4_v2',
+     'Standard_A8_v2', 'Standard_A2m_v2', 'Standard_A4m_v2', 'Standard_A8m_v2',
+     'Standard_B1s', 'Standard_B1ms', 'Standard_B2s', 'Standard_B2ms',
+     'Standard_B4ms', 'Standard_B8ms', 'Standard_D1', 'Standard_D2',
+     'Standard_D3', 'Standard_D4', 'Standard_D11', 'Standard_D12',
+     'Standard_D13', 'Standard_D14', 'Standard_D1_v2', 'Standard_D2_v2',
+     'Standard_D3_v2', 'Standard_D4_v2', 'Standard_D5_v2', 'Standard_D2_v3',
+     'Standard_D4_v3', 'Standard_D8_v3', 'Standard_D16_v3', 'Standard_D32_v3',
+     'Standard_D64_v3', 'Standard_D2s_v3', 'Standard_D4s_v3',
+     'Standard_D8s_v3', 'Standard_D16s_v3', 'Standard_D32s_v3',
+     'Standard_D64s_v3', 'Standard_D11_v2', 'Standard_D12_v2',
+     'Standard_D13_v2', 'Standard_D14_v2', 'Standard_D15_v2', 'Standard_DS1',
+     'Standard_DS2', 'Standard_DS3', 'Standard_DS4', 'Standard_DS11',
+     'Standard_DS12', 'Standard_DS13', 'Standard_DS14', 'Standard_DS1_v2',
+     'Standard_DS2_v2', 'Standard_DS3_v2', 'Standard_DS4_v2',
+     'Standard_DS5_v2', 'Standard_DS11_v2', 'Standard_DS12_v2',
+     'Standard_DS13_v2', 'Standard_DS14_v2', 'Standard_DS15_v2',
+     'Standard_DS13-4_v2', 'Standard_DS13-2_v2', 'Standard_DS14-8_v2',
+     'Standard_DS14-4_v2', 'Standard_E2_v3', 'Standard_E4_v3',
+     'Standard_E8_v3', 'Standard_E16_v3', 'Standard_E32_v3', 'Standard_E64_v3',
+     'Standard_E2s_v3', 'Standard_E4s_v3', 'Standard_E8s_v3',
+     'Standard_E16s_v3', 'Standard_E32s_v3', 'Standard_E64s_v3',
+     'Standard_E32-16_v3', 'Standard_E32-8s_v3', 'Standard_E64-32s_v3',
+     'Standard_E64-16s_v3', 'Standard_F1', 'Standard_F2', 'Standard_F4',
+     'Standard_F8', 'Standard_F16', 'Standard_F1s', 'Standard_F2s',
+     'Standard_F4s', 'Standard_F8s', 'Standard_F16s', 'Standard_F2s_v2',
+     'Standard_F4s_v2', 'Standard_F8s_v2', 'Standard_F16s_v2',
+     'Standard_F32s_v2', 'Standard_F64s_v2', 'Standard_F72s_v2', 'Standard_G1',
+     'Standard_G2', 'Standard_G3', 'Standard_G4', 'Standard_G5',
+     'Standard_GS1', 'Standard_GS2', 'Standard_GS3', 'Standard_GS4',
+     'Standard_GS5', 'Standard_GS4-8', 'Standard_GS4-4', 'Standard_GS5-16',
+     'Standard_GS5-8', 'Standard_H8', 'Standard_H16', 'Standard_H8m',
+     'Standard_H16m', 'Standard_H16r', 'Standard_H16mr', 'Standard_L4s',
+     'Standard_L8s', 'Standard_L16s', 'Standard_L32s', 'Standard_M64s',
+     'Standard_M64ms', 'Standard_M128s', 'Standard_M128ms',
+     'Standard_M64-32ms', 'Standard_M64-16ms', 'Standard_M128-64ms',
+     'Standard_M128-32ms', 'Standard_NC6', 'Standard_NC12', 'Standard_NC24',
+     'Standard_NC24r', 'Standard_NC6s_v2', 'Standard_NC12s_v2',
+     'Standard_NC24s_v2', 'Standard_NC24rs_v2', 'Standard_NC6s_v3',
+     'Standard_NC12s_v3', 'Standard_NC24s_v3', 'Standard_NC24rs_v3',
+     'Standard_ND6s', 'Standard_ND12s', 'Standard_ND24s', 'Standard_ND24rs',
+     'Standard_NV6', 'Standard_NV12', 'Standard_NV24'
     :type vm_size: str or
      ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineSizeTypes
     """
@@ -2104,6 +2109,11 @@ class LogAnalyticsInputBase(Model):
     :type group_by_operation_name: bool
     :param group_by_resource_name: Group query result by Resource Name.
     :type group_by_resource_name: bool
+    :param group_by_client_application_id: Group query result by Client
+     Application ID.
+    :type group_by_client_application_id: bool
+    :param group_by_user_agent: Group query result by User Agent.
+    :type group_by_user_agent: bool
     """
 
     _validation = {
@@ -2119,6 +2129,8 @@ class LogAnalyticsInputBase(Model):
         'group_by_throttle_policy': {'key': 'groupByThrottlePolicy', 'type': 'bool'},
         'group_by_operation_name': {'key': 'groupByOperationName', 'type': 'bool'},
         'group_by_resource_name': {'key': 'groupByResourceName', 'type': 'bool'},
+        'group_by_client_application_id': {'key': 'groupByClientApplicationId', 'type': 'bool'},
+        'group_by_user_agent': {'key': 'groupByUserAgent', 'type': 'bool'},
     }
 
     def __init__(self, **kwargs):
@@ -2129,6 +2141,8 @@ class LogAnalyticsInputBase(Model):
         self.group_by_throttle_policy = kwargs.get('group_by_throttle_policy', None)
         self.group_by_operation_name = kwargs.get('group_by_operation_name', None)
         self.group_by_resource_name = kwargs.get('group_by_resource_name', None)
+        self.group_by_client_application_id = kwargs.get('group_by_client_application_id', None)
+        self.group_by_user_agent = kwargs.get('group_by_user_agent', None)
 
 
 class LogAnalyticsOperationResult(Model):
@@ -2816,6 +2830,11 @@ class RequestRateByIntervalInput(LogAnalyticsInputBase):
     :type group_by_operation_name: bool
     :param group_by_resource_name: Group query result by Resource Name.
     :type group_by_resource_name: bool
+    :param group_by_client_application_id: Group query result by Client
+     Application ID.
+    :type group_by_client_application_id: bool
+    :param group_by_user_agent: Group query result by User Agent.
+    :type group_by_user_agent: bool
     :param interval_length: Required. Interval value in minutes used to create
      LogAnalytics call rate logs. Possible values include: 'ThreeMins',
      'FiveMins', 'ThirtyMins', 'SixtyMins'
@@ -2837,6 +2856,8 @@ class RequestRateByIntervalInput(LogAnalyticsInputBase):
         'group_by_throttle_policy': {'key': 'groupByThrottlePolicy', 'type': 'bool'},
         'group_by_operation_name': {'key': 'groupByOperationName', 'type': 'bool'},
         'group_by_resource_name': {'key': 'groupByResourceName', 'type': 'bool'},
+        'group_by_client_application_id': {'key': 'groupByClientApplicationId', 'type': 'bool'},
+        'group_by_user_agent': {'key': 'groupByUserAgent', 'type': 'bool'},
         'interval_length': {'key': 'intervalLength', 'type': 'IntervalInMins'},
     }
 
@@ -3445,7 +3466,7 @@ class SshPublicKey(Model):
      VM through ssh. The key needs to be at least 2048-bit and in ssh-rsa
      format. <br><br> For creating ssh keys, see [Create SSH keys on Linux and
      Mac for Linux VMs in
-     Azure](https://docs.microsoft.com/azure/virtual-machines/virtual-machines-linux-mac-create-ssh-keys?toc=%2fazure%2fvirtual-machines%2flinux%2ftoc.json).
+     Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/mac-create-ssh-keys?toc=%2fazure%2fvirtual-machines%2flinux%2ftoc.json).
     :type key_data: str
     """
 
@@ -3692,6 +3713,11 @@ class ThrottledRequestsInput(LogAnalyticsInputBase):
     :type group_by_operation_name: bool
     :param group_by_resource_name: Group query result by Resource Name.
     :type group_by_resource_name: bool
+    :param group_by_client_application_id: Group query result by Client
+     Application ID.
+    :type group_by_client_application_id: bool
+    :param group_by_user_agent: Group query result by User Agent.
+    :type group_by_user_agent: bool
     """
 
     _validation = {
@@ -3707,6 +3733,8 @@ class ThrottledRequestsInput(LogAnalyticsInputBase):
         'group_by_throttle_policy': {'key': 'groupByThrottlePolicy', 'type': 'bool'},
         'group_by_operation_name': {'key': 'groupByOperationName', 'type': 'bool'},
         'group_by_resource_name': {'key': 'groupByResourceName', 'type': 'bool'},
+        'group_by_client_application_id': {'key': 'groupByClientApplicationId', 'type': 'bool'},
+        'group_by_user_agent': {'key': 'groupByUserAgent', 'type': 'bool'},
     }
 
     def __init__(self, **kwargs):
@@ -4122,13 +4150,14 @@ class VirtualMachine(Resource):
     :vartype instance_view:
      ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineInstanceView
     :param license_type: Specifies that the image or disk that is being used
-     was licensed on-premises. This element is only used for images that
-     contain the Windows Server operating system. <br><br> Possible values are:
-     <br><br> Windows_Client <br><br> Windows_Server <br><br> If this element
-     is included in a request for an update, the value must match the initial
-     value. This value cannot be updated. <br><br> For more information, see
-     [Azure Hybrid Use Benefit for Windows
-     Server](https://docs.microsoft.com/azure/virtual-machines/virtual-machines-windows-hybrid-use-benefit-licensing?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json)
+     was licensed on-premises. <br><br> Possible values for Windows Server
+     operating system are: <br><br> Windows_Client <br><br> Windows_Server
+     <br><br> Possible values for Linux Server operating system are: <br><br>
+     RHEL_BYOS (for RHEL) <br><br> SLES_BYOS (for SUSE) <br><br> For more
+     information, see [Azure Hybrid Use Benefit for Windows
+     Server](https://docs.microsoft.com/azure/virtual-machines/windows/hybrid-use-benefit-licensing)
+     <br><br> [Azure Hybrid Use Benefit for Linux
+     Server](https://docs.microsoft.com/azure/virtual-machines/linux/azure-hybrid-benefit-linux)
      <br><br> Minimum api-version: 2015-06-15
     :type license_type: str
     :ivar vm_id: Specifies the VM unique ID which is a 128-bits identifier
@@ -5033,6 +5062,255 @@ class VirtualMachineReimageParameters(Model):
         self.temp_disk = kwargs.get('temp_disk', None)
 
 
+class VirtualMachineRunCommand(Resource):
+    """Describes a Virtual Machine run command.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Resource Id
+    :vartype id: str
+    :ivar name: Resource name
+    :vartype name: str
+    :ivar type: Resource type
+    :vartype type: str
+    :param location: Required. Resource location
+    :type location: str
+    :param tags: Resource tags
+    :type tags: dict[str, str]
+    :param source: The source of the run command script.
+    :type source:
+     ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineRunCommandScriptSource
+    :param parameters: The parameters used by the script.
+    :type parameters:
+     list[~azure.mgmt.compute.v2020_06_01.models.RunCommandInputParameter]
+    :param protected_parameters: The parameters used by the script.
+    :type protected_parameters:
+     list[~azure.mgmt.compute.v2020_06_01.models.RunCommandInputParameter]
+    :param async_execution: Optional. If set to true, provisioning will
+     complete as soon as the script starts and will not wait for script to
+     complete. Default value: False .
+    :type async_execution: bool
+    :param run_as_user: Specifies the user account on the VM when executing
+     the run command.
+    :type run_as_user: str
+    :param run_as_password: Specifies the user account password on the VM when
+     executing the run command.
+    :type run_as_password: str
+    :param timeout_in_seconds: The timeout in seconds to execute the run
+     command.
+    :type timeout_in_seconds: int
+    :param output_blob_uri: Specifies the Azure storage blob where script
+     output stream will be uploaded.
+    :type output_blob_uri: str
+    :param error_blob_uri: Specifies the Azure storage blob where script error
+     stream will be uploaded.
+    :type error_blob_uri: str
+    :ivar provisioning_state: The provisioning state, which only appears in
+     the response.
+    :vartype provisioning_state: str
+    :ivar instance_view: The virtual machine run command instance view.
+    :vartype instance_view:
+     ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineRunCommandInstanceView
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'location': {'required': True},
+        'provisioning_state': {'readonly': True},
+        'instance_view': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'source': {'key': 'properties.source', 'type': 'VirtualMachineRunCommandScriptSource'},
+        'parameters': {'key': 'properties.parameters', 'type': '[RunCommandInputParameter]'},
+        'protected_parameters': {'key': 'properties.protectedParameters', 'type': '[RunCommandInputParameter]'},
+        'async_execution': {'key': 'properties.asyncExecution', 'type': 'bool'},
+        'run_as_user': {'key': 'properties.runAsUser', 'type': 'str'},
+        'run_as_password': {'key': 'properties.runAsPassword', 'type': 'str'},
+        'timeout_in_seconds': {'key': 'properties.timeoutInSeconds', 'type': 'int'},
+        'output_blob_uri': {'key': 'properties.outputBlobUri', 'type': 'str'},
+        'error_blob_uri': {'key': 'properties.errorBlobUri', 'type': 'str'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'instance_view': {'key': 'properties.instanceView', 'type': 'VirtualMachineRunCommandInstanceView'},
+    }
+
+    def __init__(self, **kwargs):
+        super(VirtualMachineRunCommand, self).__init__(**kwargs)
+        self.source = kwargs.get('source', None)
+        self.parameters = kwargs.get('parameters', None)
+        self.protected_parameters = kwargs.get('protected_parameters', None)
+        self.async_execution = kwargs.get('async_execution', False)
+        self.run_as_user = kwargs.get('run_as_user', None)
+        self.run_as_password = kwargs.get('run_as_password', None)
+        self.timeout_in_seconds = kwargs.get('timeout_in_seconds', None)
+        self.output_blob_uri = kwargs.get('output_blob_uri', None)
+        self.error_blob_uri = kwargs.get('error_blob_uri', None)
+        self.provisioning_state = None
+        self.instance_view = None
+
+
+class VirtualMachineRunCommandInstanceView(Model):
+    """The instance view of a virtual machine run command.
+
+    :param execution_state: Script execution status. Possible values include:
+     'Unknown', 'Pending', 'Running', 'Failed', 'Succeeded', 'TimedOut',
+     'Canceled'
+    :type execution_state: str or
+     ~azure.mgmt.compute.v2020_06_01.models.ExecutionState
+    :param execution_message: Communicate script configuration errors or
+     execution messages.
+    :type execution_message: str
+    :param exit_code: Exit code returned from script execution.
+    :type exit_code: int
+    :param output: Script output stream.
+    :type output: str
+    :param error: Script error stream.
+    :type error: str
+    :param start_time: Script start time.
+    :type start_time: datetime
+    :param end_time: Script end time.
+    :type end_time: datetime
+    :param statuses: The resource status information.
+    :type statuses:
+     list[~azure.mgmt.compute.v2020_06_01.models.InstanceViewStatus]
+    """
+
+    _attribute_map = {
+        'execution_state': {'key': 'executionState', 'type': 'str'},
+        'execution_message': {'key': 'executionMessage', 'type': 'str'},
+        'exit_code': {'key': 'exitCode', 'type': 'int'},
+        'output': {'key': 'output', 'type': 'str'},
+        'error': {'key': 'error', 'type': 'str'},
+        'start_time': {'key': 'startTime', 'type': 'iso-8601'},
+        'end_time': {'key': 'endTime', 'type': 'iso-8601'},
+        'statuses': {'key': 'statuses', 'type': '[InstanceViewStatus]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(VirtualMachineRunCommandInstanceView, self).__init__(**kwargs)
+        self.execution_state = kwargs.get('execution_state', None)
+        self.execution_message = kwargs.get('execution_message', None)
+        self.exit_code = kwargs.get('exit_code', None)
+        self.output = kwargs.get('output', None)
+        self.error = kwargs.get('error', None)
+        self.start_time = kwargs.get('start_time', None)
+        self.end_time = kwargs.get('end_time', None)
+        self.statuses = kwargs.get('statuses', None)
+
+
+class VirtualMachineRunCommandScriptSource(Model):
+    """Describes the script sources for run command.
+
+    :param script: Specifies the script content to be executed on the VM.
+    :type script: str
+    :param script_uri: Specifies the script download location.
+    :type script_uri: str
+    :param command_id: Specifies a commandId of predefined built-in script.
+    :type command_id: str
+    """
+
+    _attribute_map = {
+        'script': {'key': 'script', 'type': 'str'},
+        'script_uri': {'key': 'scriptUri', 'type': 'str'},
+        'command_id': {'key': 'commandId', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(VirtualMachineRunCommandScriptSource, self).__init__(**kwargs)
+        self.script = kwargs.get('script', None)
+        self.script_uri = kwargs.get('script_uri', None)
+        self.command_id = kwargs.get('command_id', None)
+
+
+class VirtualMachineRunCommandUpdate(UpdateResource):
+    """Describes a Virtual Machine run command.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param tags: Resource tags
+    :type tags: dict[str, str]
+    :param source: The source of the run command script.
+    :type source:
+     ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineRunCommandScriptSource
+    :param parameters: The parameters used by the script.
+    :type parameters:
+     list[~azure.mgmt.compute.v2020_06_01.models.RunCommandInputParameter]
+    :param protected_parameters: The parameters used by the script.
+    :type protected_parameters:
+     list[~azure.mgmt.compute.v2020_06_01.models.RunCommandInputParameter]
+    :param async_execution: Optional. If set to true, provisioning will
+     complete as soon as the script starts and will not wait for script to
+     complete. Default value: False .
+    :type async_execution: bool
+    :param run_as_user: Specifies the user account on the VM when executing
+     the run command.
+    :type run_as_user: str
+    :param run_as_password: Specifies the user account password on the VM when
+     executing the run command.
+    :type run_as_password: str
+    :param timeout_in_seconds: The timeout in seconds to execute the run
+     command.
+    :type timeout_in_seconds: int
+    :param output_blob_uri: Specifies the Azure storage blob where script
+     output stream will be uploaded.
+    :type output_blob_uri: str
+    :param error_blob_uri: Specifies the Azure storage blob where script error
+     stream will be uploaded.
+    :type error_blob_uri: str
+    :ivar provisioning_state: The provisioning state, which only appears in
+     the response.
+    :vartype provisioning_state: str
+    :ivar instance_view: The virtual machine run command instance view.
+    :vartype instance_view:
+     ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineRunCommandInstanceView
+    """
+
+    _validation = {
+        'provisioning_state': {'readonly': True},
+        'instance_view': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'source': {'key': 'properties.source', 'type': 'VirtualMachineRunCommandScriptSource'},
+        'parameters': {'key': 'properties.parameters', 'type': '[RunCommandInputParameter]'},
+        'protected_parameters': {'key': 'properties.protectedParameters', 'type': '[RunCommandInputParameter]'},
+        'async_execution': {'key': 'properties.asyncExecution', 'type': 'bool'},
+        'run_as_user': {'key': 'properties.runAsUser', 'type': 'str'},
+        'run_as_password': {'key': 'properties.runAsPassword', 'type': 'str'},
+        'timeout_in_seconds': {'key': 'properties.timeoutInSeconds', 'type': 'int'},
+        'output_blob_uri': {'key': 'properties.outputBlobUri', 'type': 'str'},
+        'error_blob_uri': {'key': 'properties.errorBlobUri', 'type': 'str'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'instance_view': {'key': 'properties.instanceView', 'type': 'VirtualMachineRunCommandInstanceView'},
+    }
+
+    def __init__(self, **kwargs):
+        super(VirtualMachineRunCommandUpdate, self).__init__(**kwargs)
+        self.source = kwargs.get('source', None)
+        self.parameters = kwargs.get('parameters', None)
+        self.protected_parameters = kwargs.get('protected_parameters', None)
+        self.async_execution = kwargs.get('async_execution', False)
+        self.run_as_user = kwargs.get('run_as_user', None)
+        self.run_as_password = kwargs.get('run_as_password', None)
+        self.timeout_in_seconds = kwargs.get('timeout_in_seconds', None)
+        self.output_blob_uri = kwargs.get('output_blob_uri', None)
+        self.error_blob_uri = kwargs.get('error_blob_uri', None)
+        self.provisioning_state = None
+        self.instance_view = None
+
+
 class VirtualMachineScaleSet(Resource):
     """Describes a Virtual Machine Scale Set.
 
@@ -5730,6 +6008,9 @@ class VirtualMachineScaleSetNetworkConfiguration(SubResource):
     :param enable_accelerated_networking: Specifies whether the network
      interface is accelerated networking-enabled.
     :type enable_accelerated_networking: bool
+    :param enable_fpga: Specifies whether the network interface is FPGA
+     networking-enabled.
+    :type enable_fpga: bool
     :param network_security_group: The network security group.
     :type network_security_group:
      ~azure.mgmt.compute.v2020_06_01.models.SubResource
@@ -5755,6 +6036,7 @@ class VirtualMachineScaleSetNetworkConfiguration(SubResource):
         'name': {'key': 'name', 'type': 'str'},
         'primary': {'key': 'properties.primary', 'type': 'bool'},
         'enable_accelerated_networking': {'key': 'properties.enableAcceleratedNetworking', 'type': 'bool'},
+        'enable_fpga': {'key': 'properties.enableFpga', 'type': 'bool'},
         'network_security_group': {'key': 'properties.networkSecurityGroup', 'type': 'SubResource'},
         'dns_settings': {'key': 'properties.dnsSettings', 'type': 'VirtualMachineScaleSetNetworkConfigurationDnsSettings'},
         'ip_configurations': {'key': 'properties.ipConfigurations', 'type': '[VirtualMachineScaleSetIPConfiguration]'},
@@ -5766,6 +6048,7 @@ class VirtualMachineScaleSetNetworkConfiguration(SubResource):
         self.name = kwargs.get('name', None)
         self.primary = kwargs.get('primary', None)
         self.enable_accelerated_networking = kwargs.get('enable_accelerated_networking', None)
+        self.enable_fpga = kwargs.get('enable_fpga', None)
         self.network_security_group = kwargs.get('network_security_group', None)
         self.dns_settings = kwargs.get('dns_settings', None)
         self.ip_configurations = kwargs.get('ip_configurations', None)
@@ -6372,6 +6655,9 @@ class VirtualMachineScaleSetUpdateNetworkConfiguration(SubResource):
     :param enable_accelerated_networking: Specifies whether the network
      interface is accelerated networking-enabled.
     :type enable_accelerated_networking: bool
+    :param enable_fpga: Specifies whether the network interface is FPGA
+     networking-enabled.
+    :type enable_fpga: bool
     :param network_security_group: The network security group.
     :type network_security_group:
      ~azure.mgmt.compute.v2020_06_01.models.SubResource
@@ -6391,6 +6677,7 @@ class VirtualMachineScaleSetUpdateNetworkConfiguration(SubResource):
         'name': {'key': 'name', 'type': 'str'},
         'primary': {'key': 'properties.primary', 'type': 'bool'},
         'enable_accelerated_networking': {'key': 'properties.enableAcceleratedNetworking', 'type': 'bool'},
+        'enable_fpga': {'key': 'properties.enableFpga', 'type': 'bool'},
         'network_security_group': {'key': 'properties.networkSecurityGroup', 'type': 'SubResource'},
         'dns_settings': {'key': 'properties.dnsSettings', 'type': 'VirtualMachineScaleSetNetworkConfigurationDnsSettings'},
         'ip_configurations': {'key': 'properties.ipConfigurations', 'type': '[VirtualMachineScaleSetUpdateIPConfiguration]'},
@@ -6402,6 +6689,7 @@ class VirtualMachineScaleSetUpdateNetworkConfiguration(SubResource):
         self.name = kwargs.get('name', None)
         self.primary = kwargs.get('primary', None)
         self.enable_accelerated_networking = kwargs.get('enable_accelerated_networking', None)
+        self.enable_fpga = kwargs.get('enable_fpga', None)
         self.network_security_group = kwargs.get('network_security_group', None)
         self.dns_settings = kwargs.get('dns_settings', None)
         self.ip_configurations = kwargs.get('ip_configurations', None)
@@ -6702,13 +6990,14 @@ class VirtualMachineScaleSetVM(Resource):
      the response.
     :vartype provisioning_state: str
     :param license_type: Specifies that the image or disk that is being used
-     was licensed on-premises. This element is only used for images that
-     contain the Windows Server operating system. <br><br> Possible values are:
-     <br><br> Windows_Client <br><br> Windows_Server <br><br> If this element
-     is included in a request for an update, the value must match the initial
-     value. This value cannot be updated. <br><br> For more information, see
-     [Azure Hybrid Use Benefit for Windows
-     Server](https://docs.microsoft.com/azure/virtual-machines/virtual-machines-windows-hybrid-use-benefit-licensing?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json)
+     was licensed on-premises. <br><br> Possible values for Windows Server
+     operating system are: <br><br> Windows_Client <br><br> Windows_Server
+     <br><br> Possible values for Linux Server operating system are: <br><br>
+     RHEL_BYOS (for RHEL) <br><br> SLES_BYOS (for SUSE) <br><br> For more
+     information, see [Azure Hybrid Use Benefit for Windows
+     Server](https://docs.microsoft.com/azure/virtual-machines/windows/hybrid-use-benefit-licensing)
+     <br><br> [Azure Hybrid Use Benefit for Linux
+     Server](https://docs.microsoft.com/azure/virtual-machines/linux/azure-hybrid-benefit-linux)
      <br><br> Minimum api-version: 2015-06-15
     :type license_type: str
     :ivar model_definition_applied: Specifies whether the model applied to the
@@ -6804,6 +7093,107 @@ class VirtualMachineScaleSetVM(Resource):
         self.zones = None
 
 
+class VirtualMachineScaleSetVMExtension(SubResourceReadOnly):
+    """Describes a VMSS VM Extension.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id
+    :vartype id: str
+    :ivar name: The name of the extension.
+    :vartype name: str
+    :ivar type: Resource type
+    :vartype type: str
+    :param force_update_tag: How the extension handler should be forced to
+     update even if the extension configuration has not changed.
+    :type force_update_tag: str
+    :param publisher: The name of the extension handler publisher.
+    :type publisher: str
+    :param type1: Specifies the type of the extension; an example is
+     "CustomScriptExtension".
+    :type type1: str
+    :param type_handler_version: Specifies the version of the script handler.
+    :type type_handler_version: str
+    :param auto_upgrade_minor_version: Indicates whether the extension should
+     use a newer minor version if one is available at deployment time. Once
+     deployed, however, the extension will not upgrade minor versions unless
+     redeployed, even with this property set to true.
+    :type auto_upgrade_minor_version: bool
+    :param enable_automatic_upgrade: Indicates whether the extension should be
+     automatically upgraded by the platform if there is a newer version of the
+     extension available.
+    :type enable_automatic_upgrade: bool
+    :param settings: Json formatted public settings for the extension.
+    :type settings: object
+    :param protected_settings: The extension can contain either
+     protectedSettings or protectedSettingsFromKeyVault or no protected
+     settings at all.
+    :type protected_settings: object
+    :ivar provisioning_state: The provisioning state, which only appears in
+     the response.
+    :vartype provisioning_state: str
+    :param instance_view: The virtual machine extension instance view.
+    :type instance_view:
+     ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineExtensionInstanceView
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'provisioning_state': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'force_update_tag': {'key': 'properties.forceUpdateTag', 'type': 'str'},
+        'publisher': {'key': 'properties.publisher', 'type': 'str'},
+        'type1': {'key': 'properties.type', 'type': 'str'},
+        'type_handler_version': {'key': 'properties.typeHandlerVersion', 'type': 'str'},
+        'auto_upgrade_minor_version': {'key': 'properties.autoUpgradeMinorVersion', 'type': 'bool'},
+        'enable_automatic_upgrade': {'key': 'properties.enableAutomaticUpgrade', 'type': 'bool'},
+        'settings': {'key': 'properties.settings', 'type': 'object'},
+        'protected_settings': {'key': 'properties.protectedSettings', 'type': 'object'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'instance_view': {'key': 'properties.instanceView', 'type': 'VirtualMachineExtensionInstanceView'},
+    }
+
+    def __init__(self, **kwargs):
+        super(VirtualMachineScaleSetVMExtension, self).__init__(**kwargs)
+        self.name = None
+        self.type = None
+        self.force_update_tag = kwargs.get('force_update_tag', None)
+        self.publisher = kwargs.get('publisher', None)
+        self.type1 = kwargs.get('type1', None)
+        self.type_handler_version = kwargs.get('type_handler_version', None)
+        self.auto_upgrade_minor_version = kwargs.get('auto_upgrade_minor_version', None)
+        self.enable_automatic_upgrade = kwargs.get('enable_automatic_upgrade', None)
+        self.settings = kwargs.get('settings', None)
+        self.protected_settings = kwargs.get('protected_settings', None)
+        self.provisioning_state = None
+        self.instance_view = kwargs.get('instance_view', None)
+
+
+class VirtualMachineScaleSetVMExtensionsListResult(Model):
+    """The List VMSS VM Extension operation response.
+
+    :param value: The list of VMSS VM extensions
+    :type value:
+     list[~azure.mgmt.compute.v2020_06_01.models.VirtualMachineScaleSetVMExtension]
+    """
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': '[VirtualMachineScaleSetVMExtension]'},
+    }
+
+    def __init__(self, **kwargs):
+        super(VirtualMachineScaleSetVMExtensionsListResult, self).__init__(**kwargs)
+        self.value = kwargs.get('value', None)
+
+
 class VirtualMachineScaleSetVMExtensionsSummary(Model):
     """Extensions summary for virtual machines of a virtual machine scale set.
 
@@ -6831,6 +7221,79 @@ class VirtualMachineScaleSetVMExtensionsSummary(Model):
         super(VirtualMachineScaleSetVMExtensionsSummary, self).__init__(**kwargs)
         self.name = None
         self.statuses_summary = None
+
+
+class VirtualMachineScaleSetVMExtensionUpdate(SubResourceReadOnly):
+    """Describes a VMSS VM Extension.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id
+    :vartype id: str
+    :ivar name: The name of the extension.
+    :vartype name: str
+    :ivar type: Resource type
+    :vartype type: str
+    :param force_update_tag: How the extension handler should be forced to
+     update even if the extension configuration has not changed.
+    :type force_update_tag: str
+    :param publisher: The name of the extension handler publisher.
+    :type publisher: str
+    :param type1: Specifies the type of the extension; an example is
+     "CustomScriptExtension".
+    :type type1: str
+    :param type_handler_version: Specifies the version of the script handler.
+    :type type_handler_version: str
+    :param auto_upgrade_minor_version: Indicates whether the extension should
+     use a newer minor version if one is available at deployment time. Once
+     deployed, however, the extension will not upgrade minor versions unless
+     redeployed, even with this property set to true.
+    :type auto_upgrade_minor_version: bool
+    :param enable_automatic_upgrade: Indicates whether the extension should be
+     automatically upgraded by the platform if there is a newer version of the
+     extension available.
+    :type enable_automatic_upgrade: bool
+    :param settings: Json formatted public settings for the extension.
+    :type settings: object
+    :param protected_settings: The extension can contain either
+     protectedSettings or protectedSettingsFromKeyVault or no protected
+     settings at all.
+    :type protected_settings: object
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'force_update_tag': {'key': 'properties.forceUpdateTag', 'type': 'str'},
+        'publisher': {'key': 'properties.publisher', 'type': 'str'},
+        'type1': {'key': 'properties.type', 'type': 'str'},
+        'type_handler_version': {'key': 'properties.typeHandlerVersion', 'type': 'str'},
+        'auto_upgrade_minor_version': {'key': 'properties.autoUpgradeMinorVersion', 'type': 'bool'},
+        'enable_automatic_upgrade': {'key': 'properties.enableAutomaticUpgrade', 'type': 'bool'},
+        'settings': {'key': 'properties.settings', 'type': 'object'},
+        'protected_settings': {'key': 'properties.protectedSettings', 'type': 'object'},
+    }
+
+    def __init__(self, **kwargs):
+        super(VirtualMachineScaleSetVMExtensionUpdate, self).__init__(**kwargs)
+        self.name = None
+        self.type = None
+        self.force_update_tag = kwargs.get('force_update_tag', None)
+        self.publisher = kwargs.get('publisher', None)
+        self.type1 = kwargs.get('type1', None)
+        self.type_handler_version = kwargs.get('type_handler_version', None)
+        self.auto_upgrade_minor_version = kwargs.get('auto_upgrade_minor_version', None)
+        self.enable_automatic_upgrade = kwargs.get('enable_automatic_upgrade', None)
+        self.settings = kwargs.get('settings', None)
+        self.protected_settings = kwargs.get('protected_settings', None)
 
 
 class VirtualMachineScaleSetVMInstanceIDs(Model):
@@ -7001,13 +7464,14 @@ class VirtualMachineScaleSetVMProfile(Model):
     :type extension_profile:
      ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineScaleSetExtensionProfile
     :param license_type: Specifies that the image or disk that is being used
-     was licensed on-premises. This element is only used for images that
-     contain the Windows Server operating system. <br><br> Possible values are:
-     <br><br> Windows_Client <br><br> Windows_Server <br><br> If this element
-     is included in a request for an update, the value must match the initial
-     value. This value cannot be updated. <br><br> For more information, see
-     [Azure Hybrid Use Benefit for Windows
-     Server](https://docs.microsoft.com/azure/virtual-machines/virtual-machines-windows-hybrid-use-benefit-licensing?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json)
+     was licensed on-premises. <br><br> Possible values for Windows Server
+     operating system are: <br><br> Windows_Client <br><br> Windows_Server
+     <br><br> Possible values for Linux Server operating system are: <br><br>
+     RHEL_BYOS (for RHEL) <br><br> SLES_BYOS (for SUSE) <br><br> For more
+     information, see [Azure Hybrid Use Benefit for Windows
+     Server](https://docs.microsoft.com/azure/virtual-machines/windows/hybrid-use-benefit-licensing)
+     <br><br> [Azure Hybrid Use Benefit for Linux
+     Server](https://docs.microsoft.com/azure/virtual-machines/linux/azure-hybrid-benefit-linux)
      <br><br> Minimum api-version: 2015-06-15
     :type license_type: str
     :param priority: Specifies the priority for the virtual machines in the
@@ -7340,13 +7804,14 @@ class VirtualMachineUpdate(UpdateResource):
     :vartype instance_view:
      ~azure.mgmt.compute.v2020_06_01.models.VirtualMachineInstanceView
     :param license_type: Specifies that the image or disk that is being used
-     was licensed on-premises. This element is only used for images that
-     contain the Windows Server operating system. <br><br> Possible values are:
-     <br><br> Windows_Client <br><br> Windows_Server <br><br> If this element
-     is included in a request for an update, the value must match the initial
-     value. This value cannot be updated. <br><br> For more information, see
-     [Azure Hybrid Use Benefit for Windows
-     Server](https://docs.microsoft.com/azure/virtual-machines/virtual-machines-windows-hybrid-use-benefit-licensing?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json)
+     was licensed on-premises. <br><br> Possible values for Windows Server
+     operating system are: <br><br> Windows_Client <br><br> Windows_Server
+     <br><br> Possible values for Linux Server operating system are: <br><br>
+     RHEL_BYOS (for RHEL) <br><br> SLES_BYOS (for SUSE) <br><br> For more
+     information, see [Azure Hybrid Use Benefit for Windows
+     Server](https://docs.microsoft.com/azure/virtual-machines/windows/hybrid-use-benefit-licensing)
+     <br><br> [Azure Hybrid Use Benefit for Linux
+     Server](https://docs.microsoft.com/azure/virtual-machines/linux/azure-hybrid-benefit-linux)
      <br><br> Minimum api-version: 2015-06-15
     :type license_type: str
     :ivar vm_id: Specifies the VM unique ID which is a 128-bits identifier

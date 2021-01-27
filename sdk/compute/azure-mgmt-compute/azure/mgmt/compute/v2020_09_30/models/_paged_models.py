@@ -12,6 +12,97 @@
 from msrest.paging import Paged
 
 
+class DiskPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`Disk <azure.mgmt.compute.v2020_09_30.models.Disk>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[Disk]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(DiskPaged, self).__init__(*args, **kwargs)
+class SnapshotPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`Snapshot <azure.mgmt.compute.v2020_09_30.models.Snapshot>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[Snapshot]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(SnapshotPaged, self).__init__(*args, **kwargs)
+class DiskEncryptionSetPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`DiskEncryptionSet <azure.mgmt.compute.v2020_09_30.models.DiskEncryptionSet>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[DiskEncryptionSet]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(DiskEncryptionSetPaged, self).__init__(*args, **kwargs)
+class StrPaged(Paged):
+    """
+    A paging container for iterating over a list of str object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[str]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(StrPaged, self).__init__(*args, **kwargs)
+class DiskAccessPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`DiskAccess <azure.mgmt.compute.v2020_09_30.models.DiskAccess>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[DiskAccess]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(DiskAccessPaged, self).__init__(*args, **kwargs)
+class PrivateEndpointConnectionPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`PrivateEndpointConnection <azure.mgmt.compute.v2020_09_30.models.PrivateEndpointConnection>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[PrivateEndpointConnection]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(PrivateEndpointConnectionPaged, self).__init__(*args, **kwargs)
+class DiskRestorePointPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`DiskRestorePoint <azure.mgmt.compute.v2020_09_30.models.DiskRestorePoint>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[DiskRestorePoint]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(DiskRestorePointPaged, self).__init__(*args, **kwargs)
 class GalleryPaged(Paged):
     """
     A paging container for iterating over a list of :class:`Gallery <azure.mgmt.compute.v2020_09_30.models.Gallery>` object
