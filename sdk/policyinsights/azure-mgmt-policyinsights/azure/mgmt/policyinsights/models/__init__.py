@@ -10,25 +10,38 @@
 # --------------------------------------------------------------------------
 
 try:
+    from ._models_py3 import Attestation
+    from ._models_py3 import AttestationEvidence
+    from ._models_py3 import AzureEntityResource
+    from ._models_py3 import CheckRestrictionsRequest
+    from ._models_py3 import CheckRestrictionsResourceDetails
+    from ._models_py3 import CheckRestrictionsResult
+    from ._models_py3 import CheckRestrictionsResultContentEvaluationResult
     from ._models_py3 import ComplianceDetail
     from ._models_py3 import ComponentEventDetails
     from ._models_py3 import ComponentStateDetails
     from ._models_py3 import ErrorDefinition
     from ._models_py3 import ErrorResponse, ErrorResponseException
     from ._models_py3 import ExpressionEvaluationDetails
+    from ._models_py3 import FieldRestriction
+    from ._models_py3 import FieldRestrictions
     from ._models_py3 import IfNotExistsEvaluationDetails
     from ._models_py3 import Operation
     from ._models_py3 import OperationDisplay
     from ._models_py3 import OperationsListResults
+    from ._models_py3 import PendingField
     from ._models_py3 import PolicyAssignmentSummary
     from ._models_py3 import PolicyDefinitionSummary
     from ._models_py3 import PolicyDetails
     from ._models_py3 import PolicyEvaluationDetails
+    from ._models_py3 import PolicyEvaluationResult
     from ._models_py3 import PolicyEvent
     from ._models_py3 import PolicyGroupSummary
     from ._models_py3 import PolicyMetadata
+    from ._models_py3 import PolicyReference
     from ._models_py3 import PolicyState
     from ._models_py3 import PolicyTrackedResource
+    from ._models_py3 import ProxyResource
     from ._models_py3 import QueryFailure, QueryFailureException
     from ._models_py3 import QueryFailureError
     from ._models_py3 import QueryOptions
@@ -36,32 +49,48 @@ try:
     from ._models_py3 import RemediationDeployment
     from ._models_py3 import RemediationDeploymentSummary
     from ._models_py3 import RemediationFilters
+    from ._models_py3 import Resource
     from ._models_py3 import SlimPolicyMetadata
     from ._models_py3 import SummarizeResults
     from ._models_py3 import Summary
     from ._models_py3 import SummaryResults
+    from ._models_py3 import SystemData
+    from ._models_py3 import TrackedResource
     from ._models_py3 import TrackedResourceModificationDetails
     from ._models_py3 import TypedErrorInfo
 except (SyntaxError, ImportError):
+    from ._models import Attestation
+    from ._models import AttestationEvidence
+    from ._models import AzureEntityResource
+    from ._models import CheckRestrictionsRequest
+    from ._models import CheckRestrictionsResourceDetails
+    from ._models import CheckRestrictionsResult
+    from ._models import CheckRestrictionsResultContentEvaluationResult
     from ._models import ComplianceDetail
     from ._models import ComponentEventDetails
     from ._models import ComponentStateDetails
     from ._models import ErrorDefinition
     from ._models import ErrorResponse, ErrorResponseException
     from ._models import ExpressionEvaluationDetails
+    from ._models import FieldRestriction
+    from ._models import FieldRestrictions
     from ._models import IfNotExistsEvaluationDetails
     from ._models import Operation
     from ._models import OperationDisplay
     from ._models import OperationsListResults
+    from ._models import PendingField
     from ._models import PolicyAssignmentSummary
     from ._models import PolicyDefinitionSummary
     from ._models import PolicyDetails
     from ._models import PolicyEvaluationDetails
+    from ._models import PolicyEvaluationResult
     from ._models import PolicyEvent
     from ._models import PolicyGroupSummary
     from ._models import PolicyMetadata
+    from ._models import PolicyReference
     from ._models import PolicyState
     from ._models import PolicyTrackedResource
+    from ._models import ProxyResource
     from ._models import QueryFailure, QueryFailureException
     from ._models import QueryFailureError
     from ._models import QueryOptions
@@ -69,12 +98,16 @@ except (SyntaxError, ImportError):
     from ._models import RemediationDeployment
     from ._models import RemediationDeploymentSummary
     from ._models import RemediationFilters
+    from ._models import Resource
     from ._models import SlimPolicyMetadata
     from ._models import SummarizeResults
     from ._models import Summary
     from ._models import SummaryResults
+    from ._models import SystemData
+    from ._models import TrackedResource
     from ._models import TrackedResourceModificationDetails
     from ._models import TypedErrorInfo
+from ._paged_models import AttestationPaged
 from ._paged_models import PolicyEventPaged
 from ._paged_models import PolicyStatePaged
 from ._paged_models import PolicyTrackedResourcePaged
@@ -83,29 +116,45 @@ from ._paged_models import RemediationPaged
 from ._paged_models import SlimPolicyMetadataPaged
 from ._policy_insights_client_enums import (
     ResourceDiscoveryMode,
+    FieldRestrictionResult,
+    ComplianceState,
+    CreatedByType,
     PolicyStatesResource,
 )
 
 __all__ = [
+    'Attestation',
+    'AttestationEvidence',
+    'AzureEntityResource',
+    'CheckRestrictionsRequest',
+    'CheckRestrictionsResourceDetails',
+    'CheckRestrictionsResult',
+    'CheckRestrictionsResultContentEvaluationResult',
     'ComplianceDetail',
     'ComponentEventDetails',
     'ComponentStateDetails',
     'ErrorDefinition',
     'ErrorResponse', 'ErrorResponseException',
     'ExpressionEvaluationDetails',
+    'FieldRestriction',
+    'FieldRestrictions',
     'IfNotExistsEvaluationDetails',
     'Operation',
     'OperationDisplay',
     'OperationsListResults',
+    'PendingField',
     'PolicyAssignmentSummary',
     'PolicyDefinitionSummary',
     'PolicyDetails',
     'PolicyEvaluationDetails',
+    'PolicyEvaluationResult',
     'PolicyEvent',
     'PolicyGroupSummary',
     'PolicyMetadata',
+    'PolicyReference',
     'PolicyState',
     'PolicyTrackedResource',
+    'ProxyResource',
     'QueryFailure', 'QueryFailureException',
     'QueryFailureError',
     'QueryOptions',
@@ -113,10 +162,13 @@ __all__ = [
     'RemediationDeployment',
     'RemediationDeploymentSummary',
     'RemediationFilters',
+    'Resource',
     'SlimPolicyMetadata',
     'SummarizeResults',
     'Summary',
     'SummaryResults',
+    'SystemData',
+    'TrackedResource',
     'TrackedResourceModificationDetails',
     'TypedErrorInfo',
     'PolicyTrackedResourcePaged',
@@ -125,6 +177,10 @@ __all__ = [
     'PolicyEventPaged',
     'PolicyStatePaged',
     'SlimPolicyMetadataPaged',
+    'AttestationPaged',
     'ResourceDiscoveryMode',
+    'FieldRestrictionResult',
+    'ComplianceState',
+    'CreatedByType',
     'PolicyStatesResource',
 ]
