@@ -254,6 +254,13 @@ class BastionConnectProtocol(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)
     SSH = "SSH"
     RDP = "RDP"
 
+class BastionHostSkuName(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
+    """The sku of this Bastion Host.
+    """
+
+    BASIC = "Basic"
+    STANDARD = "Standard"
+
 class BgpPeerState(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
     """The BGP peer state.
     """

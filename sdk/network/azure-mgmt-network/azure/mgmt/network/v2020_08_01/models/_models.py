@@ -4456,6 +4456,9 @@ class BastionHost(Resource):
      list[~azure.mgmt.network.v2020_08_01.models.BastionHostIPConfiguration]
     :param dns_name: FQDN for the endpoint on which bastion host is accessible.
     :type dns_name: str
+    :param sku: The sku of this Bastion Host. Possible values include: "Basic", "Standard". Default
+     value: "Standard".
+    :type sku: str or ~azure.mgmt.network.v2020_08_01.models.BastionHostSkuName
     :ivar provisioning_state: The provisioning state of the bastion host resource. Possible values
      include: "Succeeded", "Updating", "Deleting", "Failed".
     :vartype provisioning_state: str or ~azure.mgmt.network.v2020_08_01.models.ProvisioningState
@@ -4477,6 +4480,7 @@ class BastionHost(Resource):
         'etag': {'key': 'etag', 'type': 'str'},
         'ip_configurations': {'key': 'properties.ipConfigurations', 'type': '[BastionHostIPConfiguration]'},
         'dns_name': {'key': 'properties.dnsName', 'type': 'str'},
+        'sku': {'key': 'properties.sku', 'type': 'str'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
     }
 
@@ -4488,6 +4492,7 @@ class BastionHost(Resource):
         self.etag = None
         self.ip_configurations = kwargs.get('ip_configurations', None)
         self.dns_name = kwargs.get('dns_name', None)
+        self.sku = kwargs.get('sku', "Standard")
         self.provisioning_state = None
 
 
