@@ -212,7 +212,7 @@ class LongTermRetentionManagedInstanceBackupsOperations(object):
         :param database_state: Whether to query against just live databases,
          just deleted databases, or all databases. Possible values include:
          'All', 'Live', 'Deleted'
-        :type database_state: str or ~azure.mgmt.sql.models.DatabaseState1
+        :type database_state: str or ~azure.mgmt.sql.models.DatabaseState
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -297,7 +297,7 @@ class LongTermRetentionManagedInstanceBackupsOperations(object):
         :param database_state: Whether to query against just live databases,
          just deleted databases, or all databases. Possible values include:
          'All', 'Live', 'Deleted'
-        :type database_state: str or ~azure.mgmt.sql.models.DatabaseState2
+        :type database_state: str or ~azure.mgmt.sql.models.DatabaseState
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -380,7 +380,7 @@ class LongTermRetentionManagedInstanceBackupsOperations(object):
         :param database_state: Whether to query against just live databases,
          just deleted databases, or all databases. Possible values include:
          'All', 'Live', 'Deleted'
-        :type database_state: str or ~azure.mgmt.sql.models.DatabaseState3
+        :type database_state: str or ~azure.mgmt.sql.models.DatabaseState
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -635,7 +635,7 @@ class LongTermRetentionManagedInstanceBackupsOperations(object):
         :param database_state: Whether to query against just live databases,
          just deleted databases, or all databases. Possible values include:
          'All', 'Live', 'Deleted'
-        :type database_state: str or ~azure.mgmt.sql.models.DatabaseState4
+        :type database_state: str or ~azure.mgmt.sql.models.DatabaseState
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -725,7 +725,7 @@ class LongTermRetentionManagedInstanceBackupsOperations(object):
         :param database_state: Whether to query against just live databases,
          just deleted databases, or all databases. Possible values include:
          'All', 'Live', 'Deleted'
-        :type database_state: str or ~azure.mgmt.sql.models.DatabaseState5
+        :type database_state: str or ~azure.mgmt.sql.models.DatabaseState
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -813,7 +813,7 @@ class LongTermRetentionManagedInstanceBackupsOperations(object):
         :param database_state: Whether to query against just live databases,
          just deleted databases, or all databases. Possible values include:
          'All', 'Live', 'Deleted'
-        :type database_state: str or ~azure.mgmt.sql.models.DatabaseState6
+        :type database_state: str or ~azure.mgmt.sql.models.DatabaseState
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response

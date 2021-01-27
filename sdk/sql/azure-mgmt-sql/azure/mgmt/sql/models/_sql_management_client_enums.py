@@ -742,11 +742,25 @@ class CreatedByType(str, Enum):
     key = "Key"
 
 
-class LongTermRetentionDatabaseState(str, Enum):
+class TargetBackupStorageRedundancy(str, Enum):
 
-    all = "All"
-    live = "Live"
-    deleted = "Deleted"
+    geo = "Geo"
+    local = "Local"
+    zone = "Zone"
+
+
+class BackupStorageRedundancy(str, Enum):
+
+    geo = "Geo"
+    local = "Local"
+    zone = "Zone"
+
+
+class RequestedBackupStorageRedundancy(str, Enum):
+
+    geo = "Geo"
+    local = "Local"
+    zone = "Zone"
 
 
 class VulnerabilityAssessmentPolicyBaselineName(str, Enum):
@@ -770,42 +784,7 @@ class CapabilityGroup(str, Enum):
     supported_managed_instance_editions = "supportedManagedInstanceEditions"
 
 
-class DatabaseState1(str, Enum):
-
-    all = "All"
-    live = "Live"
-    deleted = "Deleted"
-
-
-class DatabaseState2(str, Enum):
-
-    all = "All"
-    live = "Live"
-    deleted = "Deleted"
-
-
-class DatabaseState3(str, Enum):
-
-    all = "All"
-    live = "Live"
-    deleted = "Deleted"
-
-
-class DatabaseState4(str, Enum):
-
-    all = "All"
-    live = "Live"
-    deleted = "Deleted"
-
-
-class DatabaseState5(str, Enum):
-
-    all = "All"
-    live = "Live"
-    deleted = "Deleted"
-
-
-class DatabaseState6(str, Enum):
+class DatabaseState(str, Enum):
 
     all = "All"
     live = "Live"

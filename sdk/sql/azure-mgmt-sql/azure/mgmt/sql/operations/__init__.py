@@ -54,8 +54,6 @@ from ._job_steps_operations import JobStepsOperations
 from ._job_target_executions_operations import JobTargetExecutionsOperations
 from ._job_target_groups_operations import JobTargetGroupsOperations
 from ._job_versions_operations import JobVersionsOperations
-from ._long_term_retention_backups_operations import LongTermRetentionBackupsOperations
-from ._backup_long_term_retention_policies_operations import BackupLongTermRetentionPoliciesOperations
 from ._managed_backup_short_term_retention_policies_operations import ManagedBackupShortTermRetentionPoliciesOperations
 from ._managed_restorable_dropped_database_backup_short_term_retention_policies_operations import ManagedRestorableDroppedDatabaseBackupShortTermRetentionPoliciesOperations
 from ._server_automatic_tuning_operations import ServerAutomaticTuningOperations
@@ -98,12 +96,13 @@ from ._server_azure_ad_administrators_operations import ServerAzureADAdministrat
 from ._sync_groups_operations import SyncGroupsOperations
 from ._sync_members_operations import SyncMembersOperations
 from ._managed_databases_operations import ManagedDatabasesOperations
-from ._managed_database_restore_details_operations import ManagedDatabaseRestoreDetailsOperations
 from ._server_azure_ad_only_authentications_operations import ServerAzureADOnlyAuthenticationsOperations
 from ._managed_instances_operations import ManagedInstancesOperations
 from ._managed_instance_azure_ad_only_authentications_operations import ManagedInstanceAzureADOnlyAuthenticationsOperations
 from ._server_trust_groups_operations import ServerTrustGroupsOperations
+from ._long_term_retention_policies_operations import LongTermRetentionPoliciesOperations
 from ._server_dev_ops_audit_settings_operations import ServerDevOpsAuditSettingsOperations
+from ._long_term_retention_backups_operations import LongTermRetentionBackupsOperations
 
 __all__ = [
     'RecoverableDatabasesOperations',
@@ -151,8 +150,6 @@ __all__ = [
     'JobTargetExecutionsOperations',
     'JobTargetGroupsOperations',
     'JobVersionsOperations',
-    'LongTermRetentionBackupsOperations',
-    'BackupLongTermRetentionPoliciesOperations',
     'ManagedBackupShortTermRetentionPoliciesOperations',
     'ManagedRestorableDroppedDatabaseBackupShortTermRetentionPoliciesOperations',
     'ServerAutomaticTuningOperations',
@@ -195,10 +192,11 @@ __all__ = [
     'SyncGroupsOperations',
     'SyncMembersOperations',
     'ManagedDatabasesOperations',
-    'ManagedDatabaseRestoreDetailsOperations',
     'ServerAzureADOnlyAuthenticationsOperations',
     'ManagedInstancesOperations',
     'ManagedInstanceAzureADOnlyAuthenticationsOperations',
     'ServerTrustGroupsOperations',
+    'LongTermRetentionPoliciesOperations',
     'ServerDevOpsAuditSettingsOperations',
+    'LongTermRetentionBackupsOperations',
 ]

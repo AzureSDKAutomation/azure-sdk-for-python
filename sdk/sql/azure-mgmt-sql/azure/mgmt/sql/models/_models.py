@@ -215,56 +215,6 @@ class ProxyResource(Resource):
         super(ProxyResource, self).__init__(**kwargs)
 
 
-class BackupLongTermRetentionPolicy(ProxyResource):
-    """A long term retention policy.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Resource ID.
-    :vartype id: str
-    :ivar name: Resource name.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :param weekly_retention: The weekly retention policy for an LTR backup in
-     an ISO 8601 format.
-    :type weekly_retention: str
-    :param monthly_retention: The monthly retention policy for an LTR backup
-     in an ISO 8601 format.
-    :type monthly_retention: str
-    :param yearly_retention: The yearly retention policy for an LTR backup in
-     an ISO 8601 format.
-    :type yearly_retention: str
-    :param week_of_year: The week of year to take the yearly backup in an ISO
-     8601 format.
-    :type week_of_year: int
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'weekly_retention': {'key': 'properties.weeklyRetention', 'type': 'str'},
-        'monthly_retention': {'key': 'properties.monthlyRetention', 'type': 'str'},
-        'yearly_retention': {'key': 'properties.yearlyRetention', 'type': 'str'},
-        'week_of_year': {'key': 'properties.weekOfYear', 'type': 'int'},
-    }
-
-    def __init__(self, **kwargs):
-        super(BackupLongTermRetentionPolicy, self).__init__(**kwargs)
-        self.weekly_retention = kwargs.get('weekly_retention', None)
-        self.monthly_retention = kwargs.get('monthly_retention', None)
-        self.yearly_retention = kwargs.get('yearly_retention', None)
-        self.week_of_year = kwargs.get('week_of_year', None)
-
-
 class BackupShortTermRetentionPolicy(ProxyResource):
     """A short term retention policy.
 
@@ -401,6 +351,50 @@ class CompleteDatabaseRestoreDefinition(Model):
     def __init__(self, **kwargs):
         super(CompleteDatabaseRestoreDefinition, self).__init__(**kwargs)
         self.last_backup_name = kwargs.get('last_backup_name', None)
+
+
+class CopyLongTermRetentionBackupParameters(Model):
+    """Contains the information necessary to perform long term retention backup
+    copy operation.
+
+    :param target_subscription_id: The subscription that owns the target
+     server
+    :type target_subscription_id: str
+    :param target_resource_group: The resource group that owns the target
+     server
+    :type target_resource_group: str
+    :param target_server_resource_id: The resource Id of the target server
+     that owns the database
+    :type target_server_resource_id: str
+    :param target_server_fully_qualified_domain_name: The fully qualified
+     domain name of the target server
+    :type target_server_fully_qualified_domain_name: str
+    :param target_database_name: The name of the database owns the copied
+     backup.
+    :type target_database_name: str
+    :param target_backup_storage_redundancy: The storage redundancy type of
+     the copied backup. Possible values include: 'Geo', 'Local', 'Zone'
+    :type target_backup_storage_redundancy: str or
+     ~azure.mgmt.sql.models.TargetBackupStorageRedundancy
+    """
+
+    _attribute_map = {
+        'target_subscription_id': {'key': 'properties.targetSubscriptionId', 'type': 'str'},
+        'target_resource_group': {'key': 'properties.targetResourceGroup', 'type': 'str'},
+        'target_server_resource_id': {'key': 'properties.targetServerResourceId', 'type': 'str'},
+        'target_server_fully_qualified_domain_name': {'key': 'properties.targetServerFullyQualifiedDomainName', 'type': 'str'},
+        'target_database_name': {'key': 'properties.targetDatabaseName', 'type': 'str'},
+        'target_backup_storage_redundancy': {'key': 'properties.targetBackupStorageRedundancy', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CopyLongTermRetentionBackupParameters, self).__init__(**kwargs)
+        self.target_subscription_id = kwargs.get('target_subscription_id', None)
+        self.target_resource_group = kwargs.get('target_resource_group', None)
+        self.target_server_resource_id = kwargs.get('target_server_resource_id', None)
+        self.target_server_fully_qualified_domain_name = kwargs.get('target_server_fully_qualified_domain_name', None)
+        self.target_database_name = kwargs.get('target_database_name', None)
+        self.target_backup_storage_redundancy = kwargs.get('target_backup_storage_redundancy', None)
 
 
 class CreateDatabaseRestorePointDefinition(Model):
@@ -2485,10 +2479,6 @@ class ElasticPoolPerformanceLevelCapability(Model):
     :ivar zone_redundant: Whether or not zone redundancy is supported for the
      performance level.
     :vartype zone_redundant: bool
-    :ivar supported_maintenance_configurations: List of supported maintenance
-     configurations
-    :vartype supported_maintenance_configurations:
-     list[~azure.mgmt.sql.models.MaintenanceConfigurationCapability]
     :ivar status: The status of the capability. Possible values include:
      'Visible', 'Available', 'Default', 'Disabled'
     :vartype status: str or ~azure.mgmt.sql.models.CapabilityStatus
@@ -2506,7 +2496,6 @@ class ElasticPoolPerformanceLevelCapability(Model):
         'supported_per_database_max_sizes': {'readonly': True},
         'supported_per_database_max_performance_levels': {'readonly': True},
         'zone_redundant': {'readonly': True},
-        'supported_maintenance_configurations': {'readonly': True},
         'status': {'readonly': True},
     }
 
@@ -2520,7 +2509,6 @@ class ElasticPoolPerformanceLevelCapability(Model):
         'supported_per_database_max_sizes': {'key': 'supportedPerDatabaseMaxSizes', 'type': '[MaxSizeRangeCapability]'},
         'supported_per_database_max_performance_levels': {'key': 'supportedPerDatabaseMaxPerformanceLevels', 'type': '[ElasticPoolPerDatabaseMaxPerformanceLevelCapability]'},
         'zone_redundant': {'key': 'zoneRedundant', 'type': 'bool'},
-        'supported_maintenance_configurations': {'key': 'supportedMaintenanceConfigurations', 'type': '[MaintenanceConfigurationCapability]'},
         'status': {'key': 'status', 'type': 'CapabilityStatus'},
         'reason': {'key': 'reason', 'type': 'str'},
     }
@@ -2536,7 +2524,6 @@ class ElasticPoolPerformanceLevelCapability(Model):
         self.supported_per_database_max_sizes = None
         self.supported_per_database_max_performance_levels = None
         self.zone_redundant = None
-        self.supported_maintenance_configurations = None
         self.status = None
         self.reason = kwargs.get('reason', None)
 
@@ -4621,6 +4608,14 @@ class LongTermRetentionBackup(ProxyResource):
     :ivar backup_expiration_time: The time the long term retention backup will
      expire.
     :vartype backup_expiration_time: datetime
+    :ivar backup_storage_redundancy: The storage redundancy type of the
+     backup. Possible values include: 'Geo', 'Local', 'Zone'
+    :vartype backup_storage_redundancy: str or
+     ~azure.mgmt.sql.models.BackupStorageRedundancy
+    :param requested_backup_storage_redundancy: The storage redundancy type of
+     the backup. Possible values include: 'Geo', 'Local', 'Zone'
+    :type requested_backup_storage_redundancy: str or
+     ~azure.mgmt.sql.models.BackupStorageRedundancy
     """
 
     _validation = {
@@ -4633,6 +4628,7 @@ class LongTermRetentionBackup(ProxyResource):
         'database_deletion_time': {'readonly': True},
         'backup_time': {'readonly': True},
         'backup_expiration_time': {'readonly': True},
+        'backup_storage_redundancy': {'readonly': True},
     }
 
     _attribute_map = {
@@ -4645,6 +4641,8 @@ class LongTermRetentionBackup(ProxyResource):
         'database_deletion_time': {'key': 'properties.databaseDeletionTime', 'type': 'iso-8601'},
         'backup_time': {'key': 'properties.backupTime', 'type': 'iso-8601'},
         'backup_expiration_time': {'key': 'properties.backupExpirationTime', 'type': 'iso-8601'},
+        'backup_storage_redundancy': {'key': 'properties.backupStorageRedundancy', 'type': 'str'},
+        'requested_backup_storage_redundancy': {'key': 'properties.requestedBackupStorageRedundancy', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -4655,45 +4653,125 @@ class LongTermRetentionBackup(ProxyResource):
         self.database_deletion_time = None
         self.backup_time = None
         self.backup_expiration_time = None
+        self.backup_storage_redundancy = None
+        self.requested_backup_storage_redundancy = kwargs.get('requested_backup_storage_redundancy', None)
 
 
-class MaintenanceConfigurationCapability(Model):
-    """The maintenance configuration capability.
+class LongTermRetentionBackupOperationResult(ProxyResource):
+    """A LongTermRetentionBackup operation result resource.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar name: Maintenance configuration name
+    :ivar id: Resource ID.
+    :vartype id: str
+    :ivar name: Resource name.
     :vartype name: str
-    :ivar zone_redundant: Whether or not zone redundancy is supported for the
-     maintenance configuration.
-    :vartype zone_redundant: bool
-    :ivar status: The status of the capability. Possible values include:
-     'Visible', 'Available', 'Default', 'Disabled'
-    :vartype status: str or ~azure.mgmt.sql.models.CapabilityStatus
-    :param reason: The reason for the capability not being available.
-    :type reason: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :ivar request_id: Request Id.
+    :vartype request_id: str
+    :ivar operation_type: Operation type.
+    :vartype operation_type: str
+    :ivar from_backup_resource_id: Source backup resource id
+    :vartype from_backup_resource_id: str
+    :ivar to_backup_resource_id: Target backup resource id
+    :vartype to_backup_resource_id: str
+    :ivar target_backup_storage_redundancy: The storage redundancy type of the
+     copied backup. Possible values include: 'Geo', 'Local', 'Zone'
+    :vartype target_backup_storage_redundancy: str or
+     ~azure.mgmt.sql.models.BackupStorageRedundancy
+    :ivar status: Operation status
+    :vartype status: str
+    :ivar message: Progress message
+    :vartype message: str
     """
 
     _validation = {
+        'id': {'readonly': True},
         'name': {'readonly': True},
-        'zone_redundant': {'readonly': True},
+        'type': {'readonly': True},
+        'request_id': {'readonly': True},
+        'operation_type': {'readonly': True},
+        'from_backup_resource_id': {'readonly': True},
+        'to_backup_resource_id': {'readonly': True},
+        'target_backup_storage_redundancy': {'readonly': True},
         'status': {'readonly': True},
+        'message': {'readonly': True},
     }
 
     _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
-        'zone_redundant': {'key': 'zoneRedundant', 'type': 'bool'},
-        'status': {'key': 'status', 'type': 'CapabilityStatus'},
-        'reason': {'key': 'reason', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'request_id': {'key': 'properties.requestId', 'type': 'str'},
+        'operation_type': {'key': 'properties.operationType', 'type': 'str'},
+        'from_backup_resource_id': {'key': 'properties.fromBackupResourceId', 'type': 'str'},
+        'to_backup_resource_id': {'key': 'properties.toBackupResourceId', 'type': 'str'},
+        'target_backup_storage_redundancy': {'key': 'properties.targetBackupStorageRedundancy', 'type': 'str'},
+        'status': {'key': 'properties.status', 'type': 'str'},
+        'message': {'key': 'properties.message', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
-        super(MaintenanceConfigurationCapability, self).__init__(**kwargs)
-        self.name = None
-        self.zone_redundant = None
+        super(LongTermRetentionBackupOperationResult, self).__init__(**kwargs)
+        self.request_id = None
+        self.operation_type = None
+        self.from_backup_resource_id = None
+        self.to_backup_resource_id = None
+        self.target_backup_storage_redundancy = None
         self.status = None
-        self.reason = kwargs.get('reason', None)
+        self.message = None
+
+
+class LongTermRetentionPolicy(ProxyResource):
+    """A long term retention policy.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource ID.
+    :vartype id: str
+    :ivar name: Resource name.
+    :vartype name: str
+    :ivar type: Resource type.
+    :vartype type: str
+    :param weekly_retention: The weekly retention policy for an LTR backup in
+     an ISO 8601 format.
+    :type weekly_retention: str
+    :param monthly_retention: The monthly retention policy for an LTR backup
+     in an ISO 8601 format.
+    :type monthly_retention: str
+    :param yearly_retention: The yearly retention policy for an LTR backup in
+     an ISO 8601 format.
+    :type yearly_retention: str
+    :param week_of_year: The week of year to take the yearly backup in an ISO
+     8601 format.
+    :type week_of_year: int
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'weekly_retention': {'key': 'properties.weeklyRetention', 'type': 'str'},
+        'monthly_retention': {'key': 'properties.monthlyRetention', 'type': 'str'},
+        'yearly_retention': {'key': 'properties.yearlyRetention', 'type': 'str'},
+        'week_of_year': {'key': 'properties.weekOfYear', 'type': 'int'},
+    }
+
+    def __init__(self, **kwargs):
+        super(LongTermRetentionPolicy, self).__init__(**kwargs)
+        self.weekly_retention = kwargs.get('weekly_retention', None)
+        self.monthly_retention = kwargs.get('monthly_retention', None)
+        self.yearly_retention = kwargs.get('yearly_retention', None)
+        self.week_of_year = kwargs.get('week_of_year', None)
 
 
 class ManagedBackupShortTermRetentionPolicy(ProxyResource):
@@ -4870,86 +4948,6 @@ class ManagedDatabase(TrackedResource):
         self.long_term_retention_backup_resource_id = kwargs.get('long_term_retention_backup_resource_id', None)
         self.auto_complete_restore = kwargs.get('auto_complete_restore', None)
         self.last_backup_name = kwargs.get('last_backup_name', None)
-
-
-class ManagedDatabaseRestoreDetailsResult(ProxyResource):
-    """A managed database restore details.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Resource ID.
-    :vartype id: str
-    :ivar name: Resource name.
-    :vartype name: str
-    :ivar type: Resource type.
-    :vartype type: str
-    :ivar status: Restore status.
-    :vartype status: str
-    :ivar current_restoring_file_name: Current restoring file name.
-    :vartype current_restoring_file_name: str
-    :ivar last_restored_file_name: Last restored file name.
-    :vartype last_restored_file_name: str
-    :ivar last_restored_file_time: Last restored file time.
-    :vartype last_restored_file_time: datetime
-    :ivar percent_completed: Percent completed.
-    :vartype percent_completed: float
-    :ivar unrestorable_files: List of unrestorable files.
-    :vartype unrestorable_files: list[str]
-    :ivar number_of_files_detected: Number of files detected.
-    :vartype number_of_files_detected: long
-    :ivar last_uploaded_file_name: Last uploaded file name.
-    :vartype last_uploaded_file_name: str
-    :ivar last_uploaded_file_time: Last uploaded file time.
-    :vartype last_uploaded_file_time: datetime
-    :ivar block_reason: The reason why restore is in Blocked state.
-    :vartype block_reason: str
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'status': {'readonly': True},
-        'current_restoring_file_name': {'readonly': True},
-        'last_restored_file_name': {'readonly': True},
-        'last_restored_file_time': {'readonly': True},
-        'percent_completed': {'readonly': True},
-        'unrestorable_files': {'readonly': True},
-        'number_of_files_detected': {'readonly': True},
-        'last_uploaded_file_name': {'readonly': True},
-        'last_uploaded_file_time': {'readonly': True},
-        'block_reason': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'status': {'key': 'properties.status', 'type': 'str'},
-        'current_restoring_file_name': {'key': 'properties.currentRestoringFileName', 'type': 'str'},
-        'last_restored_file_name': {'key': 'properties.lastRestoredFileName', 'type': 'str'},
-        'last_restored_file_time': {'key': 'properties.lastRestoredFileTime', 'type': 'iso-8601'},
-        'percent_completed': {'key': 'properties.percentCompleted', 'type': 'float'},
-        'unrestorable_files': {'key': 'properties.unrestorableFiles', 'type': '[str]'},
-        'number_of_files_detected': {'key': 'properties.numberOfFilesDetected', 'type': 'long'},
-        'last_uploaded_file_name': {'key': 'properties.lastUploadedFileName', 'type': 'str'},
-        'last_uploaded_file_time': {'key': 'properties.lastUploadedFileTime', 'type': 'iso-8601'},
-        'block_reason': {'key': 'properties.blockReason', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ManagedDatabaseRestoreDetailsResult, self).__init__(**kwargs)
-        self.status = None
-        self.current_restoring_file_name = None
-        self.last_restored_file_name = None
-        self.last_restored_file_time = None
-        self.percent_completed = None
-        self.unrestorable_files = None
-        self.number_of_files_detected = None
-        self.last_uploaded_file_name = None
-        self.last_uploaded_file_time = None
-        self.block_reason = None
 
 
 class ManagedDatabaseSecurityAlertPolicy(ProxyResource):
@@ -5448,13 +5446,6 @@ class ManagedInstanceEditionCapability(Model):
     :ivar supported_families: The supported families.
     :vartype supported_families:
      list[~azure.mgmt.sql.models.ManagedInstanceFamilyCapability]
-    :ivar supported_storage_capabilities: The list of supported storage
-     capabilities for this edition
-    :vartype supported_storage_capabilities:
-     list[~azure.mgmt.sql.models.StorageCapability]
-    :ivar zone_redundant: Whether or not zone redundancy is supported for the
-     edition.
-    :vartype zone_redundant: bool
     :ivar status: The status of the capability. Possible values include:
      'Visible', 'Available', 'Default', 'Disabled'
     :vartype status: str or ~azure.mgmt.sql.models.CapabilityStatus
@@ -5465,16 +5456,12 @@ class ManagedInstanceEditionCapability(Model):
     _validation = {
         'name': {'readonly': True},
         'supported_families': {'readonly': True},
-        'supported_storage_capabilities': {'readonly': True},
-        'zone_redundant': {'readonly': True},
         'status': {'readonly': True},
     }
 
     _attribute_map = {
         'name': {'key': 'name', 'type': 'str'},
         'supported_families': {'key': 'supportedFamilies', 'type': '[ManagedInstanceFamilyCapability]'},
-        'supported_storage_capabilities': {'key': 'supportedStorageCapabilities', 'type': '[StorageCapability]'},
-        'zone_redundant': {'key': 'zoneRedundant', 'type': 'bool'},
         'status': {'key': 'status', 'type': 'CapabilityStatus'},
         'reason': {'key': 'reason', 'type': 'str'},
     }
@@ -5483,8 +5470,6 @@ class ManagedInstanceEditionCapability(Model):
         super(ManagedInstanceEditionCapability, self).__init__(**kwargs)
         self.name = None
         self.supported_families = None
-        self.supported_storage_capabilities = None
-        self.zone_redundant = None
         self.status = None
         self.reason = kwargs.get('reason', None)
 
@@ -5768,39 +5753,6 @@ class ManagedInstanceLongTermRetentionPolicy(ProxyResource):
         self.monthly_retention = kwargs.get('monthly_retention', None)
         self.yearly_retention = kwargs.get('yearly_retention', None)
         self.week_of_year = kwargs.get('week_of_year', None)
-
-
-class ManagedInstanceMaintenanceConfigurationCapability(Model):
-    """The maintenance configuration capability.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar name: Maintenance configuration name
-    :vartype name: str
-    :ivar status: The status of the capability. Possible values include:
-     'Visible', 'Available', 'Default', 'Disabled'
-    :vartype status: str or ~azure.mgmt.sql.models.CapabilityStatus
-    :param reason: The reason for the capability not being available.
-    :type reason: str
-    """
-
-    _validation = {
-        'name': {'readonly': True},
-        'status': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'name': {'key': 'name', 'type': 'str'},
-        'status': {'key': 'status', 'type': 'CapabilityStatus'},
-        'reason': {'key': 'reason', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ManagedInstanceMaintenanceConfigurationCapability, self).__init__(**kwargs)
-        self.name = None
-        self.status = None
-        self.reason = kwargs.get('reason', None)
 
 
 class ManagedInstanceOperation(ProxyResource):
@@ -6309,10 +6261,6 @@ class ManagedInstanceVcoresCapability(Model):
     :ivar standalone_supported: True if this service objective is supported
      for standalone managed instances.
     :vartype standalone_supported: bool
-    :ivar supported_maintenance_configurations: List of supported maintenance
-     configurations
-    :vartype supported_maintenance_configurations:
-     list[~azure.mgmt.sql.models.ManagedInstanceMaintenanceConfigurationCapability]
     :ivar status: The status of the capability. Possible values include:
      'Visible', 'Available', 'Default', 'Disabled'
     :vartype status: str or ~azure.mgmt.sql.models.CapabilityStatus
@@ -6327,7 +6275,6 @@ class ManagedInstanceVcoresCapability(Model):
         'supported_storage_sizes': {'readonly': True},
         'instance_pool_supported': {'readonly': True},
         'standalone_supported': {'readonly': True},
-        'supported_maintenance_configurations': {'readonly': True},
         'status': {'readonly': True},
     }
 
@@ -6338,7 +6285,6 @@ class ManagedInstanceVcoresCapability(Model):
         'supported_storage_sizes': {'key': 'supportedStorageSizes', 'type': '[MaxSizeRangeCapability]'},
         'instance_pool_supported': {'key': 'instancePoolSupported', 'type': 'bool'},
         'standalone_supported': {'key': 'standaloneSupported', 'type': 'bool'},
-        'supported_maintenance_configurations': {'key': 'supportedMaintenanceConfigurations', 'type': '[ManagedInstanceMaintenanceConfigurationCapability]'},
         'status': {'key': 'status', 'type': 'CapabilityStatus'},
         'reason': {'key': 'reason', 'type': 'str'},
     }
@@ -6351,7 +6297,6 @@ class ManagedInstanceVcoresCapability(Model):
         self.supported_storage_sizes = None
         self.instance_pool_supported = None
         self.standalone_supported = None
-        self.supported_maintenance_configurations = None
         self.status = None
         self.reason = kwargs.get('reason', None)
 
@@ -9430,10 +9375,6 @@ class ServiceObjectiveCapability(Model):
      list[~azure.mgmt.sql.models.MinCapacityCapability]
     :ivar compute_model: The compute model
     :vartype compute_model: str
-    :ivar supported_maintenance_configurations: List of supported maintenance
-     configurations
-    :vartype supported_maintenance_configurations:
-     list[~azure.mgmt.sql.models.MaintenanceConfigurationCapability]
     :ivar status: The status of the capability. Possible values include:
      'Visible', 'Available', 'Default', 'Disabled'
     :vartype status: str or ~azure.mgmt.sql.models.CapabilityStatus
@@ -9453,7 +9394,6 @@ class ServiceObjectiveCapability(Model):
         'supported_auto_pause_delay': {'readonly': True},
         'supported_min_capacities': {'readonly': True},
         'compute_model': {'readonly': True},
-        'supported_maintenance_configurations': {'readonly': True},
         'status': {'readonly': True},
     }
 
@@ -9469,7 +9409,6 @@ class ServiceObjectiveCapability(Model):
         'supported_auto_pause_delay': {'key': 'supportedAutoPauseDelay', 'type': 'AutoPauseDelayTimeRange'},
         'supported_min_capacities': {'key': 'supportedMinCapacities', 'type': '[MinCapacityCapability]'},
         'compute_model': {'key': 'computeModel', 'type': 'str'},
-        'supported_maintenance_configurations': {'key': 'supportedMaintenanceConfigurations', 'type': '[MaintenanceConfigurationCapability]'},
         'status': {'key': 'status', 'type': 'CapabilityStatus'},
         'reason': {'key': 'reason', 'type': 'str'},
     }
@@ -9487,7 +9426,6 @@ class ServiceObjectiveCapability(Model):
         self.supported_auto_pause_delay = None
         self.supported_min_capacities = None
         self.compute_model = None
-        self.supported_maintenance_configurations = None
         self.status = None
         self.reason = kwargs.get('reason', None)
 
@@ -10648,6 +10586,25 @@ class UnlinkParameters(Model):
     def __init__(self, **kwargs):
         super(UnlinkParameters, self).__init__(**kwargs)
         self.forced_termination = kwargs.get('forced_termination', None)
+
+
+class UpdateLongTermRetentionBackupParameters(Model):
+    """Contains the information necessary to perform long term retention backup
+    update operation.
+
+    :param requested_backup_storage_redundancy: The storage redundancy type of
+     the copied backup. Possible values include: 'Geo', 'Local', 'Zone'
+    :type requested_backup_storage_redundancy: str or
+     ~azure.mgmt.sql.models.RequestedBackupStorageRedundancy
+    """
+
+    _attribute_map = {
+        'requested_backup_storage_redundancy': {'key': 'properties.requestedBackupStorageRedundancy', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(UpdateLongTermRetentionBackupParameters, self).__init__(**kwargs)
+        self.requested_backup_storage_redundancy = kwargs.get('requested_backup_storage_redundancy', None)
 
 
 class UpsertManagedServerOperationParameters(Model):

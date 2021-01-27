@@ -58,8 +58,6 @@ from .operations import JobStepsOperations
 from .operations import JobTargetExecutionsOperations
 from .operations import JobTargetGroupsOperations
 from .operations import JobVersionsOperations
-from .operations import LongTermRetentionBackupsOperations
-from .operations import BackupLongTermRetentionPoliciesOperations
 from .operations import ManagedBackupShortTermRetentionPoliciesOperations
 from .operations import ManagedRestorableDroppedDatabaseBackupShortTermRetentionPoliciesOperations
 from .operations import ServerAutomaticTuningOperations
@@ -102,12 +100,13 @@ from .operations import ServerAzureADAdministratorsOperations
 from .operations import SyncGroupsOperations
 from .operations import SyncMembersOperations
 from .operations import ManagedDatabasesOperations
-from .operations import ManagedDatabaseRestoreDetailsOperations
 from .operations import ServerAzureADOnlyAuthenticationsOperations
 from .operations import ManagedInstancesOperations
 from .operations import ManagedInstanceAzureADOnlyAuthenticationsOperations
 from .operations import ServerTrustGroupsOperations
+from .operations import LongTermRetentionPoliciesOperations
 from .operations import ServerDevOpsAuditSettingsOperations
+from .operations import LongTermRetentionBackupsOperations
 from . import models
 
 
@@ -207,10 +206,6 @@ class SqlManagementClient(SDKClient):
     :vartype job_target_groups: azure.mgmt.sql.operations.JobTargetGroupsOperations
     :ivar job_versions: JobVersions operations
     :vartype job_versions: azure.mgmt.sql.operations.JobVersionsOperations
-    :ivar long_term_retention_backups: LongTermRetentionBackups operations
-    :vartype long_term_retention_backups: azure.mgmt.sql.operations.LongTermRetentionBackupsOperations
-    :ivar backup_long_term_retention_policies: BackupLongTermRetentionPolicies operations
-    :vartype backup_long_term_retention_policies: azure.mgmt.sql.operations.BackupLongTermRetentionPoliciesOperations
     :ivar managed_backup_short_term_retention_policies: ManagedBackupShortTermRetentionPolicies operations
     :vartype managed_backup_short_term_retention_policies: azure.mgmt.sql.operations.ManagedBackupShortTermRetentionPoliciesOperations
     :ivar managed_restorable_dropped_database_backup_short_term_retention_policies: ManagedRestorableDroppedDatabaseBackupShortTermRetentionPolicies operations
@@ -295,8 +290,6 @@ class SqlManagementClient(SDKClient):
     :vartype sync_members: azure.mgmt.sql.operations.SyncMembersOperations
     :ivar managed_databases: ManagedDatabases operations
     :vartype managed_databases: azure.mgmt.sql.operations.ManagedDatabasesOperations
-    :ivar managed_database_restore_details: ManagedDatabaseRestoreDetails operations
-    :vartype managed_database_restore_details: azure.mgmt.sql.operations.ManagedDatabaseRestoreDetailsOperations
     :ivar server_azure_ad_only_authentications: ServerAzureADOnlyAuthentications operations
     :vartype server_azure_ad_only_authentications: azure.mgmt.sql.operations.ServerAzureADOnlyAuthenticationsOperations
     :ivar managed_instances: ManagedInstances operations
@@ -305,8 +298,12 @@ class SqlManagementClient(SDKClient):
     :vartype managed_instance_azure_ad_only_authentications: azure.mgmt.sql.operations.ManagedInstanceAzureADOnlyAuthenticationsOperations
     :ivar server_trust_groups: ServerTrustGroups operations
     :vartype server_trust_groups: azure.mgmt.sql.operations.ServerTrustGroupsOperations
+    :ivar long_term_retention_policies: LongTermRetentionPolicies operations
+    :vartype long_term_retention_policies: azure.mgmt.sql.operations.LongTermRetentionPoliciesOperations
     :ivar server_dev_ops_audit_settings: ServerDevOpsAuditSettings operations
     :vartype server_dev_ops_audit_settings: azure.mgmt.sql.operations.ServerDevOpsAuditSettingsOperations
+    :ivar long_term_retention_backups: LongTermRetentionBackups operations
+    :vartype long_term_retention_backups: azure.mgmt.sql.operations.LongTermRetentionBackupsOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -417,10 +414,6 @@ class SqlManagementClient(SDKClient):
             self._client, self.config, self._serialize, self._deserialize)
         self.job_versions = JobVersionsOperations(
             self._client, self.config, self._serialize, self._deserialize)
-        self.long_term_retention_backups = LongTermRetentionBackupsOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.backup_long_term_retention_policies = BackupLongTermRetentionPoliciesOperations(
-            self._client, self.config, self._serialize, self._deserialize)
         self.managed_backup_short_term_retention_policies = ManagedBackupShortTermRetentionPoliciesOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.managed_restorable_dropped_database_backup_short_term_retention_policies = ManagedRestorableDroppedDatabaseBackupShortTermRetentionPoliciesOperations(
@@ -505,8 +498,6 @@ class SqlManagementClient(SDKClient):
             self._client, self.config, self._serialize, self._deserialize)
         self.managed_databases = ManagedDatabasesOperations(
             self._client, self.config, self._serialize, self._deserialize)
-        self.managed_database_restore_details = ManagedDatabaseRestoreDetailsOperations(
-            self._client, self.config, self._serialize, self._deserialize)
         self.server_azure_ad_only_authentications = ServerAzureADOnlyAuthenticationsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.managed_instances = ManagedInstancesOperations(
@@ -515,5 +506,9 @@ class SqlManagementClient(SDKClient):
             self._client, self.config, self._serialize, self._deserialize)
         self.server_trust_groups = ServerTrustGroupsOperations(
             self._client, self.config, self._serialize, self._deserialize)
+        self.long_term_retention_policies = LongTermRetentionPoliciesOperations(
+            self._client, self.config, self._serialize, self._deserialize)
         self.server_dev_ops_audit_settings = ServerDevOpsAuditSettingsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.long_term_retention_backups = LongTermRetentionBackupsOperations(
             self._client, self.config, self._serialize, self._deserialize)

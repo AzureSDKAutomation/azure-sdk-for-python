@@ -13,11 +13,11 @@ try:
     from ._models_py3 import AutomaticTuningOptions
     from ._models_py3 import AutomaticTuningServerOptions
     from ._models_py3 import AutoPauseDelayTimeRange
-    from ._models_py3 import BackupLongTermRetentionPolicy
     from ._models_py3 import BackupShortTermRetentionPolicy
     from ._models_py3 import CheckNameAvailabilityRequest
     from ._models_py3 import CheckNameAvailabilityResponse
     from ._models_py3 import CompleteDatabaseRestoreDefinition
+    from ._models_py3 import CopyLongTermRetentionBackupParameters
     from ._models_py3 import CreateDatabaseRestorePointDefinition
     from ._models_py3 import Database
     from ._models_py3 import DatabaseAutomaticTuning
@@ -82,10 +82,10 @@ try:
     from ._models_py3 import LocationCapabilities
     from ._models_py3 import LogSizeCapability
     from ._models_py3 import LongTermRetentionBackup
-    from ._models_py3 import MaintenanceConfigurationCapability
+    from ._models_py3 import LongTermRetentionBackupOperationResult
+    from ._models_py3 import LongTermRetentionPolicy
     from ._models_py3 import ManagedBackupShortTermRetentionPolicy
     from ._models_py3 import ManagedDatabase
-    from ._models_py3 import ManagedDatabaseRestoreDetailsResult
     from ._models_py3 import ManagedDatabaseSecurityAlertPolicy
     from ._models_py3 import ManagedDatabaseUpdate
     from ._models_py3 import ManagedInstance
@@ -97,7 +97,6 @@ try:
     from ._models_py3 import ManagedInstanceKey
     from ._models_py3 import ManagedInstanceLongTermRetentionBackup
     from ._models_py3 import ManagedInstanceLongTermRetentionPolicy
-    from ._models_py3 import ManagedInstanceMaintenanceConfigurationCapability
     from ._models_py3 import ManagedInstanceOperation
     from ._models_py3 import ManagedInstanceOperationParametersPair
     from ._models_py3 import ManagedInstanceOperationSteps
@@ -198,6 +197,7 @@ try:
     from ._models_py3 import TransparentDataEncryption
     from ._models_py3 import TransparentDataEncryptionActivity
     from ._models_py3 import UnlinkParameters
+    from ._models_py3 import UpdateLongTermRetentionBackupParameters
     from ._models_py3 import UpsertManagedServerOperationParameters
     from ._models_py3 import UpsertManagedServerOperationStep
     from ._models_py3 import Usage
@@ -213,11 +213,11 @@ except (SyntaxError, ImportError):
     from ._models import AutomaticTuningOptions
     from ._models import AutomaticTuningServerOptions
     from ._models import AutoPauseDelayTimeRange
-    from ._models import BackupLongTermRetentionPolicy
     from ._models import BackupShortTermRetentionPolicy
     from ._models import CheckNameAvailabilityRequest
     from ._models import CheckNameAvailabilityResponse
     from ._models import CompleteDatabaseRestoreDefinition
+    from ._models import CopyLongTermRetentionBackupParameters
     from ._models import CreateDatabaseRestorePointDefinition
     from ._models import Database
     from ._models import DatabaseAutomaticTuning
@@ -282,10 +282,10 @@ except (SyntaxError, ImportError):
     from ._models import LocationCapabilities
     from ._models import LogSizeCapability
     from ._models import LongTermRetentionBackup
-    from ._models import MaintenanceConfigurationCapability
+    from ._models import LongTermRetentionBackupOperationResult
+    from ._models import LongTermRetentionPolicy
     from ._models import ManagedBackupShortTermRetentionPolicy
     from ._models import ManagedDatabase
-    from ._models import ManagedDatabaseRestoreDetailsResult
     from ._models import ManagedDatabaseSecurityAlertPolicy
     from ._models import ManagedDatabaseUpdate
     from ._models import ManagedInstance
@@ -297,7 +297,6 @@ except (SyntaxError, ImportError):
     from ._models import ManagedInstanceKey
     from ._models import ManagedInstanceLongTermRetentionBackup
     from ._models import ManagedInstanceLongTermRetentionPolicy
-    from ._models import ManagedInstanceMaintenanceConfigurationCapability
     from ._models import ManagedInstanceOperation
     from ._models import ManagedInstanceOperationParametersPair
     from ._models import ManagedInstanceOperationSteps
@@ -398,6 +397,7 @@ except (SyntaxError, ImportError):
     from ._models import TransparentDataEncryption
     from ._models import TransparentDataEncryptionActivity
     from ._models import UnlinkParameters
+    from ._models import UpdateLongTermRetentionBackupParameters
     from ._models import UpsertManagedServerOperationParameters
     from ._models import UpsertManagedServerOperationStep
     from ._models import Usage
@@ -436,6 +436,7 @@ from ._paged_models import JobStepPaged
 from ._paged_models import JobTargetGroupPaged
 from ._paged_models import JobVersionPaged
 from ._paged_models import LongTermRetentionBackupPaged
+from ._paged_models import LongTermRetentionPolicyPaged
 from ._paged_models import ManagedBackupShortTermRetentionPolicyPaged
 from ._paged_models import ManagedDatabasePaged
 from ._paged_models import ManagedDatabaseSecurityAlertPolicyPaged
@@ -580,16 +581,13 @@ from ._sql_management_client_enums import (
     ElasticPoolState,
     ElasticPoolLicenseType,
     CreatedByType,
-    LongTermRetentionDatabaseState,
+    TargetBackupStorageRedundancy,
+    BackupStorageRedundancy,
+    RequestedBackupStorageRedundancy,
     VulnerabilityAssessmentPolicyBaselineName,
     SensitivityLabelSource,
     CapabilityGroup,
-    DatabaseState1,
-    DatabaseState2,
-    DatabaseState3,
-    DatabaseState4,
-    DatabaseState5,
-    DatabaseState6,
+    DatabaseState,
     AggregationFunctionType,
     MetricType,
     ReplicaType,
@@ -599,11 +597,11 @@ __all__ = [
     'AutomaticTuningOptions',
     'AutomaticTuningServerOptions',
     'AutoPauseDelayTimeRange',
-    'BackupLongTermRetentionPolicy',
     'BackupShortTermRetentionPolicy',
     'CheckNameAvailabilityRequest',
     'CheckNameAvailabilityResponse',
     'CompleteDatabaseRestoreDefinition',
+    'CopyLongTermRetentionBackupParameters',
     'CreateDatabaseRestorePointDefinition',
     'Database',
     'DatabaseAutomaticTuning',
@@ -668,10 +666,10 @@ __all__ = [
     'LocationCapabilities',
     'LogSizeCapability',
     'LongTermRetentionBackup',
-    'MaintenanceConfigurationCapability',
+    'LongTermRetentionBackupOperationResult',
+    'LongTermRetentionPolicy',
     'ManagedBackupShortTermRetentionPolicy',
     'ManagedDatabase',
-    'ManagedDatabaseRestoreDetailsResult',
     'ManagedDatabaseSecurityAlertPolicy',
     'ManagedDatabaseUpdate',
     'ManagedInstance',
@@ -683,7 +681,6 @@ __all__ = [
     'ManagedInstanceKey',
     'ManagedInstanceLongTermRetentionBackup',
     'ManagedInstanceLongTermRetentionPolicy',
-    'ManagedInstanceMaintenanceConfigurationCapability',
     'ManagedInstanceOperation',
     'ManagedInstanceOperationParametersPair',
     'ManagedInstanceOperationSteps',
@@ -784,6 +781,7 @@ __all__ = [
     'TransparentDataEncryption',
     'TransparentDataEncryptionActivity',
     'UnlinkParameters',
+    'UpdateLongTermRetentionBackupParameters',
     'UpsertManagedServerOperationParameters',
     'UpsertManagedServerOperationStep',
     'Usage',
@@ -836,7 +834,6 @@ __all__ = [
     'JobStepPaged',
     'JobTargetGroupPaged',
     'JobVersionPaged',
-    'LongTermRetentionBackupPaged',
     'ManagedBackupShortTermRetentionPolicyPaged',
     'ServerDnsAliasPaged',
     'ServerSecurityAlertPolicyPaged',
@@ -878,7 +875,9 @@ __all__ = [
     'TopQueriesPaged',
     'ManagedInstanceAzureADOnlyAuthenticationPaged',
     'ServerTrustGroupPaged',
+    'LongTermRetentionPolicyPaged',
     'ServerDevOpsAuditingSettingsPaged',
+    'LongTermRetentionBackupPaged',
     'ServerConnectionType',
     'SecurityAlertPolicyState',
     'SecurityAlertPolicyEmailAccountAdmins',
@@ -965,16 +964,13 @@ __all__ = [
     'ElasticPoolState',
     'ElasticPoolLicenseType',
     'CreatedByType',
-    'LongTermRetentionDatabaseState',
+    'TargetBackupStorageRedundancy',
+    'BackupStorageRedundancy',
+    'RequestedBackupStorageRedundancy',
     'VulnerabilityAssessmentPolicyBaselineName',
     'SensitivityLabelSource',
     'CapabilityGroup',
-    'DatabaseState1',
-    'DatabaseState2',
-    'DatabaseState3',
-    'DatabaseState4',
-    'DatabaseState5',
-    'DatabaseState6',
+    'DatabaseState',
     'AggregationFunctionType',
     'MetricType',
     'ReplicaType',

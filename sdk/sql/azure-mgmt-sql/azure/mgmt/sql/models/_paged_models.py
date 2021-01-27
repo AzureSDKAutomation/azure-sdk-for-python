@@ -545,19 +545,6 @@ class JobVersionPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(JobVersionPaged, self).__init__(*args, **kwargs)
-class LongTermRetentionBackupPaged(Paged):
-    """
-    A paging container for iterating over a list of :class:`LongTermRetentionBackup <azure.mgmt.sql.models.LongTermRetentionBackup>` object
-    """
-
-    _attribute_map = {
-        'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[LongTermRetentionBackup]'}
-    }
-
-    def __init__(self, *args, **kwargs):
-
-        super(LongTermRetentionBackupPaged, self).__init__(*args, **kwargs)
 class ManagedBackupShortTermRetentionPolicyPaged(Paged):
     """
     A paging container for iterating over a list of :class:`ManagedBackupShortTermRetentionPolicy <azure.mgmt.sql.models.ManagedBackupShortTermRetentionPolicy>` object
@@ -1091,6 +1078,19 @@ class ServerTrustGroupPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(ServerTrustGroupPaged, self).__init__(*args, **kwargs)
+class LongTermRetentionPolicyPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`LongTermRetentionPolicy <azure.mgmt.sql.models.LongTermRetentionPolicy>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[LongTermRetentionPolicy]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(LongTermRetentionPolicyPaged, self).__init__(*args, **kwargs)
 class ServerDevOpsAuditingSettingsPaged(Paged):
     """
     A paging container for iterating over a list of :class:`ServerDevOpsAuditingSettings <azure.mgmt.sql.models.ServerDevOpsAuditingSettings>` object
@@ -1104,3 +1104,16 @@ class ServerDevOpsAuditingSettingsPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(ServerDevOpsAuditingSettingsPaged, self).__init__(*args, **kwargs)
+class LongTermRetentionBackupPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`LongTermRetentionBackup <azure.mgmt.sql.models.LongTermRetentionBackup>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[LongTermRetentionBackup]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(LongTermRetentionBackupPaged, self).__init__(*args, **kwargs)
