@@ -55,6 +55,57 @@ class AccessPolicyEntry(Model):
         self.permissions = permissions
 
 
+class Attributes(Model):
+    """The object attributes managed by the Azure Key Vault service.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param enabled: Determines whether or not the object is enabled.
+    :type enabled: bool
+    :param not_before: Not before date in seconds since 1970-01-01T00:00:00Z.
+    :type not_before: long
+    :param expires: Expiry date in seconds since 1970-01-01T00:00:00Z.
+    :type expires: long
+    :ivar created: Creation time in seconds since 1970-01-01T00:00:00Z.
+    :vartype created: long
+    :ivar updated: Last updated time in seconds since 1970-01-01T00:00:00Z.
+    :vartype updated: long
+    :ivar recovery_level: The deletion recovery level currently in effect for
+     the object. If it contains 'Purgeable', then the object can be permanently
+     deleted by a privileged user; otherwise, only the system can purge the
+     object at the end of the retention interval. Possible values include:
+     'Purgeable', 'Recoverable+Purgeable', 'Recoverable',
+     'Recoverable+ProtectedSubscription'
+    :vartype recovery_level: str or
+     ~azure.mgmt.keyvault.v2019_09_01.models.DeletionRecoveryLevel
+    """
+
+    _validation = {
+        'created': {'readonly': True},
+        'updated': {'readonly': True},
+        'recovery_level': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'enabled': {'key': 'enabled', 'type': 'bool'},
+        'not_before': {'key': 'nbf', 'type': 'long'},
+        'expires': {'key': 'exp', 'type': 'long'},
+        'created': {'key': 'created', 'type': 'long'},
+        'updated': {'key': 'updated', 'type': 'long'},
+        'recovery_level': {'key': 'recoveryLevel', 'type': 'str'},
+    }
+
+    def __init__(self, *, enabled: bool=None, not_before: int=None, expires: int=None, **kwargs) -> None:
+        super(Attributes, self).__init__(**kwargs)
+        self.enabled = enabled
+        self.not_before = not_before
+        self.expires = expires
+        self.created = None
+        self.updated = None
+        self.recovery_level = None
+
+
 class CheckNameAvailabilityResult(Model):
     """The CheckNameAvailability operation response.
 
@@ -197,6 +248,9 @@ class DeletedVaultProperties(Model):
     :vartype scheduled_purge_date: datetime
     :ivar tags: Tags of the original vault.
     :vartype tags: dict[str, str]
+    :ivar purge_protection_enabled: Purge protection status of the original
+     vault.
+    :vartype purge_protection_enabled: bool
     """
 
     _validation = {
@@ -205,6 +259,7 @@ class DeletedVaultProperties(Model):
         'deletion_date': {'readonly': True},
         'scheduled_purge_date': {'readonly': True},
         'tags': {'readonly': True},
+        'purge_protection_enabled': {'readonly': True},
     }
 
     _attribute_map = {
@@ -213,6 +268,7 @@ class DeletedVaultProperties(Model):
         'deletion_date': {'key': 'deletionDate', 'type': 'iso-8601'},
         'scheduled_purge_date': {'key': 'scheduledPurgeDate', 'type': 'iso-8601'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'purge_protection_enabled': {'key': 'purgeProtectionEnabled', 'type': 'bool'},
     }
 
     def __init__(self, **kwargs) -> None:
@@ -222,6 +278,32 @@ class DeletedVaultProperties(Model):
         self.deletion_date = None
         self.scheduled_purge_date = None
         self.tags = None
+        self.purge_protection_enabled = None
+
+
+class DimensionProperties(Model):
+    """Type of operation: get, read, delete, etc.
+
+    :param name: Name of dimension.
+    :type name: str
+    :param display_name: Display name of dimension.
+    :type display_name: str
+    :param to_be_exported_for_shoebox: Property to specify whether the
+     dimension should be exported for shoebox.
+    :type to_be_exported_for_shoebox: bool
+    """
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'to_be_exported_for_shoebox': {'key': 'toBeExportedForShoebox', 'type': 'bool'},
+    }
+
+    def __init__(self, *, name: str=None, display_name: str=None, to_be_exported_for_shoebox: bool=None, **kwargs) -> None:
+        super(DimensionProperties, self).__init__(**kwargs)
+        self.name = name
+        self.display_name = display_name
+        self.to_be_exported_for_shoebox = to_be_exported_for_shoebox
 
 
 class IPRule(Model):
@@ -249,6 +331,252 @@ class IPRule(Model):
         self.value = value
 
 
+class Resource(Model):
+    """Key Vault resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Fully qualified identifier of the key vault resource.
+    :vartype id: str
+    :ivar name: Name of the key vault resource.
+    :vartype name: str
+    :ivar type: Resource type of the key vault resource.
+    :vartype type: str
+    :ivar location: Azure location of the key vault resource.
+    :vartype location: str
+    :ivar tags: Tags assigned to the key vault resource.
+    :vartype tags: dict[str, str]
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'location': {'readonly': True},
+        'tags': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(Resource, self).__init__(**kwargs)
+        self.id = None
+        self.name = None
+        self.type = None
+        self.location = None
+        self.tags = None
+
+
+class Key(Resource):
+    """The key resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Fully qualified identifier of the key vault resource.
+    :vartype id: str
+    :ivar name: Name of the key vault resource.
+    :vartype name: str
+    :ivar type: Resource type of the key vault resource.
+    :vartype type: str
+    :ivar location: Azure location of the key vault resource.
+    :vartype location: str
+    :ivar tags: Tags assigned to the key vault resource.
+    :vartype tags: dict[str, str]
+    :param attributes: The attributes of the key.
+    :type attributes: ~azure.mgmt.keyvault.v2019_09_01.models.KeyAttributes
+    :param kty: The type of the key. For valid values, see JsonWebKeyType.
+     Possible values include: 'EC', 'EC-HSM', 'RSA', 'RSA-HSM'
+    :type kty: str or ~azure.mgmt.keyvault.v2019_09_01.models.JsonWebKeyType
+    :param key_ops:
+    :type key_ops: list[str or
+     ~azure.mgmt.keyvault.v2019_09_01.models.JsonWebKeyOperation]
+    :param key_size: The key size in bits. For example: 2048, 3072, or 4096
+     for RSA.
+    :type key_size: int
+    :param curve_name: The elliptic curve name. For valid values, see
+     JsonWebKeyCurveName. Possible values include: 'P-256', 'P-384', 'P-521',
+     'P-256K'
+    :type curve_name: str or
+     ~azure.mgmt.keyvault.v2019_09_01.models.JsonWebKeyCurveName
+    :ivar key_uri: The URI to retrieve the current version of the key.
+    :vartype key_uri: str
+    :ivar key_uri_with_version: The URI to retrieve the specific version of
+     the key.
+    :vartype key_uri_with_version: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'location': {'readonly': True},
+        'tags': {'readonly': True},
+        'kty': {'min_length': 1},
+        'key_uri': {'readonly': True},
+        'key_uri_with_version': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'attributes': {'key': 'properties.attributes', 'type': 'KeyAttributes'},
+        'kty': {'key': 'properties.kty', 'type': 'str'},
+        'key_ops': {'key': 'properties.keyOps', 'type': '[str]'},
+        'key_size': {'key': 'properties.keySize', 'type': 'int'},
+        'curve_name': {'key': 'properties.curveName', 'type': 'str'},
+        'key_uri': {'key': 'properties.keyUri', 'type': 'str'},
+        'key_uri_with_version': {'key': 'properties.keyUriWithVersion', 'type': 'str'},
+    }
+
+    def __init__(self, *, attributes=None, kty=None, key_ops=None, key_size: int=None, curve_name=None, **kwargs) -> None:
+        super(Key, self).__init__(**kwargs)
+        self.attributes = attributes
+        self.kty = kty
+        self.key_ops = key_ops
+        self.key_size = key_size
+        self.curve_name = curve_name
+        self.key_uri = None
+        self.key_uri_with_version = None
+
+
+class KeyAttributes(Attributes):
+    """The attributes of the key.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param enabled: Determines whether or not the object is enabled.
+    :type enabled: bool
+    :param not_before: Not before date in seconds since 1970-01-01T00:00:00Z.
+    :type not_before: long
+    :param expires: Expiry date in seconds since 1970-01-01T00:00:00Z.
+    :type expires: long
+    :ivar created: Creation time in seconds since 1970-01-01T00:00:00Z.
+    :vartype created: long
+    :ivar updated: Last updated time in seconds since 1970-01-01T00:00:00Z.
+    :vartype updated: long
+    :ivar recovery_level: The deletion recovery level currently in effect for
+     the object. If it contains 'Purgeable', then the object can be permanently
+     deleted by a privileged user; otherwise, only the system can purge the
+     object at the end of the retention interval. Possible values include:
+     'Purgeable', 'Recoverable+Purgeable', 'Recoverable',
+     'Recoverable+ProtectedSubscription'
+    :vartype recovery_level: str or
+     ~azure.mgmt.keyvault.v2019_09_01.models.DeletionRecoveryLevel
+    """
+
+    _validation = {
+        'created': {'readonly': True},
+        'updated': {'readonly': True},
+        'recovery_level': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'enabled': {'key': 'enabled', 'type': 'bool'},
+        'not_before': {'key': 'nbf', 'type': 'long'},
+        'expires': {'key': 'exp', 'type': 'long'},
+        'created': {'key': 'created', 'type': 'long'},
+        'updated': {'key': 'updated', 'type': 'long'},
+        'recovery_level': {'key': 'recoveryLevel', 'type': 'str'},
+    }
+
+    def __init__(self, *, enabled: bool=None, not_before: int=None, expires: int=None, **kwargs) -> None:
+        super(KeyAttributes, self).__init__(enabled=enabled, not_before=not_before, expires=expires, **kwargs)
+
+
+class KeyCreateParameters(Model):
+    """The parameters used to create a key.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param tags: The tags that will be assigned to the key.
+    :type tags: dict[str, str]
+    :param properties: Required. The properties of the key to be created.
+    :type properties: ~azure.mgmt.keyvault.v2019_09_01.models.KeyProperties
+    """
+
+    _validation = {
+        'properties': {'required': True},
+    }
+
+    _attribute_map = {
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'properties': {'key': 'properties', 'type': 'KeyProperties'},
+    }
+
+    def __init__(self, *, properties, tags=None, **kwargs) -> None:
+        super(KeyCreateParameters, self).__init__(**kwargs)
+        self.tags = tags
+        self.properties = properties
+
+
+class KeyProperties(Model):
+    """The properties of the key.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param attributes: The attributes of the key.
+    :type attributes: ~azure.mgmt.keyvault.v2019_09_01.models.KeyAttributes
+    :param kty: The type of the key. For valid values, see JsonWebKeyType.
+     Possible values include: 'EC', 'EC-HSM', 'RSA', 'RSA-HSM'
+    :type kty: str or ~azure.mgmt.keyvault.v2019_09_01.models.JsonWebKeyType
+    :param key_ops:
+    :type key_ops: list[str or
+     ~azure.mgmt.keyvault.v2019_09_01.models.JsonWebKeyOperation]
+    :param key_size: The key size in bits. For example: 2048, 3072, or 4096
+     for RSA.
+    :type key_size: int
+    :param curve_name: The elliptic curve name. For valid values, see
+     JsonWebKeyCurveName. Possible values include: 'P-256', 'P-384', 'P-521',
+     'P-256K'
+    :type curve_name: str or
+     ~azure.mgmt.keyvault.v2019_09_01.models.JsonWebKeyCurveName
+    :ivar key_uri: The URI to retrieve the current version of the key.
+    :vartype key_uri: str
+    :ivar key_uri_with_version: The URI to retrieve the specific version of
+     the key.
+    :vartype key_uri_with_version: str
+    """
+
+    _validation = {
+        'kty': {'min_length': 1},
+        'key_uri': {'readonly': True},
+        'key_uri_with_version': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'attributes': {'key': 'attributes', 'type': 'KeyAttributes'},
+        'kty': {'key': 'kty', 'type': 'str'},
+        'key_ops': {'key': 'keyOps', 'type': '[str]'},
+        'key_size': {'key': 'keySize', 'type': 'int'},
+        'curve_name': {'key': 'curveName', 'type': 'str'},
+        'key_uri': {'key': 'keyUri', 'type': 'str'},
+        'key_uri_with_version': {'key': 'keyUriWithVersion', 'type': 'str'},
+    }
+
+    def __init__(self, *, attributes=None, kty=None, key_ops=None, key_size: int=None, curve_name=None, **kwargs) -> None:
+        super(KeyProperties, self).__init__(**kwargs)
+        self.attributes = attributes
+        self.kty = kty
+        self.key_ops = key_ops
+        self.key_size = key_size
+        self.curve_name = curve_name
+        self.key_uri = None
+        self.key_uri_with_version = None
+
+
 class LogSpecification(Model):
     """Log specification of operation.
 
@@ -271,6 +599,68 @@ class LogSpecification(Model):
         self.name = name
         self.display_name = display_name
         self.blob_duration = blob_duration
+
+
+class MetricSpecification(Model):
+    """Metric specification of operation.
+
+    :param name: Name of metric specification.
+    :type name: str
+    :param display_name: Display name of Metric specification.
+    :type display_name: str
+    :param display_description: Display description of Metric specification.
+    :type display_description: str
+    :param unit: The metric unit. Possible values include: 'Bytes', 'Count',
+     'Milliseconds'.
+    :type unit: str
+    :param aggregation_type: The metric aggregation type. Possible values
+     include: 'Average', 'Count', 'Total'.
+    :type aggregation_type: str
+    :param supported_aggregation_types: The supported aggregation types for
+     the metrics.
+    :type supported_aggregation_types: list[str]
+    :param supported_time_grain_types: The supported time grain types for the
+     metrics.
+    :type supported_time_grain_types: list[str]
+    :param lock_aggregation_type: The metric lock aggregation type.
+    :type lock_aggregation_type: str
+    :param dimensions: The dimensions of metric
+    :type dimensions:
+     list[~azure.mgmt.keyvault.v2019_09_01.models.DimensionProperties]
+    :param fill_gap_with_zero: Property to specify whether to fill gap with
+     zero.
+    :type fill_gap_with_zero: bool
+    :param internal_metric_name: The internal metric name.
+    :type internal_metric_name: str
+    """
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'display_description': {'key': 'displayDescription', 'type': 'str'},
+        'unit': {'key': 'unit', 'type': 'str'},
+        'aggregation_type': {'key': 'aggregationType', 'type': 'str'},
+        'supported_aggregation_types': {'key': 'supportedAggregationTypes', 'type': '[str]'},
+        'supported_time_grain_types': {'key': 'supportedTimeGrainTypes', 'type': '[str]'},
+        'lock_aggregation_type': {'key': 'lockAggregationType', 'type': 'str'},
+        'dimensions': {'key': 'dimensions', 'type': '[DimensionProperties]'},
+        'fill_gap_with_zero': {'key': 'fillGapWithZero', 'type': 'bool'},
+        'internal_metric_name': {'key': 'internalMetricName', 'type': 'str'},
+    }
+
+    def __init__(self, *, name: str=None, display_name: str=None, display_description: str=None, unit: str=None, aggregation_type: str=None, supported_aggregation_types=None, supported_time_grain_types=None, lock_aggregation_type: str=None, dimensions=None, fill_gap_with_zero: bool=None, internal_metric_name: str=None, **kwargs) -> None:
+        super(MetricSpecification, self).__init__(**kwargs)
+        self.name = name
+        self.display_name = display_name
+        self.display_description = display_description
+        self.unit = unit
+        self.aggregation_type = aggregation_type
+        self.supported_aggregation_types = supported_aggregation_types
+        self.supported_time_grain_types = supported_time_grain_types
+        self.lock_aggregation_type = lock_aggregation_type
+        self.dimensions = dimensions
+        self.fill_gap_with_zero = fill_gap_with_zero
+        self.internal_metric_name = internal_metric_name
 
 
 class NetworkRuleSet(Model):
@@ -321,6 +711,9 @@ class Operation(Model):
      specifications.
     :type service_specification:
      ~azure.mgmt.keyvault.v2019_09_01.models.ServiceSpecification
+    :param is_data_action: Property to specify whether the action is a data
+     action.
+    :type is_data_action: bool
     """
 
     _attribute_map = {
@@ -328,14 +721,16 @@ class Operation(Model):
         'display': {'key': 'display', 'type': 'OperationDisplay'},
         'origin': {'key': 'origin', 'type': 'str'},
         'service_specification': {'key': 'properties.serviceSpecification', 'type': 'ServiceSpecification'},
+        'is_data_action': {'key': 'isDataAction', 'type': 'bool'},
     }
 
-    def __init__(self, *, name: str=None, display=None, origin: str=None, service_specification=None, **kwargs) -> None:
+    def __init__(self, *, name: str=None, display=None, origin: str=None, service_specification=None, is_data_action: bool=None, **kwargs) -> None:
         super(Operation, self).__init__(**kwargs)
         self.name = name
         self.display = display
         self.origin = origin
         self.service_specification = service_specification
+        self.is_data_action = is_data_action
 
 
 class OperationDisplay(Model):
@@ -421,49 +816,6 @@ class PrivateEndpoint(Model):
         self.id = None
 
 
-class Resource(Model):
-    """Key Vault resource.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    :ivar id: Fully qualified identifier of the key vault resource.
-    :vartype id: str
-    :ivar name: Name of the key vault resource.
-    :vartype name: str
-    :ivar type: Resource type of the key vault resource.
-    :vartype type: str
-    :ivar location: Azure location of the key vault resource.
-    :vartype location: str
-    :ivar tags: Tags assigned to the key vault resource.
-    :vartype tags: dict[str, str]
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'location': {'readonly': True},
-        'tags': {'readonly': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'location': {'key': 'location', 'type': 'str'},
-        'tags': {'key': 'tags', 'type': '{str}'},
-    }
-
-    def __init__(self, **kwargs) -> None:
-        super(Resource, self).__init__(**kwargs)
-        self.id = None
-        self.name = None
-        self.type = None
-        self.location = None
-        self.tags = None
-
-
 class PrivateEndpointConnection(Resource):
     """Private endpoint connection resource.
 
@@ -492,6 +844,9 @@ class PrivateEndpointConnection(Resource):
      'Deleting', 'Failed', 'Disconnected'
     :type provisioning_state: str or
      ~azure.mgmt.keyvault.v2019_09_01.models.PrivateEndpointConnectionProvisioningState
+    :param etag: Modified whenever there is a change in the state of private
+     endpoint connection.
+    :type etag: str
     """
 
     _validation = {
@@ -511,18 +866,22 @@ class PrivateEndpointConnection(Resource):
         'private_endpoint': {'key': 'properties.privateEndpoint', 'type': 'PrivateEndpoint'},
         'private_link_service_connection_state': {'key': 'properties.privateLinkServiceConnectionState', 'type': 'PrivateLinkServiceConnectionState'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
     }
 
-    def __init__(self, *, private_endpoint=None, private_link_service_connection_state=None, provisioning_state=None, **kwargs) -> None:
+    def __init__(self, *, private_endpoint=None, private_link_service_connection_state=None, provisioning_state=None, etag: str=None, **kwargs) -> None:
         super(PrivateEndpointConnection, self).__init__(**kwargs)
         self.private_endpoint = private_endpoint
         self.private_link_service_connection_state = private_link_service_connection_state
         self.provisioning_state = provisioning_state
+        self.etag = etag
 
 
 class PrivateEndpointConnectionItem(Model):
     """Private endpoint connection item.
 
+    :param id: Id of private endpoint connection.
+    :type id: str
     :param private_endpoint: Properties of the private endpoint object.
     :type private_endpoint:
      ~azure.mgmt.keyvault.v2019_09_01.models.PrivateEndpoint
@@ -538,13 +897,15 @@ class PrivateEndpointConnectionItem(Model):
     """
 
     _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
         'private_endpoint': {'key': 'properties.privateEndpoint', 'type': 'PrivateEndpoint'},
         'private_link_service_connection_state': {'key': 'properties.privateLinkServiceConnectionState', 'type': 'PrivateLinkServiceConnectionState'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
     }
 
-    def __init__(self, *, private_endpoint=None, private_link_service_connection_state=None, provisioning_state=None, **kwargs) -> None:
+    def __init__(self, *, id: str=None, private_endpoint=None, private_link_service_connection_state=None, provisioning_state=None, **kwargs) -> None:
         super(PrivateEndpointConnectionItem, self).__init__(**kwargs)
+        self.id = id
         self.private_endpoint = private_endpoint
         self.private_link_service_connection_state = private_link_service_connection_state
         self.provisioning_state = provisioning_state
@@ -631,22 +992,22 @@ class PrivateLinkServiceConnectionState(Model):
      ~azure.mgmt.keyvault.v2019_09_01.models.PrivateEndpointServiceConnectionStatus
     :param description: The reason for approval or rejection.
     :type description: str
-    :param action_required: A message indicating if changes on the service
+    :param actions_required: A message indicating if changes on the service
      provider require any updates on the consumer.
-    :type action_required: str
+    :type actions_required: str
     """
 
     _attribute_map = {
         'status': {'key': 'status', 'type': 'str'},
         'description': {'key': 'description', 'type': 'str'},
-        'action_required': {'key': 'actionRequired', 'type': 'str'},
+        'actions_required': {'key': 'actionsRequired', 'type': 'str'},
     }
 
-    def __init__(self, *, status=None, description: str=None, action_required: str=None, **kwargs) -> None:
+    def __init__(self, *, status=None, description: str=None, actions_required: str=None, **kwargs) -> None:
         super(PrivateLinkServiceConnectionState, self).__init__(**kwargs)
         self.status = status
         self.description = description
-        self.action_required = action_required
+        self.actions_required = actions_required
 
 
 class ServiceSpecification(Model):
@@ -655,15 +1016,20 @@ class ServiceSpecification(Model):
     :param log_specifications: Log specifications of operation.
     :type log_specifications:
      list[~azure.mgmt.keyvault.v2019_09_01.models.LogSpecification]
+    :param metric_specifications: Metric specifications of operation.
+    :type metric_specifications:
+     list[~azure.mgmt.keyvault.v2019_09_01.models.MetricSpecification]
     """
 
     _attribute_map = {
         'log_specifications': {'key': 'logSpecifications', 'type': '[LogSpecification]'},
+        'metric_specifications': {'key': 'metricSpecifications', 'type': '[MetricSpecification]'},
     }
 
-    def __init__(self, *, log_specifications=None, **kwargs) -> None:
+    def __init__(self, *, log_specifications=None, metric_specifications=None, **kwargs) -> None:
         super(ServiceSpecification, self).__init__(**kwargs)
         self.log_specifications = log_specifications
+        self.metric_specifications = metric_specifications
 
 
 class Sku(Model):
@@ -1004,14 +1370,14 @@ class VaultProperties(Model):
     :type tenant_id: str
     :param sku: Required. SKU details
     :type sku: ~azure.mgmt.keyvault.v2019_09_01.models.Sku
-    :param access_policies: An array of 0 to 16 identities that have access to
-     the key vault. All identities in the array must use the same tenant ID as
-     the key vault's tenant ID. When `createMode` is set to `recover`, access
-     policies are not required. Otherwise, access policies are required.
+    :param access_policies: An array of 0 to 1024 identities that have access
+     to the key vault. All identities in the array must use the same tenant ID
+     as the key vault's tenant ID. When `createMode` is set to `recover`,
+     access policies are not required. Otherwise, access policies are required.
     :type access_policies:
      list[~azure.mgmt.keyvault.v2019_09_01.models.AccessPolicyEntry]
     :param vault_uri: The URI of the vault for performing operations on keys
-     and secrets.
+     and secrets. This property is readonly
     :type vault_uri: str
     :param enabled_for_deployment: Property to specify whether Azure Virtual
      Machines are permitted to retrieve certificates stored as secrets from the
@@ -1058,6 +1424,10 @@ class VaultProperties(Model):
     :param network_acls: Rules governing the accessibility of the key vault
      from specific network locations.
     :type network_acls: ~azure.mgmt.keyvault.v2019_09_01.models.NetworkRuleSet
+    :param provisioning_state: Provisioning state of the vault. Possible
+     values include: 'Succeeded', 'RegisteringDns'
+    :type provisioning_state: str or
+     ~azure.mgmt.keyvault.v2019_09_01.models.VaultProvisioningState
     :ivar private_endpoint_connections: List of private endpoint connections
      associated with the key vault.
     :vartype private_endpoint_connections:
@@ -1084,10 +1454,11 @@ class VaultProperties(Model):
         'create_mode': {'key': 'createMode', 'type': 'CreateMode'},
         'enable_purge_protection': {'key': 'enablePurgeProtection', 'type': 'bool'},
         'network_acls': {'key': 'networkAcls', 'type': 'NetworkRuleSet'},
+        'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
         'private_endpoint_connections': {'key': 'privateEndpointConnections', 'type': '[PrivateEndpointConnectionItem]'},
     }
 
-    def __init__(self, *, tenant_id: str, sku, access_policies=None, vault_uri: str=None, enabled_for_deployment: bool=None, enabled_for_disk_encryption: bool=None, enabled_for_template_deployment: bool=None, enable_soft_delete: bool=True, soft_delete_retention_in_days: int=90, enable_rbac_authorization: bool=False, create_mode=None, enable_purge_protection: bool=None, network_acls=None, **kwargs) -> None:
+    def __init__(self, *, tenant_id: str, sku, access_policies=None, vault_uri: str=None, enabled_for_deployment: bool=None, enabled_for_disk_encryption: bool=None, enabled_for_template_deployment: bool=None, enable_soft_delete: bool=True, soft_delete_retention_in_days: int=90, enable_rbac_authorization: bool=False, create_mode=None, enable_purge_protection: bool=None, network_acls=None, provisioning_state=None, **kwargs) -> None:
         super(VaultProperties, self).__init__(**kwargs)
         self.tenant_id = tenant_id
         self.sku = sku
@@ -1102,6 +1473,7 @@ class VaultProperties(Model):
         self.create_mode = create_mode
         self.enable_purge_protection = enable_purge_protection
         self.network_acls = network_acls
+        self.provisioning_state = provisioning_state
         self.private_endpoint_connections = None
 
 
@@ -1114,6 +1486,10 @@ class VirtualNetworkRule(Model):
     :param id: Required. Full resource id of a vnet subnet, such as
      '/subscriptions/subid/resourceGroups/rg1/providers/Microsoft.Network/virtualNetworks/test-vnet/subnets/subnet1'.
     :type id: str
+    :param ignore_missing_vnet_service_endpoint: Property to specify whether
+     NRP will ignore the check if parent subnet has serviceEndpoints
+     configured.
+    :type ignore_missing_vnet_service_endpoint: bool
     """
 
     _validation = {
@@ -1122,8 +1498,10 @@ class VirtualNetworkRule(Model):
 
     _attribute_map = {
         'id': {'key': 'id', 'type': 'str'},
+        'ignore_missing_vnet_service_endpoint': {'key': 'ignoreMissingVnetServiceEndpoint', 'type': 'bool'},
     }
 
-    def __init__(self, *, id: str, **kwargs) -> None:
+    def __init__(self, *, id: str, ignore_missing_vnet_service_endpoint: bool=None, **kwargs) -> None:
         super(VirtualNetworkRule, self).__init__(**kwargs)
         self.id = id
+        self.ignore_missing_vnet_service_endpoint = ignore_missing_vnet_service_endpoint

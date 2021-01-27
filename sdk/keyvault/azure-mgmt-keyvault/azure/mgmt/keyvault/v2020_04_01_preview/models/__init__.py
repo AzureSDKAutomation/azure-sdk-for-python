@@ -11,17 +11,18 @@
 
 try:
     from ._models_py3 import AccessPolicyEntry
-    from ._models_py3 import Attributes
     from ._models_py3 import CheckNameAvailabilityResult
     from ._models_py3 import DeletedVault
     from ._models_py3 import DeletedVaultProperties
     from ._models_py3 import DimensionProperties
+    from ._models_py3 import Error
     from ._models_py3 import IPRule
-    from ._models_py3 import Key
-    from ._models_py3 import KeyAttributes
-    from ._models_py3 import KeyCreateParameters
-    from ._models_py3 import KeyProperties
     from ._models_py3 import LogSpecification
+    from ._models_py3 import ManagedHsm
+    from ._models_py3 import ManagedHsmError, ManagedHsmErrorException
+    from ._models_py3 import ManagedHsmProperties
+    from ._models_py3 import ManagedHsmResource
+    from ._models_py3 import ManagedHsmSku
     from ._models_py3 import MetricSpecification
     from ._models_py3 import NetworkRuleSet
     from ._models_py3 import Operation
@@ -47,17 +48,18 @@ try:
     from ._models_py3 import VirtualNetworkRule
 except (SyntaxError, ImportError):
     from ._models import AccessPolicyEntry
-    from ._models import Attributes
     from ._models import CheckNameAvailabilityResult
     from ._models import DeletedVault
     from ._models import DeletedVaultProperties
     from ._models import DimensionProperties
+    from ._models import Error
     from ._models import IPRule
-    from ._models import Key
-    from ._models import KeyAttributes
-    from ._models import KeyCreateParameters
-    from ._models import KeyProperties
     from ._models import LogSpecification
+    from ._models import ManagedHsm
+    from ._models import ManagedHsmError, ManagedHsmErrorException
+    from ._models import ManagedHsmProperties
+    from ._models import ManagedHsmResource
+    from ._models import ManagedHsmSku
     from ._models import MetricSpecification
     from ._models import NetworkRuleSet
     from ._models import Operation
@@ -82,7 +84,7 @@ except (SyntaxError, ImportError):
     from ._models import VaultProperties
     from ._models import VirtualNetworkRule
 from ._paged_models import DeletedVaultPaged
-from ._paged_models import KeyPaged
+from ._paged_models import ManagedHsmPaged
 from ._paged_models import OperationPaged
 from ._paged_models import ResourcePaged
 from ._paged_models import VaultPaged
@@ -99,26 +101,25 @@ from ._key_vault_management_client_enums import (
     PrivateEndpointServiceConnectionStatus,
     PrivateEndpointConnectionProvisioningState,
     Reason,
-    DeletionRecoveryLevel,
-    JsonWebKeyType,
-    JsonWebKeyOperation,
-    JsonWebKeyCurveName,
+    ManagedHsmSkuName,
+    ProvisioningState,
     AccessPolicyUpdateKind,
 )
 
 __all__ = [
     'AccessPolicyEntry',
-    'Attributes',
     'CheckNameAvailabilityResult',
     'DeletedVault',
     'DeletedVaultProperties',
     'DimensionProperties',
+    'Error',
     'IPRule',
-    'Key',
-    'KeyAttributes',
-    'KeyCreateParameters',
-    'KeyProperties',
     'LogSpecification',
+    'ManagedHsm',
+    'ManagedHsmError', 'ManagedHsmErrorException',
+    'ManagedHsmProperties',
+    'ManagedHsmResource',
+    'ManagedHsmSku',
     'MetricSpecification',
     'NetworkRuleSet',
     'Operation',
@@ -146,7 +147,7 @@ __all__ = [
     'DeletedVaultPaged',
     'ResourcePaged',
     'OperationPaged',
-    'KeyPaged',
+    'ManagedHsmPaged',
     'SkuName',
     'KeyPermissions',
     'SecretPermissions',
@@ -159,9 +160,7 @@ __all__ = [
     'PrivateEndpointServiceConnectionStatus',
     'PrivateEndpointConnectionProvisioningState',
     'Reason',
-    'DeletionRecoveryLevel',
-    'JsonWebKeyType',
-    'JsonWebKeyOperation',
-    'JsonWebKeyCurveName',
+    'ManagedHsmSkuName',
+    'ProvisioningState',
     'AccessPolicyUpdateKind',
 ]
