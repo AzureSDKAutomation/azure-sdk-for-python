@@ -14,6 +14,7 @@ try:
     from ._models_py3 import ApplicationGetEndpoint
     from ._models_py3 import ApplicationGetHttpsEndpoint
     from ._models_py3 import ApplicationProperties
+    from ._models_py3 import AsyncOperationResult
     from ._models_py3 import Autoscale
     from ._models_py3 import AutoscaleCapacity
     from ._models_py3 import AutoscaleConfigurationUpdateParameter
@@ -64,7 +65,6 @@ try:
     from ._models_py3 import Operation
     from ._models_py3 import OperationDisplay
     from ._models_py3 import OperationProperties
-    from ._models_py3 import OperationResource
     from ._models_py3 import OsProfile
     from ._models_py3 import ProxyResource
     from ._models_py3 import QuotaCapability
@@ -100,6 +100,7 @@ except (SyntaxError, ImportError):
     from ._models import ApplicationGetEndpoint
     from ._models import ApplicationGetHttpsEndpoint
     from ._models import ApplicationProperties
+    from ._models import AsyncOperationResult
     from ._models import Autoscale
     from ._models import AutoscaleCapacity
     from ._models import AutoscaleConfigurationUpdateParameter
@@ -150,7 +151,6 @@ except (SyntaxError, ImportError):
     from ._models import Operation
     from ._models import OperationDisplay
     from ._models import OperationProperties
-    from ._models import OperationResource
     from ._models import OsProfile
     from ._models import ProxyResource
     from ._models import QuotaCapability
@@ -204,6 +204,7 @@ __all__ = [
     'ApplicationGetEndpoint',
     'ApplicationGetHttpsEndpoint',
     'ApplicationProperties',
+    'AsyncOperationResult',
     'Autoscale',
     'AutoscaleCapacity',
     'AutoscaleConfigurationUpdateParameter',
@@ -254,7 +255,6 @@ __all__ = [
     'Operation',
     'OperationDisplay',
     'OperationProperties',
-    'OperationResource',
     'OsProfile',
     'ProxyResource',
     'QuotaCapability',
