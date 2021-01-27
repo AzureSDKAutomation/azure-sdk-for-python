@@ -13,6 +13,208 @@ from msrest.serialization import Model
 from msrest.exceptions import HttpOperationError
 
 
+class Resource(Model):
+    """Represents an instance of an PowerBI Dedicated resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: An identifier that represents the PowerBI Dedicated resource.
+    :vartype id: str
+    :ivar name: The name of the PowerBI Dedicated resource.
+    :vartype name: str
+    :ivar type: The type of the PowerBI Dedicated resource.
+    :vartype type: str
+    :param location: Required. Location of the PowerBI Dedicated resource.
+    :type location: str
+    :param tags: Key-value pairs of additional resource provisioning
+     properties.
+    :type tags: dict[str, str]
+    :param system_data: Metadata pertaining to creation and last modification
+     of the resource.
+    :type system_data: ~azure.mgmt.powerbidedicated.models.SystemData
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'location': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
+    }
+
+    def __init__(self, **kwargs):
+        super(Resource, self).__init__(**kwargs)
+        self.id = None
+        self.name = None
+        self.type = None
+        self.location = kwargs.get('location', None)
+        self.tags = kwargs.get('tags', None)
+        self.system_data = kwargs.get('system_data', None)
+
+
+class AutoScaleVCore(Resource):
+    """Represents an instance of an auto scale v-core resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: An identifier that represents the PowerBI Dedicated resource.
+    :vartype id: str
+    :ivar name: The name of the PowerBI Dedicated resource.
+    :vartype name: str
+    :ivar type: The type of the PowerBI Dedicated resource.
+    :vartype type: str
+    :param location: Required. Location of the PowerBI Dedicated resource.
+    :type location: str
+    :param tags: Key-value pairs of additional resource provisioning
+     properties.
+    :type tags: dict[str, str]
+    :param system_data: Metadata pertaining to creation and last modification
+     of the resource.
+    :type system_data: ~azure.mgmt.powerbidedicated.models.SystemData
+    :param sku: Required. The SKU of the auto scale v-core resource.
+    :type sku: ~azure.mgmt.powerbidedicated.models.AutoScaleVCoreSku
+    :param capacity_limit: The maximum capacity of an auto scale v-core
+     resource.
+    :type capacity_limit: int
+    :param capacity_object_id: The object ID of the capacity resource
+     associated with the auto scale v-core resource.
+    :type capacity_object_id: str
+    :ivar provisioning_state: The current deployment state of an auto scale
+     v-core resource. The provisioningState is to indicate states for resource
+     provisioning. Possible values include: 'Succeeded'
+    :vartype provisioning_state: str or
+     ~azure.mgmt.powerbidedicated.models.VCoreProvisioningState
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'location': {'required': True},
+        'sku': {'required': True},
+        'provisioning_state': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
+        'sku': {'key': 'sku', 'type': 'AutoScaleVCoreSku'},
+        'capacity_limit': {'key': 'properties.capacityLimit', 'type': 'int'},
+        'capacity_object_id': {'key': 'properties.capacityObjectId', 'type': 'str'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AutoScaleVCore, self).__init__(**kwargs)
+        self.sku = kwargs.get('sku', None)
+        self.capacity_limit = kwargs.get('capacity_limit', None)
+        self.capacity_object_id = kwargs.get('capacity_object_id', None)
+        self.provisioning_state = None
+
+
+class AutoScaleVCoreSku(Model):
+    """Represents the SKU name and Azure pricing tier for auto scale v-core
+    resource.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. Name of the SKU level.
+    :type name: str
+    :param tier: The name of the Azure pricing tier to which the SKU applies.
+     Possible values include: 'AutoScale'
+    :type tier: str or ~azure.mgmt.powerbidedicated.models.VCoreSkuTier
+    :param capacity: The capacity of an auto scale v-core resource.
+    :type capacity: int
+    """
+
+    _validation = {
+        'name': {'required': True},
+    }
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'tier': {'key': 'tier', 'type': 'str'},
+        'capacity': {'key': 'capacity', 'type': 'int'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AutoScaleVCoreSku, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+        self.tier = kwargs.get('tier', None)
+        self.capacity = kwargs.get('capacity', None)
+
+
+class AutoScaleVCoreUpdateParameters(Model):
+    """Update request specification.
+
+    :param sku: The SKU of the auto scale v-core resource.
+    :type sku: ~azure.mgmt.powerbidedicated.models.AutoScaleVCoreSku
+    :param tags: Key-value pairs of additional provisioning properties.
+    :type tags: dict[str, str]
+    :param capacity_limit: The maximum capacity of an auto scale v-core
+     resource.
+    :type capacity_limit: int
+    """
+
+    _attribute_map = {
+        'sku': {'key': 'sku', 'type': 'AutoScaleVCoreSku'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'capacity_limit': {'key': 'properties.capacityLimit', 'type': 'int'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AutoScaleVCoreUpdateParameters, self).__init__(**kwargs)
+        self.sku = kwargs.get('sku', None)
+        self.tags = kwargs.get('tags', None)
+        self.capacity_limit = kwargs.get('capacity_limit', None)
+
+
+class CapacitySku(Model):
+    """Represents the SKU name and Azure pricing tier for PowerBI Dedicated
+    capacity resource.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. Name of the SKU level.
+    :type name: str
+    :param tier: The name of the Azure pricing tier to which the SKU applies.
+     Possible values include: 'PBIE_Azure', 'Premium', 'AutoPremiumHost'
+    :type tier: str or ~azure.mgmt.powerbidedicated.models.CapacitySkuTier
+    """
+
+    _validation = {
+        'name': {'required': True},
+    }
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'tier': {'key': 'tier', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CapacitySku, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+        self.tier = kwargs.get('tier', None)
+
+
 class CheckCapacityNameAvailabilityParameters(Model):
     """Details of capacity name request body.
 
@@ -70,56 +272,6 @@ class CloudError(Model):
     }
 
 
-class Resource(Model):
-    """Represents an instance of an PowerBI Dedicated resource.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :ivar id: An identifier that represents the PowerBI Dedicated resource.
-    :vartype id: str
-    :ivar name: The name of the PowerBI Dedicated resource.
-    :vartype name: str
-    :ivar type: The type of the PowerBI Dedicated resource.
-    :vartype type: str
-    :param location: Required. Location of the PowerBI Dedicated resource.
-    :type location: str
-    :param sku: Required. The SKU of the PowerBI Dedicated resource.
-    :type sku: ~azure.mgmt.powerbidedicated.models.ResourceSku
-    :param tags: Key-value pairs of additional resource provisioning
-     properties.
-    :type tags: dict[str, str]
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'location': {'required': True},
-        'sku': {'required': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'location': {'key': 'location', 'type': 'str'},
-        'sku': {'key': 'sku', 'type': 'ResourceSku'},
-        'tags': {'key': 'tags', 'type': '{str}'},
-    }
-
-    def __init__(self, **kwargs):
-        super(Resource, self).__init__(**kwargs)
-        self.id = None
-        self.name = None
-        self.type = None
-        self.location = kwargs.get('location', None)
-        self.sku = kwargs.get('sku', None)
-        self.tags = kwargs.get('tags', None)
-
-
 class DedicatedCapacity(Resource):
     """Represents an instance of a Dedicated Capacity resource.
 
@@ -136,11 +288,14 @@ class DedicatedCapacity(Resource):
     :vartype type: str
     :param location: Required. Location of the PowerBI Dedicated resource.
     :type location: str
-    :param sku: Required. The SKU of the PowerBI Dedicated resource.
-    :type sku: ~azure.mgmt.powerbidedicated.models.ResourceSku
     :param tags: Key-value pairs of additional resource provisioning
      properties.
     :type tags: dict[str, str]
+    :param system_data: Metadata pertaining to creation and last modification
+     of the resource.
+    :type system_data: ~azure.mgmt.powerbidedicated.models.SystemData
+    :param sku: Required. The SKU of the PowerBI Dedicated capacity resource.
+    :type sku: ~azure.mgmt.powerbidedicated.models.CapacitySku
     :param administration: A collection of Dedicated capacity administrators
     :type administration:
      ~azure.mgmt.powerbidedicated.models.DedicatedCapacityAdministrators
@@ -156,7 +311,7 @@ class DedicatedCapacity(Resource):
      'Failed', 'Paused', 'Suspended', 'Provisioning', 'Updating', 'Suspending',
      'Pausing', 'Resuming', 'Preparing', 'Scaling'
     :vartype provisioning_state: str or
-     ~azure.mgmt.powerbidedicated.models.ProvisioningState
+     ~azure.mgmt.powerbidedicated.models.CapacityProvisioningState
     """
 
     _validation = {
@@ -174,8 +329,9 @@ class DedicatedCapacity(Resource):
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
-        'sku': {'key': 'sku', 'type': 'ResourceSku'},
         'tags': {'key': 'tags', 'type': '{str}'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
+        'sku': {'key': 'sku', 'type': 'CapacitySku'},
         'administration': {'key': 'properties.administration', 'type': 'DedicatedCapacityAdministrators'},
         'state': {'key': 'properties.state', 'type': 'str'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
@@ -183,6 +339,7 @@ class DedicatedCapacity(Resource):
 
     def __init__(self, **kwargs):
         super(DedicatedCapacity, self).__init__(**kwargs)
+        self.sku = kwargs.get('sku', None)
         self.administration = kwargs.get('administration', None)
         self.state = None
         self.provisioning_state = None
@@ -208,7 +365,7 @@ class DedicatedCapacityUpdateParameters(Model):
     """Provision request specification.
 
     :param sku: The SKU of the Dedicated capacity resource.
-    :type sku: ~azure.mgmt.powerbidedicated.models.ResourceSku
+    :type sku: ~azure.mgmt.powerbidedicated.models.CapacitySku
     :param tags: Key-value pairs of additional provisioning properties.
     :type tags: dict[str, str]
     :param administration: A collection of Dedicated capacity administrators
@@ -217,7 +374,7 @@ class DedicatedCapacityUpdateParameters(Model):
     """
 
     _attribute_map = {
-        'sku': {'key': 'sku', 'type': 'ResourceSku'},
+        'sku': {'key': 'sku', 'type': 'CapacitySku'},
         'tags': {'key': 'tags', 'type': '{str}'},
         'administration': {'key': 'properties.administration', 'type': 'DedicatedCapacityAdministrators'},
     }
@@ -232,21 +389,17 @@ class DedicatedCapacityUpdateParameters(Model):
 class ErrorResponse(Model):
     """Describes the format of Error response.
 
-    :param code: Error code
-    :type code: str
-    :param message: Error message indicating why the operation failed.
-    :type message: str
+    :param error: The error object
+    :type error: ~azure.mgmt.powerbidedicated.models.ErrorResponseError
     """
 
     _attribute_map = {
-        'code': {'key': 'code', 'type': 'str'},
-        'message': {'key': 'message', 'type': 'str'},
+        'error': {'key': 'error', 'type': 'ErrorResponseError'},
     }
 
     def __init__(self, **kwargs):
         super(ErrorResponse, self).__init__(**kwargs)
-        self.code = kwargs.get('code', None)
-        self.message = kwargs.get('message', None)
+        self.error = kwargs.get('error', None)
 
 
 class ErrorResponseException(HttpOperationError):
@@ -259,6 +412,26 @@ class ErrorResponseException(HttpOperationError):
     def __init__(self, deserialize, response, *args):
 
         super(ErrorResponseException, self).__init__(deserialize, response, 'ErrorResponse', *args)
+
+
+class ErrorResponseError(Model):
+    """The error object.
+
+    :param code: Error code
+    :type code: str
+    :param message: Error message indicating why the operation failed.
+    :type message: str
+    """
+
+    _attribute_map = {
+        'code': {'key': 'code', 'type': 'str'},
+        'message': {'key': 'message', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ErrorResponseError, self).__init__(**kwargs)
+        self.code = kwargs.get('code', None)
+        self.message = kwargs.get('message', None)
 
 
 class Operation(Model):
@@ -322,43 +495,15 @@ class OperationDisplay(Model):
         self.operation = None
 
 
-class ResourceSku(Model):
-    """Represents the SKU name and Azure pricing tier for PowerBI Dedicated
-    resource.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :param name: Required. Name of the SKU level.
-    :type name: str
-    :param tier: The name of the Azure pricing tier to which the SKU applies.
-     Possible values include: 'PBIE_Azure'
-    :type tier: str or ~azure.mgmt.powerbidedicated.models.SkuTier
-    """
-
-    _validation = {
-        'name': {'required': True},
-    }
-
-    _attribute_map = {
-        'name': {'key': 'name', 'type': 'str'},
-        'tier': {'key': 'tier', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(ResourceSku, self).__init__(**kwargs)
-        self.name = kwargs.get('name', None)
-        self.tier = kwargs.get('tier', None)
-
-
 class SkuDetailsForExistingResource(Model):
     """An object that represents SKU details for existing resources.
 
     :param sku: The SKU in SKU details for existing resources.
-    :type sku: ~azure.mgmt.powerbidedicated.models.ResourceSku
+    :type sku: ~azure.mgmt.powerbidedicated.models.CapacitySku
     """
 
     _attribute_map = {
-        'sku': {'key': 'sku', 'type': 'ResourceSku'},
+        'sku': {'key': 'sku', 'type': 'CapacitySku'},
     }
 
     def __init__(self, **kwargs):
@@ -387,13 +532,56 @@ class SkuEnumerationForNewResourceResult(Model):
     """An object that represents enumerating SKUs for new resources.
 
     :param value: The collection of available SKUs for new resources
-    :type value: list[~azure.mgmt.powerbidedicated.models.ResourceSku]
+    :type value: list[~azure.mgmt.powerbidedicated.models.CapacitySku]
     """
 
     _attribute_map = {
-        'value': {'key': 'value', 'type': '[ResourceSku]'},
+        'value': {'key': 'value', 'type': '[CapacitySku]'},
     }
 
     def __init__(self, **kwargs):
         super(SkuEnumerationForNewResourceResult, self).__init__(**kwargs)
         self.value = kwargs.get('value', None)
+
+
+class SystemData(Model):
+    """Metadata pertaining to creation and last modification of the resource.
+
+    :param created_by: An identifier for the identity that created the
+     resource
+    :type created_by: str
+    :param created_by_type: The type of identity that created the resource.
+     Possible values include: 'User', 'Application', 'ManagedIdentity', 'Key'
+    :type created_by_type: str or
+     ~azure.mgmt.powerbidedicated.models.IdentityType
+    :param created_at: The timestamp of resource creation (UTC)
+    :type created_at: datetime
+    :param last_modified_by: An identifier for the identity that last modified
+     the resource
+    :type last_modified_by: str
+    :param last_modified_by_type: The type of identity that last modified the
+     resource. Possible values include: 'User', 'Application',
+     'ManagedIdentity', 'Key'
+    :type last_modified_by_type: str or
+     ~azure.mgmt.powerbidedicated.models.IdentityType
+    :param last_modified_at: The timestamp of resource last modification (UTC)
+    :type last_modified_at: datetime
+    """
+
+    _attribute_map = {
+        'created_by': {'key': 'createdBy', 'type': 'str'},
+        'created_by_type': {'key': 'createdByType', 'type': 'str'},
+        'created_at': {'key': 'createdAt', 'type': 'iso-8601'},
+        'last_modified_by': {'key': 'lastModifiedBy', 'type': 'str'},
+        'last_modified_by_type': {'key': 'lastModifiedByType', 'type': 'str'},
+        'last_modified_at': {'key': 'lastModifiedAt', 'type': 'iso-8601'},
+    }
+
+    def __init__(self, **kwargs):
+        super(SystemData, self).__init__(**kwargs)
+        self.created_by = kwargs.get('created_by', None)
+        self.created_by_type = kwargs.get('created_by_type', None)
+        self.created_at = kwargs.get('created_at', None)
+        self.last_modified_by = kwargs.get('last_modified_by', None)
+        self.last_modified_by_type = kwargs.get('last_modified_by_type', None)
+        self.last_modified_at = kwargs.get('last_modified_at', None)

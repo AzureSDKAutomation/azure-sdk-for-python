@@ -38,3 +38,16 @@ class OperationPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(OperationPaged, self).__init__(*args, **kwargs)
+class AutoScaleVCorePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`AutoScaleVCore <azure.mgmt.powerbidedicated.models.AutoScaleVCore>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[AutoScaleVCore]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(AutoScaleVCorePaged, self).__init__(*args, **kwargs)

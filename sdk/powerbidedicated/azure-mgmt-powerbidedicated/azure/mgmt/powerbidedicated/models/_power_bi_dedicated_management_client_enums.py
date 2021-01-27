@@ -12,9 +12,19 @@
 from enum import Enum
 
 
-class SkuTier(str, Enum):
+class IdentityType(str, Enum):
+
+    user = "User"
+    application = "Application"
+    managed_identity = "ManagedIdentity"
+    key = "Key"
+
+
+class CapacitySkuTier(str, Enum):
 
     pbie_azure = "PBIE_Azure"
+    premium = "Premium"
+    auto_premium_host = "AutoPremiumHost"
 
 
 class State(str, Enum):
@@ -33,7 +43,7 @@ class State(str, Enum):
     scaling = "Scaling"
 
 
-class ProvisioningState(str, Enum):
+class CapacityProvisioningState(str, Enum):
 
     deleting = "Deleting"
     succeeded = "Succeeded"
@@ -47,3 +57,13 @@ class ProvisioningState(str, Enum):
     resuming = "Resuming"
     preparing = "Preparing"
     scaling = "Scaling"
+
+
+class VCoreSkuTier(str, Enum):
+
+    auto_scale = "AutoScale"
+
+
+class VCoreProvisioningState(str, Enum):
+
+    succeeded = "Succeeded"

@@ -15,6 +15,7 @@ from msrest import Serializer, Deserializer
 from ._configuration import PowerBIDedicatedManagementClientConfiguration
 from .operations import CapacitiesOperations
 from .operations import Operations
+from .operations import AutoScaleVCoresOperations
 from . import models
 
 
@@ -28,6 +29,8 @@ class PowerBIDedicatedManagementClient(SDKClient):
     :vartype capacities: azure.mgmt.powerbidedicated.operations.CapacitiesOperations
     :ivar operations: Operations operations
     :vartype operations: azure.mgmt.powerbidedicated.operations.Operations
+    :ivar auto_scale_vcores: AutoScaleVCores operations
+    :vartype auto_scale_vcores: azure.mgmt.powerbidedicated.operations.AutoScaleVCoresOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -46,11 +49,13 @@ class PowerBIDedicatedManagementClient(SDKClient):
         super(PowerBIDedicatedManagementClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
-        self.api_version = '2017-10-01'
+        self.api_version = '2021-01-01'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
         self.capacities = CapacitiesOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.operations = Operations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.auto_scale_vcores = AutoScaleVCoresOperations(
             self._client, self.config, self._serialize, self._deserialize)
