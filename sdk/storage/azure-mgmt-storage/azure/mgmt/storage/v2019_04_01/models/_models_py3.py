@@ -134,16 +134,19 @@ class ActiveDirectoryProperties(Model):
 class Resource(Model):
     """Resource.
 
+    Common fields that are returned in the response for all Azure Resource
+    Manager resources.
+
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     """
 
@@ -167,19 +170,21 @@ class Resource(Model):
 
 
 class AzureEntityResource(Resource):
-    """The resource model definition for a Azure Resource Manager resource with an
-    etag.
+    """Entity Resource.
+
+    The resource model definition for an Azure Resource Manager resource with
+    an etag.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -240,13 +245,13 @@ class BlobContainer(AzureEntityResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -346,13 +351,13 @@ class BlobServiceProperties(Resource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param cors: Specifies CORS rules for the Blob service. You can include up
      to five CorsRule elements in the request. If no CorsRule elements are
@@ -884,13 +889,13 @@ class FileServiceProperties(Resource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param cors: Specifies CORS rules for the File service. You can include up
      to five CorsRule elements in the request. If no CorsRule elements are
@@ -924,13 +929,13 @@ class FileShare(AzureEntityResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -977,13 +982,13 @@ class FileShareItem(AzureEntityResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -1116,13 +1121,13 @@ class ImmutabilityPolicy(AzureEntityResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -1422,13 +1427,13 @@ class ListContainerItem(AzureEntityResource):
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -1554,13 +1559,13 @@ class ManagementPolicy(Resource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :ivar last_modified_time: Returns the date and time the ManagementPolicies
      was last modified.
@@ -1942,19 +1947,21 @@ class OperationDisplay(Model):
 
 
 class ProxyResource(Resource):
-    """The resource model definition for a ARM proxy resource. It will have
-    everything other than required location and tags.
+    """Proxy Resource.
+
+    The resource model definition for a Azure Resource Manager proxy resource.
+    It will not have tags and a location.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     """
 
@@ -2239,20 +2246,23 @@ class SKUCapability(Model):
 
 
 class TrackedResource(Resource):
-    """The resource model definition for a ARM tracked top level resource.
+    """Tracked Resource.
+
+    The resource model definition for an Azure Resource Manager tracked top
+    level resource which has 'tags' and a 'location'.
 
     Variables are only populated by the server, and will be ignored when
     sending a request.
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -2289,13 +2299,13 @@ class StorageAccount(TrackedResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
     :vartype id: str
     :ivar name: The name of the resource
     :vartype name: str
-    :ivar type: The type of the resource. Ex-
-     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g.
+     "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
     :vartype type: str
     :param tags: Resource tags.
     :type tags: dict[str, str]
@@ -2395,6 +2405,12 @@ class StorageAccount(TrackedResource):
      property. Possible values include: 'TLS1_0', 'TLS1_1', 'TLS1_2'
     :type minimum_tls_version: str or
      ~azure.mgmt.storage.v2019_04_01.models.MinimumTlsVersion
+    :param allow_shared_key_access: Indicates whether the storage account
+     permits requests to be authorized with the account access key via Shared
+     Key. If false, then all requests, including shared access signatures, must
+     be authorized with Azure Active Directory (Azure AD). The default value is
+     null, which is equivalent to true.
+    :type allow_shared_key_access: bool
     """
 
     _validation = {
@@ -2451,9 +2467,10 @@ class StorageAccount(TrackedResource):
         'large_file_shares_state': {'key': 'properties.largeFileSharesState', 'type': 'str'},
         'allow_blob_public_access': {'key': 'properties.allowBlobPublicAccess', 'type': 'bool'},
         'minimum_tls_version': {'key': 'properties.minimumTlsVersion', 'type': 'str'},
+        'allow_shared_key_access': {'key': 'properties.allowSharedKeyAccess', 'type': 'bool'},
     }
 
-    def __init__(self, *, location: str, tags=None, identity=None, azure_files_identity_based_authentication=None, enable_https_traffic_only: bool=None, is_hns_enabled: bool=None, large_file_shares_state=None, allow_blob_public_access: bool=None, minimum_tls_version=None, **kwargs) -> None:
+    def __init__(self, *, location: str, tags=None, identity=None, azure_files_identity_based_authentication=None, enable_https_traffic_only: bool=None, is_hns_enabled: bool=None, large_file_shares_state=None, allow_blob_public_access: bool=None, minimum_tls_version=None, allow_shared_key_access: bool=None, **kwargs) -> None:
         super(StorageAccount, self).__init__(tags=tags, location=location, **kwargs)
         self.sku = None
         self.kind = None
@@ -2479,6 +2496,7 @@ class StorageAccount(TrackedResource):
         self.large_file_shares_state = large_file_shares_state
         self.allow_blob_public_access = allow_blob_public_access
         self.minimum_tls_version = minimum_tls_version
+        self.allow_shared_key_access = allow_shared_key_access
 
 
 class StorageAccountCheckNameAvailabilityParameters(Model):
@@ -2580,6 +2598,12 @@ class StorageAccountCreateParameters(Model):
      property. Possible values include: 'TLS1_0', 'TLS1_1', 'TLS1_2'
     :type minimum_tls_version: str or
      ~azure.mgmt.storage.v2019_04_01.models.MinimumTlsVersion
+    :param allow_shared_key_access: Indicates whether the storage account
+     permits requests to be authorized with the account access key via Shared
+     Key. If false, then all requests, including shared access signatures, must
+     be authorized with Azure Active Directory (Azure AD). The default value is
+     null, which is equivalent to true.
+    :type allow_shared_key_access: bool
     """
 
     _validation = {
@@ -2604,9 +2628,10 @@ class StorageAccountCreateParameters(Model):
         'large_file_shares_state': {'key': 'properties.largeFileSharesState', 'type': 'str'},
         'allow_blob_public_access': {'key': 'properties.allowBlobPublicAccess', 'type': 'bool'},
         'minimum_tls_version': {'key': 'properties.minimumTlsVersion', 'type': 'str'},
+        'allow_shared_key_access': {'key': 'properties.allowSharedKeyAccess', 'type': 'bool'},
     }
 
-    def __init__(self, *, sku, kind, location: str, tags=None, identity=None, custom_domain=None, encryption=None, network_rule_set=None, access_tier=None, azure_files_identity_based_authentication=None, enable_https_traffic_only: bool=None, is_hns_enabled: bool=None, large_file_shares_state=None, allow_blob_public_access: bool=None, minimum_tls_version=None, **kwargs) -> None:
+    def __init__(self, *, sku, kind, location: str, tags=None, identity=None, custom_domain=None, encryption=None, network_rule_set=None, access_tier=None, azure_files_identity_based_authentication=None, enable_https_traffic_only: bool=None, is_hns_enabled: bool=None, large_file_shares_state=None, allow_blob_public_access: bool=None, minimum_tls_version=None, allow_shared_key_access: bool=None, **kwargs) -> None:
         super(StorageAccountCreateParameters, self).__init__(**kwargs)
         self.sku = sku
         self.kind = kind
@@ -2623,6 +2648,7 @@ class StorageAccountCreateParameters(Model):
         self.large_file_shares_state = large_file_shares_state
         self.allow_blob_public_access = allow_blob_public_access
         self.minimum_tls_version = minimum_tls_version
+        self.allow_shared_key_access = allow_shared_key_access
 
 
 class StorageAccountKey(Model):
@@ -2761,6 +2787,12 @@ class StorageAccountUpdateParameters(Model):
      property. Possible values include: 'TLS1_0', 'TLS1_1', 'TLS1_2'
     :type minimum_tls_version: str or
      ~azure.mgmt.storage.v2019_04_01.models.MinimumTlsVersion
+    :param allow_shared_key_access: Indicates whether the storage account
+     permits requests to be authorized with the account access key via Shared
+     Key. If false, then all requests, including shared access signatures, must
+     be authorized with Azure Active Directory (Azure AD). The default value is
+     null, which is equivalent to true.
+    :type allow_shared_key_access: bool
     :param kind: Optional. Indicates the type of storage account. Currently
      only StorageV2 value supported by server. Possible values include:
      'Storage', 'StorageV2', 'BlobStorage', 'FileStorage', 'BlockBlobStorage'
@@ -2780,10 +2812,11 @@ class StorageAccountUpdateParameters(Model):
         'large_file_shares_state': {'key': 'properties.largeFileSharesState', 'type': 'str'},
         'allow_blob_public_access': {'key': 'properties.allowBlobPublicAccess', 'type': 'bool'},
         'minimum_tls_version': {'key': 'properties.minimumTlsVersion', 'type': 'str'},
+        'allow_shared_key_access': {'key': 'properties.allowSharedKeyAccess', 'type': 'bool'},
         'kind': {'key': 'kind', 'type': 'str'},
     }
 
-    def __init__(self, *, sku=None, tags=None, identity=None, custom_domain=None, encryption=None, access_tier=None, azure_files_identity_based_authentication=None, enable_https_traffic_only: bool=None, network_rule_set=None, large_file_shares_state=None, allow_blob_public_access: bool=None, minimum_tls_version=None, kind=None, **kwargs) -> None:
+    def __init__(self, *, sku=None, tags=None, identity=None, custom_domain=None, encryption=None, access_tier=None, azure_files_identity_based_authentication=None, enable_https_traffic_only: bool=None, network_rule_set=None, large_file_shares_state=None, allow_blob_public_access: bool=None, minimum_tls_version=None, allow_shared_key_access: bool=None, kind=None, **kwargs) -> None:
         super(StorageAccountUpdateParameters, self).__init__(**kwargs)
         self.sku = sku
         self.tags = tags
@@ -2797,6 +2830,7 @@ class StorageAccountUpdateParameters(Model):
         self.large_file_shares_state = large_file_shares_state
         self.allow_blob_public_access = allow_blob_public_access
         self.minimum_tls_version = minimum_tls_version
+        self.allow_shared_key_access = allow_shared_key_access
         self.kind = kind
 
 
