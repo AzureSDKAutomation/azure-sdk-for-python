@@ -385,6 +385,8 @@ class DataExport(Resource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
+    All required parameters must be populated in order to send to Azure.
+
     :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
@@ -395,7 +397,8 @@ class DataExport(Resource):
     :vartype type: str
     :param data_export_id: The data export rule ID.
     :type data_export_id: str
-    :param table_names: An array of tables to export, for example: [“Heartbeat, SecurityEvent”].
+    :param table_names: Required. An array of tables to export, for example: [“Heartbeat,
+     SecurityEvent”].
     :type table_names: list[str]
     :param enable: Active when enabled.
     :type enable: bool
@@ -403,8 +406,8 @@ class DataExport(Resource):
     :type created_date: str
     :param last_modified_date: Date and time when the export was last modified.
     :type last_modified_date: str
-    :param resource_id: The destination resource ID. This can be copied from the Properties entry
-     of the destination resource in Azure.
+    :param resource_id: Required. The destination resource ID. This can be copied from the
+     Properties entry of the destination resource in Azure.
     :type resource_id: str
     :ivar type_properties_destination_type: The type of the destination resource. Possible values
      include: "StorageAccount", "EventHub".
@@ -418,6 +421,8 @@ class DataExport(Resource):
         'id': {'readonly': True},
         'name': {'readonly': True},
         'type': {'readonly': True},
+        'table_names': {'required': True},
+        'resource_id': {'required': True},
         'type_properties_destination_type': {'readonly': True},
     }
 
@@ -441,11 +446,11 @@ class DataExport(Resource):
     ):
         super(DataExport, self).__init__(**kwargs)
         self.data_export_id = kwargs.get('data_export_id', None)
-        self.table_names = kwargs.get('table_names', None)
+        self.table_names = kwargs['table_names']
         self.enable = kwargs.get('enable', None)
         self.created_date = kwargs.get('created_date', None)
         self.last_modified_date = kwargs.get('last_modified_date', None)
-        self.resource_id = kwargs.get('resource_id', None)
+        self.resource_id = kwargs['resource_id']
         self.type_properties_destination_type = None
         self.event_hub_name = kwargs.get('event_hub_name', None)
 

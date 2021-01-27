@@ -415,6 +415,8 @@ class DataExport(Resource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
+    All required parameters must be populated in order to send to Azure.
+
     :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
@@ -425,7 +427,8 @@ class DataExport(Resource):
     :vartype type: str
     :param data_export_id: The data export rule ID.
     :type data_export_id: str
-    :param table_names: An array of tables to export, for example: [“Heartbeat, SecurityEvent”].
+    :param table_names: Required. An array of tables to export, for example: [“Heartbeat,
+     SecurityEvent”].
     :type table_names: list[str]
     :param enable: Active when enabled.
     :type enable: bool
@@ -433,8 +436,8 @@ class DataExport(Resource):
     :type created_date: str
     :param last_modified_date: Date and time when the export was last modified.
     :type last_modified_date: str
-    :param resource_id: The destination resource ID. This can be copied from the Properties entry
-     of the destination resource in Azure.
+    :param resource_id: Required. The destination resource ID. This can be copied from the
+     Properties entry of the destination resource in Azure.
     :type resource_id: str
     :ivar type_properties_destination_type: The type of the destination resource. Possible values
      include: "StorageAccount", "EventHub".
@@ -448,6 +451,8 @@ class DataExport(Resource):
         'id': {'readonly': True},
         'name': {'readonly': True},
         'type': {'readonly': True},
+        'table_names': {'required': True},
+        'resource_id': {'required': True},
         'type_properties_destination_type': {'readonly': True},
     }
 
@@ -468,12 +473,12 @@ class DataExport(Resource):
     def __init__(
         self,
         *,
+        table_names: List[str],
+        resource_id: str,
         data_export_id: Optional[str] = None,
-        table_names: Optional[List[str]] = None,
         enable: Optional[bool] = None,
         created_date: Optional[str] = None,
         last_modified_date: Optional[str] = None,
-        resource_id: Optional[str] = None,
         event_hub_name: Optional[str] = None,
         **kwargs
     ):
