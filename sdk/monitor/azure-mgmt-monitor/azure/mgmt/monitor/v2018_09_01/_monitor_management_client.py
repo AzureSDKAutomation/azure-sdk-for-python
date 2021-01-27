@@ -16,6 +16,7 @@ from ._configuration import MonitorManagementClientConfiguration
 from .operations import ActionGroupsOperations
 from .operations import MetricBaselineOperations
 from .operations import BaselineOperations
+from .operations import BaselinesOperations
 from . import models
 
 
@@ -31,11 +32,13 @@ class MonitorManagementClient(SDKClient):
     :vartype metric_baseline: azure.mgmt.monitor.v2018_09_01.operations.MetricBaselineOperations
     :ivar baseline: Baseline operations
     :vartype baseline: azure.mgmt.monitor.v2018_09_01.operations.BaselineOperations
+    :ivar baselines: Baselines operations
+    :vartype baselines: azure.mgmt.monitor.v2018_09_01.operations.BaselinesOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
      object<msrestazure.azure_active_directory>`
-    :param subscription_id: The Azure subscription Id.
+    :param subscription_id: The ID of the target subscription.
     :type subscription_id: str
     :param str base_url: Service URL
     """
@@ -56,4 +59,6 @@ class MonitorManagementClient(SDKClient):
         self.metric_baseline = MetricBaselineOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.baseline = BaselineOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.baselines = BaselinesOperations(
             self._client, self.config, self._serialize, self._deserialize)

@@ -15,7 +15,8 @@ try:
     from ._models_py3 import AzNsActionGroup
     from ._models_py3 import Criteria
     from ._models_py3 import Dimension
-    from ._models_py3 import ErrorResponse, ErrorResponseException
+    from ._models_py3 import ErrorContract, ErrorContractException
+    from ._models_py3 import ErrorResponse
     from ._models_py3 import LogMetricTrigger
     from ._models_py3 import LogSearchRuleResource
     from ._models_py3 import LogSearchRuleResourcePatch
@@ -30,7 +31,8 @@ except (SyntaxError, ImportError):
     from ._models import AzNsActionGroup
     from ._models import Criteria
     from ._models import Dimension
-    from ._models import ErrorResponse, ErrorResponseException
+    from ._models import ErrorContract, ErrorContractException
+    from ._models import ErrorResponse
     from ._models import LogMetricTrigger
     from ._models import LogSearchRuleResource
     from ._models import LogSearchRuleResourcePatch
@@ -55,7 +57,8 @@ __all__ = [
     'AzNsActionGroup',
     'Criteria',
     'Dimension',
-    'ErrorResponse', 'ErrorResponseException',
+    'ErrorContract', 'ErrorContractException',
+    'ErrorResponse',
     'LogMetricTrigger',
     'LogSearchRuleResource',
     'LogSearchRuleResourcePatch',

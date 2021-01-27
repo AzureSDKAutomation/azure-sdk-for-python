@@ -24,7 +24,7 @@ class BaselinesOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The API version to use for this operation. Constant value: "2019-03-01".
+    :ivar api_version: The API version to use for this operation. Constant value: "2018-09-01".
     """
 
     models = models
@@ -34,7 +34,7 @@ class BaselinesOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2019-03-01"
+        self.api_version = "2018-09-01"
 
         self.config = config
 
@@ -76,7 +76,7 @@ class BaselinesOperations(object):
          On data request all information is retrieved. Possible values include:
          'Data', 'Metadata'
         :type result_type: str or
-         ~azure.mgmt.monitor.v2019_03_01.models.ResultType
+         ~azure.mgmt.monitor.v2018_09_01.models.ResultType
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -84,9 +84,9 @@ class BaselinesOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: An iterator like instance of SingleMetricBaseline
         :rtype:
-         ~azure.mgmt.monitor.v2019_03_01.models.SingleMetricBaselinePaged[~azure.mgmt.monitor.v2019_03_01.models.SingleMetricBaseline]
+         ~azure.mgmt.monitor.v2018_09_01.models.SingleMetricBaselinePaged[~azure.mgmt.monitor.v2018_09_01.models.SingleMetricBaseline]
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.monitor.v2019_03_01.models.ErrorResponseException>`
+         :class:`ErrorResponseException<azure.mgmt.monitor.v2018_09_01.models.ErrorResponseException>`
         """
         def prepare_request(next_link=None):
             if not next_link:

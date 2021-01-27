@@ -295,10 +295,13 @@ class MonitorManagementClient(MultiApiClientMixin, SDKClient):
     def baselines(self):
         """Instance depends on the API version:
 
+           * 2018-09-01: :class:`BaselinesOperations<azure.mgmt.monitor.v2018_09_01.operations.BaselinesOperations>`
            * 2019-03-01: :class:`BaselinesOperations<azure.mgmt.monitor.v2019_03_01.operations.BaselinesOperations>`
         """
         api_version = self._get_api_version('baselines')
-        if api_version == '2019-03-01':
+        if api_version == '2018-09-01':
+            from .v2018_09_01.operations import BaselinesOperations as OperationClass
+        elif api_version == '2019-03-01':
             from .v2019_03_01.operations import BaselinesOperations as OperationClass
         else:
             raise NotImplementedError("APIVersion {} is not available".format(api_version))
