@@ -18,6 +18,28 @@ class ResourceDiscoveryMode(str, Enum):
     re_evaluate_compliance = "ReEvaluateCompliance"  #: Re-evaluate the compliance state of resources and then remediate the resources found to be non-compliant.
 
 
+class FieldRestrictionResult(str, Enum):
+
+    required = "Required"  #: The field and/or values are required by policy.
+    removed = "Removed"  #: The field will be removed by policy.
+    deny = "Deny"  #: The field and/or values will be denied by policy.
+
+
+class ComplianceState(str, Enum):
+
+    compliant = "Compliant"  #: The resource is in compliance with the policy.
+    non_compliant = "NonCompliant"  #: The resource is not in compliance with the policy.
+    unknown = "Unknown"  #: The compliance state of the resource is not known.
+
+
+class CreatedByType(str, Enum):
+
+    user = "User"
+    application = "Application"
+    managed_identity = "ManagedIdentity"
+    key = "Key"
+
+
 class PolicyStatesResource(str, Enum):
 
     default = "default"
