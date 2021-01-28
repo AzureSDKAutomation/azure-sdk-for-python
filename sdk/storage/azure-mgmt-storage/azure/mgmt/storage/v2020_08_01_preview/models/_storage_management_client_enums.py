@@ -123,6 +123,11 @@ class MinimumTlsVersion(str, Enum):
     tls1_2 = "TLS1_2"
 
 
+class ExtendedLocationTypes(str, Enum):
+
+    edge_zone = "EdgeZone"
+
+
 class GeoReplicationStatus(str, Enum):
 
     live = "Live"
@@ -283,6 +288,11 @@ class ImmutabilityPolicyUpdateType(str, Enum):
     extend = "extend"
 
 
+class Name(str, Enum):
+
+    access_time_tracking = "AccessTimeTracking"
+
+
 class EnabledProtocols(str, Enum):
 
     smb = "SMB"
@@ -323,6 +333,12 @@ class ListContainersInclude(str, Enum):
 class ListSharesExpand(str, Enum):
 
     deleted = "deleted"
+    snapshots = "snapshots"
+
+
+class PutSharesExpand(str, Enum):
+
+    snapshots = "snapshots"
 
 
 class GetShareExpand(str, Enum):

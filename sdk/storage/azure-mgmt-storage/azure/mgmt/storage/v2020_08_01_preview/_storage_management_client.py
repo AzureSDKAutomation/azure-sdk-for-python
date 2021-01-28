@@ -16,6 +16,7 @@ from ._configuration import StorageManagementClientConfiguration
 from .operations import Operations
 from .operations import SkusOperations
 from .operations import StorageAccountsOperations
+from .operations import DeletedAccountsOperations
 from .operations import UsagesOperations
 from .operations import ManagementPoliciesOperations
 from .operations import BlobInventoryPoliciesOperations
@@ -41,41 +42,43 @@ class StorageManagementClient(SDKClient):
     :vartype config: StorageManagementClientConfiguration
 
     :ivar operations: Operations operations
-    :vartype operations: azure.mgmt.storage.v2019_06_01.operations.Operations
+    :vartype operations: azure.mgmt.storage.v2020_08_01_preview.operations.Operations
     :ivar skus: Skus operations
-    :vartype skus: azure.mgmt.storage.v2019_06_01.operations.SkusOperations
+    :vartype skus: azure.mgmt.storage.v2020_08_01_preview.operations.SkusOperations
     :ivar storage_accounts: StorageAccounts operations
-    :vartype storage_accounts: azure.mgmt.storage.v2019_06_01.operations.StorageAccountsOperations
+    :vartype storage_accounts: azure.mgmt.storage.v2020_08_01_preview.operations.StorageAccountsOperations
+    :ivar deleted_accounts: DeletedAccounts operations
+    :vartype deleted_accounts: azure.mgmt.storage.v2020_08_01_preview.operations.DeletedAccountsOperations
     :ivar usages: Usages operations
-    :vartype usages: azure.mgmt.storage.v2019_06_01.operations.UsagesOperations
+    :vartype usages: azure.mgmt.storage.v2020_08_01_preview.operations.UsagesOperations
     :ivar management_policies: ManagementPolicies operations
-    :vartype management_policies: azure.mgmt.storage.v2019_06_01.operations.ManagementPoliciesOperations
+    :vartype management_policies: azure.mgmt.storage.v2020_08_01_preview.operations.ManagementPoliciesOperations
     :ivar blob_inventory_policies: BlobInventoryPolicies operations
-    :vartype blob_inventory_policies: azure.mgmt.storage.v2019_06_01.operations.BlobInventoryPoliciesOperations
+    :vartype blob_inventory_policies: azure.mgmt.storage.v2020_08_01_preview.operations.BlobInventoryPoliciesOperations
     :ivar private_endpoint_connections: PrivateEndpointConnections operations
-    :vartype private_endpoint_connections: azure.mgmt.storage.v2019_06_01.operations.PrivateEndpointConnectionsOperations
+    :vartype private_endpoint_connections: azure.mgmt.storage.v2020_08_01_preview.operations.PrivateEndpointConnectionsOperations
     :ivar private_link_resources: PrivateLinkResources operations
-    :vartype private_link_resources: azure.mgmt.storage.v2019_06_01.operations.PrivateLinkResourcesOperations
+    :vartype private_link_resources: azure.mgmt.storage.v2020_08_01_preview.operations.PrivateLinkResourcesOperations
     :ivar object_replication_policies: ObjectReplicationPolicies operations
-    :vartype object_replication_policies: azure.mgmt.storage.v2019_06_01.operations.ObjectReplicationPoliciesOperations
+    :vartype object_replication_policies: azure.mgmt.storage.v2020_08_01_preview.operations.ObjectReplicationPoliciesOperations
     :ivar encryption_scopes: EncryptionScopes operations
-    :vartype encryption_scopes: azure.mgmt.storage.v2019_06_01.operations.EncryptionScopesOperations
+    :vartype encryption_scopes: azure.mgmt.storage.v2020_08_01_preview.operations.EncryptionScopesOperations
     :ivar blob_services: BlobServices operations
-    :vartype blob_services: azure.mgmt.storage.v2019_06_01.operations.BlobServicesOperations
+    :vartype blob_services: azure.mgmt.storage.v2020_08_01_preview.operations.BlobServicesOperations
     :ivar blob_containers: BlobContainers operations
-    :vartype blob_containers: azure.mgmt.storage.v2019_06_01.operations.BlobContainersOperations
+    :vartype blob_containers: azure.mgmt.storage.v2020_08_01_preview.operations.BlobContainersOperations
     :ivar file_services: FileServices operations
-    :vartype file_services: azure.mgmt.storage.v2019_06_01.operations.FileServicesOperations
+    :vartype file_services: azure.mgmt.storage.v2020_08_01_preview.operations.FileServicesOperations
     :ivar file_shares: FileShares operations
-    :vartype file_shares: azure.mgmt.storage.v2019_06_01.operations.FileSharesOperations
+    :vartype file_shares: azure.mgmt.storage.v2020_08_01_preview.operations.FileSharesOperations
     :ivar queue_services: QueueServices operations
-    :vartype queue_services: azure.mgmt.storage.v2019_06_01.operations.QueueServicesOperations
+    :vartype queue_services: azure.mgmt.storage.v2020_08_01_preview.operations.QueueServicesOperations
     :ivar queue: Queue operations
-    :vartype queue: azure.mgmt.storage.v2019_06_01.operations.QueueOperations
+    :vartype queue: azure.mgmt.storage.v2020_08_01_preview.operations.QueueOperations
     :ivar table_services: TableServices operations
-    :vartype table_services: azure.mgmt.storage.v2019_06_01.operations.TableServicesOperations
+    :vartype table_services: azure.mgmt.storage.v2020_08_01_preview.operations.TableServicesOperations
     :ivar table: Table operations
-    :vartype table: azure.mgmt.storage.v2019_06_01.operations.TableOperations
+    :vartype table: azure.mgmt.storage.v2020_08_01_preview.operations.TableOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -92,7 +95,7 @@ class StorageManagementClient(SDKClient):
         super(StorageManagementClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
-        self.api_version = '2019-06-01'
+        self.api_version = '2020-08-01-preview'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
@@ -101,6 +104,8 @@ class StorageManagementClient(SDKClient):
         self.skus = SkusOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.storage_accounts = StorageAccountsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.deleted_accounts = DeletedAccountsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.usages = UsagesOperations(
             self._client, self.config, self._serialize, self._deserialize)

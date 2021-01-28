@@ -31,6 +31,7 @@ try:
     from ._models_py3 import CustomDomain
     from ._models_py3 import DateAfterCreation
     from ._models_py3 import DateAfterModification
+    from ._models_py3 import DeletedAccount
     from ._models_py3 import DeletedShare
     from ._models_py3 import DeleteRetentionPolicy
     from ._models_py3 import Dimension
@@ -41,6 +42,8 @@ try:
     from ._models_py3 import EncryptionServices
     from ._models_py3 import Endpoints
     from ._models_py3 import ErrorResponse, ErrorResponseException
+    from ._models_py3 import ErrorResponseBody
+    from ._models_py3 import ExtendedLocation
     from ._models_py3 import FileServiceItems
     from ._models_py3 import FileServiceProperties
     from ._models_py3 import FileShare
@@ -51,6 +54,7 @@ try:
     from ._models_py3 import ImmutabilityPolicyProperties
     from ._models_py3 import IPRule
     from ._models_py3 import KeyVaultProperties
+    from ._models_py3 import LastAccessTimeTrackingPolicy
     from ._models_py3 import LeaseContainerRequest
     from ._models_py3 import LeaseContainerResponse
     from ._models_py3 import LegalHold
@@ -70,6 +74,7 @@ try:
     from ._models_py3 import ManagementPolicySchema
     from ._models_py3 import ManagementPolicySnapShot
     from ._models_py3 import MetricSpecification
+    from ._models_py3 import Multichannel
     from ._models_py3 import NetworkRuleSet
     from ._models_py3 import ObjectReplicationPolicy
     from ._models_py3 import ObjectReplicationPolicyFilter
@@ -81,9 +86,11 @@ try:
     from ._models_py3 import PrivateLinkResource
     from ._models_py3 import PrivateLinkResourceListResult
     from ._models_py3 import PrivateLinkServiceConnectionState
+    from ._models_py3 import ProtocolSettings
     from ._models_py3 import ProxyResource
     from ._models_py3 import QueueServiceProperties
     from ._models_py3 import Resource
+    from ._models_py3 import ResourceAccessRule
     from ._models_py3 import RestorePolicyProperties
     from ._models_py3 import Restriction
     from ._models_py3 import RoutingPreference
@@ -92,6 +99,7 @@ try:
     from ._models_py3 import Sku
     from ._models_py3 import SKUCapability
     from ._models_py3 import SkuInformation
+    from ._models_py3 import SmbSetting
     from ._models_py3 import StorageAccount
     from ._models_py3 import StorageAccountCheckNameAvailabilityParameters
     from ._models_py3 import StorageAccountCreateParameters
@@ -134,6 +142,7 @@ except (SyntaxError, ImportError):
     from ._models import CustomDomain
     from ._models import DateAfterCreation
     from ._models import DateAfterModification
+    from ._models import DeletedAccount
     from ._models import DeletedShare
     from ._models import DeleteRetentionPolicy
     from ._models import Dimension
@@ -144,6 +153,8 @@ except (SyntaxError, ImportError):
     from ._models import EncryptionServices
     from ._models import Endpoints
     from ._models import ErrorResponse, ErrorResponseException
+    from ._models import ErrorResponseBody
+    from ._models import ExtendedLocation
     from ._models import FileServiceItems
     from ._models import FileServiceProperties
     from ._models import FileShare
@@ -154,6 +165,7 @@ except (SyntaxError, ImportError):
     from ._models import ImmutabilityPolicyProperties
     from ._models import IPRule
     from ._models import KeyVaultProperties
+    from ._models import LastAccessTimeTrackingPolicy
     from ._models import LeaseContainerRequest
     from ._models import LeaseContainerResponse
     from ._models import LegalHold
@@ -173,6 +185,7 @@ except (SyntaxError, ImportError):
     from ._models import ManagementPolicySchema
     from ._models import ManagementPolicySnapShot
     from ._models import MetricSpecification
+    from ._models import Multichannel
     from ._models import NetworkRuleSet
     from ._models import ObjectReplicationPolicy
     from ._models import ObjectReplicationPolicyFilter
@@ -184,9 +197,11 @@ except (SyntaxError, ImportError):
     from ._models import PrivateLinkResource
     from ._models import PrivateLinkResourceListResult
     from ._models import PrivateLinkServiceConnectionState
+    from ._models import ProtocolSettings
     from ._models import ProxyResource
     from ._models import QueueServiceProperties
     from ._models import Resource
+    from ._models import ResourceAccessRule
     from ._models import RestorePolicyProperties
     from ._models import Restriction
     from ._models import RoutingPreference
@@ -195,6 +210,7 @@ except (SyntaxError, ImportError):
     from ._models import Sku
     from ._models import SKUCapability
     from ._models import SkuInformation
+    from ._models import SmbSetting
     from ._models import StorageAccount
     from ._models import StorageAccountCheckNameAvailabilityParameters
     from ._models import StorageAccountCreateParameters
@@ -217,6 +233,7 @@ except (SyntaxError, ImportError):
     from ._models import VirtualNetworkRule
 from ._paged_models import BlobInventoryPolicyPaged
 from ._paged_models import BlobServicePropertiesPaged
+from ._paged_models import DeletedAccountPaged
 from ._paged_models import EncryptionScopePaged
 from ._paged_models import FileShareItemPaged
 from ._paged_models import ListContainerItemPaged
@@ -245,6 +262,7 @@ from ._storage_management_client_enums import (
     LargeFileSharesState,
     RoutingChoice,
     MinimumTlsVersion,
+    ExtendedLocationTypes,
     GeoReplicationStatus,
     BlobRestoreProgressStatus,
     ProvisioningState,
@@ -267,6 +285,7 @@ from ._storage_management_client_enums import (
     LeaseDuration,
     ImmutabilityPolicyState,
     ImmutabilityPolicyUpdateType,
+    Name,
     EnabledProtocols,
     RootSquashType,
     ShareAccessTier,
@@ -274,6 +293,7 @@ from ._storage_management_client_enums import (
     ListKeyExpand,
     ListContainersInclude,
     ListSharesExpand,
+    PutSharesExpand,
     GetShareExpand,
 )
 
@@ -299,6 +319,7 @@ __all__ = [
     'CustomDomain',
     'DateAfterCreation',
     'DateAfterModification',
+    'DeletedAccount',
     'DeletedShare',
     'DeleteRetentionPolicy',
     'Dimension',
@@ -309,6 +330,8 @@ __all__ = [
     'EncryptionServices',
     'Endpoints',
     'ErrorResponse', 'ErrorResponseException',
+    'ErrorResponseBody',
+    'ExtendedLocation',
     'FileServiceItems',
     'FileServiceProperties',
     'FileShare',
@@ -319,6 +342,7 @@ __all__ = [
     'ImmutabilityPolicyProperties',
     'IPRule',
     'KeyVaultProperties',
+    'LastAccessTimeTrackingPolicy',
     'LeaseContainerRequest',
     'LeaseContainerResponse',
     'LegalHold',
@@ -338,6 +362,7 @@ __all__ = [
     'ManagementPolicySchema',
     'ManagementPolicySnapShot',
     'MetricSpecification',
+    'Multichannel',
     'NetworkRuleSet',
     'ObjectReplicationPolicy',
     'ObjectReplicationPolicyFilter',
@@ -349,9 +374,11 @@ __all__ = [
     'PrivateLinkResource',
     'PrivateLinkResourceListResult',
     'PrivateLinkServiceConnectionState',
+    'ProtocolSettings',
     'ProxyResource',
     'QueueServiceProperties',
     'Resource',
+    'ResourceAccessRule',
     'RestorePolicyProperties',
     'Restriction',
     'RoutingPreference',
@@ -360,6 +387,7 @@ __all__ = [
     'Sku',
     'SKUCapability',
     'SkuInformation',
+    'SmbSetting',
     'StorageAccount',
     'StorageAccountCheckNameAvailabilityParameters',
     'StorageAccountCreateParameters',
@@ -383,6 +411,7 @@ __all__ = [
     'OperationPaged',
     'SkuInformationPaged',
     'StorageAccountPaged',
+    'DeletedAccountPaged',
     'UsagePaged',
     'BlobInventoryPolicyPaged',
     'PrivateEndpointConnectionPaged',
@@ -409,6 +438,7 @@ __all__ = [
     'LargeFileSharesState',
     'RoutingChoice',
     'MinimumTlsVersion',
+    'ExtendedLocationTypes',
     'GeoReplicationStatus',
     'BlobRestoreProgressStatus',
     'ProvisioningState',
@@ -431,6 +461,7 @@ __all__ = [
     'LeaseDuration',
     'ImmutabilityPolicyState',
     'ImmutabilityPolicyUpdateType',
+    'Name',
     'EnabledProtocols',
     'RootSquashType',
     'ShareAccessTier',
@@ -438,5 +469,6 @@ __all__ = [
     'ListKeyExpand',
     'ListContainersInclude',
     'ListSharesExpand',
+    'PutSharesExpand',
     'GetShareExpand',
 ]
