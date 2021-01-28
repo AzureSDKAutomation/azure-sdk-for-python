@@ -64,3 +64,19 @@ class TrafficViewEnrollmentStatus(str, Enum):
 
     enabled = "Enabled"
     disabled = "Disabled"
+
+
+class AllowedEndpointRecordType(str, Enum):
+
+    domain_name = "DomainName"
+    ipv4_address = "IPv4Address"
+    ipv6_address = "IPv6Address"
+    any = "Any"
+
+
+class IdentityType(str, Enum):
+
+    user = "User"
+    application = "Application"
+    managed_identity = "ManagedIdentity"
+    key = "Key"

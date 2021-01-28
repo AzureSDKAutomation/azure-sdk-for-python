@@ -19,12 +19,14 @@ from .. import models
 class HeatMapOperations(object):
     """HeatMapOperations operations.
 
+    You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
+
     :param client: Client for service requests.
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
     :ivar heat_map_type: The type of HeatMap for the Traffic Manager profile. Constant value: "default".
-    :ivar api_version: Client Api Version. Constant value: "2018-04-01".
+    :ivar api_version: Client Api Version. Constant value: "2020-12-01-preview".
     """
 
     models = models
@@ -35,7 +37,7 @@ class HeatMapOperations(object):
         self._serialize = serializer
         self._deserialize = deserializer
         self.heat_map_type = "default"
-        self.api_version = "2018-04-01"
+        self.api_version = "2020-12-01-preview"
 
         self.config = config
 
@@ -102,7 +104,6 @@ class HeatMapOperations(object):
             raise exp
 
         deserialized = None
-
         if response.status_code == 200:
             deserialized = self._deserialize('HeatMapModel', response)
 

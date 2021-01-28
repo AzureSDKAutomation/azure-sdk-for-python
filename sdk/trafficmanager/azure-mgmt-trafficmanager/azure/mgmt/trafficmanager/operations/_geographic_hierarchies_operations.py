@@ -19,11 +19,13 @@ from .. import models
 class GeographicHierarchiesOperations(object):
     """GeographicHierarchiesOperations operations.
 
+    You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
+
     :param client: Client for service requests.
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client Api Version. Constant value: "2018-04-01".
+    :ivar api_version: Client Api Version. Constant value: "2020-12-01-preview".
     """
 
     models = models
@@ -33,7 +35,7 @@ class GeographicHierarchiesOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2018-04-01"
+        self.api_version = "2020-12-01-preview"
 
         self.config = config
 
@@ -81,7 +83,6 @@ class GeographicHierarchiesOperations(object):
             raise exp
 
         deserialized = None
-
         if response.status_code == 200:
             deserialized = self._deserialize('TrafficManagerGeographicHierarchy', response)
 
