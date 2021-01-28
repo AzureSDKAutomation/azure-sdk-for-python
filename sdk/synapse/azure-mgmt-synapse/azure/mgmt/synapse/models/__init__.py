@@ -28,13 +28,14 @@ try:
     from ._models_py3 import DataMaskingPolicy
     from ._models_py3 import DataMaskingRule
     from ._models_py3 import DataWarehouseUserActivities
+    from ._models_py3 import DynamicExecutorAllocation
     from ._models_py3 import EncryptionDetails
+    from ._models_py3 import EncryptionProtector
     from ._models_py3 import EntityReference
     from ._models_py3 import EnvironmentVariableSetup
     from ._models_py3 import ErrorAdditionalInfo
-    from ._models_py3 import ErrorContract, ErrorContractException
     from ._models_py3 import ErrorDetail
-    from ._models_py3 import ErrorResponse
+    from ._models_py3 import ErrorResponse, ErrorResponseException
     from ._models_py3 import ExtendedServerBlobAuditingPolicy
     from ._models_py3 import ExtendedSqlPoolBlobAuditingPolicy
     from ._models_py3 import GeoBackupPolicy
@@ -59,11 +60,16 @@ try:
     from ._models_py3 import IpFirewallRuleInfo
     from ._models_py3 import IpFirewallRuleProperties
     from ._models_py3 import Key
+    from ._models_py3 import LibraryInfo
     from ._models_py3 import LibraryRequirements
+    from ._models_py3 import LibraryResource
     from ._models_py3 import LinkedIntegrationRuntime
     from ._models_py3 import LinkedIntegrationRuntimeKeyAuthorization
     from ._models_py3 import LinkedIntegrationRuntimeRbacAuthorization
     from ._models_py3 import LinkedIntegrationRuntimeType
+    from ._models_py3 import MaintenanceWindowOptions
+    from ._models_py3 import MaintenanceWindows
+    from ._models_py3 import MaintenanceWindowTimeRange
     from ._models_py3 import ManagedIdentity
     from ._models_py3 import ManagedIdentitySqlControlSettingsModel
     from ._models_py3 import ManagedIdentitySqlControlSettingsModelPropertiesGrantSqlControlToManagedIdentity
@@ -93,11 +99,14 @@ try:
     from ._models_py3 import QueryInterval
     from ._models_py3 import QueryMetric
     from ._models_py3 import QueryStatistic
+    from ._models_py3 import RecommendedSensitivityLabelUpdate
+    from ._models_py3 import RecommendedSensitivityLabelUpdateList
     from ._models_py3 import RecoverableSqlPool
     from ._models_py3 import ReplaceAllFirewallRulesOperationResponse
     from ._models_py3 import ReplaceAllIpFirewallRulesRequest
     from ._models_py3 import ReplicationLink
     from ._models_py3 import Resource
+    from ._models_py3 import ResourceMoveDefinition
     from ._models_py3 import RestorableDroppedSqlPool
     from ._models_py3 import RestorePoint
     from ._models_py3 import SecretBase
@@ -106,6 +115,8 @@ try:
     from ._models_py3 import SelfHostedIntegrationRuntimeNode
     from ._models_py3 import SelfHostedIntegrationRuntimeStatus
     from ._models_py3 import SensitivityLabel
+    from ._models_py3 import SensitivityLabelUpdate
+    from ._models_py3 import SensitivityLabelUpdateList
     from ._models_py3 import ServerBlobAuditingPolicy
     from ._models_py3 import ServerSecurityAlertPolicy
     from ._models_py3 import ServerUsage
@@ -172,13 +183,14 @@ except (SyntaxError, ImportError):
     from ._models import DataMaskingPolicy
     from ._models import DataMaskingRule
     from ._models import DataWarehouseUserActivities
+    from ._models import DynamicExecutorAllocation
     from ._models import EncryptionDetails
+    from ._models import EncryptionProtector
     from ._models import EntityReference
     from ._models import EnvironmentVariableSetup
     from ._models import ErrorAdditionalInfo
-    from ._models import ErrorContract, ErrorContractException
     from ._models import ErrorDetail
-    from ._models import ErrorResponse
+    from ._models import ErrorResponse, ErrorResponseException
     from ._models import ExtendedServerBlobAuditingPolicy
     from ._models import ExtendedSqlPoolBlobAuditingPolicy
     from ._models import GeoBackupPolicy
@@ -203,11 +215,16 @@ except (SyntaxError, ImportError):
     from ._models import IpFirewallRuleInfo
     from ._models import IpFirewallRuleProperties
     from ._models import Key
+    from ._models import LibraryInfo
     from ._models import LibraryRequirements
+    from ._models import LibraryResource
     from ._models import LinkedIntegrationRuntime
     from ._models import LinkedIntegrationRuntimeKeyAuthorization
     from ._models import LinkedIntegrationRuntimeRbacAuthorization
     from ._models import LinkedIntegrationRuntimeType
+    from ._models import MaintenanceWindowOptions
+    from ._models import MaintenanceWindows
+    from ._models import MaintenanceWindowTimeRange
     from ._models import ManagedIdentity
     from ._models import ManagedIdentitySqlControlSettingsModel
     from ._models import ManagedIdentitySqlControlSettingsModelPropertiesGrantSqlControlToManagedIdentity
@@ -237,11 +254,14 @@ except (SyntaxError, ImportError):
     from ._models import QueryInterval
     from ._models import QueryMetric
     from ._models import QueryStatistic
+    from ._models import RecommendedSensitivityLabelUpdate
+    from ._models import RecommendedSensitivityLabelUpdateList
     from ._models import RecoverableSqlPool
     from ._models import ReplaceAllFirewallRulesOperationResponse
     from ._models import ReplaceAllIpFirewallRulesRequest
     from ._models import ReplicationLink
     from ._models import Resource
+    from ._models import ResourceMoveDefinition
     from ._models import RestorableDroppedSqlPool
     from ._models import RestorePoint
     from ._models import SecretBase
@@ -250,6 +270,8 @@ except (SyntaxError, ImportError):
     from ._models import SelfHostedIntegrationRuntimeNode
     from ._models import SelfHostedIntegrationRuntimeStatus
     from ._models import SensitivityLabel
+    from ._models import SensitivityLabelUpdate
+    from ._models import SensitivityLabelUpdateList
     from ._models import ServerBlobAuditingPolicy
     from ._models import ServerSecurityAlertPolicy
     from ._models import ServerUsage
@@ -299,12 +321,14 @@ except (SyntaxError, ImportError):
     from ._models import WorkspaceRepositoryConfiguration
 from ._paged_models import BigDataPoolResourceInfoPaged
 from ._paged_models import DataMaskingRulePaged
+from ._paged_models import EncryptionProtectorPaged
 from ._paged_models import ExtendedServerBlobAuditingPolicyPaged
 from ._paged_models import ExtendedSqlPoolBlobAuditingPolicyPaged
 from ._paged_models import GeoBackupPolicyPaged
 from ._paged_models import IntegrationRuntimeResourcePaged
 from ._paged_models import IpFirewallRuleInfoPaged
 from ._paged_models import KeyPaged
+from ._paged_models import LibraryResourcePaged
 from ._paged_models import PrivateEndpointConnectionForPrivateLinkHubPaged
 from ._paged_models import PrivateEndpointConnectionPaged
 from ._paged_models import PrivateLinkHubPaged
@@ -337,6 +361,7 @@ from ._synapse_management_client_enums import (
     NodeSizeFamily,
     ProvisioningState,
     OperationStatus,
+    StorageAccountType,
     GeoBackupPolicyState,
     QueryAggregationFunction,
     QueryExecutionType,
@@ -345,9 +370,11 @@ from ._synapse_management_client_enums import (
     RestorePointType,
     ReplicationRole,
     ReplicationState,
+    DayOfWeek,
     TransparentDataEncryptionStatus,
     BlobAuditingPolicyState,
     ManagementOperationState,
+    SensitivityLabelRank,
     ColumnDataType,
     VulnerabilityAssessmentScanTriggerType,
     VulnerabilityAssessmentScanState,
@@ -355,6 +382,8 @@ from ._synapse_management_client_enums import (
     DataMaskingState,
     DataMaskingRuleState,
     DataMaskingFunction,
+    SensitivityLabelUpdateKind,
+    RecommendedSensitivityLabelUpdateKind,
     ResourceIdentityType,
     IntegrationRuntimeType,
     IntegrationRuntimeState,
@@ -370,6 +399,7 @@ from ._synapse_management_client_enums import (
     IntegrationRuntimeAutoUpdate,
     IntegrationRuntimeAuthKeyName,
     SsisObjectMetadataType,
+    ServerKeyType,
     SensitivityLabelSource,
     VulnerabilityAssessmentPolicyBaselineName,
 )
@@ -393,13 +423,14 @@ __all__ = [
     'DataMaskingPolicy',
     'DataMaskingRule',
     'DataWarehouseUserActivities',
+    'DynamicExecutorAllocation',
     'EncryptionDetails',
+    'EncryptionProtector',
     'EntityReference',
     'EnvironmentVariableSetup',
     'ErrorAdditionalInfo',
-    'ErrorContract', 'ErrorContractException',
     'ErrorDetail',
-    'ErrorResponse',
+    'ErrorResponse', 'ErrorResponseException',
     'ExtendedServerBlobAuditingPolicy',
     'ExtendedSqlPoolBlobAuditingPolicy',
     'GeoBackupPolicy',
@@ -424,11 +455,16 @@ __all__ = [
     'IpFirewallRuleInfo',
     'IpFirewallRuleProperties',
     'Key',
+    'LibraryInfo',
     'LibraryRequirements',
+    'LibraryResource',
     'LinkedIntegrationRuntime',
     'LinkedIntegrationRuntimeKeyAuthorization',
     'LinkedIntegrationRuntimeRbacAuthorization',
     'LinkedIntegrationRuntimeType',
+    'MaintenanceWindowOptions',
+    'MaintenanceWindows',
+    'MaintenanceWindowTimeRange',
     'ManagedIdentity',
     'ManagedIdentitySqlControlSettingsModel',
     'ManagedIdentitySqlControlSettingsModelPropertiesGrantSqlControlToManagedIdentity',
@@ -458,11 +494,14 @@ __all__ = [
     'QueryInterval',
     'QueryMetric',
     'QueryStatistic',
+    'RecommendedSensitivityLabelUpdate',
+    'RecommendedSensitivityLabelUpdateList',
     'RecoverableSqlPool',
     'ReplaceAllFirewallRulesOperationResponse',
     'ReplaceAllIpFirewallRulesRequest',
     'ReplicationLink',
     'Resource',
+    'ResourceMoveDefinition',
     'RestorableDroppedSqlPool',
     'RestorePoint',
     'SecretBase',
@@ -471,6 +510,8 @@ __all__ = [
     'SelfHostedIntegrationRuntimeNode',
     'SelfHostedIntegrationRuntimeStatus',
     'SensitivityLabel',
+    'SensitivityLabelUpdate',
+    'SensitivityLabelUpdateList',
     'ServerBlobAuditingPolicy',
     'ServerSecurityAlertPolicy',
     'ServerUsage',
@@ -550,13 +591,16 @@ __all__ = [
     'ExtendedServerBlobAuditingPolicyPaged',
     'ServerSecurityAlertPolicyPaged',
     'ServerVulnerabilityAssessmentPaged',
+    'EncryptionProtectorPaged',
     'ServerUsagePaged',
     'RecoverableSqlPoolPaged',
     'KeyPaged',
+    'LibraryResourcePaged',
     'NodeSize',
     'NodeSizeFamily',
     'ProvisioningState',
     'OperationStatus',
+    'StorageAccountType',
     'GeoBackupPolicyState',
     'QueryAggregationFunction',
     'QueryExecutionType',
@@ -565,9 +609,11 @@ __all__ = [
     'RestorePointType',
     'ReplicationRole',
     'ReplicationState',
+    'DayOfWeek',
     'TransparentDataEncryptionStatus',
     'BlobAuditingPolicyState',
     'ManagementOperationState',
+    'SensitivityLabelRank',
     'ColumnDataType',
     'VulnerabilityAssessmentScanTriggerType',
     'VulnerabilityAssessmentScanState',
@@ -575,6 +621,8 @@ __all__ = [
     'DataMaskingState',
     'DataMaskingRuleState',
     'DataMaskingFunction',
+    'SensitivityLabelUpdateKind',
+    'RecommendedSensitivityLabelUpdateKind',
     'ResourceIdentityType',
     'IntegrationRuntimeType',
     'IntegrationRuntimeState',
@@ -590,6 +638,7 @@ __all__ = [
     'IntegrationRuntimeAutoUpdate',
     'IntegrationRuntimeAuthKeyName',
     'SsisObjectMetadataType',
+    'ServerKeyType',
     'SensitivityLabelSource',
     'VulnerabilityAssessmentPolicyBaselineName',
 ]

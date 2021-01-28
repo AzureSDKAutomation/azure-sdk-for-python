@@ -11,13 +11,12 @@
 
 import uuid
 from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
 
 from .. import models
 
 
-class WorkspaceManagedSqlServerUsagesOperations(object):
-    """WorkspaceManagedSqlServerUsagesOperations operations.
+class LibrariesOperations(object):
+    """LibrariesOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -39,11 +38,11 @@ class WorkspaceManagedSqlServerUsagesOperations(object):
 
         self.config = config
 
-    def list(
+    def list_by_workspace(
             self, resource_group_name, workspace_name, custom_headers=None, raw=False, **operation_config):
-        """Get list of usages metric for the server.
+        """List the libraries in a workspace.
 
-        Get list of server usages metric for workspace managed sql server.
+        List libraries in a workspace.
 
         :param resource_group_name: The name of the resource group. The name
          is case insensitive.
@@ -55,15 +54,16 @@ class WorkspaceManagedSqlServerUsagesOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of ServerUsage
+        :return: An iterator like instance of LibraryResource
         :rtype:
-         ~azure.mgmt.synapse.models.ServerUsagePaged[~azure.mgmt.synapse.models.ServerUsage]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+         ~azure.mgmt.synapse.models.LibraryResourcePaged[~azure.mgmt.synapse.models.LibraryResource]
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.synapse.models.ErrorResponseException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
-                url = self.list.metadata['url']
+                url = self.list_by_workspace.metadata['url']
                 path_format_arguments = {
                     'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', min_length=1),
                     'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str', max_length=90, min_length=1, pattern=r'^[-\w\._\(\)]+$'),
@@ -99,9 +99,7 @@ class WorkspaceManagedSqlServerUsagesOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
+                raise models.ErrorResponseException(self._deserialize, response)
 
             return response
 
@@ -109,7 +107,7 @@ class WorkspaceManagedSqlServerUsagesOperations(object):
         header_dict = None
         if raw:
             header_dict = {}
-        deserialized = models.ServerUsagePaged(internal_paging, self._deserialize.dependencies, header_dict)
+        deserialized = models.LibraryResourcePaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Synapse/workspaces/{workspaceName}/sqlUsages'}
+    list_by_workspace.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Synapse/workspaces/{workspaceName}/libraries'}
