@@ -109,9 +109,9 @@ from .operations import VpnServerConfigurationsOperations
 from .operations import VirtualHubsOperations
 from .operations import HubVirtualNetworkConnectionsOperations
 from .operations import VpnGatewaysOperations
+from .operations import VpnLinkConnectionsOperations
 from .operations import VpnConnectionsOperations
 from .operations import VpnSiteLinkConnectionsOperations
-from .operations import VpnLinkConnectionsOperations
 from .operations import NatRulesOperations
 from .operations import P2SVpnGatewaysOperations
 from .operations import VpnServerConfigurationsAssociatedWithVirtualWanOperations
@@ -313,12 +313,12 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin):
     :vartype hub_virtual_network_connections: azure.mgmt.network.v2020_08_01.aio.operations.HubVirtualNetworkConnectionsOperations
     :ivar vpn_gateways: VpnGatewaysOperations operations
     :vartype vpn_gateways: azure.mgmt.network.v2020_08_01.aio.operations.VpnGatewaysOperations
+    :ivar vpn_link_connections: VpnLinkConnectionsOperations operations
+    :vartype vpn_link_connections: azure.mgmt.network.v2020_08_01.aio.operations.VpnLinkConnectionsOperations
     :ivar vpn_connections: VpnConnectionsOperations operations
     :vartype vpn_connections: azure.mgmt.network.v2020_08_01.aio.operations.VpnConnectionsOperations
     :ivar vpn_site_link_connections: VpnSiteLinkConnectionsOperations operations
     :vartype vpn_site_link_connections: azure.mgmt.network.v2020_08_01.aio.operations.VpnSiteLinkConnectionsOperations
-    :ivar vpn_link_connections: VpnLinkConnectionsOperations operations
-    :vartype vpn_link_connections: azure.mgmt.network.v2020_08_01.aio.operations.VpnLinkConnectionsOperations
     :ivar nat_rules: NatRulesOperations operations
     :vartype nat_rules: azure.mgmt.network.v2020_08_01.aio.operations.NatRulesOperations
     :ivar p2_svpn_gateways: P2SVpnGatewaysOperations operations
@@ -549,11 +549,11 @@ class NetworkManagementClient(NetworkManagementClientOperationsMixin):
             self._client, self._config, self._serialize, self._deserialize)
         self.vpn_gateways = VpnGatewaysOperations(
             self._client, self._config, self._serialize, self._deserialize)
+        self.vpn_link_connections = VpnLinkConnectionsOperations(
+            self._client, self._config, self._serialize, self._deserialize)
         self.vpn_connections = VpnConnectionsOperations(
             self._client, self._config, self._serialize, self._deserialize)
         self.vpn_site_link_connections = VpnSiteLinkConnectionsOperations(
-            self._client, self._config, self._serialize, self._deserialize)
-        self.vpn_link_connections = VpnLinkConnectionsOperations(
             self._client, self._config, self._serialize, self._deserialize)
         self.nat_rules = NatRulesOperations(
             self._client, self._config, self._serialize, self._deserialize)

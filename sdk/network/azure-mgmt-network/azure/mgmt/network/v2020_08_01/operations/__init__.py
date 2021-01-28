@@ -99,9 +99,9 @@ from ._vpn_server_configurations_operations import VpnServerConfigurationsOperat
 from ._virtual_hubs_operations import VirtualHubsOperations
 from ._hub_virtual_network_connections_operations import HubVirtualNetworkConnectionsOperations
 from ._vpn_gateways_operations import VpnGatewaysOperations
+from ._vpn_link_connections_operations import VpnLinkConnectionsOperations
 from ._vpn_connections_operations import VpnConnectionsOperations
 from ._vpn_site_link_connections_operations import VpnSiteLinkConnectionsOperations
-from ._vpn_link_connections_operations import VpnLinkConnectionsOperations
 from ._nat_rules_operations import NatRulesOperations
 from ._p2_svpn_gateways_operations import P2SVpnGatewaysOperations
 from ._vpn_server_configurations_associated_with_virtual_wan_operations import VpnServerConfigurationsAssociatedWithVirtualWanOperations
@@ -208,9 +208,9 @@ __all__ = [
     'VirtualHubsOperations',
     'HubVirtualNetworkConnectionsOperations',
     'VpnGatewaysOperations',
+    'VpnLinkConnectionsOperations',
     'VpnConnectionsOperations',
     'VpnSiteLinkConnectionsOperations',
-    'VpnLinkConnectionsOperations',
     'NatRulesOperations',
     'P2SVpnGatewaysOperations',
     'VpnServerConfigurationsAssociatedWithVirtualWanOperations',
