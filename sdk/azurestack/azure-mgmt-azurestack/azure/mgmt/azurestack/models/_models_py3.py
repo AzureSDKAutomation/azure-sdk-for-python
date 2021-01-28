@@ -37,34 +37,53 @@ class CloudError(Model):
     }
 
 
-class Compatibility(Model):
-    """Product compatibility.
+class CloudManifestFileDeploymentData(Model):
+    """Cloud specific manifest data for AzureStack deployment.
 
-    :param is_compatible: Tells if product is compatible with current device
-    :type is_compatible: bool
-    :param message: Short error message if any compatibility issues are found
-    :type message: str
-    :param description: Full error message if any compatibility issues are
-     found
-    :type description: str
-    :param issues: List of all issues found
-    :type issues: list[str or
-     ~azure.mgmt.azurestack.models.CompatibilityIssue]
+    :param external_dsms_certificates: Dsms external certificates.
+    :type external_dsms_certificates: str
+    :param custom_cloud_verification_key: Signing verification public key.
+    :type custom_cloud_verification_key: str
+    :param custom_cloud_arm_endpoint: ARM endpoint.
+    :type custom_cloud_arm_endpoint: str
+    :param external_dsms_endpoint: Dsms endpoint.
+    :type external_dsms_endpoint: str
     """
 
     _attribute_map = {
-        'is_compatible': {'key': 'isCompatible', 'type': 'bool'},
-        'message': {'key': 'message', 'type': 'str'},
-        'description': {'key': 'description', 'type': 'str'},
-        'issues': {'key': 'issues', 'type': '[str]'},
+        'external_dsms_certificates': {'key': 'externalDsmsCertificates', 'type': 'str'},
+        'custom_cloud_verification_key': {'key': 'customCloudVerificationKey', 'type': 'str'},
+        'custom_cloud_arm_endpoint': {'key': 'customEnvironmentEndpoints.customCloudArmEndpoint', 'type': 'str'},
+        'external_dsms_endpoint': {'key': 'customEnvironmentEndpoints.externalDsmsEndpoint', 'type': 'str'},
     }
 
-    def __init__(self, *, is_compatible: bool=None, message: str=None, description: str=None, issues=None, **kwargs) -> None:
-        super(Compatibility, self).__init__(**kwargs)
-        self.is_compatible = is_compatible
-        self.message = message
-        self.description = description
-        self.issues = issues
+    def __init__(self, *, external_dsms_certificates: str=None, custom_cloud_verification_key: str=None, custom_cloud_arm_endpoint: str=None, external_dsms_endpoint: str=None, **kwargs) -> None:
+        super(CloudManifestFileDeploymentData, self).__init__(**kwargs)
+        self.external_dsms_certificates = external_dsms_certificates
+        self.custom_cloud_verification_key = custom_cloud_verification_key
+        self.custom_cloud_arm_endpoint = custom_cloud_arm_endpoint
+        self.external_dsms_endpoint = external_dsms_endpoint
+
+
+class CloudManifestFileProperties(Model):
+    """Cloud specific manifest JSON properties.
+
+    :param deployment_data: Cloud specific manifest data.
+    :type deployment_data:
+     ~azure.mgmt.azurestack.models.CloudManifestFileDeploymentData
+    :param signature: Signature of the cloud specific manifest data.
+    :type signature: str
+    """
+
+    _attribute_map = {
+        'deployment_data': {'key': 'deploymentData', 'type': 'CloudManifestFileDeploymentData'},
+        'signature': {'key': 'signature', 'type': 'str'},
+    }
+
+    def __init__(self, *, deployment_data=None, signature: str=None, **kwargs) -> None:
+        super(CloudManifestFileProperties, self).__init__(**kwargs)
+        self.deployment_data = deployment_data
+        self.signature = signature
 
 
 class Resource(Model):
@@ -105,6 +124,75 @@ class Resource(Model):
         self.etag = etag
 
 
+class CloudManifestFileResponse(Resource):
+    """Cloud specific manifest GET response.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: ID of the resource.
+    :vartype id: str
+    :ivar name: Name of the resource.
+    :vartype name: str
+    :ivar type: Type of Resource.
+    :vartype type: str
+    :param etag: The entity tag used for optimistic concurrency when modifying
+     the resource.
+    :type etag: str
+    :param properties: Cloud specific manifest data.
+    :type properties:
+     ~azure.mgmt.azurestack.models.CloudManifestFileProperties
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'etag': {'key': 'etag', 'type': 'str'},
+        'properties': {'key': 'properties', 'type': 'CloudManifestFileProperties'},
+    }
+
+    def __init__(self, *, etag: str=None, properties=None, **kwargs) -> None:
+        super(CloudManifestFileResponse, self).__init__(etag=etag, **kwargs)
+        self.properties = properties
+
+
+class Compatibility(Model):
+    """Product compatibility.
+
+    :param is_compatible: Tells if product is compatible with current device
+    :type is_compatible: bool
+    :param message: Short error message if any compatibility issues are found
+    :type message: str
+    :param description: Full error message if any compatibility issues are
+     found
+    :type description: str
+    :param issues: List of all issues found
+    :type issues: list[str or
+     ~azure.mgmt.azurestack.models.CompatibilityIssue]
+    """
+
+    _attribute_map = {
+        'is_compatible': {'key': 'isCompatible', 'type': 'bool'},
+        'message': {'key': 'message', 'type': 'str'},
+        'description': {'key': 'description', 'type': 'str'},
+        'issues': {'key': 'issues', 'type': '[str]'},
+    }
+
+    def __init__(self, *, is_compatible: bool=None, message: str=None, description: str=None, issues=None, **kwargs) -> None:
+        super(Compatibility, self).__init__(**kwargs)
+        self.is_compatible = is_compatible
+        self.message = message
+        self.description = description
+        self.issues = issues
+
+
 class CustomerSubscription(Resource):
     """Customer subscription.
 
@@ -122,6 +210,8 @@ class CustomerSubscription(Resource):
     :type etag: str
     :param tenant_id: Tenant Id.
     :type tenant_id: str
+    :param system_data:
+    :type system_data: ~azure.mgmt.azurestack.models.SystemData
     """
 
     _validation = {
@@ -136,11 +226,13 @@ class CustomerSubscription(Resource):
         'type': {'key': 'type', 'type': 'str'},
         'etag': {'key': 'etag', 'type': 'str'},
         'tenant_id': {'key': 'properties.tenantId', 'type': 'str'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
     }
 
-    def __init__(self, *, etag: str=None, tenant_id: str=None, **kwargs) -> None:
+    def __init__(self, *, etag: str=None, tenant_id: str=None, system_data=None, **kwargs) -> None:
         super(CustomerSubscription, self).__init__(etag=etag, **kwargs)
         self.tenant_id = tenant_id
+        self.system_data = system_data
 
 
 class DataDiskImage(Model):
@@ -411,6 +503,195 @@ class IconUris(Model):
         self.hero = hero
 
 
+class TrackedResource(Model):
+    """Base resource object.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: ID of the resource.
+    :vartype id: str
+    :ivar name: Name of the resource.
+    :vartype name: str
+    :ivar type: Type of Resource.
+    :vartype type: str
+    :ivar kind: The kind of the resource.
+    :vartype kind: str
+    :param system_data:
+    :type system_data: ~azure.mgmt.azurestack.models.SystemData
+    :ivar location: Required. Location of the resource. Default value:
+     "global" .
+    :vartype location: str
+    :param tags: Custom tags for the resource.
+    :type tags: dict[str, str]
+    :param etag: The entity tag used for optimistic concurrency when modifying
+     the resource.
+    :type etag: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'kind': {'readonly': True},
+        'location': {'required': True, 'constant': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
+        'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'etag': {'key': 'etag', 'type': 'str'},
+    }
+
+    location = "global"
+
+    def __init__(self, *, system_data=None, tags=None, etag: str=None, **kwargs) -> None:
+        super(TrackedResource, self).__init__(**kwargs)
+        self.id = None
+        self.name = None
+        self.type = None
+        self.kind = None
+        self.system_data = system_data
+        self.tags = tags
+        self.etag = etag
+
+
+class LinkedSubscription(TrackedResource):
+    """Linked Subscription information.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: ID of the resource.
+    :vartype id: str
+    :ivar name: Name of the resource.
+    :vartype name: str
+    :ivar type: Type of Resource.
+    :vartype type: str
+    :ivar kind: The kind of the resource.
+    :vartype kind: str
+    :param system_data:
+    :type system_data: ~azure.mgmt.azurestack.models.SystemData
+    :ivar location: Required. Location of the resource. Default value:
+     "global" .
+    :vartype location: str
+    :param tags: Custom tags for the resource.
+    :type tags: dict[str, str]
+    :param etag: The entity tag used for optimistic concurrency when modifying
+     the resource.
+    :type etag: str
+    :param linked_subscription_id: The identifier associated with the device
+     subscription.
+    :type linked_subscription_id: str
+    :param registration_resource_id: The identifier associated with the device
+     registration.
+    :type registration_resource_id: str
+    :ivar device_id: The identifier of the Azure Stack device for remote
+     management.
+    :vartype device_id: str
+    :ivar device_object_id: The object identifier associated with the Azure
+     Stack device connecting to Azure.
+    :vartype device_object_id: str
+    :ivar device_link_state: The connection state of the Azure Stack device.
+    :vartype device_link_state: str
+    :ivar last_connected_time: The last remote management connection time for
+     the Azure Stack device connected to the linked subscription resource.
+    :vartype last_connected_time: str
+    :ivar device_connection_status: The status of the remote management
+     connection of the Azure Stack device.
+    :vartype device_connection_status: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'kind': {'readonly': True},
+        'location': {'required': True, 'constant': True},
+        'device_id': {'readonly': True},
+        'device_object_id': {'readonly': True},
+        'device_link_state': {'readonly': True},
+        'last_connected_time': {'readonly': True},
+        'device_connection_status': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
+        'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'etag': {'key': 'etag', 'type': 'str'},
+        'linked_subscription_id': {'key': 'properties.linkedSubscriptionId', 'type': 'str'},
+        'registration_resource_id': {'key': 'properties.registrationResourceId', 'type': 'str'},
+        'device_id': {'key': 'properties.deviceId', 'type': 'str'},
+        'device_object_id': {'key': 'properties.deviceObjectId', 'type': 'str'},
+        'device_link_state': {'key': 'properties.deviceLinkState', 'type': 'str'},
+        'last_connected_time': {'key': 'properties.lastConnectedTime', 'type': 'str'},
+        'device_connection_status': {'key': 'properties.deviceConnectionStatus', 'type': 'str'},
+    }
+
+    def __init__(self, *, system_data=None, tags=None, etag: str=None, linked_subscription_id: str=None, registration_resource_id: str=None, **kwargs) -> None:
+        super(LinkedSubscription, self).__init__(system_data=system_data, tags=tags, etag=etag, **kwargs)
+        self.linked_subscription_id = linked_subscription_id
+        self.registration_resource_id = registration_resource_id
+        self.device_id = None
+        self.device_object_id = None
+        self.device_link_state = None
+        self.last_connected_time = None
+        self.device_connection_status = None
+
+
+class LinkedSubscriptionParameter(Model):
+    """Linked Subscription resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param linked_subscription_id: Required. The identifier associated with
+     the device subscription.
+    :type linked_subscription_id: str
+    :param registration_resource_id: Required. The identifier associated with
+     the device registration.
+    :type registration_resource_id: str
+    :ivar location: Required. Location of the resource. Default value:
+     "global" .
+    :vartype location: str
+    """
+
+    _validation = {
+        'linked_subscription_id': {'required': True},
+        'registration_resource_id': {'required': True},
+        'location': {'required': True, 'constant': True},
+    }
+
+    _attribute_map = {
+        'linked_subscription_id': {'key': 'properties.linkedSubscriptionId', 'type': 'str'},
+        'registration_resource_id': {'key': 'properties.registrationResourceId', 'type': 'str'},
+        'location': {'key': 'location', 'type': 'str'},
+    }
+
+    location = "global"
+
+    def __init__(self, *, linked_subscription_id: str, registration_resource_id: str, **kwargs) -> None:
+        super(LinkedSubscriptionParameter, self).__init__(**kwargs)
+        self.linked_subscription_id = linked_subscription_id
+        self.registration_resource_id = registration_resource_id
+
+
 class MarketplaceProductLogUpdate(Model):
     """Update details for product log.
 
@@ -559,6 +840,8 @@ class Product(Resource):
     :type product_properties: ~azure.mgmt.azurestack.models.ProductProperties
     :param compatibility: Product compatibility with current device.
     :type compatibility: ~azure.mgmt.azurestack.models.Compatibility
+    :param system_data:
+    :type system_data: ~azure.mgmt.azurestack.models.SystemData
     """
 
     _validation = {
@@ -590,9 +873,10 @@ class Product(Resource):
         'product_kind': {'key': 'properties.productKind', 'type': 'str'},
         'product_properties': {'key': 'properties.productProperties', 'type': 'ProductProperties'},
         'compatibility': {'key': 'properties.compatibility', 'type': 'Compatibility'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
     }
 
-    def __init__(self, *, etag: str=None, display_name: str=None, description: str=None, publisher_display_name: str=None, publisher_identifier: str=None, offer: str=None, offer_version: str=None, sku: str=None, billing_part_number: str=None, vm_extension_type: str=None, gallery_item_identity: str=None, icon_uris=None, links=None, legal_terms: str=None, privacy_policy: str=None, payload_length: int=None, product_kind: str=None, product_properties=None, compatibility=None, **kwargs) -> None:
+    def __init__(self, *, etag: str=None, display_name: str=None, description: str=None, publisher_display_name: str=None, publisher_identifier: str=None, offer: str=None, offer_version: str=None, sku: str=None, billing_part_number: str=None, vm_extension_type: str=None, gallery_item_identity: str=None, icon_uris=None, links=None, legal_terms: str=None, privacy_policy: str=None, payload_length: int=None, product_kind: str=None, product_properties=None, compatibility=None, system_data=None, **kwargs) -> None:
         super(Product, self).__init__(etag=etag, **kwargs)
         self.display_name = display_name
         self.description = description
@@ -612,6 +896,7 @@ class Product(Resource):
         self.product_kind = product_kind
         self.product_properties = product_properties
         self.compatibility = compatibility
+        self.system_data = system_data
 
 
 class ProductLink(Model):
@@ -743,57 +1028,6 @@ class ProductProperties(Model):
         self.version = version
 
 
-class TrackedResource(Model):
-    """Base resource object.
-
-    Variables are only populated by the server, and will be ignored when
-    sending a request.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :ivar id: ID of the resource.
-    :vartype id: str
-    :ivar name: Name of the resource.
-    :vartype name: str
-    :ivar type: Type of Resource.
-    :vartype type: str
-    :ivar location: Required. Location of the resource. Default value:
-     "global" .
-    :vartype location: str
-    :param tags: Custom tags for the resource.
-    :type tags: dict[str, str]
-    :param etag: The entity tag used for optimistic concurrency when modifying
-     the resource.
-    :type etag: str
-    """
-
-    _validation = {
-        'id': {'readonly': True},
-        'name': {'readonly': True},
-        'type': {'readonly': True},
-        'location': {'required': True, 'constant': True},
-    }
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'str'},
-        'location': {'key': 'location', 'type': 'str'},
-        'tags': {'key': 'tags', 'type': '{str}'},
-        'etag': {'key': 'etag', 'type': 'str'},
-    }
-
-    location = "global"
-
-    def __init__(self, *, tags=None, etag: str=None, **kwargs) -> None:
-        super(TrackedResource, self).__init__(**kwargs)
-        self.id = None
-        self.name = None
-        self.type = None
-        self.tags = tags
-        self.etag = etag
-
-
 class Registration(TrackedResource):
     """Registration information.
 
@@ -808,6 +1042,10 @@ class Registration(TrackedResource):
     :vartype name: str
     :ivar type: Type of Resource.
     :vartype type: str
+    :ivar kind: The kind of the resource.
+    :vartype kind: str
+    :param system_data:
+    :type system_data: ~azure.mgmt.azurestack.models.SystemData
     :ivar location: Required. Location of the resource. Default value:
      "global" .
     :vartype location: str
@@ -830,6 +1068,7 @@ class Registration(TrackedResource):
         'id': {'readonly': True},
         'name': {'readonly': True},
         'type': {'readonly': True},
+        'kind': {'readonly': True},
         'location': {'required': True, 'constant': True},
     }
 
@@ -837,6 +1076,8 @@ class Registration(TrackedResource):
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'system_data': {'key': 'systemData', 'type': 'SystemData'},
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
         'etag': {'key': 'etag', 'type': 'str'},
@@ -845,8 +1086,8 @@ class Registration(TrackedResource):
         'billing_model': {'key': 'properties.billingModel', 'type': 'str'},
     }
 
-    def __init__(self, *, tags=None, etag: str=None, object_id: str=None, cloud_id: str=None, billing_model: str=None, **kwargs) -> None:
-        super(Registration, self).__init__(tags=tags, etag=etag, **kwargs)
+    def __init__(self, *, system_data=None, tags=None, etag: str=None, object_id: str=None, cloud_id: str=None, billing_model: str=None, **kwargs) -> None:
+        super(Registration, self).__init__(system_data=system_data, tags=tags, etag=etag, **kwargs)
         self.object_id = object_id
         self.cloud_id = cloud_id
         self.billing_model = billing_model
@@ -855,18 +1096,22 @@ class Registration(TrackedResource):
 class RegistrationParameter(Model):
     """Registration resource.
 
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
     All required parameters must be populated in order to send to Azure.
 
     :param registration_token: Required. The token identifying registered
      Azure Stack
     :type registration_token: str
-    :param location: Location of the resource. Possible values include:
-     'global'
-    :type location: str or ~azure.mgmt.azurestack.models.Location
+    :ivar location: Required. Location of the resource. Default value:
+     "global" .
+    :vartype location: str
     """
 
     _validation = {
         'registration_token': {'required': True},
+        'location': {'required': True, 'constant': True},
     }
 
     _attribute_map = {
@@ -874,10 +1119,52 @@ class RegistrationParameter(Model):
         'location': {'key': 'location', 'type': 'str'},
     }
 
-    def __init__(self, *, registration_token: str, location=None, **kwargs) -> None:
+    location = "global"
+
+    def __init__(self, *, registration_token: str, **kwargs) -> None:
         super(RegistrationParameter, self).__init__(**kwargs)
         self.registration_token = registration_token
-        self.location = location
+
+
+class SystemData(Model):
+    """Metadata pertaining to creation and last modification of the resource.
+
+    :param created_by: The identity that created the resource.
+    :type created_by: str
+    :param created_by_type: The type of identity that created the resource.
+     Possible values include: 'User', 'Application', 'ManagedIdentity', 'Key'
+    :type created_by_type: str or ~azure.mgmt.azurestack.models.CreatedByType
+    :param created_at: The timestamp of resource creation (UTC).
+    :type created_at: datetime
+    :param last_modified_by: The identity that last modified the resource.
+    :type last_modified_by: str
+    :param last_modified_by_type: The type of identity that last modified the
+     resource. Possible values include: 'User', 'Application',
+     'ManagedIdentity', 'Key'
+    :type last_modified_by_type: str or
+     ~azure.mgmt.azurestack.models.CreatedByType
+    :param last_modified_at: The type of identity that last modified the
+     resource.
+    :type last_modified_at: datetime
+    """
+
+    _attribute_map = {
+        'created_by': {'key': 'createdBy', 'type': 'str'},
+        'created_by_type': {'key': 'createdByType', 'type': 'str'},
+        'created_at': {'key': 'createdAt', 'type': 'iso-8601'},
+        'last_modified_by': {'key': 'lastModifiedBy', 'type': 'str'},
+        'last_modified_by_type': {'key': 'lastModifiedByType', 'type': 'str'},
+        'last_modified_at': {'key': 'lastModifiedAt', 'type': 'iso-8601'},
+    }
+
+    def __init__(self, *, created_by: str=None, created_by_type=None, created_at=None, last_modified_by: str=None, last_modified_by_type=None, last_modified_at=None, **kwargs) -> None:
+        super(SystemData, self).__init__(**kwargs)
+        self.created_by = created_by
+        self.created_by_type = created_by_type
+        self.created_at = created_at
+        self.last_modified_by = last_modified_by
+        self.last_modified_by_type = last_modified_by_type
+        self.last_modified_at = last_modified_at
 
 
 class VirtualMachineExtensionProductProperties(Model):

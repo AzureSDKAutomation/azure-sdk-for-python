@@ -25,6 +25,19 @@ class OperationPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(OperationPaged, self).__init__(*args, **kwargs)
+class CustomerSubscriptionPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`CustomerSubscription <azure.mgmt.azurestack.models.CustomerSubscription>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[CustomerSubscription]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(CustomerSubscriptionPaged, self).__init__(*args, **kwargs)
 class ProductPaged(Paged):
     """
     A paging container for iterating over a list of :class:`Product <azure.mgmt.azurestack.models.Product>` object
@@ -51,16 +64,16 @@ class RegistrationPaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(RegistrationPaged, self).__init__(*args, **kwargs)
-class CustomerSubscriptionPaged(Paged):
+class LinkedSubscriptionPaged(Paged):
     """
-    A paging container for iterating over a list of :class:`CustomerSubscription <azure.mgmt.azurestack.models.CustomerSubscription>` object
+    A paging container for iterating over a list of :class:`LinkedSubscription <azure.mgmt.azurestack.models.LinkedSubscription>` object
     """
 
     _attribute_map = {
         'next_link': {'key': 'nextLink', 'type': 'str'},
-        'current_page': {'key': 'value', 'type': '[CustomerSubscription]'}
+        'current_page': {'key': 'value', 'type': '[LinkedSubscription]'}
     }
 
     def __init__(self, *args, **kwargs):
 
-        super(CustomerSubscriptionPaged, self).__init__(*args, **kwargs)
+        super(LinkedSubscriptionPaged, self).__init__(*args, **kwargs)

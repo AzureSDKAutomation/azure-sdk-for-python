@@ -12,6 +12,14 @@
 from enum import Enum
 
 
+class CreatedByType(str, Enum):
+
+    user = "User"
+    application = "Application"
+    managed_identity = "ManagedIdentity"
+    key = "Key"
+
+
 class ProvisioningState(str, Enum):
 
     creating = "Creating"
@@ -52,8 +60,3 @@ class Category(str, Enum):
 
     azure_ad = "AzureAD"
     adfs = "ADFS"
-
-
-class Location(str, Enum):
-
-    global_enum = "global"

@@ -11,7 +11,6 @@
 
 import uuid
 from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
 
 from .. import models
 
@@ -25,7 +24,7 @@ class CustomerSubscriptionsOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client API Version. Constant value: "2017-06-01".
+    :ivar api_version: Client API Version. Constant value: "2020-06-01-preview".
     """
 
     models = models
@@ -35,7 +34,7 @@ class CustomerSubscriptionsOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2017-06-01"
+        self.api_version = "2020-06-01-preview"
 
         self.config = config
 
@@ -190,7 +189,8 @@ class CustomerSubscriptionsOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: None or ClientRawResponse if raw=true
         :rtype: None or ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.azurestack.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.delete.metadata['url']
@@ -220,9 +220,7 @@ class CustomerSubscriptionsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200, 204]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseException(self._deserialize, response)
 
         if raw:
             client_raw_response = ClientRawResponse(None, response)
@@ -230,7 +228,7 @@ class CustomerSubscriptionsOperations(object):
     delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.AzureStack/registrations/{registrationName}/customerSubscriptions/{customerSubscriptionName}'}
 
     def create(
-            self, resource_group, registration_name, customer_subscription_name, etag=None, tenant_id=None, custom_headers=None, raw=False, **operation_config):
+            self, resource_group, registration_name, customer_subscription_name, customer_creation_parameters, custom_headers=None, raw=False, **operation_config):
         """Creates a new customer subscription under a registration.
 
         :param resource_group: Name of the resource group.
@@ -239,11 +237,10 @@ class CustomerSubscriptionsOperations(object):
         :type registration_name: str
         :param customer_subscription_name: Name of the product.
         :type customer_subscription_name: str
-        :param etag: The entity tag used for optimistic concurrency when
-         modifying the resource.
-        :type etag: str
-        :param tenant_id: Tenant Id.
-        :type tenant_id: str
+        :param customer_creation_parameters: Parameters use to create a
+         customer subscription.
+        :type customer_creation_parameters:
+         ~azure.mgmt.azurestack.models.CustomerSubscription
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -252,10 +249,9 @@ class CustomerSubscriptionsOperations(object):
         :return: CustomerSubscription or ClientRawResponse if raw=true
         :rtype: ~azure.mgmt.azurestack.models.CustomerSubscription or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.azurestack.models.ErrorResponseException>`
         """
-        customer_creation_parameters = models.CustomerSubscription(etag=etag, tenant_id=tenant_id)
-
         # Construct URL
         url = self.create.metadata['url']
         path_format_arguments = {
@@ -289,9 +285,7 @@ class CustomerSubscriptionsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
