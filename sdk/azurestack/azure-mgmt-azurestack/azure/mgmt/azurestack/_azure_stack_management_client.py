@@ -14,9 +14,11 @@ from msrest import Serializer, Deserializer
 
 from ._configuration import AzureStackManagementClientConfiguration
 from .operations import Operations
+from .operations import CloudManifestFileOperations
+from .operations import CustomerSubscriptionsOperations
 from .operations import ProductsOperations
 from .operations import RegistrationsOperations
-from .operations import CustomerSubscriptionsOperations
+from .operations import LinkedSubscriptionsOperations
 from . import models
 
 
@@ -28,12 +30,16 @@ class AzureStackManagementClient(SDKClient):
 
     :ivar operations: Operations operations
     :vartype operations: azure.mgmt.azurestack.operations.Operations
+    :ivar cloud_manifest_file: CloudManifestFile operations
+    :vartype cloud_manifest_file: azure.mgmt.azurestack.operations.CloudManifestFileOperations
+    :ivar customer_subscriptions: CustomerSubscriptions operations
+    :vartype customer_subscriptions: azure.mgmt.azurestack.operations.CustomerSubscriptionsOperations
     :ivar products: Products operations
     :vartype products: azure.mgmt.azurestack.operations.ProductsOperations
     :ivar registrations: Registrations operations
     :vartype registrations: azure.mgmt.azurestack.operations.RegistrationsOperations
-    :ivar customer_subscriptions: CustomerSubscriptions operations
-    :vartype customer_subscriptions: azure.mgmt.azurestack.operations.CustomerSubscriptionsOperations
+    :ivar linked_subscriptions: LinkedSubscriptions operations
+    :vartype linked_subscriptions: azure.mgmt.azurestack.operations.LinkedSubscriptionsOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -52,15 +58,19 @@ class AzureStackManagementClient(SDKClient):
         super(AzureStackManagementClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
-        self.api_version = '2017-06-01'
+        self.api_version = '2020-06-01-preview'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
         self.operations = Operations(
             self._client, self.config, self._serialize, self._deserialize)
+        self.cloud_manifest_file = CloudManifestFileOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.customer_subscriptions = CustomerSubscriptionsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
         self.products = ProductsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.registrations = RegistrationsOperations(
             self._client, self.config, self._serialize, self._deserialize)
-        self.customer_subscriptions = CustomerSubscriptionsOperations(
+        self.linked_subscriptions = LinkedSubscriptionsOperations(
             self._client, self.config, self._serialize, self._deserialize)

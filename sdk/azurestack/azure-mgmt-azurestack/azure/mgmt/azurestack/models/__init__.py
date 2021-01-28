@@ -11,6 +11,9 @@
 
 try:
     from ._models_py3 import ActivationKeyResult
+    from ._models_py3 import CloudManifestFileDeploymentData
+    from ._models_py3 import CloudManifestFileProperties
+    from ._models_py3 import CloudManifestFileResponse
     from ._models_py3 import Compatibility
     from ._models_py3 import CustomerSubscription
     from ._models_py3 import DataDiskImage
@@ -20,6 +23,8 @@ try:
     from ._models_py3 import ErrorResponse, ErrorResponseException
     from ._models_py3 import ExtendedProduct
     from ._models_py3 import IconUris
+    from ._models_py3 import LinkedSubscription
+    from ._models_py3 import LinkedSubscriptionParameter
     from ._models_py3 import MarketplaceProductLogUpdate
     from ._models_py3 import Operation
     from ._models_py3 import OsDiskImage
@@ -31,11 +36,15 @@ try:
     from ._models_py3 import Registration
     from ._models_py3 import RegistrationParameter
     from ._models_py3 import Resource
+    from ._models_py3 import SystemData
     from ._models_py3 import TrackedResource
     from ._models_py3 import VirtualMachineExtensionProductProperties
     from ._models_py3 import VirtualMachineProductProperties
 except (SyntaxError, ImportError):
     from ._models import ActivationKeyResult
+    from ._models import CloudManifestFileDeploymentData
+    from ._models import CloudManifestFileProperties
+    from ._models import CloudManifestFileResponse
     from ._models import Compatibility
     from ._models import CustomerSubscription
     from ._models import DataDiskImage
@@ -45,6 +54,8 @@ except (SyntaxError, ImportError):
     from ._models import ErrorResponse, ErrorResponseException
     from ._models import ExtendedProduct
     from ._models import IconUris
+    from ._models import LinkedSubscription
+    from ._models import LinkedSubscriptionParameter
     from ._models import MarketplaceProductLogUpdate
     from ._models import Operation
     from ._models import OsDiskImage
@@ -56,24 +67,29 @@ except (SyntaxError, ImportError):
     from ._models import Registration
     from ._models import RegistrationParameter
     from ._models import Resource
+    from ._models import SystemData
     from ._models import TrackedResource
     from ._models import VirtualMachineExtensionProductProperties
     from ._models import VirtualMachineProductProperties
 from ._paged_models import CustomerSubscriptionPaged
+from ._paged_models import LinkedSubscriptionPaged
 from ._paged_models import OperationPaged
 from ._paged_models import ProductPaged
 from ._paged_models import RegistrationPaged
 from ._azure_stack_management_client_enums import (
+    CreatedByType,
     ProvisioningState,
     ComputeRole,
     OperatingSystem,
     CompatibilityIssue,
     Category,
-    Location,
 )
 
 __all__ = [
     'ActivationKeyResult',
+    'CloudManifestFileDeploymentData',
+    'CloudManifestFileProperties',
+    'CloudManifestFileResponse',
     'Compatibility',
     'CustomerSubscription',
     'DataDiskImage',
@@ -83,6 +99,8 @@ __all__ = [
     'ErrorResponse', 'ErrorResponseException',
     'ExtendedProduct',
     'IconUris',
+    'LinkedSubscription',
+    'LinkedSubscriptionParameter',
     'MarketplaceProductLogUpdate',
     'Operation',
     'OsDiskImage',
@@ -94,17 +112,19 @@ __all__ = [
     'Registration',
     'RegistrationParameter',
     'Resource',
+    'SystemData',
     'TrackedResource',
     'VirtualMachineExtensionProductProperties',
     'VirtualMachineProductProperties',
     'OperationPaged',
+    'CustomerSubscriptionPaged',
     'ProductPaged',
     'RegistrationPaged',
-    'CustomerSubscriptionPaged',
+    'LinkedSubscriptionPaged',
+    'CreatedByType',
     'ProvisioningState',
     'ComputeRole',
     'OperatingSystem',
     'CompatibilityIssue',
     'Category',
-    'Location',
 ]
