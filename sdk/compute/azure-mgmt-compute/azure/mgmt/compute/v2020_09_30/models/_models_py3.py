@@ -13,6 +13,29 @@ from msrest.serialization import Model
 from msrest.exceptions import HttpOperationError
 
 
+class AccessUri(Model):
+    """A disk access SAS uri.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar access_sas: A SAS uri for accessing a disk.
+    :vartype access_sas: str
+    """
+
+    _validation = {
+        'access_sas': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'access_sas': {'key': 'accessSAS', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(AccessUri, self).__init__(**kwargs)
+        self.access_sas = None
+
+
 class ApiError(Model):
     """Api error.
 
@@ -97,6 +120,80 @@ class CloudErrorException(HttpOperationError):
         super(CloudErrorException, self).__init__(deserialize, response, 'CloudError', *args)
 
 
+class CreationData(Model):
+    """Data used when creating a disk.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param create_option: Required. This enumerates the possible sources of a
+     disk's creation. Possible values include: 'Empty', 'Attach', 'FromImage',
+     'Import', 'Copy', 'Restore', 'Upload'
+    :type create_option: str or
+     ~azure.mgmt.compute.v2020_09_30.models.DiskCreateOption
+    :param storage_account_id: Required if createOption is Import. The Azure
+     Resource Manager identifier of the storage account containing the blob to
+     import as a disk.
+    :type storage_account_id: str
+    :param image_reference: Disk source information.
+    :type image_reference:
+     ~azure.mgmt.compute.v2020_09_30.models.ImageDiskReference
+    :param gallery_image_reference: Required if creating from a Gallery Image.
+     The id of the ImageDiskReference will be the ARM id of the shared galley
+     image version from which to create a disk.
+    :type gallery_image_reference:
+     ~azure.mgmt.compute.v2020_09_30.models.ImageDiskReference
+    :param source_uri: If createOption is Import, this is the URI of a blob to
+     be imported into a managed disk.
+    :type source_uri: str
+    :param source_resource_id: If createOption is Copy, this is the ARM id of
+     the source snapshot or disk.
+    :type source_resource_id: str
+    :ivar source_unique_id: If this field is set, this is the unique id
+     identifying the source of this resource.
+    :vartype source_unique_id: str
+    :param upload_size_bytes: If createOption is Upload, this is the size of
+     the contents of the upload including the VHD footer. This value should be
+     between 20972032 (20 MiB + 512 bytes for the VHD footer) and
+     35183298347520 bytes (32 TiB + 512 bytes for the VHD footer).
+    :type upload_size_bytes: long
+    :param logical_sector_size: Logical sector size in bytes for Ultra disks.
+     Supported values are 512 ad 4096. 4096 is the default.
+    :type logical_sector_size: int
+    """
+
+    _validation = {
+        'create_option': {'required': True},
+        'source_unique_id': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'create_option': {'key': 'createOption', 'type': 'str'},
+        'storage_account_id': {'key': 'storageAccountId', 'type': 'str'},
+        'image_reference': {'key': 'imageReference', 'type': 'ImageDiskReference'},
+        'gallery_image_reference': {'key': 'galleryImageReference', 'type': 'ImageDiskReference'},
+        'source_uri': {'key': 'sourceUri', 'type': 'str'},
+        'source_resource_id': {'key': 'sourceResourceId', 'type': 'str'},
+        'source_unique_id': {'key': 'sourceUniqueId', 'type': 'str'},
+        'upload_size_bytes': {'key': 'uploadSizeBytes', 'type': 'long'},
+        'logical_sector_size': {'key': 'logicalSectorSize', 'type': 'int'},
+    }
+
+    def __init__(self, *, create_option, storage_account_id: str=None, image_reference=None, gallery_image_reference=None, source_uri: str=None, source_resource_id: str=None, upload_size_bytes: int=None, logical_sector_size: int=None, **kwargs) -> None:
+        super(CreationData, self).__init__(**kwargs)
+        self.create_option = create_option
+        self.storage_account_id = storage_account_id
+        self.image_reference = image_reference
+        self.gallery_image_reference = gallery_image_reference
+        self.source_uri = source_uri
+        self.source_resource_id = source_resource_id
+        self.source_unique_id = None
+        self.upload_size_bytes = upload_size_bytes
+        self.logical_sector_size = logical_sector_size
+
+
 class DiskImageEncryption(Model):
     """This is the disk image encryption base class.
 
@@ -159,30 +256,6 @@ class Disallowed(Model):
         self.disk_types = disk_types
 
 
-class EncryptionImages(Model):
-    """Optional. Allows users to provide customer managed keys for encrypting the
-    OS and data disks in the gallery artifact.
-
-    :param os_disk_image:
-    :type os_disk_image:
-     ~azure.mgmt.compute.v2020_09_30.models.OSDiskImageEncryption
-    :param data_disk_images: A list of encryption specifications for data disk
-     images.
-    :type data_disk_images:
-     list[~azure.mgmt.compute.v2020_09_30.models.DataDiskImageEncryption]
-    """
-
-    _attribute_map = {
-        'os_disk_image': {'key': 'osDiskImage', 'type': 'OSDiskImageEncryption'},
-        'data_disk_images': {'key': 'dataDiskImages', 'type': '[DataDiskImageEncryption]'},
-    }
-
-    def __init__(self, *, os_disk_image=None, data_disk_images=None, **kwargs) -> None:
-        super(EncryptionImages, self).__init__(**kwargs)
-        self.os_disk_image = os_disk_image
-        self.data_disk_images = data_disk_images
-
-
 class Resource(Model):
     """The Resource model definition.
 
@@ -225,6 +298,793 @@ class Resource(Model):
         self.type = None
         self.location = location
         self.tags = tags
+
+
+class Disk(Resource):
+    """Disk resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Resource Id
+    :vartype id: str
+    :ivar name: Resource name
+    :vartype name: str
+    :ivar type: Resource type
+    :vartype type: str
+    :param location: Required. Resource location
+    :type location: str
+    :param tags: Resource tags
+    :type tags: dict[str, str]
+    :ivar managed_by: A relative URI containing the ID of the VM that has the
+     disk attached.
+    :vartype managed_by: str
+    :ivar managed_by_extended: List of relative URIs containing the IDs of the
+     VMs that have the disk attached. maxShares should be set to a value
+     greater than one for disks to allow attaching them to multiple VMs.
+    :vartype managed_by_extended: list[str]
+    :param sku:
+    :type sku: ~azure.mgmt.compute.v2020_09_30.models.DiskSku
+    :param zones: The Logical zone list for Disk.
+    :type zones: list[str]
+    :param extended_location: The extended location where the disk will be
+     created. Extended location cannot be changed.
+    :type extended_location:
+     ~azure.mgmt.compute.v2020_09_30.models.ExtendedLocation
+    :ivar time_created: The time when the disk was created.
+    :vartype time_created: datetime
+    :param os_type: The Operating System type. Possible values include:
+     'Windows', 'Linux'
+    :type os_type: str or
+     ~azure.mgmt.compute.v2020_09_30.models.OperatingSystemTypes
+    :param hyper_vgeneration: The hypervisor generation of the Virtual
+     Machine. Applicable to OS disks only. Possible values include: 'V1', 'V2'
+    :type hyper_vgeneration: str or
+     ~azure.mgmt.compute.v2020_09_30.models.HyperVGeneration
+    :param purchase_plan: Purchase plan information for the the image from
+     which the OS disk was created. E.g. - {name: 2019-Datacenter, publisher:
+     MicrosoftWindowsServer, product: WindowsServer}
+    :type purchase_plan: ~azure.mgmt.compute.v2020_09_30.models.PurchasePlan
+    :param creation_data: Required. Disk source information. CreationData
+     information cannot be changed after the disk has been created.
+    :type creation_data: ~azure.mgmt.compute.v2020_09_30.models.CreationData
+    :param disk_size_gb: If creationData.createOption is Empty, this field is
+     mandatory and it indicates the size of the disk to create. If this field
+     is present for updates or creation with other options, it indicates a
+     resize. Resizes are only allowed if the disk is not attached to a running
+     VM, and can only increase the disk's size.
+    :type disk_size_gb: int
+    :ivar disk_size_bytes: The size of the disk in bytes. This field is read
+     only.
+    :vartype disk_size_bytes: long
+    :ivar unique_id: Unique Guid identifying the resource.
+    :vartype unique_id: str
+    :param encryption_settings_collection: Encryption settings collection used
+     for Azure Disk Encryption, can contain multiple encryption settings per
+     disk or snapshot.
+    :type encryption_settings_collection:
+     ~azure.mgmt.compute.v2020_09_30.models.EncryptionSettingsCollection
+    :ivar provisioning_state: The disk provisioning state.
+    :vartype provisioning_state: str
+    :param disk_iops_read_write: The number of IOPS allowed for this disk;
+     only settable for UltraSSD disks. One operation can transfer between 4k
+     and 256k bytes.
+    :type disk_iops_read_write: long
+    :param disk_mbps_read_write: The bandwidth allowed for this disk; only
+     settable for UltraSSD disks. MBps means millions of bytes per second - MB
+     here uses the ISO notation, of powers of 10.
+    :type disk_mbps_read_write: long
+    :param disk_iops_read_only: The total number of IOPS that will be allowed
+     across all VMs mounting the shared disk as ReadOnly. One operation can
+     transfer between 4k and 256k bytes.
+    :type disk_iops_read_only: long
+    :param disk_mbps_read_only: The total throughput (MBps) that will be
+     allowed across all VMs mounting the shared disk as ReadOnly. MBps means
+     millions of bytes per second - MB here uses the ISO notation, of powers of
+     10.
+    :type disk_mbps_read_only: long
+    :param disk_state: The state of the disk. Possible values include:
+     'Unattached', 'Attached', 'Reserved', 'ActiveSAS', 'ReadyToUpload',
+     'ActiveUpload'
+    :type disk_state: str or ~azure.mgmt.compute.v2020_09_30.models.DiskState
+    :param encryption: Encryption property can be used to encrypt data at rest
+     with customer managed keys or platform managed keys.
+    :type encryption: ~azure.mgmt.compute.v2020_09_30.models.Encryption
+    :param max_shares: The maximum number of VMs that can attach to the disk
+     at the same time. Value greater than one indicates a disk that can be
+     mounted on multiple VMs at the same time.
+    :type max_shares: int
+    :ivar share_info: Details of the list of all VMs that have the disk
+     attached. maxShares should be set to a value greater than one for disks to
+     allow attaching them to multiple VMs.
+    :vartype share_info:
+     list[~azure.mgmt.compute.v2020_09_30.models.ShareInfoElement]
+    :param network_access_policy: Possible values include: 'AllowAll',
+     'AllowPrivate', 'DenyAll'
+    :type network_access_policy: str or
+     ~azure.mgmt.compute.v2020_09_30.models.NetworkAccessPolicy
+    :param disk_access_id: ARM id of the DiskAccess resource for using private
+     endpoints on disks.
+    :type disk_access_id: str
+    :param tier: Performance tier of the disk (e.g, P4, S10) as described
+     here: https://azure.microsoft.com/en-us/pricing/details/managed-disks/.
+     Does not apply to Ultra disks.
+    :type tier: str
+    :param bursting_enabled: Set to true to enable bursting beyond the
+     provisioned performance target of the disk. Bursting is disabled by
+     default. Does not apply to Ultra disks.
+    :type bursting_enabled: bool
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'location': {'required': True},
+        'managed_by': {'readonly': True},
+        'managed_by_extended': {'readonly': True},
+        'time_created': {'readonly': True},
+        'creation_data': {'required': True},
+        'disk_size_bytes': {'readonly': True},
+        'unique_id': {'readonly': True},
+        'provisioning_state': {'readonly': True},
+        'share_info': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'managed_by': {'key': 'managedBy', 'type': 'str'},
+        'managed_by_extended': {'key': 'managedByExtended', 'type': '[str]'},
+        'sku': {'key': 'sku', 'type': 'DiskSku'},
+        'zones': {'key': 'zones', 'type': '[str]'},
+        'extended_location': {'key': 'extendedLocation', 'type': 'ExtendedLocation'},
+        'time_created': {'key': 'properties.timeCreated', 'type': 'iso-8601'},
+        'os_type': {'key': 'properties.osType', 'type': 'OperatingSystemTypes'},
+        'hyper_vgeneration': {'key': 'properties.hyperVGeneration', 'type': 'str'},
+        'purchase_plan': {'key': 'properties.purchasePlan', 'type': 'PurchasePlan'},
+        'creation_data': {'key': 'properties.creationData', 'type': 'CreationData'},
+        'disk_size_gb': {'key': 'properties.diskSizeGB', 'type': 'int'},
+        'disk_size_bytes': {'key': 'properties.diskSizeBytes', 'type': 'long'},
+        'unique_id': {'key': 'properties.uniqueId', 'type': 'str'},
+        'encryption_settings_collection': {'key': 'properties.encryptionSettingsCollection', 'type': 'EncryptionSettingsCollection'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'disk_iops_read_write': {'key': 'properties.diskIOPSReadWrite', 'type': 'long'},
+        'disk_mbps_read_write': {'key': 'properties.diskMBpsReadWrite', 'type': 'long'},
+        'disk_iops_read_only': {'key': 'properties.diskIOPSReadOnly', 'type': 'long'},
+        'disk_mbps_read_only': {'key': 'properties.diskMBpsReadOnly', 'type': 'long'},
+        'disk_state': {'key': 'properties.diskState', 'type': 'str'},
+        'encryption': {'key': 'properties.encryption', 'type': 'Encryption'},
+        'max_shares': {'key': 'properties.maxShares', 'type': 'int'},
+        'share_info': {'key': 'properties.shareInfo', 'type': '[ShareInfoElement]'},
+        'network_access_policy': {'key': 'properties.networkAccessPolicy', 'type': 'str'},
+        'disk_access_id': {'key': 'properties.diskAccessId', 'type': 'str'},
+        'tier': {'key': 'properties.tier', 'type': 'str'},
+        'bursting_enabled': {'key': 'properties.burstingEnabled', 'type': 'bool'},
+    }
+
+    def __init__(self, *, location: str, creation_data, tags=None, sku=None, zones=None, extended_location=None, os_type=None, hyper_vgeneration=None, purchase_plan=None, disk_size_gb: int=None, encryption_settings_collection=None, disk_iops_read_write: int=None, disk_mbps_read_write: int=None, disk_iops_read_only: int=None, disk_mbps_read_only: int=None, disk_state=None, encryption=None, max_shares: int=None, network_access_policy=None, disk_access_id: str=None, tier: str=None, bursting_enabled: bool=None, **kwargs) -> None:
+        super(Disk, self).__init__(location=location, tags=tags, **kwargs)
+        self.managed_by = None
+        self.managed_by_extended = None
+        self.sku = sku
+        self.zones = zones
+        self.extended_location = extended_location
+        self.time_created = None
+        self.os_type = os_type
+        self.hyper_vgeneration = hyper_vgeneration
+        self.purchase_plan = purchase_plan
+        self.creation_data = creation_data
+        self.disk_size_gb = disk_size_gb
+        self.disk_size_bytes = None
+        self.unique_id = None
+        self.encryption_settings_collection = encryption_settings_collection
+        self.provisioning_state = None
+        self.disk_iops_read_write = disk_iops_read_write
+        self.disk_mbps_read_write = disk_mbps_read_write
+        self.disk_iops_read_only = disk_iops_read_only
+        self.disk_mbps_read_only = disk_mbps_read_only
+        self.disk_state = disk_state
+        self.encryption = encryption
+        self.max_shares = max_shares
+        self.share_info = None
+        self.network_access_policy = network_access_policy
+        self.disk_access_id = disk_access_id
+        self.tier = tier
+        self.bursting_enabled = bursting_enabled
+
+
+class DiskAccess(Resource):
+    """disk access resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Resource Id
+    :vartype id: str
+    :ivar name: Resource name
+    :vartype name: str
+    :ivar type: Resource type
+    :vartype type: str
+    :param location: Required. Resource location
+    :type location: str
+    :param tags: Resource tags
+    :type tags: dict[str, str]
+    :ivar private_endpoint_connections: A readonly collection of private
+     endpoint connections created on the disk. Currently only one endpoint
+     connection is supported.
+    :vartype private_endpoint_connections:
+     list[~azure.mgmt.compute.v2020_09_30.models.PrivateEndpointConnection]
+    :ivar provisioning_state: The disk access resource provisioning state.
+    :vartype provisioning_state: str
+    :ivar time_created: The time when the disk access was created.
+    :vartype time_created: datetime
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'location': {'required': True},
+        'private_endpoint_connections': {'readonly': True},
+        'provisioning_state': {'readonly': True},
+        'time_created': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'private_endpoint_connections': {'key': 'properties.privateEndpointConnections', 'type': '[PrivateEndpointConnection]'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'time_created': {'key': 'properties.timeCreated', 'type': 'iso-8601'},
+    }
+
+    def __init__(self, *, location: str, tags=None, **kwargs) -> None:
+        super(DiskAccess, self).__init__(location=location, tags=tags, **kwargs)
+        self.private_endpoint_connections = None
+        self.provisioning_state = None
+        self.time_created = None
+
+
+class DiskAccessUpdate(Model):
+    """Used for updating a disk access resource.
+
+    :param tags: Resource tags
+    :type tags: dict[str, str]
+    """
+
+    _attribute_map = {
+        'tags': {'key': 'tags', 'type': '{str}'},
+    }
+
+    def __init__(self, *, tags=None, **kwargs) -> None:
+        super(DiskAccessUpdate, self).__init__(**kwargs)
+        self.tags = tags
+
+
+class DiskEncryptionSet(Resource):
+    """disk encryption set resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Resource Id
+    :vartype id: str
+    :ivar name: Resource name
+    :vartype name: str
+    :ivar type: Resource type
+    :vartype type: str
+    :param location: Required. Resource location
+    :type location: str
+    :param tags: Resource tags
+    :type tags: dict[str, str]
+    :param identity:
+    :type identity:
+     ~azure.mgmt.compute.v2020_09_30.models.EncryptionSetIdentity
+    :param encryption_type: Possible values include:
+     'EncryptionAtRestWithCustomerKey',
+     'EncryptionAtRestWithPlatformAndCustomerKeys'
+    :type encryption_type: str or
+     ~azure.mgmt.compute.v2020_09_30.models.DiskEncryptionSetType
+    :param active_key: The key vault key which is currently used by this disk
+     encryption set.
+    :type active_key:
+     ~azure.mgmt.compute.v2020_09_30.models.KeyForDiskEncryptionSet
+    :ivar previous_keys: A readonly collection of key vault keys previously
+     used by this disk encryption set while a key rotation is in progress. It
+     will be empty if there is no ongoing key rotation.
+    :vartype previous_keys:
+     list[~azure.mgmt.compute.v2020_09_30.models.KeyForDiskEncryptionSet]
+    :ivar provisioning_state: The disk encryption set provisioning state.
+    :vartype provisioning_state: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'location': {'required': True},
+        'previous_keys': {'readonly': True},
+        'provisioning_state': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'identity': {'key': 'identity', 'type': 'EncryptionSetIdentity'},
+        'encryption_type': {'key': 'properties.encryptionType', 'type': 'str'},
+        'active_key': {'key': 'properties.activeKey', 'type': 'KeyForDiskEncryptionSet'},
+        'previous_keys': {'key': 'properties.previousKeys', 'type': '[KeyForDiskEncryptionSet]'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+    }
+
+    def __init__(self, *, location: str, tags=None, identity=None, encryption_type=None, active_key=None, **kwargs) -> None:
+        super(DiskEncryptionSet, self).__init__(location=location, tags=tags, **kwargs)
+        self.identity = identity
+        self.encryption_type = encryption_type
+        self.active_key = active_key
+        self.previous_keys = None
+        self.provisioning_state = None
+
+
+class DiskEncryptionSetUpdate(Model):
+    """disk encryption set update resource.
+
+    :param encryption_type: Possible values include:
+     'EncryptionAtRestWithCustomerKey',
+     'EncryptionAtRestWithPlatformAndCustomerKeys'
+    :type encryption_type: str or
+     ~azure.mgmt.compute.v2020_09_30.models.DiskEncryptionSetType
+    :param active_key:
+    :type active_key:
+     ~azure.mgmt.compute.v2020_09_30.models.KeyForDiskEncryptionSet
+    :param tags: Resource tags
+    :type tags: dict[str, str]
+    """
+
+    _attribute_map = {
+        'encryption_type': {'key': 'properties.encryptionType', 'type': 'str'},
+        'active_key': {'key': 'properties.activeKey', 'type': 'KeyForDiskEncryptionSet'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+    }
+
+    def __init__(self, *, encryption_type=None, active_key=None, tags=None, **kwargs) -> None:
+        super(DiskEncryptionSetUpdate, self).__init__(**kwargs)
+        self.encryption_type = encryption_type
+        self.active_key = active_key
+        self.tags = tags
+
+
+class ProxyOnlyResource(Model):
+    """The ProxyOnly Resource model definition.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id
+    :vartype id: str
+    :ivar name: Resource name
+    :vartype name: str
+    :ivar type: Resource type
+    :vartype type: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(ProxyOnlyResource, self).__init__(**kwargs)
+        self.id = None
+        self.name = None
+        self.type = None
+
+
+class DiskRestorePoint(ProxyOnlyResource):
+    """Properties of disk restore point.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Resource Id
+    :vartype id: str
+    :ivar name: Resource name
+    :vartype name: str
+    :ivar type: Resource type
+    :vartype type: str
+    :ivar time_created: The timestamp of restorePoint creation
+    :vartype time_created: datetime
+    :ivar source_resource_id: arm id of source disk
+    :vartype source_resource_id: str
+    :ivar os_type: The Operating System type. Possible values include:
+     'Windows', 'Linux'
+    :vartype os_type: str or
+     ~azure.mgmt.compute.v2020_09_30.models.OperatingSystemTypes
+    :param hyper_vgeneration: The hypervisor generation of the Virtual
+     Machine. Applicable to OS disks only. Possible values include: 'V1', 'V2'
+    :type hyper_vgeneration: str or
+     ~azure.mgmt.compute.v2020_09_30.models.HyperVGeneration
+    :param purchase_plan: Purchase plan information for the the image from
+     which the OS disk was created.
+    :type purchase_plan: ~azure.mgmt.compute.v2020_09_30.models.PurchasePlan
+    :ivar family_id: id of the backing snapshot's MIS family
+    :vartype family_id: str
+    :ivar source_unique_id: unique incarnation id of the source disk
+    :vartype source_unique_id: str
+    :ivar encryption: Encryption property can be used to encrypt data at rest
+     with customer managed keys or platform managed keys.
+    :vartype encryption: ~azure.mgmt.compute.v2020_09_30.models.Encryption
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'time_created': {'readonly': True},
+        'source_resource_id': {'readonly': True},
+        'os_type': {'readonly': True},
+        'family_id': {'readonly': True},
+        'source_unique_id': {'readonly': True},
+        'encryption': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'time_created': {'key': 'properties.timeCreated', 'type': 'iso-8601'},
+        'source_resource_id': {'key': 'properties.sourceResourceId', 'type': 'str'},
+        'os_type': {'key': 'properties.osType', 'type': 'OperatingSystemTypes'},
+        'hyper_vgeneration': {'key': 'properties.hyperVGeneration', 'type': 'str'},
+        'purchase_plan': {'key': 'properties.purchasePlan', 'type': 'PurchasePlan'},
+        'family_id': {'key': 'properties.familyId', 'type': 'str'},
+        'source_unique_id': {'key': 'properties.sourceUniqueId', 'type': 'str'},
+        'encryption': {'key': 'properties.encryption', 'type': 'Encryption'},
+    }
+
+    def __init__(self, *, hyper_vgeneration=None, purchase_plan=None, **kwargs) -> None:
+        super(DiskRestorePoint, self).__init__(**kwargs)
+        self.time_created = None
+        self.source_resource_id = None
+        self.os_type = None
+        self.hyper_vgeneration = hyper_vgeneration
+        self.purchase_plan = purchase_plan
+        self.family_id = None
+        self.source_unique_id = None
+        self.encryption = None
+
+
+class DiskSku(Model):
+    """The disks sku name. Can be Standard_LRS, Premium_LRS, StandardSSD_LRS, or
+    UltraSSD_LRS.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param name: The sku name. Possible values include: 'Standard_LRS',
+     'Premium_LRS', 'StandardSSD_LRS', 'UltraSSD_LRS'
+    :type name: str or
+     ~azure.mgmt.compute.v2020_09_30.models.DiskStorageAccountTypes
+    :ivar tier: The sku tier.
+    :vartype tier: str
+    """
+
+    _validation = {
+        'tier': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'tier': {'key': 'tier', 'type': 'str'},
+    }
+
+    def __init__(self, *, name=None, **kwargs) -> None:
+        super(DiskSku, self).__init__(**kwargs)
+        self.name = name
+        self.tier = None
+
+
+class DiskUpdate(Model):
+    """Disk update resource.
+
+    :param os_type: the Operating System type. Possible values include:
+     'Windows', 'Linux'
+    :type os_type: str or
+     ~azure.mgmt.compute.v2020_09_30.models.OperatingSystemTypes
+    :param disk_size_gb: If creationData.createOption is Empty, this field is
+     mandatory and it indicates the size of the disk to create. If this field
+     is present for updates or creation with other options, it indicates a
+     resize. Resizes are only allowed if the disk is not attached to a running
+     VM, and can only increase the disk's size.
+    :type disk_size_gb: int
+    :param encryption_settings_collection: Encryption settings collection used
+     be Azure Disk Encryption, can contain multiple encryption settings per
+     disk or snapshot.
+    :type encryption_settings_collection:
+     ~azure.mgmt.compute.v2020_09_30.models.EncryptionSettingsCollection
+    :param disk_iops_read_write: The number of IOPS allowed for this disk;
+     only settable for UltraSSD disks. One operation can transfer between 4k
+     and 256k bytes.
+    :type disk_iops_read_write: long
+    :param disk_mbps_read_write: The bandwidth allowed for this disk; only
+     settable for UltraSSD disks. MBps means millions of bytes per second - MB
+     here uses the ISO notation, of powers of 10.
+    :type disk_mbps_read_write: long
+    :param disk_iops_read_only: The total number of IOPS that will be allowed
+     across all VMs mounting the shared disk as ReadOnly. One operation can
+     transfer between 4k and 256k bytes.
+    :type disk_iops_read_only: long
+    :param disk_mbps_read_only: The total throughput (MBps) that will be
+     allowed across all VMs mounting the shared disk as ReadOnly. MBps means
+     millions of bytes per second - MB here uses the ISO notation, of powers of
+     10.
+    :type disk_mbps_read_only: long
+    :param max_shares: The maximum number of VMs that can attach to the disk
+     at the same time. Value greater than one indicates a disk that can be
+     mounted on multiple VMs at the same time.
+    :type max_shares: int
+    :param encryption: Encryption property can be used to encrypt data at rest
+     with customer managed keys or platform managed keys.
+    :type encryption: ~azure.mgmt.compute.v2020_09_30.models.Encryption
+    :param network_access_policy: Possible values include: 'AllowAll',
+     'AllowPrivate', 'DenyAll'
+    :type network_access_policy: str or
+     ~azure.mgmt.compute.v2020_09_30.models.NetworkAccessPolicy
+    :param disk_access_id: ARM id of the DiskAccess resource for using private
+     endpoints on disks.
+    :type disk_access_id: str
+    :param tier: Performance tier of the disk (e.g, P4, S10) as described
+     here: https://azure.microsoft.com/en-us/pricing/details/managed-disks/.
+     Does not apply to Ultra disks.
+    :type tier: str
+    :param bursting_enabled: Set to true to enable bursting beyond the
+     provisioned performance target of the disk. Bursting is disabled by
+     default. Does not apply to Ultra disks.
+    :type bursting_enabled: bool
+    :param purchase_plan: Purchase plan information to be added on the OS disk
+    :type purchase_plan: ~azure.mgmt.compute.v2020_09_30.models.PurchasePlan
+    :param tags: Resource tags
+    :type tags: dict[str, str]
+    :param sku:
+    :type sku: ~azure.mgmt.compute.v2020_09_30.models.DiskSku
+    """
+
+    _attribute_map = {
+        'os_type': {'key': 'properties.osType', 'type': 'OperatingSystemTypes'},
+        'disk_size_gb': {'key': 'properties.diskSizeGB', 'type': 'int'},
+        'encryption_settings_collection': {'key': 'properties.encryptionSettingsCollection', 'type': 'EncryptionSettingsCollection'},
+        'disk_iops_read_write': {'key': 'properties.diskIOPSReadWrite', 'type': 'long'},
+        'disk_mbps_read_write': {'key': 'properties.diskMBpsReadWrite', 'type': 'long'},
+        'disk_iops_read_only': {'key': 'properties.diskIOPSReadOnly', 'type': 'long'},
+        'disk_mbps_read_only': {'key': 'properties.diskMBpsReadOnly', 'type': 'long'},
+        'max_shares': {'key': 'properties.maxShares', 'type': 'int'},
+        'encryption': {'key': 'properties.encryption', 'type': 'Encryption'},
+        'network_access_policy': {'key': 'properties.networkAccessPolicy', 'type': 'str'},
+        'disk_access_id': {'key': 'properties.diskAccessId', 'type': 'str'},
+        'tier': {'key': 'properties.tier', 'type': 'str'},
+        'bursting_enabled': {'key': 'properties.burstingEnabled', 'type': 'bool'},
+        'purchase_plan': {'key': 'properties.purchasePlan', 'type': 'PurchasePlan'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'sku': {'key': 'sku', 'type': 'DiskSku'},
+    }
+
+    def __init__(self, *, os_type=None, disk_size_gb: int=None, encryption_settings_collection=None, disk_iops_read_write: int=None, disk_mbps_read_write: int=None, disk_iops_read_only: int=None, disk_mbps_read_only: int=None, max_shares: int=None, encryption=None, network_access_policy=None, disk_access_id: str=None, tier: str=None, bursting_enabled: bool=None, purchase_plan=None, tags=None, sku=None, **kwargs) -> None:
+        super(DiskUpdate, self).__init__(**kwargs)
+        self.os_type = os_type
+        self.disk_size_gb = disk_size_gb
+        self.encryption_settings_collection = encryption_settings_collection
+        self.disk_iops_read_write = disk_iops_read_write
+        self.disk_mbps_read_write = disk_mbps_read_write
+        self.disk_iops_read_only = disk_iops_read_only
+        self.disk_mbps_read_only = disk_mbps_read_only
+        self.max_shares = max_shares
+        self.encryption = encryption
+        self.network_access_policy = network_access_policy
+        self.disk_access_id = disk_access_id
+        self.tier = tier
+        self.bursting_enabled = bursting_enabled
+        self.purchase_plan = purchase_plan
+        self.tags = tags
+        self.sku = sku
+
+
+class Encryption(Model):
+    """Encryption at rest settings for disk or snapshot.
+
+    :param disk_encryption_set_id: ResourceId of the disk encryption set to
+     use for enabling encryption at rest.
+    :type disk_encryption_set_id: str
+    :param type: Possible values include: 'EncryptionAtRestWithPlatformKey',
+     'EncryptionAtRestWithCustomerKey',
+     'EncryptionAtRestWithPlatformAndCustomerKeys'
+    :type type: str or ~azure.mgmt.compute.v2020_09_30.models.EncryptionType
+    """
+
+    _attribute_map = {
+        'disk_encryption_set_id': {'key': 'diskEncryptionSetId', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    def __init__(self, *, disk_encryption_set_id: str=None, type=None, **kwargs) -> None:
+        super(Encryption, self).__init__(**kwargs)
+        self.disk_encryption_set_id = disk_encryption_set_id
+        self.type = type
+
+
+class EncryptionImages(Model):
+    """Optional. Allows users to provide customer managed keys for encrypting the
+    OS and data disks in the gallery artifact.
+
+    :param os_disk_image:
+    :type os_disk_image:
+     ~azure.mgmt.compute.v2020_09_30.models.OSDiskImageEncryption
+    :param data_disk_images: A list of encryption specifications for data disk
+     images.
+    :type data_disk_images:
+     list[~azure.mgmt.compute.v2020_09_30.models.DataDiskImageEncryption]
+    """
+
+    _attribute_map = {
+        'os_disk_image': {'key': 'osDiskImage', 'type': 'OSDiskImageEncryption'},
+        'data_disk_images': {'key': 'dataDiskImages', 'type': '[DataDiskImageEncryption]'},
+    }
+
+    def __init__(self, *, os_disk_image=None, data_disk_images=None, **kwargs) -> None:
+        super(EncryptionImages, self).__init__(**kwargs)
+        self.os_disk_image = os_disk_image
+        self.data_disk_images = data_disk_images
+
+
+class EncryptionSetIdentity(Model):
+    """The managed identity for the disk encryption set. It should be given
+    permission on the key vault before it can be used to encrypt disks.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param type: The type of Managed Identity used by the DiskEncryptionSet.
+     Only SystemAssigned is supported for new creations. Disk Encryption Sets
+     can be updated with Identity type None during migration of subscription to
+     a new Azure Active Directory tenant; it will cause the encrypted resources
+     to lose access to the keys. Possible values include: 'SystemAssigned',
+     'None'
+    :type type: str or
+     ~azure.mgmt.compute.v2020_09_30.models.DiskEncryptionSetIdentityType
+    :ivar principal_id: The object id of the Managed Identity Resource. This
+     will be sent to the RP from ARM via the x-ms-identity-principal-id header
+     in the PUT request if the resource has a systemAssigned(implicit) identity
+    :vartype principal_id: str
+    :ivar tenant_id: The tenant id of the Managed Identity Resource. This will
+     be sent to the RP from ARM via the x-ms-client-tenant-id header in the PUT
+     request if the resource has a systemAssigned(implicit) identity
+    :vartype tenant_id: str
+    """
+
+    _validation = {
+        'principal_id': {'readonly': True},
+        'tenant_id': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'type': {'key': 'type', 'type': 'str'},
+        'principal_id': {'key': 'principalId', 'type': 'str'},
+        'tenant_id': {'key': 'tenantId', 'type': 'str'},
+    }
+
+    def __init__(self, *, type=None, **kwargs) -> None:
+        super(EncryptionSetIdentity, self).__init__(**kwargs)
+        self.type = type
+        self.principal_id = None
+        self.tenant_id = None
+
+
+class EncryptionSettingsCollection(Model):
+    """Encryption settings for disk or snapshot.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param enabled: Required. Set this flag to true and provide
+     DiskEncryptionKey and optional KeyEncryptionKey to enable encryption. Set
+     this flag to false and remove DiskEncryptionKey and KeyEncryptionKey to
+     disable encryption. If EncryptionSettings is null in the request object,
+     the existing settings remain unchanged.
+    :type enabled: bool
+    :param encryption_settings: A collection of encryption settings, one for
+     each disk volume.
+    :type encryption_settings:
+     list[~azure.mgmt.compute.v2020_09_30.models.EncryptionSettingsElement]
+    :param encryption_settings_version: Describes what type of encryption is
+     used for the disks. Once this field is set, it cannot be overwritten.
+     '1.0' corresponds to Azure Disk Encryption with AAD app.'1.1' corresponds
+     to Azure Disk Encryption.
+    :type encryption_settings_version: str
+    """
+
+    _validation = {
+        'enabled': {'required': True},
+    }
+
+    _attribute_map = {
+        'enabled': {'key': 'enabled', 'type': 'bool'},
+        'encryption_settings': {'key': 'encryptionSettings', 'type': '[EncryptionSettingsElement]'},
+        'encryption_settings_version': {'key': 'encryptionSettingsVersion', 'type': 'str'},
+    }
+
+    def __init__(self, *, enabled: bool, encryption_settings=None, encryption_settings_version: str=None, **kwargs) -> None:
+        super(EncryptionSettingsCollection, self).__init__(**kwargs)
+        self.enabled = enabled
+        self.encryption_settings = encryption_settings
+        self.encryption_settings_version = encryption_settings_version
+
+
+class EncryptionSettingsElement(Model):
+    """Encryption settings for one disk volume.
+
+    :param disk_encryption_key: Key Vault Secret Url and vault id of the disk
+     encryption key
+    :type disk_encryption_key:
+     ~azure.mgmt.compute.v2020_09_30.models.KeyVaultAndSecretReference
+    :param key_encryption_key: Key Vault Key Url and vault id of the key
+     encryption key. KeyEncryptionKey is optional and when provided is used to
+     unwrap the disk encryption key.
+    :type key_encryption_key:
+     ~azure.mgmt.compute.v2020_09_30.models.KeyVaultAndKeyReference
+    """
+
+    _attribute_map = {
+        'disk_encryption_key': {'key': 'diskEncryptionKey', 'type': 'KeyVaultAndSecretReference'},
+        'key_encryption_key': {'key': 'keyEncryptionKey', 'type': 'KeyVaultAndKeyReference'},
+    }
+
+    def __init__(self, *, disk_encryption_key=None, key_encryption_key=None, **kwargs) -> None:
+        super(EncryptionSettingsElement, self).__init__(**kwargs)
+        self.disk_encryption_key = disk_encryption_key
+        self.key_encryption_key = key_encryption_key
+
+
+class ExtendedLocation(Model):
+    """The complex type of the extended location.
+
+    :param name: The name of the extended location.
+    :type name: str
+    :param type: The type of the extended location. Possible values include:
+     'EdgeZone'
+    :type type: str or
+     ~azure.mgmt.compute.v2020_09_30.models.ExtendedLocationTypes
+    """
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    def __init__(self, *, name: str=None, type=None, **kwargs) -> None:
+        super(ExtendedLocation, self).__init__(**kwargs)
+        self.name = name
+        self.type = type
 
 
 class Gallery(Resource):
@@ -615,9 +1475,9 @@ class GalleryApplicationVersionPublishingProfile(GalleryArtifactPublishingProfil
      ~azure.mgmt.compute.v2020_09_30.models.StorageAccountType
     :param source: Required.
     :type source: ~azure.mgmt.compute.v2020_09_30.models.UserArtifactSource
-    :param content_type: Optional. May be used to help process this file. The
-     type of file contained in the source, e.g. zip, json, etc.
-    :type content_type: str
+    :param manage_actions:
+    :type manage_actions:
+     ~azure.mgmt.compute.v2020_09_30.models.UserArtifactManage
     :param enable_health_check: Optional. Whether or not this application
      reports health.
     :type enable_health_check: bool
@@ -636,14 +1496,14 @@ class GalleryApplicationVersionPublishingProfile(GalleryArtifactPublishingProfil
         'end_of_life_date': {'key': 'endOfLifeDate', 'type': 'iso-8601'},
         'storage_account_type': {'key': 'storageAccountType', 'type': 'str'},
         'source': {'key': 'source', 'type': 'UserArtifactSource'},
-        'content_type': {'key': 'contentType', 'type': 'str'},
+        'manage_actions': {'key': 'manageActions', 'type': 'UserArtifactManage'},
         'enable_health_check': {'key': 'enableHealthCheck', 'type': 'bool'},
     }
 
-    def __init__(self, *, source, target_regions=None, replica_count: int=None, exclude_from_latest: bool=None, end_of_life_date=None, storage_account_type=None, content_type: str=None, enable_health_check: bool=None, **kwargs) -> None:
+    def __init__(self, *, source, target_regions=None, replica_count: int=None, exclude_from_latest: bool=None, end_of_life_date=None, storage_account_type=None, manage_actions=None, enable_health_check: bool=None, **kwargs) -> None:
         super(GalleryApplicationVersionPublishingProfile, self).__init__(target_regions=target_regions, replica_count=replica_count, exclude_from_latest=exclude_from_latest, end_of_life_date=end_of_life_date, storage_account_type=storage_account_type, **kwargs)
         self.source = source
-        self.content_type = content_type
+        self.manage_actions = manage_actions
         self.enable_health_check = enable_health_check
 
 
@@ -1434,6 +2294,63 @@ class GalleryUpdate(UpdateResourceDefinition):
         self.sharing_profile = sharing_profile
 
 
+class GrantAccessData(Model):
+    """Data used for requesting a SAS.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param access: Required. Possible values include: 'None', 'Read', 'Write'
+    :type access: str or ~azure.mgmt.compute.v2020_09_30.models.AccessLevel
+    :param duration_in_seconds: Required. Time duration in seconds until the
+     SAS access expires.
+    :type duration_in_seconds: int
+    """
+
+    _validation = {
+        'access': {'required': True},
+        'duration_in_seconds': {'required': True},
+    }
+
+    _attribute_map = {
+        'access': {'key': 'access', 'type': 'str'},
+        'duration_in_seconds': {'key': 'durationInSeconds', 'type': 'int'},
+    }
+
+    def __init__(self, *, access, duration_in_seconds: int, **kwargs) -> None:
+        super(GrantAccessData, self).__init__(**kwargs)
+        self.access = access
+        self.duration_in_seconds = duration_in_seconds
+
+
+class ImageDiskReference(Model):
+    """The source image used for creating the disk.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param id: Required. A relative uri containing either a Platform Image
+     Repository or user image reference.
+    :type id: str
+    :param lun: If the disk is created from an image's data disk, this is an
+     index that indicates which of the data disks in the image to use. For OS
+     disks, this field is null.
+    :type lun: int
+    """
+
+    _validation = {
+        'id': {'required': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'lun': {'key': 'lun', 'type': 'int'},
+    }
+
+    def __init__(self, *, id: str, lun: int=None, **kwargs) -> None:
+        super(ImageDiskReference, self).__init__(**kwargs)
+        self.id = id
+        self.lun = lun
+
+
 class ImagePurchasePlan(Model):
     """Describes the gallery image definition purchase plan. This is used by
     marketplace images.
@@ -1477,6 +2394,93 @@ class InnerError(Model):
         super(InnerError, self).__init__(**kwargs)
         self.exceptiontype = exceptiontype
         self.errordetail = errordetail
+
+
+class KeyForDiskEncryptionSet(Model):
+    """Key Vault Key Url to be used for server side encryption of Managed Disks
+    and Snapshots.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param source_vault: Resource id of the KeyVault containing the key or
+     secret. This property is optional and cannot be used if the KeyVault
+     subscription is not the same as the Disk Encryption Set subscription.
+    :type source_vault: ~azure.mgmt.compute.v2020_09_30.models.SourceVault
+    :param key_url: Required. Fully versioned Key Url pointing to a key in
+     KeyVault
+    :type key_url: str
+    """
+
+    _validation = {
+        'key_url': {'required': True},
+    }
+
+    _attribute_map = {
+        'source_vault': {'key': 'sourceVault', 'type': 'SourceVault'},
+        'key_url': {'key': 'keyUrl', 'type': 'str'},
+    }
+
+    def __init__(self, *, key_url: str, source_vault=None, **kwargs) -> None:
+        super(KeyForDiskEncryptionSet, self).__init__(**kwargs)
+        self.source_vault = source_vault
+        self.key_url = key_url
+
+
+class KeyVaultAndKeyReference(Model):
+    """Key Vault Key Url and vault id of KeK, KeK is optional and when provided is
+    used to unwrap the encryptionKey.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param source_vault: Required. Resource id of the KeyVault containing the
+     key or secret
+    :type source_vault: ~azure.mgmt.compute.v2020_09_30.models.SourceVault
+    :param key_url: Required. Url pointing to a key or secret in KeyVault
+    :type key_url: str
+    """
+
+    _validation = {
+        'source_vault': {'required': True},
+        'key_url': {'required': True},
+    }
+
+    _attribute_map = {
+        'source_vault': {'key': 'sourceVault', 'type': 'SourceVault'},
+        'key_url': {'key': 'keyUrl', 'type': 'str'},
+    }
+
+    def __init__(self, *, source_vault, key_url: str, **kwargs) -> None:
+        super(KeyVaultAndKeyReference, self).__init__(**kwargs)
+        self.source_vault = source_vault
+        self.key_url = key_url
+
+
+class KeyVaultAndSecretReference(Model):
+    """Key Vault Secret Url and vault id of the encryption key .
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param source_vault: Required. Resource id of the KeyVault containing the
+     key or secret
+    :type source_vault: ~azure.mgmt.compute.v2020_09_30.models.SourceVault
+    :param secret_url: Required. Url pointing to a key or secret in KeyVault
+    :type secret_url: str
+    """
+
+    _validation = {
+        'source_vault': {'required': True},
+        'secret_url': {'required': True},
+    }
+
+    _attribute_map = {
+        'source_vault': {'key': 'sourceVault', 'type': 'SourceVault'},
+        'secret_url': {'key': 'secretUrl', 'type': 'str'},
+    }
+
+    def __init__(self, *, source_vault, secret_url: str, **kwargs) -> None:
+        super(KeyVaultAndSecretReference, self).__init__(**kwargs)
+        self.source_vault = source_vault
+        self.secret_url = secret_url
 
 
 class ManagedArtifact(Model):
@@ -1573,6 +2577,216 @@ class PirSharedGalleryResource(PirResource):
     def __init__(self, *, unique_id: str=None, **kwargs) -> None:
         super(PirSharedGalleryResource, self).__init__(**kwargs)
         self.unique_id = unique_id
+
+
+class PrivateEndpoint(Model):
+    """The Private Endpoint resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: The ARM identifier for Private Endpoint
+    :vartype id: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(PrivateEndpoint, self).__init__(**kwargs)
+        self.id = None
+
+
+class PrivateEndpointConnection(Model):
+    """The Private Endpoint Connection resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param private_endpoint: The resource of private end point.
+    :type private_endpoint:
+     ~azure.mgmt.compute.v2020_09_30.models.PrivateEndpoint
+    :param private_link_service_connection_state: Required. A collection of
+     information about the state of the connection between DiskAccess and
+     Virtual Network.
+    :type private_link_service_connection_state:
+     ~azure.mgmt.compute.v2020_09_30.models.PrivateLinkServiceConnectionState
+    :param provisioning_state: The provisioning state of the private endpoint
+     connection resource. Possible values include: 'Succeeded', 'Creating',
+     'Deleting', 'Failed'
+    :type provisioning_state: str or
+     ~azure.mgmt.compute.v2020_09_30.models.PrivateEndpointConnectionProvisioningState
+    :ivar id: private endpoint connection Id
+    :vartype id: str
+    :ivar name: private endpoint connection name
+    :vartype name: str
+    :ivar type: private endpoint connection type
+    :vartype type: str
+    """
+
+    _validation = {
+        'private_link_service_connection_state': {'required': True},
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'private_endpoint': {'key': 'properties.privateEndpoint', 'type': 'PrivateEndpoint'},
+        'private_link_service_connection_state': {'key': 'properties.privateLinkServiceConnectionState', 'type': 'PrivateLinkServiceConnectionState'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    def __init__(self, *, private_link_service_connection_state, private_endpoint=None, provisioning_state=None, **kwargs) -> None:
+        super(PrivateEndpointConnection, self).__init__(**kwargs)
+        self.private_endpoint = private_endpoint
+        self.private_link_service_connection_state = private_link_service_connection_state
+        self.provisioning_state = provisioning_state
+        self.id = None
+        self.name = None
+        self.type = None
+
+
+class PrivateLinkResource(Model):
+    """A private link resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar group_id: The private link resource group id.
+    :vartype group_id: str
+    :ivar required_members: The private link resource required member names.
+    :vartype required_members: list[str]
+    :param required_zone_names: The private link resource DNS zone name.
+    :type required_zone_names: list[str]
+    :ivar id: private link resource Id
+    :vartype id: str
+    :ivar name: private link resource name
+    :vartype name: str
+    :ivar type: private link resource type
+    :vartype type: str
+    """
+
+    _validation = {
+        'group_id': {'readonly': True},
+        'required_members': {'readonly': True},
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'group_id': {'key': 'properties.groupId', 'type': 'str'},
+        'required_members': {'key': 'properties.requiredMembers', 'type': '[str]'},
+        'required_zone_names': {'key': 'properties.requiredZoneNames', 'type': '[str]'},
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    def __init__(self, *, required_zone_names=None, **kwargs) -> None:
+        super(PrivateLinkResource, self).__init__(**kwargs)
+        self.group_id = None
+        self.required_members = None
+        self.required_zone_names = required_zone_names
+        self.id = None
+        self.name = None
+        self.type = None
+
+
+class PrivateLinkResourceListResult(Model):
+    """A list of private link resources.
+
+    :param value: Array of private link resources
+    :type value:
+     list[~azure.mgmt.compute.v2020_09_30.models.PrivateLinkResource]
+    """
+
+    _attribute_map = {
+        'value': {'key': 'value', 'type': '[PrivateLinkResource]'},
+    }
+
+    def __init__(self, *, value=None, **kwargs) -> None:
+        super(PrivateLinkResourceListResult, self).__init__(**kwargs)
+        self.value = value
+
+
+class PrivateLinkServiceConnectionState(Model):
+    """A collection of information about the state of the connection between
+    service consumer and provider.
+
+    :param status: Indicates whether the connection has been
+     Approved/Rejected/Removed by the owner of the service. Possible values
+     include: 'Pending', 'Approved', 'Rejected'
+    :type status: str or
+     ~azure.mgmt.compute.v2020_09_30.models.PrivateEndpointServiceConnectionStatus
+    :param description: The reason for approval/rejection of the connection.
+    :type description: str
+    :param actions_required: A message indicating if changes on the service
+     provider require any updates on the consumer.
+    :type actions_required: str
+    """
+
+    _attribute_map = {
+        'status': {'key': 'status', 'type': 'str'},
+        'description': {'key': 'description', 'type': 'str'},
+        'actions_required': {'key': 'actionsRequired', 'type': 'str'},
+    }
+
+    def __init__(self, *, status=None, description: str=None, actions_required: str=None, **kwargs) -> None:
+        super(PrivateLinkServiceConnectionState, self).__init__(**kwargs)
+        self.status = status
+        self.description = description
+        self.actions_required = actions_required
+
+
+class PurchasePlan(Model):
+    """Used for establishing the purchase context of any 3rd Party artifact
+    through MarketPlace.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param name: Required. The plan ID.
+    :type name: str
+    :param publisher: Required. The publisher ID.
+    :type publisher: str
+    :param product: Required. Specifies the product of the image from the
+     marketplace. This is the same value as Offer under the imageReference
+     element.
+    :type product: str
+    :param promotion_code: The Offer Promotion Code.
+    :type promotion_code: str
+    """
+
+    _validation = {
+        'name': {'required': True},
+        'publisher': {'required': True},
+        'product': {'required': True},
+    }
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'publisher': {'key': 'publisher', 'type': 'str'},
+        'product': {'key': 'product', 'type': 'str'},
+        'promotion_code': {'key': 'promotionCode', 'type': 'str'},
+    }
+
+    def __init__(self, *, name: str, publisher: str, product: str, promotion_code: str=None, **kwargs) -> None:
+        super(PurchasePlan, self).__init__(**kwargs)
+        self.name = name
+        self.publisher = publisher
+        self.product = product
+        self.promotion_code = promotion_code
 
 
 class RecommendedMachineConfiguration(Model):
@@ -1847,6 +3061,30 @@ class SharedGalleryImageVersion(PirSharedGalleryResource):
         self.end_of_life_date = end_of_life_date
 
 
+class ShareInfoElement(Model):
+    """ShareInfoElement.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar vm_uri: A relative URI containing the ID of the VM that has the disk
+     attached.
+    :vartype vm_uri: str
+    """
+
+    _validation = {
+        'vm_uri': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'vm_uri': {'key': 'vmUri', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs) -> None:
+        super(ShareInfoElement, self).__init__(**kwargs)
+        self.vm_uri = None
+
+
 class SharingProfile(Model):
     """Profile for gallery sharing to subscription or tenant.
 
@@ -1933,6 +3171,252 @@ class SharingUpdate(Model):
         self.groups = groups
 
 
+class Snapshot(Resource):
+    """Snapshot resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar id: Resource Id
+    :vartype id: str
+    :ivar name: Resource name
+    :vartype name: str
+    :ivar type: Resource type
+    :vartype type: str
+    :param location: Required. Resource location
+    :type location: str
+    :param tags: Resource tags
+    :type tags: dict[str, str]
+    :ivar managed_by: Unused. Always Null.
+    :vartype managed_by: str
+    :param sku:
+    :type sku: ~azure.mgmt.compute.v2020_09_30.models.SnapshotSku
+    :param extended_location: The extended location where the snapshot will be
+     created. Extended location cannot be changed.
+    :type extended_location:
+     ~azure.mgmt.compute.v2020_09_30.models.ExtendedLocation
+    :ivar time_created: The time when the snapshot was created.
+    :vartype time_created: datetime
+    :param os_type: The Operating System type. Possible values include:
+     'Windows', 'Linux'
+    :type os_type: str or
+     ~azure.mgmt.compute.v2020_09_30.models.OperatingSystemTypes
+    :param hyper_vgeneration: The hypervisor generation of the Virtual
+     Machine. Applicable to OS disks only. Possible values include: 'V1', 'V2'
+    :type hyper_vgeneration: str or
+     ~azure.mgmt.compute.v2020_09_30.models.HyperVGeneration
+    :param purchase_plan: Purchase plan information for the image from which
+     the source disk for the snapshot was originally created.
+    :type purchase_plan: ~azure.mgmt.compute.v2020_09_30.models.PurchasePlan
+    :param creation_data: Required. Disk source information. CreationData
+     information cannot be changed after the disk has been created.
+    :type creation_data: ~azure.mgmt.compute.v2020_09_30.models.CreationData
+    :param disk_size_gb: If creationData.createOption is Empty, this field is
+     mandatory and it indicates the size of the disk to create. If this field
+     is present for updates or creation with other options, it indicates a
+     resize. Resizes are only allowed if the disk is not attached to a running
+     VM, and can only increase the disk's size.
+    :type disk_size_gb: int
+    :ivar disk_size_bytes: The size of the disk in bytes. This field is read
+     only.
+    :vartype disk_size_bytes: long
+    :param disk_state: The state of the snapshot. Possible values include:
+     'Unattached', 'Attached', 'Reserved', 'ActiveSAS', 'ReadyToUpload',
+     'ActiveUpload'
+    :type disk_state: str or ~azure.mgmt.compute.v2020_09_30.models.DiskState
+    :ivar unique_id: Unique Guid identifying the resource.
+    :vartype unique_id: str
+    :param encryption_settings_collection: Encryption settings collection used
+     be Azure Disk Encryption, can contain multiple encryption settings per
+     disk or snapshot.
+    :type encryption_settings_collection:
+     ~azure.mgmt.compute.v2020_09_30.models.EncryptionSettingsCollection
+    :ivar provisioning_state: The disk provisioning state.
+    :vartype provisioning_state: str
+    :param incremental: Whether a snapshot is incremental. Incremental
+     snapshots on the same disk occupy less space than full snapshots and can
+     be diffed.
+    :type incremental: bool
+    :param encryption: Encryption property can be used to encrypt data at rest
+     with customer managed keys or platform managed keys.
+    :type encryption: ~azure.mgmt.compute.v2020_09_30.models.Encryption
+    :param network_access_policy: Possible values include: 'AllowAll',
+     'AllowPrivate', 'DenyAll'
+    :type network_access_policy: str or
+     ~azure.mgmt.compute.v2020_09_30.models.NetworkAccessPolicy
+    :param disk_access_id: ARM id of the DiskAccess resource for using private
+     endpoints on disks.
+    :type disk_access_id: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'location': {'required': True},
+        'managed_by': {'readonly': True},
+        'time_created': {'readonly': True},
+        'creation_data': {'required': True},
+        'disk_size_bytes': {'readonly': True},
+        'unique_id': {'readonly': True},
+        'provisioning_state': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'location': {'key': 'location', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'managed_by': {'key': 'managedBy', 'type': 'str'},
+        'sku': {'key': 'sku', 'type': 'SnapshotSku'},
+        'extended_location': {'key': 'extendedLocation', 'type': 'ExtendedLocation'},
+        'time_created': {'key': 'properties.timeCreated', 'type': 'iso-8601'},
+        'os_type': {'key': 'properties.osType', 'type': 'OperatingSystemTypes'},
+        'hyper_vgeneration': {'key': 'properties.hyperVGeneration', 'type': 'str'},
+        'purchase_plan': {'key': 'properties.purchasePlan', 'type': 'PurchasePlan'},
+        'creation_data': {'key': 'properties.creationData', 'type': 'CreationData'},
+        'disk_size_gb': {'key': 'properties.diskSizeGB', 'type': 'int'},
+        'disk_size_bytes': {'key': 'properties.diskSizeBytes', 'type': 'long'},
+        'disk_state': {'key': 'properties.diskState', 'type': 'str'},
+        'unique_id': {'key': 'properties.uniqueId', 'type': 'str'},
+        'encryption_settings_collection': {'key': 'properties.encryptionSettingsCollection', 'type': 'EncryptionSettingsCollection'},
+        'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
+        'incremental': {'key': 'properties.incremental', 'type': 'bool'},
+        'encryption': {'key': 'properties.encryption', 'type': 'Encryption'},
+        'network_access_policy': {'key': 'properties.networkAccessPolicy', 'type': 'str'},
+        'disk_access_id': {'key': 'properties.diskAccessId', 'type': 'str'},
+    }
+
+    def __init__(self, *, location: str, creation_data, tags=None, sku=None, extended_location=None, os_type=None, hyper_vgeneration=None, purchase_plan=None, disk_size_gb: int=None, disk_state=None, encryption_settings_collection=None, incremental: bool=None, encryption=None, network_access_policy=None, disk_access_id: str=None, **kwargs) -> None:
+        super(Snapshot, self).__init__(location=location, tags=tags, **kwargs)
+        self.managed_by = None
+        self.sku = sku
+        self.extended_location = extended_location
+        self.time_created = None
+        self.os_type = os_type
+        self.hyper_vgeneration = hyper_vgeneration
+        self.purchase_plan = purchase_plan
+        self.creation_data = creation_data
+        self.disk_size_gb = disk_size_gb
+        self.disk_size_bytes = None
+        self.disk_state = disk_state
+        self.unique_id = None
+        self.encryption_settings_collection = encryption_settings_collection
+        self.provisioning_state = None
+        self.incremental = incremental
+        self.encryption = encryption
+        self.network_access_policy = network_access_policy
+        self.disk_access_id = disk_access_id
+
+
+class SnapshotSku(Model):
+    """The snapshots sku name. Can be Standard_LRS, Premium_LRS, or Standard_ZRS.
+    This is an optional parameter for incremental snapshot and the default
+    behavior is the SKU will be set to the same sku as the previous snapshot.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :param name: The sku name. Possible values include: 'Standard_LRS',
+     'Premium_LRS', 'Standard_ZRS'
+    :type name: str or
+     ~azure.mgmt.compute.v2020_09_30.models.SnapshotStorageAccountTypes
+    :ivar tier: The sku tier.
+    :vartype tier: str
+    """
+
+    _validation = {
+        'tier': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'tier': {'key': 'tier', 'type': 'str'},
+    }
+
+    def __init__(self, *, name=None, **kwargs) -> None:
+        super(SnapshotSku, self).__init__(**kwargs)
+        self.name = name
+        self.tier = None
+
+
+class SnapshotUpdate(Model):
+    """Snapshot update resource.
+
+    :param os_type: the Operating System type. Possible values include:
+     'Windows', 'Linux'
+    :type os_type: str or
+     ~azure.mgmt.compute.v2020_09_30.models.OperatingSystemTypes
+    :param disk_size_gb: If creationData.createOption is Empty, this field is
+     mandatory and it indicates the size of the disk to create. If this field
+     is present for updates or creation with other options, it indicates a
+     resize. Resizes are only allowed if the disk is not attached to a running
+     VM, and can only increase the disk's size.
+    :type disk_size_gb: int
+    :param encryption_settings_collection: Encryption settings collection used
+     be Azure Disk Encryption, can contain multiple encryption settings per
+     disk or snapshot.
+    :type encryption_settings_collection:
+     ~azure.mgmt.compute.v2020_09_30.models.EncryptionSettingsCollection
+    :param encryption: Encryption property can be used to encrypt data at rest
+     with customer managed keys or platform managed keys.
+    :type encryption: ~azure.mgmt.compute.v2020_09_30.models.Encryption
+    :param network_access_policy: Possible values include: 'AllowAll',
+     'AllowPrivate', 'DenyAll'
+    :type network_access_policy: str or
+     ~azure.mgmt.compute.v2020_09_30.models.NetworkAccessPolicy
+    :param disk_access_id: ARM id of the DiskAccess resource for using private
+     endpoints on disks.
+    :type disk_access_id: str
+    :param tags: Resource tags
+    :type tags: dict[str, str]
+    :param sku:
+    :type sku: ~azure.mgmt.compute.v2020_09_30.models.SnapshotSku
+    """
+
+    _attribute_map = {
+        'os_type': {'key': 'properties.osType', 'type': 'OperatingSystemTypes'},
+        'disk_size_gb': {'key': 'properties.diskSizeGB', 'type': 'int'},
+        'encryption_settings_collection': {'key': 'properties.encryptionSettingsCollection', 'type': 'EncryptionSettingsCollection'},
+        'encryption': {'key': 'properties.encryption', 'type': 'Encryption'},
+        'network_access_policy': {'key': 'properties.networkAccessPolicy', 'type': 'str'},
+        'disk_access_id': {'key': 'properties.diskAccessId', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '{str}'},
+        'sku': {'key': 'sku', 'type': 'SnapshotSku'},
+    }
+
+    def __init__(self, *, os_type=None, disk_size_gb: int=None, encryption_settings_collection=None, encryption=None, network_access_policy=None, disk_access_id: str=None, tags=None, sku=None, **kwargs) -> None:
+        super(SnapshotUpdate, self).__init__(**kwargs)
+        self.os_type = os_type
+        self.disk_size_gb = disk_size_gb
+        self.encryption_settings_collection = encryption_settings_collection
+        self.encryption = encryption
+        self.network_access_policy = network_access_policy
+        self.disk_access_id = disk_access_id
+        self.tags = tags
+        self.sku = sku
+
+
+class SourceVault(Model):
+    """The vault id is an Azure Resource Manager Resource id in the form
+    /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.KeyVault/vaults/{vaultName}.
+
+    :param id: Resource Id
+    :type id: str
+    """
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+    }
+
+    def __init__(self, *, id: str=None, **kwargs) -> None:
+        super(SourceVault, self).__init__(**kwargs)
+        self.id = id
+
+
 class TargetRegion(Model):
     """Describes the target region information.
 
@@ -1971,29 +3455,65 @@ class TargetRegion(Model):
         self.encryption = encryption
 
 
+class UserArtifactManage(Model):
+    """UserArtifactManage.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param install: Required. Required. The path and arguments to install the
+     gallery application. This is limited to 4096 characters.
+    :type install: str
+    :param remove: Required. Required. The path and arguments to remove the
+     gallery application. This is limited to 4096 characters.
+    :type remove: str
+    :param update: Optional. The path and arguments to update the gallery
+     application. If not present, then update operation will invoke remove
+     command on the previous version and install command on the current version
+     of the gallery application. This is limited to 4096 characters.
+    :type update: str
+    """
+
+    _validation = {
+        'install': {'required': True},
+        'remove': {'required': True},
+    }
+
+    _attribute_map = {
+        'install': {'key': 'install', 'type': 'str'},
+        'remove': {'key': 'remove', 'type': 'str'},
+        'update': {'key': 'update', 'type': 'str'},
+    }
+
+    def __init__(self, *, install: str, remove: str, update: str=None, **kwargs) -> None:
+        super(UserArtifactManage, self).__init__(**kwargs)
+        self.install = install
+        self.remove = remove
+        self.update = update
+
+
 class UserArtifactSource(Model):
     """The source image from which the Image Version is going to be created.
 
     All required parameters must be populated in order to send to Azure.
 
-    :param file_name: Required. Required. The fileName of the artifact.
-    :type file_name: str
     :param media_link: Required. Required. The mediaLink of the artifact, must
-     be a readable storage blob.
+     be a readable storage page blob.
     :type media_link: str
+    :param default_configuration_link: Optional. The defaultConfigurationLink
+     of the artifact, must be a readable storage page blob.
+    :type default_configuration_link: str
     """
 
     _validation = {
-        'file_name': {'required': True},
         'media_link': {'required': True},
     }
 
     _attribute_map = {
-        'file_name': {'key': 'fileName', 'type': 'str'},
         'media_link': {'key': 'mediaLink', 'type': 'str'},
+        'default_configuration_link': {'key': 'defaultConfigurationLink', 'type': 'str'},
     }
 
-    def __init__(self, *, file_name: str, media_link: str, **kwargs) -> None:
+    def __init__(self, *, media_link: str, default_configuration_link: str=None, **kwargs) -> None:
         super(UserArtifactSource, self).__init__(**kwargs)
-        self.file_name = file_name
         self.media_link = media_link
+        self.default_configuration_link = default_configuration_link
