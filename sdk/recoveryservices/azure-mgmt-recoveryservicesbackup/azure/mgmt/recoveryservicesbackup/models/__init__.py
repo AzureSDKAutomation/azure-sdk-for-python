@@ -232,6 +232,7 @@ try:
     from ._models_py3 import ProtectionPolicyResource
     from ._models_py3 import RecoveryPoint
     from ._models_py3 import RecoveryPointDiskConfiguration
+    from ._models_py3 import RecoveryPointMoveReadinessInfo
     from ._models_py3 import RecoveryPointResource
     from ._models_py3 import RecoveryPointTierInformation
     from ._models_py3 import Resource
@@ -494,6 +495,7 @@ except (SyntaxError, ImportError):
     from ._models import ProtectionPolicyResource
     from ._models import RecoveryPoint
     from ._models import RecoveryPointDiskConfiguration
+    from ._models import RecoveryPointMoveReadinessInfo
     from ._models import RecoveryPointResource
     from ._models import RecoveryPointTierInformation
     from ._models import Resource
@@ -564,13 +566,13 @@ from ._recovery_services_backup_client_enums import (
     LastBackupStatus,
     ProtectedItemHealthStatus,
     RestorePointType,
+    RecoveryPointTierType,
+    RecoveryPointTierStatus,
     OverwriteOptions,
     RecoveryMode,
     SQLDataDirectoryType,
     RestorePointQueryType,
     RetentionDurationType,
-    RecoveryPointTierType,
-    RecoveryPointTierStatus,
     BackupManagementType,
     JobStatus,
     JobOperationType,
@@ -829,6 +831,7 @@ __all__ = [
     'ProtectionPolicyResource',
     'RecoveryPoint',
     'RecoveryPointDiskConfiguration',
+    'RecoveryPointMoveReadinessInfo',
     'RecoveryPointResource',
     'RecoveryPointTierInformation',
     'Resource',
@@ -898,13 +901,13 @@ __all__ = [
     'LastBackupStatus',
     'ProtectedItemHealthStatus',
     'RestorePointType',
+    'RecoveryPointTierType',
+    'RecoveryPointTierStatus',
     'OverwriteOptions',
     'RecoveryMode',
     'SQLDataDirectoryType',
     'RestorePointQueryType',
     'RetentionDurationType',
-    'RecoveryPointTierType',
-    'RecoveryPointTierStatus',
     'BackupManagementType',
     'JobStatus',
     'JobOperationType',

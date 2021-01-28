@@ -5216,6 +5216,13 @@ class AzureWorkloadRecoveryPoint(RecoveryPoint):
      'Full', 'Log', 'Differential', 'Incremental'
     :vartype type: str or
      ~azure.mgmt.recoveryservicesbackup.models.RestorePointType
+    :param recovery_point_tier_details: Recovery point tier information.
+    :type recovery_point_tier_details:
+     list[~azure.mgmt.recoveryservicesbackup.models.RecoveryPointTierInformation]
+    :param recovery_point_move_readiness_info: Eligibility of RP to be moved
+     to another tier
+    :type recovery_point_move_readiness_info: dict[str,
+     ~azure.mgmt.recoveryservicesbackup.models.RecoveryPointMoveReadinessInfo]
     """
 
     _validation = {
@@ -5228,16 +5235,20 @@ class AzureWorkloadRecoveryPoint(RecoveryPoint):
         'object_type': {'key': 'objectType', 'type': 'str'},
         'recovery_point_time_in_utc': {'key': 'recoveryPointTimeInUTC', 'type': 'iso-8601'},
         'type': {'key': 'type', 'type': 'str'},
+        'recovery_point_tier_details': {'key': 'recoveryPointTierDetails', 'type': '[RecoveryPointTierInformation]'},
+        'recovery_point_move_readiness_info': {'key': 'recoveryPointMoveReadinessInfo', 'type': '{RecoveryPointMoveReadinessInfo}'},
     }
 
     _subtype_map = {
         'object_type': {'AzureWorkloadPointInTimeRecoveryPoint': 'AzureWorkloadPointInTimeRecoveryPoint', 'AzureWorkloadSAPHanaRecoveryPoint': 'AzureWorkloadSAPHanaRecoveryPoint', 'AzureWorkloadSQLRecoveryPoint': 'AzureWorkloadSQLRecoveryPoint'}
     }
 
-    def __init__(self, **kwargs) -> None:
+    def __init__(self, *, recovery_point_tier_details=None, recovery_point_move_readiness_info=None, **kwargs) -> None:
         super(AzureWorkloadRecoveryPoint, self).__init__(**kwargs)
         self.recovery_point_time_in_utc = None
         self.type = None
+        self.recovery_point_tier_details = recovery_point_tier_details
+        self.recovery_point_move_readiness_info = recovery_point_move_readiness_info
         self.object_type = 'AzureWorkloadRecoveryPoint'
 
 
@@ -5261,6 +5272,13 @@ class AzureWorkloadPointInTimeRecoveryPoint(AzureWorkloadRecoveryPoint):
      'Full', 'Log', 'Differential', 'Incremental'
     :vartype type: str or
      ~azure.mgmt.recoveryservicesbackup.models.RestorePointType
+    :param recovery_point_tier_details: Recovery point tier information.
+    :type recovery_point_tier_details:
+     list[~azure.mgmt.recoveryservicesbackup.models.RecoveryPointTierInformation]
+    :param recovery_point_move_readiness_info: Eligibility of RP to be moved
+     to another tier
+    :type recovery_point_move_readiness_info: dict[str,
+     ~azure.mgmt.recoveryservicesbackup.models.RecoveryPointMoveReadinessInfo]
     :param time_ranges: List of log ranges
     :type time_ranges:
      list[~azure.mgmt.recoveryservicesbackup.models.PointInTimeRange]
@@ -5276,6 +5294,8 @@ class AzureWorkloadPointInTimeRecoveryPoint(AzureWorkloadRecoveryPoint):
         'object_type': {'key': 'objectType', 'type': 'str'},
         'recovery_point_time_in_utc': {'key': 'recoveryPointTimeInUTC', 'type': 'iso-8601'},
         'type': {'key': 'type', 'type': 'str'},
+        'recovery_point_tier_details': {'key': 'recoveryPointTierDetails', 'type': '[RecoveryPointTierInformation]'},
+        'recovery_point_move_readiness_info': {'key': 'recoveryPointMoveReadinessInfo', 'type': '{RecoveryPointMoveReadinessInfo}'},
         'time_ranges': {'key': 'timeRanges', 'type': '[PointInTimeRange]'},
     }
 
@@ -5283,8 +5303,8 @@ class AzureWorkloadPointInTimeRecoveryPoint(AzureWorkloadRecoveryPoint):
         'object_type': {'AzureWorkloadSAPHanaPointInTimeRecoveryPoint': 'AzureWorkloadSAPHanaPointInTimeRecoveryPoint'}
     }
 
-    def __init__(self, *, time_ranges=None, **kwargs) -> None:
-        super(AzureWorkloadPointInTimeRecoveryPoint, self).__init__(**kwargs)
+    def __init__(self, *, recovery_point_tier_details=None, recovery_point_move_readiness_info=None, time_ranges=None, **kwargs) -> None:
+        super(AzureWorkloadPointInTimeRecoveryPoint, self).__init__(recovery_point_tier_details=recovery_point_tier_details, recovery_point_move_readiness_info=recovery_point_move_readiness_info, **kwargs)
         self.time_ranges = time_ranges
         self.object_type = 'AzureWorkloadPointInTimeRecoveryPoint'
 
@@ -5414,6 +5434,13 @@ class AzureWorkloadSAPHanaPointInTimeRecoveryPoint(AzureWorkloadPointInTimeRecov
      'Full', 'Log', 'Differential', 'Incremental'
     :vartype type: str or
      ~azure.mgmt.recoveryservicesbackup.models.RestorePointType
+    :param recovery_point_tier_details: Recovery point tier information.
+    :type recovery_point_tier_details:
+     list[~azure.mgmt.recoveryservicesbackup.models.RecoveryPointTierInformation]
+    :param recovery_point_move_readiness_info: Eligibility of RP to be moved
+     to another tier
+    :type recovery_point_move_readiness_info: dict[str,
+     ~azure.mgmt.recoveryservicesbackup.models.RecoveryPointMoveReadinessInfo]
     :param time_ranges: List of log ranges
     :type time_ranges:
      list[~azure.mgmt.recoveryservicesbackup.models.PointInTimeRange]
@@ -5429,11 +5456,13 @@ class AzureWorkloadSAPHanaPointInTimeRecoveryPoint(AzureWorkloadPointInTimeRecov
         'object_type': {'key': 'objectType', 'type': 'str'},
         'recovery_point_time_in_utc': {'key': 'recoveryPointTimeInUTC', 'type': 'iso-8601'},
         'type': {'key': 'type', 'type': 'str'},
+        'recovery_point_tier_details': {'key': 'recoveryPointTierDetails', 'type': '[RecoveryPointTierInformation]'},
+        'recovery_point_move_readiness_info': {'key': 'recoveryPointMoveReadinessInfo', 'type': '{RecoveryPointMoveReadinessInfo}'},
         'time_ranges': {'key': 'timeRanges', 'type': '[PointInTimeRange]'},
     }
 
-    def __init__(self, *, time_ranges=None, **kwargs) -> None:
-        super(AzureWorkloadSAPHanaPointInTimeRecoveryPoint, self).__init__(time_ranges=time_ranges, **kwargs)
+    def __init__(self, *, recovery_point_tier_details=None, recovery_point_move_readiness_info=None, time_ranges=None, **kwargs) -> None:
+        super(AzureWorkloadSAPHanaPointInTimeRecoveryPoint, self).__init__(recovery_point_tier_details=recovery_point_tier_details, recovery_point_move_readiness_info=recovery_point_move_readiness_info, time_ranges=time_ranges, **kwargs)
         self.object_type = 'AzureWorkloadSAPHanaPointInTimeRecoveryPoint'
 
 
@@ -5557,6 +5586,13 @@ class AzureWorkloadSAPHanaRecoveryPoint(AzureWorkloadRecoveryPoint):
      'Full', 'Log', 'Differential', 'Incremental'
     :vartype type: str or
      ~azure.mgmt.recoveryservicesbackup.models.RestorePointType
+    :param recovery_point_tier_details: Recovery point tier information.
+    :type recovery_point_tier_details:
+     list[~azure.mgmt.recoveryservicesbackup.models.RecoveryPointTierInformation]
+    :param recovery_point_move_readiness_info: Eligibility of RP to be moved
+     to another tier
+    :type recovery_point_move_readiness_info: dict[str,
+     ~azure.mgmt.recoveryservicesbackup.models.RecoveryPointMoveReadinessInfo]
     """
 
     _validation = {
@@ -5569,10 +5605,12 @@ class AzureWorkloadSAPHanaRecoveryPoint(AzureWorkloadRecoveryPoint):
         'object_type': {'key': 'objectType', 'type': 'str'},
         'recovery_point_time_in_utc': {'key': 'recoveryPointTimeInUTC', 'type': 'iso-8601'},
         'type': {'key': 'type', 'type': 'str'},
+        'recovery_point_tier_details': {'key': 'recoveryPointTierDetails', 'type': '[RecoveryPointTierInformation]'},
+        'recovery_point_move_readiness_info': {'key': 'recoveryPointMoveReadinessInfo', 'type': '{RecoveryPointMoveReadinessInfo}'},
     }
 
-    def __init__(self, **kwargs) -> None:
-        super(AzureWorkloadSAPHanaRecoveryPoint, self).__init__(**kwargs)
+    def __init__(self, *, recovery_point_tier_details=None, recovery_point_move_readiness_info=None, **kwargs) -> None:
+        super(AzureWorkloadSAPHanaRecoveryPoint, self).__init__(recovery_point_tier_details=recovery_point_tier_details, recovery_point_move_readiness_info=recovery_point_move_readiness_info, **kwargs)
         self.object_type = 'AzureWorkloadSAPHanaRecoveryPoint'
 
 
@@ -5651,6 +5689,13 @@ class AzureWorkloadSQLRecoveryPoint(AzureWorkloadRecoveryPoint):
      'Full', 'Log', 'Differential', 'Incremental'
     :vartype type: str or
      ~azure.mgmt.recoveryservicesbackup.models.RestorePointType
+    :param recovery_point_tier_details: Recovery point tier information.
+    :type recovery_point_tier_details:
+     list[~azure.mgmt.recoveryservicesbackup.models.RecoveryPointTierInformation]
+    :param recovery_point_move_readiness_info: Eligibility of RP to be moved
+     to another tier
+    :type recovery_point_move_readiness_info: dict[str,
+     ~azure.mgmt.recoveryservicesbackup.models.RecoveryPointMoveReadinessInfo]
     :param extended_info: Extended Info that provides data directory details.
      Will be populated in two cases:
      When a specific recovery point is accessed using GetRecoveryPoint
@@ -5670,6 +5715,8 @@ class AzureWorkloadSQLRecoveryPoint(AzureWorkloadRecoveryPoint):
         'object_type': {'key': 'objectType', 'type': 'str'},
         'recovery_point_time_in_utc': {'key': 'recoveryPointTimeInUTC', 'type': 'iso-8601'},
         'type': {'key': 'type', 'type': 'str'},
+        'recovery_point_tier_details': {'key': 'recoveryPointTierDetails', 'type': '[RecoveryPointTierInformation]'},
+        'recovery_point_move_readiness_info': {'key': 'recoveryPointMoveReadinessInfo', 'type': '{RecoveryPointMoveReadinessInfo}'},
         'extended_info': {'key': 'extendedInfo', 'type': 'AzureWorkloadSQLRecoveryPointExtendedInfo'},
     }
 
@@ -5677,8 +5724,8 @@ class AzureWorkloadSQLRecoveryPoint(AzureWorkloadRecoveryPoint):
         'object_type': {'AzureWorkloadSQLPointInTimeRecoveryPoint': 'AzureWorkloadSQLPointInTimeRecoveryPoint'}
     }
 
-    def __init__(self, *, extended_info=None, **kwargs) -> None:
-        super(AzureWorkloadSQLRecoveryPoint, self).__init__(**kwargs)
+    def __init__(self, *, recovery_point_tier_details=None, recovery_point_move_readiness_info=None, extended_info=None, **kwargs) -> None:
+        super(AzureWorkloadSQLRecoveryPoint, self).__init__(recovery_point_tier_details=recovery_point_tier_details, recovery_point_move_readiness_info=recovery_point_move_readiness_info, **kwargs)
         self.extended_info = extended_info
         self.object_type = 'AzureWorkloadSQLRecoveryPoint'
 
@@ -5700,6 +5747,13 @@ class AzureWorkloadSQLPointInTimeRecoveryPoint(AzureWorkloadSQLRecoveryPoint):
      'Full', 'Log', 'Differential', 'Incremental'
     :vartype type: str or
      ~azure.mgmt.recoveryservicesbackup.models.RestorePointType
+    :param recovery_point_tier_details: Recovery point tier information.
+    :type recovery_point_tier_details:
+     list[~azure.mgmt.recoveryservicesbackup.models.RecoveryPointTierInformation]
+    :param recovery_point_move_readiness_info: Eligibility of RP to be moved
+     to another tier
+    :type recovery_point_move_readiness_info: dict[str,
+     ~azure.mgmt.recoveryservicesbackup.models.RecoveryPointMoveReadinessInfo]
     :param extended_info: Extended Info that provides data directory details.
      Will be populated in two cases:
      When a specific recovery point is accessed using GetRecoveryPoint
@@ -5722,12 +5776,14 @@ class AzureWorkloadSQLPointInTimeRecoveryPoint(AzureWorkloadSQLRecoveryPoint):
         'object_type': {'key': 'objectType', 'type': 'str'},
         'recovery_point_time_in_utc': {'key': 'recoveryPointTimeInUTC', 'type': 'iso-8601'},
         'type': {'key': 'type', 'type': 'str'},
+        'recovery_point_tier_details': {'key': 'recoveryPointTierDetails', 'type': '[RecoveryPointTierInformation]'},
+        'recovery_point_move_readiness_info': {'key': 'recoveryPointMoveReadinessInfo', 'type': '{RecoveryPointMoveReadinessInfo}'},
         'extended_info': {'key': 'extendedInfo', 'type': 'AzureWorkloadSQLRecoveryPointExtendedInfo'},
         'time_ranges': {'key': 'timeRanges', 'type': '[PointInTimeRange]'},
     }
 
-    def __init__(self, *, extended_info=None, time_ranges=None, **kwargs) -> None:
-        super(AzureWorkloadSQLPointInTimeRecoveryPoint, self).__init__(extended_info=extended_info, **kwargs)
+    def __init__(self, *, recovery_point_tier_details=None, recovery_point_move_readiness_info=None, extended_info=None, time_ranges=None, **kwargs) -> None:
+        super(AzureWorkloadSQLPointInTimeRecoveryPoint, self).__init__(recovery_point_tier_details=recovery_point_tier_details, recovery_point_move_readiness_info=recovery_point_move_readiness_info, extended_info=extended_info, **kwargs)
         self.time_ranges = time_ranges
         self.object_type = 'AzureWorkloadSQLPointInTimeRecoveryPoint'
 
@@ -6651,6 +6707,8 @@ class BMSRPQueryObject(Model):
     :param extended_info: In Get Recovery Point, it tells whether extended
      information about recovery point is asked.
     :type extended_info: bool
+    :param move_ready_rp_only: Whether the RP can be moved to another tier
+    :type move_ready_rp_only: bool
     """
 
     _attribute_map = {
@@ -6658,14 +6716,16 @@ class BMSRPQueryObject(Model):
         'end_date': {'key': 'endDate', 'type': 'iso-8601'},
         'restore_point_query_type': {'key': 'restorePointQueryType', 'type': 'str'},
         'extended_info': {'key': 'extendedInfo', 'type': 'bool'},
+        'move_ready_rp_only': {'key': 'moveReadyRPOnly', 'type': 'bool'},
     }
 
-    def __init__(self, *, start_date=None, end_date=None, restore_point_query_type=None, extended_info: bool=None, **kwargs) -> None:
+    def __init__(self, *, start_date=None, end_date=None, restore_point_query_type=None, extended_info: bool=None, move_ready_rp_only: bool=None, **kwargs) -> None:
         super(BMSRPQueryObject, self).__init__(**kwargs)
         self.start_date = start_date
         self.end_date = end_date
         self.restore_point_query_type = restore_point_query_type
         self.extended_info = extended_info
+        self.move_ready_rp_only = move_ready_rp_only
 
 
 class BMSWorkloadItemQueryObject(Model):
@@ -8394,6 +8454,10 @@ class IaasVMRecoveryPoint(RecoveryPoint):
     :param zones: Identifies the zone of the VM at the time of backup.
      Applicable only for zone-pinned Vms
     :type zones: list[str]
+    :param recovery_point_move_readiness_info: Eligibility of RP to be moved
+     to another tier
+    :type recovery_point_move_readiness_info: dict[str,
+     ~azure.mgmt.recoveryservicesbackup.models.RecoveryPointMoveReadinessInfo]
     """
 
     _validation = {
@@ -8421,9 +8485,10 @@ class IaasVMRecoveryPoint(RecoveryPoint):
         'os_type': {'key': 'osType', 'type': 'str'},
         'recovery_point_disk_configuration': {'key': 'recoveryPointDiskConfiguration', 'type': 'RecoveryPointDiskConfiguration'},
         'zones': {'key': 'zones', 'type': '[str]'},
+        'recovery_point_move_readiness_info': {'key': 'recoveryPointMoveReadinessInfo', 'type': '{RecoveryPointMoveReadinessInfo}'},
     }
 
-    def __init__(self, *, key_and_secret=None, is_instant_ilr_session_active: bool=None, recovery_point_tier_details=None, is_managed_virtual_machine: bool=None, virtual_machine_size: str=None, original_storage_account_option: bool=None, os_type: str=None, recovery_point_disk_configuration=None, zones=None, **kwargs) -> None:
+    def __init__(self, *, key_and_secret=None, is_instant_ilr_session_active: bool=None, recovery_point_tier_details=None, is_managed_virtual_machine: bool=None, virtual_machine_size: str=None, original_storage_account_option: bool=None, os_type: str=None, recovery_point_disk_configuration=None, zones=None, recovery_point_move_readiness_info=None, **kwargs) -> None:
         super(IaasVMRecoveryPoint, self).__init__(**kwargs)
         self.recovery_point_type = None
         self.recovery_point_time = None
@@ -8439,6 +8504,7 @@ class IaasVMRecoveryPoint(RecoveryPoint):
         self.os_type = os_type
         self.recovery_point_disk_configuration = recovery_point_disk_configuration
         self.zones = zones
+        self.recovery_point_move_readiness_info = recovery_point_move_readiness_info
         self.object_type = 'IaasVMRecoveryPoint'
 
 
@@ -10679,6 +10745,26 @@ class RecoveryPointDiskConfiguration(Model):
         self.excluded_disk_list = excluded_disk_list
 
 
+class RecoveryPointMoveReadinessInfo(Model):
+    """RecoveryPointMoveReadinessInfo.
+
+    :param is_ready_for_move:
+    :type is_ready_for_move: bool
+    :param additional_info:
+    :type additional_info: str
+    """
+
+    _attribute_map = {
+        'is_ready_for_move': {'key': 'isReadyForMove', 'type': 'bool'},
+        'additional_info': {'key': 'additionalInfo', 'type': 'str'},
+    }
+
+    def __init__(self, *, is_ready_for_move: bool=None, additional_info: str=None, **kwargs) -> None:
+        super(RecoveryPointMoveReadinessInfo, self).__init__(**kwargs)
+        self.is_ready_for_move = is_ready_for_move
+        self.additional_info = additional_info
+
+
 class RecoveryPointResource(Resource):
     """Base class for backup copies. Workload-specific backup copies are derived
     from this class.
@@ -10728,24 +10814,28 @@ class RecoveryPointTierInformation(Model):
     """Recovery point tier information.
 
     :param type: Recovery point tier type. Possible values include: 'Invalid',
-     'InstantRP', 'HardenedRP'
+     'InstantRP', 'HardenedRP', 'ArchivedRP'
     :type type: str or
      ~azure.mgmt.recoveryservicesbackup.models.RecoveryPointTierType
     :param status: Recovery point tier status. Possible values include:
-     'Invalid', 'Valid', 'Disabled', 'Deleted'
+     'Invalid', 'Valid', 'Disabled', 'Deleted', 'Rehydrated'
     :type status: str or
      ~azure.mgmt.recoveryservicesbackup.models.RecoveryPointTierStatus
+    :param extended_info: Recovery point tier status.
+    :type extended_info: dict[str, str]
     """
 
     _attribute_map = {
         'type': {'key': 'type', 'type': 'RecoveryPointTierType'},
         'status': {'key': 'status', 'type': 'RecoveryPointTierStatus'},
+        'extended_info': {'key': 'extendedInfo', 'type': '{str}'},
     }
 
-    def __init__(self, *, type=None, status=None, **kwargs) -> None:
+    def __init__(self, *, type=None, status=None, extended_info=None, **kwargs) -> None:
         super(RecoveryPointTierInformation, self).__init__(**kwargs)
         self.type = type
         self.status = status
+        self.extended_info = extended_info
 
 
 class ResourceList(Model):
