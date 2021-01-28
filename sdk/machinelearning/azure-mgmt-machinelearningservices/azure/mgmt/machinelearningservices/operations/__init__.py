@@ -11,14 +11,54 @@
 
 from ._operations import Operations
 from ._workspaces_operations import WorkspacesOperations
+from ._workspace_features_operations import WorkspaceFeaturesOperations
 from ._usages_operations import UsagesOperations
 from ._virtual_machine_sizes_operations import VirtualMachineSizesOperations
+from ._quotas_operations import QuotasOperations
 from ._machine_learning_compute_operations import MachineLearningComputeOperations
+from ._private_endpoint_connections_operations import PrivateEndpointConnectionsOperations
+from ._private_link_resources_operations import PrivateLinkResourcesOperations
+from ._linked_services_operations import LinkedServicesOperations
+from ._machine_learning_service_operations import MachineLearningServiceOperations
+from ._notebooks_operations import NotebooksOperations
+from ._workspace_connections_operations import WorkspaceConnectionsOperations
+from ._code_containers_operations import CodeContainersOperations
+from ._code_versions_operations import CodeVersionsOperations
+from ._data_containers_operations import DataContainersOperations
+from ._datastores_operations import DatastoresOperations
+from ._data_versions_operations import DataVersionsOperations
+from ._environment_containers_operations import EnvironmentContainersOperations
+from ._environment_specification_versions_operations import EnvironmentSpecificationVersionsOperations
+from ._jobs_operations import JobsOperations
+from ._labeling_jobs_operations import LabelingJobsOperations
+from ._model_containers_operations import ModelContainersOperations
+from ._model_versions_operations import ModelVersionsOperations
+from ._azure_machine_learning_workspaces_operations import AzureMachineLearningWorkspacesOperationsMixin
 
 __all__ = [
     'Operations',
     'WorkspacesOperations',
+    'WorkspaceFeaturesOperations',
     'UsagesOperations',
     'VirtualMachineSizesOperations',
+    'QuotasOperations',
     'MachineLearningComputeOperations',
+    'PrivateEndpointConnectionsOperations',
+    'PrivateLinkResourcesOperations',
+    'LinkedServicesOperations',
+    'MachineLearningServiceOperations',
+    'NotebooksOperations',
+    'WorkspaceConnectionsOperations',
+    'CodeContainersOperations',
+    'CodeVersionsOperations',
+    'DataContainersOperations',
+    'DatastoresOperations',
+    'DataVersionsOperations',
+    'EnvironmentContainersOperations',
+    'EnvironmentSpecificationVersionsOperations',
+    'JobsOperations',
+    'LabelingJobsOperations',
+    'ModelContainersOperations',
+    'ModelVersionsOperations',
+    'AzureMachineLearningWorkspacesOperationsMixin',
 ]

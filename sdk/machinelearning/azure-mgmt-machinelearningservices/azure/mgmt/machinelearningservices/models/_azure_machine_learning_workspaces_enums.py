@@ -23,14 +23,76 @@ class ProvisioningState(str, Enum):
     canceled = "Canceled"
 
 
+class EncryptionStatus(str, Enum):
+
+    enabled = "Enabled"
+    disabled = "Disabled"
+
+
+class PrivateEndpointServiceConnectionStatus(str, Enum):
+
+    pending = "Pending"
+    approved = "Approved"
+    rejected = "Rejected"
+    disconnected = "Disconnected"
+    timeout = "Timeout"
+
+
+class PrivateEndpointConnectionProvisioningState(str, Enum):
+
+    succeeded = "Succeeded"
+    creating = "Creating"
+    deleting = "Deleting"
+    failed = "Failed"
+
+
 class UsageUnit(str, Enum):
 
     count = "Count"
 
 
+class VMPriceOSType(str, Enum):
+
+    linux = "Linux"
+    windows = "Windows"
+
+
+class VMTier(str, Enum):
+
+    standard = "Standard"
+    low_priority = "LowPriority"
+    spot = "Spot"
+
+
+class QuotaUnit(str, Enum):
+
+    count = "Count"
+
+
+class Status(str, Enum):
+
+    undefined = "Undefined"
+    success = "Success"
+    failure = "Failure"
+    invalid_quota_below_cluster_minimum = "InvalidQuotaBelowClusterMinimum"
+    invalid_quota_exceeds_subscription_limit = "InvalidQuotaExceedsSubscriptionLimit"
+    invalid_vm_family_name = "InvalidVMFamilyName"
+    operation_not_supported_for_sku = "OperationNotSupportedForSku"
+    operation_not_enabled_for_region = "OperationNotEnabledForRegion"
+
+
 class ResourceIdentityType(str, Enum):
 
     system_assigned = "SystemAssigned"
+    system_assigned_user_assigned = "SystemAssigned,UserAssigned"
+    user_assigned = "UserAssigned"
+    none = "None"
+
+
+class OsType(str, Enum):
+
+    linux = "Linux"
+    windows = "Windows"
 
 
 class VmPriority(str, Enum):
@@ -39,16 +101,92 @@ class VmPriority(str, Enum):
     low_priority = "LowPriority"
 
 
+class RemoteLoginPortPublicAccess(str, Enum):
+
+    enabled = "Enabled"
+    disabled = "Disabled"
+    not_specified = "NotSpecified"
+
+
 class AllocationState(str, Enum):
 
     steady = "Steady"
     resizing = "Resizing"
 
 
+class ApplicationSharingPolicy(str, Enum):
+
+    personal = "Personal"
+    shared = "Shared"
+
+
+class SshPublicAccess(str, Enum):
+
+    enabled = "Enabled"
+    disabled = "Disabled"
+
+
+class ComputeInstanceState(str, Enum):
+
+    creating = "Creating"
+    create_failed = "CreateFailed"
+    deleting = "Deleting"
+    running = "Running"
+    restarting = "Restarting"
+    job_running = "JobRunning"
+    setting_up = "SettingUp"
+    setup_failed = "SetupFailed"
+    starting = "Starting"
+    stopped = "Stopped"
+    stopping = "Stopping"
+    user_setting_up = "UserSettingUp"
+    user_setup_failed = "UserSetupFailed"
+    unknown = "Unknown"
+    unusable = "Unusable"
+
+
+class ComputeInstanceAuthorizationType(str, Enum):
+
+    personal = "personal"
+
+
+class OperationName(str, Enum):
+
+    create = "Create"
+    start = "Start"
+    stop = "Stop"
+    restart = "Restart"
+    reimage = "Reimage"
+    delete = "Delete"
+
+
+class OperationStatus(str, Enum):
+
+    in_progress = "InProgress"
+    succeeded = "Succeeded"
+    create_failed = "CreateFailed"
+    start_failed = "StartFailed"
+    stop_failed = "StopFailed"
+    restart_failed = "RestartFailed"
+    reimage_failed = "ReimageFailed"
+    delete_failed = "DeleteFailed"
+
+
+class NodeState(str, Enum):
+
+    idle = "idle"
+    running = "running"
+    preparing = "preparing"
+    unusable = "unusable"
+    leaving = "leaving"
+    preempted = "preempted"
+
+
 class ComputeType(str, Enum):
 
     aks = "AKS"
     aml_compute = "AmlCompute"
+    compute_instance = "ComputeInstance"
     data_factory = "DataFactory"
     virtual_machine = "VirtualMachine"
     hd_insight = "HDInsight"
@@ -56,7 +194,155 @@ class ComputeType(str, Enum):
     data_lake_analytics = "DataLakeAnalytics"
 
 
+class ReasonCode(str, Enum):
+
+    not_specified = "NotSpecified"
+    not_available_for_region = "NotAvailableForRegion"
+    not_available_for_subscription = "NotAvailableForSubscription"
+
+
+class LinkedServiceLinkType(str, Enum):
+
+    synapse = "Synapse"
+
+
+class WebServiceState(str, Enum):
+
+    transitioning = "Transitioning"
+    healthy = "Healthy"
+    unhealthy = "Unhealthy"
+    failed = "Failed"
+    unschedulable = "Unschedulable"
+
+
+class DeploymentType(str, Enum):
+
+    grpc_realtime_endpoint = "GRPCRealtimeEndpoint"
+    http_realtime_endpoint = "HttpRealtimeEndpoint"
+    batch = "Batch"
+
+
+class VariantType(str, Enum):
+
+    control = "Control"
+    treatment = "Treatment"
+
+
+class CreatedByType(str, Enum):
+
+    user = "User"
+    application = "Application"
+    managed_identity = "ManagedIdentity"
+    key = "Key"
+
+
+class CredentialsType(str, Enum):
+
+    account_key = "AccountKey"
+    certificate = "Certificate"
+    none = "None"
+    sas = "Sas"
+    service_principal = "ServicePrincipal"
+    sql_admin = "SqlAdmin"
+
+
+class ContentsType(str, Enum):
+
+    azure_blob = "AzureBlob"
+    azure_data_lake = "AzureDataLake"
+    azure_data_lake_gen2 = "AzureDataLakeGen2"
+    azure_file = "AzureFile"
+    azure_my_sql = "AzureMySql"
+    azure_postgre_sql = "AzurePostgreSql"
+    azure_sql_database = "AzureSqlDatabase"
+    gluster_fs = "GlusterFs"
+
+
+class OriginType(str, Enum):
+
+    synapse = "Synapse"
+
+
+class DatasetType(str, Enum):
+
+    simple = "Simple"
+    dataflow = "Dataflow"
+
+
+class EnvironmentSpecificationType(str, Enum):
+
+    curated = "Curated"
+    user_created = "UserCreated"
+
+
+class DataBindingMode(str, Enum):
+
+    mount = "Mount"
+    download = "Download"
+    upload = "Upload"
+
+
+class JobStatus(str, Enum):
+
+    not_started = "NotStarted"
+    starting = "Starting"
+    provisioning = "Provisioning"
+    preparing = "Preparing"
+    queued = "Queued"
+    running = "Running"
+    finalizing = "Finalizing"
+    cancel_requested = "CancelRequested"
+    completed = "Completed"
+    failed = "Failed"
+    canceled = "Canceled"
+    not_responding = "NotResponding"
+    paused = "Paused"
+
+
+class ParameterSamplingType(str, Enum):
+
+    grid = "Grid"
+    random = "Random"
+    bayesian = "Bayesian"
+
+
+class PrimaryMetricGoal(str, Enum):
+
+    minimize = "Minimize"
+    maximize = "Maximize"
+
+
+class StatusMessageLevel(str, Enum):
+
+    error = "Error"
+    information = "Information"
+    warning = "Warning"
+
+
+class LabelExportState(str, Enum):
+
+    requested = "Requested"
+    running = "Running"
+    failed = "Failed"
+    completed = "Completed"
+
+
 class UnderlyingResourceAction(str, Enum):
 
     delete = "Delete"
     detach = "Detach"
+
+
+class OrderString(str, Enum):
+
+    created_at_desc = "CreatedAtDesc"
+    created_at_asc = "CreatedAtAsc"
+    updated_at_desc = "UpdatedAtDesc"
+    updated_at_asc = "UpdatedAtAsc"
+
+
+class ExportFormatType(str, Enum):
+
+    dataset = "Dataset"
+    coco = "Coco"
+    csv = "CSV"
