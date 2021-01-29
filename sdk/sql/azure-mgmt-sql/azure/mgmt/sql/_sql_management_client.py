@@ -101,6 +101,7 @@ from .operations import ManagedInstanceOperations
 from .operations import ServerAzureADAdministratorsOperations
 from .operations import SyncGroupsOperations
 from .operations import SyncMembersOperations
+from .operations import ImportExportOperations
 from .operations import ManagedDatabasesOperations
 from .operations import ManagedDatabaseRestoreDetailsOperations
 from .operations import ServerAzureADOnlyAuthenticationsOperations
@@ -293,6 +294,8 @@ class SqlManagementClient(SDKClient):
     :vartype sync_groups: azure.mgmt.sql.operations.SyncGroupsOperations
     :ivar sync_members: SyncMembers operations
     :vartype sync_members: azure.mgmt.sql.operations.SyncMembersOperations
+    :ivar import_export: ImportExport operations
+    :vartype import_export: azure.mgmt.sql.operations.ImportExportOperations
     :ivar managed_databases: ManagedDatabases operations
     :vartype managed_databases: azure.mgmt.sql.operations.ManagedDatabasesOperations
     :ivar managed_database_restore_details: ManagedDatabaseRestoreDetails operations
@@ -502,6 +505,8 @@ class SqlManagementClient(SDKClient):
         self.sync_groups = SyncGroupsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.sync_members = SyncMembersOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.import_export = ImportExportOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.managed_databases = ManagedDatabasesOperations(
             self._client, self.config, self._serialize, self._deserialize)
