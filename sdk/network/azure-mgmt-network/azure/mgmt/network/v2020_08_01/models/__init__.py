@@ -414,6 +414,7 @@ try:
     from ._models_py3 import PropagatedRouteTable
     from ._models_py3 import ProtocolConfiguration
     from ._models_py3 import ProtocolCustomSettingsFormat
+    from ._models_py3 import ProxyResource
     from ._models_py3 import PublicIPAddress
     from ._models_py3 import PublicIPAddressDnsSettings
     from ._models_py3 import PublicIPAddressListResult
@@ -968,6 +969,7 @@ except (SyntaxError, ImportError):
     from ._models import PropagatedRouteTable  # type: ignore
     from ._models import ProtocolConfiguration  # type: ignore
     from ._models import ProtocolCustomSettingsFormat  # type: ignore
+    from ._models import ProxyResource  # type: ignore
     from ._models import PublicIPAddress  # type: ignore
     from ._models import PublicIPAddressDnsSettings  # type: ignore
     from ._models import PublicIPAddressListResult  # type: ignore
@@ -1678,6 +1680,7 @@ __all__ = [
     'PropagatedRouteTable',
     'ProtocolConfiguration',
     'ProtocolCustomSettingsFormat',
+    'ProxyResource',
     'PublicIPAddress',
     'PublicIPAddressDnsSettings',
     'PublicIPAddressListResult',
