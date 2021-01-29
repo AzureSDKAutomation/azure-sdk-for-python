@@ -38,6 +38,19 @@ class WorkspacePaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(WorkspacePaged, self).__init__(*args, **kwargs)
+class AmlUserFeaturePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`AmlUserFeature <azure.mgmt.machinelearningservices.models.AmlUserFeature>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[AmlUserFeature]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(AmlUserFeaturePaged, self).__init__(*args, **kwargs)
 class UsagePaged(Paged):
     """
     A paging container for iterating over a list of :class:`Usage <azure.mgmt.machinelearningservices.models.Usage>` object
@@ -51,6 +64,19 @@ class UsagePaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(UsagePaged, self).__init__(*args, **kwargs)
+class ResourceQuotaPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`ResourceQuota <azure.mgmt.machinelearningservices.models.ResourceQuota>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[ResourceQuota]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(ResourceQuotaPaged, self).__init__(*args, **kwargs)
 class ComputeResourcePaged(Paged):
     """
     A paging container for iterating over a list of :class:`ComputeResource <azure.mgmt.machinelearningservices.models.ComputeResource>` object
@@ -64,3 +90,185 @@ class ComputeResourcePaged(Paged):
     def __init__(self, *args, **kwargs):
 
         super(ComputeResourcePaged, self).__init__(*args, **kwargs)
+class AmlComputeNodeInformationPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`AmlComputeNodeInformation <azure.mgmt.machinelearningservices.models.AmlComputeNodeInformation>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'nodes', 'type': '[AmlComputeNodeInformation]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(AmlComputeNodeInformationPaged, self).__init__(*args, **kwargs)
+class WorkspaceSkuPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`WorkspaceSku <azure.mgmt.machinelearningservices.models.WorkspaceSku>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[WorkspaceSku]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(WorkspaceSkuPaged, self).__init__(*args, **kwargs)
+class ServiceResourcePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`ServiceResource <azure.mgmt.machinelearningservices.models.ServiceResource>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[ServiceResource]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(ServiceResourcePaged, self).__init__(*args, **kwargs)
+class WorkspaceConnectionPaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`WorkspaceConnection <azure.mgmt.machinelearningservices.models.WorkspaceConnection>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[WorkspaceConnection]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(WorkspaceConnectionPaged, self).__init__(*args, **kwargs)
+class CodeContainerResourcePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`CodeContainerResource <azure.mgmt.machinelearningservices.models.CodeContainerResource>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[CodeContainerResource]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(CodeContainerResourcePaged, self).__init__(*args, **kwargs)
+class CodeVersionResourcePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`CodeVersionResource <azure.mgmt.machinelearningservices.models.CodeVersionResource>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[CodeVersionResource]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(CodeVersionResourcePaged, self).__init__(*args, **kwargs)
+class DataContainerResourcePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`DataContainerResource <azure.mgmt.machinelearningservices.models.DataContainerResource>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[DataContainerResource]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(DataContainerResourcePaged, self).__init__(*args, **kwargs)
+class DatastorePropertiesResourcePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`DatastorePropertiesResource <azure.mgmt.machinelearningservices.models.DatastorePropertiesResource>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[DatastorePropertiesResource]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(DatastorePropertiesResourcePaged, self).__init__(*args, **kwargs)
+class DataVersionResourcePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`DataVersionResource <azure.mgmt.machinelearningservices.models.DataVersionResource>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[DataVersionResource]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(DataVersionResourcePaged, self).__init__(*args, **kwargs)
+class EnvironmentContainerResourcePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`EnvironmentContainerResource <azure.mgmt.machinelearningservices.models.EnvironmentContainerResource>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[EnvironmentContainerResource]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(EnvironmentContainerResourcePaged, self).__init__(*args, **kwargs)
+class EnvironmentSpecificationVersionResourcePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`EnvironmentSpecificationVersionResource <azure.mgmt.machinelearningservices.models.EnvironmentSpecificationVersionResource>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[EnvironmentSpecificationVersionResource]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(EnvironmentSpecificationVersionResourcePaged, self).__init__(*args, **kwargs)
+class JobBaseResourcePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`JobBaseResource <azure.mgmt.machinelearningservices.models.JobBaseResource>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[JobBaseResource]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(JobBaseResourcePaged, self).__init__(*args, **kwargs)
+class ModelContainerResourcePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`ModelContainerResource <azure.mgmt.machinelearningservices.models.ModelContainerResource>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[ModelContainerResource]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(ModelContainerResourcePaged, self).__init__(*args, **kwargs)
+class ModelVersionResourcePaged(Paged):
+    """
+    A paging container for iterating over a list of :class:`ModelVersionResource <azure.mgmt.machinelearningservices.models.ModelVersionResource>` object
+    """
+
+    _attribute_map = {
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+        'current_page': {'key': 'value', 'type': '[ModelVersionResource]'}
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(ModelVersionResourcePaged, self).__init__(*args, **kwargs)
