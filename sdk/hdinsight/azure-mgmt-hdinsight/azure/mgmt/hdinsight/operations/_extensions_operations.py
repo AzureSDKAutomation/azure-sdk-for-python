@@ -90,11 +90,9 @@ class ExtensionsOperations(object):
         :type resource_group_name: str
         :param cluster_name: The name of the cluster.
         :type cluster_name: str
-        :param workspace_id: The Operations Management Suite (OMS) workspace
-         ID.
+        :param workspace_id: The cluster monitor workspace ID.
         :type workspace_id: str
-        :param primary_key: The Operations Management Suite (OMS) workspace
-         key.
+        :param primary_key: The cluster monitor workspace key.
         :type primary_key: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
@@ -384,8 +382,8 @@ class ExtensionsOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: Extension or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.hdinsight.models.Extension or
+        :return: ClusterMonitoringResponse or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.hdinsight.models.ClusterMonitoringResponse or
          ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`ErrorResponseException<azure.mgmt.hdinsight.models.ErrorResponseException>`
@@ -423,7 +421,7 @@ class ExtensionsOperations(object):
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('Extension', response)
+            deserialized = self._deserialize('ClusterMonitoringResponse', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)

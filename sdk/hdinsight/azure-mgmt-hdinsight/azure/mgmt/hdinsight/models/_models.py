@@ -158,6 +158,8 @@ class ApplicationGetHttpsEndpoint(Model):
     :type destination_port: int
     :param public_port: The public port to connect to.
     :type public_port: int
+    :param private_ip_address: The private ip address of the endpoint.
+    :type private_ip_address: str
     :param sub_domain_suffix: The subdomain suffix of the application.
     :type sub_domain_suffix: str
     :param disable_gateway_auth: The value indicates whether to disable
@@ -170,6 +172,7 @@ class ApplicationGetHttpsEndpoint(Model):
         'location': {'key': 'location', 'type': 'str'},
         'destination_port': {'key': 'destinationPort', 'type': 'int'},
         'public_port': {'key': 'publicPort', 'type': 'int'},
+        'private_ip_address': {'key': 'privateIPAddress', 'type': 'str'},
         'sub_domain_suffix': {'key': 'subDomainSuffix', 'type': 'str'},
         'disable_gateway_auth': {'key': 'disableGatewayAuth', 'type': 'bool'},
     }
@@ -180,6 +183,7 @@ class ApplicationGetHttpsEndpoint(Model):
         self.location = kwargs.get('location', None)
         self.destination_port = kwargs.get('destination_port', None)
         self.public_port = kwargs.get('public_port', None)
+        self.private_ip_address = kwargs.get('private_ip_address', None)
         self.sub_domain_suffix = kwargs.get('sub_domain_suffix', None)
         self.disable_gateway_auth = kwargs.get('disable_gateway_auth', None)
 
@@ -252,6 +256,27 @@ class ApplicationProperties(Model):
         self.errors = kwargs.get('errors', None)
         self.created_date = None
         self.marketplace_identifier = None
+
+
+class AsyncOperationResult(Model):
+    """The azure async operation response.
+
+    :param status: The async operation state. Possible values include:
+     'InProgress', 'Succeeded', 'Failed'
+    :type status: str or ~azure.mgmt.hdinsight.models.AsyncOperationState
+    :param error: The operation error information.
+    :type error: ~azure.mgmt.hdinsight.models.Errors
+    """
+
+    _attribute_map = {
+        'status': {'key': 'status', 'type': 'AsyncOperationState'},
+        'error': {'key': 'error', 'type': 'Errors'},
+    }
+
+    def __init__(self, **kwargs):
+        super(AsyncOperationResult, self).__init__(**kwargs)
+        self.status = kwargs.get('status', None)
+        self.error = kwargs.get('error', None)
 
 
 class Autoscale(Model):
@@ -480,10 +505,10 @@ class CapabilitiesResult(Model):
     :type versions: dict[str, ~azure.mgmt.hdinsight.models.VersionsCapability]
     :param regions: The virtual machine size compatibility features.
     :type regions: dict[str, ~azure.mgmt.hdinsight.models.RegionsCapability]
-    :param vm_sizes: The virtual machine sizes.
-    :type vm_sizes: dict[str, ~azure.mgmt.hdinsight.models.VmSizesCapability]
-    :param vm_size_filters: The virtual machine size compatibility filters.
-    :type vm_size_filters:
+    :param vmsizes: The virtual machine sizes.
+    :type vmsizes: dict[str, ~azure.mgmt.hdinsight.models.VmSizesCapability]
+    :param vmsize_filters: The virtual machine size compatibility filters.
+    :type vmsize_filters:
      list[~azure.mgmt.hdinsight.models.VmSizeCompatibilityFilter]
     :param features: The capability features.
     :type features: list[str]
@@ -494,8 +519,8 @@ class CapabilitiesResult(Model):
     _attribute_map = {
         'versions': {'key': 'versions', 'type': '{VersionsCapability}'},
         'regions': {'key': 'regions', 'type': '{RegionsCapability}'},
-        'vm_sizes': {'key': 'vmSizes', 'type': '{VmSizesCapability}'},
-        'vm_size_filters': {'key': 'vmSize_filters', 'type': '[VmSizeCompatibilityFilter]'},
+        'vmsizes': {'key': 'vmsizes', 'type': '{VmSizesCapability}'},
+        'vmsize_filters': {'key': 'vmsize_filters', 'type': '[VmSizeCompatibilityFilter]'},
         'features': {'key': 'features', 'type': '[str]'},
         'quota': {'key': 'quota', 'type': 'QuotaCapability'},
     }
@@ -504,8 +529,8 @@ class CapabilitiesResult(Model):
         super(CapabilitiesResult, self).__init__(**kwargs)
         self.versions = kwargs.get('versions', None)
         self.regions = kwargs.get('regions', None)
-        self.vm_sizes = kwargs.get('vm_sizes', None)
-        self.vm_size_filters = kwargs.get('vm_size_filters', None)
+        self.vmsizes = kwargs.get('vmsizes', None)
+        self.vmsize_filters = kwargs.get('vmsize_filters', None)
         self.features = kwargs.get('features', None)
         self.quota = kwargs.get('quota', None)
 
@@ -1047,11 +1072,11 @@ class ClusterListRuntimeScriptActionDetailResult(Model):
 
 
 class ClusterMonitoringRequest(Model):
-    """The Operations Management Suite (OMS) parameters.
+    """The cluster monitor parameters.
 
-    :param workspace_id: The Operations Management Suite (OMS) workspace ID.
+    :param workspace_id: The cluster monitor workspace ID.
     :type workspace_id: str
-    :param primary_key: The Operations Management Suite (OMS) workspace key.
+    :param primary_key: The cluster monitor workspace key.
     :type primary_key: str
     """
 
@@ -1067,13 +1092,13 @@ class ClusterMonitoringRequest(Model):
 
 
 class ClusterMonitoringResponse(Model):
-    """The Operations Management Suite (OMS) status response.
+    """The cluster monitoring status response.
 
-    :param cluster_monitoring_enabled: The status of the Operations Management
-     Suite (OMS) on the HDInsight cluster.
+    :param cluster_monitoring_enabled: The status of the monitor on the
+     HDInsight cluster.
     :type cluster_monitoring_enabled: bool
-    :param workspace_id: The workspace ID of the Operations Management Suite
-     (OMS) on the HDInsight cluster.
+    :param workspace_id: The workspace ID of the monitor on the HDInsight
+     cluster.
     :type workspace_id: str
     """
 
@@ -1773,27 +1798,6 @@ class OperationProperties(Model):
         self.service_specification = kwargs.get('service_specification', None)
 
 
-class OperationResource(Model):
-    """The azure async operation response.
-
-    :param status: The async operation state. Possible values include:
-     'InProgress', 'Succeeded', 'Failed'
-    :type status: str or ~azure.mgmt.hdinsight.models.AsyncOperationState
-    :param error: The operation error information.
-    :type error: ~azure.mgmt.hdinsight.models.Errors
-    """
-
-    _attribute_map = {
-        'status': {'key': 'status', 'type': 'AsyncOperationState'},
-        'error': {'key': 'error', 'type': 'Errors'},
-    }
-
-    def __init__(self, **kwargs):
-        super(OperationResource, self).__init__(**kwargs)
-        self.status = kwargs.get('status', None)
-        self.error = kwargs.get('error', None)
-
-
 class OsProfile(Model):
     """The Linux operation systems profile.
 
@@ -1902,6 +1906,8 @@ class Role(Model):
     :type min_instance_count: int
     :param target_instance_count: The instance count of the cluster.
     :type target_instance_count: int
+    :param vm_group_name: The name of the virtual machine group.
+    :type vm_group_name: str
     :param autoscale_configuration: The autoscale configurations.
     :type autoscale_configuration: ~azure.mgmt.hdinsight.models.Autoscale
     :param hardware_profile: The hardware profile.
@@ -1924,6 +1930,7 @@ class Role(Model):
         'name': {'key': 'name', 'type': 'str'},
         'min_instance_count': {'key': 'minInstanceCount', 'type': 'int'},
         'target_instance_count': {'key': 'targetInstanceCount', 'type': 'int'},
+        'vm_group_name': {'key': 'VMGroupName', 'type': 'str'},
         'autoscale_configuration': {'key': 'autoscale', 'type': 'Autoscale'},
         'hardware_profile': {'key': 'hardwareProfile', 'type': 'HardwareProfile'},
         'os_profile': {'key': 'osProfile', 'type': 'OsProfile'},
@@ -1938,6 +1945,7 @@ class Role(Model):
         self.name = kwargs.get('name', None)
         self.min_instance_count = kwargs.get('min_instance_count', None)
         self.target_instance_count = kwargs.get('target_instance_count', None)
+        self.vm_group_name = kwargs.get('vm_group_name', None)
         self.autoscale_configuration = kwargs.get('autoscale_configuration', None)
         self.hardware_profile = kwargs.get('hardware_profile', None)
         self.os_profile = kwargs.get('os_profile', None)
@@ -2287,6 +2295,10 @@ class StorageAccount(Model):
      access the storage account, only to be specified for Azure Data Lake
      Storage Gen 2.
     :type msi_resource_id: str
+    :param saskey: The shared access signature key.
+    :type saskey: str
+    :param fileshare: The file share name.
+    :type fileshare: str
     """
 
     _attribute_map = {
@@ -2297,6 +2309,8 @@ class StorageAccount(Model):
         'key': {'key': 'key', 'type': 'str'},
         'resource_id': {'key': 'resourceId', 'type': 'str'},
         'msi_resource_id': {'key': 'msiResourceId', 'type': 'str'},
+        'saskey': {'key': 'saskey', 'type': 'str'},
+        'fileshare': {'key': 'fileshare', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -2308,6 +2322,8 @@ class StorageAccount(Model):
         self.key = kwargs.get('key', None)
         self.resource_id = kwargs.get('resource_id', None)
         self.msi_resource_id = kwargs.get('msi_resource_id', None)
+        self.saskey = kwargs.get('saskey', None)
+        self.fileshare = kwargs.get('fileshare', None)
 
 
 class StorageProfile(Model):
@@ -2357,17 +2373,17 @@ class Usage(Model):
     :param unit: The type of measurement for usage.
     :type unit: str
     :param current_value: The current usage.
-    :type current_value: int
+    :type current_value: long
     :param limit: The maximum allowed usage.
-    :type limit: int
+    :type limit: long
     :param name: The details about the localizable name of the used resource.
     :type name: ~azure.mgmt.hdinsight.models.LocalizedName
     """
 
     _attribute_map = {
         'unit': {'key': 'unit', 'type': 'str'},
-        'current_value': {'key': 'currentValue', 'type': 'int'},
-        'limit': {'key': 'limit', 'type': 'int'},
+        'current_value': {'key': 'currentValue', 'type': 'long'},
+        'limit': {'key': 'limit', 'type': 'long'},
         'name': {'key': 'name', 'type': 'LocalizedName'},
     }
 
@@ -2419,7 +2435,7 @@ class VersionSpec(Model):
     :param display_name: The display name
     :type display_name: str
     :param is_default: Whether or not the version is the default version.
-    :type is_default: str
+    :type is_default: bool
     :param component_versions: The component version property.
     :type component_versions: dict[str, str]
     """
@@ -2427,7 +2443,7 @@ class VersionSpec(Model):
     _attribute_map = {
         'friendly_name': {'key': 'friendlyName', 'type': 'str'},
         'display_name': {'key': 'displayName', 'type': 'str'},
-        'is_default': {'key': 'isDefault', 'type': 'str'},
+        'is_default': {'key': 'isDefault', 'type': 'bool'},
         'component_versions': {'key': 'componentVersions', 'type': '{str}'},
     }
 
