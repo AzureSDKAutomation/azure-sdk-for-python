@@ -97,6 +97,7 @@ from ._managed_instance_operations import ManagedInstanceOperations
 from ._server_azure_ad_administrators_operations import ServerAzureADAdministratorsOperations
 from ._sync_groups_operations import SyncGroupsOperations
 from ._sync_members_operations import SyncMembersOperations
+from ._import_export_operations import ImportExportOperations
 from ._managed_databases_operations import ManagedDatabasesOperations
 from ._managed_database_restore_details_operations import ManagedDatabaseRestoreDetailsOperations
 from ._server_azure_ad_only_authentications_operations import ServerAzureADOnlyAuthenticationsOperations
@@ -194,6 +195,7 @@ __all__ = [
     'ServerAzureADAdministratorsOperations',
     'SyncGroupsOperations',
     'SyncMembersOperations',
+    'ImportExportOperations',
     'ManagedDatabasesOperations',
     'ManagedDatabaseRestoreDetailsOperations',
     'ServerAzureADOnlyAuthenticationsOperations',
