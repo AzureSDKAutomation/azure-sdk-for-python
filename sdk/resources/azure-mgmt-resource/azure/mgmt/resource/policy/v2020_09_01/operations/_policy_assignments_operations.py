@@ -11,7 +11,6 @@
 
 import uuid
 from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
 
 from .. import models
 
@@ -69,7 +68,8 @@ class PolicyAssignmentsOperations(object):
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.PolicyAssignment or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.delete.metadata['url']
@@ -98,9 +98,7 @@ class PolicyAssignmentsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200, 204]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -145,7 +143,8 @@ class PolicyAssignmentsOperations(object):
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.PolicyAssignment or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.create.metadata['url']
@@ -178,9 +177,7 @@ class PolicyAssignmentsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [201]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 201:
@@ -221,7 +218,8 @@ class PolicyAssignmentsOperations(object):
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.PolicyAssignment or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.get.metadata['url']
@@ -250,9 +248,7 @@ class PolicyAssignmentsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -312,7 +308,8 @@ class PolicyAssignmentsOperations(object):
         :return: An iterator like instance of PolicyAssignment
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.PolicyAssignmentPaged[~azure.mgmt.resource.policy.v2020_09_01.models.PolicyAssignment]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
@@ -356,9 +353,7 @@ class PolicyAssignmentsOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
+                raise models.ErrorResponseException(self._deserialize, response)
 
             return response
 
@@ -445,7 +440,8 @@ class PolicyAssignmentsOperations(object):
         :return: An iterator like instance of PolicyAssignment
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.PolicyAssignmentPaged[~azure.mgmt.resource.policy.v2020_09_01.models.PolicyAssignment]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
@@ -493,9 +489,7 @@ class PolicyAssignmentsOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
+                raise models.ErrorResponseException(self._deserialize, response)
 
             return response
 
@@ -549,7 +543,8 @@ class PolicyAssignmentsOperations(object):
         :return: An iterator like instance of PolicyAssignment
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.PolicyAssignmentPaged[~azure.mgmt.resource.policy.v2020_09_01.models.PolicyAssignment]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
@@ -592,9 +587,7 @@ class PolicyAssignmentsOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
+                raise models.ErrorResponseException(self._deserialize, response)
 
             return response
 
@@ -651,7 +644,8 @@ class PolicyAssignmentsOperations(object):
         :return: An iterator like instance of PolicyAssignment
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.PolicyAssignmentPaged[~azure.mgmt.resource.policy.v2020_09_01.models.PolicyAssignment]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         def prepare_request(next_link=None):
             if not next_link:
@@ -694,9 +688,7 @@ class PolicyAssignmentsOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
+                raise models.ErrorResponseException(self._deserialize, response)
 
             return response
 
@@ -737,7 +729,8 @@ class PolicyAssignmentsOperations(object):
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.PolicyAssignment or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.delete_by_id.metadata['url']
@@ -765,9 +758,7 @@ class PolicyAssignmentsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200, 204]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -814,7 +805,8 @@ class PolicyAssignmentsOperations(object):
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.PolicyAssignment or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.create_by_id.metadata['url']
@@ -846,9 +838,7 @@ class PolicyAssignmentsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [201]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 201:
@@ -889,7 +879,8 @@ class PolicyAssignmentsOperations(object):
         :rtype:
          ~azure.mgmt.resource.policy.v2020_09_01.models.PolicyAssignment or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`ErrorResponseException<azure.mgmt.resource.policy.v2020_09_01.models.ErrorResponseException>`
         """
         # Construct URL
         url = self.get_by_id.metadata['url']
@@ -917,9 +908,7 @@ class PolicyAssignmentsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.ErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:

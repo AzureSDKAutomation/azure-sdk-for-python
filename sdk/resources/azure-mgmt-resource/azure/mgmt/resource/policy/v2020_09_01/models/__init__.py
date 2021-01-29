@@ -14,12 +14,12 @@ try:
     from ._models_py3 import AliasPath
     from ._models_py3 import AliasPathMetadata
     from ._models_py3 import AliasPattern
-    from ._models_py3 import CloudError, CloudErrorException
     from ._models_py3 import DataEffect
     from ._models_py3 import DataManifestCustomResourceFunctionDefinition
     from ._models_py3 import DataPolicyManifest
     from ._models_py3 import ErrorAdditionalInfo
     from ._models_py3 import ErrorDetail
+    from ._models_py3 import ErrorResponse, ErrorResponseException
     from ._models_py3 import Identity
     from ._models_py3 import NonComplianceMessage
     from ._models_py3 import ParameterDefinitionsValue
@@ -36,12 +36,12 @@ except (SyntaxError, ImportError):
     from ._models import AliasPath
     from ._models import AliasPathMetadata
     from ._models import AliasPattern
-    from ._models import CloudError, CloudErrorException
     from ._models import DataEffect
     from ._models import DataManifestCustomResourceFunctionDefinition
     from ._models import DataPolicyManifest
     from ._models import ErrorAdditionalInfo
     from ._models import ErrorDetail
+    from ._models import ErrorResponse, ErrorResponseException
     from ._models import Identity
     from ._models import NonComplianceMessage
     from ._models import ParameterDefinitionsValue
@@ -73,12 +73,12 @@ __all__ = [
     'AliasPath',
     'AliasPathMetadata',
     'AliasPattern',
-    'CloudError', 'CloudErrorException',
     'DataEffect',
     'DataManifestCustomResourceFunctionDefinition',
     'DataPolicyManifest',
     'ErrorAdditionalInfo',
     'ErrorDetail',
+    'ErrorResponse', 'ErrorResponseException',
     'Identity',
     'NonComplianceMessage',
     'ParameterDefinitionsValue',
