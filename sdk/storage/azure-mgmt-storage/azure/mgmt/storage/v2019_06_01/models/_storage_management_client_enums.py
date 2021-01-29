@@ -238,6 +238,12 @@ class MinimumTlsVersion(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
     TLS1_1 = "TLS1_1"
     TLS1_2 = "TLS1_2"
 
+class Name(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
+    """Name of the policy. The valid value is AccessTimeTracking. This field is currently read only
+    """
+
+    ACCESS_TIME_TRACKING = "AccessTimeTracking"
+
 class Permissions(with_metaclass(_CaseInsensitiveEnumMeta, str, Enum)):
     """The signed permissions for the account SAS. Possible values include: Read (r), Write (w),
     Delete (d), List (l), Add (a), Create (c), Update (u) and Process (p).

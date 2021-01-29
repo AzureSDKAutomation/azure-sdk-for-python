@@ -148,17 +148,17 @@ class ActiveDirectoryProperties(msrest.serialization.Model):
 
 
 class Resource(msrest.serialization.Model):
-    """Resource.
+    """Common fields that are returned in the response for all Azure Resource Manager resources.
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     """
 
@@ -185,17 +185,17 @@ class Resource(msrest.serialization.Model):
 
 
 class AzureEntityResource(Resource):
-    """The resource model definition for a Azure Resource Manager resource with an etag.
+    """The resource model definition for an Azure Resource Manager resource with an etag.
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -263,13 +263,13 @@ class BlobContainer(AzureEntityResource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -528,13 +528,13 @@ class BlobServiceProperties(Resource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :ivar sku: Sku name and tier.
     :vartype sku: ~azure.mgmt.storage.v2019_06_01.models.Sku
@@ -560,6 +560,10 @@ class BlobServiceProperties(Resource):
      delete.
     :type container_delete_retention_policy:
      ~azure.mgmt.storage.v2019_06_01.models.DeleteRetentionPolicy
+    :param last_access_time_tracking_policy: The blob service property to configure last access
+     time based tracking policy.
+    :type last_access_time_tracking_policy:
+     ~azure.mgmt.storage.v2019_06_01.models.LastAccessTimeTrackingPolicy
     """
 
     _validation = {
@@ -582,6 +586,7 @@ class BlobServiceProperties(Resource):
         'change_feed': {'key': 'properties.changeFeed', 'type': 'ChangeFeed'},
         'restore_policy': {'key': 'properties.restorePolicy', 'type': 'RestorePolicyProperties'},
         'container_delete_retention_policy': {'key': 'properties.containerDeleteRetentionPolicy', 'type': 'DeleteRetentionPolicy'},
+        'last_access_time_tracking_policy': {'key': 'properties.lastAccessTimeTrackingPolicy', 'type': 'LastAccessTimeTrackingPolicy'},
     }
 
     def __init__(
@@ -595,6 +600,7 @@ class BlobServiceProperties(Resource):
         change_feed: Optional["ChangeFeed"] = None,
         restore_policy: Optional["RestorePolicyProperties"] = None,
         container_delete_retention_policy: Optional["DeleteRetentionPolicy"] = None,
+        last_access_time_tracking_policy: Optional["LastAccessTimeTrackingPolicy"] = None,
         **kwargs
     ):
         super(BlobServiceProperties, self).__init__(**kwargs)
@@ -607,6 +613,7 @@ class BlobServiceProperties(Resource):
         self.change_feed = change_feed
         self.restore_policy = restore_policy
         self.container_delete_retention_policy = container_delete_retention_policy
+        self.last_access_time_tracking_policy = last_access_time_tracking_policy
 
 
 class ChangeFeed(msrest.serialization.Model):
@@ -614,20 +621,31 @@ class ChangeFeed(msrest.serialization.Model):
 
     :param enabled: Indicates whether change feed event logging is enabled for the Blob service.
     :type enabled: bool
+    :param retention_in_days: Indicates the duration of changeFeed retention in days. Minimum value
+     is 1 day and maximum value is 146000 days (400 years). A null value indicates an infinite
+     retention of the change feed.
+    :type retention_in_days: int
     """
+
+    _validation = {
+        'retention_in_days': {'maximum': 146000, 'minimum': 1},
+    }
 
     _attribute_map = {
         'enabled': {'key': 'enabled', 'type': 'bool'},
+        'retention_in_days': {'key': 'retentionInDays', 'type': 'int'},
     }
 
     def __init__(
         self,
         *,
         enabled: Optional[bool] = None,
+        retention_in_days: Optional[int] = None,
         **kwargs
     ):
         super(ChangeFeed, self).__init__(**kwargs)
         self.enabled = enabled
+        self.retention_in_days = retention_in_days
 
 
 class CheckNameAvailabilityResult(msrest.serialization.Model):
@@ -850,31 +868,37 @@ class DateAfterCreation(msrest.serialization.Model):
 
 
 class DateAfterModification(msrest.serialization.Model):
-    """Object to define the number of days after last modification.
+    """Object to define the number of days after object last modification Or last access. Properties daysAfterModificationGreaterThan and daysAfterLastAccessTimeGreaterThan are mutually exclusive.
 
-    All required parameters must be populated in order to send to Azure.
-
-    :param days_after_modification_greater_than: Required. Value indicating the age in days after
-     last modification.
+    :param days_after_modification_greater_than: Value indicating the age in days after last
+     modification.
     :type days_after_modification_greater_than: float
+    :param days_after_last_access_time_greater_than: Value indicating the age in days after last
+     blob access. This property can only be used in conjunction with last access time tracking
+     policy.
+    :type days_after_last_access_time_greater_than: float
     """
 
     _validation = {
-        'days_after_modification_greater_than': {'required': True, 'minimum': 0, 'multiple': 1},
+        'days_after_modification_greater_than': {'minimum': 0, 'multiple': 1},
+        'days_after_last_access_time_greater_than': {'minimum': 0, 'multiple': 1},
     }
 
     _attribute_map = {
         'days_after_modification_greater_than': {'key': 'daysAfterModificationGreaterThan', 'type': 'float'},
+        'days_after_last_access_time_greater_than': {'key': 'daysAfterLastAccessTimeGreaterThan', 'type': 'float'},
     }
 
     def __init__(
         self,
         *,
-        days_after_modification_greater_than: float,
+        days_after_modification_greater_than: Optional[float] = None,
+        days_after_last_access_time_greater_than: Optional[float] = None,
         **kwargs
     ):
         super(DateAfterModification, self).__init__(**kwargs)
         self.days_after_modification_greater_than = days_after_modification_greater_than
+        self.days_after_last_access_time_greater_than = days_after_last_access_time_greater_than
 
 
 class DeletedShare(msrest.serialization.Model):
@@ -1019,13 +1043,13 @@ class EncryptionScope(Resource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :param source: The provider for the encryption scope. Possible values (case-insensitive):
      Microsoft.Storage, Microsoft.KeyVault. Possible values include: "Microsoft.Storage",
@@ -1332,13 +1356,13 @@ class FileServiceProperties(Resource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :ivar sku: Sku name and tier.
     :vartype sku: ~azure.mgmt.storage.v2019_06_01.models.Sku
@@ -1385,13 +1409,13 @@ class FileShare(AzureEntityResource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -1496,13 +1520,13 @@ class FileShareItem(AzureEntityResource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -1720,13 +1744,13 @@ class ImmutabilityPolicy(AzureEntityResource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -1910,6 +1934,52 @@ class KeyVaultProperties(msrest.serialization.Model):
         self.last_key_rotation_timestamp = None
 
 
+class LastAccessTimeTrackingPolicy(msrest.serialization.Model):
+    """The blob service properties for Last access time based tracking policy.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param enable: Required. When set to true last access time based tracking is enabled.
+    :type enable: bool
+    :param name: Name of the policy. The valid value is AccessTimeTracking. This field is currently
+     read only. Possible values include: "AccessTimeTracking".
+    :type name: str or ~azure.mgmt.storage.v2019_06_01.models.Name
+    :param tracking_granularity_in_days: The field specifies blob object tracking granularity in
+     days, typically how often the blob object should be tracked.This field is currently read only
+     with value as 1.
+    :type tracking_granularity_in_days: int
+    :param blob_type: An array of predefined supported blob types. Only blockBlob is the supported
+     value. This field is currently read only.
+    :type blob_type: list[str]
+    """
+
+    _validation = {
+        'enable': {'required': True},
+    }
+
+    _attribute_map = {
+        'enable': {'key': 'enable', 'type': 'bool'},
+        'name': {'key': 'name', 'type': 'str'},
+        'tracking_granularity_in_days': {'key': 'trackingGranularityInDays', 'type': 'int'},
+        'blob_type': {'key': 'blobType', 'type': '[str]'},
+    }
+
+    def __init__(
+        self,
+        *,
+        enable: bool,
+        name: Optional[Union[str, "Name"]] = None,
+        tracking_granularity_in_days: Optional[int] = None,
+        blob_type: Optional[List[str]] = None,
+        **kwargs
+    ):
+        super(LastAccessTimeTrackingPolicy, self).__init__(**kwargs)
+        self.enable = enable
+        self.name = name
+        self.tracking_granularity_in_days = tracking_granularity_in_days
+        self.blob_type = blob_type
+
+
 class LeaseContainerRequest(msrest.serialization.Model):
     """Lease Container request schema.
 
@@ -2090,13 +2160,13 @@ class ListContainerItem(AzureEntityResource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :ivar etag: Resource Etag.
     :vartype etag: str
@@ -2252,13 +2322,13 @@ class ListQueue(Resource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :param metadata: A name-value pair that represents queue metadata.
     :type metadata: dict[str, str]
@@ -2427,13 +2497,13 @@ class ManagementPolicy(Resource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :ivar last_modified_time: Returns the date and time the ManagementPolicies was last modified.
     :vartype last_modified_time: ~datetime.datetime
@@ -2475,11 +2545,14 @@ class ManagementPolicyAction(msrest.serialization.Model):
     :type base_blob: ~azure.mgmt.storage.v2019_06_01.models.ManagementPolicyBaseBlob
     :param snapshot: The management policy action for snapshot.
     :type snapshot: ~azure.mgmt.storage.v2019_06_01.models.ManagementPolicySnapShot
+    :param version: The management policy action for version.
+    :type version: ~azure.mgmt.storage.v2019_06_01.models.ManagementPolicyVersion
     """
 
     _attribute_map = {
         'base_blob': {'key': 'baseBlob', 'type': 'ManagementPolicyBaseBlob'},
         'snapshot': {'key': 'snapshot', 'type': 'ManagementPolicySnapShot'},
+        'version': {'key': 'version', 'type': 'ManagementPolicyVersion'},
     }
 
     def __init__(
@@ -2487,11 +2560,13 @@ class ManagementPolicyAction(msrest.serialization.Model):
         *,
         base_blob: Optional["ManagementPolicyBaseBlob"] = None,
         snapshot: Optional["ManagementPolicySnapShot"] = None,
+        version: Optional["ManagementPolicyVersion"] = None,
         **kwargs
     ):
         super(ManagementPolicyAction, self).__init__(**kwargs)
         self.base_blob = base_blob
         self.snapshot = snapshot
+        self.version = version
 
 
 class ManagementPolicyBaseBlob(msrest.serialization.Model):
@@ -2505,12 +2580,17 @@ class ManagementPolicyBaseBlob(msrest.serialization.Model):
     :type tier_to_archive: ~azure.mgmt.storage.v2019_06_01.models.DateAfterModification
     :param delete: The function to delete the blob.
     :type delete: ~azure.mgmt.storage.v2019_06_01.models.DateAfterModification
+    :param enable_auto_tier_to_hot_from_cool: This property enables auto tiering of a blob from
+     cool to hot on a blob access. This property requires
+     tierToCool.daysAfterLastAccessTimeGreaterThan.
+    :type enable_auto_tier_to_hot_from_cool: bool
     """
 
     _attribute_map = {
         'tier_to_cool': {'key': 'tierToCool', 'type': 'DateAfterModification'},
         'tier_to_archive': {'key': 'tierToArchive', 'type': 'DateAfterModification'},
         'delete': {'key': 'delete', 'type': 'DateAfterModification'},
+        'enable_auto_tier_to_hot_from_cool': {'key': 'enableAutoTierToHotFromCool', 'type': 'bool'},
     }
 
     def __init__(
@@ -2519,12 +2599,14 @@ class ManagementPolicyBaseBlob(msrest.serialization.Model):
         tier_to_cool: Optional["DateAfterModification"] = None,
         tier_to_archive: Optional["DateAfterModification"] = None,
         delete: Optional["DateAfterModification"] = None,
+        enable_auto_tier_to_hot_from_cool: Optional[bool] = None,
         **kwargs
     ):
         super(ManagementPolicyBaseBlob, self).__init__(**kwargs)
         self.tier_to_cool = tier_to_cool
         self.tier_to_archive = tier_to_archive
         self.delete = delete
+        self.enable_auto_tier_to_hot_from_cool = enable_auto_tier_to_hot_from_cool
 
 
 class ManagementPolicyDefinition(msrest.serialization.Model):
@@ -2566,7 +2648,8 @@ class ManagementPolicyFilter(msrest.serialization.Model):
 
     :param prefix_match: An array of strings for prefixes to be match.
     :type prefix_match: list[str]
-    :param blob_types: Required. An array of predefined enum values. Only blockBlob is supported.
+    :param blob_types: Required. An array of predefined enum values. Currently blockBlob supports
+     all tiering and delete actions. Only delete actions are supported for appendBlob.
     :type blob_types: list[str]
     :param blob_index_match: An array of blob index tag based filters, there can be at most 10 tag
      filters.
@@ -2673,21 +2756,66 @@ class ManagementPolicySchema(msrest.serialization.Model):
 class ManagementPolicySnapShot(msrest.serialization.Model):
     """Management policy action for snapshot.
 
+    :param tier_to_cool: The function to tier blob snapshot to cool storage. Support blob snapshot
+     currently at Hot tier.
+    :type tier_to_cool: ~azure.mgmt.storage.v2019_06_01.models.DateAfterCreation
+    :param tier_to_archive: The function to tier blob snapshot to archive storage. Support blob
+     snapshot currently at Hot or Cool tier.
+    :type tier_to_archive: ~azure.mgmt.storage.v2019_06_01.models.DateAfterCreation
     :param delete: The function to delete the blob snapshot.
     :type delete: ~azure.mgmt.storage.v2019_06_01.models.DateAfterCreation
     """
 
     _attribute_map = {
+        'tier_to_cool': {'key': 'tierToCool', 'type': 'DateAfterCreation'},
+        'tier_to_archive': {'key': 'tierToArchive', 'type': 'DateAfterCreation'},
         'delete': {'key': 'delete', 'type': 'DateAfterCreation'},
     }
 
     def __init__(
         self,
         *,
+        tier_to_cool: Optional["DateAfterCreation"] = None,
+        tier_to_archive: Optional["DateAfterCreation"] = None,
         delete: Optional["DateAfterCreation"] = None,
         **kwargs
     ):
         super(ManagementPolicySnapShot, self).__init__(**kwargs)
+        self.tier_to_cool = tier_to_cool
+        self.tier_to_archive = tier_to_archive
+        self.delete = delete
+
+
+class ManagementPolicyVersion(msrest.serialization.Model):
+    """Management policy action for blob version.
+
+    :param tier_to_cool: The function to tier blob version to cool storage. Support blob version
+     currently at Hot tier.
+    :type tier_to_cool: ~azure.mgmt.storage.v2019_06_01.models.DateAfterCreation
+    :param tier_to_archive: The function to tier blob version to archive storage. Support blob
+     version currently at Hot or Cool tier.
+    :type tier_to_archive: ~azure.mgmt.storage.v2019_06_01.models.DateAfterCreation
+    :param delete: The function to delete the blob version.
+    :type delete: ~azure.mgmt.storage.v2019_06_01.models.DateAfterCreation
+    """
+
+    _attribute_map = {
+        'tier_to_cool': {'key': 'tierToCool', 'type': 'DateAfterCreation'},
+        'tier_to_archive': {'key': 'tierToArchive', 'type': 'DateAfterCreation'},
+        'delete': {'key': 'delete', 'type': 'DateAfterCreation'},
+    }
+
+    def __init__(
+        self,
+        *,
+        tier_to_cool: Optional["DateAfterCreation"] = None,
+        tier_to_archive: Optional["DateAfterCreation"] = None,
+        delete: Optional["DateAfterCreation"] = None,
+        **kwargs
+    ):
+        super(ManagementPolicyVersion, self).__init__(**kwargs)
+        self.tier_to_cool = tier_to_cool
+        self.tier_to_archive = tier_to_archive
         self.delete = delete
 
 
@@ -2824,13 +2952,13 @@ class ObjectReplicationPolicy(Resource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :ivar policy_id: A unique id for object replication policy.
     :vartype policy_id: str
@@ -3074,13 +3202,13 @@ class PrivateEndpointConnection(Resource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :param private_endpoint: The resource of private end point.
     :type private_endpoint: ~azure.mgmt.storage.v2019_06_01.models.PrivateEndpoint
@@ -3149,13 +3277,13 @@ class PrivateLinkResource(Resource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :ivar group_id: The private link resource group id.
     :vartype group_id: str
@@ -3254,13 +3382,13 @@ class QueueServiceProperties(Resource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :param cors: Specifies CORS rules for the Queue service. You can include up to five CorsRule
      elements in the request. If no CorsRule elements are included in the request body, all CORS
@@ -3689,19 +3817,19 @@ class SkuInformation(msrest.serialization.Model):
 
 
 class TrackedResource(Resource):
-    """The resource model definition for a ARM tracked top level resource.
+    """The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'.
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :param tags: A set of tags. Resource tags.
     :type tags: dict[str, str]
@@ -3743,13 +3871,13 @@ class StorageAccount(TrackedResource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :param tags: A set of tags. Resource tags.
     :type tags: dict[str, str]
@@ -3835,6 +3963,11 @@ class StorageAccount(TrackedResource):
      The default interpretation is TLS 1.0 for this property. Possible values include: "TLS1_0",
      "TLS1_1", "TLS1_2".
     :type minimum_tls_version: str or ~azure.mgmt.storage.v2019_06_01.models.MinimumTlsVersion
+    :param allow_shared_key_access: Indicates whether the storage account permits requests to be
+     authorized with the account access key via Shared Key. If false, then all requests, including
+     shared access signatures, must be authorized with Azure Active Directory (Azure AD). The
+     default value is null, which is equivalent to true.
+    :type allow_shared_key_access: bool
     """
 
     _validation = {
@@ -3896,6 +4029,7 @@ class StorageAccount(TrackedResource):
         'blob_restore_status': {'key': 'properties.blobRestoreStatus', 'type': 'BlobRestoreStatus'},
         'allow_blob_public_access': {'key': 'properties.allowBlobPublicAccess', 'type': 'bool'},
         'minimum_tls_version': {'key': 'properties.minimumTlsVersion', 'type': 'str'},
+        'allow_shared_key_access': {'key': 'properties.allowSharedKeyAccess', 'type': 'bool'},
     }
 
     def __init__(
@@ -3911,6 +4045,7 @@ class StorageAccount(TrackedResource):
         routing_preference: Optional["RoutingPreference"] = None,
         allow_blob_public_access: Optional[bool] = None,
         minimum_tls_version: Optional[Union[str, "MinimumTlsVersion"]] = None,
+        allow_shared_key_access: Optional[bool] = None,
         **kwargs
     ):
         super(StorageAccount, self).__init__(tags=tags, location=location, **kwargs)
@@ -3941,6 +4076,7 @@ class StorageAccount(TrackedResource):
         self.blob_restore_status = None
         self.allow_blob_public_access = allow_blob_public_access
         self.minimum_tls_version = minimum_tls_version
+        self.allow_shared_key_access = allow_shared_key_access
 
 
 class StorageAccountCheckNameAvailabilityParameters(msrest.serialization.Model):
@@ -4036,6 +4172,11 @@ class StorageAccountCreateParameters(msrest.serialization.Model):
      The default interpretation is TLS 1.0 for this property. Possible values include: "TLS1_0",
      "TLS1_1", "TLS1_2".
     :type minimum_tls_version: str or ~azure.mgmt.storage.v2019_06_01.models.MinimumTlsVersion
+    :param allow_shared_key_access: Indicates whether the storage account permits requests to be
+     authorized with the account access key via Shared Key. If false, then all requests, including
+     shared access signatures, must be authorized with Azure Active Directory (Azure AD). The
+     default value is null, which is equivalent to true.
+    :type allow_shared_key_access: bool
     """
 
     _validation = {
@@ -4061,6 +4202,7 @@ class StorageAccountCreateParameters(msrest.serialization.Model):
         'routing_preference': {'key': 'properties.routingPreference', 'type': 'RoutingPreference'},
         'allow_blob_public_access': {'key': 'properties.allowBlobPublicAccess', 'type': 'bool'},
         'minimum_tls_version': {'key': 'properties.minimumTlsVersion', 'type': 'str'},
+        'allow_shared_key_access': {'key': 'properties.allowSharedKeyAccess', 'type': 'bool'},
     }
 
     def __init__(
@@ -4082,6 +4224,7 @@ class StorageAccountCreateParameters(msrest.serialization.Model):
         routing_preference: Optional["RoutingPreference"] = None,
         allow_blob_public_access: Optional[bool] = None,
         minimum_tls_version: Optional[Union[str, "MinimumTlsVersion"]] = None,
+        allow_shared_key_access: Optional[bool] = None,
         **kwargs
     ):
         super(StorageAccountCreateParameters, self).__init__(**kwargs)
@@ -4101,6 +4244,7 @@ class StorageAccountCreateParameters(msrest.serialization.Model):
         self.routing_preference = routing_preference
         self.allow_blob_public_access = allow_blob_public_access
         self.minimum_tls_version = minimum_tls_version
+        self.allow_shared_key_access = allow_shared_key_access
 
 
 class StorageAccountInternetEndpoints(msrest.serialization.Model):
@@ -4364,6 +4508,11 @@ class StorageAccountUpdateParameters(msrest.serialization.Model):
      The default interpretation is TLS 1.0 for this property. Possible values include: "TLS1_0",
      "TLS1_1", "TLS1_2".
     :type minimum_tls_version: str or ~azure.mgmt.storage.v2019_06_01.models.MinimumTlsVersion
+    :param allow_shared_key_access: Indicates whether the storage account permits requests to be
+     authorized with the account access key via Shared Key. If false, then all requests, including
+     shared access signatures, must be authorized with Azure Active Directory (Azure AD). The
+     default value is null, which is equivalent to true.
+    :type allow_shared_key_access: bool
     """
 
     _attribute_map = {
@@ -4381,6 +4530,7 @@ class StorageAccountUpdateParameters(msrest.serialization.Model):
         'routing_preference': {'key': 'properties.routingPreference', 'type': 'RoutingPreference'},
         'allow_blob_public_access': {'key': 'properties.allowBlobPublicAccess', 'type': 'bool'},
         'minimum_tls_version': {'key': 'properties.minimumTlsVersion', 'type': 'str'},
+        'allow_shared_key_access': {'key': 'properties.allowSharedKeyAccess', 'type': 'bool'},
     }
 
     def __init__(
@@ -4400,6 +4550,7 @@ class StorageAccountUpdateParameters(msrest.serialization.Model):
         routing_preference: Optional["RoutingPreference"] = None,
         allow_blob_public_access: Optional[bool] = None,
         minimum_tls_version: Optional[Union[str, "MinimumTlsVersion"]] = None,
+        allow_shared_key_access: Optional[bool] = None,
         **kwargs
     ):
         super(StorageAccountUpdateParameters, self).__init__(**kwargs)
@@ -4417,6 +4568,7 @@ class StorageAccountUpdateParameters(msrest.serialization.Model):
         self.routing_preference = routing_preference
         self.allow_blob_public_access = allow_blob_public_access
         self.minimum_tls_version = minimum_tls_version
+        self.allow_shared_key_access = allow_shared_key_access
 
 
 class StorageQueue(Resource):
@@ -4424,13 +4576,13 @@ class StorageQueue(Resource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :param metadata: A name-value pair that represents queue metadata.
     :type metadata: dict[str, str]
@@ -4496,13 +4648,13 @@ class Table(Resource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :ivar table_name: Table name under the specified account.
     :vartype table_name: str
@@ -4535,13 +4687,13 @@ class TableServiceProperties(Resource):
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Fully qualified resource Id for the resource. Ex -
+    :ivar id: Fully qualified resource ID for the resource. Ex -
      /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
     :vartype id: str
     :ivar name: The name of the resource.
     :vartype name: str
-    :ivar type: The type of the resource. Ex- Microsoft.Compute/virtualMachines or
-     Microsoft.Storage/storageAccounts.
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
     :vartype type: str
     :param cors: Specifies CORS rules for the Table service. You can include up to five CorsRule
      elements in the request. If no CorsRule elements are included in the request body, all CORS

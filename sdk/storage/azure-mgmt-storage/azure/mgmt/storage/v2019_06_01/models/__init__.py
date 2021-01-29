@@ -47,6 +47,7 @@ try:
     from ._models_py3 import ImmutabilityPolicy
     from ._models_py3 import ImmutabilityPolicyProperties
     from ._models_py3 import KeyVaultProperties
+    from ._models_py3 import LastAccessTimeTrackingPolicy
     from ._models_py3 import LeaseContainerRequest
     from ._models_py3 import LeaseContainerResponse
     from ._models_py3 import LegalHold
@@ -68,6 +69,7 @@ try:
     from ._models_py3 import ManagementPolicyRule
     from ._models_py3 import ManagementPolicySchema
     from ._models_py3 import ManagementPolicySnapShot
+    from ._models_py3 import ManagementPolicyVersion
     from ._models_py3 import MetricSpecification
     from ._models_py3 import NetworkRuleSet
     from ._models_py3 import ObjectReplicationPolicies
@@ -156,6 +158,7 @@ except (SyntaxError, ImportError):
     from ._models import ImmutabilityPolicy  # type: ignore
     from ._models import ImmutabilityPolicyProperties  # type: ignore
     from ._models import KeyVaultProperties  # type: ignore
+    from ._models import LastAccessTimeTrackingPolicy  # type: ignore
     from ._models import LeaseContainerRequest  # type: ignore
     from ._models import LeaseContainerResponse  # type: ignore
     from ._models import LegalHold  # type: ignore
@@ -177,6 +180,7 @@ except (SyntaxError, ImportError):
     from ._models import ManagementPolicyRule  # type: ignore
     from ._models import ManagementPolicySchema  # type: ignore
     from ._models import ManagementPolicySnapShot  # type: ignore
+    from ._models import ManagementPolicyVersion  # type: ignore
     from ._models import MetricSpecification  # type: ignore
     from ._models import NetworkRuleSet  # type: ignore
     from ._models import ObjectReplicationPolicies  # type: ignore
@@ -252,6 +256,7 @@ from ._storage_management_client_enums import (
     ListContainersInclude,
     ManagementPolicyName,
     MinimumTlsVersion,
+    Name,
     Permissions,
     PrivateEndpointConnectionProvisioningState,
     PrivateEndpointServiceConnectionStatus,
@@ -314,6 +319,7 @@ __all__ = [
     'ImmutabilityPolicy',
     'ImmutabilityPolicyProperties',
     'KeyVaultProperties',
+    'LastAccessTimeTrackingPolicy',
     'LeaseContainerRequest',
     'LeaseContainerResponse',
     'LegalHold',
@@ -335,6 +341,7 @@ __all__ = [
     'ManagementPolicyRule',
     'ManagementPolicySchema',
     'ManagementPolicySnapShot',
+    'ManagementPolicyVersion',
     'MetricSpecification',
     'NetworkRuleSet',
     'ObjectReplicationPolicies',
@@ -408,6 +415,7 @@ __all__ = [
     'ListContainersInclude',
     'ManagementPolicyName',
     'MinimumTlsVersion',
+    'Name',
     'Permissions',
     'PrivateEndpointConnectionProvisioningState',
     'PrivateEndpointServiceConnectionStatus',
