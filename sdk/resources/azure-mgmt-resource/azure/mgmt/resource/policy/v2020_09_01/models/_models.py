@@ -159,35 +159,11 @@ class AliasPattern(Model):
 
 
 class CloudError(Model):
-    """Error response.
-
-    Common error response for all Azure Resource Manager APIs to return error
-    details for failed operations. (This also follows the OData error response
-    format.).
-
-    :param error: The error object.
-    :type error: ~azure.mgmt.resource.policy.v2020_09_01.models.ErrorDetail
+    """CloudError.
     """
 
     _attribute_map = {
-        'error': {'key': 'error', 'type': 'ErrorDetail'},
     }
-
-    def __init__(self, **kwargs):
-        super(CloudError, self).__init__(**kwargs)
-        self.error = kwargs.get('error', None)
-
-
-class CloudErrorException(HttpOperationError):
-    """Server responsed with exception of type: 'CloudError'.
-
-    :param deserialize: A deserializer
-    :param response: Server response to be deserialized.
-    """
-
-    def __init__(self, deserialize, response, *args):
-
-        super(CloudErrorException, self).__init__(deserialize, response, 'CloudError', *args)
 
 
 class DataEffect(Model):
@@ -389,6 +365,38 @@ class ErrorDetail(Model):
         self.target = None
         self.details = None
         self.additional_info = None
+
+
+class ErrorResponse(Model):
+    """Error response.
+
+    Common error response for all Azure Resource Manager APIs to return error
+    details for failed operations. (This also follows the OData error response
+    format.).
+
+    :param error: The error object.
+    :type error: ~azure.mgmt.resource.policy.v2020_09_01.models.ErrorDetail
+    """
+
+    _attribute_map = {
+        'error': {'key': 'error', 'type': 'ErrorDetail'},
+    }
+
+    def __init__(self, **kwargs):
+        super(ErrorResponse, self).__init__(**kwargs)
+        self.error = kwargs.get('error', None)
+
+
+class ErrorResponseException(HttpOperationError):
+    """Server responsed with exception of type: 'ErrorResponse'.
+
+    :param deserialize: A deserializer
+    :param response: Server response to be deserialized.
+    """
+
+    def __init__(self, deserialize, response, *args):
+
+        super(ErrorResponseException, self).__init__(deserialize, response, 'ErrorResponse', *args)
 
 
 class Identity(Model):
