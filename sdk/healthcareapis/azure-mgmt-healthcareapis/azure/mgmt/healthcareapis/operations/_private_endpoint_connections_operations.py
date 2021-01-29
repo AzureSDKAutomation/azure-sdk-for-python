@@ -26,7 +26,7 @@ class PrivateEndpointConnectionsOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client Api Version. Constant value: "2020-03-30".
+    :ivar api_version: Client Api Version. Constant value: "2021-01-11".
     """
 
     models = models
@@ -36,7 +36,7 @@ class PrivateEndpointConnectionsOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-03-30"
+        self.api_version = "2021-01-11"
 
         self.config = config
 
@@ -54,9 +54,10 @@ class PrivateEndpointConnectionsOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of PrivateEndpointConnection
+        :return: An iterator like instance of
+         PrivateEndpointConnectionDescription
         :rtype:
-         ~azure.mgmt.healthcareapis.models.PrivateEndpointConnectionPaged[~azure.mgmt.healthcareapis.models.PrivateEndpointConnection]
+         ~azure.mgmt.healthcareapis.models.PrivateEndpointConnectionDescriptionPaged[~azure.mgmt.healthcareapis.models.PrivateEndpointConnectionDescription]
         :raises:
          :class:`ErrorDetailsException<azure.mgmt.healthcareapis.models.ErrorDetailsException>`
         """
@@ -107,7 +108,7 @@ class PrivateEndpointConnectionsOperations(object):
         header_dict = None
         if raw:
             header_dict = {}
-        deserialized = models.PrivateEndpointConnectionPaged(internal_paging, self._deserialize.dependencies, header_dict)
+        deserialized = models.PrivateEndpointConnectionDescriptionPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
     list_by_service.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HealthcareApis/services/{resourceName}/privateEndpointConnections'}
@@ -130,9 +131,11 @@ class PrivateEndpointConnectionsOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: PrivateEndpointConnection or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.healthcareapis.models.PrivateEndpointConnection or
-         ~msrest.pipeline.ClientRawResponse
+        :return: PrivateEndpointConnectionDescription or ClientRawResponse if
+         raw=true
+        :rtype:
+         ~azure.mgmt.healthcareapis.models.PrivateEndpointConnectionDescription
+         or ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`ErrorDetailsException<azure.mgmt.healthcareapis.models.ErrorDetailsException>`
         """
@@ -169,7 +172,7 @@ class PrivateEndpointConnectionsOperations(object):
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('PrivateEndpointConnection', response)
+            deserialized = self._deserialize('PrivateEndpointConnectionDescription', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
@@ -219,7 +222,7 @@ class PrivateEndpointConnectionsOperations(object):
         deserialized = None
 
         if response.status_code == 200:
-            deserialized = self._deserialize('PrivateEndpointConnection', response)
+            deserialized = self._deserialize('PrivateEndpointConnectionDescription', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
@@ -249,12 +252,12 @@ class PrivateEndpointConnectionsOperations(object):
         :param polling: True for ARMPolling, False for no polling, or a
          polling object for personal polling strategy
         :return: An instance of LROPoller that returns
-         PrivateEndpointConnection or
-         ClientRawResponse<PrivateEndpointConnection> if raw==True
+         PrivateEndpointConnectionDescription or
+         ClientRawResponse<PrivateEndpointConnectionDescription> if raw==True
         :rtype:
-         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.healthcareapis.models.PrivateEndpointConnection]
+         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.healthcareapis.models.PrivateEndpointConnectionDescription]
          or
-         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.healthcareapis.models.PrivateEndpointConnection]]
+         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.healthcareapis.models.PrivateEndpointConnectionDescription]]
         :raises:
          :class:`ErrorDetailsException<azure.mgmt.healthcareapis.models.ErrorDetailsException>`
         """
@@ -269,7 +272,7 @@ class PrivateEndpointConnectionsOperations(object):
         )
 
         def get_long_running_output(response):
-            deserialized = self._deserialize('PrivateEndpointConnection', response)
+            deserialized = self._deserialize('PrivateEndpointConnectionDescription', response)
 
             if raw:
                 client_raw_response = ClientRawResponse(deserialized, response)

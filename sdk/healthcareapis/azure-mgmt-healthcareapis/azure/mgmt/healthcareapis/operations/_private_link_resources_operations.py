@@ -24,7 +24,7 @@ class PrivateLinkResourcesOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client Api Version. Constant value: "2020-03-30".
+    :ivar api_version: Client Api Version. Constant value: "2021-01-11".
     """
 
     models = models
@@ -34,7 +34,7 @@ class PrivateLinkResourcesOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-03-30"
+        self.api_version = "2021-01-11"
 
         self.config = config
 
@@ -52,11 +52,11 @@ class PrivateLinkResourcesOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: PrivateLinkResourceListResult or ClientRawResponse if
-         raw=true
+        :return: PrivateLinkResourceListResultDescription or ClientRawResponse
+         if raw=true
         :rtype:
-         ~azure.mgmt.healthcareapis.models.PrivateLinkResourceListResult or
-         ~msrest.pipeline.ClientRawResponse
+         ~azure.mgmt.healthcareapis.models.PrivateLinkResourceListResultDescription
+         or ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`ErrorDetailsException<azure.mgmt.healthcareapis.models.ErrorDetailsException>`
         """
@@ -92,7 +92,7 @@ class PrivateLinkResourcesOperations(object):
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('PrivateLinkResourceListResult', response)
+            deserialized = self._deserialize('PrivateLinkResourceListResultDescription', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
@@ -117,8 +117,10 @@ class PrivateLinkResourcesOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: PrivateLinkResource or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.healthcareapis.models.PrivateLinkResource or
+        :return: PrivateLinkResourceDescription or ClientRawResponse if
+         raw=true
+        :rtype:
+         ~azure.mgmt.healthcareapis.models.PrivateLinkResourceDescription or
          ~msrest.pipeline.ClientRawResponse
         :raises:
          :class:`ErrorDetailsException<azure.mgmt.healthcareapis.models.ErrorDetailsException>`
@@ -156,7 +158,7 @@ class PrivateLinkResourcesOperations(object):
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('PrivateLinkResource', response)
+            deserialized = self._deserialize('PrivateLinkResourceDescription', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
