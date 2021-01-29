@@ -422,7 +422,7 @@ class Encryption(Model):
 
     :param key_vault_properties: Properties of KeyVault
     :type key_vault_properties:
-     ~azure.mgmt.servicebus.v2018_01_01_preview.models.KeyVaultProperties
+     list[~azure.mgmt.servicebus.v2018_01_01_preview.models.KeyVaultProperties]
     :param key_source: Enumerates the possible value of keySource for
      Encryption. Possible values include: 'Microsoft.KeyVault'. Default value:
      "Microsoft.KeyVault" .
@@ -431,7 +431,7 @@ class Encryption(Model):
     """
 
     _attribute_map = {
-        'key_vault_properties': {'key': 'keyVaultProperties', 'type': 'KeyVaultProperties'},
+        'key_vault_properties': {'key': 'keyVaultProperties', 'type': '[KeyVaultProperties]'},
         'key_source': {'key': 'keySource', 'type': 'KeySource'},
     }
 
