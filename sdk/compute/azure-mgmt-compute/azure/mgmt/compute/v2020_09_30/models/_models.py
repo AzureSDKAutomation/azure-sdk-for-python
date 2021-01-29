@@ -1718,14 +1718,10 @@ class GalleryArtifactVersionSource(msrest.serialization.Model):
     :param id: The id of the gallery artifact version source. Can specify a disk uri, snapshot uri,
      user image or storage account resource.
     :type id: str
-    :param uri: The uri of the gallery artifact version source. Currently used to specify vhd/blob
-     source.
-    :type uri: str
     """
 
     _attribute_map = {
         'id': {'key': 'id', 'type': 'str'},
-        'uri': {'key': 'uri', 'type': 'str'},
     }
 
     def __init__(
@@ -1734,7 +1730,6 @@ class GalleryArtifactVersionSource(msrest.serialization.Model):
     ):
         super(GalleryArtifactVersionSource, self).__init__(**kwargs)
         self.id = kwargs.get('id', None)
-        self.uri = kwargs.get('uri', None)
 
 
 class GalleryDiskImage(msrest.serialization.Model):
@@ -1747,8 +1742,8 @@ class GalleryDiskImage(msrest.serialization.Model):
     :param host_caching: The host caching of the disk. Valid values are 'None', 'ReadOnly', and
      'ReadWrite'. Possible values include: "None", "ReadOnly", "ReadWrite".
     :type host_caching: str or ~azure.mgmt.compute.v2020_09_30.models.HostCaching
-    :param source: The gallery artifact version source.
-    :type source: ~azure.mgmt.compute.v2020_09_30.models.GalleryArtifactVersionSource
+    :param source: The gallery disk image source.
+    :type source: ~azure.mgmt.compute.v2020_09_30.models.GalleryDiskImageSource
     """
 
     _validation = {
@@ -1758,7 +1753,7 @@ class GalleryDiskImage(msrest.serialization.Model):
     _attribute_map = {
         'size_in_gb': {'key': 'sizeInGB', 'type': 'int'},
         'host_caching': {'key': 'hostCaching', 'type': 'str'},
-        'source': {'key': 'source', 'type': 'GalleryArtifactVersionSource'},
+        'source': {'key': 'source', 'type': 'GalleryDiskImageSource'},
     }
 
     def __init__(
@@ -1783,8 +1778,8 @@ class GalleryDataDiskImage(GalleryDiskImage):
     :param host_caching: The host caching of the disk. Valid values are 'None', 'ReadOnly', and
      'ReadWrite'. Possible values include: "None", "ReadOnly", "ReadWrite".
     :type host_caching: str or ~azure.mgmt.compute.v2020_09_30.models.HostCaching
-    :param source: The gallery artifact version source.
-    :type source: ~azure.mgmt.compute.v2020_09_30.models.GalleryArtifactVersionSource
+    :param source: The gallery disk image source.
+    :type source: ~azure.mgmt.compute.v2020_09_30.models.GalleryDiskImageSource
     :param lun: Required. This property specifies the logical unit number of the data disk. This
      value is used to identify data disks within the Virtual Machine and therefore must be unique
      for each data disk attached to the Virtual Machine.
@@ -1799,7 +1794,7 @@ class GalleryDataDiskImage(GalleryDiskImage):
     _attribute_map = {
         'size_in_gb': {'key': 'sizeInGB', 'type': 'int'},
         'host_caching': {'key': 'hostCaching', 'type': 'str'},
-        'source': {'key': 'source', 'type': 'GalleryArtifactVersionSource'},
+        'source': {'key': 'source', 'type': 'GalleryDiskImageSource'},
         'lun': {'key': 'lun', 'type': 'int'},
     }
 
@@ -1809,6 +1804,30 @@ class GalleryDataDiskImage(GalleryDiskImage):
     ):
         super(GalleryDataDiskImage, self).__init__(**kwargs)
         self.lun = kwargs['lun']
+
+
+class GalleryDiskImageSource(GalleryArtifactVersionSource):
+    """The gallery disk image source.
+
+    :param id: The id of the gallery artifact version source. Can specify a disk uri, snapshot uri,
+     user image or storage account resource.
+    :type id: str
+    :param uri: The uri of the gallery artifact version source. Currently used to specify vhd/blob
+     source.
+    :type uri: str
+    """
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'uri': {'key': 'uri', 'type': 'str'},
+    }
+
+    def __init__(
+        self,
+        **kwargs
+    ):
+        super(GalleryDiskImageSource, self).__init__(**kwargs)
+        self.uri = kwargs.get('uri', None)
 
 
 class GalleryIdentifier(msrest.serialization.Model):
@@ -2400,8 +2419,8 @@ class GalleryOSDiskImage(GalleryDiskImage):
     :param host_caching: The host caching of the disk. Valid values are 'None', 'ReadOnly', and
      'ReadWrite'. Possible values include: "None", "ReadOnly", "ReadWrite".
     :type host_caching: str or ~azure.mgmt.compute.v2020_09_30.models.HostCaching
-    :param source: The gallery artifact version source.
-    :type source: ~azure.mgmt.compute.v2020_09_30.models.GalleryArtifactVersionSource
+    :param source: The gallery disk image source.
+    :type source: ~azure.mgmt.compute.v2020_09_30.models.GalleryDiskImageSource
     """
 
     _validation = {
@@ -2411,7 +2430,7 @@ class GalleryOSDiskImage(GalleryDiskImage):
     _attribute_map = {
         'size_in_gb': {'key': 'sizeInGB', 'type': 'int'},
         'host_caching': {'key': 'hostCaching', 'type': 'str'},
-        'source': {'key': 'source', 'type': 'GalleryArtifactVersionSource'},
+        'source': {'key': 'source', 'type': 'GalleryDiskImageSource'},
     }
 
     def __init__(
@@ -2809,16 +2828,16 @@ class PrivateEndpoint(msrest.serialization.Model):
         self.id = None
 
 
-class PrivateEndpointConnection(ProxyOnlyResource):
+class PrivateEndpointConnection(msrest.serialization.Model):
     """The Private Endpoint Connection resource.
 
     Variables are only populated by the server, and will be ignored when sending a request.
 
-    :ivar id: Resource Id.
+    :ivar id: private endpoint connection Id.
     :vartype id: str
-    :ivar name: Resource name.
+    :ivar name: private endpoint connection name.
     :vartype name: str
-    :ivar type: Resource type.
+    :ivar type: private endpoint connection type.
     :vartype type: str
     :param private_endpoint: The resource of private end point.
     :type private_endpoint: ~azure.mgmt.compute.v2020_09_30.models.PrivateEndpoint
@@ -2853,6 +2872,9 @@ class PrivateEndpointConnection(ProxyOnlyResource):
         **kwargs
     ):
         super(PrivateEndpointConnection, self).__init__(**kwargs)
+        self.id = None
+        self.name = None
+        self.type = None
         self.private_endpoint = kwargs.get('private_endpoint', None)
         self.private_link_service_connection_state = kwargs.get('private_link_service_connection_state', None)
         self.provisioning_state = None

@@ -45,6 +45,7 @@ try:
     from ._models_py3 import GalleryArtifactVersionSource
     from ._models_py3 import GalleryDataDiskImage
     from ._models_py3 import GalleryDiskImage
+    from ._models_py3 import GalleryDiskImageSource
     from ._models_py3 import GalleryIdentifier
     from ._models_py3 import GalleryImage
     from ._models_py3 import GalleryImageFeature
@@ -142,6 +143,7 @@ except (SyntaxError, ImportError):
     from ._models import GalleryArtifactVersionSource  # type: ignore
     from ._models import GalleryDataDiskImage  # type: ignore
     from ._models import GalleryDiskImage  # type: ignore
+    from ._models import GalleryDiskImageSource  # type: ignore
     from ._models import GalleryIdentifier  # type: ignore
     from ._models import GalleryImage  # type: ignore
     from ._models import GalleryImageFeature  # type: ignore
@@ -272,6 +274,7 @@ __all__ = [
     'GalleryArtifactVersionSource',
     'GalleryDataDiskImage',
     'GalleryDiskImage',
+    'GalleryDiskImageSource',
     'GalleryIdentifier',
     'GalleryImage',
     'GalleryImageFeature',
