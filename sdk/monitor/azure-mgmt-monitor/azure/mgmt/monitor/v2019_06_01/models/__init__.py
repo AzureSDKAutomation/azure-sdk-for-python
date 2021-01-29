@@ -16,6 +16,7 @@ try:
     from ._models_py3 import AzureFunctionReceiver
     from ._models_py3 import EmailReceiver
     from ._models_py3 import EnableRequest
+    from ._models_py3 import ErrorDetail
     from ._models_py3 import ErrorResponse
     from ._models_py3 import ItsmReceiver
     from ._models_py3 import LogicAppReceiver
@@ -33,6 +34,7 @@ except (SyntaxError, ImportError):
     from ._models import AzureFunctionReceiver  # type: ignore
     from ._models import EmailReceiver  # type: ignore
     from ._models import EnableRequest  # type: ignore
+    from ._models import ErrorDetail  # type: ignore
     from ._models import ErrorResponse  # type: ignore
     from ._models import ItsmReceiver  # type: ignore
     from ._models import LogicAppReceiver  # type: ignore
@@ -41,7 +43,7 @@ except (SyntaxError, ImportError):
     from ._models import VoiceReceiver  # type: ignore
     from ._models import WebhookReceiver  # type: ignore
 
-from ._monitor_management_client_enums import (
+from ._monitor_client_enums import (
     ReceiverStatus,
 )
 
@@ -55,6 +57,7 @@ __all__ = [
     'AzureFunctionReceiver',
     'EmailReceiver',
     'EnableRequest',
+    'ErrorDetail',
     'ErrorResponse',
     'ItsmReceiver',
     'LogicAppReceiver',

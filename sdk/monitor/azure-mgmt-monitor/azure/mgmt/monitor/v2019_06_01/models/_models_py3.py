@@ -78,6 +78,10 @@ class Resource(msrest.serialization.Model):
     :vartype name: str
     :ivar type: Azure resource type.
     :vartype type: str
+    :ivar kind: Azure resource kind.
+    :vartype kind: str
+    :ivar identity: Azure resource identity.
+    :vartype identity: str
     :param location: Required. Resource location.
     :type location: str
     :param tags: A set of tags. Resource tags.
@@ -88,6 +92,8 @@ class Resource(msrest.serialization.Model):
         'id': {'readonly': True},
         'name': {'readonly': True},
         'type': {'readonly': True},
+        'kind': {'readonly': True},
+        'identity': {'readonly': True},
         'location': {'required': True},
     }
 
@@ -95,6 +101,8 @@ class Resource(msrest.serialization.Model):
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'identity': {'key': 'identity', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
     }
@@ -110,6 +118,8 @@ class Resource(msrest.serialization.Model):
         self.id = None
         self.name = None
         self.type = None
+        self.kind = None
+        self.identity = None
         self.location = location
         self.tags = tags
 
@@ -127,6 +137,10 @@ class ActionGroupResource(Resource):
     :vartype name: str
     :ivar type: Azure resource type.
     :vartype type: str
+    :ivar kind: Azure resource kind.
+    :vartype kind: str
+    :ivar identity: Azure resource identity.
+    :vartype identity: str
     :param location: Required. Resource location.
     :type location: str
     :param tags: A set of tags. Resource tags.
@@ -169,6 +183,8 @@ class ActionGroupResource(Resource):
         'id': {'readonly': True},
         'name': {'readonly': True},
         'type': {'readonly': True},
+        'kind': {'readonly': True},
+        'identity': {'readonly': True},
         'location': {'required': True},
         'group_short_name': {'max_length': 12, 'min_length': 0},
     }
@@ -177,6 +193,8 @@ class ActionGroupResource(Resource):
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
+        'kind': {'key': 'kind', 'type': 'str'},
+        'identity': {'key': 'identity', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'tags': {'key': 'tags', 'type': '{str}'},
         'group_short_name': {'key': 'properties.groupShortName', 'type': 'str'},
@@ -490,8 +508,8 @@ class EnableRequest(msrest.serialization.Model):
         self.receiver_name = receiver_name
 
 
-class ErrorResponse(msrest.serialization.Model):
-    """Describes the format of Error response.
+class ErrorDetail(msrest.serialization.Model):
+    """The error detail.
 
     :param code: Error code.
     :type code: str
@@ -511,9 +529,30 @@ class ErrorResponse(msrest.serialization.Model):
         message: Optional[str] = None,
         **kwargs
     ):
-        super(ErrorResponse, self).__init__(**kwargs)
+        super(ErrorDetail, self).__init__(**kwargs)
         self.code = code
         self.message = message
+
+
+class ErrorResponse(msrest.serialization.Model):
+    """Describes the format of Error response.
+
+    :param error: The error object.
+    :type error: ~$(python-base-namespace).v2019_06_01.models.ErrorDetail
+    """
+
+    _attribute_map = {
+        'error': {'key': 'error', 'type': 'ErrorDetail'},
+    }
+
+    def __init__(
+        self,
+        *,
+        error: Optional["ErrorDetail"] = None,
+        **kwargs
+    ):
+        super(ErrorResponse, self).__init__(**kwargs)
+        self.error = error
 
 
 class ItsmReceiver(msrest.serialization.Model):
