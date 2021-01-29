@@ -16,8 +16,8 @@ from msrestazure.azure_exceptions import CloudError
 from .. import models
 
 
-class Operations(object):
-    """Operations operations.
+class RecoverableServersOperations(object):
+    """RecoverableServersOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -25,7 +25,7 @@ class Operations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The API version to use for this operation. Constant value: "2020-02-14-preview".
+    :ivar api_version: The API version to use for this operation. Constant value: "2017-12-01".
     """
 
     models = models
@@ -35,27 +35,37 @@ class Operations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-02-14-preview"
+        self.api_version = "2017-12-01"
 
         self.config = config
 
-    def list(
-            self, custom_headers=None, raw=False, **operation_config):
-        """Lists all of the available REST API operations.
+    def get(
+            self, resource_group_name, server_name, custom_headers=None, raw=False, **operation_config):
+        """Gets a recoverable PostgreSQL Server.
 
+        :param resource_group_name: The name of the resource group. The name
+         is case insensitive.
+        :type resource_group_name: str
+        :param server_name: The name of the server.
+        :type server_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: OperationListResult or ClientRawResponse if raw=true
-        :rtype:
-         ~azure.mgmt.rdbms.postgresql_flexibleservers.models.OperationListResult
+        :return: RecoverableServerResource or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.rdbms.postgresql.models.RecoverableServerResource
          or ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         # Construct URL
-        url = self.list.metadata['url']
+        url = self.get.metadata['url']
+        path_format_arguments = {
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', min_length=1),
+            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str', max_length=90, min_length=1, pattern=r'^[-\w\._\(\)]+$'),
+            'serverName': self._serialize.url("server_name", server_name, 'str')
+        }
+        url = self._client.format_url(url, **path_format_arguments)
 
         # Construct parameters
         query_parameters = {}
@@ -82,11 +92,11 @@ class Operations(object):
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('OperationListResult', response)
+            deserialized = self._deserialize('RecoverableServerResource', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    list.metadata = {'url': '/providers/Microsoft.DBForPostgreSql/operations'}
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBForPostgreSQL/servers/{serverName}/recoverableServers'}
