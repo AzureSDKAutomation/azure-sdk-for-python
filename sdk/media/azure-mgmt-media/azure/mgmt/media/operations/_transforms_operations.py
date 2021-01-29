@@ -351,7 +351,7 @@ class TransformsOperations(object):
         :rtype: ~azure.mgmt.media.models.Transform or
          ~msrest.pipeline.ClientRawResponse
         :raises:
-         :class:`ApiErrorException<azure.mgmt.media.models.ApiErrorException>`
+         :class:`ErrorResponseException<azure.mgmt.media.models.ErrorResponseException>`
         """
         parameters = models.Transform(description=description, outputs=outputs)
 
@@ -388,7 +388,7 @@ class TransformsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            raise models.ApiErrorException(self._deserialize, response)
+            raise models.ErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:

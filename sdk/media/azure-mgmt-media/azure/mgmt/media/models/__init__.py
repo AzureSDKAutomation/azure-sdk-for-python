@@ -25,6 +25,7 @@ try:
     from ._models_py3 import Audio
     from ._models_py3 import AudioAnalyzerPreset
     from ._models_py3 import AudioOverlay
+    from ._models_py3 import AudioTrackDescriptor
     from ._models_py3 import AzureEntityResource
     from ._models_py3 import BuiltInStandardEncoderPreset
     from ._models_py3 import CbcsDrmConfiguration
@@ -70,17 +71,27 @@ try:
     from ._models_py3 import EnabledProtocols
     from ._models_py3 import EntityNameAvailabilityCheckOutput
     from ._models_py3 import EnvelopeEncryption
+    from ._models_py3 import ErrorAdditionalInfo
+    from ._models_py3 import ErrorDetail
+    from ._models_py3 import ErrorResponse, ErrorResponseException
     from ._models_py3 import FaceDetectorPreset
     from ._models_py3 import Filters
     from ._models_py3 import FilterTrackPropertyCondition
     from ._models_py3 import FilterTrackSelection
     from ._models_py3 import FirstQuality
     from ._models_py3 import Format
+    from ._models_py3 import FromAllInputFile
+    from ._models_py3 import FromEachInputFile
     from ._models_py3 import H264Layer
     from ._models_py3 import H264Video
+    from ._models_py3 import H265Layer
+    from ._models_py3 import H265Video
+    from ._models_py3 import H265VideoLayer
     from ._models_py3 import Hls
     from ._models_py3 import Image
     from ._models_py3 import ImageFormat
+    from ._models_py3 import InputDefinition
+    from ._models_py3 import InputFile
     from ._models_py3 import IPAccessControl
     from ._models_py3 import IPRange
     from ._models_py3 import Job
@@ -91,6 +102,7 @@ try:
     from ._models_py3 import JobInputClip
     from ._models_py3 import JobInputHttp
     from ._models_py3 import JobInputs
+    from ._models_py3 import JobInputSequence
     from ._models_py3 import JobOutput
     from ._models_py3 import JobOutputAsset
     from ._models_py3 import JpgFormat
@@ -145,6 +157,10 @@ try:
     from ._models_py3 import ProxyResource
     from ._models_py3 import Rectangle
     from ._models_py3 import Resource
+    from ._models_py3 import SelectAudioTrackByAttribute
+    from ._models_py3 import SelectAudioTrackById
+    from ._models_py3 import SelectVideoTrackByAttribute
+    from ._models_py3 import SelectVideoTrackById
     from ._models_py3 import ServiceSpecification
     from ._models_py3 import StandardEncoderPreset
     from ._models_py3 import StorageAccount
@@ -162,6 +178,8 @@ try:
     from ._models_py3 import StreamingPolicyPlayReadyConfiguration
     from ._models_py3 import StreamingPolicyWidevineConfiguration
     from ._models_py3 import SyncStorageKeysInput
+    from ._models_py3 import SystemData
+    from ._models_py3 import TrackDescriptor
     from ._models_py3 import TrackedResource
     from ._models_py3 import TrackPropertyCondition
     from ._models_py3 import TrackSelection
@@ -173,6 +191,7 @@ try:
     from ._models_py3 import VideoAnalyzerPreset
     from ._models_py3 import VideoLayer
     from ._models_py3 import VideoOverlay
+    from ._models_py3 import VideoTrackDescriptor
 except (SyntaxError, ImportError):
     from ._models import AacAudio
     from ._models import AbsoluteClipTime
@@ -189,6 +208,7 @@ except (SyntaxError, ImportError):
     from ._models import Audio
     from ._models import AudioAnalyzerPreset
     from ._models import AudioOverlay
+    from ._models import AudioTrackDescriptor
     from ._models import AzureEntityResource
     from ._models import BuiltInStandardEncoderPreset
     from ._models import CbcsDrmConfiguration
@@ -234,17 +254,27 @@ except (SyntaxError, ImportError):
     from ._models import EnabledProtocols
     from ._models import EntityNameAvailabilityCheckOutput
     from ._models import EnvelopeEncryption
+    from ._models import ErrorAdditionalInfo
+    from ._models import ErrorDetail
+    from ._models import ErrorResponse, ErrorResponseException
     from ._models import FaceDetectorPreset
     from ._models import Filters
     from ._models import FilterTrackPropertyCondition
     from ._models import FilterTrackSelection
     from ._models import FirstQuality
     from ._models import Format
+    from ._models import FromAllInputFile
+    from ._models import FromEachInputFile
     from ._models import H264Layer
     from ._models import H264Video
+    from ._models import H265Layer
+    from ._models import H265Video
+    from ._models import H265VideoLayer
     from ._models import Hls
     from ._models import Image
     from ._models import ImageFormat
+    from ._models import InputDefinition
+    from ._models import InputFile
     from ._models import IPAccessControl
     from ._models import IPRange
     from ._models import Job
@@ -255,6 +285,7 @@ except (SyntaxError, ImportError):
     from ._models import JobInputClip
     from ._models import JobInputHttp
     from ._models import JobInputs
+    from ._models import JobInputSequence
     from ._models import JobOutput
     from ._models import JobOutputAsset
     from ._models import JpgFormat
@@ -309,6 +340,10 @@ except (SyntaxError, ImportError):
     from ._models import ProxyResource
     from ._models import Rectangle
     from ._models import Resource
+    from ._models import SelectAudioTrackByAttribute
+    from ._models import SelectAudioTrackById
+    from ._models import SelectVideoTrackByAttribute
+    from ._models import SelectVideoTrackById
     from ._models import ServiceSpecification
     from ._models import StandardEncoderPreset
     from ._models import StorageAccount
@@ -326,6 +361,8 @@ except (SyntaxError, ImportError):
     from ._models import StreamingPolicyPlayReadyConfiguration
     from ._models import StreamingPolicyWidevineConfiguration
     from ._models import SyncStorageKeysInput
+    from ._models import SystemData
+    from ._models import TrackDescriptor
     from ._models import TrackedResource
     from ._models import TrackPropertyCondition
     from ._models import TrackSelection
@@ -337,6 +374,7 @@ except (SyntaxError, ImportError):
     from ._models import VideoAnalyzerPreset
     from ._models import VideoLayer
     from ._models import VideoOverlay
+    from ._models import VideoTrackDescriptor
 from ._paged_models import AccountFilterPaged
 from ._paged_models import AssetFilterPaged
 from ._paged_models import AssetPaged
@@ -369,9 +407,16 @@ from ._azure_media_services_enums import (
     ContentKeyPolicyRestrictionTokenType,
     ContentKeyPolicyFairPlayRentalAndLeaseKeyType,
     AacAudioProfile,
+    H265VideoProfile,
     StretchMode,
     VideoSyncMode,
+    H265Complexity,
+    ChannelMapping,
+    TrackAttribute,
+    AttributeFilter,
     AnalysisResolution,
+    FaceRedactorMode,
+    BlurType,
     AudioAnalysisMode,
     DeinterlaceParity,
     DeinterlaceMode,
@@ -383,6 +428,7 @@ from ._azure_media_services_enums import (
     InsightsType,
     OnErrorType,
     Priority,
+    CreatedByType,
     JobErrorCode,
     JobErrorCategory,
     JobRetry,
@@ -416,6 +462,7 @@ __all__ = [
     'Audio',
     'AudioAnalyzerPreset',
     'AudioOverlay',
+    'AudioTrackDescriptor',
     'AzureEntityResource',
     'BuiltInStandardEncoderPreset',
     'CbcsDrmConfiguration',
@@ -461,17 +508,27 @@ __all__ = [
     'EnabledProtocols',
     'EntityNameAvailabilityCheckOutput',
     'EnvelopeEncryption',
+    'ErrorAdditionalInfo',
+    'ErrorDetail',
+    'ErrorResponse', 'ErrorResponseException',
     'FaceDetectorPreset',
     'Filters',
     'FilterTrackPropertyCondition',
     'FilterTrackSelection',
     'FirstQuality',
     'Format',
+    'FromAllInputFile',
+    'FromEachInputFile',
     'H264Layer',
     'H264Video',
+    'H265Layer',
+    'H265Video',
+    'H265VideoLayer',
     'Hls',
     'Image',
     'ImageFormat',
+    'InputDefinition',
+    'InputFile',
     'IPAccessControl',
     'IPRange',
     'Job',
@@ -482,6 +539,7 @@ __all__ = [
     'JobInputClip',
     'JobInputHttp',
     'JobInputs',
+    'JobInputSequence',
     'JobOutput',
     'JobOutputAsset',
     'JpgFormat',
@@ -536,6 +594,10 @@ __all__ = [
     'ProxyResource',
     'Rectangle',
     'Resource',
+    'SelectAudioTrackByAttribute',
+    'SelectAudioTrackById',
+    'SelectVideoTrackByAttribute',
+    'SelectVideoTrackById',
     'ServiceSpecification',
     'StandardEncoderPreset',
     'StorageAccount',
@@ -553,6 +615,8 @@ __all__ = [
     'StreamingPolicyPlayReadyConfiguration',
     'StreamingPolicyWidevineConfiguration',
     'SyncStorageKeysInput',
+    'SystemData',
+    'TrackDescriptor',
     'TrackedResource',
     'TrackPropertyCondition',
     'TrackSelection',
@@ -564,6 +628,7 @@ __all__ = [
     'VideoAnalyzerPreset',
     'VideoLayer',
     'VideoOverlay',
+    'VideoTrackDescriptor',
     'AccountFilterPaged',
     'OperationPaged',
     'MediaServicePaged',
@@ -595,9 +660,16 @@ __all__ = [
     'ContentKeyPolicyRestrictionTokenType',
     'ContentKeyPolicyFairPlayRentalAndLeaseKeyType',
     'AacAudioProfile',
+    'H265VideoProfile',
     'StretchMode',
     'VideoSyncMode',
+    'H265Complexity',
+    'ChannelMapping',
+    'TrackAttribute',
+    'AttributeFilter',
     'AnalysisResolution',
+    'FaceRedactorMode',
+    'BlurType',
     'AudioAnalysisMode',
     'DeinterlaceParity',
     'DeinterlaceMode',
@@ -609,6 +681,7 @@ __all__ = [
     'InsightsType',
     'OnErrorType',
     'Priority',
+    'CreatedByType',
     'JobErrorCode',
     'JobErrorCategory',
     'JobRetry',
