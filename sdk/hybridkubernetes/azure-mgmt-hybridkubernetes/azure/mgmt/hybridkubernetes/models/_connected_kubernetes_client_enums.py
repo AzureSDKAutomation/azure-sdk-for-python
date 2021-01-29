@@ -27,3 +27,11 @@ class ProvisioningState(str, Enum):
     updating = "Updating"
     deleting = "Deleting"
     accepted = "Accepted"
+
+
+class ConnectivityStatus(str, Enum):
+
+    connecting = "Connecting"
+    connected = "Connected"
+    offline = "Offline"
+    expired = "Expired"
