@@ -651,6 +651,27 @@ class QueryMetricUnitType(str, Enum):
     count = "count"
 
 
+class ElasticPoolState(str, Enum):
+
+    creating = "Creating"
+    ready = "Ready"
+    disabled = "Disabled"
+
+
+class ElasticPoolLicenseType(str, Enum):
+
+    license_included = "LicenseIncluded"
+    base_price = "BasePrice"
+
+
+class CreatedByType(str, Enum):
+
+    user = "User"
+    application = "Application"
+    managed_identity = "ManagedIdentity"
+    key = "Key"
+
+
 class CreateMode(str, Enum):
 
     default = "Default"
@@ -715,31 +736,24 @@ class SecondaryType(str, Enum):
     named = "Named"
 
 
+class CurrentBackupStorageRedundancy(str, Enum):
+
+    geo = "Geo"
+    local = "Local"
+    zone = "Zone"
+
+
+class RequestedBackupStorageRedundancy(str, Enum):
+
+    geo = "Geo"
+    local = "Local"
+    zone = "Zone"
+
+
 class StorageKeyType(str, Enum):
 
     shared_access_key = "SharedAccessKey"
     storage_access_key = "StorageAccessKey"
-
-
-class ElasticPoolState(str, Enum):
-
-    creating = "Creating"
-    ready = "Ready"
-    disabled = "Disabled"
-
-
-class ElasticPoolLicenseType(str, Enum):
-
-    license_included = "LicenseIncluded"
-    base_price = "BasePrice"
-
-
-class CreatedByType(str, Enum):
-
-    user = "User"
-    application = "Application"
-    managed_identity = "ManagedIdentity"
-    key = "Key"
 
 
 class LongTermRetentionDatabaseState(str, Enum):

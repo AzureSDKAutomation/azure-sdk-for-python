@@ -82,10 +82,8 @@ try:
     from ._models_py3 import LocationCapabilities
     from ._models_py3 import LogSizeCapability
     from ._models_py3 import LongTermRetentionBackup
-    from ._models_py3 import MaintenanceConfigurationCapability
     from ._models_py3 import ManagedBackupShortTermRetentionPolicy
     from ._models_py3 import ManagedDatabase
-    from ._models_py3 import ManagedDatabaseRestoreDetailsResult
     from ._models_py3 import ManagedDatabaseSecurityAlertPolicy
     from ._models_py3 import ManagedDatabaseUpdate
     from ._models_py3 import ManagedInstance
@@ -97,7 +95,6 @@ try:
     from ._models_py3 import ManagedInstanceKey
     from ._models_py3 import ManagedInstanceLongTermRetentionBackup
     from ._models_py3 import ManagedInstanceLongTermRetentionPolicy
-    from ._models_py3 import ManagedInstanceMaintenanceConfigurationCapability
     from ._models_py3 import ManagedInstanceOperation
     from ._models_py3 import ManagedInstanceOperationParametersPair
     from ._models_py3 import ManagedInstanceOperationSteps
@@ -282,10 +279,8 @@ except (SyntaxError, ImportError):
     from ._models import LocationCapabilities
     from ._models import LogSizeCapability
     from ._models import LongTermRetentionBackup
-    from ._models import MaintenanceConfigurationCapability
     from ._models import ManagedBackupShortTermRetentionPolicy
     from ._models import ManagedDatabase
-    from ._models import ManagedDatabaseRestoreDetailsResult
     from ._models import ManagedDatabaseSecurityAlertPolicy
     from ._models import ManagedDatabaseUpdate
     from ._models import ManagedInstance
@@ -297,7 +292,6 @@ except (SyntaxError, ImportError):
     from ._models import ManagedInstanceKey
     from ._models import ManagedInstanceLongTermRetentionBackup
     from ._models import ManagedInstanceLongTermRetentionPolicy
-    from ._models import ManagedInstanceMaintenanceConfigurationCapability
     from ._models import ManagedInstanceOperation
     from ._models import ManagedInstanceOperationParametersPair
     from ._models import ManagedInstanceOperationSteps
@@ -570,16 +564,18 @@ from ._sql_management_client_enums import (
     StorageAccountType,
     QueryTimeGrainType,
     QueryMetricUnitType,
+    ElasticPoolState,
+    ElasticPoolLicenseType,
+    CreatedByType,
     CreateMode,
     SampleName,
     DatabaseStatus,
     DatabaseLicenseType,
     DatabaseReadScale,
     SecondaryType,
+    CurrentBackupStorageRedundancy,
+    RequestedBackupStorageRedundancy,
     StorageKeyType,
-    ElasticPoolState,
-    ElasticPoolLicenseType,
-    CreatedByType,
     LongTermRetentionDatabaseState,
     VulnerabilityAssessmentPolicyBaselineName,
     SensitivityLabelSource,
@@ -668,10 +664,8 @@ __all__ = [
     'LocationCapabilities',
     'LogSizeCapability',
     'LongTermRetentionBackup',
-    'MaintenanceConfigurationCapability',
     'ManagedBackupShortTermRetentionPolicy',
     'ManagedDatabase',
-    'ManagedDatabaseRestoreDetailsResult',
     'ManagedDatabaseSecurityAlertPolicy',
     'ManagedDatabaseUpdate',
     'ManagedInstance',
@@ -683,7 +677,6 @@ __all__ = [
     'ManagedInstanceKey',
     'ManagedInstanceLongTermRetentionBackup',
     'ManagedInstanceLongTermRetentionPolicy',
-    'ManagedInstanceMaintenanceConfigurationCapability',
     'ManagedInstanceOperation',
     'ManagedInstanceOperationParametersPair',
     'ManagedInstanceOperationSteps',
@@ -955,16 +948,18 @@ __all__ = [
     'StorageAccountType',
     'QueryTimeGrainType',
     'QueryMetricUnitType',
+    'ElasticPoolState',
+    'ElasticPoolLicenseType',
+    'CreatedByType',
     'CreateMode',
     'SampleName',
     'DatabaseStatus',
     'DatabaseLicenseType',
     'DatabaseReadScale',
     'SecondaryType',
+    'CurrentBackupStorageRedundancy',
+    'RequestedBackupStorageRedundancy',
     'StorageKeyType',
-    'ElasticPoolState',
-    'ElasticPoolLicenseType',
-    'CreatedByType',
     'LongTermRetentionDatabaseState',
     'VulnerabilityAssessmentPolicyBaselineName',
     'SensitivityLabelSource',
