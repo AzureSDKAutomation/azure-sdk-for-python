@@ -11,7 +11,6 @@
 
 import uuid
 from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
 from msrest.polling import LROPoller, NoPolling
 from msrestazure.polling.arm_polling import ARMPolling
 
@@ -27,7 +26,7 @@ class PrivateEndpointConnectionOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client Api Version. Constant value: "2020-10-01".
+    :ivar api_version: Client Api Version. Constant value: "2021-01-01".
     """
 
     models = models
@@ -37,7 +36,7 @@ class PrivateEndpointConnectionOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-10-01"
+        self.api_version = "2021-01-01"
 
         self.config = config
 
@@ -106,7 +105,7 @@ class PrivateEndpointConnectionOperations(object):
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/Subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/privateEndpointConnections/{privateEndpointConnectionName}'}
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/privateEndpointConnections/{privateEndpointConnectionName}'}
 
 
     def _put_initial(
@@ -144,9 +143,7 @@ class PrivateEndpointConnectionOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200, 201]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.NewErrorResponseException(self._deserialize, response)
 
         deserialized = None
 
@@ -189,7 +186,8 @@ class PrivateEndpointConnectionOperations(object):
          ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.recoveryservicesbackup.models.PrivateEndpointConnectionResource]
          or
          ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.recoveryservicesbackup.models.PrivateEndpointConnectionResource]]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`NewErrorResponseException<azure.mgmt.recoveryservicesbackup.models.NewErrorResponseException>`
         """
         raw_result = self._put_initial(
             vault_name=vault_name,
@@ -217,7 +215,7 @@ class PrivateEndpointConnectionOperations(object):
         elif polling is False: polling_method = NoPolling()
         else: polling_method = polling
         return LROPoller(self._client, raw_result, get_long_running_output, polling_method)
-    put.metadata = {'url': '/Subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/privateEndpointConnections/{privateEndpointConnectionName}'}
+    put.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/privateEndpointConnections/{privateEndpointConnectionName}'}
 
 
     def _delete_initial(
@@ -250,7 +248,7 @@ class PrivateEndpointConnectionOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200, 202, 204]:
-            raise models.ErrorResponseException(self._deserialize, response)
+            raise models.NewErrorResponseException(self._deserialize, response)
 
         if raw:
             client_raw_response = ClientRawResponse(None, response)
@@ -278,7 +276,7 @@ class PrivateEndpointConnectionOperations(object):
         :rtype: ~msrestazure.azure_operation.AzureOperationPoller[None] or
          ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[None]]
         :raises:
-         :class:`ErrorResponseException<azure.mgmt.recoveryservicesbackup.models.ErrorResponseException>`
+         :class:`NewErrorResponseException<azure.mgmt.recoveryservicesbackup.models.NewErrorResponseException>`
         """
         raw_result = self._delete_initial(
             vault_name=vault_name,
@@ -301,4 +299,4 @@ class PrivateEndpointConnectionOperations(object):
         elif polling is False: polling_method = NoPolling()
         else: polling_method = polling
         return LROPoller(self._client, raw_result, get_long_running_output, polling_method)
-    delete.metadata = {'url': '/Subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/privateEndpointConnections/{privateEndpointConnectionName}'}
+    delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/privateEndpointConnections/{privateEndpointConnectionName}'}

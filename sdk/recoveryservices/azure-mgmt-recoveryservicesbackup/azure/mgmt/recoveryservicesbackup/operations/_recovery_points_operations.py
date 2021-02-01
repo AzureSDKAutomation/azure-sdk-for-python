@@ -11,7 +11,6 @@
 
 import uuid
 from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
 
 from .. import models
 
@@ -64,9 +63,10 @@ class RecoveryPointsOperations(object):
         :return: An iterator like instance of RecoveryPointResource
         :rtype:
          ~azure.mgmt.recoveryservicesbackup.models.RecoveryPointResourcePaged[~azure.mgmt.recoveryservicesbackup.models.RecoveryPointResource]
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`NewErrorResponseException<azure.mgmt.recoveryservicesbackup.models.NewErrorResponseException>`
         """
-        api_version = "2020-10-01"
+        api_version = "2021-01-01"
 
         def prepare_request(next_link=None):
             if not next_link:
@@ -112,9 +112,7 @@ class RecoveryPointsOperations(object):
             response = self._client.send(request, stream=False, **operation_config)
 
             if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
+                raise models.NewErrorResponseException(self._deserialize, response)
 
             return response
 
@@ -125,7 +123,7 @@ class RecoveryPointsOperations(object):
         deserialized = models.RecoveryPointResourcePaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/Subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}/protectedItems/{protectedItemName}/recoveryPoints'}
+    list.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}/protectedItems/{protectedItemName}/recoveryPoints'}
 
     def get(
             self, vault_name, resource_group_name, fabric_name, container_name, protected_item_name, recovery_point_id, custom_headers=None, raw=False, **operation_config):
@@ -158,9 +156,10 @@ class RecoveryPointsOperations(object):
         :rtype:
          ~azure.mgmt.recoveryservicesbackup.models.RecoveryPointResource or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`NewErrorResponseException<azure.mgmt.recoveryservicesbackup.models.NewErrorResponseException>`
         """
-        api_version = "2020-10-01"
+        api_version = "2021-01-01"
 
         # Construct URL
         url = self.get.metadata['url']
@@ -194,9 +193,7 @@ class RecoveryPointsOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.NewErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -207,7 +204,7 @@ class RecoveryPointsOperations(object):
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/Subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}/protectedItems/{protectedItemName}/recoveryPoints/{recoveryPointId}'}
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}/protectedItems/{protectedItemName}/recoveryPoints/{recoveryPointId}'}
 
     def get_access_token(
             self, vault_name, resource_group_name, fabric_name, container_name, protected_item_name, recovery_point_id, parameters, custom_headers=None, raw=False, **operation_config):

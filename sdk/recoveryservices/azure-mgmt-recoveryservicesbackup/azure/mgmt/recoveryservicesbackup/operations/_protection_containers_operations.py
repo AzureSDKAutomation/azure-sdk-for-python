@@ -11,7 +11,6 @@
 
 import uuid
 from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
 
 from .. import models
 
@@ -25,7 +24,7 @@ class ProtectionContainersOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client Api Version. Constant value: "2020-10-01".
+    :ivar api_version: Client Api Version. Constant value: "2021-01-01".
     """
 
     models = models
@@ -35,7 +34,7 @@ class ProtectionContainersOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-10-01"
+        self.api_version = "2021-01-01"
 
         self.config = config
 
@@ -63,7 +62,8 @@ class ProtectionContainersOperations(object):
         :rtype:
          ~azure.mgmt.recoveryservicesbackup.models.ProtectionContainerResource
          or ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`NewErrorResponseException<azure.mgmt.recoveryservicesbackup.models.NewErrorResponseException>`
         """
         # Construct URL
         url = self.get.metadata['url']
@@ -95,9 +95,7 @@ class ProtectionContainersOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.NewErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -108,7 +106,7 @@ class ProtectionContainersOperations(object):
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/Subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}'}
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}'}
 
     def register(
             self, vault_name, resource_group_name, fabric_name, container_name, parameters, custom_headers=None, raw=False, **operation_config):
@@ -138,7 +136,8 @@ class ProtectionContainersOperations(object):
         :rtype:
          ~azure.mgmt.recoveryservicesbackup.models.ProtectionContainerResource
          or ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`NewErrorResponseException<azure.mgmt.recoveryservicesbackup.models.NewErrorResponseException>`
         """
         # Construct URL
         url = self.register.metadata['url']
@@ -174,9 +173,7 @@ class ProtectionContainersOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200, 202]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.NewErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -187,7 +184,7 @@ class ProtectionContainersOperations(object):
             return client_raw_response
 
         return deserialized
-    register.metadata = {'url': '/Subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}'}
+    register.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}'}
 
     def unregister(
             self, vault_name, resource_group_name, fabric_name, container_name, custom_headers=None, raw=False, **operation_config):
@@ -213,7 +210,8 @@ class ProtectionContainersOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: None or ClientRawResponse if raw=true
         :rtype: None or ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`NewErrorResponseException<azure.mgmt.recoveryservicesbackup.models.NewErrorResponseException>`
         """
         # Construct URL
         url = self.unregister.metadata['url']
@@ -243,15 +241,13 @@ class ProtectionContainersOperations(object):
         request = self._client.delete(url, query_parameters, header_parameters)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [202, 204]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+        if response.status_code not in [200, 202, 204]:
+            raise models.NewErrorResponseException(self._deserialize, response)
 
         if raw:
             client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-    unregister.metadata = {'url': '/Subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}'}
+    unregister.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}'}
 
     def inquire(
             self, vault_name, resource_group_name, fabric_name, container_name, filter=None, custom_headers=None, raw=False, **operation_config):
@@ -279,7 +275,8 @@ class ProtectionContainersOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: None or ClientRawResponse if raw=true
         :rtype: None or ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`NewErrorResponseException<azure.mgmt.recoveryservicesbackup.models.NewErrorResponseException>`
         """
         # Construct URL
         url = self.inquire.metadata['url']
@@ -312,14 +309,12 @@ class ProtectionContainersOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [202]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.NewErrorResponseException(self._deserialize, response)
 
         if raw:
             client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-    inquire.metadata = {'url': '/Subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}/inquire'}
+    inquire.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}/inquire'}
 
     def refresh(
             self, vault_name, resource_group_name, fabric_name, filter=None, custom_headers=None, raw=False, **operation_config):
@@ -344,7 +339,8 @@ class ProtectionContainersOperations(object):
          overrides<msrest:optionsforoperations>`.
         :return: None or ClientRawResponse if raw=true
         :rtype: None or ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`NewErrorResponseException<azure.mgmt.recoveryservicesbackup.models.NewErrorResponseException>`
         """
         # Construct URL
         url = self.refresh.metadata['url']
@@ -376,11 +372,9 @@ class ProtectionContainersOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [202]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.NewErrorResponseException(self._deserialize, response)
 
         if raw:
             client_raw_response = ClientRawResponse(None, response)
             return client_raw_response
-    refresh.metadata = {'url': '/Subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/refreshContainers'}
+    refresh.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/refreshContainers'}

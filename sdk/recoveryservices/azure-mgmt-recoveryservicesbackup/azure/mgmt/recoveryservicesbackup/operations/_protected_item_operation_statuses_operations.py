@@ -11,7 +11,6 @@
 
 import uuid
 from msrest.pipeline import ClientRawResponse
-from msrestazure.azure_exceptions import CloudError
 
 from .. import models
 
@@ -25,7 +24,7 @@ class ProtectedItemOperationStatusesOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: Client Api Version. Constant value: "2020-10-01".
+    :ivar api_version: Client Api Version. Constant value: "2021-01-01".
     """
 
     models = models
@@ -35,7 +34,7 @@ class ProtectedItemOperationStatusesOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-10-01"
+        self.api_version = "2021-01-01"
 
         self.config = config
 
@@ -71,7 +70,8 @@ class ProtectedItemOperationStatusesOperations(object):
         :return: OperationStatus or ClientRawResponse if raw=true
         :rtype: ~azure.mgmt.recoveryservicesbackup.models.OperationStatus or
          ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        :raises:
+         :class:`NewErrorResponseException<azure.mgmt.recoveryservicesbackup.models.NewErrorResponseException>`
         """
         # Construct URL
         url = self.get.metadata['url']
@@ -105,9 +105,7 @@ class ProtectedItemOperationStatusesOperations(object):
         response = self._client.send(request, stream=False, **operation_config)
 
         if response.status_code not in [200]:
-            exp = CloudError(response)
-            exp.request_id = response.headers.get('x-ms-request-id')
-            raise exp
+            raise models.NewErrorResponseException(self._deserialize, response)
 
         deserialized = None
         if response.status_code == 200:
@@ -118,4 +116,4 @@ class ProtectedItemOperationStatusesOperations(object):
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/Subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}/protectedItems/{protectedItemName}/operationsStatus/{operationId}'}
+    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}/protectedItems/{protectedItemName}/operationsStatus/{operationId}'}
