@@ -20,8 +20,11 @@ from .operations import FirewallRulesOperations
 from .operations import VirtualNetworkRulesOperations
 from .operations import DatabasesOperations
 from .operations import ConfigurationsOperations
+from .operations import ServerParametersOperations
 from .operations import LogFilesOperations
 from .operations import ServerAdministratorsOperations
+from .operations import RecoverableServersOperations
+from .operations import ServerBasedPerformanceTierOperations
 from .operations import LocationBasedPerformanceTierOperations
 from .operations import CheckNameAvailabilityOperations
 from .operations import Operations
@@ -57,10 +60,16 @@ class MySQLManagementClient(MySQLManagementClientOperationsMixin, SDKClient):
     :vartype databases: azure.mgmt.rdbms.mysql.operations.DatabasesOperations
     :ivar configurations: Configurations operations
     :vartype configurations: azure.mgmt.rdbms.mysql.operations.ConfigurationsOperations
+    :ivar server_parameters: ServerParameters operations
+    :vartype server_parameters: azure.mgmt.rdbms.mysql.operations.ServerParametersOperations
     :ivar log_files: LogFiles operations
     :vartype log_files: azure.mgmt.rdbms.mysql.operations.LogFilesOperations
     :ivar server_administrators: ServerAdministrators operations
     :vartype server_administrators: azure.mgmt.rdbms.mysql.operations.ServerAdministratorsOperations
+    :ivar recoverable_servers: RecoverableServers operations
+    :vartype recoverable_servers: azure.mgmt.rdbms.mysql.operations.RecoverableServersOperations
+    :ivar server_based_performance_tier: ServerBasedPerformanceTier operations
+    :vartype server_based_performance_tier: azure.mgmt.rdbms.mysql.operations.ServerBasedPerformanceTierOperations
     :ivar location_based_performance_tier: LocationBasedPerformanceTier operations
     :vartype location_based_performance_tier: azure.mgmt.rdbms.mysql.operations.LocationBasedPerformanceTierOperations
     :ivar check_name_availability: CheckNameAvailability operations
@@ -120,9 +129,15 @@ class MySQLManagementClient(MySQLManagementClientOperationsMixin, SDKClient):
             self._client, self.config, self._serialize, self._deserialize)
         self.configurations = ConfigurationsOperations(
             self._client, self.config, self._serialize, self._deserialize)
+        self.server_parameters = ServerParametersOperations(
+            self._client, self.config, self._serialize, self._deserialize)
         self.log_files = LogFilesOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.server_administrators = ServerAdministratorsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.recoverable_servers = RecoverableServersOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.server_based_performance_tier = ServerBasedPerformanceTierOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.location_based_performance_tier = LocationBasedPerformanceTierOperations(
             self._client, self.config, self._serialize, self._deserialize)

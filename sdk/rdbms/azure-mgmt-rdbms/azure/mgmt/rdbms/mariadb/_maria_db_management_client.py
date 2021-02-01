@@ -20,7 +20,10 @@ from .operations import FirewallRulesOperations
 from .operations import VirtualNetworkRulesOperations
 from .operations import DatabasesOperations
 from .operations import ConfigurationsOperations
+from .operations import ServerParametersOperations
 from .operations import LogFilesOperations
+from .operations import RecoverableServersOperations
+from .operations import ServerBasedPerformanceTierOperations
 from .operations import LocationBasedPerformanceTierOperations
 from .operations import CheckNameAvailabilityOperations
 from .operations import Operations
@@ -55,8 +58,14 @@ class MariaDBManagementClient(MariaDBManagementClientOperationsMixin, SDKClient)
     :vartype databases: azure.mgmt.rdbms.mariadb.operations.DatabasesOperations
     :ivar configurations: Configurations operations
     :vartype configurations: azure.mgmt.rdbms.mariadb.operations.ConfigurationsOperations
+    :ivar server_parameters: ServerParameters operations
+    :vartype server_parameters: azure.mgmt.rdbms.mariadb.operations.ServerParametersOperations
     :ivar log_files: LogFiles operations
     :vartype log_files: azure.mgmt.rdbms.mariadb.operations.LogFilesOperations
+    :ivar recoverable_servers: RecoverableServers operations
+    :vartype recoverable_servers: azure.mgmt.rdbms.mariadb.operations.RecoverableServersOperations
+    :ivar server_based_performance_tier: ServerBasedPerformanceTier operations
+    :vartype server_based_performance_tier: azure.mgmt.rdbms.mariadb.operations.ServerBasedPerformanceTierOperations
     :ivar location_based_performance_tier: LocationBasedPerformanceTier operations
     :vartype location_based_performance_tier: azure.mgmt.rdbms.mariadb.operations.LocationBasedPerformanceTierOperations
     :ivar check_name_availability: CheckNameAvailability operations
@@ -114,7 +123,13 @@ class MariaDBManagementClient(MariaDBManagementClientOperationsMixin, SDKClient)
             self._client, self.config, self._serialize, self._deserialize)
         self.configurations = ConfigurationsOperations(
             self._client, self.config, self._serialize, self._deserialize)
+        self.server_parameters = ServerParametersOperations(
+            self._client, self.config, self._serialize, self._deserialize)
         self.log_files = LogFilesOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.recoverable_servers = RecoverableServersOperations(
+            self._client, self.config, self._serialize, self._deserialize)
+        self.server_based_performance_tier = ServerBasedPerformanceTierOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.location_based_performance_tier = LocationBasedPerformanceTierOperations(
             self._client, self.config, self._serialize, self._deserialize)

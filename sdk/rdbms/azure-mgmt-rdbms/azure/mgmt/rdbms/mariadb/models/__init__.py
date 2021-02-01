@@ -13,6 +13,7 @@ try:
     from ._models_py3 import Advisor
     from ._models_py3 import AzureEntityResource
     from ._models_py3 import Configuration
+    from ._models_py3 import ConfigurationListResult
     from ._models_py3 import Database
     from ._models_py3 import ErrorAdditionalInfo
     from ._models_py3 import ErrorResponse
@@ -31,11 +32,13 @@ try:
     from ._models_py3 import PrivateLinkResourceProperties
     from ._models_py3 import PrivateLinkServiceConnectionStateProperty
     from ._models_py3 import ProxyResource
+    from ._models_py3 import QueryPerformanceInsightResetDataResult
     from ._models_py3 import QueryStatistic
     from ._models_py3 import QueryText
     from ._models_py3 import RecommendationAction
     from ._models_py3 import RecommendationActionsResultList
     from ._models_py3 import RecommendedActionSessionsOperationStatus
+    from ._models_py3 import RecoverableServerResource
     from ._models_py3 import Resource
     from ._models_py3 import Server
     from ._models_py3 import ServerForCreate
@@ -61,6 +64,7 @@ except (SyntaxError, ImportError):
     from ._models import Advisor
     from ._models import AzureEntityResource
     from ._models import Configuration
+    from ._models import ConfigurationListResult
     from ._models import Database
     from ._models import ErrorAdditionalInfo
     from ._models import ErrorResponse
@@ -79,11 +83,13 @@ except (SyntaxError, ImportError):
     from ._models import PrivateLinkResourceProperties
     from ._models import PrivateLinkServiceConnectionStateProperty
     from ._models import ProxyResource
+    from ._models import QueryPerformanceInsightResetDataResult
     from ._models import QueryStatistic
     from ._models import QueryText
     from ._models import RecommendationAction
     from ._models import RecommendationActionsResultList
     from ._models import RecommendedActionSessionsOperationStatus
+    from ._models import RecoverableServerResource
     from ._models import Resource
     from ._models import Server
     from ._models import ServerForCreate
@@ -117,6 +123,7 @@ from ._paged_models import QueryStatisticPaged
 from ._paged_models import QueryTextPaged
 from ._paged_models import RecommendationActionPaged
 from ._paged_models import ServerPaged
+from ._paged_models import ServerSecurityAlertPolicyPaged
 from ._paged_models import VirtualNetworkRulePaged
 from ._paged_models import WaitStatisticPaged
 from ._maria_db_management_client_enums import (
@@ -132,6 +139,7 @@ from ._maria_db_management_client_enums import (
     SkuTier,
     VirtualNetworkRuleState,
     OperationOrigin,
+    QueryPerformanceInsightResetDataResultState,
     ServerSecurityAlertPolicyState,
 )
 
@@ -139,6 +147,7 @@ __all__ = [
     'Advisor',
     'AzureEntityResource',
     'Configuration',
+    'ConfigurationListResult',
     'Database',
     'ErrorAdditionalInfo',
     'ErrorResponse',
@@ -157,11 +166,13 @@ __all__ = [
     'PrivateLinkResourceProperties',
     'PrivateLinkServiceConnectionStateProperty',
     'ProxyResource',
+    'QueryPerformanceInsightResetDataResult',
     'QueryStatistic',
     'QueryText',
     'RecommendationAction',
     'RecommendationActionsResultList',
     'RecommendedActionSessionsOperationStatus',
+    'RecoverableServerResource',
     'Resource',
     'Server',
     'ServerForCreate',
@@ -197,6 +208,7 @@ __all__ = [
     'RecommendationActionPaged',
     'PrivateEndpointConnectionPaged',
     'PrivateLinkResourcePaged',
+    'ServerSecurityAlertPolicyPaged',
     'ServerVersion',
     'SslEnforcementEnum',
     'PublicNetworkAccessEnum',
@@ -209,5 +221,6 @@ __all__ = [
     'SkuTier',
     'VirtualNetworkRuleState',
     'OperationOrigin',
+    'QueryPerformanceInsightResetDataResultState',
     'ServerSecurityAlertPolicyState',
 ]
