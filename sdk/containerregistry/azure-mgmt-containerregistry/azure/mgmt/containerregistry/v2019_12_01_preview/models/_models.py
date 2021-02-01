@@ -2231,6 +2231,30 @@ class OperationDisplayDefinition(Model):
         self.description = kwargs.get('description', None)
 
 
+class OperationLogSpecificationDefinition(Model):
+    """The definition of Azure Monitoring log.
+
+    :param name: Log name.
+    :type name: str
+    :param display_name: Log display name.
+    :type display_name: str
+    :param blob_duration: Log blob duration.
+    :type blob_duration: str
+    """
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'blob_duration': {'key': 'blobDuration', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(OperationLogSpecificationDefinition, self).__init__(**kwargs)
+        self.name = kwargs.get('name', None)
+        self.display_name = kwargs.get('display_name', None)
+        self.blob_duration = kwargs.get('blob_duration', None)
+
+
 class OperationMetricSpecificationDefinition(Model):
     """The definition of Azure Monitoring metric.
 
@@ -2274,15 +2298,20 @@ class OperationServiceSpecificationDefinition(Model):
      definition.
     :type metric_specifications:
      list[~azure.mgmt.containerregistry.v2019_12_01_preview.models.OperationMetricSpecificationDefinition]
+    :param log_specifications: A list of Azure Monitoring log definitions.
+    :type log_specifications:
+     list[~azure.mgmt.containerregistry.v2019_12_01_preview.models.OperationLogSpecificationDefinition]
     """
 
     _attribute_map = {
         'metric_specifications': {'key': 'metricSpecifications', 'type': '[OperationMetricSpecificationDefinition]'},
+        'log_specifications': {'key': 'logSpecifications', 'type': '[OperationLogSpecificationDefinition]'},
     }
 
     def __init__(self, **kwargs):
         super(OperationServiceSpecificationDefinition, self).__init__(**kwargs)
         self.metric_specifications = kwargs.get('metric_specifications', None)
+        self.log_specifications = kwargs.get('log_specifications', None)
 
 
 class OverrideTaskStepProperties(Model):
@@ -2979,6 +3008,11 @@ class Registry(Resource):
      'Disabled'. Default value: "Enabled" .
     :type public_network_access: str or
      ~azure.mgmt.containerregistry.v2019_12_01_preview.models.PublicNetworkAccess
+    :param network_rule_bypass_options: Whether to allow trusted Azure
+     services to access a network restricted registry. Possible values include:
+     'AzureServices', 'None'. Default value: "AzureServices" .
+    :type network_rule_bypass_options: str or
+     ~azure.mgmt.containerregistry.v2019_12_01_preview.models.NetworkRuleBypassOptions
     """
 
     _validation = {
@@ -3018,6 +3052,7 @@ class Registry(Resource):
         'data_endpoint_host_names': {'key': 'properties.dataEndpointHostNames', 'type': '[str]'},
         'private_endpoint_connections': {'key': 'properties.privateEndpointConnections', 'type': '[PrivateEndpointConnection]'},
         'public_network_access': {'key': 'properties.publicNetworkAccess', 'type': 'str'},
+        'network_rule_bypass_options': {'key': 'properties.networkRuleBypassOptions', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -3037,6 +3072,7 @@ class Registry(Resource):
         self.data_endpoint_host_names = None
         self.private_endpoint_connections = None
         self.public_network_access = kwargs.get('public_network_access', "Enabled")
+        self.network_rule_bypass_options = kwargs.get('network_rule_bypass_options', "AzureServices")
 
 
 class RegistryListCredentialsResult(Model):
@@ -3145,13 +3181,13 @@ class RegistryPassword(Model):
 class RegistryUpdateParameters(Model):
     """The parameters for updating a container registry.
 
+    :param identity: The identity of the container registry.
+    :type identity:
+     ~azure.mgmt.containerregistry.v2019_12_01_preview.models.IdentityProperties
     :param tags: The tags for the container registry.
     :type tags: dict[str, str]
     :param sku: The SKU of the container registry.
     :type sku: ~azure.mgmt.containerregistry.v2019_12_01_preview.models.Sku
-    :param identity: The identity of the container registry.
-    :type identity:
-     ~azure.mgmt.containerregistry.v2019_12_01_preview.models.IdentityProperties
     :param admin_user_enabled: The value that indicates whether the admin user
      is enabled.
     :type admin_user_enabled: bool
@@ -3172,31 +3208,38 @@ class RegistryUpdateParameters(Model):
      'Disabled'
     :type public_network_access: str or
      ~azure.mgmt.containerregistry.v2019_12_01_preview.models.PublicNetworkAccess
+    :param network_rule_bypass_options: Whether to allow trusted Azure
+     services to access a network restricted registry. Possible values include:
+     'AzureServices', 'None'. Default value: "AzureServices" .
+    :type network_rule_bypass_options: str or
+     ~azure.mgmt.containerregistry.v2019_12_01_preview.models.NetworkRuleBypassOptions
     """
 
     _attribute_map = {
+        'identity': {'key': 'identity', 'type': 'IdentityProperties'},
         'tags': {'key': 'tags', 'type': '{str}'},
         'sku': {'key': 'sku', 'type': 'Sku'},
-        'identity': {'key': 'identity', 'type': 'IdentityProperties'},
         'admin_user_enabled': {'key': 'properties.adminUserEnabled', 'type': 'bool'},
         'network_rule_set': {'key': 'properties.networkRuleSet', 'type': 'NetworkRuleSet'},
         'policies': {'key': 'properties.policies', 'type': 'Policies'},
         'encryption': {'key': 'properties.encryption', 'type': 'EncryptionProperty'},
         'data_endpoint_enabled': {'key': 'properties.dataEndpointEnabled', 'type': 'bool'},
         'public_network_access': {'key': 'properties.publicNetworkAccess', 'type': 'str'},
+        'network_rule_bypass_options': {'key': 'properties.networkRuleBypassOptions', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
         super(RegistryUpdateParameters, self).__init__(**kwargs)
+        self.identity = kwargs.get('identity', None)
         self.tags = kwargs.get('tags', None)
         self.sku = kwargs.get('sku', None)
-        self.identity = kwargs.get('identity', None)
         self.admin_user_enabled = kwargs.get('admin_user_enabled', None)
         self.network_rule_set = kwargs.get('network_rule_set', None)
         self.policies = kwargs.get('policies', None)
         self.encryption = kwargs.get('encryption', None)
         self.data_endpoint_enabled = kwargs.get('data_endpoint_enabled', None)
         self.public_network_access = kwargs.get('public_network_access', None)
+        self.network_rule_bypass_options = kwargs.get('network_rule_bypass_options', "AzureServices")
 
 
 class RegistryUsage(Model):

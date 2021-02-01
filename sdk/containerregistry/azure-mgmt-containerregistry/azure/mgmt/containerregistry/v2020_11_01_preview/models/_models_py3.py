@@ -2448,6 +2448,30 @@ class OperationDisplayDefinition(Model):
         self.description = description
 
 
+class OperationLogSpecificationDefinition(Model):
+    """The definition of Azure Monitoring log.
+
+    :param name: Log name.
+    :type name: str
+    :param display_name: Log display name.
+    :type display_name: str
+    :param blob_duration: Log blob duration.
+    :type blob_duration: str
+    """
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'blob_duration': {'key': 'blobDuration', 'type': 'str'},
+    }
+
+    def __init__(self, *, name: str=None, display_name: str=None, blob_duration: str=None, **kwargs) -> None:
+        super(OperationLogSpecificationDefinition, self).__init__(**kwargs)
+        self.name = name
+        self.display_name = display_name
+        self.blob_duration = blob_duration
+
+
 class OperationMetricSpecificationDefinition(Model):
     """The definition of Azure Monitoring metric.
 
@@ -2491,15 +2515,20 @@ class OperationServiceSpecificationDefinition(Model):
      definition.
     :type metric_specifications:
      list[~azure.mgmt.containerregistry.v2020_11_01_preview.models.OperationMetricSpecificationDefinition]
+    :param log_specifications: A list of Azure Monitoring log definitions.
+    :type log_specifications:
+     list[~azure.mgmt.containerregistry.v2020_11_01_preview.models.OperationLogSpecificationDefinition]
     """
 
     _attribute_map = {
         'metric_specifications': {'key': 'metricSpecifications', 'type': '[OperationMetricSpecificationDefinition]'},
+        'log_specifications': {'key': 'logSpecifications', 'type': '[OperationLogSpecificationDefinition]'},
     }
 
-    def __init__(self, *, metric_specifications=None, **kwargs) -> None:
+    def __init__(self, *, metric_specifications=None, log_specifications=None, **kwargs) -> None:
         super(OperationServiceSpecificationDefinition, self).__init__(**kwargs)
         self.metric_specifications = metric_specifications
+        self.log_specifications = log_specifications
 
 
 class OverrideTaskStepProperties(Model):
@@ -3405,13 +3434,13 @@ class RegistryPassword(Model):
 class RegistryUpdateParameters(Model):
     """The parameters for updating a container registry.
 
+    :param identity: The identity of the container registry.
+    :type identity:
+     ~azure.mgmt.containerregistry.v2020_11_01_preview.models.IdentityProperties
     :param tags: The tags for the container registry.
     :type tags: dict[str, str]
     :param sku: The SKU of the container registry.
     :type sku: ~azure.mgmt.containerregistry.v2020_11_01_preview.models.Sku
-    :param identity: The identity of the container registry.
-    :type identity:
-     ~azure.mgmt.containerregistry.v2020_11_01_preview.models.IdentityProperties
     :param admin_user_enabled: The value that indicates whether the admin user
      is enabled.
     :type admin_user_enabled: bool
@@ -3440,9 +3469,9 @@ class RegistryUpdateParameters(Model):
     """
 
     _attribute_map = {
+        'identity': {'key': 'identity', 'type': 'IdentityProperties'},
         'tags': {'key': 'tags', 'type': '{str}'},
         'sku': {'key': 'sku', 'type': 'Sku'},
-        'identity': {'key': 'identity', 'type': 'IdentityProperties'},
         'admin_user_enabled': {'key': 'properties.adminUserEnabled', 'type': 'bool'},
         'network_rule_set': {'key': 'properties.networkRuleSet', 'type': 'NetworkRuleSet'},
         'policies': {'key': 'properties.policies', 'type': 'Policies'},
@@ -3452,11 +3481,11 @@ class RegistryUpdateParameters(Model):
         'network_rule_bypass_options': {'key': 'properties.networkRuleBypassOptions', 'type': 'str'},
     }
 
-    def __init__(self, *, tags=None, sku=None, identity=None, admin_user_enabled: bool=None, network_rule_set=None, policies=None, encryption=None, data_endpoint_enabled: bool=None, public_network_access=None, network_rule_bypass_options="AzureServices", **kwargs) -> None:
+    def __init__(self, *, identity=None, tags=None, sku=None, admin_user_enabled: bool=None, network_rule_set=None, policies=None, encryption=None, data_endpoint_enabled: bool=None, public_network_access=None, network_rule_bypass_options="AzureServices", **kwargs) -> None:
         super(RegistryUpdateParameters, self).__init__(**kwargs)
+        self.identity = identity
         self.tags = tags
         self.sku = sku
-        self.identity = identity
         self.admin_user_enabled = admin_user_enabled
         self.network_rule_set = network_rule_set
         self.policies = policies
